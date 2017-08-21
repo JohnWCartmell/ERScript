@@ -1,0 +1,2 @@
+Contains logical models describing physical data models. 
+These models are intended to be transformed to physical models using the logical2physical transform.
