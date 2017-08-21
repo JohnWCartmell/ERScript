@@ -1,0 +1,100 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveIntransitiveAndDiTransitiveCombined.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+         <et_width>2.4</et_width>
+         <et_y_separation>0.7</et_y_separation>
+   </defaults>
+   <entity_type>
+      <name>verb phrase</name>
+      <presentation><deltah>0.5</deltah></presentation>
+      <entity_type>
+         <name>intransitive</name>
+      </entity_type>
+      <entity_type>
+         <name>transitive</name>
+         <presentation><rightOf>intransitive</rightOf><x>0.2</x><deltah>0.5</deltah></presentation>
+         <entity_type>
+             <name>mono transitive</name>
+         </entity_type>
+         <entity_type>
+            <name>ditransitive</name>
+            <presentation><rightOf>mono transitive</rightOf><x>0.2</x></presentation>
+            <composition>
+               <name>indirect_object</name>
+               <cardinality>ExactlyOne</cardinality>
+               <type>noun phrase</type>
+               <diagram>
+                   <path>
+                      <srcattach>0.3</srcattach>
+                      <align>ToSrc</align>
+                      <label><name>Split</name></label>
+                      <!-- <label><yAdjustment>0.2</yAdjustment></label> -->
+                   </path>
+               </diagram>
+            </composition>
+         </entity_type>
+         <composition>
+            <name>direct_object</name>
+            <cardinality>ExactlyOne</cardinality>
+            <type>noun phrase</type>
+            <diagram>
+               <path>
+                   <align>ToDest</align>
+                   <destattach>0.25</destattach>
+                   <label><name>Split</name><position>Left</position></label>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <composition>
+         <name>head</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>verb</type>
+         <diagram>
+            <path>
+                <label><position>Left</position></label>
+                <align>ToDest</align>
+                <srcattach>0.35</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+       <name>verb</name>
+       <presentation>
+             <below>intransitive</below><y>2.7</y>
+       </presentation>
+   </entity_type>
+   <entity_type>
+       <name>noun phrase</name>
+       <presentation><below>transitive</below><rightOf>verb</rightOf><w>3.0</w></presentation>
+       <dependency_group>
+           <presentation><w>2.5</w></presentation>
+       </dependency_group>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveIntransitiveAndDiTransitiveCombined.xml--> 
+

@@ -1,0 +1,182 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/serviceSortType.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram/></presentation>
+<entity_type>
+   <name>service</name>
+   <presentation><x>1.0</x><y>0.1</y></presentation>
+   <composition>
+      <type>variable</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>sort</name>
+   <presentation>
+          <rightOf>service</rightOf>
+          <x>5.0</x><w>3.0</w>
+   </presentation>
+   <composition>
+      <type>sort_dependency</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+   <composition>
+       <type>type</type>
+       <cardinality>OneOrMore</cardinality>
+   </composition>
+   <value>
+      <name>name</name>
+      <type>string</type>
+   </value>
+</entity_type>
+<entity_type>
+    <name>variable</name>
+    <presentation><below>service</below></presentation>
+    <value>
+       <name>name</name>
+       <type>string</type>
+    </value>
+    <composition>
+       <type>binding</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+    <reference>
+       <type>sort</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+          <path>
+              <destattach>0.25</destattach>
+              <hstep>
+                  <absdim>
+                      <src>0.25</src>
+                      <!--  <dest>0.25</dest> -->
+                  </absdim>
+              </hstep>
+          </path>
+       </diagram>
+    </reference>
+</entity_type>
+<entity_type>
+    <name>binding</name>
+    <reference>
+       <name>to</name>
+       <type>variable</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+           <path>
+              <srcsign>-1</srcsign>
+              <destsign>-1</destsign>
+              <srcarmlen>0.6</srcarmlen>
+              <destarmlen>0.6</destarmlen>
+           </path>
+       </diagram>
+    </reference>
+    <presentation><below>variable</below></presentation>
+</entity_type>
+<group>
+   <presentation><below>sort</below></presentation>
+   <entity_type>
+       <name>sort_dependency</name>
+       <presentation><name>Split</name></presentation>
+       <reference>
+          <name>depends on</name>
+          <type>sort</type>
+          <cardinality>ExactlyOne</cardinality>
+          <diagram>
+              <path>
+                 <srcsign>-1</srcsign>
+                 <destsign>-1</destsign>
+                 <destattach>0.75</destattach>
+                 <srcarmlen>0.5</srcarmlen>
+                 <hstep>
+                     <absdim>
+                        <src>-0.25</src>
+                        <!-- <dest>0.25</dest> -->
+                     </absdim>
+                 </hstep>
+              </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>type</name>
+       <presentation>
+            <rightOf>sort_dependency</rightOf>
+            <x>3.0</x>
+       </presentation>
+       <composition>
+          <type>type_dependency</type>
+          <cardinality>ZeroOneOrMore</cardinality>
+       </composition>
+       <composition>
+          <type>element</type>
+          <cardinality>OneOrMore</cardinality>
+       </composition>
+   </entity_type>
+</group>
+<group>
+   <presentation><below>type</below></presentation>
+   <entity_type>
+      <name>type_dependency</name>
+      <presentation><name>Split</name></presentation>
+      <reference>
+         <type>sort_dependency</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+              <srcattach>0.5</srcattach>
+              <srcarmlen>0.1</srcarmlen>
+              <hstep>
+                 <absdim>
+                     <src>-0.4</src>
+                 </absdim>
+              </hstep>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <type>element</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+                <srcarmlen>0.5</srcarmlen>
+                <align>ToDest</align>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>element</name>
+      <presentation><rightOf>type_dependency</rightOf><x>2.0</x></presentation>
+      <value>
+         <name>name</name>
+         <type>string</type>
+      </value>
+   </entity_type>
+</group>
+
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/serviceSortType.xml--> 
+

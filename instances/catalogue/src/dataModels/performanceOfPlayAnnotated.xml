@@ -1,0 +1,109 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/performanceOfPlayAnnotated.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+   <absolute>
+      <composition>
+         <type>performance</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <composition>
+         <type>play</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>performance</name>
+      <presentation><y>1.0</y></presentation>
+      <composition>
+         <type>cast member</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <reference>
+         <name>of</name>
+         <type>play</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+              <label><position>Upside</position></label>
+              <inverse><label><position>Downside</position></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>play</name>
+      <presentation><rightOf>performance</rightOf><x>2.5</x></presentation>
+      <composition>
+         <type>character</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>cast member</name>
+      <presentation><below>performance</below></presentation>
+      <dependency>
+          <name>..</name>
+          <type>performance</type>
+      </dependency>
+      <reference>
+         <name>plays_part of</name>
+         <type>character</type>
+         <cardinality>ExactlyOne</cardinality>
+         <riser>
+             <component>
+                  <rel>..</rel>
+             </component>
+         </riser>
+         <diagonal>
+             <join>
+                <component>
+                  <rel>..</rel>
+                </component>
+                <component>
+                  <rel>of</rel>
+                </component>
+             </join>
+         </diagonal>
+         <diagram>
+            <path>
+              <label><position>Upside</position></label>
+              <inverse><label><position>Downside</position></label></inverse>
+              <scope><label><xAdjustment>-0.5</xAdjustment></label></scope>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>character</name>
+      <presentation><rightOf>cast member</rightOf><below>play</below></presentation>
+      <dependency>
+          <name>..</name>
+          <type>play</type>
+      </dependency>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/performanceOfPlayAnnotated.xml--> 
+

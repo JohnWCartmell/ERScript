@@ -1,0 +1,286 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMetaModel3.tightlayout.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<!-- <entity_model>  -->
+<defaults><et_width>1.8</et_width><et_height>3.2</et_height></defaults>
+<presentation><diagram><deltaw>1.0</deltaw><deltah>3.0</deltah></diagram></presentation>
+<absolute>
+   <name>relationalMetaModel</name>
+   <composition>
+      <name>all tables</name>
+      <type>table</type>
+      <cardinality>OneOrMore</cardinality>
+      <inverse>root</inverse>
+   </composition>
+</absolute>
+<entity_type>
+   <name>table</name>
+   <presentation>
+        <x>4.5</x><y>1.25</y><w>5.5</w>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <composition>
+      <type>primary key column</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <sequence/>
+      <inverse>of</inverse>
+      <diagram>
+         <path>
+             <srcattach>0.2</srcattach>
+         </path>
+      </diagram>
+   </composition>
+   <composition>
+      <type>column</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <inverse>of</inverse>
+      <diagram>
+         <path>
+           <align>ToDest</align>
+         </path>
+      </diagram>
+   </composition>
+   <composition>
+      <type>foreign key</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <inverse>of</inverse>
+      <diagram>
+         <path>
+             <srcattach>0.8</srcattach>
+         </path>
+      </diagram>
+   </composition>
+</entity_type>
+<group>
+   <name>table_children</name>
+    <presentation><below>table</below><x>-0.2</x><y>1.0</y></presentation>
+   <entity_type>
+      <name>primary key column</name>
+      <value>
+         <name>seq no</name>
+         <type>integer</type>
+      </value>
+      <dependency>
+         <name>of</name>
+         <type>table</type>
+      </dependency>
+      <reference>
+         <name>is</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>column</type>
+         <identifying/>
+         <diagonal>
+             <component><rel>of</rel></component>
+         </diagonal>
+         <riser>
+             <component><rel>of</rel></component>
+         </riser>
+         <inverse>in_primary_key</inverse>  <!--this doesn't but gets required inverse cardinality -->
+         <diagram>
+             <path>
+                <align>ToSrc</align>
+                <label>
+                   <position>Upside</position>
+                   <yAdjustment>-0.05</yAdjustment>
+                </label>
+                <id><label><xAdjustment>-0.2</xAdjustment></label></id>
+                <scope><label> <position>Upside</position> <xAdjustment>-0.5</xAdjustment></label></scope>
+                <inverse><label><name>None</name></label></inverse>
+             </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+       <name>column</name>
+       <presentation>
+            <rightOf>primary key column</rightOf>
+            <x>2.75</x>
+       </presentation>
+       <dependency>
+          <name>of</name>
+          <type>table</type>
+       </dependency>
+       <reference>
+           <name>in_primary_key</name>
+           <cardinality>ZeroOrOne</cardinality>
+           <type>primary key column</type>
+           <inverse>is</inverse>
+       </reference>
+       <value>
+         <name>name</name>
+         <type>string</type>
+         <identifying/>
+       </value>
+   </entity_type>
+   <entity_type>
+       <name>foreign key</name>
+       <presentation>
+            <rightOf>column</rightOf>
+            <x>3.0</x>
+       </presentation>
+       <dependency>
+          <name>of</name>
+          <type>table</type>
+       </dependency>
+       <value>
+          <name>name</name>
+          <type>string</type>
+          <identifying/>
+       </value>
+       <composition>
+          <type>foreign key column</type>
+          <cardinality>OneOrMore</cardinality>
+          <identifying/>
+          <inverse>partof</inverse>
+          <diagram>
+             <path>
+                <inverse><label><xAdjustment>0.1</xAdjustment></label></inverse>
+                <id><label><position>Left</position></label></id>
+             </path>
+          </diagram>
+       </composition>
+       <reference>
+          <name>to</name>
+          <type>table</type>
+          <cardinality>ExactlyOne</cardinality>
+          <diagonal>
+              <theabsolute/>
+          </diagonal>
+          <riser>
+              <theabsolute/>
+          </riser>
+          <diagram>
+             <path>
+                <srcsign>1</srcsign>
+                <srcarmlen>1.2</srcarmlen>
+                <destsign>-1</destsign>
+                <destattach>0.666</destattach>
+                <destarmlen>4.25</destarmlen>
+                <vstep><absdim><src>4.5</src></absdim></vstep>
+                <label>
+                   <position>Upside</position>
+                </label>
+                <id><label><xAdjustment>-0.5</xAdjustment></label></id>
+                <scope><label><xAdjustment>-0.5</xAdjustment></label></scope>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+</group>
+<entity_type>
+    <name>foreign key column</name>
+    <presentation>
+         <below>foreign key</below>
+         <y>0.95 </y>
+         <name>Split</name>
+    </presentation>
+    <dependency>
+       <name>partof</name>
+       <type>foreign key</type>
+    </dependency>
+    <reference>
+       <name>is</name>
+       <type>column</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagonal>
+           <join>
+              <component>
+                 <rel>partof</rel>
+              </component>
+              <component>
+                 <rel>of</rel>
+              </component>
+           </join>
+       </diagonal>
+       <riser>
+           <component>
+               <rel>of</rel>
+           </component>
+       </riser>
+       <diagram>
+           <path>
+              <srcarmlen>0.3</srcarmlen>
+              <destattach>0.666</destattach>
+              <destarmlen>0.3</destarmlen>
+              <id><label><xAdjustment>-0.7</xAdjustment><yAdjustment>0.1</yAdjustment></label></id>
+              <scope><label><name>NoSplit</name><xAdjustment>-1.7</xAdjustment></label></scope>
+           </path>
+       </diagram>
+    </reference>
+    <reference>
+       <name>to</name>
+       <type>primary key column</type>
+       <cardinality>ExactlyOne</cardinality>
+       <identifying/>
+       <diagonal>
+           <join>
+              <component>
+                 <rel>partof</rel>
+              </component>
+              <component>
+                 <rel>to</rel>
+              </component>
+           </join>
+       </diagonal>
+       <riser>
+           <component>
+               <rel>of</rel>
+           </component>
+       </riser>
+           
+       <diagram>
+          <path>
+             <srcsign>1</srcsign>
+             <srcarmlen>0.5</srcarmlen>
+             <destsign>-1</destsign>
+             <destattach>0.666</destattach>
+             <destarmlen>0.5</destarmlen>
+             <vstep><absdim><src>1.0</src></absdim></vstep>
+             <label>
+                <position>Upside</position>
+                <yAdjustment>-0.05</yAdjustment>
+             </label>
+             <id><label><xAdjustment>-0.5</xAdjustment></label></id>
+             <scope>
+                <label>
+                   <xAdjustment>-1.0</xAdjustment>
+                   <name>NoSplit</name>
+                </label>
+             </scope>
+          </path>
+       </diagram>
+    </reference>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMetaModel3.tightlayout.xml--> 
+

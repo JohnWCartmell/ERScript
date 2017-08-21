@@ -1,0 +1,82 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph3.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram><deltaw>1.5</deltaw><deltah>0.1</deltah></diagram></presentation>
+<entity_type>
+   <name>directed graph</name>
+   <presentation><x>1.55</x><y>0.1</y><w>2.0</w></presentation>
+   <composition>
+      <type>vertex</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</entity_type>
+<entity_type>
+    <name>vertex</name>
+    <composition>
+       <type>exit</type>
+       <cardinality>OneOrMore</cardinality>
+       <inverse>from</inverse>
+    </composition>
+    <composition>
+       <type>entrance</type>
+       <cardinality>OneOrMore</cardinality>
+       <inverse>to</inverse>
+    </composition>
+    <presentation><below>directed graph</below></presentation>
+</entity_type>
+<entity_type>
+    <name>exit</name>
+    <dependency>
+       <name>from</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>vertex</type>
+    </dependency>
+    <reference>
+       <name>through</name>
+       <type>entrance</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>through</inverse>
+       <diagram><path/></diagram>
+    </reference>
+    <presentation><below>vertex</below><x>-1.55</x><y>0.6</y></presentation>
+</entity_type>
+<entity_type>
+    <name>entrance</name>
+    <dependency>
+       <name>to</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>vertex</type>
+    </dependency>
+    <reference>
+       <name>through</name>
+       <type>exit</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>through</inverse>
+    </reference>
+    <presentation><rightOf>exit</rightOf><x>1.61</x></presentation> <!-- was 1.6-->
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph3.xml--> 
+

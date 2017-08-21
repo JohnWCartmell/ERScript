@@ -1,0 +1,51 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/personNumber.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_type>
+   <name>person</name>
+   <presentation><x>0</x><y>0</y><h>2.0</h></presentation>
+   <reference>
+      <name>height</name>
+      <type>number</type>
+      <diagram><path><destattach>0.25</destattach></path></diagram>
+   </reference>
+   <reference>
+      <name>weight</name>
+      <type>number</type>
+      <diagram><path><destattach>0.5</destattach></path></diagram>
+   </reference>
+   <reference>
+      <name>shoe size</name>
+      <type>number</type>
+      <diagram><path><destattach>0.75</destattach></path></diagram>
+   </reference>
+</entity_type>
+<entity_type>
+    <name>number</name>
+    <presentation><rightOf>person</rightOf><x>2.0</x><h>2.0</h></presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/personNumber.xml--> 
+

@@ -1,0 +1,117 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/htmlMy0.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <absolute>
+    <!--<presentation><w>7</w><h>10</h></presentation>-->
+    <name>html</name>
+  </absolute>
+ <entity_type>
+     <name>html</name>
+     <presentation><x>4.0</x><y>1.5</y></presentation>
+ 	<composition><type>body</type><cardinality>ExactlyOne</cardinality></composition>
+ </entity_type>
+ <entity_type>
+     <name>body</name>
+     <presentation><below>html</below></presentation>
+     <composition><type>Element_type_1</type><cardinality>OneOrMore</cardinality></composition>
+ </entity_type>
+ <entity_type>
+     <name>Element_type_1</name>
+     <presentation><below>body</below></presentation>
+ 	<entity_type><name>Heading</name>
+ 	      <entity_type><name>h1</name>
+                     <!--     <presentation><x>0.2</x><y>0.45</y><w>1.0</w><h>0.6</h></presentation>  -->
+             </entity_type>
+ 		<entity_type><name>h2</name>
+                          <presentation><rightOf>h1</rightOf></presentation>
+             </entity_type>
+         <value><name>text</name><type>string</type></value>
+ 	</entity_type>
+ 	<entity_type>
+         <name>p</name>
+         <presentation><rightOf>Heading</rightOf></presentation>
+ 		<composition><type>Element_type_2</type><cardinality>OneOrMore</cardinality>
+                 <diagram><path><destattach>0.4</destattach></path></diagram>
+             </composition>
+ 	</entity_type>
+ 	<entity_type>
+          <name>table</name>
+          <presentation><rightOf>p</rightOf></presentation>
+          <composition><type>tr</type><cardinality>OneOrMore</cardinality></composition>
+ 	</entity_type>
+ </entity_type>
+ <entity_type>
+     <name>tr</name>
+     <presentation><below>table</below><y>1.0</y></presentation>
+ 	<composition><type>Table_Cell</type><cardinality>OneOrMore</cardinality></composition>
+ </entity_type>
+ <entity_type>
+     <name>Table_Cell</name>
+     <presentation>
+          <below>tr</below>
+     </presentation>
+ 	<entity_type>
+         <name>td</name>
+     </entity_type>
+ 	<entity_type>
+         <name>th</name>
+         <presentation>
+            <rightOf>td</rightOf>
+         </presentation>
+     </entity_type>
+ 	<composition><type>Element_type_2</type><cardinality>OneOrMore</cardinality>
+         <diagram><path><destattach>0.6</destattach></path></diagram>
+     </composition>
+ </entity_type>
+ <entity_type><name>Element_type_2</name>
+     <presentation>
+          <below>Element_type_1</below><y>4.0</y>
+     </presentation>
+ 	<entity_type>
+          <name>b</name><value><name>text</name><type>string</type></value>
+     </entity_type>
+ 	<entity_type>
+          <name>i</name><value><name>text</name><type>string</type></value>
+          <presentation>
+               <rightOf>b</rightOf>
+          </presentation>
+     </entity_type>
+ 	<entity_type>
+          <name>div</name>
+          <value><name>text</name><type>string</type></value>
+          <presentation>
+               <rightOf>i</rightOf>
+          </presentation>
+     </entity_type>
+ 	<entity_type>
+          <name>br</name>
+          <presentation>
+               <rightOf>div</rightOf>
+          </presentation>
+     </entity_type>
+ </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/htmlMy0.xml--> 
+

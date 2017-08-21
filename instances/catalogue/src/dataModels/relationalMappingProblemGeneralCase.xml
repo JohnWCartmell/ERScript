@@ -1,0 +1,264 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemGeneralCase.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>0.8</et_width>
+      <et_height>0.5</et_height>
+   </defaults>
+   <presentation>
+      <diagram>
+         <deltah>0.2</deltah>
+      </diagram>
+   </presentation>
+   <group>
+     <name>top</name>
+     <presentation>
+          <x>4.0</x>
+      </presentation>
+      <entity_type>
+         <name>$A_1$</name>
+         <presentation>
+             <shape>Top</shape>
+             <y>0.1</y>
+         </presentation>
+         <reference>
+             <name>$a_1$</name>
+             <type>$A_2$</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                    <label>
+                       <position>Upside</position>
+                       <yAdjustment>-0.1</yAdjustment>
+                       <name>NoSplit</name>
+                    </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>$A_2$</name>
+         <presentation>
+             <rightOf>$A_1$</rightOf>
+             <x>0.9</x>
+             <shape>Top</shape>
+         </presentation>
+         <reference>
+             <name>$a_2$</name>
+             <type>$A_3$</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                    <label>
+                       <position>Upside</position>
+                       <yAdjustment>-0.1</yAdjustment>
+                       <name>NoSplit</name>
+                    </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>$A_3$</name>
+         <presentation>
+             <rightOf>$A_2$</rightOf>
+             <x>0.9</x>
+             <shape>Top</shape>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>$A_n$</name>
+         <presentation>
+             <rightOf>$A_3$</rightOf>
+             <x>1.1</x>
+             <shape>Top</shape>
+         </presentation>
+         <reference>
+             <name>$a_n$</name>
+             <type>C</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                   <destattach>0.3</destattach>
+                    <label>
+                       <position>Upside</position>
+                       <yAdjustment>-0.1</yAdjustment>
+                       <name>NoSplit</name>
+                    </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+   </group>
+   <group>
+      <name>midline</name>
+      <presentation>
+         <below>top</below>
+         <y>0.15</y>
+      </presentation>
+      <entity_type>
+         <name>E</name>
+         <presentation>
+             <shape>MiddleLeft</shape>
+             <h>0.7</h>
+         </presentation>
+         <reference>
+            <name>f</name>
+            <type>$A_1$</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <diagram>
+               <path>
+   	         <srcattach>0.25</srcattach>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                 <label>
+                    <position>Upside</position>
+                    <name>NoSplit</name>
+                 </label>
+                 <inverse>
+                     <label>
+                        <position>Downside</position>
+                        <name>NoSplit</name>
+                     </label>
+                 </inverse>
+               </path>
+            </diagram>
+         </reference>
+         <reference>
+            <name>g</name>
+            <type>$B_1$</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <diagram>
+               <path>
+                 <srcattach>0.8</srcattach>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                 <label>
+                    <position>Downside</position>
+                 </label>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>C</name>
+         <presentation>
+             <rightOf>E</rightOf>
+             <x>9.0</x>
+             <shape>MiddleRight</shape>
+         </presentation>
+      </entity_type>
+   </group>
+   <group>
+     <presentation>
+         <below>midline</below>
+         <y>0.15</y>
+     </presentation>
+      <entity_type>
+         <name>$B_1$</name>
+         <presentation>
+             <shape>Bottom</shape>
+         </presentation>
+         <reference>
+             <name>$b_1$</name>
+             <type>$B_2$</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                   <label>
+                      <yAdjustment>0.1</yAdjustment>
+                      <name>NoSplit</name>
+                   </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>$B_2$</name>
+         <presentation>
+             <shape>Bottom</shape>
+             <rightOf>$B_1$</rightOf>
+             <x>0.8</x>
+         </presentation>
+         <reference>
+             <name>$b_2$</name>
+             <type>$B_3$</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                   <label>
+                      <yAdjustment>0.1</yAdjustment>
+                      <name>NoSplit</name>
+                   </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>$B_3$</name>
+         <presentation>
+             <shape>Bottom</shape>
+             <rightOf>$B_2$</rightOf>
+             <x>0.8</x>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>$B_m$</name>
+         <presentation>
+             <shape>Bottom</shape>
+             <rightOf>$B_3$</rightOf>
+             <x>1.1</x>
+         </presentation>
+         <reference>
+             <name>$b_m$</name>
+             <type>C</type>
+             <identifying/>
+             <diagram>
+                <path>
+                   <srcarmlen>0.4</srcarmlen>
+                   <destarmlen>0.3</destarmlen>
+                   <destattach>0.7</destattach>
+                   <label>
+                      <yAdjustment>0.1</yAdjustment>
+                      <name>NoSplit</name>
+                   </label>
+                </path>
+             </diagram>
+         </reference>
+      </entity_type>
+   </group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemGeneralCase.xml--> 
+

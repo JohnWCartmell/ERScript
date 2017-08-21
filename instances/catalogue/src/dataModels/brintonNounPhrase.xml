@@ -1,0 +1,243 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonNounPhrase.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation>
+  <diagram>
+    <deltaw>0.75</deltaw>
+  </diagram>
+</presentation>
+<defaults><!--<et_width>2.5</et_width>--></defaults>
+<entity_type>
+   <name>xxx</name>
+   <presentation><y>0.7</y></presentation>
+   <entity_type>
+      <name>NP</name>
+      <presentation><deltaw>0.5</deltaw></presentation>
+      <entity_type>
+          <name>NP1</name>
+          <presentation><name>None</name></presentation>
+          <composition>
+             <cardinality>ExactlyOne</cardinality>
+             <type>PN</type>
+             <diagram><path/></diagram>
+          </composition>
+      </entity_type>
+      <entity_type>
+          <name>NP2</name>
+          <presentation><rightOf>NP1</rightOf><name>None</name></presentation>
+          <composition>
+             <cardinality>ExactlyOne</cardinality>
+             <type>Pro</type>
+             <diagram><path/></diagram>
+          </composition>
+      </entity_type>
+      <entity_type>
+          <name>NP3</name>
+          <presentation>
+              <rightOf>NP2</rightOf><x>1.0</x>
+              <!--<w>2.0</w> -->
+              <name>None</name>
+          </presentation>
+          <composition>
+             <cardinality>ZeroOrOne</cardinality>
+             <type>Det</type>
+             <diagram><path/></diagram>
+          </composition>
+          <composition>
+             <cardinality>ExactlyOne</cardinality>
+             <type>Nbar</type>
+             <diagram>
+                <path>
+                  <destattach>0.5</destattach>
+                  <!--<align>ToSrc</align> -->
+                </path>
+             </diagram>
+          </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>PP</name>
+      <presentation>
+          <rightOf>NP</rightOf><x>1.0</x><y>0.5</y><w>2.5</w>
+      </presentation>
+      <composition>
+         <cardinality>ZeroOrOne</cardinality>
+         <type>Pspec</type>
+         <diagram><path/></diagram>
+      </composition>
+      <composition>
+         <cardinality>ExactlyOne</cardinality>
+         <type>P</type>
+         <diagram><path/></diagram>
+      </composition>
+      <composition>
+         <cardinality>ZeroOrOne</cardinality>
+         <type>xxx</type>
+          <diagram><path><srcarmlen>0.8</srcarmlen>
+                         <destattach>0.95</destattach>
+                         <hstep><absdim><src>1.2</src></absdim></hstep>
+                         <label>
+                               <yAdjustment>0.3</yAdjustment>
+                               <position>Left</position>
+                         </label>
+                   </path>
+          </diagram>
+      </composition>
+   </entity_type>
+</entity_type>
+<entity_type>
+   <name>Nbar</name>
+   <presentation><below>NP3</below><x>1.3</x><y>1.75</y></presentation>
+   <entity_type>
+      <name>Nbar1</name>
+      <presentation><name>None</name></presentation>
+      <composition>
+         <cardinality>ZeroOrOne</cardinality>
+         <type>AP</type>
+         <diagram><path/></diagram>
+      </composition>
+      <composition>
+         <cardinality>ExactlyOne</cardinality>
+         <type>Nbar</type>
+          <diagram><path><srcarmlen>0.8</srcarmlen>
+                         <destattach>0.2</destattach>
+                         <hstep><absdim><src>-1.3</src></absdim></hstep>
+                   </path>
+          </diagram>
+      </composition>
+      <composition>
+         <cardinality>ZeroOrOne</cardinality>
+         <type>PP</type>
+          <diagram>
+             <path>
+                <srcarmlen>2.0</srcarmlen>
+                <destarmlen>1.7</destarmlen>
+                <!--<destattach>0.8</destattach>-->
+                <hstep><absdim><src>4.9</src></absdim></hstep>
+                <label>
+                    <yAdjustment>0.3</yAdjustment>
+                    <position>Left</position>
+                </label>
+             </path>
+          </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>Nbar2</name>
+      <presentation><rightOf>Nbar1</rightOf><x>0.3</x><name>None</name></presentation>
+      <composition>
+         <cardinality>ExactlyOne</cardinality>
+         <type>N</type>
+         <diagram><path/></diagram>
+      </composition>
+   </entity_type>
+</entity_type>
+<entity_type>
+   <name>Pspec</name>
+   <presentation>
+      <below>PP</below><x>-1.1</x><y>0.5</y>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>P</name>
+   <presentation>
+      <rightOf>Pspec</rightOf><x>0.3</x>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>AP</name>
+   <presentation>
+       <below>Nbar1</below><x>-1.2</x><y>1</y><w>2.3</w>
+   </presentation>
+   <composition>
+      <cardinality>ZeroOrOne</cardinality>
+      <type>Advpbar</type>
+      <diagram><path/></diagram>
+   </composition>
+   <composition>
+      <cardinality>ExactlyOne</cardinality>
+      <type>A</type>
+      <diagram><path/></diagram>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>N</name>
+   <presentation>
+      <below>Nbar2</below>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>PN</name>
+   <presentation>
+       <below>NP1</below><y>0.5</y>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>Pro</name>
+   <presentation>
+       <rightOf>PN</rightOf>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>Det</name>
+   <presentation>
+       <rightOf>Pro</rightOf>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>Advpbar</name>
+   <presentation>
+       <below>AP</below><x>-1.0</x>
+   </presentation>
+   <entity_type>
+      <name>Deg</name>
+   </entity_type>
+   <entity_type>
+      <name>Advp</name>
+      <presentation>
+         <below>Deg</below>
+      </presentation>
+      <composition>
+         <cardinality>ExactlyOne</cardinality>
+         <type>Adv</type>
+         <diagram><path/></diagram>
+      </composition>
+   </entity_type>
+</entity_type>
+<entity_type>
+   <name>Adv</name>
+   <presentation>
+      <below>Advp</below><y>0.25</y>
+   </presentation>
+</entity_type>
+<entity_type>
+   <name>A</name>
+   <presentation>
+      <rightOf>Advpbar</rightOf>
+   </presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonNounPhrase.xml--> 
+

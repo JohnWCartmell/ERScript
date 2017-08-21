@@ -1,0 +1,138 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/tableSetPhysical.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<defaults><et_width>1.7</et_width></defaults>
+<entity_type>
+   <name>table</name>
+   <presentation><x>1.6</x></presentation>
+   <value>
+       <name>tablename</name>
+       <type>string</type>
+       <identifying/>
+   </value>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <type>row</type>
+      <identifying/>
+      <inverse>tbl</inverse>
+      <diagram>
+        <path>
+           <inverse><label><position>Left</position><xAdjustment>-0.1</xAdjustment></label></inverse>
+         </path>
+      </diagram>
+   </composition>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <type>column</type>
+      <inverse>tbl</inverse>
+      <diagram>
+        <path>
+           <destarmlen>0.4</destarmlen>
+         </path>
+      </diagram>
+   </composition>
+</entity_type>
+<group>
+   <name>children</name>
+   <presentation><below>table</below><y>0.65</y></presentation>
+<entity_type>
+   <name>row</name>
+   <dependency>
+        <name>tbl</name>
+        <type>table</type>
+   </dependency>
+   <value>
+       <name>tablename</name>
+       <type>string</type>
+       <identifying/>
+   </value>
+   <value>
+       <name>rowno</name>
+       <type>positiveInteger</type>
+       <identifying/>
+   </value>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <type>cell</type>
+      <identifying/>
+      <inverse>row</inverse>
+      <diagram>
+         <path>
+            <inverse><label><position>Left</position></label></inverse>
+            <destattach>0.3</destattach>
+         </path>
+      </diagram>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>column</name>
+    <presentation><rightOf>row</rightOf><x>1.4</x></presentation>
+   <dependency>
+        <name>tbl</name>
+        <type>table</type>
+   </dependency>
+   <value>
+       <name>title</name>
+       <type>string</type>
+       <identifying/>
+   </value>
+   <value>
+       <name>tablename</name>
+       <type>string</type>
+   </value>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <type>cell</type>
+      <identifying/>
+      <inverse>col</inverse>
+      <diagram><path><destattach>0.75</destattach></path></diagram>
+   </composition>
+</entity_type>
+</group>
+<entity_type>
+   <name>cell</name>
+   <presentation><below>children</below><y>1.3</y></presentation>
+   <dependency>
+        <name>row</name>
+        <type>row</type>
+   </dependency>
+   <dependency>
+        <name>col</name>
+        <type>column</type>
+   </dependency>
+   <value>
+       <name>rowno</name>
+       <type>positiveInteger</type>
+       <identifying/>
+   </value>
+   <value>
+       <name>title</name>
+       <type>string</type>
+       <identifying/>
+   </value>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/tableSetPhysical.xml--> 
+

@@ -1,0 +1,75 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/loveRelationship2.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram/></presentation>
+<entity_type>
+   <name>novel</name>
+   <presentation><x>1.0</x><y>0.1</y></presentation>
+   <composition>
+      <type>character</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</entity_type>
+<entity_type>
+    <name>character</name>
+    <composition>
+       <type>love</type>
+       <cardinality>OneOrMore</cardinality>
+       <inverse>for</inverse>
+    </composition>
+    <reference>
+        <name>gives</name>
+        <cardinality>OneOrMore</cardinality>
+        <type>love</type>
+        <inverse>from</inverse>
+    </reference>
+    <presentation><below>novel</below></presentation>
+</entity_type>
+<entity_type>
+    <name>love</name>
+    <dependency>
+       <name>for</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>character</type>
+    </dependency>
+    <reference>
+       <name>from</name>
+       <type>character</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>gives</inverse>
+       <diagram>
+           <path>
+              <srcsign>-1</srcsign>
+              <destsign>-1</destsign>
+              <srcarmlen>0.6</srcarmlen>
+              <destarmlen>0.6</destarmlen>
+           </path>
+       </diagram>
+    </reference>
+    <presentation><below>character</below></presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/loveRelationship2.xml--> 
+

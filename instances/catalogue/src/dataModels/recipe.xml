@@ -1,0 +1,83 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/recipe.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram/></presentation>
+<absolute>
+   <composition>
+      <type>recipe</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</absolute>
+<entity_type>
+   <name>recipe</name>
+   <presentation><x>1.3</x><y>1.0</y><w>1.7</w></presentation>
+   <composition>
+      <type>step</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+   <composition>
+      <type>ingredient</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</entity_type>
+<entity_type>
+    <name>step</name>
+    <composition>
+       <type>use</type>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <diagram><path><srcarmlen>0</srcarmlen><destarmlen>0</destarmlen></path></diagram>
+    </composition>
+    <presentation><below>recipe</below><x>-1.3</x></presentation>
+</entity_type>
+<entity_type>
+    <name>use</name>
+    <reference>
+       <name>use of</name>
+       <type>ingredient</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>used in</inverse>
+       <diagram>
+           <path>
+              <srcarmlen>0.3</srcarmlen>
+           </path>
+       </diagram>
+    </reference>
+    <presentation>
+         <below>step</below>
+    </presentation>
+</entity_type>
+<entity_type>
+    <name>ingredient</name>
+    <presentation><rightOf>step</rightOf><x>1.2</x></presentation>
+    <reference>
+        <name>used in</name>
+        <cardinality>OneOrMore</cardinality>
+        <type>use</type>
+        <inverse>use of</inverse>
+    </reference>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/recipe.xml--> 
+

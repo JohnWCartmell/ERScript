@@ -1,0 +1,97 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/test.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <absolute>
+      <name>test</name>
+      <composition>
+         <type>E</type>
+         <cardinality>ExactlyOne</cardinality>
+      </composition>
+      <composition>
+         <type>F</type>
+         <cardinality>ExactlyOne</cardinality>
+      </composition>
+   </absolute>
+   <entity_type>
+     <name>A</name>
+      <presentation>
+         <xl><abs><d>0.1</d></abs></xl>
+         <yt><abs><d>1</d></abs></yt>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>B</name>
+      <description> No presentation specified - defaults to to left of enclosing entity type </description>
+      <presentation>
+           <xl><relative><to>A</to><ratio>1.0</ratio></relative></xl>
+           <yt><relative><to>A</to><ratio>-1.0</ratio></relative></yt>
+      </presentation>
+      <entity_type>
+         <name>C</name>
+         <presentation>
+            <x>0.3</x>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>D</name>
+         <presentation>
+            <rightOf>C</rightOf>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>E</name>
+         <presentation>
+            <rightOf>D</rightOf>
+         </presentation>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+        <name>F</name>
+        <description>test</description>  
+        <presentation><rightOf>E</rightOf></presentation>
+        <entity_type>
+            <name>F1</name>
+        </entity_type>
+        <entity_type>
+            <name>F2</name>
+            <presentation><below>F1</below></presentation>
+        </entity_type>
+   </entity_type>
+   <entity_type>
+        <name>G</name>
+        <description> use of xl relative to F </description>
+        <presentation>
+                <xl><relative><to>F</to><ratio>1.0</ratio></relative></xl>
+               <!--<yt><default/></yt>-->
+        </presentation>
+   </entity_type>
+   <entity_type>
+        <name>H</name>
+        <description> use of xc relative to F no ratio </description>
+        <presentation><xc><relative><to>F</to></relative></xc><!--<yt><default/></yt>--></presentation>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/test.xml--> 
+
