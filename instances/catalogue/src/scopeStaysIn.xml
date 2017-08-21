@@ -1,0 +1,95 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeStaysIn.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram><deltah>0.3</deltah></diagram></presentation>
+<entity_type>
+   <name>absolute</name>
+   <presentation><x>0.5</x><shape>TopLeft</shape></presentation>
+   <composition>
+      <type>performance</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+   <reference>
+      <name>is same as</name>
+      <type>absolute </type>
+      <cardinality>ExactlyOne</cardinality>
+      <inverse>is same as</inverse>
+      <diagram>
+          <path>
+          </path>
+      </diagram>
+   </reference>
+</entity_type>
+<entity_type>
+   <name>absolute </name>
+   <presentation><rightOf>absolute</rightOf><x>3.0</x><shape>TopRight</shape></presentation>
+   <composition>
+      <type>town</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+   <reference>
+      <name>is same as</name>
+      <type>absolute</type>
+      <cardinality>ExactlyOne</cardinality>
+      <inverse>is same as</inverse>
+   </reference>
+</entity_type>
+<entity_type>
+    <name>performance</name>
+    <presentation><below>absolute</below><shape>MiddleLeft</shape></presentation>
+    <composition>
+       <type>cast member</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+</entity_type>
+<entity_type>
+    <name>town</name>
+    <presentation><below>absolute </below><rightOf>performance</rightOf><shape>MiddleRight</shape></presentation>
+    <composition>
+       <type>hotel</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+</entity_type>
+   <entity_type>
+       <name>cast member</name>
+       <presentation><below>performance</below><shape>BottomLeft</shape></presentation>
+       <reference>
+          <name>stays in</name>
+          <type>hotel</type>
+          <cardinality>ExactlyOne</cardinality>
+          <diagram>
+             <path>
+                <srcarmlen>0.4</srcarmlen>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>hotel</name>
+       <presentation><rightOf>cast member</rightOf><below>town</below><shape>BottomRight</shape></presentation>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeStaysIn.xml--> 
+

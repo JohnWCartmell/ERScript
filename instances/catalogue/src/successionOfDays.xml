@@ -1,0 +1,106 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/successionOfDays.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+          <deltaw>2.0</deltaw>
+          <deltah>1.0</deltah>
+      </diagram>
+    </presentation>
+    <entity_type>
+       <name>day</name>
+       <presentation><x>2.0</x><y>0.3</y><h>1.0</h></presentation>
+       <reference>
+           <name>tomorrow</name>
+           <cardinality>ExactlyOne</cardinality>
+           <type>day</type>
+           <inverse>yesterday</inverse>
+           <diagram>
+              <path>
+                 <srcsign>1</srcsign>
+                 <srcattach>0.6</srcattach>
+                 <srcarmlen>0.8</srcarmlen>
+                 <destsign>-1</destsign>
+                 <destattach>0.6</destattach>
+                 <destarmlen>0.8</destarmlen>
+                 <vstep><absdim><src>0.8</src></absdim></vstep>
+                 <label>
+                    <position>Upside</position>
+                    <!--<xAdjustment>-0.5</xAdjustment>-->
+                 </label>
+                 <!--
+                 <inverse>
+                    <label>
+                      <position>Downside</position>
+                      <xAdjustment>0.5</xAdjustment>
+                    </label>
+                 </inverse>
+                 -->
+              </path>
+           </diagram>
+       </reference>
+       <reference>
+           <name>yesterday</name>
+           <cardinality>ExactlyOne</cardinality>
+           <type>day</type>
+           <inverse>tomorrow</inverse>
+       </reference>
+       <constructed_relationship>
+           <name>dayAfterTomorrow</name>
+           <cardinality>ExactlyOne</cardinality>
+           <inverse>dayBeforeYesterday</inverse>
+           <type>day</type>
+           <join>
+               <component><rel>tomorrow</rel></component>
+               <component><rel>tomorrow</rel></component>
+           </join>
+       </constructed_relationship>
+       <constructed_relationship>
+           <name>dayBeforeYesterday</name>
+           <cardinality>ExactlyOne</cardinality>
+           <inverse>dayAfterTomorrrow</inverse>
+           <type>day</type>
+           <join>
+               <component><rel>yesterday</rel></component>
+               <component><rel>yesterday</rel></component>
+           </join>
+       </constructed_relationship>
+       <constructed_relationship>
+          <name>youanne</name>
+          <type>day</type>
+          <inverse>youanne</inverse>
+          <aggregate>
+             <component>
+                <rel>dayAfterTomorrow</rel>
+             </component>
+             <component>
+                <rel>dayBeforeYesterday</rel>
+             </component>
+           </aggregate>
+       </constructed_relationship>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/successionOfDays.xml--> 
+
