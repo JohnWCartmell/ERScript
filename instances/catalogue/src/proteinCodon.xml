@@ -1,0 +1,94 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/proteinCodon.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>amino acid</name>
+      <reference>
+          <name>coded_for by</name>
+          <type>codon</type>
+          <cardinality>ExactlyOne</cardinality>
+          <inverse>codes_for</inverse>
+          <diagram>
+              <path>
+                 <srcarmlen>0.3</srcarmlen>
+                 <label><position>Downside</position></label>
+                 <inverse><label><position>Upside</position></label></inverse>
+              </path>
+          </diagram>
+      </reference>
+      <presentation>
+         <y>0.5</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>codon</name>
+      <presentation>
+         <rightOf>amino acid</rightOf><x>2.0</x>
+      </presentation>
+      <composition>
+         <type>nucleotide</type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse>ExactlyOne</inverse>
+         <sequence/>
+      </composition>
+      <reference>
+         <name>codes_for</name>
+         <type>amino acid</type>
+         <cardinality>ExactlyOne</cardinality>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>nucleotide</name>
+      <presentation>
+         <below>codon</below>
+      </presentation>
+      <entity_type>
+          <name>G</name>
+          <presentation>
+               <x>0.2</x><w>0.5</w>
+          </presentation>
+      </entity_type>
+      <entity_type>
+          <name>C</name>
+          <presentation>
+             <rightOf>G</rightOf> <x>0.2</x><w>0.5</w>
+          </presentation>
+      </entity_type>
+      <entity_type>
+          <name>U</name>
+          <presentation>
+             <rightOf>C</rightOf> <x>0.2</x><w>0.5</w>
+          </presentation>
+      </entity_type>
+      <entity_type>
+          <name>A</name>
+          <presentation>
+             <rightOf>U</rightOf><x>0.2</x><w>0.5</w> 
+          </presentation>
+       </entity_type>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/proteinCodon.xml--> 
+

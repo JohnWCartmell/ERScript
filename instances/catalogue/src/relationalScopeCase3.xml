@@ -1,0 +1,94 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase3.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_type>
+    <name>base</name>
+    <presentation>
+        <x>2.0</x>
+        <y>1.0</y>
+        <h>0.5</h>
+        <w>2.0</w>
+        <shape>Top</shape>
+    </presentation>
+    <composition>
+       <name>left(R)</name>
+       <type>source</type>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <diagram>
+          <path>
+             <srcattach>0.2</srcattach>
+             <srcarmlen>0.15</srcarmlen>
+             <label>
+                <position>Left</position>
+                <yAdjustment>0.25</yAdjustment>
+                <xAdjustment>-0.625</xAdjustment>
+             </label>
+          </path>
+       </diagram>
+    </composition>
+    <composition>
+       <name>right(R)</name>
+       <type>dest</type>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <diagram>
+          <path>
+             <srcattach>0.8</srcattach>
+             <srcarmlen>0.15</srcarmlen>
+             <label>
+                <position>Right</position>
+                <yAdjustment>0.25</yAdjustment>
+                <xAdjustment>0.625</xAdjustment>
+             </label>
+          </path>
+       </diagram>
+    </composition>
+</entity_type>
+<group>
+   <name>basechildren</name>
+   <presentation><below>base</below><y>0.5</y></presentation>
+   <entity_type>
+       <name>source</name>
+       <presentation><shape>BottomLeft</shape></presentation>
+       <reference>
+          <name>R</name>
+          <type>dest</type>
+          <cardinality>ZeroOrOne</cardinality>
+         <diagram>
+            <path>
+              <label>
+                 <xAdjustment>0.525</xAdjustment>
+              </label>
+            </path>
+         </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>dest</name>
+       <presentation><rightOf>source</rightOf><x>2.0</x><shape>BottomRight</shape></presentation>
+   </entity_type>
+</group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase3.xml--> 
+

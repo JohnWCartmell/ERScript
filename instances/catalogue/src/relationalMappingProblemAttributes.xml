@@ -1,0 +1,145 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemAttributes.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+    <diagram>
+<!--
+      <deltaw>0.4</deltaw>
+      <deltah>0.2</deltah>
+-->
+    </diagram>
+  </presentation>
+   <entity_type>
+      <name>A</name>
+      <presentation>
+          <x>4.0</x>
+          <shape>Top</shape>
+      </presentation>
+      <value>
+         <name>$k_A$</name>
+         <type>string</type>
+         <identifying/>
+      </value>
+      <reference>
+          <name>a</name>
+          <type>C</type>
+          <identifying/>
+          <diagram>
+             <path>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                <destattach>0.3</destattach>
+                 <label>
+                    <position>Upside</position>
+                 </label>
+             </path>
+          </diagram>
+      </reference>
+   </entity_type>
+   <group>
+      <name>midline</name>
+      <presentation>
+         <below>A</below>
+      </presentation>
+      <entity_type>
+         <name>E</name>
+         <presentation>
+             <shape>MiddleLeft</shape>
+             <h>0.7</h>
+         </presentation>
+         <reference>
+            <name>f</name>
+            <type>A</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <diagram>
+               <path>
+   	         <srcattach>0.25</srcattach>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                 <label>
+                    <position>Upside</position>
+                 </label>
+                 <inverse><label><position>Downside</position></label></inverse>
+               </path>
+            </diagram>
+         </reference>
+         <reference>
+            <name>g</name>
+            <type>B</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <diagram>
+               <path>
+                 <srcattach>0.8</srcattach>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                 <label>
+                    <position>Downside</position>
+                 </label>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>C</name>
+         <presentation>
+             <rightOf>E</rightOf>
+             <x>5.0</x>
+             <shape>MiddleRight</shape>
+         </presentation>
+         <value>
+            <name>$k_C$</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      </entity_type>
+   </group>
+   <entity_type>
+      <name>B</name>
+      <presentation>
+          <below>midline</below>
+          <shape>Bottom</shape>
+          <y>0.255</y>
+      </presentation>
+         <value>
+            <name>$k_B$</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      <reference>
+          <name>b</name>
+          <type>C</type>
+          <identifying/>
+          <diagram>
+             <path>
+                <srcarmlen>0.4</srcarmlen>
+                <destarmlen>0.3</destarmlen>
+                <destattach>0.7</destattach>
+             </path>
+          </diagram>
+      </reference>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemAttributes.xml--> 
+

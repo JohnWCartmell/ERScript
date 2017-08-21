@@ -1,0 +1,85 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/languageBookTranslation.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram><deltah>0.3</deltah></diagram></presentation>
+<absolute>
+   <composition>
+      <type>language</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</absolute>
+<entity_type>
+    <name>language</name>
+    <presentation>
+        <xc><relative><to>languagechildren</to></relative></xc>
+        <yt><abs><d>1.0</d></abs></yt>
+    </presentation>
+    <composition>
+       <type>translated book</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+    <composition>
+       <type>native book</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+</entity_type>
+<group>
+   <name>languagechildren</name>
+   <presentation>
+         <xl><abs><d>0</d></abs></xl>
+         <below>language</below>
+   </presentation>
+   <entity_type>
+       <name>translated book</name>
+       <reference>
+          <name>translation_of</name>
+          <type>native book</type>
+          <cardinality>ExactlyOne</cardinality>
+          <inverse>translated_as</inverse>
+          <diagram>
+             <path>
+                <!--
+                <label><position>Upside</position></label>
+                <inverse><label><position>Downside</position></label></inverse>
+                -->
+                <srcarmlen>0.4</srcarmlen>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>native book</name>
+       <reference>
+          <name>translated_as</name>
+          <type>translated book</type>
+          <cardinality>ZeroOneOrMore</cardinality>
+          <inverse>translation_of</inverse>
+       </reference>
+       <presentation><rightOf>translated book</rightOf><x>2.0</x></presentation> <!-- was 1.6-->
+   </entity_type>
+</group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/languageBookTranslation.xml--> 
+

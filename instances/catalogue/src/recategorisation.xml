@@ -1,0 +1,89 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/recategorisation.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram><deltah>0.3</deltah><deltaw>1.1</deltaw></diagram></presentation>
+<defaults><et_width>2.2</et_width></defaults>
+<entity_type>
+   <name>major category</name>
+   <presentation><x>1.3</x><y>0.1</y></presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+   </value>
+   <composition>
+      <type>minor category</type>
+      <cardinality>OneOrMore</cardinality>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>minor category</name>
+   <presentation><below>major category</below></presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+   </value>
+    <composition>
+       <type>item</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+    <reference>
+       <name>proposed_major</name>
+       <type>major category</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+           <path>
+              <srcsign>-1</srcsign>
+              <destsign>-1</destsign>
+              <srcarmlen>0.6</srcarmlen>
+              <destarmlen>0.6</destarmlen>
+              <label><name>Split</name></label>
+           </path>
+       </diagram>
+    </reference>
+</entity_type>
+<entity_type>
+   <name>item</name>
+   <presentation><below>minor category</below></presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+   </value>
+    <reference>
+       <name>proposed_minor</name>
+       <type>minor category</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+           <path>
+              <srcarmlen>0.6</srcarmlen>
+              <destarmlen>0.6</destarmlen>
+              <label><name>Split</name></label>
+           </path>
+       </diagram>
+    </reference>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/recategorisation.xml--> 
+

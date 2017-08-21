@@ -1,0 +1,218 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/kinship.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation>
+  <diagram>
+      <deltaw>1.1</deltaw>
+  </diagram>
+</presentation>
+<entity_type>
+   <name>individual</name>
+   <presentation><x>1.1</x><y>0.1</y></presentation>
+   <entity_type>
+       <name>male</name>
+       <reference>
+          <name>child</name>
+          <type>individual</type>
+          <cardinality>ZeroOneOrMore</cardinality>
+          <inverse>father</inverse>
+          <diagram>
+             <path>
+                <srcattach>0.5</srcattach>
+                <srcsign>-1</srcsign>
+                <destsign>-1</destsign>
+                <destattach>0.3</destattach>
+                <hstep><reldim><src>0.2</src></reldim></hstep>  <!-- alg. not correct here-->
+                <label>
+                   <position>Downside</position>
+                   <xAdjustment>-0.2</xAdjustment>
+                </label>
+                <inverse>
+                   <label>
+                      <position>Upside</position>
+                   </label>
+                </inverse>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>female</name>
+       <reference>
+          <name>child</name>
+          <type>individual</type>
+          <cardinality>ZeroOneOrMore</cardinality>
+          <inverse>mother</inverse>
+          <diagram>
+             <path>
+                <srcattach>0.5</srcattach>
+                <srcsign>1</srcsign>
+                <destsign>1</destsign>
+                <destattach>0.3</destattach>
+                <hstep><reldim><src>-0.2</src></reldim></hstep>  <!-- alg. not correct here-->
+                <label>
+                   <position>Downside</position>
+                   <xAdjustment>0.2</xAdjustment>
+                </label>
+                <inverse>
+                   <label>
+                      <position>Upside</position>
+                   </label>
+                </inverse>
+             </path>
+          </diagram>
+       </reference>
+       <presentation><rightOf>male</rightOf></presentation>
+   </entity_type>
+   <reference>
+       <name>mother</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>female</type>
+       <inverse>child</inverse>
+   </reference>
+   <reference>
+       <name>father</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>male</type>
+       <inverse>child</inverse>
+   </reference>
+   <constructed_relationship>
+       <name>parent</name>
+       <cardinality>OneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>child</inverse>
+       <aggregate>
+           <component><rel>mother</rel></component>
+           <component><rel>father</rel></component>
+       </aggregate>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>child</name>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>parent</inverse>
+       <aggregate>
+           <component>
+                 <src>male</src>
+                 <rel>child</rel>
+           </component>
+           <component>
+                 <src>female</src>
+                 <rel>child</rel>
+           </component>
+       </aggregate>
+   </constructed_relationship>
+   <constructed_relationship>
+      <name>sibling</name>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <type>individual</type>
+      <inverse>sibling</inverse>
+      <join>
+         <component><rel>parent</rel></component>
+         <component><rel>child</rel></component>
+      </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>grandparent</name>
+       <cardinality>OneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>grandchild</inverse>
+       <join>
+           <component><rel>parent</rel></component>
+           <component><rel>parent</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>grandchild</name>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>grandparent</inverse>
+       <join>
+           <component><rel>child</rel></component>
+           <component><rel>child</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>maternalgrandfather</name>
+       <type>individual</type>
+       <inverse>daughterschild</inverse>
+       <join>
+           <component><rel>mother</rel></component>
+           <component><rel>father</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>maternalgrandfathersmother</name>
+       <type>individual</type>
+       <join>
+           <component><rel>mother</rel></component>
+           <component><rel>father</rel></component>
+           <component><rel>mother</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>maternalgrandparent</name>
+       <cardinality>OneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>daughterschild</inverse>
+       <join>
+           <component><rel>mother</rel></component>
+           <component><rel>parent</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+       <name>daughterschild</name>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <type>individual</type>
+       <inverse>maternalgrandparent</inverse>
+       <join>
+           <component><rel>child</rel><dest>female</dest></component>
+           <component><rel>child</rel></component>
+       </join>
+   </constructed_relationship>
+   <constructed_relationship>
+      <name>cousin</name>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <type>individual</type>
+      <inverse>cousin</inverse>
+      <join>
+         <component><rel>parent</rel></component>
+         <component><rel>sibling</rel></component>
+         <component><rel>child</rel></component>
+      </join>
+   </constructed_relationship>
+   <constructed_relationship>
+      <name>cousinschild</name>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <type>individual</type>
+      <join>
+         <component><rel>cousin</rel></component>
+         <component><rel>child</rel></component>
+      </join>
+   </constructed_relationship>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/kinship.xml--> 
+
