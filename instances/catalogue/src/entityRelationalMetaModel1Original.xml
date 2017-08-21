@@ -1,0 +1,132 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel1Original.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+     <diagram>
+        <deltaw>0.7</deltaw>
+     </diagram>
+  </presentation>
+  <entity_type>
+     <name>entity type</name>
+     <presentation>
+       <x>0.3</x>
+       <deltaw>2.6</deltaw>
+     </presentation>
+     <value>
+        <name>name</name>
+        <type>string</type>
+     </value>
+     <composition>
+         <name>attributes</name>
+         <type>attribute</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+          <diagram>
+             <path>
+                <!-- <srcattach>0.3</srcattach> -->
+                <align>ToDest</align>
+                <label><position>Left</position></label>
+             </path>
+          </diagram>
+     </composition>
+     <composition>
+         <name>outgoing</name>
+         <type>relationship</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>source</inverse>
+         <diagram>
+             <path>
+                <align>ToDest</align>
+                <destattach>0.3</destattach>
+                <label><position>Left</position></label>
+                <inverse><label><position>Left</position></label></inverse>
+             </path>
+         </diagram>
+     </composition>
+     <composition>
+         <name>incoming</name>
+         <type>relationship</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>destination</inverse>
+         <diagram>
+             <path>
+                <align>ToDest</align>
+                <destattach>0.7</destattach>
+             </path>
+         </diagram>
+     </composition>
+  </entity_type>
+  <group>
+     <name>entity children</name>
+     <presentation>
+        <below>entity type</below>
+     </presentation>
+     <entity_type>
+        <name>attribute</name>
+        <value>
+            <name>name</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>identifying?</name>
+            <type>string</type>
+        </value>
+     </entity_type>
+     <entity_type>
+        <name>relationship</name>
+        <presentation>
+            <rightOf>attribute</rightOf>
+            <name>Split</name>
+            <!--<x>0.6</x> -->
+            <!--<h>2.0</h>-->
+        </presentation>
+        <value>
+            <name>name</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>identifying?</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>optional?</name>
+            <type>string</type>
+        </value>
+        <dependency>
+           <name>source</name>
+           <type>entity type</type>
+           <cardinality>ExactlyOne</cardinality>
+           <inverse>outgoing</inverse>
+        </dependency>
+        <dependency>
+           <name>destination</name>
+           <type>entity type</type>
+           <cardinality>ExactlyOne</cardinality>
+           <inverse_of>incoming</inverse_of>
+        </dependency>
+     </entity_type>
+  </group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel1Original.xml--> 
+

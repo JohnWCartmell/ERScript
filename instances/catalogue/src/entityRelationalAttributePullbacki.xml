@@ -1,0 +1,116 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalAttributePullbacki.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+           <deltaw>0.3</deltaw>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>relationship</name>
+      <presentation>
+           <x>0.1</x>
+           <!-- <shape>TopLeft</shape>  -->
+      </presentation>
+      <composition>
+         <type>implementing_attribute (i+1)</type>
+         <cardinality>OneOrMore</cardinality>
+          <inverse>of</inverse>
+      </composition>
+      <reference>
+         <name>destination</name>
+         <type>entity type</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+             <path>
+             </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>entity type</name>
+      <presentation>
+          <rightOf>relationship</rightOf>
+          <x>3.0</x>
+          <!-- <shape>TopRight</shape>  -->
+      </presentation>
+      <composition>
+         <name>outgoing</name>
+         <type>relationship </type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse>src</inverse>
+      </composition>
+   </entity_type>
+   <entity_type>
+       <name>relationship </name>
+       <presentation>
+          <below>entity type</below>
+          <!--<shape>MiddleRight</shape>-->
+       </presentation>
+       <dependency>
+           <name>src</name>
+           <type>entity type</type>
+       </dependency>
+       <composition>
+          <type>implementing_attribute (i)</type>
+          <cardinality>OneOrMore</cardinality>
+          <inverse>of</inverse>
+       </composition>
+   </entity_type>
+   <entity_type>
+       <name>implementing_attribute (i+1)</name>
+       <presentation>
+            <below>relationship</below><rightOf>implementing_attribute (i)</rightOf>
+            <shape>BottomLeft</shape>
+            <name>Split</name>
+       </presentation>
+       <dependency>
+           <name>of</name>
+       </dependency>
+       <reference>
+          <name>value of</name>
+          <type>implementing_attribute (i)</type>
+          <cardinality>ExactlyOne</cardinality>
+          <diagram>
+             <path>
+                <srcarmlen>0.4</srcarmlen>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>implementing_attribute (i)</name>
+       <presentation>
+            <below>relationship </below>
+            <shape>BottomRight</shape>
+            <name>Split</name>
+       </presentation>
+       <dependency>
+           <name>of</name>
+       </dependency>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalAttributePullbacki.xml--> 
+

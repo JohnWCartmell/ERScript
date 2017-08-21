@@ -1,0 +1,270 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalPhysical2.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+     <diagram>
+        <deltaw>0.5</deltaw>
+        <deltah>0.5</deltah>
+     </diagram>
+  </presentation>
+  <entity_type>
+     <name>entity type</name>
+     <presentation>
+       <x>1.0</x>
+       <deltaw>7.0</deltaw>
+     </presentation>
+     <value>
+        <name>name</name>
+        <type>string</type>
+     </value>
+     <composition>
+         <name>identified by</name>
+         <type>identifier</type>
+         <cardinality>OneOrMore</cardinality>
+         <sequence/>
+          <diagram>
+             <path>
+                <align>ToDest</align>
+                <label><position>Left</position></label>
+             </path>
+          </diagram>
+     </composition>
+     <composition>
+         <name>attributes</name>
+         <type>attribute</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+          <diagram>
+             <path>
+                <!-- <srcattach>0.3</srcattach> -->
+                <align>ToDest</align>
+                <label><position>Left</position></label>
+             </path>
+          </diagram>
+     </composition>
+     <composition>
+         <name>outgoing</name>
+         <type>relationship</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>source</inverse>
+         <diagram>
+             <path>
+                <align>ToDest</align>
+                <destattach>0.3</destattach>
+                <label><position>Left</position></label>
+                <inverse><label><position>Left</position></label></inverse>
+             </path>
+         </diagram>
+     </composition>
+     <composition>
+         <name>incoming</name>
+         <type>relationship</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>destination</inverse>
+         <diagram>
+             <path>
+                <align>ToDest</align>
+                <destattach>0.7</destattach>
+             </path>
+         </diagram>
+     </composition>
+  </entity_type>
+  <group>
+     <name>entity children</name>
+     <presentation>
+        <below>entity type</below>
+        <y>0.4</y>  
+     </presentation>
+     <entity_type>
+         <name>identifier</name>
+         <presentation>
+            <!-- <h>2.6</h> -->
+         </presentation>
+         <reference>
+             <!--<name>attribute</name>-->
+             <name>is</name>
+             <type>ASSOCIATION</type>
+             <cardinality>ExactlyOne</cardinality>
+             <inverse>is identifier</inverse>
+             <diagram>
+                 <path>
+                    <align>ToSrc</align>
+                    <!--
+                    <srcarmlen>0</srcarmlen>
+                    <destarmlen>0</destarmlen>
+                     -->
+                    <label><position>Upside</position></label>
+                 </path>
+             </diagram>
+         </reference>
+     </entity_type>
+     <entity_type>
+        <name>ASSOCIATION</name>
+        <presentation>
+            <rightOf>identifier</rightOf>
+            <x>1.5</x>
+            <deltaw>0.5</deltaw>
+        </presentation>
+        <reference>
+            <name>is identifier</name>
+            <type>identifier</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <inverse>is</inverse>
+        </reference>
+        <entity_type>
+           <name>attribute</name>
+           <value>
+               <name>name</name>
+               <type>string</type>
+           </value>
+        </entity_type>
+        <entity_type>
+           <name>relationship</name>
+           <presentation>
+               <rightOf>attribute</rightOf>
+               <name>Split</name>
+               <x>2.0</x> 
+               <y>0.2</y>
+               <!--<h>2.0</h>-->
+           </presentation>
+           <value>
+               <name>name</name>
+               <type>string</type>
+           </value>
+           <value>
+               <name>optional?</name>
+               <type>string</type>
+           </value>
+           <composition>
+               <type>implementing_attribute</type>
+               <cardinality>OneOrMore</cardinality>
+           </composition>
+           <composition>
+                <type>scope_component</type>
+               <diagram>
+                  <path>
+                     <destattach>0.666</destattach>
+                  </path>
+               </diagram>
+           </composition>
+           <dependency>
+              <name>source</name>
+              <type>entity type</type>
+              <cardinality>ExactlyOne</cardinality>
+              <inverse>outgoing</inverse>
+           </dependency>
+           <dependency>
+              <name>destination</name>
+              <type>entity type</type>
+              <cardinality>ExactlyOne</cardinality>
+              <inverse_of>incoming</inverse_of>
+           </dependency>
+        </entity_type>
+     </entity_type>
+     <group>
+        <name>relationship children</name>
+        <presentation>
+           <below>relationship</below>
+           <y>0.6</y>  
+        </presentation>
+        <entity_type>
+           <name>implementing_attribute</name>
+           <presentation>
+              <name>Split</name>
+           </presentation>
+           <reference>
+              <name>is</name>
+              <type>attribute</type>
+              <cardinality>ExactlyOne</cardinality>
+              <diagram>
+                  <path>
+                     <srcsign>-1</srcsign>
+                     <srcarmlen>0.3</srcarmlen>
+                     <destattach>0.666</destattach>
+                     <destarmlen>0.3</destarmlen>
+                     <label>
+                        <position>Upside</position>
+                     </label>
+                  </path>
+              </diagram>
+           </reference>
+           <reference>
+              <name>to</name>
+              <type>attribute</type>
+              <cardinality>ExactlyOne</cardinality>
+              <diagram>
+                 <path>
+                    <srcsign>-1</srcsign>
+                    <destsign>-1</destsign>
+                    <destattach>0.666</destattach>
+                    <hstep><absdim><src>-1.2</src></absdim></hstep>
+                    <label>
+                       <position>Downside</position>
+                    </label>
+                 </path>
+              </diagram>
+           </reference>
+        </entity_type>
+        <entity_type>
+           <name>scope_component</name>
+           <presentation>
+                <rightOf>implementing_attribute</rightOf>
+                <x>1.5</x>
+                <name>Split</name>
+           </presentation>
+           <dependency>
+              <name> </name>
+              <cardinality>ZeroOrOne</cardinality>
+              <type>relationship</type>
+           </dependency>
+           <composition>
+               <type>scope_component</type>
+               <cardinality>ZeroOneOrMore</cardinality>
+               <inverse> </inverse>
+               <diagram>
+                   <path>
+                      <align>ToDest</align>
+                      <destattach>0.333333</destattach>
+                      <hstep><absdim><src>-1</src></absdim></hstep>
+                   </path>
+               </diagram>
+           </composition>
+           <dependency_group/>
+           <reference>
+               <type>relationship</type>
+               <cardinality>ExactlyOne</cardinality>
+               <diagram>
+                   <path>
+                      <srcarmlen>0.3</srcarmlen>
+                      <srcsign>1</srcsign>
+                      <hstep><absdim><src>0.01</src></absdim></hstep>
+                   </path>
+               </diagram>
+           </reference>
+        </entity_type>
+     </group>
+  </group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalPhysical2.xml--> 
+

@@ -1,0 +1,76 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/feynmanParticle.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <defaults><et_width>1.4</et_width></defaults>
+  <entity_type>
+     <name>Particle</name>
+     <entity_type>
+        <name>Bose Particle</name>
+        <entity_type>
+           <name>photon</name>
+        </entity_type>
+        <entity_type>
+           <name>Meson</name>
+           <presentation><rightOf>photon</rightOf></presentation>
+        </entity_type>
+        <entity_type>
+           <name>graviton</name>
+           <presentation><rightOf>Meson</rightOf></presentation>
+        </entity_type>
+     </entity_type>
+     <entity_type>
+        <name>Fermi Particle</name>
+        <presentation><below>Bose Particle</below></presentation>
+        <group>
+           <name>padding</name>
+           <presentation><w>1.4</w></presentation><!-- mustn't pick up overridden default-->
+        </group>
+        <entity_type>
+           <name>electron</name>
+           <presentation><rightOf>padding</rightOf><y>-0.25</y></presentation>
+        </entity_type>
+        <entity_type>
+           <name>muon</name>
+           <presentation><rightOf>electron</rightOf></presentation>
+        </entity_type>
+        <group>
+           <presentation><below>electron</below></presentation>
+           <entity_type>
+              <name>Nucleon</name>
+           </entity_type>
+           <entity_type>
+              <name>Neutrino</name>
+              <presentation><rightOf>Nucleon</rightOf></presentation>
+           </entity_type>
+           <entity_type>
+              <name>Baryon</name>
+              <presentation><rightOf>Neutrino</rightOf></presentation>
+           </entity_type>
+        </group>
+     </entity_type>
+  </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/feynmanParticle.xml--> 
+

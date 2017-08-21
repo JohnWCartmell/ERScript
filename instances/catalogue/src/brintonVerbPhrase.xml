@@ -1,0 +1,177 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonVerbPhrase.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation>
+  <diagram>
+<!--    <deltaw>1.0</deltaw>-->
+  </diagram>
+</presentation>
+<defaults><!--<et_width>2.5</et_width>--></defaults>
+<entity_type>
+   <name>verb phrase</name>
+   <presentation><x>0</x><y>0</y><deltah>0.5</deltah></presentation>
+   <entity_type>
+       <name>intransitive</name>
+       <presentation><x>0.4</x><w>2.0</w></presentation>
+   </entity_type>
+   <entity_type>
+      <name>transitive</name>
+      <presentation>
+         <rightOf>intransitive</rightOf><deltah>0.5</deltah><deltaw>0.2</deltaw>
+      </presentation>
+      <entity_type>
+         <name>mono transitive</name>
+         <presentation><w>2.5</w></presentation>
+      </entity_type>
+      <entity_type>
+         <name>ditransitive</name>
+         <presentation><below>mono transitive</below><w>2.5</w></presentation>
+         <composition>
+            <name>indirect_object</name>
+            <cardinality>ExactlyOne</cardinality>
+            <type>noun phrase</type>
+            <diagram>
+                <path>
+                    <label><name>Split</name></label>
+                    <srcattach>0.6</srcattach>
+                    <align>ToSrc</align>
+                </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>complex transitive</name>
+         <presentation><rightOf>ditransitive</rightOf><w>2.5</w></presentation>
+         <composition>
+            <name>object_complement</name>
+            <cardinality>ExactlyOne</cardinality>
+            <type>NP|AP|PP</type>
+            <diagram>
+               <path>
+                    <label><name>Split</name></label>
+                   <align>ToSrc</align>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <composition>
+         <name>direct_object</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>noun phrase</type>
+         <diagram>
+            <path>
+                <label><position>Left</position></label>
+                <srcattach>0.15</srcattach>
+                <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>copulative</name>
+      <presentation><rightOf>transitive</rightOf><x>0.3</x><w>2.0</w></presentation>
+      <composition>
+         <name>subject_complement</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>NP|AP|PP</type>
+         <diagram>
+            <path>
+                <label><name>Split</name></label>
+                <srcattach>0.4</srcattach>
+                <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+       <name>prepositional</name>
+       <presentation><rightOf>copulative</rightOf></presentation>
+       <entity_type>
+          <name>mono prepositional</name>
+          <presentation><w>2.5</w></presentation>
+       </entity_type>
+       <entity_type>
+          <name>diprepositional</name>
+          <presentation><below>mono prepositional</below><w>2.5</w></presentation>
+          <composition>
+             <cardinality>ExactlyOne</cardinality>
+             <type>prepositional phrase</type>
+             <diagram>
+                <path>
+                   <destattach>0.7</destattach>
+                   <align>ToDest</align>
+                </path>
+             </diagram>
+          </composition>
+       </entity_type>
+       <composition>
+          <name>prepositional_complement</name>
+          <cardinality>ExactlyOne</cardinality>
+          <type>prepositional phrase</type>
+          <diagram>
+             <path>
+                <srcattach>0.2</srcattach>
+                <label><name>Split</name><position>Left</position></label>
+                <align>ToDest</align>
+             </path>
+          </diagram>
+       </composition>
+   </entity_type>
+   <composition>
+      <cardinality>ExactlyOne</cardinality>
+      <type>verb</type>
+      <diagram>
+         <path>
+                <!--<label><position>Left</position></label> -->
+            <align>ToDest</align>
+         </path>
+      </diagram>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>NP|AP|PP</name>
+   <presentation><rightOf>verb</rightOf><x>0.4</x></presentation>
+   <entity_type>
+      <name>noun phrase</name>
+      <presentation><x>1.0</x><w>3.0</w></presentation>
+   </entity_type>
+   <entity_type>
+      <name>adjectival phrase</name>
+      <presentation><rightOf>noun phrase</rightOf><x>1.2</x><w>3.0</w></presentation>
+   </entity_type>
+   <entity_type>
+      <name>prepositional phrase</name>
+      <presentation><rightOf>adjectival phrase</rightOf><x>1.0</x><w>3.0</w></presentation>
+   </entity_type>
+</entity_type>
+<entity_type>
+   <name>verb</name>
+   <presentation>
+       <below>verb phrase</below><x>-6.8</x>
+   </presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonVerbPhrase.xml--> 
+

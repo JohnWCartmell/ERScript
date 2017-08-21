@@ -1,0 +1,49 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonIntransitiveVerbPhrase.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+         <et_y_separation>0.7</et_y_separation>
+   </defaults>
+   <entity_type>
+      <name>intransitive verb phrase</name>
+      <presentation><x>0.5</x><y>0.1</y><w>3.0</w></presentation>
+      <composition>
+         <name>head</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>verb</type>
+         <diagram>
+            <path>
+                <label><position>Left</position></label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+       <name>verb</name>
+       <presentation><below>intransitive verb phrase</below><w>1.6</w></presentation>
+   </entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonIntransitiveVerbPhrase.xml--> 
+

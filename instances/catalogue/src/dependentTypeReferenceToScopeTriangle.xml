@@ -1,0 +1,80 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeReferenceToScopeTriangle.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_type>
+    <name>declaration</name>
+    <presentation><x>2.8</x><shape>Top</shape></presentation>
+    <composition>
+       <type>given</type>
+       <cardinality>OneOrMore</cardinality>
+       <inverse>recursive(..)</inverse>
+       <diagram>
+          <path>
+             <srcarmlen>0.4</srcarmlen>
+             <inverse><label><position>Left</position><xAdjustment>-0.1</xAdjustment></label></inverse>
+          </path>
+       </diagram>
+    </composition>
+    <composition>
+       <name>givens</name>
+       <type>formal argument</type>
+       <cardinality>OneOrMore</cardinality>
+    </composition>
+</entity_type>
+<group>
+   <name>declarationchildren</name>
+   <presentation>         
+        <below>declaration</below>         
+        <y>0.5</y>
+   </presentation>
+   <entity_type>
+       <name>given</name>
+       <presentation>
+           <shape>BottomLeft</shape>
+           <w>2.2</w>
+       </presentation>
+       <dependency>
+          <name>recursive(..)</name>
+          <type>declaration</type>
+       </dependency>
+       <reference>
+          <name>reference to</name>
+          <type>formal argument</type>
+          <cardinality>ExactlyOne</cardinality>
+          <diagram>
+             <path>
+                <srcarmlen>0.4</srcarmlen>
+             </path>
+          </diagram>
+       </reference>
+   </entity_type>
+   <entity_type>
+       <name>formal argument</name>
+       <presentation><rightOf>given</rightOf><x>2.0</x><shape>BottomRight</shape></presentation>
+   </entity_type>
+</group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeReferenceToScopeTriangle.xml--> 
+

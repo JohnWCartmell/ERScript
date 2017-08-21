@@ -1,0 +1,113 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeDependentTypePullback.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<defaults><et_width>1.8</et_width><et_height>1.2</et_height></defaults> 
+<entity_type>
+    <name>type (expression)</name>
+   <presentation>
+         <x>1.4</x>
+         <y>0.1</y>
+    </presentation>
+    <composition>
+       <name>with</name>
+       <type>term</type>
+       <sequence/>
+       <cardinality>ZeroOneOrMore</cardinality>
+       <diagram>
+           <path>
+              <srcarmlen>0</srcarmlen>
+              <destarmlen>0</destarmlen>
+             <label>
+                <position>Left</position>
+             </label>
+           </path>
+        </diagram>
+    </composition>
+    <reference>
+       <name>use of</name>
+       <type>type (declaration)</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+          <path>
+             <label>
+                <position>Upside</position>
+             </label>
+          </path>
+       </diagram>
+    </reference>
+</entity_type>
+<entity_type>
+    <name>term</name>
+    <reference>
+       <name>substituting for</name>
+       <type>formal argument</type>
+       <cardinality>ExactlyOne</cardinality>
+       <diagram>
+          <path>
+             <srcarmlen>0.5</srcarmlen>
+             <destarmlen>0.5</destarmlen>
+             <label>
+                <position>Upside</position>
+             </label>
+          </path>
+       </diagram>
+    </reference>
+    <presentation>
+         <below>type (expression)</below>
+         <y>0.5</y>
+         <name>Split</name>
+         <shape>BottomLeft</shape>
+    </presentation>
+</entity_type>
+<entity_type>
+   <name>type (declaration)</name>
+   <presentation>
+        <rightOf>type (expression)</rightOf>
+        <x>2.4</x>
+   </presentation>
+   <composition>
+      <name>givens</name>
+      <type>formal argument</type>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <sequence/>
+      <diagram>
+           <path>
+              <srcarmlen>0</srcarmlen>
+              <destarmlen>0</destarmlen>
+           </path>
+      </diagram>
+   </composition>
+</entity_type>
+<entity_type>
+    <name>formal argument</name>
+    <presentation>
+       <rightOf>term</rightOf>
+       <below>type (declaration)</below>
+         <name>Split</name>
+    </presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeDependentTypePullback.xml--> 
+

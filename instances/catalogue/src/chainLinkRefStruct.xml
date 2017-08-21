@@ -1,0 +1,148 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/chainLinkRefStruct.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<presentation><diagram><deltaw>2.0</deltaw><deltah>1.3</deltah></diagram></presentation>
+<entity_type>
+   <name>chain</name>
+   <presentation><x>1.6</x><y>0</y><h>1.0</h></presentation>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <type>link</type>
+   </composition>
+    <reference>
+       <name>start</name>
+       <type>link</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>start of</inverse>
+       <diagram>
+          <path>
+             <srcsign>-1</srcsign>
+             <srcarmlen>0.2</srcarmlen>
+             <srcattach>0.5</srcattach>
+             <destarmlen>0.2</destarmlen>
+             <destsign>-1</destsign>
+             <destattach>0.333</destattach>
+             <hstep><absdim><src>-0.3</src></absdim></hstep>
+             <label>
+               <position>Downside</position>
+               <xAdjustment>-0.5</xAdjustment>
+               <yAdjustment>-0.2</yAdjustment>
+             </label>
+             <inverse>
+                <label>
+                  <position>Upside</position>
+                  <xAdjustment>-0.5</xAdjustment>
+                </label>
+             </inverse>
+          </path>
+       </diagram>
+    </reference>
+    <reference>
+       <name>end</name>
+       <type>link</type>
+       <cardinality>ExactlyOne</cardinality>
+       <inverse>end of</inverse>
+       <diagram>
+          <path>
+             <srcsign>1</srcsign>
+             <srcarmlen>0.2</srcarmlen>
+             <srcattach>0.5</srcattach>
+             <destarmlen>0.2</destarmlen>
+             <destsign>1</destsign>
+             <destattach>0.333</destattach>
+             <hstep><absdim><src>0.3</src></absdim></hstep>
+             <label>
+               <position>Downside</position>
+               <xAdjustment>0.5</xAdjustment>
+               <yAdjustment>-0.2</yAdjustment>
+             </label>
+             <inverse>
+                <label>
+                  <position>Upside</position>
+                  <xAdjustment>0.5</xAdjustment>
+                </label>
+             </inverse>
+          </path>
+       </diagram>
+    </reference>
+</entity_type>
+<entity_type>
+    <name>link</name>
+    <dependency_group>
+       <presentation><sign>-1</sign></presentation>
+    </dependency_group>
+    <dependency_group>
+       <presentation><sign>1</sign></presentation>
+    </dependency_group>
+    <reference>
+       <name>start of</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>chain</type>
+       <inverse>start</inverse>
+    </reference>
+    <reference>
+       <name>end of</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>chain</type>
+       <inverse>end</inverse>
+    </reference>
+    <reference>
+       <name>follows</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>link</type>
+       <inverse>followed by</inverse>
+       <diagram>
+          <path>
+             <srcsign>-1</srcsign>
+             <srcattach>0.666</srcattach>
+             <srcarmlen>0.5</srcarmlen>
+             <destsign>1</destsign>
+             <destattach>0.666</destattach>
+             <destarmlen>0.5</destarmlen>
+             <vstep><absdim><src>1.0</src></absdim></vstep>
+             <label>
+                <position>Downside</position>
+                <xAdjustment>-0.5</xAdjustment>
+             </label>
+             <inverse>
+                <label>
+                  <position>Downside</position>
+                  <xAdjustment>0.5</xAdjustment>
+                </label>
+             </inverse>
+          </path>
+       </diagram>
+    </reference>
+    <reference>
+       <name>followed by</name>
+       <cardinality>ExactlyOne</cardinality>
+       <type>link</type>
+       <inverse>follows</inverse>
+    </reference>
+    <presentation><below>chain</below><h>1.0</h></presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/chainLinkRefStruct.xml--> 
+

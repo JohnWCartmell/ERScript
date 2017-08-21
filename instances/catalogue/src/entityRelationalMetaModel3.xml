@@ -1,0 +1,177 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel3.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+     <diagram>
+        <deltaw>1.3</deltaw>
+        <deltah>0.5</deltah>
+     </diagram>
+  </presentation>
+  <absolute>
+    <name>entity_model</name>
+    <composition>
+      <type>entity type</type>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <diagram>
+        <path>
+          <destattach>0.66</destattach>
+        </path>
+      </diagram>
+    </composition>
+  </absolute>
+  <entity_type>
+     <name>entity type</name>
+     <presentation>
+       <x>1.1</x>
+       <y>1.6</y>
+       <deltaw>0.6</deltaw>
+     </presentation>
+     <value>
+        <name>name</name>
+        <type>string</type>
+     </value>
+     <dependency>
+         <name>depends on</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>entity type</type>
+     </dependency>
+     <dependency_group>
+     </dependency_group>
+     <composition>
+         <type>entity type</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>depends on</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.2</srcattach>
+               <destarmlen>0.5</destarmlen>
+               <destattach>0.33333333333</destattach>
+               <hstep><absdim><src>-1</src></absdim></hstep>
+               <inverse>
+               <label>
+                  <xAdjustment>0.9</xAdjustment>
+                  <yAdjustment>-0.25</yAdjustment>
+               </label>
+               </inverse>
+            </path>
+         </diagram>
+     </composition>
+     <composition>
+          <type>attribute</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+          <diagram>
+             <path>
+                <srcattach>0.5</srcattach>
+             </path>
+          </diagram>
+     </composition>
+     <composition>
+          <type>reference_relationship</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+          <diagram><path><srcattach>0.8</srcattach></path></diagram>
+     </composition>
+  </entity_type>
+  <group>
+     <name>entity children</name>
+     <presentation>
+        <below>entity type</below>
+        <x>0.15</x>
+     </presentation>
+     <entity_type>
+        <name>attribute</name>
+        <value>
+            <name>name</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>identifying?</name>
+            <type>string</type>
+        </value>
+     </entity_type>
+     <entity_type>
+        <name>reference_relationship</name>
+        <presentation>
+            <rightOf>attribute</rightOf>
+            <name>Split</name>
+            <x>0.6</x>
+            <h>2.0</h>
+        </presentation>
+        <value>
+            <name>name</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>identifying?</name>
+            <type>string</type>
+        </value>
+        <value>
+            <name>cardinality</name>
+            <type>string</type>
+        </value>
+        <reference>
+           <name>destination</name>
+           <type>entity type</type>
+           <cardinality>ExactlyOne</cardinality>
+           <diagram>
+              <path>
+                  <srcattach>0.2</srcattach>
+                  <srcarmlen>0.3</srcarmlen>
+                  <hstep><absdim><src>0.1</src></absdim></hstep>
+              </path>
+           </diagram>
+        </reference>
+        <reference>
+           <name>diagonal</name>
+           <type>reference_relationship</type>
+           <cardinality>ExactlyOne</cardinality>
+           <diagram>
+              <path>
+                 <srcarmlen>0.4</srcarmlen>
+                 <srcsign>1</srcsign>
+                 <srcattach>0.8</srcattach>
+                 <destsign>-1</destsign>
+                 <destattach>0.8</destattach>
+                 <destarmlen>0.4</destarmlen>
+                 <vstep><absdim><src>0.8</src></absdim></vstep>
+                 <label>
+                    <position>Upside</position>
+                    <!-- <xAdjustment>1.0</xAdjustment>  -->
+                 </label>
+                 <!--
+                 <inverse>
+                    <label>
+                      <position>Downside</position>
+                      <xAdjustment>0.5</xAdjustment>
+                    </label>
+                 </inverse>
+                 -->
+              </path>
+           </diagram>
+        </reference>
+     </entity_type>
+  </group>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel3.xml--> 
+

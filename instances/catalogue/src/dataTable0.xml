@@ -1,0 +1,94 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/dataTable0.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<defaults><et_width>1.4</et_width><et_y_separation>0.7</et_y_separation></defaults>
+<entity_type>
+   <name>data table</name>
+   <presentation><x>1.3</x></presentation>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <sequence/>
+      <type>row</type>
+      <diagram>
+         <path>
+             <destarmlen>0.5</destarmlen>
+         </path>
+      </diagram>
+   </composition>
+   <composition>
+      <cardinality>OneOrMore</cardinality>
+      <sequence/>
+      <type>column</type>
+      <diagram>
+         <path>
+             <destarmlen>0.5</destarmlen>
+         </path>
+      </diagram>
+   </composition>
+</entity_type>
+<group>
+   <name>row and column</name>
+   <presentation><below>data table</below></presentation>
+   <entity_type>
+      <name>row</name>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <sequence/>
+         <type>data cell</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <destattach>0.3</destattach>
+               <destarmlen>0.6</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>column</name>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <sequence/>
+         <type>data cell</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <destattach>0.7</destattach>
+               <destarmlen>0.6</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+       <presentation><rightOf>row</rightOf><x>0.8</x></presentation>
+   </entity_type>
+</group>
+<entity_type>
+   <name>data cell</name>
+   <presentation>
+       <below>row and column</below><y>1.2</y>
+   </presentation>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/dataTable0.xml--> 
+
