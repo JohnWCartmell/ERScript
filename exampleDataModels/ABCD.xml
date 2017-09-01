@@ -1,0 +1,252 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/instances/catalogue/src/dataModels/ABCD.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+
+<defaults><et_width>3.0</et_width><et_height>2.0</et_height></defaults>
+<presentation><diagram><deltaw>1.0</deltaw><deltah>2.0</deltah></diagram></presentation>
+<absolute>
+   <name>ABCD</name>
+   <composition>
+      <name>all X</name>
+      <type>X</type>
+      <cardinality>OneOrMore</cardinality>
+      <inverse>pX</inverse>
+   </composition>
+   <composition>
+      <name>all A</name>
+      <type>A</type>
+      <cardinality>OneOrMore</cardinality>
+      <inverse>pA</inverse>
+   </composition>
+   <composition>
+      <name>all Z</name>
+      <type>Z</type>
+      <cardinality>OneOrMore</cardinality>
+      <inverse>pZ</inverse>
+   </composition>
+</absolute>
+
+<entity_type>
+   <name>X</name>
+   <presentation>
+        <x>0.2</x><y>10.0</y>
+   </presentation>
+   <description>
+     Test of pop-up.
+   </description>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <value>
+      <name>x1</name>
+      <type>string</type>
+   </value>
+   <value>
+      <name>x2</name>
+      <type>string</type>
+   </value>
+   <dependency>
+      <name>pX</name>
+      <inverse_of>all X</inverse_of>
+   </dependency>
+   <reference>
+       <name>f</name>
+       <type>B</type>
+       <cardinality>ZeroOrOne</cardinality>
+       <diagonal>
+          <join>
+             <component>
+                 <rel>pX</rel>
+             </component>
+          </join>
+       </diagonal>
+       <riser>
+          <join>
+             <component>
+                 <rel>pB</rel>
+             </component>
+             <component>
+                 <rel>pA</rel>
+             </component>
+          </join>
+       </riser>
+       <diagram>
+          <path>
+              <srcarmlen>0.2</srcarmlen>
+          </path>
+       </diagram>
+   </reference>
+   <reference>
+       <name>g</name>
+       <type>D</type>
+       <cardinality>ZeroOrOne</cardinality>
+       <diagonal>
+           <component>
+              <rel>f</rel>
+           </component>
+       </diagonal>
+       <riser>
+          <join>
+             <component>
+                 <rel>pD</rel>
+             </component>
+             <component>
+                 <rel>pC</rel>
+             </component>
+          </join>
+       </riser>
+       <diagram>
+          <path>
+              <srcarmlen>0.2</srcarmlen>
+          </path>
+       </diagram>
+   </reference>
+</entity_type>
+
+<entity_type>
+   <name>A</name>
+   <presentation>
+        <x>7.0</x><y>2.25</y>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <dependency>
+      <name>pA</name>
+      <inverse_of>all A</inverse_of>
+   </dependency>
+   <composition>
+      <name>all B</name>
+      <type>B</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <inverse>pB</inverse>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>B</name>
+   <presentation>
+        <below>A</below><y>1.5</y>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <dependency>
+      <name>pB</name>
+      <type>A</type>
+      <inverse_of>all B</inverse_of>
+   </dependency>
+   <composition>
+      <name>all C</name>
+      <type>C</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <inverse>pC</inverse>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>C</name>
+   <presentation>
+        <below>B</below><y>1.5</y>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <value>
+      <name>c1</name>
+      <type>string</type>
+   </value>
+   <value>
+      <name>c2</name>
+      <type>string</type>
+   </value>
+   <dependency>
+      <name>pC</name>
+      <type>B</type>
+      <inverse_of>all C</inverse_of>
+   </dependency>
+   <composition>
+      <name>all D</name>
+      <type>D</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+      <inverse>pD</inverse>
+   </composition>
+   <reference>
+      <name>z</name>
+      <type>Z</type>
+      <cardinality>ZeroOneOrMore</cardinality>
+      <identifying/>
+      <diagram>
+          <path>
+              <srcarmlen>0.4</srcarmlen>
+          </path>
+      </diagram>
+   </reference>
+</entity_type>
+<entity_type>
+   <name>D</name>
+   <presentation>
+        <below>C</below><y>1.5</y>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <dependency>
+      <name>pD</name>
+      <type>C</type>
+      <inverse_of>all D</inverse_of>
+   </dependency>
+</entity_type>
+<entity_type>
+   <name>Z</name>
+   <presentation>
+       <rightOf>A</rightOf>
+       <x>2.0</x>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+      <identifying/>
+   </value>
+   <dependency>
+      <name>pZ</name>
+      <inverse_of>all Z</inverse_of>
+   </dependency>
+</entity_type>
+</entity_model>
+<!-- end of file: ERmodel_v1.2/instances/catalogue/src/dataModels/ABCD.xml--> 
+
