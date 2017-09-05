@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/counter2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,22 +22,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<entity_type>
-   <name>A</name>
-   <presentation><x>0.1</x><deltaw>1.5</deltaw><shape>Top</shape></presentation>
-   <composition>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>counter</type>
-      <identifying/>
-      <sequence/>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>counter</name>
-    <presentation><below>A</below><y>0.5</y></presentation>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>A</name>
+      <presentation>
+         <x>0.1</x>
+         <deltaw>1.5</deltaw>
+         <shape>Top</shape>
+      </presentation>
+      <composition>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>counter</type>
+         <identifying/>
+         <sequence/>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>counter</name>
+      <presentation>
+         <below>A</below>
+         <y>0.5</y>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/counter2.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalChenIntermediate.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
      <diagram>
         <deltaw>0.5</deltaw>
@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <entity_type>
      <name>entity type</name>
      <presentation>
-       <x>0.7</x>
-       <deltaw>4.6</deltaw>
+         <x>0.7</x>
+         <deltaw>4.6</deltaw>
      </presentation>
      <value>
         <name>name</name>
@@ -45,9 +45,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ZeroOneOrMore</cardinality>
           <diagram>
              <path>
-                <!-- <srcattach>0.3</srcattach> -->
+                
                 <align>ToDest</align>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
              </path>
           </diagram>
      </composition>
@@ -60,8 +62,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              <path>
                 <align>ToDest</align>
                 <destattach>0.3</destattach>
-                <label><position>Left</position></label>
-                <inverse><label><position>Left</position></label></inverse>
+                <label>
+                  <position>Left</position>
+               </label>
+                <inverse>
+                  <label>
+                     <position>Left</position>
+                  </label>
+               </inverse>
              </path>
          </diagram>
      </composition>
@@ -121,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>attribute</rightOf>
             <name>Split</name>
             <x>1.6</x> 
-            <!--<h>2.0</h>-->
+            
         </presentation>
         <value>
             <name>name</name>
@@ -172,7 +180,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <srcarmlen>0.4</srcarmlen>
                      <destattach>0.25</destattach>
                      <destarmlen>0.3</destarmlen>
-                     <hstep><absdim><src>-0.1</src></absdim></hstep>
+                     <hstep>
+                        <absdim>
+                           <src>-0.1</src>
+                        </absdim>
+                     </hstep>
                      <label>
                      </label>
                   </path>
@@ -189,7 +201,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <destsign>-1</destsign>
                     <destattach>0.25</destattach>
                     <destarmlen>0.7</destarmlen>
-                    <vstep><absdim><src>4.0</src></absdim></vstep>
+                    <vstep>
+                        <absdim>
+                           <src>4.0</src>
+                        </absdim>
+                     </vstep>
                     <label>
                        <position>Upside</position>
                     </label>
@@ -212,7 +228,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <srcarmlen>0.5</srcarmlen>
                      <destattach>0.5</destattach>
                      <destarmlen>0.3</destarmlen>
-                     <hstep><absdim><src>-0.1</src></absdim></hstep>
+                     <hstep>
+                        <absdim>
+                           <src>-0.1</src>
+                        </absdim>
+                     </hstep>
                      <label>
                      </label>
                   </path>
@@ -229,7 +249,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <destsign>-1</destsign>
                     <destattach>0.5</destattach>
                     <destarmlen>0.6</destarmlen>
-                    <vstep><absdim><src>2.5</src></absdim></vstep>
+                    <vstep>
+                        <absdim>
+                           <src>2.5</src>
+                        </absdim>
+                     </vstep>
                     <label>
                        <position>Upside</position>
                     </label>
@@ -252,7 +276,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <srcarmlen>0.6</srcarmlen>
                      <destattach>0.75</destattach>
                      <destarmlen>0.3</destarmlen>
-                    <hstep><absdim><src>-0.1</src></absdim></hstep>
+                    <hstep>
+                        <absdim>
+                           <src>-0.1</src>
+                        </absdim>
+                     </hstep>
                      <label>
                      </label>
                   </path>
@@ -272,13 +300,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <label>
                        <position>Upside</position>
                     </label>
-                    <vstep><absdim><src>1.0</src></absdim></vstep>
+                    <vstep>
+                        <absdim>
+                           <src>1.0</src>
+                        </absdim>
+                     </vstep>
                  </path>
               </diagram>
            </reference>
         </entity_type>
-     </entity_type>  <!-- end of implmenting_attribute -->
+     </entity_type>  
   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalChenIntermediate.xml--> 
-

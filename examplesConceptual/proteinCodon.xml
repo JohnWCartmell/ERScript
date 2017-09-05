@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/proteinCodon.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>amino acid</name>
       <reference>
@@ -33,8 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <diagram>
               <path>
                  <srcarmlen>0.3</srcarmlen>
-                 <label><position>Downside</position></label>
-                 <inverse><label><position>Upside</position></label></inverse>
+                 <label>
+                  <position>Downside</position>
+               </label>
+                 <inverse>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+               </inverse>
               </path>
           </diagram>
       </reference>
@@ -45,7 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>codon</name>
       <presentation>
-         <rightOf>amino acid</rightOf><x>2.0</x>
+         <rightOf>amino acid</rightOf>
+         <x>2.0</x>
       </presentation>
       <composition>
          <type>nucleotide</type>
@@ -67,28 +74,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
           <name>G</name>
           <presentation>
-               <x>0.2</x><w>0.5</w>
+               <x>0.2</x>
+            <w>0.5</w>
           </presentation>
       </entity_type>
       <entity_type>
           <name>C</name>
           <presentation>
-             <rightOf>G</rightOf> <x>0.2</x><w>0.5</w>
+             <rightOf>G</rightOf> 
+            <x>0.2</x>
+            <w>0.5</w>
           </presentation>
       </entity_type>
       <entity_type>
           <name>U</name>
           <presentation>
-             <rightOf>C</rightOf> <x>0.2</x><w>0.5</w>
+             <rightOf>C</rightOf> 
+            <x>0.2</x>
+            <w>0.5</w>
           </presentation>
       </entity_type>
       <entity_type>
           <name>A</name>
           <presentation>
-             <rightOf>U</rightOf><x>0.2</x><w>0.5</w> 
+             <rightOf>U</rightOf>
+            <x>0.2</x>
+            <w>0.5</w> 
           </presentation>
        </entity_type>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/proteinCodon.xml--> 
-

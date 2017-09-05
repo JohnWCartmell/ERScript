@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/rylesMarchPast2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,12 +22,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
-    <diagram>
-      <deltaw>1.0</deltaw>
-    </diagram>
+      <diagram>
+         <deltaw>1.0</deltaw>
+      </diagram>
   </presentation>
   <entity_type>
      <name>division</name>
@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>OneOrMore</cardinality>
      </composition>
      <presentation>
-       <x>2.8</x>
-       <y>0.1</y>
+         <x>2.8</x>
+         <y>0.1</y>
      </presentation>
   </entity_type>
   <entity_type>
@@ -51,7 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </entity_type>
   <entity_type>
      <name> </name>
-     <presentation><below>battalion</below></presentation>
+     <presentation>
+         <below>battalion</below>
+      </presentation>
      <reference>
          <name>sergeant_major</name>
          <type>soldier</type>
@@ -61,7 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <path>
                 <srcarmlen>0.2</srcarmlen>
                 <hstep>
-                      <absdim><src>0.3</src></absdim>
+                      <absdim>
+                     <src>0.3</src>
+                  </absdim>
                 </hstep>
                 <label>
                    <position>Upside</position>
@@ -76,15 +80,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </reference>
      <entity_type>
          <name>company</name>
-         <presentation><y>0.2</y></presentation>
+         <presentation>
+            <y>0.2</y>
+         </presentation>
      </entity_type>
      <entity_type>
         <name>battery</name>
-        <presentation><rightOf>company</rightOf></presentation>
+        <presentation>
+            <rightOf>company</rightOf>
+         </presentation>
      </entity_type>
      <entity_type>
          <name>squadron</name>
-         <presentation><rightOf>battery</rightOf></presentation>
+         <presentation>
+            <rightOf>battery</rightOf>
+         </presentation>
      </entity_type>
      <composition>
         <type>soldier</type>
@@ -93,7 +103,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </entity_type>
   <entity_type>
      <name>soldier</name>
-     <presentation><below> </below></presentation>
+     <presentation>
+         <below> </below>
+      </presentation>
      <reference>
          <name>commands</name>
          <inverse>sergeant_major</inverse>
@@ -102,5 +114,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </reference>
   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/rylesMarchPast2.xml--> 
-

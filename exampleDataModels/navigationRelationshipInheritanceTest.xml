@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/dataModels/navigationRelationshipInheritanceTest.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,11 +22,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation>
-   <diagram><deltah>0.4</deltah></diagram></presentation>
-   <defaults><et_width>2.0</et_width><et_height>2.0</et_height></defaults>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
+   <defaults>
+      <et_width>2.0</et_width>
+      <et_height>2.0</et_height>
+   </defaults>
    <absolute>
       <composition>
          <type>A1</type>
@@ -61,15 +67,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
               <align>ToSrc</align>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>I</name>
-      <presentation><rightOf>A1</rightOf><x>1.8</x><y>-1.0</y></presentation>
+      <presentation>
+         <rightOf>A1</rightOf>
+         <x>1.8</x>
+         <y>-1.0</y>
+      </presentation>
       <value>
          <name>name</name>
          <type>string</type>
@@ -78,7 +94,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
           <name>Is</name>
           <presentation>
-               <h>0.6</h><w>1.3</w>
+               <h>0.6</h>
+            <w>1.3</w>
           </presentation>
       </entity_type>
       <reference>
@@ -88,15 +105,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
               <align>ToDest</align>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>A2</name>
-      <presentation><rightOf>A1</rightOf><x>6.0</x></presentation>
+      <presentation>
+         <rightOf>A1</rightOf>
+         <x>6.0</x>
+      </presentation>
       <value>
           <name>name</name>
           <type>string</type>
@@ -148,8 +174,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <diagram>
                <path>
                  <align>ToSrc</align>
-                 <label><position>Upside</position></label>
-                 <inverse><label><position>Downside</position></label></inverse>
+                 <label>
+                     <position>Upside</position>
+                  </label>
+                 <inverse>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </inverse>
                  <scope>
                     <label>
                        <position>Downside</position>
@@ -221,5 +253,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </dependency>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/dataModels/navigationRelationshipInheritanceTest.xml--> 
-

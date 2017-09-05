@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelBook1Book2Person.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,9 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
    <absolute>
       <composition>
          <type>book(1)</type>
@@ -40,7 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>book(2)</name>
-      <presentation><below>widthgroup</below><y>-1.5</y></presentation>
+      <presentation>
+         <below>widthgroup</below>
+         <y>-1.5</y>
+      </presentation>
       <reference>
          <name>printing_of</name>
          <type>book(1)</type>
@@ -58,8 +65,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               <destarmlen>0.6</destarmlen>
               <srcattach>0.5</srcattach>
               <destattach>0.3333</destattach>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Upside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
@@ -80,8 +93,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <path>
                  <srcarmlen>0.6</srcarmlen>
                  <destarmlen>0.6</destarmlen>
-                 <label><position>Upside</position></label>
-                 <inverse><label><position>Upside</position></label></inverse>
+                 <label>
+                     <position>Upside</position>
+                  </label>
+                 <inverse>
+                     <label>
+                        <position>Upside</position>
+                     </label>
+                  </inverse>
                </path>
             </diagram>
             </reference>
@@ -93,15 +112,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <diagram>
                <path>
                  <destattach>0.6666</destattach>
-                 <label><position>Downside</position></label>
-                 <inverse><label><position>Downside</position></label></inverse>
+                 <label>
+                     <position>Downside</position>
+                  </label>
+                 <inverse>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </inverse>
                </path>
             </diagram>
             </reference>
       </entity_type>
       <entity_type>
          <name>person</name>
-         <presentation><rightOf>book(1)</rightOf><x>5.0</x></presentation>
+         <presentation>
+            <rightOf>book(1)</rightOf>
+            <x>5.0</x>
+         </presentation>
          <reference>
             <name>owns</name>
             <cardinality>ZeroOneOrMore</cardinality>
@@ -117,5 +145,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
    </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelBook1Book2Person.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalForeignKeyColumnIsScope.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,97 +22,112 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
 
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<!-- <defaults><et_width>1.8</et_width><et_height>1.2</et_height></defaults>  -->
-<presentation><diagram><deltaw>0</deltaw><deltah>0</deltah></diagram></presentation>
-<entity_type>
-   <name>table</name>
-   <presentation><x>2.4</x><y>0.1</y><w>1.9</w><shape>Top</shape></presentation>
-   <composition>
-      <type>foreign key</type>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <identifying/>
-      <inverse>of</inverse>
+   <presentation>
+      <diagram>
+         <deltaw>0</deltaw>
+         <deltah>0</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>table</name>
+      <presentation>
+         <x>2.4</x>
+         <y>0.1</y>
+         <w>1.9</w>
+         <shape>Top</shape>
+      </presentation>
+      <composition>
+         <type>foreign key</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <identifying/>
+         <inverse>of</inverse>
          <diagram>
             <path>
                <inverse>
-                  <label><position>Left</position></label>
+                  <label>
+                     <position>Left</position>
+                  </label>
                </inverse>
             </path>
          </diagram>
-   </composition>
-   <composition>
-      <type>column</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <inverse>of</inverse>
-      <diagram>
+      </composition>
+      <composition>
+         <type>column</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <inverse>of</inverse>
+         <diagram>
             <path>
                  <destarmlen>1.5</destarmlen>
             </path>
-      </diagram>
-   </composition>
-</entity_type>
-<group>
-   <presentation><below>table</below></presentation>
-   <entity_type>
-       <name>foreign key</name>
-       <presentation><shape>MiddleLeft</shape></presentation>
-       <dependency>
-          <name>of</name>
-       </dependency>
-       <composition>
-          <type>foreign key column</type>
-          <cardinality>OneOrMore</cardinality>
-          <identifying/>
-          <inverse>part_of</inverse>
-          <diagram>
-             <path>
-                <inverse>
-                   <label><position>Left</position></label>
-                </inverse>
-             </path>
-          </diagram>
-       </composition>
+         </diagram>
+      </composition>
    </entity_type>
-   <entity_type>
-       <name>foreign key column</name>
-       <dependency>
-          <name>part_of</name>
-       </dependency>
-       <reference>
-          <name>is</name>
-          <type>column</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
-             <path>
-                <srcarmlen>0.5</srcarmlen>
-                <destarmlen>0.5</destarmlen>
-                <label>
-                   <position>Upside</position>
-                </label>
-             </path>
-          </diagram>
-       </reference>
-       <presentation>
+   <group>
+      <presentation>
+         <below>table</below>
+      </presentation>
+      <entity_type>
+         <name>foreign key</name>
+         <presentation>
+            <shape>MiddleLeft</shape>
+         </presentation>
+         <dependency>
+            <name>of</name>
+         </dependency>
+         <composition>
+            <type>foreign key column</type>
+            <cardinality>OneOrMore</cardinality>
+            <identifying/>
+            <inverse>part_of</inverse>
+            <diagram>
+               <path>
+                  <inverse>
+                     <label>
+                        <position>Left</position>
+                     </label>
+                  </inverse>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>foreign key column</name>
+         <dependency>
+            <name>part_of</name>
+         </dependency>
+         <reference>
+            <name>is</name>
+            <type>column</type>
+            <cardinality>ExactlyOne</cardinality>
+            <diagram>
+               <path>
+                  <srcarmlen>0.5</srcarmlen>
+                  <destarmlen>0.5</destarmlen>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+               </path>
+            </diagram>
+         </reference>
+         <presentation>
            <below>foreign key</below>
            <name>Split</name>
            <shape>BottomLeft</shape>
-       </presentation>
-   </entity_type>
-   <entity_type>
-       <name>column</name>
-       <presentation>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>column</name>
+         <presentation>
            <rightOf>foreign key column</rightOf>
            <x>1.5</x>
            <shape>BottomRight</shape>
-       </presentation>
-       <dependency>
-          <name>of</name>
-       </dependency>
-   </entity_type>
-</group>
+         </presentation>
+         <dependency>
+            <name>of</name>
+         </dependency>
+      </entity_type>
+   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalForeignKeyColumnIsScope.xml--> 
-

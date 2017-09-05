@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/chromosome.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <absolute>
       <name>nucleotide</name>
       <composition>
@@ -33,25 +33,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>U</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><destattach>0.2</destattach></path></diagram>
+         <diagram>
+            <path>
+               <destattach>0.2</destattach>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <name>C</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><destattach>0.4</destattach></path></diagram>
+         <diagram>
+            <path>
+               <destattach>0.4</destattach>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <name>A</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><destattach>0.6</destattach></path></diagram>
+         <diagram>
+            <path>
+               <destattach>0.6</destattach>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <name>G</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><destattach>0.8</destattach></path></diagram>
+         <diagram>
+            <path>
+               <destattach>0.8</destattach>
+            </path>
+         </diagram>
       </composition>
    </absolute>
    <entity_type>
@@ -74,9 +90,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>position 1</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path>
-             <destattach>0.25</destattach>
-             <label><position>Upside</position></label>
+         <diagram>
+            <path>
+               <destattach>0.25</destattach>
+               <label>
+                  <position>Upside</position>
+               </label>
              </path>
          </diagram>
       </reference>
@@ -84,19 +103,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>position 2</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path>
+         <diagram>
+            <path>
                 <destattach>0.50</destattach>
-                <label><position>Upside</position></label>
-         </path></diagram>
+                <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
       </reference>
       <reference>
          <name>position 3</name>
          <type>nucleotide</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path>
+         <diagram>
+            <path>
                  <destattach>0.75</destattach>
-                 <label><position>Upside</position></label>
-         </path></diagram>
+                 <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
       </reference>
       <presentation>
          <x>0.5</x>
@@ -116,5 +143,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/chromosome.xml--> 
-

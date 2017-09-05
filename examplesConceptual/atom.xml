@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/atom.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,15 +22,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>1.8</et_width>
          <et_y_separation>0.6</et_y_separation>
    </defaults>
    <entity_type>
       <name>atom</name>
-      <presentation><x>2.3</x><y>0.1</y></presentation>
+      <presentation>
+         <x>2.3</x>
+         <y>0.1</y>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>nucleus</type>
@@ -41,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <group>
       <name>atom_children</name>
-      <presentation><below>atom</below></presentation>
+      <presentation>
+         <below>atom</below>
+      </presentation>
       <entity_type>
          <name>nucleus</name>
          <composition>
@@ -55,20 +60,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
           <name>electron</name>
-          <presentation><rightOf>nucleus</rightOf></presentation>
+          <presentation>
+            <rightOf>nucleus</rightOf>
+         </presentation>
       </entity_type>
    </group>
    <group>
       <name>nucleons</name>
-      <presentation><below>nucleus</below></presentation>
+      <presentation>
+         <below>nucleus</below>
+      </presentation>
       <entity_type>
           <name>proton</name>
       </entity_type>
       <entity_type>
           <name>neutron</name>
-          <presentation><rightOf>proton</rightOf></presentation>
+          <presentation>
+            <rightOf>proton</rightOf>
+         </presentation>
       </entity_type>
    </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/atom.xml--> 
-

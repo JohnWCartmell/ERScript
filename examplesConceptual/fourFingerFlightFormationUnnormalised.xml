@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/fourFingerFlightFormationUnnormalised.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,78 +22,92 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
-    <diagram>
-      <deltaw>1.5</deltaw>
-    </diagram>
+      <diagram>
+         <deltaw>1.5</deltaw>
+      </diagram>
   </presentation>
-  <defaults><et_width>1.8</et_width></defaults>
-<entity_type>
-   <name>flight</name>
-   <presentation><x>0.3</x><y>0.1</y></presentation>
-   <composition>
-      <name>lead</name>
-      <type>element</type>
-      <diagram>
-         <path>
-            <label><position>Left</position></label>
-            <align>ToSrc</align>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <name>second</name>
-      <type>element</type>
-      <diagram>
-         <path>
-            <align>ToSrc</align>
-         </path>
-      </diagram>
-   </composition>
-   <reference>
-       <name>flight leader</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>aircraft</type>
-       <diagram>
-          <path>
-              <label><position>Upside</position></label>
+  <defaults>
+      <et_width>1.8</et_width>
+   </defaults>
+   <entity_type>
+      <name>flight</name>
+      <presentation>
+         <x>0.3</x>
+         <y>0.1</y>
+      </presentation>
+      <composition>
+         <name>lead</name>
+         <type>element</type>
+         <diagram>
+            <path>
+               <label>
+                  <position>Left</position>
+               </label>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>second</name>
+         <type>element</type>
+         <diagram>
+            <path>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+      <reference>
+         <name>flight leader</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>aircraft</type>
+         <diagram>
+            <path>
+              <label>
+                  <position>Upside</position>
+               </label>
               <srcarmlen>0.8</srcarmlen>
               <destarmlen>0.8</destarmlen>
-          </path>
-       </diagram>
-   </reference>
-</entity_type>
-<entity_type>
-   <name>element</name>
-   <presentation><below>flight</below><y>0.9</y></presentation>
-   <dependency_group/>
-   <composition>
-      <name>leader</name>
-      <type>aircraft</type>
-      <diagram>
-         <path>
-            <label><position>Left</position></label>
-            <align>ToSrc</align>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <name>wingman</name>
-      <type>aircraft</type>
-      <diagram>
-         <path>
-            <align>ToSrc</align>
-         </path>
-      </diagram>
-   </composition>
-</entity_type>
-<entity_type>
-   <name>aircraft</name>
-   <presentation><below>element</below><y>0.9</y></presentation>
-   <dependency_group/>
-</entity_type>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>element</name>
+      <presentation>
+         <below>flight</below>
+         <y>0.9</y>
+      </presentation>
+      <dependency_group/>
+      <composition>
+         <name>leader</name>
+         <type>aircraft</type>
+         <diagram>
+            <path>
+               <label>
+                  <position>Left</position>
+               </label>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>wingman</name>
+         <type>aircraft</type>
+         <diagram>
+            <path>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>aircraft</name>
+      <presentation>
+         <below>element</below>
+         <y>0.9</y>
+      </presentation>
+      <dependency_group/>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/fourFingerFlightFormationUnnormalised.xml--> 
-

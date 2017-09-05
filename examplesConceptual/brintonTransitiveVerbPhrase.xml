@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveVerbPhrase.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,21 +22,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>transitive verb phrase</name>
-      <presentation><x>0.5</x><y>0.1</y><w>3.0</w></presentation>
+      <presentation>
+         <x>0.5</x>
+         <y>0.1</y>
+         <w>3.0</w>
+      </presentation>
       <composition>
          <name>head</name>
          <cardinality>ExactlyOne</cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
                  <srcattach>0.2</srcattach>
             </path>
          </diagram>
@@ -53,12 +59,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>verb</name>
-       <presentation><below>transitive verb phrase</below><x>-1.1</x><w>1.6</w></presentation>
+       <presentation>
+         <below>transitive verb phrase</below>
+         <x>-1.1</x>
+         <w>1.6</w>
+      </presentation>
    </entity_type>
    <entity_type>
        <name>noun phrase</name>
-       <presentation><rightOf>verb</rightOf><x>0.4</x><w>2.0</w></presentation>
+       <presentation>
+         <rightOf>verb</rightOf>
+         <x>0.4</x>
+         <w>2.0</w>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveVerbPhrase.xml--> 
-

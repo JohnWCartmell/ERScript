@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalPhysical1.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
      <diagram>
         <deltaw>0.3</deltaw>
@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <entity_type>
      <name>entity type</name>
      <presentation>
-       <x>0.7</x>
-       <deltaw>6.0</deltaw>
+         <x>0.7</x>
+         <deltaw>6.0</deltaw>
      </presentation>
      <value>
         <name>name</name>
@@ -47,7 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <diagram>
              <path>
                 <align>ToDest</align>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
              </path>
           </diagram>
      </composition>
@@ -57,9 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ZeroOneOrMore</cardinality>
           <diagram>
              <path>
-                <!-- <srcattach>0.3</srcattach> -->
+                
                 <align>ToDest</align>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
              </path>
           </diagram>
      </composition>
@@ -72,8 +76,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              <path>
                 <align>ToDest</align>
                 <destattach>0.3</destattach>
-                <label><position>Left</position></label>
-                <inverse><label><position>Left</position></label></inverse>
+                <label>
+                  <position>Left</position>
+               </label>
+                <inverse>
+                  <label>
+                     <position>Left</position>
+                  </label>
+               </inverse>
              </path>
          </diagram>
      </composition>
@@ -99,10 +109,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <entity_type>
          <name>identifier</name>
          <presentation>
-            <!-- <h>2.6</h> -->
+            
          </presentation>
          <reference>
-             <!--<name>attribute</name>-->
+             
              <name>is</name>
              <type>ASSOCIATION</type>
              <cardinality>ExactlyOne</cardinality>
@@ -110,11 +120,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              <diagram>
                  <path>
                     <align>ToSrc</align>
-                    <!--
-                    <srcarmlen>0</srcarmlen>
-                    <destarmlen>0</destarmlen>
-                     -->
-                    <label><position>Upside</position></label>
+                    
+                    <label>
+                     <position>Upside</position>
+                  </label>
                  </path>
              </diagram>
          </reference>
@@ -145,7 +154,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <name>Split</name>
                <x>0.6</x> 
                <y>0.2</y>
-               <!--<h>2.0</h>-->
+               
            </presentation>
            <value>
                <name>name</name>
@@ -204,7 +213,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                  <destsign>-1</destsign>
                  <destattach>0.666</destattach>
                  <destarmlen>0.4</destarmlen>
-                 <vstep><absdim><src>0.75</src></absdim></vstep>
+                 <vstep>
+                     <absdim>
+                        <src>0.75</src>
+                     </absdim>
+                  </vstep>
                  <label>
                     <position>Upside</position>
                  </label>
@@ -214,5 +227,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </entity_type>
   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalPhysical1.xml--> 
-

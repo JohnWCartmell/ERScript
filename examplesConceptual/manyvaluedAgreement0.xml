@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/manyvaluedAgreement0.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,46 +22,61 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults><et_width>1.5</et_width></defaults>
-<presentation><diagram><deltah>0</deltah></diagram></presentation>
-<absolute>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>agreement</type>
-   </composition>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>individual</type>
-   </composition>
-</absolute>
-<entity_type>
-   <name>agreement</name>
-   <presentation><x>0</x><y>1.0</y></presentation>
-   <reference>
-      <name>between</name>
-      <cardinality>OneOrMore</cardinality>
-      <type>individual</type>
-      <inverse>party to</inverse>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.5</et_width>
+   </defaults>
+   <presentation>
       <diagram>
-          <path>
-             <label><position>Upside</position></label>
-             <inverse><label><position>Downside</position></label></inverse>
-          </path>
+         <deltah>0</deltah>
       </diagram>
-   </reference>
-</entity_type>
-<entity_type>
-   <name>individual</name>
-   <reference>
-      <name>party to</name>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>agreement</type>
-      <inverse>between</inverse>
-   </reference>
-    <presentation><rightOf>agreement</rightOf><x>1.8</x></presentation>
-</entity_type>
+   </presentation>
+   <absolute>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>agreement</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>individual</type>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>agreement</name>
+      <presentation>
+         <x>0</x>
+         <y>1.0</y>
+      </presentation>
+      <reference>
+         <name>between</name>
+         <cardinality>OneOrMore</cardinality>
+         <type>individual</type>
+         <inverse>party to</inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position>Upside</position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>individual</name>
+      <reference>
+         <name>party to</name>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>agreement</type>
+         <inverse>between</inverse>
+      </reference>
+      <presentation>
+         <rightOf>agreement</rightOf>
+         <x>1.8</x>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/manyvaluedAgreement0.xml--> 
-

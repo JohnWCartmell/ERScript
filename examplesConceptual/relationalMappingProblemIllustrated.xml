@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemIllustrated.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,14 +22,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
-    <diagram>
-<!--
-      <deltaw>0.4</deltaw>
-      <deltah>0.2</deltah>
--->
+      <diagram>
+
     </diagram>
   </presentation>
    <entity_type>
@@ -96,13 +93,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <cardinality>ZeroOrOne</cardinality>
             <diagram>
                <path>
-   	         <srcattach>0.25</srcattach>
-                <srcarmlen>0.4</srcarmlen>
-                <destarmlen>0.3</destarmlen>
+   	              <srcattach>0.25</srcattach>
+                  <srcarmlen>0.4</srcarmlen>
+                  <destarmlen>0.3</destarmlen>
                  <label>
                     <position>Upside</position>
                  </label>
-                 <inverse><label><position>Downside</position></label></inverse>
+                 <inverse>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </inverse>
                </path>
             </diagram>
          </reference>
@@ -113,8 +114,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <diagram>
                <path>
                  <srcattach>0.8</srcattach>
-                <srcarmlen>0.4</srcarmlen>
-                <destarmlen>0.3</destarmlen>
+                  <srcarmlen>0.4</srcarmlen>
+                  <destarmlen>0.3</destarmlen>
                  <label>
                     <position>Downside</position>
                  </label>
@@ -168,5 +169,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMappingProblemIllustrated.xml--> 
-

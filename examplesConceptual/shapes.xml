@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/shapes.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>Shape</name>
       <value>
@@ -39,7 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </value>
       <entity_type>
          <name>regular polygon</name>
-         <presentation><w>2.5</w></presentation>
+         <presentation>
+            <w>2.5</w>
+         </presentation>
          <value>
             <name>no of sides</name>
             <type>string</type>
@@ -55,7 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
          <name>circle</name>
-         <presentation><rightOf>regular polygon</rightOf></presentation>
+         <presentation>
+            <rightOf>regular polygon</rightOf>
+         </presentation>
          <value>
             <name>radius</name>
             <type>string</type>
@@ -63,7 +67,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
          <name>ellipse</name>
-         <presentation><rightOf>circle</rightOf><w>2.5</w></presentation>
+         <presentation>
+            <rightOf>circle</rightOf>
+            <w>2.5</w>
+         </presentation>
          <value>
             <name>major axis</name>
             <type>string</type>
@@ -75,5 +82,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/shapes.xml--> 
-

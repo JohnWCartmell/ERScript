@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/recursiveManyMany.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,40 +22,49 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation>
-   <diagram>
-      <deltaw>1.2</deltaw>
-   </diagram>
-</presentation>
-<defaults><et_width>1.8</et_width></defaults>
-<entity_type>
-    <name>individual</name>
-    <presentation><x>0</x><y>0</y><h>1.2</h></presentation>
-    <reference>
-       <name>right</name>
-       <cardinality>OneOrMore</cardinality>
-       <type>individual</type>
-       <inverse>right of</inverse>
-       <diagram>
-          <path>
-             <srcattach>0.3</srcattach>
-             <destattach>0.7</destattach>
-             <srcarmlen>1.0</srcarmlen>
-             <destarmlen>1.0</destarmlen>
-             <label><position>Upside</position></label>
-             <inverse><label><position>Downside</position></label></inverse>
-          </path>
-       </diagram>
-    </reference>
-    <reference>
-       <name>right of</name>
-       <cardinality>OneOrMore</cardinality>
-       <type>individual</type>
-       <inverse>right</inverse>
-    </reference>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>1.2</deltaw>
+      </diagram>
+   </presentation>
+   <defaults>
+      <et_width>1.8</et_width>
+   </defaults>
+   <entity_type>
+      <name>individual</name>
+      <presentation>
+         <x>0</x>
+         <y>0</y>
+         <h>1.2</h>
+      </presentation>
+      <reference>
+         <name>right</name>
+         <cardinality>OneOrMore</cardinality>
+         <type>individual</type>
+         <inverse>right of</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <destattach>0.7</destattach>
+               <srcarmlen>1.0</srcarmlen>
+               <destarmlen>1.0</destarmlen>
+               <label>
+                  <position>Upside</position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>right of</name>
+         <cardinality>OneOrMore</cardinality>
+         <type>individual</type>
+         <inverse>right</inverse>
+      </reference>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/recursiveManyMany.xml--> 
-

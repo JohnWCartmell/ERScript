@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/sentenceConstituents0.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,12 +22,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <defaults><et_width>2.1</et_width></defaults>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>2.1</et_width>
+   </defaults>
    <entity_type>
       <name>phrase</name>
-      <presentation><x>0.5</x><y>0</y></presentation>
+      <presentation>
+         <x>0.5</x>
+         <y>0</y>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>sentence constituent</type>
@@ -34,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>sentence constituent</name>
-       <presentation><below>phrase</below></presentation>
+       <presentation>
+         <below>phrase</below>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/sentenceConstituents0.xml--> 
-

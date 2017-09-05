@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonAdjectivalPhrase.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,90 +22,104 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
 
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation>
-<!--
-  <diagram>
-    <deltaw>0.95</deltaw>
-  </diagram>
--->
 </presentation>
-<defaults><!--<et_width>2.5</et_width>--></defaults>
-<entity_type>
-   <name>adjectival phrase</name>
-   <presentation>
-       <x>2.5</x><y>0.1</y><w>2.3</w>
-   </presentation>
-   <composition>
-      <cardinality>ZeroOrOne</cardinality>
-      <type>Advpbar</type>
-      <diagram>
-         <path>
-           <destarmlen>0.3</destarmlen>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <cardinality>ExactlyOne</cardinality>
-      <type>adjective</type>
-      <diagram>
-         <path>
-           <destarmlen>0.3</destarmlen>
-         </path>
-      </diagram>
-   </composition>
-</entity_type>
-<entity_type>
-   <name>Advpbar</name>
-   <presentation>
-       <below>adjectival phrase</below><x>-1.45</x>
-       <name>None</name>
-   </presentation>
-   <dependency_group>
-       <presentation><x>1.3</x><y>0.1</y><w>1.5</w></presentation>
-   </dependency_group>
+   <defaults/>
    <entity_type>
-      <name>degree</name>
-      <presentation><y>0</y></presentation>
-   </entity_type>
-   <entity_type>
-      <name>adverbial_phrase</name>
+      <name>adjectival phrase</name>
       <presentation>
-         <rightOf>degree</rightOf><x>0.2</x>
-         <name>Split</name>
-         <h>0.8</h>
+         <x>2.5</x>
+         <y>0.1</y>
+         <w>2.3</w>
       </presentation>
       <composition>
          <cardinality>ZeroOrOne</cardinality>
-         <type>degree</type>
-          <diagram><path><srcarmlen>0.5</srcarmlen>
-                         <srcattach>0.2</srcattach>
-                         <destattach>0.5</destattach>
-                         <destarmlen>0.65</destarmlen>
-                         <hstep><absdim><src>-2.3</src></absdim></hstep>
-                   </path>
-          </diagram>
+         <type>Advpbar</type>
+         <diagram>
+            <path>
+               <destarmlen>0.3</destarmlen>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <cardinality>ExactlyOne</cardinality>
-         <type>adverb</type>
-         <diagram><path><srcattach>0.5</srcattach></path></diagram>
+         <type>adjective</type>
+         <diagram>
+            <path>
+               <destarmlen>0.3</destarmlen>
+            </path>
+         </diagram>
       </composition>
    </entity_type>
-</entity_type>
-<entity_type>
-   <name>adverb</name>
-   <presentation>
-      <below>adverbial_phrase</below><y>0.25</y>
-   </presentation>
-</entity_type>
-<entity_type>
-   <name>adjective</name>
-   <presentation>
-      <rightOf>Advpbar</rightOf>
-   </presentation>
-</entity_type>
+   <entity_type>
+      <name>Advpbar</name>
+      <presentation>
+         <below>adjectival phrase</below>
+         <x>-1.45</x>
+         <name>None</name>
+      </presentation>
+      <dependency_group>
+         <presentation>
+            <x>1.3</x>
+            <y>0.1</y>
+            <w>1.5</w>
+         </presentation>
+      </dependency_group>
+      <entity_type>
+         <name>degree</name>
+         <presentation>
+            <y>0</y>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>adverbial_phrase</name>
+         <presentation>
+            <rightOf>degree</rightOf>
+            <x>0.2</x>
+            <name>Split</name>
+            <h>0.8</h>
+         </presentation>
+         <composition>
+            <cardinality>ZeroOrOne</cardinality>
+            <type>degree</type>
+            <diagram>
+               <path>
+                  <srcarmlen>0.5</srcarmlen>
+                         <srcattach>0.2</srcattach>
+                         <destattach>0.5</destattach>
+                         <destarmlen>0.65</destarmlen>
+                         <hstep>
+                     <absdim>
+                        <src>-2.3</src>
+                     </absdim>
+                  </hstep>
+                   </path>
+            </diagram>
+         </composition>
+         <composition>
+            <cardinality>ExactlyOne</cardinality>
+            <type>adverb</type>
+            <diagram>
+               <path>
+                  <srcattach>0.5</srcattach>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>adverb</name>
+      <presentation>
+         <below>adverbial_phrase</below>
+         <y>0.25</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>adjective</name>
+      <presentation>
+         <rightOf>Advpbar</rightOf>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonAdjectivalPhrase.xml--> 
-

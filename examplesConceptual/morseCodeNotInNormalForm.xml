@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/morseCodeNotInNormalForm.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,73 +22,83 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <defaults><et_width>1.6</et_width></defaults>
-	<entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.6</et_width>
+   </defaults>
+	  <entity_type>
 	        <name>letter</name>
-		<composition>
-			<type>upper_case</type>
-			<cardinality>ExactlyOne</cardinality>
-		</composition>
-		<composition>
-			<type>lower_case</type>
-			<cardinality>ExactlyOne</cardinality>
-		</composition>
-                <presentation><x>1.4</x><y>0.1</y></presentation>
-	</entity_type>
-	<entity_type>
-		<name>Form</name>
-		<presentation>
-			<below>letter</below>
-		</presentation>
-		<entity_type>
-			<name>upper_case</name>
-		</entity_type>
-		<entity_type>
-			<name>lower_case</name>
-			<presentation>
+		    <composition>
+			      <type>upper_case</type>
+			      <cardinality>ExactlyOne</cardinality>
+		    </composition>
+		    <composition>
+			      <type>lower_case</type>
+			      <cardinality>ExactlyOne</cardinality>
+		    </composition>
+                <presentation>
+         <x>1.4</x>
+         <y>0.1</y>
+      </presentation>
+	  </entity_type>
+	  <entity_type>
+		    <name>Form</name>
+		    <presentation>
+			      <below>letter</below>
+		    </presentation>
+		    <entity_type>
+			      <name>upper_case</name>
+		    </entity_type>
+		    <entity_type>
+			      <name>lower_case</name>
+			      <presentation>
                            <rightOf>upper_case</rightOf>
-			</presentation>
-		</entity_type>
+			      </presentation>
+		    </entity_type>
                 <reference>
                     <name>has code</name>
                     <type>morse code</type>
                     <cardinality>ExactlyOne</cardinality>
                     <inverse>for</inverse>
-                    <diagram><path><srcarmlen>1.0</srcarmlen><destarmlen>1.0</destarmlen></path></diagram>
+                    <diagram>
+            <path>
+               <srcarmlen>1.0</srcarmlen>
+               <destarmlen>1.0</destarmlen>
+            </path>
+         </diagram>
                 </reference>
-	</entity_type>
-	<entity_type>
+	  </entity_type>
+	  <entity_type>
 	        <name>morse code</name>
-		<composition>
-			<type>Element</type>
-			<cardinality>OneOrMore</cardinality>
+		    <composition>
+			      <type>Element</type>
+			      <cardinality>OneOrMore</cardinality>
                         <sequence/>
-		</composition>
+		    </composition>
                 <reference>
                     <name>for</name>
                     <type>Form</type>
                     <inverse>has code</inverse>
                     <cardinality>OneOrMore</cardinality>
                 </reference>
-                <presentation><rightOf>letter</rightOf><x>4</x></presentation>
-	</entity_type>
-	<entity_type>
-		<name>Element</name>
-		<presentation>
-			<below>morse code</below>
-		</presentation>
-		<entity_type>
-			<name>dot</name>
-		</entity_type>
-		<entity_type>
-			<name>dash</name>
-			<presentation>
+                <presentation>
+         <rightOf>letter</rightOf>
+         <x>4</x>
+      </presentation>
+	  </entity_type>
+	  <entity_type>
+		    <name>Element</name>
+		    <presentation>
+			      <below>morse code</below>
+		    </presentation>
+		    <entity_type>
+			      <name>dot</name>
+		    </entity_type>
+		    <entity_type>
+			      <name>dash</name>
+			      <presentation>
                            <rightOf>dot</rightOf>
-			</presentation>
-		</entity_type>
-	</entity_type>
+			      </presentation>
+		    </entity_type>
+	  </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/morseCodeNotInNormalForm.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/shlaerMellorDeptStudentProfessor3.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,24 +22,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
 
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<!-- <defaults><et_width>1.8</et_width><et_height>1.2</et_height></defaults>  -->
-<presentation><diagram><deltah>0.5</deltah></diagram></presentation> 
-<entity_type>
-   <name>department</name>
-   <presentation><x>2.8</x><y>0.1</y><deltaw>0.2</deltaw></presentation>
-   <value>
-      <name>departmentId</name>
-      <type>string</type>
-      <identifying/>
-   </value>
-   <composition>
-      <id>R3</id>
-      <type>student</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <inverse>within</inverse>
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation> 
+   <entity_type>
+      <name>department</name>
+      <presentation>
+         <x>2.8</x>
+         <y>0.1</y>
+         <deltaw>0.2</deltaw>
+      </presentation>
+      <value>
+         <name>departmentId</name>
+         <type>string</type>
+         <identifying/>
+      </value>
+      <composition>
+         <id>R3</id>
+         <type>student</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <inverse>within</inverse>
          <diagram>
             <path>
                <inverse>
@@ -48,89 +56,90 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </inverse>
             </path>
          </diagram>
-   </composition>
-   <composition>
-      <!--<name>R1</name>-->
-      <id>R1</id>
-      <type>professor</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <inverse>within</inverse>
-      <diagram>
+      </composition>
+      <composition>
+      
+         <id>R1</id>
+         <type>professor</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <inverse>within</inverse>
+         <diagram>
             <path>
             </path>
-      </diagram>
-   </composition>
-</entity_type>
-<group>
-   <presentation><below>department</below><y>0.9</y></presentation>
-   <entity_type>
-       <name>student</name>
-       <dependency>
-          <name>within</name>
-       </dependency>
+         </diagram>
+      </composition>
+   </entity_type>
+   <group>
+      <presentation>
+         <below>department</below>
+         <y>0.9</y>
+      </presentation>
+      <entity_type>
+         <name>student</name>
+         <dependency>
+            <name>within</name>
+         </dependency>
 
-      <value>
-         <name>departmentId (R3,R2)</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-       <value>
-          <name>studentNoInDept</name>
-          <type>string</type>
-          <identifying/>
-       </value>
-       <value>
-          <name>advisorNo(R2)</name>
-          <type>string</type>
-       </value>
-       <reference>
-          <name>advised_by</name>
-          <type>professor</type>
-          <id>R2</id>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
-             <path>
-                <align>ToSrc</align>
-                <label>
-                  <name>Split</name> 
-                  <position>Upside</position>
-                </label>
-                <id>
-                   <label>
-                     <position>Downside</position>
-                   </label>
-                </id>
-             </path>
-          </diagram>
-       </reference>
-       <presentation>
+         <value>
+            <name>departmentId (R3,R2)</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <value>
+            <name>studentNoInDept</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <value>
+            <name>advisorNo(R2)</name>
+            <type>string</type>
+         </value>
+         <reference>
+            <name>advised_by</name>
+            <type>professor</type>
+            <id>R2</id>
+            <cardinality>ExactlyOne</cardinality>
+            <diagram>
+               <path>
+                  <align>ToSrc</align>
+                  <label>
+                     <name>Split</name> 
+                     <position>Upside</position>
+                  </label>
+                  <id>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </id>
+               </path>
+            </diagram>
+         </reference>
+         <presentation>
            <name>Split</name>
            <deltaw>0.2</deltaw>
-       </presentation>
-   </entity_type>
-   <entity_type>
-       <name>professor</name>
-       <presentation>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>professor</name>
+         <presentation>
            <rightOf>student</rightOf>
            <x>1.5</x>
            <deltaw>0.2</deltaw>
-       </presentation>
-       <dependency>
-          <name>within</name>
-       </dependency>
-      <value>
-         <name>departmentId (R1)</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-       <value>
-          <name>profNoInDept</name>
-          <type>string</type>
-          <identifying/>
-       </value>
-   </entity_type>
-</group>
+         </presentation>
+         <dependency>
+            <name>within</name>
+         </dependency>
+         <value>
+            <name>departmentId (R1)</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <value>
+            <name>profNoInDept</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      </entity_type>
+   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/shlaerMellorDeptStudentProfessor3.xml--> 
-

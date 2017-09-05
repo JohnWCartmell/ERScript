@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/performanceOfPlayAnnotated.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,9 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
    <absolute>
       <composition>
          <type>performance</type>
@@ -36,7 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>performance</name>
-      <presentation><y>1.0</y></presentation>
+      <presentation>
+         <y>1.0</y>
+      </presentation>
       <composition>
          <type>cast member</type>
          <cardinality>OneOrMore</cardinality>
@@ -47,15 +53,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>play</name>
-      <presentation><rightOf>performance</rightOf><x>2.5</x></presentation>
+      <presentation>
+         <rightOf>performance</rightOf>
+         <x>2.5</x>
+      </presentation>
       <composition>
          <type>character</type>
          <cardinality>OneOrMore</cardinality>
@@ -63,7 +78,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>cast member</name>
-      <presentation><below>performance</below></presentation>
+      <presentation>
+         <below>performance</below>
+      </presentation>
       <dependency>
           <name>..</name>
           <type>performance</type>
@@ -89,21 +106,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagonal>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
-              <scope><label><xAdjustment>-0.5</xAdjustment></label></scope>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
+              <scope>
+                  <label>
+                     <xAdjustment>-0.5</xAdjustment>
+                  </label>
+               </scope>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>character</name>
-      <presentation><rightOf>cast member</rightOf><below>play</below></presentation>
+      <presentation>
+         <rightOf>cast member</rightOf>
+         <below>play</below>
+      </presentation>
       <dependency>
           <name>..</name>
           <type>play</type>
       </dependency>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/performanceOfPlayAnnotated.xml--> 
-

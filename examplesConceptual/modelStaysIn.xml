@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelStaysIn.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <absolute>
       <composition>
          <type>performance</type>
@@ -35,7 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>performance</name>
-      <presentation><y>1.0</y></presentation>
+      <presentation>
+         <y>1.0</y>
+      </presentation>
       <composition>
          <type>cast member</type>
          <cardinality>OneOrMore</cardinality>
@@ -46,15 +48,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>town</name>
-      <presentation><rightOf>performance</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>performance</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>hotel</type>
          <cardinality>OneOrMore</cardinality>
@@ -62,15 +73,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>cast member</name>
-      <presentation><below>performance</below></presentation>
+      <presentation>
+         <below>performance</below>
+      </presentation>
       <reference>
          <name>stays in</name>
          <type>hotel</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
@@ -83,5 +102,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelStaysIn.xml--> 
-

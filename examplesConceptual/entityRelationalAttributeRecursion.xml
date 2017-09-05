@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalAttributeRecursion.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
            <deltaw>0.3</deltaw>
@@ -42,7 +42,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>entity type 2</type>
          <cardinality>ExactlyOne</cardinality>
          <inverse>identity</inverse>
-         <diagram><path><inverse><label><name>None</name></label></inverse></path></diagram>
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <name>None</name>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
       </reference>
    </entity_type>
    <entity_type>
@@ -55,7 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
           <type>implementing_attribute (i+1)</type>
-          <diagram><path/></diagram>
+          <diagram>
+            <path/>
+         </diagram>
       </reference>
    </entity_type>
    <entity_type>
@@ -78,7 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>relationship 1</name>
       <presentation>
-           <!-- <shape>TopLeft</shape>  -->
+           
            <below>entity type 2</below>
       </presentation>
       <composition>
@@ -119,7 +129,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        <name>implementing_attribute (i+1)</name>
        <presentation>
             <below>relationship 1</below>
-            <ym><relative><to>attribute (i)</to></relative></ym>
+            <ym>
+            <relative>
+               <to>attribute (i)</to>
+            </relative>
+         </ym>
             <shape>Bottom</shape>
             <name>Split</name>
        </presentation>
@@ -138,5 +152,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        </reference>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalAttributeRecursion.xml--> 
-

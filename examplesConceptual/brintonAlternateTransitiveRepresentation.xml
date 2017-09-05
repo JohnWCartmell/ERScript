@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonAlternateTransitiveRepresentation.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
          <deltaw>0.2</deltaw>
@@ -33,7 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <entity_type>
       <name>verb phrase</name>
-      <presentation><y>0.1</y><w>4.2</w></presentation>
+      <presentation>
+         <y>0.1</y>
+         <w>4.2</w>
+      </presentation>
       <composition>
          <name>head</name>
          <cardinality>ExactlyOne</cardinality>
@@ -41,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
                 <align>ToDest</align>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
             </path>
          </diagram>
       </composition>
@@ -53,7 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <path>
                 <align>ToDest</align>
                 <destattach>0.33</destattach>
-                <label><position>Left</position><name>Split</name></label>
+                <label>
+                  <position>Left</position>
+                  <name>Split</name>
+               </label>
             </path>
          </diagram>
       </composition>
@@ -65,20 +73,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <path>
                 <align>ToDest</align>
                 <destattach>0.66</destattach>
-                <label><name>Split</name></label>
+                <label>
+                  <name>Split</name>
+               </label>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
        <name>verb</name>
-       <presentation><below>verb phrase</below><x>-1.2</x><w>1.6</w></presentation>
+       <presentation>
+         <below>verb phrase</below>
+         <x>-1.2</x>
+         <w>1.6</w>
+      </presentation>
    </entity_type>
    <entity_type>
        <name>noun phrase</name>
-       <presentation><rightOf>verb</rightOf><x>0.4</x><w>2.0</w></presentation>
+       <presentation>
+         <rightOf>verb</rightOf>
+         <x>0.4</x>
+         <w>2.0</w>
+      </presentation>
          <dependency_group/>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonAlternateTransitiveRepresentation.xml--> 
-

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+      <diagram>
+         <deltaw>0.2</deltaw>
+      </diagram>
+  </presentation>
+   <entity_type>
+      <name>scope left hand context</name>
+      <presentation>
+         <x>0.2</x>
+         <shape>TopLeft</shape>
+      </presentation>
+      <composition>
+         <name>left hand side</name>
+         <type>X</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <label>
+                   <position>Left</position>
+                   <yAdjustment>0.25</yAdjustment>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+      <reference>
+         <name>base relationship</name>
+         <type>scope right hand context</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+              <label>
+                 <position>Upside</position>
+                 <xAdjustment>0.2</xAdjustment>
+              </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>scope right hand context</name>
+      <presentation>
+          <rightOf>scope left hand context</rightOf> 
+         <x>2.5</x>
+          <shape>TopRight</shape>
+      </presentation>
+      <composition>
+         <name>right hand side</name>
+         <type>Y</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <label>
+                   <yAdjustment>0.25</yAdjustment>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>X</name>
+      <presentation>
+         <below>scope left hand context</below>
+         <shape>BottomLeft</shape>
+      </presentation>
+      <reference>
+         <name>subject relationship</name>
+         <type>Y</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+              <label>
+                 <position>Upside</position>
+                 <xAdjustment>0.825</xAdjustment>
+              </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>Y</name>
+      <presentation>
+         <rightOf>X</rightOf>
+         <below>scope right hand context</below>
+         <shape>BottomRight</shape>
+      </presentation>
+   </entity_type>
+</entity_model>

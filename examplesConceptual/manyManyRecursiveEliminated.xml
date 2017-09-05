@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/manyManyRecursiveEliminated.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,42 +22,60 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltah>0.1</deltah></diagram></presentation>
-<entity_type>
-    <name/>
-    <presentation><x>0.2</x><y>0.2</y><h>1.1</h></presentation>
-</entity_type>
-<entity_type>
-    <name> </name>
-    <reference>
-       <name>from</name>
-       <type/>
-       <cardinality>ExactlyOne</cardinality>
-       <identifying/>
-       <diagram>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.1</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name/>
+      <presentation>
+         <x>0.2</x>
+         <y>0.2</y>
+         <h>1.1</h>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name> </name>
+      <reference>
+         <name>from</name>
+         <type/>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
+         <diagram>
            <path>
                <align>ToSrc</align>
-               <label><position>Upside</position><yAdjustment>-0.1</yAdjustment></label>
+               <label>
+                  <position>Upside</position>
+                  <yAdjustment>-0.1</yAdjustment>
+               </label>
            </path>
-       </diagram>
-    </reference>
-    <reference>
-       <name>to</name>
-       <type/>
-       <cardinality>ExactlyOne</cardinality>
-       <identifying/>
-       <diagram>
+         </diagram>
+      </reference>
+      <reference>
+         <name>to</name>
+         <type/>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
+         <diagram>
            <path>
                <align>ToSrc</align>
-               <label><yAdjustment>0.1</yAdjustment></label>
-               <inverse><label><position>Downside</position></label></inverse>
+               <label>
+                  <yAdjustment>0.1</yAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
            </path>
-       </diagram>
-    </reference>
-    <presentation><rightOf/><x>1.4</x><h>1.1</h></presentation>
-</entity_type>
+         </diagram>
+      </reference>
+      <presentation>
+         <rightOf/>
+         <x>1.4</x>
+         <h>1.1</h>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/manyManyRecursiveEliminated.xml--> 
-

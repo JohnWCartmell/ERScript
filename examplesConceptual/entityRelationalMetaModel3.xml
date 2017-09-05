@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel3.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
      <diagram>
         <deltaw>1.3</deltaw>
@@ -30,23 +30,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </diagram>
   </presentation>
   <absolute>
-    <name>entity_model</name>
-    <composition>
-      <type>entity type</type>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <diagram>
-        <path>
-          <destattach>0.66</destattach>
-        </path>
-      </diagram>
-    </composition>
+      <name>entity_model</name>
+      <composition>
+         <type>entity type</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <destattach>0.66</destattach>
+            </path>
+         </diagram>
+      </composition>
   </absolute>
   <entity_type>
      <name>entity type</name>
      <presentation>
-       <x>1.1</x>
-       <y>1.6</y>
-       <deltaw>0.6</deltaw>
+         <x>1.1</x>
+         <y>1.6</y>
+         <deltaw>0.6</deltaw>
      </presentation>
      <value>
         <name>name</name>
@@ -68,12 +68,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <srcattach>0.2</srcattach>
                <destarmlen>0.5</destarmlen>
                <destattach>0.33333333333</destattach>
-               <hstep><absdim><src>-1</src></absdim></hstep>
+               <hstep>
+                  <absdim>
+                     <src>-1</src>
+                  </absdim>
+               </hstep>
                <inverse>
-               <label>
-                  <xAdjustment>0.9</xAdjustment>
-                  <yAdjustment>-0.25</yAdjustment>
-               </label>
+                  <label>
+                     <xAdjustment>0.9</xAdjustment>
+                     <yAdjustment>-0.25</yAdjustment>
+                  </label>
                </inverse>
             </path>
          </diagram>
@@ -90,7 +94,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <composition>
           <type>reference_relationship</type>
          <cardinality>ZeroOneOrMore</cardinality>
-          <diagram><path><srcattach>0.8</srcattach></path></diagram>
+          <diagram>
+            <path>
+               <srcattach>0.8</srcattach>
+            </path>
+         </diagram>
      </composition>
   </entity_type>
   <group>
@@ -138,7 +146,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               <path>
                   <srcattach>0.2</srcattach>
                   <srcarmlen>0.3</srcarmlen>
-                  <hstep><absdim><src>0.1</src></absdim></hstep>
+                  <hstep>
+                     <absdim>
+                        <src>0.1</src>
+                     </absdim>
+                  </hstep>
               </path>
            </diagram>
         </reference>
@@ -154,24 +166,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                  <destsign>-1</destsign>
                  <destattach>0.8</destattach>
                  <destarmlen>0.4</destarmlen>
-                 <vstep><absdim><src>0.8</src></absdim></vstep>
+                 <vstep>
+                     <absdim>
+                        <src>0.8</src>
+                     </absdim>
+                  </vstep>
                  <label>
                     <position>Upside</position>
-                    <!-- <xAdjustment>1.0</xAdjustment>  -->
+                    
                  </label>
-                 <!--
-                 <inverse>
-                    <label>
-                      <position>Downside</position>
-                      <xAdjustment>0.5</xAdjustment>
-                    </label>
-                 </inverse>
-                 -->
+                 
               </path>
            </diagram>
         </reference>
      </entity_type>
   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel3.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeDiagonalLeft.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,11 +22,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
      <diagram>
-       <deltah>0.2</deltah>
+         <deltah>0.2</deltah>
      </diagram>
   </presentation>
      <entity_type>
@@ -52,7 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <diagram>
              <path>
                 <inverse>
-                  <label><position>Left</position></label>
+                  <label>
+                     <position>Left</position>
+                  </label>
                 </inverse>
              </path>
           </diagram>
@@ -90,34 +92,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <diagram>
              <path>
                 <inverse>
-                    <label><position>Left</position></label>
+                    <label>
+                     <position>Left</position>
+                  </label>
                 </inverse>
              </path>
           </diagram>
        </composition>
      </entity_type>
   <entity_type>
-    <name>A</name>
-    <presentation>
-        <x>0</x><y>3.85</y>
+      <name>A</name>
+      <presentation>
+        <x>0</x>
+         <y>3.85</y>
         <deltah>0.3</deltah>
         <shape>BottomLeft</shape>
-    </presentation>
-    <dependency>
+      </presentation>
+      <dependency>
         <name>dn</name>
-    </dependency>
-    <reference>
-       <name>d</name>
-       <type>diagonal</type>
-       <cardinality>ZeroOrOne</cardinality>
-       <diagram>
-          <path>
-             <srcattach>0.3</srcattach>
-             <destattach>0.6</destattach>
-             <label><position>Upside</position></label>
-          </path>
-       </diagram>
-    </reference>
+      </dependency>
+      <reference>
+         <name>d</name>
+         <type>diagonal</type>
+         <cardinality>ZeroOrOne</cardinality>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <destattach>0.6</destattach>
+               <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
   </entity_type>
      <entity_type>
        <name>diagonal</name>
@@ -128,5 +135,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        </presentation>
      </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeDiagonalLeft.xml--> 
-

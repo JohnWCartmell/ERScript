@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph0.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,67 +22,81 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltah>0.1</deltah></diagram></presentation>
-<entity_type>
-   <name>directed graph</name>
-   <presentation><x>1.45</x></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <composition>
-      <type>edge</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<group>
-   <presentation><below>directed graph</below></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.1</deltah>
+      </diagram>
+   </presentation>
    <entity_type>
-       <name>vertex</name>
-       <reference>
+      <name>directed graph</name>
+      <presentation>
+         <x>1.45</x>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <composition>
+         <type>edge</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <group>
+      <presentation>
+         <below>directed graph</below>
+      </presentation>
+      <entity_type>
+         <name>vertex</name>
+         <reference>
            <name>out</name>
            <cardinality>OneOrMore</cardinality>
            <type>edge</type>
            <inverse>from</inverse>
-       </reference>
-       <reference>
+         </reference>
+         <reference>
            <name>in</name>
            <cardinality>OneOrMore</cardinality>
            <type>edge</type>
            <inverse>to</inverse>
-       </reference>
-   </entity_type>
-   <entity_type>
-       <name>edge</name>
-       <presentation><rightOf>vertex</rightOf><x>1.4</x></presentation>
-       <reference>
-          <name>from</name>
-          <type>vertex</type>
-          <cardinality>ExactlyOne</cardinality>
-          <inverse>out</inverse>
-          <diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>edge</name>
+         <presentation>
+            <rightOf>vertex</rightOf>
+            <x>1.4</x>
+         </presentation>
+         <reference>
+            <name>from</name>
+            <type>vertex</type>
+            <cardinality>ExactlyOne</cardinality>
+            <inverse>out</inverse>
+            <diagram>
               <path>
                   <align>ToSrc</align>
-                  <label><position>Upside</position></label>
+                  <label>
+                     <position>Upside</position>
+                  </label>
               </path>
-          </diagram>
-       </reference>
-       <reference>
-          <name>to</name>
-          <type>vertex</type>
-          <cardinality>ExactlyOne</cardinality>
-          <inverse>in</inverse>
-          <diagram>
+            </diagram>
+         </reference>
+         <reference>
+            <name>to</name>
+            <type>vertex</type>
+            <cardinality>ExactlyOne</cardinality>
+            <inverse>in</inverse>
+            <diagram>
               <path>
                   <align>ToSrc</align>
-                  <inverse><label><position>Downside</position></label></inverse>
+                  <inverse>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </inverse>
               </path>
-          </diagram>
-       </reference>
-   </entity_type>
-</group>
+            </diagram>
+         </reference>
+      </entity_type>
+   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph0.xml--> 
-

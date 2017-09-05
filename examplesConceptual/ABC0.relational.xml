@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/ABC0.relational.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,100 +22,104 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
 
-	<entity_type>
-		<name>A</name>
-		<presentation>
-			<x>4.0</x><y>0.1</y><h>1.0</h>
-		</presentation>
+	  <entity_type>
+		    <name>A</name>
+		    <presentation>
+			      <x>4.0</x>
+         <y>0.1</y>
+         <h>1.0</h>
+		    </presentation>
 
-		<value>
-			<name>name</name>
-			<type>string</type>
-			<identifying/>
-		</value>
-	</entity_type>
+		    <value>
+			      <name>name</name>
+			      <type>string</type>
+			      <identifying/>
+		    </value>
+	  </entity_type>
 
 
-	<entity_type>
-		<name>B</name>
-		<presentation>
-			<x>0.1</x><y>0.6</y><h>2.0</h><deltaw>0.15</deltaw>
-		</presentation>
+	  <entity_type>
+		    <name>B</name>
+		    <presentation>
+			      <x>0.1</x>
+         <y>0.6</y>
+         <h>2.0</h>
+         <deltaw>0.15</deltaw>
+		    </presentation>
 
-		<reference>
-			<name>a</name>
-			<type>A</type>
-			<cardinality>ExactlyOne</cardinality>
-			<id>R0</id>
-			<diagram>
-				<path>
-					<srcarmlen>0.4</srcarmlen>
-					<label>
-						<position>Upside</position>
-					</label>
-					<id>
-					   <label>
-						  <xAdjustment>0.1</xAdjustment>
-					   </label>
-					</id>
-				</path>
-			</diagram>
-		</reference>
+		    <reference>
+			      <name>a</name>
+			      <type>A</type>
+			      <cardinality>ExactlyOne</cardinality>
+			      <id>R0</id>
+			      <diagram>
+				        <path>
+					          <srcarmlen>0.4</srcarmlen>
+					          <label>
+						            <position>Upside</position>
+					          </label>
+					          <id>
+					             <label>
+						               <xAdjustment>0.1</xAdjustment>
+					             </label>
+					          </id>
+				        </path>
+			      </diagram>
+		    </reference>
 
-		<reference>
-			<name>c</name>
-			<type>C</type>
-			<cardinality>ExactlyOne</cardinality>
-			<id>R1</id>
-			<diagram>
-				<path>
-				    <srcarmlen>0.4</srcarmlen>
-					<label>
-						<position>Downside</position>
-					</label>
-					<id>
-					   <label>
-						  <position>Downside</position><xAdjustment>-0.35</xAdjustment>
-					   </label>
-					</id>
-				</path>
-			</diagram>
-		</reference>
-		<value>
-			<name>name</name>
-			<type>string</type>
-			<identifying/>
-		</value>
+		    <reference>
+			      <name>c</name>
+			      <type>C</type>
+			      <cardinality>ExactlyOne</cardinality>
+			      <id>R1</id>
+			      <diagram>
+				        <path>
+				           <srcarmlen>0.4</srcarmlen>
+					          <label>
+						            <position>Downside</position>
+					          </label>
+					          <id>
+					             <label>
+						               <position>Downside</position>
+                     <xAdjustment>-0.35</xAdjustment>
+					             </label>
+					          </id>
+				        </path>
+			      </diagram>
+		    </reference>
+		    <value>
+			      <name>name</name>
+			      <type>string</type>
+			      <identifying/>
+		    </value>
 		
 	    <value>
-			<name>aname (R0)</name>
-			<type>string</type>
-		</value>
+			      <name>aname (R0)</name>
+			      <type>string</type>
+		    </value>
 		
-		<value>
-			<name>cname (R1)</name>
-			<type>string</type>
-		</value>
-	</entity_type>
+		    <value>
+			      <name>cname (R1)</name>
+			      <type>string</type>
+		    </value>
+	  </entity_type>
 
-	<entity_type>
-		<name>C</name>
-		<presentation>
-			<below>A</below><y>1.0</y><h>1.0</h>
-		</presentation>
+	  <entity_type>
+		    <name>C</name>
+		    <presentation>
+			      <below>A</below>
+         <y>1.0</y>
+         <h>1.0</h>
+		    </presentation>
 
-		<value>
-			<name>name</name>
-			<type>string</type>
-			<identifying/>
-		</value>
-	</entity_type>
+		    <value>
+			      <name>name</name>
+			      <type>string</type>
+			      <identifying/>
+		    </value>
+	  </entity_type>
 
 
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/ABC0.relational.xml--> 
-

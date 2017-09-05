@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeSquareLineAssignedTo.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,11 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>play</name>
-      <presentation><shape>TopLeft</shape></presentation>
+      <presentation>
+         <shape>TopLeft</shape>
+      </presentation>
       <composition>
          <type>line</type>
          <cardinality>OneOrMore</cardinality>
@@ -37,15 +39,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <inverse> </inverse>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>play </name>
-      <presentation><rightOf>play</rightOf><x>2.0</x><shape>TopRight</shape></presentation>
+      <presentation>
+         <rightOf>play</rightOf>
+         <x>2.0</x>
+         <shape>TopRight</shape>
+      </presentation>
       <reference>
          <name> </name>
          <type>play</type>
@@ -59,23 +71,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>line</name>
-      <presentation><below>play</below><shape>BottomLeft</shape></presentation>
+      <presentation>
+         <below>play</below>
+         <shape>BottomLeft</shape>
+      </presentation>
       <reference>
          <name>assigned_to</name>
          <type>character</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>character</name>
-      <presentation><rightOf>line</rightOf><below>play </below><shape>BottomRight</shape></presentation>
+      <presentation>
+         <rightOf>line</rightOf>
+         <below>play </below>
+         <shape>BottomRight</shape>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeSquareLineAssignedTo.xml--> 
-

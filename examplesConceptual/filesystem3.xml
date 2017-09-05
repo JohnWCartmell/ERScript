@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/filesystem3.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,21 +22,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <!-- <absolute></absolute> -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  
   <entity_type>
      <name>drive</name>
      <composition>
           <type>folder</type>
-         <diagram><path>
+         <diagram>
+            <path>
                         <destattach>0.6666666666</destattach>
                   </path>
          </diagram>
      </composition>
      <presentation>
-       <x>2</x>
-       <y>0.1</y>
+         <x>2</x>
+         <y>0.1</y>
      </presentation>
   </entity_type>
   <entity_type>
@@ -47,19 +48,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <composition>
          <type>folder</type>
          <cardinality>ZeroOneOrMore</cardinality>
-         <diagram><path><srcattach>0.2</srcattach>
+         <diagram>
+            <path>
+               <srcattach>0.2</srcattach>
                         <destattach>0.33333333333</destattach>
-                        <hstep><absdim><src>-1</src></absdim></hstep>
+                        <hstep>
+                  <absdim>
+                     <src>-1</src>
+                  </absdim>
+               </hstep>
                   </path>
          </diagram>
      </composition>
      <composition>
           <type>entry</type>
          <cardinality>ZeroOneOrMore</cardinality>
-          <diagram><path><srcattach>0.5</srcattach></path></diagram>
+          <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+            </path>
+         </diagram>
      </composition>
      <dependency_group/>
-     <presentation><below>drive</below><w>2</w><x>-0.33333333</x></presentation>
+     <presentation>
+         <below>drive</below>
+         <w>2</w>
+         <x>-0.33333333</x>
+      </presentation>
   </entity_type>
   <entity_type>
      <name>entry</name>
@@ -72,7 +87,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <type>file</type>
             <name>to</name>
-            <diagram><path><align>ToSrc</align></path></diagram>
+            <diagram>
+               <path>
+                  <align>ToSrc</align>
+               </path>
+            </diagram>
          </reference>
      </entity_type>
      <entity_type>
@@ -81,10 +100,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              <name>size</name>
              <type>string</type>
          </value>
-         <presentation><rightOf>shortcut</rightOf><x>1</x></presentation>
+         <presentation>
+            <rightOf>shortcut</rightOf>
+            <x>1</x>
+         </presentation>
      </entity_type>
-     <presentation><below>folder</below><deltaw>0.2</deltaw></presentation>
+     <presentation>
+         <below>folder</below>
+         <deltaw>0.2</deltaw>
+      </presentation>
   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/filesystem3.xml--> 
-

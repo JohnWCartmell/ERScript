@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/personNumber.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,31 +22,48 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<entity_type>
-   <name>person</name>
-   <presentation><x>0</x><y>0</y><h>2.0</h></presentation>
-   <reference>
-      <name>height</name>
-      <type>number</type>
-      <diagram><path><destattach>0.25</destattach></path></diagram>
-   </reference>
-   <reference>
-      <name>weight</name>
-      <type>number</type>
-      <diagram><path><destattach>0.5</destattach></path></diagram>
-   </reference>
-   <reference>
-      <name>shoe size</name>
-      <type>number</type>
-      <diagram><path><destattach>0.75</destattach></path></diagram>
-   </reference>
-</entity_type>
-<entity_type>
-    <name>number</name>
-    <presentation><rightOf>person</rightOf><x>2.0</x><h>2.0</h></presentation>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>person</name>
+      <presentation>
+         <x>0</x>
+         <y>0</y>
+         <h>2.0</h>
+      </presentation>
+      <reference>
+         <name>height</name>
+         <type>number</type>
+         <diagram>
+            <path>
+               <destattach>0.25</destattach>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>weight</name>
+         <type>number</type>
+         <diagram>
+            <path>
+               <destattach>0.5</destattach>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>shoe size</name>
+         <type>number</type>
+         <diagram>
+            <path>
+               <destattach>0.75</destattach>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>number</name>
+      <presentation>
+         <rightOf>person</rightOf>
+         <x>2.0</x>
+         <h>2.0</h>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/personNumber.xml--> 
-

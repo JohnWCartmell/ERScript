@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/kRegularHypergraph.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,69 +22,68 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram/>
+   </presentation>
+   <entity_type>
+      <name>hypergraph</name>
+      <presentation>
+         <x>1.2</x>
+         <y>0.1</y>
+         <w>1.7</w>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <composition>
+         <type>edge</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vertex</name>
 
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram/></presentation>
-<entity_type>
-   <name>hypergraph</name>
-   <presentation><x>1.2</x><y>0.1</y><w>1.7</w></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <composition>
-      <type>edge</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>vertex</name>
-<!--
-    <reference>
-        <name>out</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>edge</type>
-        <inverse>from</inverse>
-    </reference>
--->
-    <presentation><below>hypergraph</below><x>-1.2</x></presentation>
-</entity_type>
-<entity_type>
-    <name>edge</name>
-    <composition>
-       <type>incident_point</type>
-       <cardinality>OneOrMore</cardinality>
-       <inverse>k</inverse>
-    </composition>
-    <presentation><rightOf>vertex</rightOf><x>1.0</x></presentation>
-</entity_type>
-<entity_type>
-    <name>incident_point</name>
-    <dependency>
-       <name>k</name>
-       <type>edge</type>
-    </dependency>
-    <reference>
-       <!--<name>to</name> -->
-       <type>vertex</type>
-       <cardinality>ExactlyOne</cardinality>
-       <!--<inverse>out</inverse> -->
-       <diagram>
+      <presentation>
+         <below>hypergraph</below>
+         <x>-1.2</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>edge</name>
+      <composition>
+         <type>incident_point</type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse>k</inverse>
+      </composition>
+      <presentation>
+         <rightOf>vertex</rightOf>
+         <x>1.0</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>incident_point</name>
+      <dependency>
+         <name>k</name>
+         <type>edge</type>
+      </dependency>
+      <reference>
+       
+         <type>vertex</type>
+         <cardinality>ExactlyOne</cardinality>
+       
+         <diagram>
            <path>
-              <!--
-              <srcsign>-1</srcsign>
-              <destsign>-1</destsign>
-              <destarmlen>0.6</destarmlen>
-              -->
+              
               <srcarmlen>0.3</srcarmlen>
            </path>
-       </diagram>
-    </reference>
-    <presentation>
-         <below>edge</below><h>0.9</h>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>edge</below>
+         <h>0.9</h>
          <name>Split</name>
-    </presentation>
-</entity_type>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/kRegularHypergraph.xml--> 
-

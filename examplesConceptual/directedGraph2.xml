@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,55 +22,62 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram/></presentation>
-<entity_type>
-   <name>directed graph</name>
-   <presentation><x>1.0</x><y>0.1</y><w>2.0</w></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>vertex</name>
-    <composition>
-       <type>entrance</type>
-       <cardinality>OneOrMore</cardinality>
-       <inverse>to</inverse>
-    </composition>
-    <reference>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram/>
+   </presentation>
+   <entity_type>
+      <name>directed graph</name>
+      <presentation>
+         <x>1.0</x>
+         <y>0.1</y>
+         <w>2.0</w>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vertex</name>
+      <composition>
+         <type>entrance</type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse>to</inverse>
+      </composition>
+      <reference>
         <name>out</name>
         <cardinality>OneOrMore</cardinality>
         <type>entrance</type>
         <inverse>from</inverse>
-    </reference>
-    <presentation><below>directed graph</below></presentation>
-</entity_type>
-<entity_type>
-    <name>entrance</name>
-    <dependency>
-       <name>to</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>vertex</type>
-    </dependency>
-    <reference>
-       <name>from</name>
-       <type>vertex</type>
-       <cardinality>ExactlyOne</cardinality>
-       <inverse>out</inverse>
-       <diagram>
+      </reference>
+      <presentation>
+         <below>directed graph</below>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>entrance</name>
+      <dependency>
+         <name>to</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>vertex</type>
+      </dependency>
+      <reference>
+         <name>from</name>
+         <type>vertex</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>out</inverse>
+         <diagram>
            <path>
               <srcsign>-1</srcsign>
               <destsign>-1</destsign>
               <srcarmlen>0.6</srcarmlen>
               <destarmlen>0.6</destarmlen>
            </path>
-       </diagram>
-    </reference>
-    <presentation><below>vertex</below></presentation>
-</entity_type>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>vertex</below>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/directedGraph2.xml--> 
-

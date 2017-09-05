@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/cellStructure.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,75 +22,119 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <defaults><et_width>1.5</et_width></defaults>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.5</et_width>
+   </defaults>
    <entity_type>
       <name>Cell</name>
-      <presentation><x>2.0</x><deltaw>1.0</deltaw></presentation>
+      <presentation>
+         <x>2.0</x>
+         <deltaw>1.0</deltaw>
+      </presentation>
       <entity_type>
          <name>animal cell</name>
-         <presentation><x>1.0</x><w>1.8</w></presentation>
+         <presentation>
+            <x>1.0</x>
+            <w>1.8</w>
+         </presentation>
       </entity_type>
       <entity_type>
          <name>plant cell</name>
-         <presentation><rightOf>animal cell</rightOf><x>2.0</x><w>1.8</w></presentation>
+         <presentation>
+            <rightOf>animal cell</rightOf>
+            <x>2.0</x>
+            <w>1.8</w>
+         </presentation>
          <composition>
             <type>cell wall</type>
             <cardinality>ExactlyOne</cardinality>
-            <!--<diagram><path><srcarmlen>0.2</srcarmlen></path></diagram>-->
+            
          </composition>
          <composition>
             <type>vacuole</type>
             <cardinality>ExactlyOne</cardinality>
-            <!--<diagram><path><srcarmlen>0.2</srcarmlen></path></diagram>-->
+            
          </composition>
          <composition>
             <type>chloroplast</type>
             <cardinality>OneOrMore</cardinality>
-            <!--<diagram><path><srcarmlen>0.2</srcarmlen></path></diagram>-->
+            
          </composition>
       </entity_type>
       <composition>
          <type>nucleus</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><srcattach>0.1</srcattach><srcarmlen>0.2</srcarmlen></path></diagram>
+         <diagram>
+            <path>
+               <srcattach>0.1</srcattach>
+               <srcarmlen>0.2</srcarmlen>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <type>cytoplasm</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><srcattach>0.2</srcattach><srcarmlen>0.2</srcarmlen></path></diagram>
+         <diagram>
+            <path>
+               <srcattach>0.2</srcattach>
+               <srcarmlen>0.2</srcarmlen>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <type>cell membrane</type>
          <cardinality>ExactlyOne</cardinality>
-         <diagram><path><srcattach>0.3</srcattach><srcarmlen>0.2</srcarmlen></path></diagram>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <srcarmlen>0.2</srcarmlen>
+            </path>
+         </diagram>
       </composition>
    </entity_type>
    <entity_type>
       <name>nucleus</name>
-      <presentation><below>Cell</below><x>-4.95</x><y>1.0</y></presentation>
+      <presentation>
+         <below>Cell</below>
+         <x>-4.95</x>
+         <y>1.0</y>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>cytoplasm</name>
-      <presentation><rightOf>nucleus</rightOf><x>0.3</x></presentation>
+      <presentation>
+         <rightOf>nucleus</rightOf>
+         <x>0.3</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>cell membrane</name>
-      <presentation><rightOf>cytoplasm</rightOf><w>2.0</w><x>0.3</x></presentation>
+      <presentation>
+         <rightOf>cytoplasm</rightOf>
+         <w>2.0</w>
+         <x>0.3</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>cell wall</name>
-      <presentation><rightOf>cell membrane</rightOf><x>0.3</x></presentation>
+      <presentation>
+         <rightOf>cell membrane</rightOf>
+         <x>0.3</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>vacuole</name>
-      <presentation><rightOf>cell wall</rightOf><x>0.3</x></presentation>
+      <presentation>
+         <rightOf>cell wall</rightOf>
+         <x>0.3</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>chloroplast</name>
-      <presentation><rightOf>vacuole</rightOf><x>0.3</x></presentation>
+      <presentation>
+         <rightOf>vacuole</rightOf>
+         <x>0.3</x>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/cellStructure.xml--> 
-

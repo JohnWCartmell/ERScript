@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/bookAuthorshipIndividual.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,56 +22,68 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults><et_width>1.5</et_width></defaults>
-<presentation><diagram><deltah>0</deltah></diagram></presentation>
-<absolute>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>book</type>
-   </composition>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>authorship</type>
-   </composition>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>individual</type>
-   </composition>
-</absolute>
-<entity_type>
-   <name>book</name>
-   <presentation><x>0</x><y>1.0</y></presentation>
-</entity_type>
-<entity_type>
-   <name>authorship</name>
-   <reference>
-      <cardinality>ExactlyOne</cardinality>
-      <type>book</type>
-      <identifying/>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.5</et_width>
+   </defaults>
+   <presentation>
       <diagram>
-          <path>
-             <srcattach>0.5</srcattach>
-          </path>
+         <deltah>0</deltah>
       </diagram>
-   </reference>
-   <reference>
-      <cardinality>ExactlyOne</cardinality>
-      <type>individual</type>
-      <identifying/>
-      <diagram>
-          <path>
-             <srcattach>0.5</srcattach>
-          </path>
-      </diagram>
-   </reference>
-    <presentation><rightOf>book</rightOf><x>1.0</x></presentation>
-</entity_type>
-<entity_type>
-   <name>individual</name>
-   <presentation><rightOf>authorship</rightOf><x>1.0</x></presentation>
-</entity_type>
+   </presentation>
+   <absolute>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>book</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>authorship</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>individual</type>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>book</name>
+      <presentation>
+         <x>0</x>
+         <y>1.0</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>authorship</name>
+      <reference>
+         <cardinality>ExactlyOne</cardinality>
+         <type>book</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <cardinality>ExactlyOne</cardinality>
+         <type>individual</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+            </path>
+         </diagram>
+      </reference>
+      <presentation>
+         <rightOf>book</rightOf>
+         <x>1.0</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>individual</name>
+      <presentation>
+         <rightOf>authorship</rightOf>
+         <x>1.0</x>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/bookAuthorshipIndividual.xml--> 
-

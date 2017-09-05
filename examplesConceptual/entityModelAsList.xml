@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityModelAsList.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <entity_type>
      <name>entity model</name>
      <composition>
@@ -35,20 +35,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </entity_type>
   <entity_type>
      <name> </name>
-     <presentation><below>entity model</below></presentation>
+     <presentation>
+         <below>entity model</below>
+      </presentation>
      <entity_type>
          <name>entity type</name>
-         <presentation><y>-0.1</y></presentation>
+         <presentation>
+            <y>-0.1</y>
+         </presentation>
      </entity_type>
      <entity_type>
         <name>relationship</name>
-        <presentation><rightOf>entity type</rightOf></presentation>
+        <presentation>
+            <rightOf>entity type</rightOf>
+         </presentation>
      </entity_type>
      <entity_type>
          <name>attribute</name>
-         <presentation><rightOf>relationship</rightOf></presentation>
+         <presentation>
+            <rightOf>relationship</rightOf>
+         </presentation>
      </entity_type>
   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityModelAsList.xml--> 
-

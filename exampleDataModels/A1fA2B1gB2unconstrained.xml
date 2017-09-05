@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/dataModels/A1fA2B1gB2unconstrained.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <absolute>
       <composition>
          <name>all A1</name>
@@ -60,15 +60,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
               <align>ToSrc</align>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>A2</name>
-      <presentation><rightOf>A1</rightOf><x>3.0</x></presentation>
+      <presentation>
+         <rightOf>A1</rightOf>
+         <x>3.0</x>
+      </presentation>
       <value>
           <name>name</name>
           <type>string</type>
@@ -110,33 +119,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <riser>
               <theabsolute/>
           </riser>
-<!--
-         <diagonal>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </join>
-         </diagonal>
-         <riser>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </join>
-         </riser>
--->
+
          <diagram>
             <path>
               <align>ToSrc</align>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <scope>
                  <label>
                     <position>Downside</position>
@@ -167,5 +161,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </dependency>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/dataModels/A1fA2B1gB2unconstrained.xml--> 
-

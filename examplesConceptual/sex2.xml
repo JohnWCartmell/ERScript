@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/sex2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
          <deltaw>0.3</deltaw>
@@ -34,19 +34,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>male</name>
                         <type>sex</type>
          <cardinality>ExactlyOne</cardinality>
-                        <diagram><path><destattach>0.33</destattach><label><position>Left</position></label></path></diagram>
+                        <diagram>
+            <path>
+               <destattach>0.33</destattach>
+               <label>
+                  <position>Left</position>
+               </label>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <name>female</name>
                         <type>sex</type>
          <cardinality>ExactlyOne</cardinality>
-                        <diagram><path><destattach>0.66</destattach></path></diagram>
+                        <diagram>
+            <path>
+               <destattach>0.66</destattach>
+            </path>
+         </diagram>
       </composition>
    </absolute>
    <entity_type>
       <name>sex</name>
                 <dependency_group>
-                     <presentation><w>0.8</w></presentation>
+                     <presentation>
+            <w>0.8</w>
+         </presentation>
                 </dependency_group>
       <presentation>
          <x>0.3</x>
@@ -56,5 +69,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/sex2.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/HaraldFritzsch.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,15 +22,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>1.8</et_width>
          <et_y_separation>0.6</et_y_separation>
    </defaults>
    <entity_type>
       <name>molecule</name>
-      <presentation><x>2.5</x><y>0.1</y></presentation>
+      <presentation>
+         <x>2.5</x>
+         <y>0.1</y>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>nucleus</type>
@@ -41,7 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>nucleus</name>
-      <presentation><below>molecule</below><x>-1.1</x></presentation>
+      <presentation>
+         <below>molecule</below>
+         <x>-1.1</x>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>Nucleon</type>
@@ -49,10 +55,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>electron</name>
-       <presentation><rightOf>nucleus</rightOf><x>0.4</x></presentation>
+       <presentation>
+         <rightOf>nucleus</rightOf>
+         <x>0.4</x>
+      </presentation>
    </entity_type>
   <entity_type>
-      <presentation><below>nucleus</below>
+      <presentation>
+         <below>nucleus</below>
       </presentation>
       <name>Nucleon</name>
       <entity_type>
@@ -76,5 +86,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/HaraldFritzsch.xml--> 
-

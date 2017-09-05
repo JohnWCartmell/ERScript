@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/model3UsesOfWord.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,9 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
    <absolute>
       <composition>
          <type>book(2)</type>
@@ -40,7 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>book(2)</name>
-      <presentation><x>0.1</x><y>1.0</y></presentation>
+      <presentation>
+         <x>0.1</x>
+         <y>1.0</y>
+      </presentation>
       <composition>
          <type>word(3)</type>
          <cardinality>OneOrMore</cardinality>
@@ -51,15 +58,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>word(3)</name>
-      <presentation><below>book(2)</below></presentation>
+      <presentation>
+         <below>book(2)</below>
+      </presentation>
       <composition>
          <type>letter(4)</type>
          <cardinality>OneOrMore</cardinality>
@@ -70,29 +85,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>letter(4)</name>
-      <presentation><below>word(3)</below></presentation>
+      <presentation>
+         <below>word(3)</below>
+      </presentation>
       <reference>
          <name>copy_of</name>
          <type>letter(3)</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>book(1)</name>
-      <presentation><rightOf>book(2)</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>book(2)</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>word(2)</type>
          <cardinality>OneOrMore</cardinality>
@@ -103,15 +131,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>language</name>
-      <presentation><rightOf>book(1)</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>book(1)</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>word(1)</type>
          <cardinality>OneOrMore</cardinality>
@@ -119,7 +156,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>word(2)</name>
-      <presentation><below>book(1)</below></presentation>
+      <presentation>
+         <below>book(1)</below>
+      </presentation>
       <composition>
          <type>letter(3)</type>
          <cardinality>OneOrMore</cardinality>
@@ -131,29 +170,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <inverse>printed_as</inverse>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>letter(3)</name>
-      <presentation><below>word(2)</below></presentation>
+      <presentation>
+         <below>word(2)</below>
+      </presentation>
       <reference>
          <name>occurrence_of</name>
          <type>letter(2)</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>word(1)</name>
-      <presentation><rightOf>word(2)</rightOf><below>language</below></presentation>
+      <presentation>
+         <rightOf>word(2)</rightOf>
+         <below>language</below>
+      </presentation>
       <composition>
          <type>letter(2)</type>
          <cardinality>OneOrMore</cardinality>
@@ -167,8 +219,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>letter(2)</name>
-      <presentation><below>word(1)</below></presentation>
+      <presentation>
+         <below>word(1)</below>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/model3UsesOfWord.xml--> 
-

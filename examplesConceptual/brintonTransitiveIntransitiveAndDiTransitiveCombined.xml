@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveIntransitiveAndDiTransitiveCombined.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,27 +22,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>2.4</et_width>
          <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>verb phrase</name>
-      <presentation><deltah>0.5</deltah></presentation>
+      <presentation>
+         <deltah>0.5</deltah>
+      </presentation>
       <entity_type>
          <name>intransitive</name>
       </entity_type>
       <entity_type>
          <name>transitive</name>
-         <presentation><rightOf>intransitive</rightOf><x>0.2</x><deltah>0.5</deltah></presentation>
+         <presentation>
+            <rightOf>intransitive</rightOf>
+            <x>0.2</x>
+            <deltah>0.5</deltah>
+         </presentation>
          <entity_type>
              <name>mono transitive</name>
          </entity_type>
          <entity_type>
             <name>ditransitive</name>
-            <presentation><rightOf>mono transitive</rightOf><x>0.2</x></presentation>
+            <presentation>
+               <rightOf>mono transitive</rightOf>
+               <x>0.2</x>
+            </presentation>
             <composition>
                <name>indirect_object</name>
                <cardinality>ExactlyOne</cardinality>
@@ -50,8 +59,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                    <path>
                       <srcattach>0.3</srcattach>
                       <align>ToSrc</align>
-                      <label><name>Split</name></label>
-                      <!-- <label><yAdjustment>0.2</yAdjustment></label> -->
+                      <label>
+                        <name>Split</name>
+                     </label>
+                      
                    </path>
                </diagram>
             </composition>
@@ -64,7 +75,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <path>
                    <align>ToDest</align>
                    <destattach>0.25</destattach>
-                   <label><name>Split</name><position>Left</position></label>
+                   <label>
+                     <name>Split</name>
+                     <position>Left</position>
+                  </label>
                </path>
             </diagram>
          </composition>
@@ -75,7 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>verb</type>
          <diagram>
             <path>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
                 <align>ToDest</align>
                 <srcattach>0.35</srcattach>
             </path>
@@ -85,16 +101,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
        <name>verb</name>
        <presentation>
-             <below>intransitive</below><y>2.7</y>
+             <below>intransitive</below>
+         <y>2.7</y>
        </presentation>
    </entity_type>
    <entity_type>
        <name>noun phrase</name>
-       <presentation><below>transitive</below><rightOf>verb</rightOf><w>3.0</w></presentation>
+       <presentation>
+         <below>transitive</below>
+         <rightOf>verb</rightOf>
+         <w>3.0</w>
+      </presentation>
        <dependency_group>
-           <presentation><w>2.5</w></presentation>
+           <presentation>
+            <w>2.5</w>
+         </presentation>
        </dependency_group>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveIntransitiveAndDiTransitiveCombined.xml--> 
-

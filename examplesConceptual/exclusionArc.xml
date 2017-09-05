@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/exclusionArc.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,12 +22,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <defaults><et_width>1.7</et_width></defaults>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.7</et_width>
+   </defaults>
    <entity_type>
       <name>whole type 1</name>
-      <presentation><x>0.1</x><y>0.1</y></presentation>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>part type</type>
@@ -39,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>whole type 2</name>
-      <presentation><rightOf>whole type 1</rightOf></presentation>
+      <presentation>
+         <rightOf>whole type 1</rightOf>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>part type</type>
@@ -53,8 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
        <name>part type</name>
        <dependency_group/>
-       <presentation><below>whole type 1</below><x>1.05</x></presentation>
+       <presentation>
+         <below>whole type 1</below>
+         <x>1.05</x>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/exclusionArc.xml--> 
-

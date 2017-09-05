@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/textSentenceProgramInstruction.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,36 +22,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults>
-  <et_width>1.8</et_width>
-</defaults>
-<entity_type>
-   <name>text</name>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>sentence</type>
-       <sequence/>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>sentence</name>
-    <presentation><below>text</below></presentation>
-</entity_type>
-<entity_type>
-   <name>program</name>
-   <presentation><rightOf>text</rightOf><x>2.5</x></presentation>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>instruction</type>
-       <sequence/>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>instruction</name>
-    <presentation><below>program</below></presentation>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.8</et_width>
+   </defaults>
+   <entity_type>
+      <name>text</name>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>sentence</type>
+         <sequence/>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sentence</name>
+      <presentation>
+         <below>text</below>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>program</name>
+      <presentation>
+         <rightOf>text</rightOf>
+         <x>2.5</x>
+      </presentation>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>instruction</type>
+         <sequence/>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>instruction</name>
+      <presentation>
+         <below>program</below>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/textSentenceProgramInstruction.xml--> 
-

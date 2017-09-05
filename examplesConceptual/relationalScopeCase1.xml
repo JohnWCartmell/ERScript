@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase1.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,22 +22,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
-    <diagram>
-      <deltaw>0.4</deltaw>
-      <deltah>0.2</deltah>
-    </diagram>
+      <diagram>
+         <deltaw>0.4</deltaw>
+         <deltah>0.2</deltah>
+      </diagram>
   </presentation>
    <group>
       <name>departure</name>
-      <presentation><x>0.2</x><h>1.0</h></presentation>
+      <presentation>
+         <x>0.2</x>
+         <h>1.0</h>
+      </presentation>
    </group>
    <entity_type>
       <name>diagonal</name>
       <presentation>
-          <rightOf>departure</rightOf> <x>2.5</x>
+          <rightOf>departure</rightOf> 
+         <x>2.5</x>
           <shape>TopRight</shape>
       </presentation>
       <composition>
@@ -65,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ZeroOrOne</cardinality>
          <diagram>
             <path>
-	      <srcattach>0.25</srcattach>
+	              <srcattach>0.25</srcattach>
               <destattach>0.25</destattach>
               <srcarmlen>0.45</srcarmlen>
               <label>
@@ -73,7 +77,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                  <xAdjustment>-0.05</xAdjustment>
                  <yAdjustment>-0.35</yAdjustment>
               </label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
@@ -103,5 +111,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase1.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveAndIntransitiveCombined.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,26 +22,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>2.4</et_width>
          <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>verb phrase</name>
-      <presentation><deltah>0.5</deltah></presentation>
+      <presentation>
+         <deltah>0.5</deltah>
+      </presentation>
       <entity_type>
          <name>intransitive</name>
       </entity_type>
       <entity_type>
          <name>transitive</name>
-         <presentation><rightOf>intransitive</rightOf></presentation>
+         <presentation>
+            <rightOf>intransitive</rightOf>
+         </presentation>
          <composition>
             <name>direct_object</name>
             <cardinality>ExactlyOne</cardinality>
             <type>noun phrase</type>
-            <diagram><path><label><name>Split </name></label></path></diagram>
+            <diagram>
+               <path>
+                  <label>
+                     <name>Split </name>
+                  </label>
+               </path>
+            </diagram>
          </composition>
       </entity_type>
       <composition>
@@ -49,7 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>verb</type>
          <diagram>
             <path>
-                <label><position>Left</position></label>
+                <label>
+                  <position>Left</position>
+               </label>
                 <align>ToDest</align>
                 <srcattach>0.35</srcattach>
             </path>
@@ -58,12 +70,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>verb</name>
-       <presentation><below>intransitive</below><y>1.5</y></presentation>
+       <presentation>
+         <below>intransitive</below>
+         <y>1.5</y>
+      </presentation>
    </entity_type>
    <entity_type>
        <name>noun phrase</name>
-       <presentation><below>transitive</below><rightOf>verb</rightOf></presentation>
+       <presentation>
+         <below>transitive</below>
+         <rightOf>verb</rightOf>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonTransitiveAndIntransitiveCombined.xml--> 
-

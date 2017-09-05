@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/phylumArthropoda.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,15 +22,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>1.6</et_width>
          <et_y_separation>0.6</et_y_separation>
    </defaults>
    <entity_type>
       <name>phylum arthropoda</name>
-      <presentation><x>1.6</x><y>0</y><w>2.6</w></presentation>
+      <presentation>
+         <x>1.6</x>
+         <y>0</y>
+         <w>2.6</w>
+      </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
          <type>exoskeleton</type>
@@ -45,11 +49,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>exoskeleton</name>
-       <presentation><below>phylum arthropoda</below><x>-2.0</x></presentation>
+       <presentation>
+         <below>phylum arthropoda</below>
+         <x>-2.0</x>
+      </presentation>
    </entity_type>
    <entity_type>
        <name>tagma</name>
-       <presentation><rightOf>exoskeleton</rightOf><x>0.4</x></presentation>
+       <presentation>
+         <rightOf>exoskeleton</rightOf>
+         <x>0.4</x>
+      </presentation>
        <composition>
           <type>segment</type>
           <cardinality>OneOrMore</cardinality>
@@ -57,24 +67,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
        <name>segment</name>
-       <presentation><below>tagma</below></presentation>
+       <presentation>
+         <below>tagma</below>
+      </presentation>
    </entity_type>
    <entity_type>
        <name>Jointed Appendage</name>
-       <presentation><rightOf>tagma</rightOf><x>0.4</x></presentation>
+       <presentation>
+         <rightOf>tagma</rightOf>
+         <x>0.4</x>
+      </presentation>
        <entity_type>
          <name>feeding appendage</name>
-         <presentation><w>3.0</w></presentation>
+         <presentation>
+            <w>3.0</w>
+         </presentation>
        </entity_type>
        <entity_type>
          <name>locomotion appendage</name>
-         <presentation><below>feeding appendage</below><w>3.0</w></presentation>
+         <presentation>
+            <below>feeding appendage</below>
+            <w>3.0</w>
+         </presentation>
        </entity_type>
        <entity_type>
          <name>sensing appendage</name>
-         <presentation><below>locomotion appendage</below><w>3.0</w></presentation>
+         <presentation>
+            <below>locomotion appendage</below>
+            <w>3.0</w>
+         </presentation>
        </entity_type>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/phylumArthropoda.xml--> 
-

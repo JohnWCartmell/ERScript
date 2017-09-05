@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/equivocalNaming.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <entity_type>
      <name>Figure</name>
      <entity_type>
@@ -34,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </entity_type>
   <entity_type>
      <name>Real Thing</name>
-     <presentation><rightOf>Figure</rightOf></presentation>
+     <presentation>
+         <rightOf>Figure</rightOf>
+      </presentation>
      <entity_type>
         <name>Animal</name>
         <entity_type>
@@ -43,5 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </entity_type>
   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/equivocalNaming.xml--> 
-

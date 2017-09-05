@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelPerformancePlayCharacter.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,9 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
    <absolute>
       <composition>
          <type>performance</type>
@@ -36,21 +40,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>performance</name>
-      <presentation><y>1.2</y></presentation>
+      <presentation>
+         <y>1.2</y>
+      </presentation>
       <reference>
          <name>performance_of</name>
          <type>play</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><name>Split</name><position>Upside</position></label>
+              <label>
+                  <name>Split</name>
+                  <position>Upside</position>
+               </label>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>play</name>
-      <presentation><rightOf>performance</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>performance</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>character</type>
          <cardinality>OneOrMore</cardinality>
@@ -58,8 +70,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>character</name>
-      <presentation><below>play</below><y>0.3</y></presentation>
+      <presentation>
+         <below>play</below>
+         <y>0.3</y>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelPerformancePlayCharacter.xml--> 
-

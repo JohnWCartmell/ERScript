@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/graphUnnormalised.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,81 +22,86 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation>
-   <diagram>
-      <deltaw>1.5</deltaw>
-      <deltah>0.2</deltah>
-   </diagram>
-</presentation>
-<entity_type>
-   <name>undirected graph</name>
-   <presentation><x>1.0</x><y>0.1</y><w>2.4</w></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>vertex</name>
-    <composition>
-       <type>exit</type>
-       <cardinality>OneOrMore</cardinality>
-       <inverse>from</inverse>
-    </composition>
-    <constructed_relationship>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>1.5</deltaw>
+         <deltah>0.2</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>undirected graph</name>
+      <presentation>
+         <x>1.0</x>
+         <y>0.1</y>
+         <w>2.4</w>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vertex</name>
+      <composition>
+         <type>exit</type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse>from</inverse>
+      </composition>
+      <constructed_relationship>
         <name>in</name>
         <cardinality>OneOrMore</cardinality>
         <type>exit</type>
         <inverse>to</inverse>
-    </constructed_relationship>
-    <presentation><below>undirected graph</below></presentation>
-</entity_type>
-<entity_type>
-    <name>exit</name>
-    <dependency>
-       <name>from</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>vertex</type>
-    </dependency>
-    <constructed_relationship>
-       <name>to</name>
-       <type>vertex</type>
-       <cardinality>ExactlyOne</cardinality>
-       <inverse>in</inverse>
-       <join>
-          <component>
+      </constructed_relationship>
+      <presentation>
+         <below>undirected graph</below>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>exit</name>
+      <dependency>
+         <name>from</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>vertex</type>
+      </dependency>
+      <constructed_relationship>
+         <name>to</name>
+         <type>vertex</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>in</inverse>
+         <join>
+            <component>
               <rel>reverse</rel>
-          </component>
-          <component>
+            </component>
+            <component>
               <rel>from</rel>
-          </component>
-       </join>
-       <diagram>
+            </component>
+         </join>
+         <diagram>
            <path>
               <srcattach>0.5</srcattach>
               <srcarmlen>0.6</srcarmlen>
               <destarmlen>0.6</destarmlen>
            </path>
-       </diagram>
-    </constructed_relationship>
-    <reference>
-       <name>reverse</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>exit</type>
-       <inverse>reverse</inverse>
-       <diagram>
+         </diagram>
+      </constructed_relationship>
+      <reference>
+         <name>reverse</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>exit</type>
+         <inverse>reverse</inverse>
+         <diagram>
            <path>
               <srcsign>-1</srcsign>
               <destsign>-1</destsign>
               <srcattach>0.5</srcattach>
               <destattach>0.5</destattach>
            </path>
-       </diagram>
-    </reference>
-    <presentation><below>vertex</below></presentation>
-</entity_type>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>vertex</below>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/graphUnnormalised.xml--> 
-

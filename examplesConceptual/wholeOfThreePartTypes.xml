@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/wholeOfThreePartTypes.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,8 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
          <et_width>1.6</et_width>
          <et_y_separation>0.6</et_y_separation>
@@ -30,8 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>whole type</name>
       <presentation>
-          <xc><relative><to>children</to></relative></xc>
-          <yt><abs><d>0</d></abs></yt>
+          <xc>
+            <relative>
+               <to>children</to>
+            </relative>
+         </xc>
+          <yt>
+            <abs>
+               <d>0</d>
+            </abs>
+         </yt>
       </presentation>
       <composition>
          <cardinality>OneOrMore</cardinality>
@@ -49,7 +57,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <group>
       <name>children</name>
       <presentation>
-          <xl><abs><d>0</d></abs></xl>
+          <xl>
+            <abs>
+               <d>0</d>
+            </abs>
+         </xl>
           <below>whole type</below>
       </presentation>
       <entity_type>
@@ -57,13 +69,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
           <name>part type 2</name>
-          <presentation><rightOf>part type 1</rightOf><x>0.4</x></presentation>
+          <presentation>
+            <rightOf>part type 1</rightOf>
+            <x>0.4</x>
+         </presentation>
       </entity_type>
       <entity_type>
           <name>part type 3</name>
-          <presentation><rightOf>part type 2</rightOf><x>0.4</x></presentation>
+          <presentation>
+            <rightOf>part type 2</rightOf>
+            <x>0.4</x>
+         </presentation>
       </entity_type>
    </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/wholeOfThreePartTypes.xml--> 
-

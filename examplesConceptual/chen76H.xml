@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/chen76H.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,319 +22,272 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<absolute>
-   <name>Chen76</name>
-   <composition>
-       <cardinality>OneOrMore</cardinality>
-       <type>DEPT</type>
-   </composition>
-   <composition>
-       <cardinality>OneOrMore</cardinality>
-       <type>EMP</type>
-   </composition>
-   <composition>
-       <cardinality>OneOrMore</cardinality>
-       <type>PROJ</type>
-   </composition>
-   <composition>
-       <cardinality>OneOrMore</cardinality>
-       <type>PART</type>
-   </composition>
-   <composition>
-       <cardinality>OneOrMore</cardinality>
-       <type>SUPP</type>
-   </composition>
-</absolute>
-<group>
-   <name>body</name>
-   <presentation>
-       <y>1.0</y>
-   </presentation>
-   <entity_type>
-      <name>DEPT</name>
-      <presentation>
-           <x>0.2</x>
-           <deltaw>0.5</deltaw>
-      </presentation>
-      <value>
-         <name>DEPT-NO</name>
-         <type>string</type>
-         <identifying/>
-      </value>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <absolute>
+      <name>Chen76</name>
       <composition>
          <cardinality>OneOrMore</cardinality>
-         <type>DEPT-EMP</type>
-         <identifying/>
-         <diagram>
-             <path>
-                 <!-- <destattach>0.3</destattach> -->
-             </path>
-         </diagram>
+         <type>DEPT</type>
       </composition>
-   </entity_type>
-   <entity_type>
-      <name>DEPT-EMP</name>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>EMP</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>PROJ</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>PART</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>SUPP</type>
+      </composition>
+   </absolute>
+   <group>
+      <name>body</name>
       <presentation>
-         <below>DEPT</below>
-         <deltaw>0.3</deltaw>
+         <y>1.0</y>
       </presentation>
-      <reference>
-          <type>EMP</type>
-          <identifying/>
-          <diagram>
+      <entity_type>
+         <name>DEPT</name>
+         <presentation>
+           <x>0.2</x>
+           <deltaw>0.5</deltaw>
+         </presentation>
+         <value>
+            <name>DEPT-NO</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <composition>
+            <cardinality>OneOrMore</cardinality>
+            <type>DEPT-EMP</type>
+            <identifying/>
+            <diagram>
+               <path>
+                 
+             </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>DEPT-EMP</name>
+         <presentation>
+            <below>DEPT</below>
+            <deltaw>0.3</deltaw>
+         </presentation>
+         <reference>
+            <type>EMP</type>
+            <identifying/>
+            <diagram>
               <path>
                  <srcarmlen>0.2</srcarmlen>
                  <destarmlen>0.2</destarmlen>
               </path>
-          </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name>EMP</name>
-      <presentation>
-         <rightOf>DEPT</rightOf>
-         <h>1.2</h>
-         <w>2.4</w>
-      </presentation>
-      <value>
-         <name>EMPLOYEE-NO</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-      <!--
-      <composition>
-         <cardinality>OneOrMore</cardinality>
-         <type>DEPT-EMP</type>
-         <identifying/>
-         <diagram> 
-             <path>
-               <destattach>0.7</destattach>
-             </path>
-         </diagram>
-      </composition>
-      -->
-      <composition>
-         <cardinality>OneOrMore</cardinality>
-         <type>DEP</type>
-         <identifying/>
-      </composition>
-      <!--
-      <composition>
-         <cardinality>OneOrMore</cardinality>
-         <type>PROJ-WORKER</type>
-         <identifying/>
-         <diagram> 
-             <path>
-               <destattach>0.25</destattach>
-             </path>
-         </diagram>
-      </composition>
-      -->
-   </entity_type>
-   <entity_type>
-      <name>DEP</name>
-      <presentation>
-         <below>EMP</below>
-      </presentation>
-      <reference>
-         <type>EMP</type>
-         <cardinality>OneOrMore</cardinality>
-      </reference>
-   </entity_type>
-   <group>
-      <name>project_group</name>
-      <presentation>
-          <rightOf>EMP</rightOf>
-          <x>1.5</x>
-      </presentation>
+            </diagram>
+         </reference>
+      </entity_type>
       <entity_type>
-         <name>PROJ</name>
+         <name>EMP</name>
          <presentation>
-            <w>2.0</w>
+            <rightOf>DEPT</rightOf>
+            <h>1.2</h>
+            <w>2.4</w>
          </presentation>
-      <value>
-         <name>PROJECT-NO</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-         <composition>
-            <cardinality>ExactlyOne</cardinality>
-            <type>PROJ-MAN</type>
+         <value>
+            <name>EMPLOYEE-NO</name>
+            <type>string</type>
             <identifying/>
-            <diagram>
-               <path>
-                   <align>ToDest</align>
-               </path>
-            </diagram>
-         </composition>
+         </value>
+      
          <composition>
             <cardinality>OneOrMore</cardinality>
-            <type>PROJ-WORKER</type>
-         <identifying/>
-            <diagram>
-               <path>
-                   <srcattach>0.75</srcattach>
-                   <destattach>0.75</destattach>
-               </path>
-            </diagram>
+            <type>DEP</type>
+            <identifying/>
          </composition>
-         <composition>
+      
+      </entity_type>
+      <entity_type>
+         <name>DEP</name>
+         <presentation>
+            <below>EMP</below>
+         </presentation>
+         <reference>
+            <type>EMP</type>
             <cardinality>OneOrMore</cardinality>
-            <type>PROJ-PART</type>
-         <identifying/>
-            <diagram>
-               <path>
-                   <srcattach>0.875</srcattach>
-                   <destattach>0.25</destattach>
-               </path>
-            </diagram>
-         </composition>
+         </reference>
       </entity_type>
       <group>
-          <name>project_children</name>
-          <presentation>
-             <below>PROJ</below>
-             <x>0.25</x>
-          </presentation>
+         <name>project_group</name>
+         <presentation>
+            <rightOf>EMP</rightOf>
+            <x>1.5</x>
+         </presentation>
          <entity_type>
-            <name>PROJ-MAN</name>
-               <presentation>
-                  <y>-0.75</y>
-                  <deltaw>0.3</deltaw>
-               </presentation>
-             <reference>
-                <type>EMP</type>
-                <cardinality>ExactlyOne</cardinality>
-                <!--<inverse>managerOf</inverse>-->
-                <diagram>
-                   <path>
-                       <srcarmlen>0.2</srcarmlen>
-                       <destattach>0.3</destattach>
-                   </path>
-                </diagram>
-             </reference>
-         </entity_type>
-         <entity_type>
-            <name>PROJ-WORKER</name>
+            <name>PROJ</name>
             <presentation>
-               <below>PROJ-MAN</below>
-               <!--<x>0.2</x> -->
-               <y>0.7</y>
-               <deltaw>0.55</deltaw>
+               <w>2.0</w>
             </presentation>
-            <reference>
-               <type>EMP</type>
+            <value>
+               <name>PROJECT-NO</name>
+               <type>string</type>
+               <identifying/>
+            </value>
+            <composition>
+               <cardinality>ExactlyOne</cardinality>
+               <type>PROJ-MAN</type>
                <identifying/>
                <diagram>
                   <path>
-                    <srcarmlen>0.2</srcarmlen>
-                    <destarmlen>0.2</destarmlen>
-                    <destattach>0.7</destattach>
+                     <align>ToDest</align>
                   </path>
                </diagram>
-            </reference>
-         </entity_type>
-         <entity_type>
-            <name>PROJ-PART</name>
-            <presentation>
-               <rightOf>PROJ-MAN</rightOf>
-               <x>0.75</x>
-               <y>0.35</y>
-               <deltaw>0.2</deltaw>
-            </presentation>
+            </composition>
             <composition>
                <cardinality>OneOrMore</cardinality>
-               <type>PROJ-PART-SUPP</type>
+               <type>PROJ-WORKER</type>
                <identifying/>
                <diagram>
                   <path>
+                     <srcattach>0.75</srcattach>
+                     <destattach>0.75</destattach>
+                  </path>
+               </diagram>
+            </composition>
+            <composition>
+               <cardinality>OneOrMore</cardinality>
+               <type>PROJ-PART</type>
+               <identifying/>
+               <diagram>
+                  <path>
+                     <srcattach>0.875</srcattach>
                      <destattach>0.25</destattach>
                   </path>
                </diagram>
             </composition>
-            <reference>
-               <type>PART</type>
-               <identifying/>
-               <diagram>
-                  <path>
-                    <srcarmlen>0.2</srcarmlen>
-                    <destarmlen>0.2</destarmlen>
-                  </path>
-               </diagram>
-            </reference>
          </entity_type>
-         <entity_type>
-            <name>PROJ-PART-SUPP</name>
+         <group>
+            <name>project_children</name>
             <presentation>
-                <below>PROJ-PART</below>
-               <!--<x>1.0</x>-->
-               <deltaw>0.35</deltaw>
-             </presentation>
-            <reference>
-               <type>SUPP</type>
-               <identifying/>
-               <diagram>
-                  <path>
-                    <srcarmlen>0.2</srcarmlen>
-                    <destarmlen>0.2</destarmlen>
-                  </path>
-               </diagram>
-            </reference>
-         </entity_type>
+               <below>PROJ</below>
+               <x>0.25</x>
+            </presentation>
+            <entity_type>
+               <name>PROJ-MAN</name>
+               <presentation>
+                  <y>-0.75</y>
+                  <deltaw>0.3</deltaw>
+               </presentation>
+               <reference>
+                  <type>EMP</type>
+                  <cardinality>ExactlyOne</cardinality>
+                
+                  <diagram>
+                     <path>
+                       <srcarmlen>0.2</srcarmlen>
+                       <destattach>0.3</destattach>
+                     </path>
+                  </diagram>
+               </reference>
+            </entity_type>
+            <entity_type>
+               <name>PROJ-WORKER</name>
+               <presentation>
+                  <below>PROJ-MAN</below>
+               
+                  <y>0.7</y>
+                  <deltaw>0.55</deltaw>
+               </presentation>
+               <reference>
+                  <type>EMP</type>
+                  <identifying/>
+                  <diagram>
+                     <path>
+                        <srcarmlen>0.2</srcarmlen>
+                        <destarmlen>0.2</destarmlen>
+                        <destattach>0.7</destattach>
+                     </path>
+                  </diagram>
+               </reference>
+            </entity_type>
+            <entity_type>
+               <name>PROJ-PART</name>
+               <presentation>
+                  <rightOf>PROJ-MAN</rightOf>
+                  <x>0.75</x>
+                  <y>0.35</y>
+                  <deltaw>0.2</deltaw>
+               </presentation>
+               <composition>
+                  <cardinality>OneOrMore</cardinality>
+                  <type>PROJ-PART-SUPP</type>
+                  <identifying/>
+                  <diagram>
+                     <path>
+                        <destattach>0.25</destattach>
+                     </path>
+                  </diagram>
+               </composition>
+               <reference>
+                  <type>PART</type>
+                  <identifying/>
+                  <diagram>
+                     <path>
+                        <srcarmlen>0.2</srcarmlen>
+                        <destarmlen>0.2</destarmlen>
+                     </path>
+                  </diagram>
+               </reference>
+            </entity_type>
+            <entity_type>
+               <name>PROJ-PART-SUPP</name>
+               <presentation>
+                  <below>PROJ-PART</below>
+               
+                  <deltaw>0.35</deltaw>
+               </presentation>
+               <reference>
+                  <type>SUPP</type>
+                  <identifying/>
+                  <diagram>
+                     <path>
+                        <srcarmlen>0.2</srcarmlen>
+                        <destarmlen>0.2</destarmlen>
+                     </path>
+                  </diagram>
+               </reference>
+            </entity_type>
+         </group>
       </group>
+      <entity_type>
+         <name>PART</name>
+         <presentation>
+            <rightOf>PROJ</rightOf>
+            <deltaw>.4</deltaw>
+            <x>0.5</x>
+         </presentation>
+         <value>
+            <name>PART-NO</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      
+      </entity_type>
+      <entity_type>
+         <name>SUPP</name>
+         <presentation>
+            <rightOf>PART</rightOf>
+            <deltaw>0.45</deltaw>
+         </presentation>
+         <value>
+            <name>SUPP-NO</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      
+      </entity_type>
    </group>
-   <entity_type>
-      <name>PART</name>
-      <presentation>
-          <rightOf>PROJ</rightOf>
-          <deltaw>.4</deltaw>
-          <x>0.5</x>
-      </presentation>
-      <value>
-         <name>PART-NO</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-      <!--
-      <composition>
-         <cardinality>OneOrMore</cardinality>
-         <type>PROJ-PART</type>
-         <identifying/>
-         <diagram> 
-             <path>
-               <destattach>0.75</destattach>
-             </path>
-         </diagram>
-      </composition>
-      -->
-   </entity_type>
-   <entity_type>
-      <name>SUPP</name>
-      <presentation>
-          <rightOf>PART</rightOf>
-          <deltaw>0.45</deltaw>
-      </presentation>
-      <value>
-         <name>SUPP-NO</name>
-         <type>string</type>
-         <identifying/>
-      </value>
-      <!--
-      <composition>
-         <cardinality>OneOrMore</cardinality>
-         <type>PROJ-PART-SUPP</type>
-         <identifying/>
-         <diagram> 
-             <path>
-               <destattach>0.75</destattach>
-             </path>
-         </diagram>
-      </composition>
-      -->
-   </entity_type>
-</group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/chen76H.xml--> 
-

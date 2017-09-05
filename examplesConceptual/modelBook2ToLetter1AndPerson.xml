@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelBook2ToLetter1AndPerson.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,9 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation><diagram><deltah>0.4</deltah></diagram></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
    <absolute>
       <composition>
          <type>book(2)</type>
@@ -49,7 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>book(2)</name>
       <presentation>
-         <x>0.1</x><y>1.0</y><h>1.5</h>
+         <x>0.1</x>
+         <y>1.0</y>
+         <h>1.5</h>
       </presentation>
       <composition>
          <type>word(3)</type>
@@ -62,8 +68,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
               <align>ToDest</align>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -75,7 +87,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
               <align>ToDest</align>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
               <srcarmlen>0.2</srcarmlen>
               <destattach>0.3</destattach>
             </path>
@@ -86,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>word(3)</name>
       <presentation>
               <below>book(2)</below>
-              <rightOf>word(2)</rightOf><!--Warning - it is actually left of-->
+              <rightOf>word(2)</rightOf>
       </presentation>
       <composition>
          <type>letter(4)</type>
@@ -98,8 +112,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -107,14 +127,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>letter(4)</name>
-      <presentation><below>word(3)</below></presentation>
+      <presentation>
+         <below>word(3)</below>
+      </presentation>
       <reference>
          <name>copy_of</name>
          <type>letter(3)</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -122,7 +146,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>book(1)</name>
-      <presentation><rightOf>book(2)</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>book(2)</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>word(2)</type>
          <cardinality>OneOrMore</cardinality>
@@ -149,8 +176,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -158,11 +191,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>person</name>
-      <presentation><rightOf>contentBeneathBook</rightOf><x>0.5</x></presentation>
+      <presentation>
+         <rightOf>contentBeneathBook</rightOf>
+         <x>0.5</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>language</name>
-      <presentation><rightOf>book(1)</rightOf><x>3.0</x></presentation>
+      <presentation>
+         <rightOf>book(1)</rightOf>
+         <x>3.0</x>
+      </presentation>
       <composition>
          <type>word(1)</type>
          <cardinality>OneOrMore</cardinality>
@@ -173,8 +212,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -182,24 +227,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <group>
       <name>contentBeneathBook</name>
-      <presentation><below>book(1)</below><y>-0.3</y></presentation>
+      <presentation>
+         <below>book(1)</below>
+         <y>-0.3</y>
+      </presentation>
       <group>
           <name>spacer1</name>
       </group>
       <group>
           <name>spacer2</name>
-          <presentation><below>spacer1</below><y>0</y></presentation>
+          <presentation>
+            <below>spacer1</below>
+            <y>0</y>
+         </presentation>
       </group>
       <entity_type>
          <name>author</name>
-         <presentation><rightOf>spacer2</rightOf></presentation>
+         <presentation>
+            <rightOf>spacer2</rightOf>
+         </presentation>
          <reference>
             <name>identified_as</name>
             <type>person</type>
             <cardinality>ExactlyOne</cardinality>
             <diagram>
                <path>
-                 <label><position>Downside</position></label>
+                 <label>
+                     <position>Downside</position>
+                  </label>
                  <srcarmlen>0.2</srcarmlen>
                  <destarmlen>0.2</destarmlen>
                  <destattach>0.7</destattach>
@@ -210,7 +265,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </group>
    <entity_type>
       <name>word(2)</name>
-      <presentation><below>spacer2</below><y>0.6</y></presentation>
+      <presentation>
+         <below>spacer2</below>
+         <y>0.6</y>
+      </presentation>
       <composition>
          <type>letter(3)</type>
          <cardinality>OneOrMore</cardinality>
@@ -221,8 +279,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <label>
+                  <position>Upside</position>
+               </label>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -230,14 +294,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>letter(3)</name>
-      <presentation><below>word(2)</below></presentation>
+      <presentation>
+         <below>word(2)</below>
+      </presentation>
       <reference>
          <name>occurrence_of</name>
          <type>letter(2)</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -245,7 +313,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>word(1)</name>
-      <presentation><rightOf>word(2)</rightOf><below>language</below></presentation>
+      <presentation>
+         <rightOf>word(2)</rightOf>
+         <below>language</below>
+      </presentation>
       <composition>
          <type>letter(2)</type>
          <cardinality>OneOrMore</cardinality>
@@ -253,14 +324,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>letter(2)</name>
-      <presentation><below>word(1)</below></presentation>
+      <presentation>
+         <below>word(1)</below>
+      </presentation>
       <reference>
          <name>occurrence_of</name>
          <type>letter(1)</type>
          <cardinality>ExactlyOne</cardinality>
          <diagram>
             <path>
-              <label><position>Upside</position></label>
+              <label>
+                  <position>Upside</position>
+               </label>
               <srcarmlen>0.2</srcarmlen>
             </path>
          </diagram>
@@ -268,7 +343,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>alphabet</name>
-      <presentation><rightOf>language</rightOf><x>2.0</x></presentation>
+      <presentation>
+         <rightOf>language</rightOf>
+         <x>2.0</x>
+      </presentation>
       <composition>
          <type>letter(1)</type>
          <cardinality>OneOrMore</cardinality>
@@ -276,8 +354,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>letter(1)</name>
-      <presentation><rightOf>letter(2)</rightOf><below>alphabet</below></presentation>
+      <presentation>
+         <rightOf>letter(2)</rightOf>
+         <below>alphabet</below>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/modelBook2ToLetter1AndPerson.xml--> 
-

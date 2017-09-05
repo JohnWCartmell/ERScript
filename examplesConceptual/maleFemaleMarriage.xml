@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/maleFemaleMarriage.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,50 +22,62 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults><et_width>1.2</et_width></defaults>
-<presentation><diagram><deltah>0</deltah></diagram></presentation>
-<absolute>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>male</type>
-   </composition>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>female</type>
-   </composition>
-</absolute>
-<entity_type>
-   <name>male</name>
-   <presentation><x>0</x><y>1.0</y></presentation>
-    <composition>
-       <type>marriage</type>
-       <cardinality>ZeroOneOrMore</cardinality>
-       <diagram>
-          <path>
-             <destattach>0.33</destattach>
-          </path>
-       </diagram>
-    </composition>
-</entity_type>
-<entity_type>
-   <name>female</name>
-    <presentation><rightOf>male</rightOf><x>0.2</x></presentation>
-    <composition>
-       <type>marriage</type>
-       <cardinality>ZeroOneOrMore</cardinality>
-       <diagram>
-          <path>
-             <destattach>0.66</destattach>
-          </path>
-       </diagram>
-    </composition>
-</entity_type>
-<entity_type>
-   <name>marriage</name>
-   <presentation><below>male</below><x>0.7</x></presentation>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.2</et_width>
+   </defaults>
+   <presentation>
+      <diagram>
+         <deltah>0</deltah>
+      </diagram>
+   </presentation>
+   <absolute>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>male</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>female</type>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>male</name>
+      <presentation>
+         <x>0</x>
+         <y>1.0</y>
+      </presentation>
+      <composition>
+         <type>marriage</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <destattach>0.33</destattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>female</name>
+      <presentation>
+         <rightOf>male</rightOf>
+         <x>0.2</x>
+      </presentation>
+      <composition>
+         <type>marriage</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <destattach>0.66</destattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>marriage</name>
+      <presentation>
+         <below>male</below>
+         <x>0.7</x>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/maleFemaleMarriage.xml--> 
-

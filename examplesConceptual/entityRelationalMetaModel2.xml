@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,24 +22,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
      <diagram>
         <deltaw>0.9</deltaw>
      </diagram>
   </presentation>
   <absolute>
-    <name>entity_model</name>
-    <composition>
-      <type>entity type</type>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <diagram>
-        <path>
-          <destattach>0.66</destattach>
-        </path>
-      </diagram>
-    </composition>
+      <name>entity_model</name>
+      <composition>
+         <type>entity type</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
+            <path>
+               <destattach>0.66</destattach>
+            </path>
+         </diagram>
+      </composition>
   </absolute>
   <entity_type>
      <name>entity type</name>
@@ -48,226 +48,246 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <w>4.0</w>
         <h>1.0</h>
      </presentation>
-    <value>
-      <name>name</name>
-      <type>string</type>
-      <identifying/>
-    </value>
-    <composition>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>entity type</type>
-      <diagram>
-        <path>
-          <srcattach>0.33</srcattach>
-          <destattach>0.33</destattach>
-          <hstep>
-            <absdim>
-              <src>-2.0</src>
-            </absdim>
-          </hstep>
-        </path>
-      </diagram>
-    </composition>
-    <composition>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>attribute</type>
-      <identifying/>
-      <diagram>
-         <path>
-            <srcarmlen>0.4</srcarmlen>
-         </path>
-      </diagram>
-    </composition>
-    <composition>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>expressible relationship</type>
-      <identifying/>
-      <diagram>
-        <path>
-          <align>ToSrc</align>
-        </path>
-      </diagram>
-    </composition>
-  </entity_type>    <!-- end of 'entity_type' -->
-  <group>
-    <name>entity_type_children</name>
-    <presentation>
-       <below>entity type</below>
-    </presentation>
-    <entity_type>
-       <name>attribute</name>
-       <presentation>
-          <y>0.2</y>
-       </presentation>
-       <value>
+      <value>
          <name>name</name>
          <type>string</type>
          <identifying/>
-       </value>
-       <value>
-         <name>isIdentifying</name>
-         <type>string</type>
+      </value>
+      <composition>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>entity type</type>
+         <diagram>
+            <path>
+               <srcattach>0.33</srcattach>
+               <destattach>0.33</destattach>
+               <hstep>
+                  <absdim>
+                     <src>-2.0</src>
+                  </absdim>
+               </hstep>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>attribute</type>
          <identifying/>
-       </value>
-    </entity_type>
-    <entity_type>
-      <name>expressible relationship</name>
+         <diagram>
+            <path>
+               <srcarmlen>0.4</srcarmlen>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>expressible relationship</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+  </entity_type>    
+  <group>
+      <name>entity_type_children</name>
       <presentation>
-         <rightOf>attribute</rightOf>
-         <deltaw>0.10</deltaw>
+         <below>entity type</below>
       </presentation>
       <entity_type>
-         <name>core relationship</name>
+         <name>attribute</name>
          <presentation>
-             <deltaw>0.88</deltaw>
+            <y>0.2</y>
+         </presentation>
+         <value>
+            <name>name</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <value>
+            <name>isIdentifying</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+      </entity_type>
+      <entity_type>
+         <name>expressible relationship</name>
+         <presentation>
+            <rightOf>attribute</rightOf>
+            <deltaw>0.10</deltaw>
          </presentation>
          <entity_type>
-           <name>reference</name>
-           <presentation>
-             <x>3.2</x>
-             <h>2.0</h>
-           </presentation>
-           <reference>
-              <name>inverse</name>
-              <cardinality>ZeroOrOne</cardinality>
-              <type>reference</type>
-              <inverse>inverse</inverse>
-              <diagram><path><srcattach>0.2</srcattach><destattach>0.2</destattach></path></diagram>
-           </reference>
-           <reference>
-              <name>scopedBy</name>
-              <cardinality>ZeroOrOne</cardinality>
-              <type>expressible relationship</type>
-              <diagram>
-                 <path>
+            <name>core relationship</name>
+            <presentation>
+               <deltaw>0.88</deltaw>
+            </presentation>
+            <entity_type>
+               <name>reference</name>
+               <presentation>
+                  <x>3.2</x>
+                  <h>2.0</h>
+               </presentation>
+               <reference>
+                  <name>inverse</name>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>reference</type>
+                  <inverse>inverse</inverse>
+                  <diagram>
+                     <path>
+                        <srcattach>0.2</srcattach>
+                        <destattach>0.2</destattach>
+                     </path>
+                  </diagram>
+               </reference>
+               <reference>
+                  <name>scopedBy</name>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>expressible relationship</type>
+                  <diagram>
+                     <path>
                        <srcattach>0.8</srcattach>
                        <destattach>0.7</destattach>
                        <srcarmlen>0.8</srcarmlen>
                        <destarmlen>0.5</destarmlen>
                        <destsign>-1</destsign>
-                       <vstep><absdim><src>1.1</src></absdim></vstep>
-                       <label><position>Upside</position></label>
-                 </path>
-              </diagram>
-           </reference>
-         </entity_type>
-         <entity_type>
-           <name>composition</name>
-           <presentation>
-             <w>1.8</w>
-           </presentation>
-           <reference>
-              <name>inverse</name>
-              <cardinality>ZeroOrOne</cardinality>
-              <type>dependency</type>
-              <inverse>inverse_of</inverse>
-              <diagram><path>
+                       <vstep>
+                           <absdim>
+                              <src>1.1</src>
+                           </absdim>
+                        </vstep>
+                       <label>
+                           <position>Upside</position>
+                        </label>
+                     </path>
+                  </diagram>
+               </reference>
+            </entity_type>
+            <entity_type>
+               <name>composition</name>
+               <presentation>
+                  <w>1.8</w>
+               </presentation>
+               <reference>
+                  <name>inverse</name>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>dependency</type>
+                  <inverse>inverse_of</inverse>
+                  <diagram>
+                     <path>
                          <srcarmlen>1.0</srcarmlen>
                          <destarmlen>1.0</destarmlen>
-                         <label><position>Downside</position></label>
+                         <label>
+                           <position>Downside</position>
+                        </label>
                      </path>
-                </diagram>
-           </reference>
-         </entity_type>
-         <entity_type>
-           <name>dependency</name>
-           <presentation>
-             <below>composition</below>
-             <w>1.8</w>
-           </presentation>
-           <reference>
-              <name>inverse_of</name>
-              <cardinality>ZeroOrOne</cardinality>
-              <type>composition</type>
-              <inverse>inverse</inverse>
-           </reference>
-         </entity_type>
-      </entity_type>  <!-- end of core_realtionship -->
-      <group>
-         <name>non-core relationships</name>
+                  </diagram>
+               </reference>
+            </entity_type>
+            <entity_type>
+               <name>dependency</name>
+               <presentation>
+                  <below>composition</below>
+                  <w>1.8</w>
+               </presentation>
+               <reference>
+                  <name>inverse_of</name>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>composition</type>
+                  <inverse>inverse</inverse>
+               </reference>
+            </entity_type>
+         </entity_type>  
+         <group>
+            <name>non-core relationships</name>
            <presentation>
               <rightOf>core relationship</rightOf>
               <x>1.0</x>
               <y>-0.5</y>
            </presentation>
-         <entity_type>
-           <name>identity relationship</name>
-           <presentation>
-              <w>1.8</w>
-              <name>Split</name>
-           </presentation>
-         </entity_type>
-         <entity_type>
-           <name>constructed relationship</name>
-           <presentation>
-              <below>identity relationship</below>
-              <name>Split</name>
-           </presentation>
-           <reference>
-              <name>inverse</name>
-              <cardinality>ZeroOrOne</cardinality>
-              <type>constructed relationship</type>
-              <inverse>inverse</inverse>
-              <diagram><path/></diagram>
-           </reference>
-           <composition>
-             <type>component</type>
-             <cardinality>ZeroOneOrMore</cardinality>
-             <sequence/>
-           </composition>
-           <entity_type>
-              <name>join</name>
-              <presentation>
-                 <w>1.8</w>
-              </presentation>
-              <value>
-                 <name>recurse</name>
-                 <type>string</type>
-              </value>
-           </entity_type>
-           <entity_type>
-             <name>aggregate</name>
-             <presentation>
-                <below>join</below>
-                <w>1.8</w>
-             </presentation>
-           </entity_type>
-         </entity_type>   <!-- end of constructed_relationship -->
-      </group> <!-- end of non-core relationships -->
-      <reference>
-        <cardinality>ExactlyOne</cardinality>
-        <name>type</name>
-        <type>entity type</type>
-        <identifying/>
-        <diagram>
-          <path>
-            <srcattach>0.3</srcattach>
-            <destattach>0.8</destattach>
-            <srcarmlen>0.3</srcarmlen>
-            <hstep>
-              <absdim>
-                <src>0.1</src>
-              </absdim>
-            </hstep>
-          </path>
-        </diagram>
-      </reference>
-      <composition>
-        <type>sequence</type>
-        <cardinality>ZeroOrOne</cardinality>
-        <diagram><path><align>ToDest</align></path></diagram>
-      </composition>
-      <value>
-        <name>name</name>
-        <type>string</type>
-        <identifying/>
-        <optional/>
-      </value>
-      <choice>
-          <name>cardinality</name>
-          <from>Cardinality</from>
-      </choice>
-    </entity_type>  <!-- end of expressible_relationship -->
+            <entity_type>
+               <name>identity relationship</name>
+               <presentation>
+                  <w>1.8</w>
+                  <name>Split</name>
+               </presentation>
+            </entity_type>
+            <entity_type>
+               <name>constructed relationship</name>
+               <presentation>
+                  <below>identity relationship</below>
+                  <name>Split</name>
+               </presentation>
+               <reference>
+                  <name>inverse</name>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>constructed relationship</type>
+                  <inverse>inverse</inverse>
+                  <diagram>
+                     <path/>
+                  </diagram>
+               </reference>
+               <composition>
+                  <type>component</type>
+                  <cardinality>ZeroOneOrMore</cardinality>
+                  <sequence/>
+               </composition>
+               <entity_type>
+                  <name>join</name>
+                  <presentation>
+                     <w>1.8</w>
+                  </presentation>
+                  <value>
+                     <name>recurse</name>
+                     <type>string</type>
+                  </value>
+               </entity_type>
+               <entity_type>
+                  <name>aggregate</name>
+                  <presentation>
+                     <below>join</below>
+                     <w>1.8</w>
+                  </presentation>
+               </entity_type>
+            </entity_type>   
+         </group> 
+         <reference>
+            <cardinality>ExactlyOne</cardinality>
+            <name>type</name>
+            <type>entity type</type>
+            <identifying/>
+            <diagram>
+               <path>
+                  <srcattach>0.3</srcattach>
+                  <destattach>0.8</destattach>
+                  <srcarmlen>0.3</srcarmlen>
+                  <hstep>
+                     <absdim>
+                        <src>0.1</src>
+                     </absdim>
+                  </hstep>
+               </path>
+            </diagram>
+         </reference>
+         <composition>
+            <type>sequence</type>
+            <cardinality>ZeroOrOne</cardinality>
+            <diagram>
+               <path>
+                  <align>ToDest</align>
+               </path>
+            </diagram>
+         </composition>
+         <value>
+            <name>name</name>
+            <type>string</type>
+            <identifying/>
+            <optional/>
+         </value>
+         <choice>
+            <name>cardinality</name>
+            <from>Cardinality</from>
+         </choice>
+      </entity_type>  
   </group>
 
   <group>
@@ -277,8 +297,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <y>0.6</y>
      </presentation>
      <entity_type>
-       <name>sequence</name>
-       <presentation>
+         <name>sequence</name>
+         <presentation>
        </presentation>
      </entity_type>
   </group>
@@ -343,51 +363,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </reference>
   </entity_type>
   <enumeration_type>
-    <name>Cardinality</name>
-    <enumeration_value>
-       <literal>
+      <name>Cardinality</name>
+      <enumeration_value>
+         <literal>
           ZeroOrOne
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           ExactlyOne
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           ZeroOneOrMore
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           OneOrMore
        </literal>
-    </enumeration_value>
+      </enumeration_value>
   </enumeration_type>
   <enumeration_type>
-    <name>ValueType</name>
-    <enumeration_value>
-       <literal>
+      <name>ValueType</name>
+      <enumeration_value>
+         <literal>
           string
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           integer
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           boolean
        </literal>
-    </enumeration_value>
-    <enumeration_value>
-       <literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>
           float
        </literal>
-    </enumeration_value>
+      </enumeration_value>
   </enumeration_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/entityRelationalMetaModel2.xml--> 
-

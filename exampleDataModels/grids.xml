@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/dataModels/grids.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,295 +22,373 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltaw>0.5</deltaw></diagram></presentation>
-<defaults><et_width>1.5</et_width><et_height>1.8</et_height><et_y_separation>1.0</et_y_separation></defaults>
-<absolute>
-   <name>grids</name>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>grid</type>
-   </composition>
-   <composition>
-      <cardinality>OneOrMore</cardinality>
-      <type>cardinal</type>
-   </composition>
-</absolute>
+   <presentation>
+      <diagram>
+         <deltaw>0.5</deltaw>
+      </diagram>
+   </presentation>
+   <defaults>
+      <et_width>1.5</et_width>
+      <et_height>1.8</et_height>
+      <et_y_separation>1.0</et_y_separation>
+   </defaults>
+   <absolute>
+      <name>grids</name>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>grid</type>
+      </composition>
+      <composition>
+         <cardinality>OneOrMore</cardinality>
+         <type>cardinal</type>
+      </composition>
+   </absolute>
 
-<entity_type>
-   <name>grid</name>
-   <presentation><x>3.0</x><y>1.3</y><deltaw>0.5</deltaw><h>1.6</h></presentation>
-   <value>
-       <name>name</name>
-       <type>string</type>
-       <identifying/>
-   </value>
-   <reference>
-       <name>noOfRows</name>
-       <type>cardinal</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
+   <entity_type>
+      <name>grid</name>
+      <presentation>
+         <x>3.0</x>
+         <y>1.3</y>
+         <deltaw>0.5</deltaw>
+         <h>1.6</h>
+      </presentation>
+      <value>
+         <name>name</name>
+         <type>string</type>
+         <identifying/>
+      </value>
+      <reference>
+         <name>noOfRows</name>
+         <type>cardinal</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
            <path>
                <align>ToDest</align>
                <destattach>0.3</destattach>
-               <label><position>Upside</position></label>
+               <label>
+                  <position>Upside</position>
+               </label>
            </path>
-       </diagram>
-   </reference>
-   <reference>
-       <name>noOfCols</name>
-       <type>cardinal</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
+         </diagram>
+      </reference>
+      <reference>
+         <name>noOfCols</name>
+         <type>cardinal</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
            <path>
                <destattach>0.7</destattach>
                <align>ToDest</align>
-               <label><position>Upside</position></label>
+               <label>
+                  <position>Upside</position>
+               </label>
            </path>
-       </diagram>
-   </reference>
-   <composition>
-      <name>rows</name>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>row</type>
-      <identifying/>
-      <inverse>..</inverse>
-      <pullback>
-         <type>ordinal</type>
-         <projection_rel>index</projection_rel>
-         <along>
-              <component>
-                 <rel>noOfRows</rel>
-              </component>
-         </along>
-      </pullback>
-      <diagram>
-         <path>
-             <label><position>Left</position></label>
-             <inverse><label><position>Left</position><xAdjustment>-0.05</xAdjustment></label></inverse>
-             <id><label><position>Downside</position><xAdjustment>0.3</xAdjustment></label></id>
-             <destarmlen>0.5</destarmlen>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <name>columns</name>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <type>column</type>
-      <identifying/>
-      <inverse>..</inverse>
-      <pullback>
-         <type>ordinal</type>
-         <projection_rel>index</projection_rel>
-         <along>
-              <component>
-                 <rel>noOfCols</rel>
-              </component>
-         </along>
-      </pullback>
-      <diagram>
-         <path>
-             <id><label><position>Downside</position><xAdjustment>-0.3</xAdjustment></label></id>
-             <destarmlen>0.5</destarmlen>
-         </path>
-      </diagram>
-   </composition>
-</entity_type>
-<group>
-   <name>row and column</name>
-   <presentation><below>grid</below></presentation>
-   <entity_type>
-      <name>row</name>
-      <presentation><deltaw>0.3</deltaw><h>1.3</h></presentation>
-      <dependency>
-          <name>..</name>
-          <inverse_of>rows</inverse_of>
-          <type>grid</type>
-          <cardinality>ExactlyOne</cardinality>
-      </dependency>
-      <reference>
-          <name>index</name>
-          <type>ordinal</type>
-          <cardinality>ExactlyOne</cardinality>
-          <identifying/>
-          <diagonal>
-             <join>
-                <component>
-                     <rel>..</rel>
-                </component>
-                <component>
-                     <rel>noOfRows</rel>
-                </component>
-             </join>
-          </diagonal>
-          <riser>
-              <component>
-                  <rel>..</rel>
-              </component>
-          </riser>
-          <diagram>
-              <path>
-                  <align>ToDest</align>
-                  <label><position>Upside</position></label>
-                  <scope><label><position>Downside</position><xAdjustment>-4.0</xAdjustment><yAdjustment>-0.4</yAdjustment></label></scope>
-                  <destattach>0.3</destattach>
-              </path>
-          </diagram>
+         </diagram>
       </reference>
       <composition>
-         <name>cells</name>
-         <cardinality>OneOrMore</cardinality>
-         <type>cell</type>
+         <name>rows</name>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>row</type>
          <identifying/>
          <inverse>..</inverse>
          <pullback>
-            <type>column</type>
+            <type>ordinal</type>
+            <projection_rel>index</projection_rel>
             <along>
-                <component>
-                   <rel>..</rel>
-                </component>
+              <component>
+                 <rel>noOfRows</rel>
+              </component>
             </along>
-            <projection_rel>col</projection_rel>
          </pullback>
          <diagram>
             <path>
-               <align>ToSrc</align>
-               <label><position>Left</position></label>
-               <inverse><label><position>Left</position><xAdjustment>-0.05</xAdjustment></label></inverse>
+               <label>
+                  <position>Left</position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>Left</position>
+                     <xAdjustment>-0.05</xAdjustment>
+                  </label>
+               </inverse>
+               <id>
+                  <label>
+                     <position>Downside</position>
+                     <xAdjustment>0.3</xAdjustment>
+                  </label>
+               </id>
+               <destarmlen>0.5</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>columns</name>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <type>column</type>
+         <identifying/>
+         <inverse>..</inverse>
+         <pullback>
+            <type>ordinal</type>
+            <projection_rel>index</projection_rel>
+            <along>
+              <component>
+                 <rel>noOfCols</rel>
+              </component>
+            </along>
+         </pullback>
+         <diagram>
+            <path>
+               <id>
+                  <label>
+                     <position>Downside</position>
+                     <xAdjustment>-0.3</xAdjustment>
+                  </label>
+               </id>
+               <destarmlen>0.5</destarmlen>
             </path>
          </diagram>
       </composition>
    </entity_type>
-   <entity_type>
-      <name>column</name>
-      <presentation><rightOf>row</rightOf><x>3.0</x><y>1.5</y><deltaw>0.3</deltaw><h>1.3</h></presentation>
-      <dependency>
-          <name>..</name>
-          <type>grid</type>
-          <cardinality>ExactlyOne</cardinality>
-      </dependency>
-      <reference>
-          <name>index</name>
-          <type>ordinal</type>
-          <cardinality>ExactlyOne</cardinality>
-          <identifying/>
-          <diagonal>
-             <join>
-                <component>
+   <group>
+      <name>row and column</name>
+      <presentation>
+         <below>grid</below>
+      </presentation>
+      <entity_type>
+         <name>row</name>
+         <presentation>
+            <deltaw>0.3</deltaw>
+            <h>1.3</h>
+         </presentation>
+         <dependency>
+            <name>..</name>
+            <inverse_of>rows</inverse_of>
+            <type>grid</type>
+            <cardinality>ExactlyOne</cardinality>
+         </dependency>
+         <reference>
+            <name>index</name>
+            <type>ordinal</type>
+            <cardinality>ExactlyOne</cardinality>
+            <identifying/>
+            <diagonal>
+               <join>
+                  <component>
                      <rel>..</rel>
-                </component>
-                <component>
-                     <rel>noOfCols</rel>
-                </component>
-             </join>
-          </diagonal>
-          <riser>
+                  </component>
+                  <component>
+                     <rel>noOfRows</rel>
+                  </component>
+               </join>
+            </diagonal>
+            <riser>
               <component>
                   <rel>..</rel>
               </component>
-          </riser>
-          <diagram>
+            </riser>
+            <diagram>
+              <path>
+                  <align>ToDest</align>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+                  <scope>
+                     <label>
+                        <position>Downside</position>
+                        <xAdjustment>-4.0</xAdjustment>
+                        <yAdjustment>-0.4</yAdjustment>
+                     </label>
+                  </scope>
+                  <destattach>0.3</destattach>
+              </path>
+            </diagram>
+         </reference>
+         <composition>
+            <name>cells</name>
+            <cardinality>OneOrMore</cardinality>
+            <type>cell</type>
+            <identifying/>
+            <inverse>..</inverse>
+            <pullback>
+               <type>column</type>
+               <along>
+                  <component>
+                     <rel>..</rel>
+                  </component>
+               </along>
+               <projection_rel>col</projection_rel>
+            </pullback>
+            <diagram>
+               <path>
+                  <align>ToSrc</align>
+                  <label>
+                     <position>Left</position>
+                  </label>
+                  <inverse>
+                     <label>
+                        <position>Left</position>
+                        <xAdjustment>-0.05</xAdjustment>
+                     </label>
+                  </inverse>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>column</name>
+         <presentation>
+            <rightOf>row</rightOf>
+            <x>3.0</x>
+            <y>1.5</y>
+            <deltaw>0.3</deltaw>
+            <h>1.3</h>
+         </presentation>
+         <dependency>
+            <name>..</name>
+            <type>grid</type>
+            <cardinality>ExactlyOne</cardinality>
+         </dependency>
+         <reference>
+            <name>index</name>
+            <type>ordinal</type>
+            <cardinality>ExactlyOne</cardinality>
+            <identifying/>
+            <diagonal>
+               <join>
+                  <component>
+                     <rel>..</rel>
+                  </component>
+                  <component>
+                     <rel>noOfCols</rel>
+                  </component>
+               </join>
+            </diagonal>
+            <riser>
+              <component>
+                  <rel>..</rel>
+              </component>
+            </riser>
+            <diagram>
               <path>
                   <destattach>0.6</destattach>
-                  <scope><label><position>Downside</position><xAdjustment>1.0</xAdjustment><yAdjustment>0.1</yAdjustment></label></scope>
+                  <scope>
+                     <label>
+                        <position>Downside</position>
+                        <xAdjustment>1.0</xAdjustment>
+                        <yAdjustment>0.1</yAdjustment>
+                     </label>
+                  </scope>
               </path>
-          </diagram>
-      </reference>
-      <reference>
-         <name>cells</name>
-         <type>cell</type>
-         <cardinality>OneOrMore</cardinality> 
-         <inverse>col</inverse>
-      </reference>
-   </entity_type>
-</group>
-<entity_type>
-   <name>cell</name>
-   <presentation>
-       <xl><relative><to>row</to></relative></xl>
-       <yt><relative><d>2.7</d><to>row</to></relative></yt>
-       <deltaw>0.5</deltaw>
-       <h>1.3</h>
-   </presentation>
-   <dependency>
-      <name>..</name>
-      <type>row</type>
-      <cardinality>ExactlyOne</cardinality>
-      <inverse_of>cells</inverse_of>
-   </dependency>
-   <reference>
-      <name>col</name>
-      <type>column</type>
-      <cardinality>ExactlyOne</cardinality>
-      <identifying/>
-      <inverse>cells</inverse>
-      <diagonal>
-         <join>
-            <component>
-               <rel>..</rel>
-            </component>
-            <component>
-               <rel>..</rel>
-            </component>
-         </join>
-      </diagonal>
-      <riser>
-          <component>
-             <rel>..</rel>
-          </component>
-      </riser>
-      <diagram>
-         <path>
-             <srcarmlen>0.3</srcarmlen>
-             <scope><label><xAdjustment>1.0</xAdjustment><yAdjustment>0.1</yAdjustment></label></scope>
-         </path>
-      </diagram>
-   </reference>
-</entity_type>
-
-<group>
-   <name>reuseable</name>
-   <presentation>
-       <rightOf>grid</rightOf>
-       <x>6.5</x>
-   </presentation>
-
+            </diagram>
+         </reference>
+         <reference>
+            <name>cells</name>
+            <type>cell</type>
+            <cardinality>OneOrMore</cardinality> 
+            <inverse>col</inverse>
+         </reference>
+      </entity_type>
+   </group>
    <entity_type>
-      <name>cardinal</name>
-      <presentation><h>1.6</h></presentation>
-      <value>
-         <name>zno</name>
-         <type>nonNegativeInteger</type>
-         <identifying/>
-      </value>
-      <composition>
-         <type>ordinal</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-         <inverse>..</inverse>
-         <identifying/>
-      </composition>
-   </entity_type>
-
-   <entity_type>
-      <name>ordinal</name>
+      <name>cell</name>
       <presentation>
-          <below>cardinal</below>
-          <h>1.3</h>
+         <xl>
+            <relative>
+               <to>row</to>
+            </relative>
+         </xl>
+         <yt>
+            <relative>
+               <d>2.7</d>
+               <to>row</to>
+            </relative>
+         </yt>
+         <deltaw>0.5</deltaw>
+         <h>1.3</h>
       </presentation>
       <dependency>
-          <name>..</name>
-          <type>cardinal</type>
-          <cardinality>ExactlyOne</cardinality>
+         <name>..</name>
+         <type>row</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse_of>cells</inverse_of>
       </dependency>
-      <value>
-         <name>zno</name>
-         <type>nonNegativeInteger</type>
+      <reference>
+         <name>col</name>
+         <type>column</type>
+         <cardinality>ExactlyOne</cardinality>
          <identifying/>
-      </value>
+         <inverse>cells</inverse>
+         <diagonal>
+            <join>
+               <component>
+                  <rel>..</rel>
+               </component>
+               <component>
+                  <rel>..</rel>
+               </component>
+            </join>
+         </diagonal>
+         <riser>
+            <component>
+               <rel>..</rel>
+            </component>
+         </riser>
+         <diagram>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+               <scope>
+                  <label>
+                     <xAdjustment>1.0</xAdjustment>
+                     <yAdjustment>0.1</yAdjustment>
+                  </label>
+               </scope>
+            </path>
+         </diagram>
+      </reference>
    </entity_type>
-</group>
-</entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/dataModels/grids.xml--> 
 
+   <group>
+      <name>reuseable</name>
+      <presentation>
+         <rightOf>grid</rightOf>
+         <x>6.5</x>
+      </presentation>
+
+      <entity_type>
+         <name>cardinal</name>
+         <presentation>
+            <h>1.6</h>
+         </presentation>
+         <value>
+            <name>zno</name>
+            <type>nonNegativeInteger</type>
+            <identifying/>
+         </value>
+         <composition>
+            <type>ordinal</type>
+            <cardinality>ZeroOneOrMore</cardinality>
+            <inverse>..</inverse>
+            <identifying/>
+         </composition>
+      </entity_type>
+
+      <entity_type>
+         <name>ordinal</name>
+         <presentation>
+            <below>cardinal</below>
+            <h>1.3</h>
+         </presentation>
+         <dependency>
+            <name>..</name>
+            <type>cardinal</type>
+            <cardinality>ExactlyOne</cardinality>
+         </dependency>
+         <value>
+            <name>zno</name>
+            <type>nonNegativeInteger</type>
+            <identifying/>
+         </value>
+      </entity_type>
+   </group>
+</entity_model>

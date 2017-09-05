@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/graph.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,56 +22,69 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltaw>1.5</deltaw></diagram></presentation>
-<entity_type>
-   <name>undirected graph</name>
-   <presentation><x>0.1</x><y>0.1</y><w>2.4</w></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>vertex</name>
-    <composition>
-       <type>away</type>
-       <cardinality>ZeroOneOrMore</cardinality>
-       <inverse>from</inverse>
-    </composition>
-    <presentation><below>undirected graph</below></presentation>
-</entity_type>
-<entity_type>
-    <name>away</name>
-    <dependency>
-       <name>from</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>vertex</type>
-    </dependency>
-    <reference>
-       <name>reverse</name>
-       <type>away</type>
-       <cardinality>ExactlyOne</cardinality>
-       <inverse>reverse</inverse>
-       <diagram>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>1.5</deltaw>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>undirected graph</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>2.4</w>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vertex</name>
+      <composition>
+         <type>away</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <inverse>from</inverse>
+      </composition>
+      <presentation>
+         <below>undirected graph</below>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>away</name>
+      <dependency>
+         <name>from</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>vertex</type>
+      </dependency>
+      <reference>
+         <name>reverse</name>
+         <type>away</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>reverse</inverse>
+         <diagram>
            <path>
               <srcattach>0.5</srcattach>
               <destattach>0.5</destattach>
            </path>
-       </diagram>
-    </reference>
-    <constructed_relationship>
-       <name>to</name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>vertex</type>
-       <join>
-          <component><rel>reverse</rel></component>
-          <component><rel>from</rel></component>
-       </join>
-    </constructed_relationship>
-    <presentation><below>vertex</below></presentation>
-</entity_type>
+         </diagram>
+      </reference>
+      <constructed_relationship>
+         <name>to</name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>vertex</type>
+         <join>
+            <component>
+               <rel>reverse</rel>
+            </component>
+            <component>
+               <rel>from</rel>
+            </component>
+         </join>
+      </constructed_relationship>
+      <presentation>
+         <below>vertex</below>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/graph.xml--> 
-

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeTranslationOf2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,60 +22,80 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltah>0.3</deltah></diagram></presentation>
-<entity_type>
-   <name>absolute</name>
-   <presentation><x>0.5</x><shape>TopLeft</shape></presentation>
-   <composition>
-      <type>language</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <reference>
-      <name>is same as</name>
-      <type>absolute </type>
-      <cardinality>ExactlyOne</cardinality>
-      <inverse>is same as</inverse>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
       <diagram>
-          <path>
-          </path>
+         <deltah>0.3</deltah>
       </diagram>
-   </reference>
-</entity_type>
-<entity_type>
-   <name>absolute </name>
-   <presentation><rightOf>absolute</rightOf><x>3.0</x><shape>TopRight</shape></presentation>
-   <composition>
-      <type>language </type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <reference>
-      <name>is same as</name>
-      <type>absolute</type>
-      <cardinality>ExactlyOne</cardinality>
-      <inverse>is same as</inverse>
-   </reference>
-</entity_type>
-<entity_type>
-    <name>language</name>
-    <presentation><below>absolute</below><shape>MiddleLeft</shape></presentation>
-    <composition>
-       <type>translated book</type>
-       <cardinality>OneOrMore</cardinality>
-    </composition>
-</entity_type>
-<entity_type>
-    <name>language </name>
-    <presentation><below>absolute </below><rightOf>language</rightOf><shape>MiddleRight</shape></presentation>
-    <composition>
-       <type>native book</type>
-       <cardinality>OneOrMore</cardinality>
-    </composition>
-</entity_type>
+   </presentation>
+   <entity_type>
+      <name>absolute</name>
+      <presentation>
+         <x>0.5</x>
+         <shape>TopLeft</shape>
+      </presentation>
+      <composition>
+         <type>language</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <reference>
+         <name>is same as</name>
+         <type>absolute </type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>is same as</inverse>
+         <diagram>
+            <path>
+          </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>absolute </name>
+      <presentation>
+         <rightOf>absolute</rightOf>
+         <x>3.0</x>
+         <shape>TopRight</shape>
+      </presentation>
+      <composition>
+         <type>language </type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <reference>
+         <name>is same as</name>
+         <type>absolute</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>is same as</inverse>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>language</name>
+      <presentation>
+         <below>absolute</below>
+         <shape>MiddleLeft</shape>
+      </presentation>
+      <composition>
+         <type>translated book</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>language </name>
+      <presentation>
+         <below>absolute </below>
+         <rightOf>language</rightOf>
+         <shape>MiddleRight</shape>
+      </presentation>
+      <composition>
+         <type>native book</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
    <entity_type>
        <name>translated book</name>
-       <presentation><below>language</below><shape>BottomLeft</shape></presentation>
+       <presentation>
+         <below>language</below>
+         <shape>BottomLeft</shape>
+      </presentation>
        <reference>
           <name>translation_of</name>
           <type>native book</type>
@@ -95,8 +116,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <cardinality>ZeroOneOrMore</cardinality>
           <inverse>translation_of</inverse>
        </reference>
-       <presentation><rightOf>translated book</rightOf><below>language </below><shape>BottomRight</shape></presentation>
+       <presentation>
+         <rightOf>translated book</rightOf>
+         <below>language </below>
+         <shape>BottomRight</shape>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/scopeTranslationOf2.xml--> 
-

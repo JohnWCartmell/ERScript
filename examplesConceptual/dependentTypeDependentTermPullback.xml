@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeDependentTermPullback.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,94 +22,96 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults><et_width>1.8</et_width><et_height>1.2</et_height></defaults> 
-<presentation><diagram/></presentation>
-<entity_type>
-    <name>function (expression)</name>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.8</et_width>
+      <et_height>1.2</et_height>
+   </defaults> 
    <presentation>
+      <diagram/>
+   </presentation>
+   <entity_type>
+      <name>function (expression)</name>
+      <presentation>
          <x>1.4</x>
          <y>0.1</y>
-    </presentation>
-    <composition>
-       <name>with</name>
-       <type>term</type>
-       <sequence/>
-       <cardinality>ZeroOneOrMore</cardinality>
-       <diagram>
+      </presentation>
+      <composition>
+         <name>with</name>
+         <type>term</type>
+         <sequence/>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <diagram>
            <path>
               <srcarmlen>0</srcarmlen>
               <destarmlen>0</destarmlen>
-             <label>
-                <position>Left</position>
-             </label>
+               <label>
+                  <position>Left</position>
+               </label>
            </path>
         </diagram>
-    </composition>
-    <reference>
-       <name>use of</name>
-       <type>function (declaration)</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
-          <path>
-             <label>
-                <position>Upside</position>
-             </label>
-          </path>
-       </diagram>
-    </reference>
-</entity_type>
-<entity_type>
-    <name>term</name>
-    <reference>
-       <name>substituting for</name>
-       <type>formal argument</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
-          <path>
-             <srcarmlen>0.5</srcarmlen>
-             <destarmlen>0.5</destarmlen>
-             <label>
-                <position>Upside</position>
-             </label>
-          </path>
-       </diagram>
-    </reference>
-    <presentation>
+      </composition>
+      <reference>
+         <name>use of</name>
+         <type>function (declaration)</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+               <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>term</name>
+      <reference>
+         <name>substituting for</name>
+         <type>formal argument</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+               <srcarmlen>0.5</srcarmlen>
+               <destarmlen>0.5</destarmlen>
+               <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+      <presentation>
          <below>function (expression)</below>
          <y>0.5</y>
          <name>Split</name>
          <shape>BottomLeft</shape>
-    </presentation>
-</entity_type>
-<entity_type>
-   <name>function (declaration)</name>
-   <presentation>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>function (declaration)</name>
+      <presentation>
         <rightOf>function (expression)</rightOf>
         <x>2.4</x>
-   </presentation>
-   <composition>
-      <name>givens</name>
-      <type>formal argument</type>
-      <cardinality>ZeroOneOrMore</cardinality>
-      <sequence/>
-      <diagram>
+      </presentation>
+      <composition>
+         <name>givens</name>
+         <type>formal argument</type>
+         <cardinality>ZeroOneOrMore</cardinality>
+         <sequence/>
+         <diagram>
            <path>
               <srcarmlen>0</srcarmlen>
               <destarmlen>0</destarmlen>
            </path>
-      </diagram>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>formal argument</name>
-    <presentation>
-       <rightOf>term</rightOf>
-       <below>function (declaration)</below>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>formal argument</name>
+      <presentation>
+         <rightOf>term</rightOf>
+         <below>function (declaration)</below>
          <name>Split</name>
-    </presentation>
-</entity_type>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/dependentTypeDependentTermPullback.xml--> 
-

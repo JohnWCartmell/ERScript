@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/protein.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,47 +22,54 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-	<entity_type>
-		<name>protein structure</name>
-		<composition>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+	  <entity_type>
+		    <name>protein structure</name>
+		    <composition>
                         <type>amino acid (1)</type>
-			<cardinality>OneOrMore</cardinality>
+			      <cardinality>OneOrMore</cardinality>
                         <sequence/>
-		</composition>
-		<presentation>
-			<x>0</x> <y>0</y><w>2.2</w>
-		</presentation>
-	</entity_type>
-	<entity_type>
-		<name>amino acid (1)</name>
-		<reference>
+		    </composition>
+		    <presentation>
+			      <x>0</x> 
+         <y>0</y>
+         <w>2.2</w>
+		    </presentation>
+	  </entity_type>
+	  <entity_type>
+		    <name>amino acid (1)</name>
+		    <reference>
                         <type>amino acid (2)</type>
-			<cardinality>ExactlyOne</cardinality>
+			      <cardinality>ExactlyOne</cardinality>
                         <diagram>
                             <path>
                                <srcarmlen>0.5</srcarmlen>
                             </path>
                         </diagram>
-		</reference>
-		<presentation>
+		    </reference>
+		    <presentation>
                         <below>protein structure</below>
                         <w>2.2</w>
-		</presentation>
-	</entity_type>
-	<entity_type>
-		<name>amino acid (2)</name>
+		    </presentation>
+	  </entity_type>
+	  <entity_type>
+		    <name>amino acid (2)</name>
                 <reference>
                       <type>codon</type>
                       <cardinality>ExactlyOne</cardinality>
                       <inverse>codes for</inverse>
-                      <diagram><path><srcarmlen>0.3</srcarmlen></path></diagram>
+                      <diagram>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
+         </diagram>
                 </reference>
-		<presentation>
-			<rightOf>protein structure</rightOf><x>1.8</x><w>2.0</w>
-		</presentation>
-	</entity_type>
+		    <presentation>
+			      <rightOf>protein structure</rightOf>
+         <x>1.8</x>
+         <w>2.0</w>
+		    </presentation>
+	  </entity_type>
         <entity_type>
                  <name>codon</name>
                  <composition>
@@ -76,39 +84,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       <cardinality>ExactlyOne</cardinality>
                  </reference>
                  <presentation>
-			<rightOf>amino acid (2)</rightOf><x>1.3</x>
-		 </presentation>
+			      <rightOf>amino acid (2)</rightOf>
+         <x>1.3</x>
+		    </presentation>
         </entity_type>
         <entity_type>
                  <name>nucleotide</name>
                  <presentation>
-			<below>codon</below>
-		</presentation>
+			      <below>codon</below>
+		    </presentation>
                 <entity_type>
                      <name>G</name>
                      <presentation>
-                           <x>0.2</x><w>0.5</w>
+                           <x>0.2</x>
+            <w>0.5</w>
                      </presentation>
                 </entity_type>
                 <entity_type>
                      <name>C</name>
                      <presentation>
-                        <rightOf>G</rightOf> <x>0.2</x><w>0.5</w>
+                        <rightOf>G</rightOf> 
+            <x>0.2</x>
+            <w>0.5</w>
                      </presentation>
                 </entity_type>
                 <entity_type>
                      <name>U</name>
                      <presentation>
-                        <rightOf>C</rightOf> <x>0.2</x><w>0.5</w>
+                        <rightOf>C</rightOf> 
+            <x>0.2</x>
+            <w>0.5</w>
                      </presentation>
                 </entity_type>
                 <entity_type>
                      <name>T</name>
                      <presentation>
-                        <rightOf>U</rightOf><x>0.2</x><w>0.5</w>
+                        <rightOf>U</rightOf>
+            <x>0.2</x>
+            <w>0.5</w>
                      </presentation>
                 </entity_type>
         </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/protein.xml--> 
-

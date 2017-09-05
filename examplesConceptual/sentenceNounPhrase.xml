@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/sentenceNounPhrase.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,17 +22,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
          <deltaw>0.3</deltaw>
       </diagram>
    </presentation>
-   <defaults><et_width>1.6</et_width></defaults>
+   <defaults>
+      <et_width>1.6</et_width>
+   </defaults>
    <entity_type>
       <name>sentence</name>
-      <presentation> <x>0.5</x> </presentation>
+      <presentation> 
+         <x>0.5</x> 
+      </presentation>
       <composition>
          <name>subject</name>
          <type>noun phrase</type>
@@ -40,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <path>
                <align>ToDest</align>
                <destattach>0.33</destattach>
-               <label><position>Left</position></label>
+               <label>
+                  <position>Left</position>
+               </label>
             </path>
          </diagram>
       </composition>
@@ -64,5 +70,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/sentenceNounPhrase.xml--> 
-

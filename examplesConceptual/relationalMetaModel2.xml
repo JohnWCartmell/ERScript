@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMetaModel2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,174 +22,201 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<defaults><et_width>1.8</et_width><et_height>1.2</et_height></defaults>
-<presentation><diagram><deltaw>1.0</deltaw><deltah>2.0</deltah></diagram></presentation>
-<absolute>
-   <name>relationalMetaModel</name>
-   <composition>
-      <name>all tables</name>
-      <type>table</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</absolute>
-<entity_type>
-   <name>table</name>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.8</et_width>
+      <et_height>1.2</et_height>
+   </defaults>
    <presentation>
-        <x>3.5</x><y>1.25</y><w>3.5</w>
+      <diagram>
+         <deltaw>1.0</deltaw>
+         <deltah>2.0</deltah>
+      </diagram>
    </presentation>
-   <value>
-      <name>name</name>
-      <type>string</type>
-      <identifying/>
-   </value>
-   <composition>
-      <type>primary key column</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <sequence/>
-      <inverse>of</inverse>
-      <diagram>
-         <path>
-             <srcattach>0.2</srcattach>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <type>column</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <inverse>of</inverse>
-      <diagram>
-         <path>
-           <align>ToDest</align>
-         </path>
-      </diagram>
-   </composition>
-   <composition>
-      <type>foreign key</type>
-      <cardinality>OneOrMore</cardinality>
-      <identifying/>
-      <inverse>of</inverse>
-      <diagram>
-         <path>
-             <srcattach>0.8</srcattach>
-         </path>
-      </diagram>
-   </composition>
-</entity_type>
-<group>
-   <name>table_children</name>
-    <presentation><below>table</below><x>-0.2</x><y>0.5</y></presentation>
+   <absolute>
+      <name>relationalMetaModel</name>
+      <composition>
+         <name>all tables</name>
+         <type>table</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </absolute>
    <entity_type>
-      <name>primary key column</name>
-      <presentation><deltaw>0.1</deltaw></presentation>
-      <!-- this is now duplicated by ERmodel initial enrichment -->
-      <!-- need modify ERmodel ERmodel to enable this to be flagged as the SEQNO -->
+      <name>table</name>
+      <presentation>
+        <x>3.5</x>
+         <y>1.25</y>
+         <w>3.5</w>
+      </presentation>
       <value>
-         <name>seq no</name>
-         <type>integer</type>
-         <identifying/>
-      </value>
-      <dependency>
-         <name>of</name>
-      </dependency>
-      <reference>
-         <name>is</name>
-         <cardinality>ExactlyOne</cardinality>
-         <type>column</type>
-         <inverse>in_primary_key</inverse> 
-         <diagram>
-             <path>
-                <align>ToSrc</align>
-                <label>
-                   <position>Upside</position>
-                </label>
-                <inverse><label><name>None</name></label></inverse>
-             </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-       <name>column</name>
-       <presentation>
-            <rightOf>primary key column</rightOf>
-            <x>0.75</x>
-       </presentation>
-       <dependency>
-          <name>of</name>
-       </dependency>
-       <value>
          <name>name</name>
          <type>string</type>
          <identifying/>
-       </value>
-       <reference>
+      </value>
+      <composition>
+         <type>primary key column</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <sequence/>
+         <inverse>of</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.2</srcattach>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <type>column</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <inverse>of</inverse>
+         <diagram>
+            <path>
+               <align>ToDest</align>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <type>foreign key</type>
+         <cardinality>OneOrMore</cardinality>
+         <identifying/>
+         <inverse>of</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.8</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <group>
+      <name>table_children</name>
+      <presentation>
+         <below>table</below>
+         <x>-0.2</x>
+         <y>0.5</y>
+      </presentation>
+      <entity_type>
+         <name>primary key column</name>
+         <presentation>
+            <deltaw>0.1</deltaw>
+         </presentation>
+      
+      
+         <value>
+            <name>seq no</name>
+            <type>integer</type>
+            <identifying/>
+         </value>
+         <dependency>
+            <name>of</name>
+         </dependency>
+         <reference>
+            <name>is</name>
+            <cardinality>ExactlyOne</cardinality>
+            <type>column</type>
+            <inverse>in_primary_key</inverse> 
+            <diagram>
+               <path>
+                  <align>ToSrc</align>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+                  <inverse>
+                     <label>
+                        <name>None</name>
+                     </label>
+                  </inverse>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>column</name>
+         <presentation>
+            <rightOf>primary key column</rightOf>
+            <x>0.75</x>
+         </presentation>
+         <dependency>
+            <name>of</name>
+         </dependency>
+         <value>
+            <name>name</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <reference>
            <name>in_primary_key</name>
            <cardinality>ZeroOrOne</cardinality>
            <type>primary key column</type>
            <inverse>is</inverse>
-       </reference>
-   </entity_type>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>foreign key</name>
+         <presentation>
+            <rightOf>column</rightOf>
+            <x>1.0</x>
+         </presentation>
+         <dependency>
+            <name>of</name>
+         </dependency>
+         <value>
+            <name>name</name>
+            <type>string</type>
+            <identifying/>
+         </value>
+         <composition>
+            <type>foreign key column</type>
+            <cardinality>OneOrMore</cardinality>
+            <sequence/>
+            <identifying/>
+            <inverse>part_of</inverse>
+         </composition>
+         <reference>
+            <name>to</name>
+            <type>table</type>
+            <cardinality>ExactlyOne</cardinality>
+            <diagram>
+               <path>
+                  <srcsign>1</srcsign>
+                  <srcarmlen>1.3</srcarmlen>
+                  <destsign>-1</destsign>
+                  <destattach>0.666</destattach>
+                  <destarmlen>3.5</destarmlen>
+                  <vstep>
+                     <absdim>
+                        <src>3.3</src>
+                     </absdim>
+                  </vstep>
+                  <label>
+                     <position>Upside</position>
+                  </label>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+   </group>
    <entity_type>
-       <name>foreign key</name>
-       <presentation><rightOf>column</rightOf><x>1.0</x></presentation>
-       <dependency>
-          <name>of</name>
-       </dependency>
-       <value>
-          <name>name</name>
-          <type>string</type>
-          <identifying/>
-       </value>
-       <composition>
-          <type>foreign key column</type>
-          <cardinality>OneOrMore</cardinality>
-          <sequence/>
-          <identifying/>
-          <inverse>part_of</inverse>
-       </composition>
-       <reference>
-          <name>to</name>
-          <type>table</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
-             <path>
-                <srcsign>1</srcsign>
-                <srcarmlen>1.3</srcarmlen>
-                <destsign>-1</destsign>
-                <destattach>0.666</destattach>
-                <destarmlen>3.5</destarmlen>
-                <vstep><absdim><src>3.3</src></absdim></vstep>
-                <label>
-                   <position>Upside</position>
-                </label>
-             </path>
-          </diagram>
-       </reference>
-   </entity_type>
-</group>
-<entity_type>
-    <name>foreign key column</name>
-    <presentation>
-         <below>foreign key</below><h>0.9</h>
+      <name>foreign key column</name>
+      <presentation>
+         <below>foreign key</below>
+         <h>0.9</h>
          <deltaw>0.1</deltaw>
          <name>Split</name>
-    </presentation>
-    <dependency>
-       <name>part_of</name>
-    </dependency>
+      </presentation>
+      <dependency>
+         <name>part_of</name>
+      </dependency>
       <value>
          <name>seq no</name>
          <type>integer</type>
          <identifying/>
       </value>
-    <reference>
-       <name>is</name>
-       <type>column</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
+      <reference>
+         <name>is</name>
+         <type>column</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
            <path>
               <srcarmlen>0.3</srcarmlen>
               <destattach>0.666</destattach>
@@ -196,27 +224,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               <label>
               </label>
            </path>
-       </diagram>
-    </reference>
-    <reference>
-       <name>to</name>
-       <type>primary key column</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
-          <path>
-             <srcsign>1</srcsign>
-             <srcarmlen>0.5</srcarmlen>
-             <destsign>-1</destsign>
-             <destattach>0.666</destattach>
-             <destarmlen>0.5</destarmlen>
-             <vstep><absdim><src>1.0</src></absdim></vstep>
-             <label>
-                <position>Upside</position>
-             </label>
-          </path>
-       </diagram>
-    </reference>
-</entity_type>
+         </diagram>
+      </reference>
+      <reference>
+         <name>to</name>
+         <type>primary key column</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
+            <path>
+               <srcsign>1</srcsign>
+               <srcarmlen>0.5</srcarmlen>
+               <destsign>-1</destsign>
+               <destattach>0.666</destattach>
+               <destarmlen>0.5</destarmlen>
+               <vstep>
+                  <absdim>
+                     <src>1.0</src>
+                  </absdim>
+               </vstep>
+               <label>
+                  <position>Upside</position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalMetaModel2.xml--> 
-

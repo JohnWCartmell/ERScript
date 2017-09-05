@@ -1,18 +1,35 @@
 
-@echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
+echo BUILDLOG %DATE%_%TIME% >build.log
+echo ====================== >>build.log
+FOR %%x IN (*.xml) DO (
+  set filename=%%x
+  set modelname=!filename:~0,-4!
+  echo           ***************************************
+  echo                  !modelname!
+  echo           ***************************************
+  echo           **** checking schema of %%x
+  call %~dp0\schema_check %%x
+  echo.
+  echo           **** elaborating: 
+  echo                                      diagram.elaboration.xslt
+  echo                           %%x ------------^> temp\!modelname!.elaborated.xml
+  call %~dp0\elaborateandlog %%x
+  echo.
 
-call %~dp0\set_path_variables
+  echo           **** enriching:
+  echo                                      diagram2.initial_enrichment.xslt
+  echo                           !modelname!.elaborated.xml ------------^> temp\!modelname!.enriched.xml
+  call %~dp0\enrichandlog %%x
+  echo. 
 
-if not exist %LOGS% mkdir %LOGS%
 
-echo BUILDLOG %DATE%_%TIME% >%LOGS%\build.log
-echo ====================== >>%LOGS%\build.log
+  echo           **** generating svg:
+  echo                                      diagram2.svg.xslt
+  echo                           !modelname!.enriched.xml ------------^> temp\!modelname!.svg
+  call %~dp0\generate_svgandlog %%x
+  echo. 
 
-call %~dp0\generate_logical_svgandlog
-
-call %~dp0\generate_physical_modelandlog
-
-call %~dp0\validate_logical_model
-
-call %~dp0\validate_physical_model
-  
+  echo.
+  echo.
+)

@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/personMandatoryNameAttribute.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,25 +22,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<entity_type>
-   <name>person</name>
-   <presentation>
-       <x>0.2</x>
-       <y>0.2</y>
-       <w>2.0</w>
-   </presentation>
-   <value>
-      <name>name</name>
-      <type>string</type>
-   </value>
-   <value>
-      <name>date of birth</name>
-      <type>string</type>
-	  <optional/>
-   </value>
-</entity_type>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>person</name>
+      <presentation>
+         <x>0.2</x>
+         <y>0.2</y>
+         <w>2.0</w>
+      </presentation>
+      <value>
+         <name>name</name>
+         <type>string</type>
+      </value>
+      <value>
+         <name>date of birth</name>
+         <type>string</type>
+	        <optional/>
+      </value>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/personMandatoryNameAttribute.xml--> 
-

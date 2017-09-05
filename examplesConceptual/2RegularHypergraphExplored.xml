@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraphExplored.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,63 +22,73 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltaw>1.5</deltaw></diagram></presentation>
-<entity_type>
-   <name>hypergraph</name>
-   <presentation><x>1.2</x><y>0.1</y><w>1.7</w></presentation>
-   <composition>
-      <type>vertex</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <composition>
-      <type>edge</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>vertex</name>
-    <presentation><below>hypergraph</below><x>-1.2</x></presentation>
-</entity_type>
-<entity_type>
-    <name>edge</name>
-    <composition>
-       <type>incident_point</type>
-       <cardinality>OneOrMore</cardinality>
-    </composition>
-    <presentation>
-       <rightOf>vertex</rightOf><x>1.0</x>
-    </presentation>
-</entity_type>
-<entity_type>
-    <name>incident_point</name>
-    <reference>
-       <name>reverse</name>
-       <type>incident_point</type>
-       <cardinality>ExactlyOne</cardinality>
-       <inverse>reverse</inverse>
-       <diagram>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>1.5</deltaw>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>hypergraph</name>
+      <presentation>
+         <x>1.2</x>
+         <y>0.1</y>
+         <w>1.7</w>
+      </presentation>
+      <composition>
+         <type>vertex</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <composition>
+         <type>edge</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vertex</name>
+      <presentation>
+         <below>hypergraph</below>
+         <x>-1.2</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>edge</name>
+      <composition>
+         <type>incident_point</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <presentation>
+         <rightOf>vertex</rightOf>
+         <x>1.0</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>incident_point</name>
+      <reference>
+         <name>reverse</name>
+         <type>incident_point</type>
+         <cardinality>ExactlyOne</cardinality>
+         <inverse>reverse</inverse>
+         <diagram>
            <path>
-             <srcattach>0.5</srcattach>
-             <srcarmlen>1.5</srcarmlen>
+               <srcattach>0.5</srcattach>
+               <srcarmlen>1.5</srcarmlen>
            </path>
-       </diagram>
-    </reference>
-    <reference>
-       <type>vertex</type>
-       <cardinality>ExactlyOne</cardinality>
-       <diagram>
+         </diagram>
+      </reference>
+      <reference>
+         <type>vertex</type>
+         <cardinality>ExactlyOne</cardinality>
+         <diagram>
            <path>
               <srcarmlen>0.3</srcarmlen>
            </path>
-       </diagram>
-    </reference>
-    <presentation>
-         <below>edge</below><h>0.9</h>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>edge</below>
+         <h>0.9</h>
          <name>Split</name>
-    </presentation>
-</entity_type>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraphExplored.xml--> 
-

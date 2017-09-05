@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/molecule0.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,50 +22,70 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltaw>.5</deltaw></diagram></presentation>
-<entity_type>
-   <name>molecule</name>
-   <!-- <presentation><x>0.3</x><y>0.1</y><w>2.0</w></presentation>-->
-   <composition>
-      <type>atom</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<entity_type>
-    <name>atom</name>
-    <composition>
-       <name> </name>
-       <type>bond</type>
-       <cardinality>OneOrMore</cardinality>
-       <inverse> </inverse>
-       <diagram><path><align>ToSrc</align><label><position>Left</position></label>
-                      <inverse><label><position>Left</position></label></inverse></path></diagram>
-    </composition>
-    <composition>
-       <name>  </name>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>.5</deltaw>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>molecule</name>
+   
+      <composition>
+         <type>atom</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>atom</name>
+      <composition>
+         <name> </name>
+         <type>bond</type>
+         <cardinality>OneOrMore</cardinality>
+         <inverse> </inverse>
+         <diagram>
+            <path>
+               <align>ToSrc</align>
+               <label>
+                  <position>Left</position>
+               </label>
+                      <inverse>
+                  <label>
+                     <position>Left</position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>  </name>
         <cardinality>OneOrMore</cardinality>
         <type>bond</type>
-       <inverse>  </inverse>
-       <diagram><path><align>ToSrc</align></path></diagram>
-    </composition>
-    <presentation><below>molecule</below></presentation>
-</entity_type>
-<entity_type>
-    <name>bond</name>
-    <dependency>
-       <name> </name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>atom</type>
-    </dependency>
-    <dependency>
-       <name>  </name>
-       <cardinality>ExactlyOne</cardinality>
-       <type>atom</type>
-    </dependency>
-    <presentation><below>atom</below></presentation>
-</entity_type>
+         <inverse>  </inverse>
+         <diagram>
+            <path>
+               <align>ToSrc</align>
+            </path>
+         </diagram>
+      </composition>
+      <presentation>
+         <below>molecule</below>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>bond</name>
+      <dependency>
+         <name> </name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>atom</type>
+      </dependency>
+      <dependency>
+         <name>  </name>
+         <cardinality>ExactlyOne</cardinality>
+         <type>atom</type>
+      </dependency>
+      <presentation>
+         <below>atom</below>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/molecule0.xml--> 
-

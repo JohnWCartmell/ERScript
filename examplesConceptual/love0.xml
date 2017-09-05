@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/love0.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,53 +22,67 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation><diagram><deltah>0.1</deltah></diagram></presentation>
-<entity_type>
-   <name>novel</name>
-   <presentation><x>1.5</x></presentation>
-   <composition>
-      <type>character</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-   <composition>
-      <type>love</type>
-      <cardinality>OneOrMore</cardinality>
-   </composition>
-</entity_type>
-<group>
-   <presentation><below>novel</below></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.1</deltah>
+      </diagram>
+   </presentation>
    <entity_type>
-       <name>character</name>
+      <name>novel</name>
+      <presentation>
+         <x>1.5</x>
+      </presentation>
+      <composition>
+         <type>character</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
+      <composition>
+         <type>love</type>
+         <cardinality>OneOrMore</cardinality>
+      </composition>
    </entity_type>
-   <entity_type>
-       <name>love</name>
-       <presentation><rightOf>character</rightOf><x>1.4</x></presentation>
-       <reference>
-          <name>of</name>
-          <type>character</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
+   <group>
+      <presentation>
+         <below>novel</below>
+      </presentation>
+      <entity_type>
+         <name>character</name>
+      </entity_type>
+      <entity_type>
+         <name>love</name>
+         <presentation>
+            <rightOf>character</rightOf>
+            <x>1.4</x>
+         </presentation>
+         <reference>
+            <name>of</name>
+            <type>character</type>
+            <cardinality>ExactlyOne</cardinality>
+            <diagram>
               <path>
                   <align>ToSrc</align>
-                  <label><position>Upside</position></label>
+                  <label>
+                     <position>Upside</position>
+                  </label>
               </path>
-          </diagram>
-       </reference>
-       <reference>
-          <name>for</name>
-          <type>character</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
+            </diagram>
+         </reference>
+         <reference>
+            <name>for</name>
+            <type>character</type>
+            <cardinality>ExactlyOne</cardinality>
+            <diagram>
               <path>
                   <align>ToSrc</align>
-                  <inverse><label><position>Downside</position></label></inverse>
+                  <inverse>
+                     <label>
+                        <position>Downside</position>
+                     </label>
+                  </inverse>
               </path>
-          </diagram>
-       </reference>
-   </entity_type>
-</group>
+            </diagram>
+         </reference>
+      </entity_type>
+   </group>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/love0.xml--> 
-

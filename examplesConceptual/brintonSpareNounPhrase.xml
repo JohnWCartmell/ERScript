@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonSpareNounPhrase.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,248 +22,327 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-<presentation>
-  <diagram>
-    <deltaw>4.0</deltaw>
-    <deltah>1.0</deltah>
-  </diagram>
-</presentation>
-<defaults><!--<et_width>2.5</et_width>--></defaults>
-<entity_type>
-   <name>NP|AP|PP</name>
-   <presentation><x>0.5</x><y>1.3</y><!--<name>None</name>--></presentation>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>4.0</deltaw>
+         <deltah>1.0</deltah>
+      </diagram>
+   </presentation>
+   <defaults/>
    <entity_type>
-      <name>NP|PP</name>
-      <presentation><!--<name>None</name>--></presentation>
-      <dependency_group>
-       <presentation><x>9.2</x><w>1.6</w></presentation>
-      </dependency_group>
+      <name>NP|AP|PP</name>
+      <presentation>
+         <x>0.5</x>
+         <y>1.3</y>
+      </presentation>
       <entity_type>
-         <name>noun phrase</name>
-         <presentation><y>0.2</y><deltaw>0.5</deltaw></presentation>
+         <name>NP|PP</name>
+         <presentation/>
+         <dependency_group>
+            <presentation>
+               <x>9.2</x>
+               <w>1.6</w>
+            </presentation>
+         </dependency_group>
          <entity_type>
-           <name>proper_name</name>
-           <presentation>
+            <name>noun phrase</name>
+            <presentation>
+               <y>0.2</y>
+               <deltaw>0.5</deltaw>
+            </presentation>
+            <entity_type>
+               <name>proper_name</name>
+               <presentation>
+                  <h>0.8</h>
+                  <name>Split</name>
+               </presentation>
+            </entity_type>
+            <entity_type>
+               <name>pronoun</name>
+               <presentation>
+                  <rightOf>proper_name</rightOf>
+                  <y>0.15</y>
+               </presentation>
+            </entity_type>
+            <entity_type>
+               <name>N-bar-bar</name>
+               <presentation>
+                  <rightOf>pronoun</rightOf>
+                  <x>2.0</x>
+                  <w>1.8</w>
+               </presentation>
+               <composition>
+                  <cardinality>ZeroOrOne</cardinality>
+                  <type>determiner</type>
+               </composition>
+               <composition>
+                  <cardinality>ExactlyOne</cardinality>
+                  <type>N-bar</type>
+                  <diagram>
+                     <path>
+                        <destattach>0.5</destattach>
+                     </path>
+                  </diagram>
+               </composition>
+            </entity_type>
+         </entity_type>
+         <entity_type>
+            <name>prepositional_phrase</name>
+            <presentation>
+               <rightOf>noun phrase</rightOf>
+               <x>3.0</x>
+               <y>0.45</y>
+               <w>2.9</w>
                <h>0.8</h>
                <name>Split</name>
-           </presentation>
-         </entity_type>
-         <entity_type>
-           <name>pronoun</name>
-           <presentation>
-               <rightOf>proper_name</rightOf>
-               <y>0.15</y>
-           </presentation>
-         </entity_type>
-         <entity_type>
-            <name>N-bar-bar</name>
-            <presentation>
-                <rightOf>pronoun</rightOf><x>2.0</x><w>1.8</w>
             </presentation>
             <composition>
                <cardinality>ZeroOrOne</cardinality>
-               <type>determiner</type>
+               <type>prepositional_specifier</type>
             </composition>
             <composition>
                <cardinality>ExactlyOne</cardinality>
-               <type>N-bar</type>
+               <type>preposition</type>
+            </composition>
+            <composition>
+               <cardinality>ZeroOrOne</cardinality>
+               <type>NP|PP</type>
                <diagram>
                   <path>
-                     <destattach>0.5</destattach>
+                     <srcarmlen>0.8</srcarmlen>
+                     <destattach>0.9</destattach>
+                     <destarmlen>1.0</destarmlen>
+                     <hstep>
+                        <absdim>
+                           <src>1.4</src>
+                        </absdim>
+                     </hstep>
+                     <label>
+                        <yAdjustment>0.3</yAdjustment>
+                        <position>Left</position>
+                     </label>
                   </path>
                </diagram>
             </composition>
          </entity_type>
       </entity_type>
       <entity_type>
-         <name>prepositional_phrase</name>
+         <name>adjectival phrase</name>
          <presentation>
-            <rightOf>noun phrase</rightOf>
-            <x>3.0</x><y>0.45</y><w>2.9</w><h>0.8</h>
-            <name>Split</name>
+            <below>NP|PP</below>
+            <x>-5.0</x>
+            <y>0.6</y>
+            <w>4.0</w>
          </presentation>
          <composition>
             <cardinality>ZeroOrOne</cardinality>
-            <type>prepositional_specifier</type>
+            <type>Advpbar</type>
+            <diagram>
+               <path/>
+            </diagram>
          </composition>
          <composition>
             <cardinality>ExactlyOne</cardinality>
-            <type>preposition</type>
+            <type>adjective</type>
          </composition>
          <composition>
             <cardinality>ZeroOrOne</cardinality>
-            <type>NP|PP</type>
+            <type>prepositional_phrase</type>
             <diagram>
-               <path>
-                   <srcarmlen>0.8</srcarmlen>
-                   <destattach>0.9</destattach>
-                   <destarmlen>1.0</destarmlen>
-                   <hstep><absdim><src>1.4</src></absdim></hstep>
-                   <label>
-                    <yAdjustment>0.3</yAdjustment>
-                    <position>Left</position>
-                   </label>
-                </path>
+   	           <path>
+                  <srcattach>0.85</srcattach>
+   	              <srcarmlen>5.0</srcarmlen>
+   	              <destattach>0.3</destattach>
+   	              <destarmlen>2.4</destarmlen>
+   	    
+   	              <hstep>
+                     <absdim>
+                        <src>12.0</src>
+                     </absdim>
+                  </hstep>
+   	           </path>
             </diagram>
          </composition>
       </entity_type>
    </entity_type>
    <entity_type>
-      <name>adjectival phrase</name>
+      <name>yyy</name>
       <presentation>
-          <below>NP|PP</below><x>-5.0</x><y>0.6</y><w>4.0</w>
+         <below>N-bar-bar</below>
+         <x>1.5</x>
+         <y>3.35</y>
+         <name>None</name>
       </presentation>
-      <composition>
-         <cardinality>ZeroOrOne</cardinality>
-         <type>Advpbar</type>
-         <diagram><path/></diagram>
-      </composition>
-      <composition>
-         <cardinality>ExactlyOne</cardinality>
-         <type>adjective</type>
-      </composition>
-      <composition>
-         <cardinality>ZeroOrOne</cardinality>
-         <type>prepositional_phrase</type>
-         <diagram>
-   	 <path>
-            <srcattach>0.85</srcattach>
-   	    <srcarmlen>5.0</srcarmlen>
-   	    <destattach>0.3</destattach>
-   	    <destarmlen>2.4</destarmlen>
-   	    <!--<destattach>0.8</destattach>-->
-   	    <hstep><absdim><src>12.0</src></absdim></hstep>
-   	 </path>
-         </diagram>
-      </composition>
-   </entity_type>
-</entity_type>
-<entity_type>
-   <name>yyy</name>
-   <presentation><below>N-bar-bar</below><x>1.5</x><y>3.35</y>
-       <name>None</name>
-   </presentation>
-   <dependency_group>
-     <presentation><x>0.75</x><w>0.95</w></presentation>
-   </dependency_group>
-   <entity_type>
-      <name>N-bar</name>
-      <presentation><y>-0.1</y><h>0.5</h></presentation>
-      <composition>
-         <cardinality>ZeroOrOne</cardinality>
-         <type>adjectival phrase</type>
-         <diagram>
-             <path>
-                <srcarmlen>1.0</srcarmlen>
-                <destattach>0.65</destattach>
-                <hstep><absdim><src>-2.5</src></absdim></hstep>
-             </path>
-         </diagram>
-      </composition>
-      <composition>
-         <cardinality>ExactlyOne</cardinality>
-         <type>yyy</type>
-         <diagram>
-             <path>
-                <srcarmlen>0.7</srcarmlen>
-                <destattach>0.15</destattach>
-                <hstep><absdim><src>-1.3</src></absdim></hstep>
-             </path>
-         </diagram>
-      </composition>
-      <composition>
-         <cardinality>ZeroOrOne</cardinality>
-         <type>prepositional_phrase</type>
-          <diagram>
-             <path>
-                <srcarmlen>1.0</srcarmlen>
-                <destarmlen>2.2</destarmlen>
-                <!--<destattach>0.8</destattach>-->
-                <hstep><absdim><src>7.5</src></absdim></hstep>
-                <label>
+      <dependency_group>
+         <presentation>
+            <x>0.75</x>
+            <w>0.95</w>
+         </presentation>
+      </dependency_group>
+      <entity_type>
+         <name>N-bar</name>
+         <presentation>
+            <y>-0.1</y>
+            <h>0.5</h>
+         </presentation>
+         <composition>
+            <cardinality>ZeroOrOne</cardinality>
+            <type>adjectival phrase</type>
+            <diagram>
+               <path>
+                  <srcarmlen>1.0</srcarmlen>
+                  <destattach>0.65</destattach>
+                  <hstep>
+                     <absdim>
+                        <src>-2.5</src>
+                     </absdim>
+                  </hstep>
+               </path>
+            </diagram>
+         </composition>
+         <composition>
+            <cardinality>ExactlyOne</cardinality>
+            <type>yyy</type>
+            <diagram>
+               <path>
+                  <srcarmlen>0.7</srcarmlen>
+                  <destattach>0.15</destattach>
+                  <hstep>
+                     <absdim>
+                        <src>-1.3</src>
+                     </absdim>
+                  </hstep>
+               </path>
+            </diagram>
+         </composition>
+         <composition>
+            <cardinality>ZeroOrOne</cardinality>
+            <type>prepositional_phrase</type>
+            <diagram>
+               <path>
+                  <srcarmlen>1.0</srcarmlen>
+                  <destarmlen>2.2</destarmlen>
+                
+                  <hstep>
+                     <absdim>
+                        <src>7.5</src>
+                     </absdim>
+                  </hstep>
+                  <label>
                     <yAdjustment>0.3</yAdjustment>
                     <position>Left</position>
-                </label>
-             </path>
-          </diagram>
-      </composition>
+                  </label>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>noun</name>
+         <presentation>
+            <rightOf>N-bar</rightOf>
+            <x>0.3</x>
+            <h>0.5</h>
+         </presentation>
+      </entity_type>
    </entity_type>
    <entity_type>
-      <name>noun</name>
-      <presentation><rightOf>N-bar</rightOf><x>0.3</x><h>0.5</h></presentation>
-   </entity_type>
-</entity_type>
-<entity_type>
-   <name>prepositional_specifier</name>
-   <presentation>
-      <name>Split</name>
-      <below>prepositional_phrase</below><x>-1.3</x><y>2.5</y><w>2.0</w><h>0.8</h>
-   </presentation>
-</entity_type>
-<entity_type>
-   <name>preposition</name>
-   <presentation>
-      <rightOf>prepositional_specifier</rightOf><x>0.3</x><y>0.1</y><w>1.6</w>
-   </presentation>
-</entity_type>
-<entity_type>
-   <name>determiner</name>
-   <presentation>
-       <below>N-bar-bar</below><x>-1</x><y>2.0</y><w>1.6</w>
-   </presentation>
-</entity_type>
-<entity_type>
-   <name>Advpbar</name>
-   <presentation>
-       <below>adjectival phrase</below><x>-1.7777777</x><y>0.5</y>
-       <name>None</name>
-   </presentation>
-   <dependency_group>
-       <presentation><x>0.7</x><y>0.1</y><w>0.95</w></presentation>
-   </dependency_group>
-   <entity_type>
-      <name>degree</name>
-      <presentation><y>0</y></presentation>
-   </entity_type>
-   <entity_type>
-      <name>adverbial_phrase</name>
+      <name>prepositional_specifier</name>
       <presentation>
-         <below>degree</below>
          <name>Split</name>
+         <below>prepositional_phrase</below>
+         <x>-1.3</x>
+         <y>2.5</y>
+         <w>2.0</w>
          <h>0.8</h>
       </presentation>
-      <composition>
-         <cardinality>ZeroOrOne</cardinality>
-         <type>degree</type>
-          <diagram><path><!--<srcarmlen>0.8</srcarmlen>-->
+   </entity_type>
+   <entity_type>
+      <name>preposition</name>
+      <presentation>
+         <rightOf>prepositional_specifier</rightOf>
+         <x>0.3</x>
+         <y>0.1</y>
+         <w>1.6</w>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>determiner</name>
+      <presentation>
+         <below>N-bar-bar</below>
+         <x>-1</x>
+         <y>2.0</y>
+         <w>1.6</w>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>Advpbar</name>
+      <presentation>
+         <below>adjectival phrase</below>
+         <x>-1.7777777</x>
+         <y>0.5</y>
+         <name>None</name>
+      </presentation>
+      <dependency_group>
+         <presentation>
+            <x>0.7</x>
+            <y>0.1</y>
+            <w>0.95</w>
+         </presentation>
+      </dependency_group>
+      <entity_type>
+         <name>degree</name>
+         <presentation>
+            <y>0</y>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>adverbial_phrase</name>
+         <presentation>
+            <below>degree</below>
+            <name>Split</name>
+            <h>0.8</h>
+         </presentation>
+         <composition>
+            <cardinality>ZeroOrOne</cardinality>
+            <type>degree</type>
+            <diagram>
+               <path>
                          <srcattach>0.2</srcattach>
                          <destattach>0.2</destattach>
                          <destarmlen>0.8</destarmlen>
-                         <hstep><absdim><src>-0.8</src></absdim></hstep>
+                         <hstep>
+                     <absdim>
+                        <src>-0.8</src>
+                     </absdim>
+                  </hstep>
                    </path>
-          </diagram>
-      </composition>
-      <composition>
-         <cardinality>ExactlyOne</cardinality>
-         <type>adverb</type>
-         <diagram><path><srcattach>0.5</srcattach></path></diagram>
-      </composition>
+            </diagram>
+         </composition>
+         <composition>
+            <cardinality>ExactlyOne</cardinality>
+            <type>adverb</type>
+            <diagram>
+               <path>
+                  <srcattach>0.5</srcattach>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
    </entity_type>
-</entity_type>
-<entity_type>
-   <name>adverb</name>
-   <presentation>
-      <below>adverbial_phrase</below><y>0.25</y>
-   </presentation>
-</entity_type>
-<entity_type>
-   <name>adjective</name>
-   <presentation>
-      <rightOf>Advpbar</rightOf><x>0.3</x><y>0.8</y>
-   </presentation>
-</entity_type>
+   <entity_type>
+      <name>adverb</name>
+      <presentation>
+         <below>adverbial_phrase</below>
+         <y>0.25</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>adjective</name>
+      <presentation>
+         <rightOf>Advpbar</rightOf>
+         <x>0.3</x>
+         <y>0.8</y>
+      </presentation>
+   </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/brintonSpareNounPhrase.xml--> 
-

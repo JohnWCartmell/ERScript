@@ -1,6 +1,7 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase2.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
 ****************************************************************
 
 Copyright 2016, 2107 Cyprotex Discovery Ltd.
@@ -21,17 +22,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?><entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
   <presentation>
-    <diagram>
-      <deltaw>0.4</deltaw>
-      <deltah>0.2</deltah>
-    </diagram>
+      <diagram>
+         <deltaw>0.4</deltaw>
+         <deltah>0.2</deltah>
+      </diagram>
   </presentation>
    <entity_type>
       <name>departure</name>
-      <presentation><x>0.2</x><shape>TopLeft</shape></presentation>
+      <presentation>
+         <x>0.2</x>
+         <shape>TopLeft</shape>
+      </presentation>
       <composition>
          <name>left(R)</name>
          <type>source</type>
@@ -55,7 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                  <position>Upside</position>
                  <xAdjustment>0.2</xAdjustment>
               </label>
-              <inverse><label><position>Downside</position></label></inverse>
+              <inverse>
+                  <label>
+                     <position>Downside</position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
@@ -63,7 +70,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>diagonal</name>
       <presentation>
-          <rightOf>departure</rightOf> <x>2.5</x>
+          <rightOf>departure</rightOf> 
+         <x>2.5</x>
           <shape>TopRight</shape>
       </presentation>
       <composition>
@@ -101,8 +109,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </entity_type>
    <entity_type>
       <name>dest</name>
-      <presentation><rightOf>source</rightOf><below>diagonal</below><shape>BottomRight</shape></presentation>
+      <presentation>
+         <rightOf>source</rightOf>
+         <below>diagonal</below>
+         <shape>BottomRight</shape>
+      </presentation>
    </entity_type>
 </entity_model>
-<!-- end of file: ERmodel_v1.2/instances/catalogue/src/conceptualModels/relationalScopeCase2.xml--> 
-
