@@ -1,22 +1,88 @@
-
+SETLOCAL
 @echo off
 
-call %~dp0\set_path_variables
+if "%2" == "" goto args_count_wrong
+if "%3" == "" goto args_count_ok
 
-if not exist %TARGETDIR% mkdir %TARGETDIR%
-if not exist %TARGETDIR%\xml mkdir %TARGETDIR%\xml
-if not exist %TARGETDIR%\temp mkdir %TARGETDIR%\temp
-if not exist %TARGETDIR%\xslt mkdir %TARGETDIR%\xslt
-if not exist %TARGETDIR%\docs mkdir %TARGETDIR%\docs
-if not exist %TARGETDIR%\schemas mkdir %TARGETDIR%\schemas
-if not exist %TARGETDIR%\logs mkdir %TARGETDIR%\logs
+:args_count_wrong
+echo Useage:
+echo    build ^<distribution^> ^<ER home^>
+echo .
+echo         for ^<distribution^> specify a path to an existing folder which is
+echo         the folder which (when zipped) will be the software distribution. 
+echo         This folder must already contain third party software (jars from Saxon and jing)
+echo         for these are used in the build process.
+echo .
+echo         for ^<ER home^> specify the name of the ERmodel folder that is to be 
+echo         created within the distribution.
+exit /b 1
 
-rem for %%x in (%SRCXSLT%\*) do copy %%x %TARGETDIR%\%%x
-xcopy %SRCDIR%\xslt %TARGETDIR%\xslt\
-xcopy %SRCDIR%\examplesConceptual %DISTRIBUTION%\examplesConceptual\
-xcopy %SRCDIR%\exampleDataModels %DISTRIBUTION%\exampleDataModels\
+:args_count_ok
 
-call %~dp0\generate
+SET DISTRIBUTION=%1
+SET ERHOME=%2
+
+call %~dp0\set_build_path_variables
+
+if not exist %SAXON_PATH% (
+   echo For the build need third party software %SAXON_PATH%.
+   goto :error
+)
+
+if not exist %JING_PATH% (
+   echo For the build need third party software %JING_PATH%.
+   goto :error
+)
+goto :continue
+
+:error
+exit /b 1
+
+:continue
+for %%* in (%DISTRIBUTION%) do set DISTRIBUTIONNAME=%%~nx*
+
+if not exist %ERHOMEDIR% mkdir %ERHOMEDIR%
+if not exist %ERHOMEDIR%\xml mkdir %ERHOMEDIR%\xml
+if not exist %ERHOMEDIR%\temp mkdir %ERHOMEDIR%\temp
+if not exist %ERHOMEDIR%\xslt mkdir %ERHOMEDIR%\xslt
+if not exist %ERHOMEDIR%\docs mkdir %ERHOMEDIR%\docs
+if not exist %ERHOMEDIR%\schemas mkdir %ERHOMEDIR%\schemas
+if not exist %ERHOMEDIR%\logs mkdir %ERHOMEDIR%\logs
+
+echo "Copying source xslt files"
+xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\
+
+echo "Copying source batch file scripts"
+xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\
+
+if not exist %LOGS% mkdir %LOGS%
+
+echo Logging to %LOGS%\build.log
+
+echo BUILDLOG %DATE%_%TIME% >%LOGS%\build.log
+echo ====================== >>%LOGS%\build.log
+
+echo Generating ERmodel.svg
+call %~dp0\generate_logical_svgandlog
+
+echo Generating physical data model and the XML schema (ERmodel.rng)
+call %~dp0\generate_physical_modelandlog
+
+echo validating the meta model is as instance of itself
+call %~dp0\validate_logical_model11
+
+echo validating the phsyical meta model is an instance of itself
+call %~dp0\validate_physical_model
+
+echo Copying examples into distribution
+
+xcopy %SRCDIR%\examplesConceptual %DISTRIBUTION%\examplesConceptual\ /s
+powershell -Command "(gc %DISTRIBUTION%\examplesConceptual\readme.txt) -replace '<DISTRIBUTION>', '%DISTRIBUTIONNAME%' -replace '<ERHOME>', '%ERHOME%' | Out-File %DISTRIBUTION%\examplesConceptual\readme.txt"
+
+xcopy %SRCDIR%\exampleDataModels %DISTRIBUTION%\exampleDataModels\ /s
+powershell -Command "(gc %DISTRIBUTION%\exampleDataModels\readme.txt) -replace '<DISTRIBUTION>', '%DISTRIBUTIONNAME%' -replace '<ERHOME>', '%ERHOME%' | Out-File %DISTRIBUTION%\exampleDataModels\readme.txt"
+
+ENDLOCAL
 
 
 

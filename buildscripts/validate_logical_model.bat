@@ -1,6 +1,6 @@
 @ECHO OFF
 
-call %~dp0\set_path_variables
+rem call %~dp0\set_path_variables
 
 java -jar %JING_PATH%\jing.jar -f %SCHEMAS%\ERmodel.rng %SRCXML%\ERmodelERmodel.xml
 

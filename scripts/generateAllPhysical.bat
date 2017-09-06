@@ -14,9 +14,9 @@ FOR %%x IN (*.xml) DO (
   set modelname=!filename:~0,-4!
 
   echo           **** generating svg:
-  echo                                      ERmodel2.svg.xslt
-  echo                           !modelname!.xml ------------^> docs\!modelname!.svg
-  call %ERHOME%\scripts\generate_svgandlog %%x
+  echo                                      ERmodel2.physical.xslt
+  echo                           !modelname!.xml ------------^> temp\!modelname!.hierarchical.xml
+  call %ERHOME%\scripts\generate_physicalandlog %%x
   echo. 
 
   echo.
