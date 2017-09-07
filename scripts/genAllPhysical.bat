@@ -14,9 +14,26 @@ FOR %%x IN (*.xml) DO (
   set filename=%%x
   set modelname=!filename:~0,-4!
 
-  echo           **** generating hierarchical physical model:
-  echo                                      ERmodel2.physical.xslt -hs
-  echo                           !modelname!.xml ----------------^> temp\!modelname!.hierarchical.xml
+  echo         **** generating hierarchical  model:
+  echo.
+  echo                              ERmodel2.physical.xslt style=h
+  echo             !modelname!.xml --------------------^> temp\!modelname!.hierarchical.xml
+  echo .
+  echo                             then svg for hierarchical physical model:
+  echo .
+  echo                              ERmodel2.svg.xslt 
+  echo                             --------------------^> docs\!modelname!.hierarchical.svg
+  echo .
+  echo         **** generating relational  model:
+  echo .
+  echo                              ERmodel2.physical.xslt style=r
+  echo             !modelname!.xml --------------------^> temp\!modelname!.relational.xml
+  echo .
+  echo                             then svg for relational model:
+  echo .
+  echo                              ERmodel2.svg.xslt 
+  echo                             --------------------^> docs\!modelname!.relational.svg
+
   call %ERHOME%\scripts\generate_physicalandlog %%x
   echo. 
 

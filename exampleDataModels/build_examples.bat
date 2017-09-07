@@ -1,3 +1,7 @@
 cd src
-..\..\ERmodel_v1.3\scripts\generateAllSvg
-..\..\ERmodel_v1.3\scripts\generateAllPhysical
+
+call ..\..\ERmodel_v1.3\scripts\genAllSvg
+
+call ..\..\ERmodel_v1.3\scripts\genAllPhysical
+
+cd ..

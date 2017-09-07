@@ -1,2 +1,3 @@
 cd src
-..\..\ERmodel_v1.3\scripts\generateAllSvg
+call ..\..\ERmodel_v1.3\scripts\genAllSvg
+cd ..
