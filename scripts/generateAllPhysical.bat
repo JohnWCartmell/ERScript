@@ -1,3 +1,4 @@
+@echo off
 
 call %~dp0\set_path_variables
 
@@ -13,9 +14,9 @@ FOR %%x IN (*.xml) DO (
   set filename=%%x
   set modelname=!filename:~0,-4!
 
-  echo           **** generating svg:
-  echo                                      ERmodel2.physical.xslt
-  echo                           !modelname!.xml ------------^> temp\!modelname!.hierarchical.xml
+  echo           **** generating hierarchical physical model:
+  echo                                      ERmodel2.physical.xslt -hs
+  echo                           !modelname!.xml ----------------^> temp\!modelname!.hierarchical.xml
   call %ERHOME%\scripts\generate_physicalandlog %%x
   echo. 
 

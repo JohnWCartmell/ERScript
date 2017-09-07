@@ -1,10 +1,9 @@
 @ECHO OFF
+
 set filename=%1
 set filenamebase=%filename:~0,-4%
 
 call %~dp0\set_path_variables
-
-echo HERE
 
 echo ********************************************** >>build.log
 echo ** generate physical for %filename%                 >>build.log           

@@ -202,7 +202,6 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 <xsl:template name="recursive_xpath_enrichment">
   <xsl:param name="mode" />
   <xsl:param name="interim"/>
-  <xsl:message> <xsl:value-of select="era:packArray(('a','...','z'))"/> </xsl:message>
   <xsl:variable name ="next">
     <xsl:for-each select="$interim">
       <xsl:copy>

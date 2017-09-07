@@ -281,7 +281,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
 <xsl:template name="descriptive_text" match="entity_type|group">
    <xsl:param name="levelNumber"/>
-   <xsl:message> level Number is <xsl:value-of select="$levelNumber"/></xsl:message>
+   <!--<xsl:message> level Number is <xsl:value-of select="$levelNumber"/></xsl:message> -->
    <div>
        <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
        <div>

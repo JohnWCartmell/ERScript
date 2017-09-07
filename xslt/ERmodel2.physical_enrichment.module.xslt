@@ -242,8 +242,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        and has no unimplemented incoming identifying 
            composition relationships 
   -->
-<xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message>
-<xsl:message>tring-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message>
+  <!-- <xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message>
+       <xsl:message>tring-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message>
+  -->
   <xsl:variable name="nonempty_et_name" select="if(string-length($et_name)=0) then 'EMPTYVALUEREPLACED' else $et_name"/>
   <xsl:for-each select="$root">
   <xsl:if test = "not(key('EntityTypes',$nonempty_et_name))">
@@ -774,18 +775,15 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 <xsl:template match="*[ not(self::value) ]" 
               mode="final_physical_pass"> 
   <xsl:copy>
-<xsl:message> FINAL PHYSICAL PASS </xsl:message>
     <xsl:apply-templates mode="final_physical_pass"/>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="value" mode="final_physical_pass">
-<xsl:message> FINAL PHYSICAL PASS VALUE <xsl:value-of select="name"/> </xsl:message>
    <xsl:if test="$style='r'
                  or not (name='seqNo')
                  or implementationOf
                 ">    <!-- fixed this test in CR-18469 -->
-<xsl:message>                       COPYING </xsl:message>
      <xsl:copy>
        <xsl:apply-templates mode="final_physical_pass"/>
      </xsl:copy>
