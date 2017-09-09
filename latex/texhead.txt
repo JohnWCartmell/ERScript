@@ -1,0 +1,17 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{mathptmx}
+\usepackage{pstricks}
+\usepackage{xifthen}
+\usepackage{amsfonts}
+\input{../ERmodel_v1.3/latex/erdiagram}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{calc}
+\usepackage{underscore}
+\usepackage{hyperref}
+%\definecolor{lightyellow}{cmyk}{0,0,0.3,0}  % moved into erdigram.tex
+
+% This document must be built using Latex => PS => PDF
+
+

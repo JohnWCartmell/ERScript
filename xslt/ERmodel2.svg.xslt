@@ -928,7 +928,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
          <xsl:value-of select="concat('L',$xcm,',',$ycm)"/>
          <xsl:value-of select="concat('M',$xcm + 2*($relcrowlen * $sign),',',$ycm - $relcrowwidth)"/>
          <xsl:value-of select="concat('L',$xcm,',',$ycm + $relcrowwidth)"/>
-		 <xsl:value-of select="concat('M',$xcm + 2*($relcrowlen * $sign),',',$ycm - $relcrowwidth)"/>
+		     <xsl:value-of select="concat('M',$xcm + 2*($relcrowlen * $sign),',',$ycm - $relcrowwidth)"/>
          <xsl:value-of select="concat('L',$xcm + 2*($relcrowlen * $sign),',',$ycm + $relcrowwidth)"/>
       </xsl:attribute>
     </svg:path>

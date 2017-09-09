@@ -8,16 +8,15 @@ echo ====================== >>build.log
 
 if not exist temp mkdir temp
 
-rem if not exist docs mkdir docs
 
 FOR %%x IN (*.xml) DO (
   set filename=%%x
   set modelname=!filename:~0,-4!
 
-  echo           **** generating svg:
-  echo                                      ERmodel2.svg.xslt
-  echo                           !modelname!.xml ------------^> docs\!modelname!.svg
-  call %ERHOME%\scripts\generate_svgandlog %%x
+  echo           **** generating tex:
+  echo                                      ERmodel2.tex.xslt
+  echo                           !modelname!.xml ------------^> latex\!modelname!.tex
+  call %ERHOME%\scripts\generate_texandlog %%x
   echo. 
 
   echo.

@@ -55,6 +55,9 @@ xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\
 echo "Copying source batch file scripts"
 xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\
 
+echo "Copying latex"
+xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\
+
 if not exist %LOGS% mkdir %LOGS%
 
 echo Logging to %LOGS%\build.log

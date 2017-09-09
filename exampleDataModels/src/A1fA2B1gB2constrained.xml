@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
-         <deltah>0.1</deltah>
+         <deltah>0.5</deltah>
       </diagram>
    </presentation>
    <absolute>

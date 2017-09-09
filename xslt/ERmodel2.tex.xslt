@@ -283,6 +283,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <xsl:text>}{0}</xsl:text>
 </xsl:template>
 
+<xsl:template name="crowsfoot_down_reflected"><!-- JC 8/09/2017 -->
+   <xsl:param name="x"/>
+   <xsl:param name="y"/>
+   <xsl:message>crowsfoot_down_reflected not yet implmented in latex</xsl:message>
+</xsl:template>
+
 <xsl:template name="crowsfoot_across">
   <xsl:param name="xcm"/>
   <xsl:param name="ycm"/>
@@ -310,6 +316,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <xsl:otherwise>0</xsl:otherwise>
    </xsl:choose>
    <xsl:text>}</xsl:text>
+</xsl:template>
+
+<xsl:template name="crowsfoot_across_reflected"> <!--JC 08/09/2017 -->
+  <xsl:param name="xcm"/>
+  <xsl:param name="ycm"/>
+  <xsl:param name="sign"/>
+  <xsl:param name="p_isconstructed"/>
+  <xsl:message>crowsfoot_across_reflected not yet implmented in latex</xsl:message>
 </xsl:template>
 
 <xsl:template name="identifier_comprel">
