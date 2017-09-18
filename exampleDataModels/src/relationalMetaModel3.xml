@@ -34,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltah>3.3</deltah>
       </diagram>
    </presentation>
+   <description>
+      This is a model of relational database structure. It is an interesting example because 
+      only one of the four reference relationships (that from foreign key to table) is of global scope.
+   </description>
    <absolute>
       <name>relationalMetaModel</name>
       <composition>

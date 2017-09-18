@@ -23,6 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>The different behaviour when the riser does not consist entirely of identifying attributes. 
+                SPELL THIS OUT.
+   </description>
    <absolute>
       <composition>
          <type>A1</type>

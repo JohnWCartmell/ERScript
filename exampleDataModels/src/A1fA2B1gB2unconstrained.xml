@@ -23,6 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>For comparison a non-commuting square of relationships. Now the identifier of the destination entity A2 is doubly represented  on the source entity B1 in both physical models.
+   </description> 
    <absolute>
       <composition>
          <name>all A1</name>
@@ -133,8 +140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </inverse>
               <scope>
                  <label>
-                    <position>Downside</position>
-                    <xAdjustment>-0.5</xAdjustment>
+                    <xAdjustment>-0.3</xAdjustment>
                  </label>
               </scope>
             </path>

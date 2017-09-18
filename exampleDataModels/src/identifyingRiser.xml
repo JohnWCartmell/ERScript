@@ -23,6 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>0.6</deltaw>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>Tests that the phsyical models are generated correctly when each riser in the dependency is identifying.
+                In this case?
+   </description>
    <absolute>
       <name>identifyingRiser</name>
       <composition>
@@ -75,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>A2</name>
       <presentation>
          <rightOf>A1</rightOf>
-         <x>3.0</x>
+         <x>4.0</x>
       </presentation>
       <value>
           <name>name</name>
@@ -146,7 +155,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </inverse>
               <scope>
                  <label>
-                    <position>Downside</position>
                     <xAdjustment>-0.5</xAdjustment>
                  </label>
               </scope>

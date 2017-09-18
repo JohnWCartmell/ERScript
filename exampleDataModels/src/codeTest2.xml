@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>2.0</deltaw>
       </diagram>
    </presentation>
+   <description>
+      A second example designed to test code generation. This example includes pullbacks.
+   </description>
    <absolute>
       <name>codeTest</name>
       <composition>
@@ -52,6 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>A(1)</name>
          <presentation>
             <deltaw>0.3</deltaw>
+            <y>0.5</y>
          </presentation>
          <value>
             <name>name</name>
@@ -108,6 +112,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <position>Downside</position>
                      </label>
                   </inverse>
+                  <scope>
+                     <label>
+                        <xAdjustment>-0.5</xAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
          </reference>
@@ -116,7 +125,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>X(1)</name>
          <presentation>
             <below>A(1)</below>
-            <y>2.5</y>
+            <y>2.0</y>
             <deltaw>0.6</deltaw>
          </presentation>
          <dependency>
@@ -125,6 +134,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <cardinality>ExactlyOne</cardinality>
             <inverse_of>x</inverse_of>
          </dependency>
+         <value>
+            <name>text</name>
+            <type>string</type>
+         </value>
          <reference>
             <name>basedOn</name>
             <type>X(1)</type>
@@ -202,6 +215,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <position>Downside</position>
                      </label>
                   </inverse>
+                  <scope>
+                     <label>
+                        <xAdjustment>-0.75</xAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
          </reference>
@@ -221,6 +239,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <cardinality>ExactlyOne</cardinality>
             <inverse_of>b1</inverse_of>
          </dependency>
+         <value>
+            <name>text</name>
+            <type>string</type>
+         </value>
          <composition>
            <type>P</type>
            <inverse>..</inverse>
@@ -272,6 +294,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <destsign>-1.0</destsign>
                   <destarmlen>1.0</destarmlen>
                   <destattach>0.3</destattach>
+                  <scope>
+                     <label>
+                        <yAdjustment>-0.25</yAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
          </reference>
@@ -311,8 +338,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </inverse>
                   <scope>
                      <label>
-                        <position>Downside</position>
-                        <xAdjustment>-0.5</xAdjustment>
+                        <xAdjustment>-1.0</xAdjustment>
                      </label>
                   </scope>
                </path>
@@ -324,11 +350,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>P</name>
          <presentation>
             <below>B1</below>
+            <y>0.5</y>
          </presentation>
          <dependency>
             <type>B1</type>
             <name>..</name>
          </dependency>
+         <value>
+            <name>text</name>
+            <type>string</type>
+         </value>
          <reference>
             <name>pBasedOn</name>
             <type>P</type>
@@ -342,6 +373,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <destsign>-1.0</destsign>
                   <destarmlen>1.0</destarmlen>
                   <destattach>0.3</destattach>
+                  <scope>
+                     <label>
+                        <yAdjustment>-0.3</yAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
             <diagonal>

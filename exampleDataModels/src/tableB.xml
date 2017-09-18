@@ -32,6 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <et_width>1.5</et_width>
       <et_y_separation>1.0</et_y_separation>
    </defaults>
+   <description>
+       A less obvious way of representing a table. Contrast with the tableA example.
+   </description>       
    <entity_type>
       <name>table</name>
       <presentation>

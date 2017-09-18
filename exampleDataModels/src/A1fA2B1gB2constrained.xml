@@ -21,13 +21,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
+
+JCartmell 17-Sept-2017 Description added.
 -->
+
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
          <deltah>0.5</deltah>
       </diagram>
    </presentation>
+   <description>A simple test that for a commuting square of relationships the identifier of the destination entity(A2) is only pulled back a single time to the source entity(B1).
+   </description>   
    <absolute>
       <composition>
          <type>A1</type>
@@ -144,7 +149,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </inverse>
               <scope>
                  <label>
-                    <position>Downside</position>
                     <xAdjustment>-0.5</xAdjustment>
                  </label>
               </scope>

@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>0.2</deltaw>
       </diagram>
    </presentation>
+   <description>
+      The obvious way of representing table. See also tableB example. 
+   </description>
    <defaults>
       <et_width>1.5</et_width>
       <et_y_separation>1.0</et_y_separation>

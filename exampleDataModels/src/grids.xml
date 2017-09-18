@@ -28,6 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>0.5</deltaw>
       </diagram>
    </presentation>
+   <description>
+      A further test of the code generators and a demonstator of pullbacks. Should move to separate folder and 
+      as an example of elaboration.
+   </description>
    <defaults>
       <et_width>1.5</et_width>
       <et_height>1.8</et_height>

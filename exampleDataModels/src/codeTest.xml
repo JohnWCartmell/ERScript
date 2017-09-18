@@ -25,9 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
-         <deltah>0.1</deltah>
+         <deltah>1.0</deltah>
       </diagram>
    </presentation>
+   <description>
+      An example designed to test many features of the code generators.
+   </description>
    <absolute>
       <name>codeTest</name>
       <composition>
@@ -95,7 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </riser>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>ToDest</align>
                   <label>
                      <position>Upside</position>
                   </label>
@@ -104,6 +107,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <position>Downside</position>
                      </label>
                   </inverse>
+                  <scope>
+                     <label>
+                        <xAdjustment>-0.25</xAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
          </reference>
@@ -152,7 +160,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </riser>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>ToDest</align>
                   <label>
                      <position>Upside</position>
                   </label>
@@ -163,8 +171,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </inverse>
                   <scope>
                      <label>
-                        <position>Downside</position>
-                        <xAdjustment>-0.5</xAdjustment>
+                        <xAdjustment>-0.75</xAdjustment>
                      </label>
                   </scope>
                </path>
@@ -186,7 +193,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>rhs</name>
       <presentation>
          <rightOf>lhs</rightOf>
-         <x>2.0</x>
+         <x>3.0</x>
       </presentation>
       <module_name>rhs</module_name>
 
@@ -280,6 +287,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </value>
          <presentation>
             <below>B2</below>
+            <y>1.0</y>
             <deltaw>0.3</deltaw>
          </presentation>
          <dependency>

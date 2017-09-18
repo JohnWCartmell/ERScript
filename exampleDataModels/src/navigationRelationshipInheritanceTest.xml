@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltah>0.4</deltah>
       </diagram>
    </presentation>
+   <description>
+      A test that the physical models are generated correctly in the presence of abstraction and the use of inherited relationships.
+   </description>
    <defaults>
       <et_width>2.0</et_width>
       <et_height>2.0</et_height>
@@ -184,7 +187,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </inverse>
                  <scope>
                     <label>
-                       <position>Downside</position>
                        <xAdjustment>-0.5</xAdjustment>
                     </label>
                  </scope>

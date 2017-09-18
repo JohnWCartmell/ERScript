@@ -23,6 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>Similar scopes to the AXBCD example but with identifying dependencies and therefore multiple identifying attributes.
+   </description> 
    <absolute>
       <composition>
          <name>context</name>
@@ -99,11 +106,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </riser>
             <diagram>
                <path>
+                  <srcarmlen>0.4</srcarmlen>
                   <label>
                      <position>Upside</position>
                   </label>
-              
-                  <srcarmlen>0.4</srcarmlen>
+                  <scope>
+                     <label>
+                        <xAdjustment>-1.3</xAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
          </reference>
@@ -205,8 +216,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </inverse>
                      <scope>
                         <label>
-                           <position>Downside</position>
-                           <xAdjustment>-0.5</xAdjustment>
+                           <xAdjustment>-0.9</xAdjustment>
                         </label>
                      </scope>
                   </path>
@@ -259,7 +269,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </inverse>
                      <scope>
                         <label>
-                           <position>Downside</position>
                            <xAdjustment>-0.5</xAdjustment>
                         </label>
                      </scope>

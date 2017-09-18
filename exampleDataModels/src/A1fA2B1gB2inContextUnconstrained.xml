@@ -23,6 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>A non-commuting square of relationships sat on  a commuting triangle.
+   </description>  
    <absolute>
       <composition>
          <type>context</type>
@@ -45,6 +52,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>A1</type>
          <cardinality>OneOrMore</cardinality>
          <inverse>..</inverse>
+         <diagram>
+             <path>
+                <label>
+                    <position>Left</position>
+                </label>
+             </path>
+         </diagram>
       </composition>
       <composition>
          <name>all A2</name>
@@ -94,6 +108,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <position>Downside</position>
                      </label>
                   </inverse>
+                  <scope>
+                     <label>
+                         <xAdjustment>-0.4</xAdjustment>
+                     </label>
+                  </scope>
                </path>
             </diagram>
             <diagonal>
@@ -188,7 +207,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </inverse>
               <scope>
                  <label>
-                    <position>Downside</position>
                     <xAdjustment>-0.5</xAdjustment>
                  </label>
               </scope>

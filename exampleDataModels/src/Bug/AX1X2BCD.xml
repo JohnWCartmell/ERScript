@@ -23,6 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>This example shows up a bug in the naming conventions used in generating 
+                logical2physical. This bug is mentioned in the comments in file
+                ERmodel2.physical_enrichment.module.xslt.
+   </description> 
    <absolute>
       <composition>
          <name>context</name>

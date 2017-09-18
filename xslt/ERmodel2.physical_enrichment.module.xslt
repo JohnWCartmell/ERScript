@@ -42,8 +42,9 @@ DISCUSSION
       JC 21 Oct 2016.
   (2) seqNo attributes are generated for entity types
       with incoming composition relationships having the sequence indicator.
-      If the incoming relationship have the identifying indicator then
-      the implied seqNo atribute is identifying.
+      If the entity type does not have any identifying attributes or relationships and 
+      provided the incoming composition relationship has the identifying indicator 
+      then the implied seqNo atribute is identifying. 
       TBD:
       If there are multiple incoming sequence composition relationships the
       seqNo attribute may need to be prefixed with the name of the composition 
@@ -66,7 +67,7 @@ DISCUSSION
       is in catalogue A1fA2B1gB2unconstrained.hierarchical.svg. 
       To implement support for these need to resursively walk 
       up the composition structure that is implied by "theabsolute". 
-      The thought process of implmenting support for these absolute 
+      The thought process of implementing support for these absolute 
       scopes relationships is  added in comments tagged as KE001.
       JC 24 May 2016.
      
@@ -120,6 +121,8 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 CR19407 JC  20-Feb-2017 Implement a new pass (first_physical_pass) to create seqNo attributes
 
 CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes.
+
+18-Sept-2017 JC         Correct comment regarding when seqNo attribute is identifying.
 
 -->
 

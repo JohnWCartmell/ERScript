@@ -24,6 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
 
+   <description>A more complex example. In this example z has no scope specified and as a consequence 
+                no implementation in the physical models.
+                This is a shortcoming of this release of the software. It would be better if the software interpreted this as
+                a relationship of global scope and provided suitable implementation attributes in the physical models.
+   </description> 
    <defaults>
       <et_width>3.0</et_width>
       <et_height>2.0</et_height>
@@ -105,7 +110,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </riser>
          <diagram>
             <path>
-              <srcarmlen>0.2</srcarmlen>
+              <srcarmlen>0.5</srcarmlen>
+              <scope>
+                  <label>
+                     <xAdjustment>-0.1</xAdjustment>
+                     <yAdjustment>-0.25</yAdjustment>
+                  </label>
+               </scope>
             </path>
          </diagram>
       </reference>
@@ -130,7 +141,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </riser>
          <diagram>
             <path>
-              <srcarmlen>0.2</srcarmlen>
+              <srcarmlen>0.5</srcarmlen>
+               <scope>
+                  <label>
+                    <xAdjustment>-1.0</xAdjustment>
+                    <yAdjustment>0.2</yAdjustment>
+                  </label>
+               </scope>
             </path>
          </diagram>
       </reference>
@@ -139,7 +156,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>A</name>
       <presentation>
-        <x>7.0</x>
+        <x>8.0</x>
          <y>2.25</y>
       </presentation>
       <value>
@@ -221,7 +238,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <identifying/>
          <diagram>
             <path>
-              <srcarmlen>0.4</srcarmlen>
+              <srcarmlen>0.65</srcarmlen>
             </path>
          </diagram>
       </reference>
@@ -247,7 +264,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>Z</name>
       <presentation>
          <rightOf>A</rightOf>
-         <x>2.0</x>
+         <x>4.0</x>
       </presentation>
       <value>
          <name>name</name>
