@@ -58,6 +58,9 @@ xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\
 echo "Copying latex"
 xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\
 
+echo "Copying source docs files"
+xcopy %SRCDIR%\docs %ERHOMEDIR%\docs\
+
 if not exist %LOGS% mkdir %LOGS%
 
 echo Logging to %LOGS%\build.log

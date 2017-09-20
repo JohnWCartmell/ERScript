@@ -302,7 +302,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           <h3>
               <xsl:value-of select="name"/>
           </h3>
-          <xsl:apply-templates select="description"/>
+          <xsl:apply-templates select="description/*"/>
        </div>
    </div>
    <xsl:for-each select="entity_type|group">

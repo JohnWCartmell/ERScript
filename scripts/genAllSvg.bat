@@ -7,8 +7,8 @@ echo BUILDLOG %DATE%_%TIME% >build.log
 echo ====================== >>build.log
 
 if not exist temp mkdir temp
-
-rem if not exist docs mkdir docs
+if not exist ..\docs mkdir ..\docs
+copy %ERHOME%\docs\erstyle.css ..\docs\erstyle.css
 
 FOR %%x IN (*.xml) DO (
   set filename=%%x
