@@ -16,7 +16,7 @@ By use of transform logical2physical.xslt, a hierarchical ER model and a relatio
 From a physical hierarchical ER model:
 - an  XML schema in the **RELAX NG** format (www.relaxng.org) can be generated. 
 
-- **IDL** can be generated for Google's protocol buffers (developers.google.com/protocol-buffers).
+- **IDL** can be generated for Google's protocol buffers (https://developers.google.com/protocol-buffers).
 
 ## Code
 From a physical hierarchical ER model:
