@@ -50,7 +50,7 @@ if not exist %ERHOMEDIR%\schemas mkdir %ERHOMEDIR%\schemas
 if not exist %ERHOMEDIR%\logs mkdir %ERHOMEDIR%\logs
 
 echo "Copy the meta-model"
-copy %SRCDIR%\xml\ERmodelERmodel.xml $ERHOMEDIR\xml\ERmodelERmodel.xml
+copy %SRCDIR%\xml\ERmodelERmodel.xml %ERHOMEDIR%\xml\ERmodelERmodel.xml
 
 echo "Copying source xslt files"
 xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\
