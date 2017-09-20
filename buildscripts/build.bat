@@ -49,6 +49,9 @@ if not exist %ERHOMEDIR%\docs mkdir %ERHOMEDIR%\docs
 if not exist %ERHOMEDIR%\schemas mkdir %ERHOMEDIR%\schemas
 if not exist %ERHOMEDIR%\logs mkdir %ERHOMEDIR%\logs
 
+echo "Copy the readme"
+copy %SRCDIR%\readme.md %DISTRIBUTION%\readme.md
+
 echo "Copy the meta-model"
 copy %SRCDIR%\xml\ERmodelERmodel.xml %ERHOMEDIR%\xml\ERmodelERmodel.xml
 
