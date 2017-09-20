@@ -24,4 +24,14 @@ From a physical hierarchical ER model:
 - **python** code can be generated in support of data serialisation to and from XML and to and from Google protocol buffers.
 - **xslt** can be generated in support of data transformation and includes support for both referential integrity checking of data and enrichment by pullbacks.
 
+## Acknowledgements
+
+The author, John Cartmell, was employed by Cyprotex Discovery Ltd. 2001-2017 where version 1.2 of this software was written by him, with assistance from David Roe and Bob Appleyard, jointly, on the python generator, and from Bob Appleyard on the implementation of the support for Typescript and for Google Protocol buffers and who, significantly, championed both these technologies in software development projects within Cyprotex. In July 2017 Cyprotex elected to support this software being released as open source software. 
+
+Many of the ideas in this software were conceived of when working at Ipsys Software on Computer Aided software Engineering (CASE) tools  and particularly on the Toolbuilder Meta-CASE tool with Albert Alderson, Tony Elliott, Ferrie Smit and Brian Passingham.
+
+Code generators inclusive of the diagram generators have been written in xslt 2.0 and we gratefully acknowledge use of the Saxon xslt processor; Saxon-HE (home edition) is an open source product available under the Mozilla Public License version 2.0 ( www.saxon.sourceforge.net).
+
+Schema checking for both models and instances is carried out using the jing RELAX NG validator from the Thai Open Software Centre (www.thaiopensource.com/relaxng/jing.html). 
+
 
