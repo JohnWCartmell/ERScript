@@ -11,7 +11,7 @@ From an ER model represented in XML, transforms written in xslt can be used to g
 - Diagrams can be generated in postscript and included in pdf documents built using **latex** by making use of the **pstricks** package.
 
 ## Data Definition
-By use of transform logical2physical.xslt, a hierarchical ER model and a relational ER model  can be generated from a single logical ER model.  This transform implements [John Cartmell's 2016 algorithm](http://www.entitymodelling.org/blog/relationaldatadesign.html). Provided that definitions of relationship scopes are included in the logical model then both the hierarchical and the relational model will be in normal form. 
+By use of transform logical2physical.xslt, a hierarchical ER model and a relational ER model  can be generated from a single logical ER model.  This transform implements [John Cartmell's 2016 algorithm](http://www.entitymodelling.org/blog/relationaldatadesign.html) and provided that definitions of relationship scopes are included in the logical model then both the hierarchical and the relational model will be in normal form. 
 
 From a physical hierarchical ER model:
 - an  XML schema in the **RELAX NG** format (www.relaxng.org) can be generated. 
