@@ -23,42 +23,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltah>0.8</deltah>
       </diagram>
-  </presentation>
-  <entity_type>
-     <name>Sentence Constituent</name>
-     <presentation>
+   </presentation>
+   <entity_type>
+      <name>Sentence Constituent</name>
+      <presentation>
          <x>0.6</x>
          <y>0.75</y>
-     </presentation>
-     <entity_type>
-        <name>phrase</name>
-        <composition>
+      </presentation>
+      <entity_type>
+         <name>phrase</name>
+         <composition>
             <type>Sentence Constituent</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <diagram>
                <path>
-                        <srcattach>0.5</srcattach>
-                        <srcarmlen>1.0</srcarmlen>
-                        <destarmlen>0.6</destarmlen>
-                        <destattach>0.25</destattach>
-                        <hstep>
+                  <srcattach>0.5</srcattach>
+                  <srcarmlen>1.0</srcarmlen>
+                  <destarmlen>0.6</destarmlen>
+                  <destattach>0.25</destattach>
+                  <hstep>
                      <absdim>
                         <src>-1.4</src>
                      </absdim>
                   </hstep>
-                  </path>
+               </path>
             </diagram>
-        </composition>
-     </entity_type>
-     <entity_type>
+         </composition>
+      </entity_type>
+      <entity_type>
          <name>word</name>
          <presentation>
             <rightOf>phrase</rightOf>
          </presentation>
-     </entity_type>
-  </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

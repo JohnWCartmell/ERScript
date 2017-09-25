@@ -37,39 +37,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
    </entity_type>
    <entity_type>
-      <name> </name>
+      <name>  </name>
       <reference>
          <name>from</name>
          <type/>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <identifying/>
          <diagram>
-           <path>
-               <align>ToSrc</align>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <yAdjustment>-0.1</yAdjustment>
                </label>
-           </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>to</name>
          <type/>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <identifying/>
          <diagram>
-           <path>
-               <align>ToSrc</align>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
                   <yAdjustment>0.1</yAdjustment>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
-           </path>
+            </path>
          </diagram>
       </reference>
       <presentation>

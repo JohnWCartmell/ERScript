@@ -33,11 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>male</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>female</type>
       </composition>
    </absolute>
@@ -49,7 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>marriage</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.33</destattach>
@@ -65,7 +71,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>marriage</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.66</destattach>

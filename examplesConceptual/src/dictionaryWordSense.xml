@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-     <et_width>2.0</et_width>
+      <et_width>2.0</et_width>
    </defaults>
    <entity_type>
       <name>dictionary</name>
@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>word</type>
       </composition>
    </entity_type>
@@ -41,7 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>word</name>
       <composition>
          <type>sense</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <presentation>
          <below>dictionary</below>

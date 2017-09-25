@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <defaults>
       <et_width>1.8</et_width>
       <et_height>1.2</et_height>
-   </defaults> 
+   </defaults>
    <presentation>
       <diagram>
          <deltaw>0</deltaw>
@@ -38,31 +38,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>1.4</x>
          <y>0.1</y>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>foreign key column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>part_of</inverse>
          <diagram>
-           <path>
+            <path>
                <inverse>
-                   <label>
-                     <position>Left</position>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
-           </path>
-        </diagram>
+            </path>
+         </diagram>
       </composition>
       <reference>
          <name>to</name>
          <type>table</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -71,43 +81,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>foreign key column</name>
       <dependency>
-        <name>part_of</name>
+         <name>part_of</name>
       </dependency>
       <reference>
          <name>to</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcarmlen>0.5</srcarmlen>
                <destarmlen>0.5</destarmlen>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
       </reference>
       <presentation>
          <below>foreign key</below>
-         <name>Split</name>
-         <shape>BottomLeft</shape>
+         <name>
+            <Split/>
+         </name>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
    </entity_type>
    <entity_type>
       <name>table</name>
       <presentation>
-        <rightOf>foreign key</rightOf>
-        <x>2.4</x>
-        <shape>TopRight</shape>
+         <rightOf>foreign key</rightOf>
+         <x>2.4</x>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <type>column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
-            <path>
-            </path>
+            <path/>
          </diagram>
       </composition>
    </entity_type>
@@ -116,10 +137,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>foreign key column</rightOf>
          <below>table</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
       <dependency>
-        <name>of</name>
+         <name>of</name>
       </dependency>
    </entity_type>
 </entity_model>

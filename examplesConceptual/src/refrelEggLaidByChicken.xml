@@ -35,7 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>is laid_by</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>chicken</type>
          <inverse>lays</inverse>
       </reference>
@@ -49,16 +51,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>lays</name>
          <type>egg</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <inverse>is laid_by</inverse>
          <diagram>
             <path>
-              <label>
-                  <position>Downside</position>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </inverse>
             </path>

@@ -33,11 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>agreement</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
       </composition>
    </absolute>
@@ -48,7 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>1.0</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>party</type>
          <identifying/>
          <diagram>
@@ -61,7 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>individual</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>party</type>
          <identifying/>
          <diagram>

@@ -33,15 +33,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>book</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>authorship</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
       </composition>
    </absolute>
@@ -55,7 +61,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>authorship</name>
       <reference>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>book</type>
          <identifying/>
          <diagram>
@@ -65,7 +73,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </reference>
       <reference>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>individual</type>
          <identifying/>
          <diagram>

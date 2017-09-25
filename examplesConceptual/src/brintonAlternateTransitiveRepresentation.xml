@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </diagram>
    </presentation>
    <defaults>
-         <et_y_separation>0.7</et_y_separation>
+      <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>verb phrase</name>
@@ -39,62 +39,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <name>head</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                <align>ToDest</align>
-                <label>
-                  <position>Left</position>
+               <align>
+                  <ToDest/>
+               </align>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
       </composition>
       <composition>
          <name>direct_object</name>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>noun phrase</type>
          <diagram>
             <path>
-                <align>ToDest</align>
-                <destattach>0.33</destattach>
-                <label>
-                  <position>Left</position>
-                  <name>Split</name>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.33</destattach>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+                  <name>
+                     <Split/>
+                  </name>
                </label>
             </path>
          </diagram>
       </composition>
       <composition>
          <name>indirect_object</name>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>noun phrase</type>
          <diagram>
             <path>
-                <align>ToDest</align>
-                <destattach>0.66</destattach>
-                <label>
-                  <name>Split</name>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.66</destattach>
+               <label>
+                  <name>
+                     <Split/>
+                  </name>
                </label>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
-       <name>verb</name>
-       <presentation>
+      <name>verb</name>
+      <presentation>
          <below>verb phrase</below>
          <x>-1.2</x>
          <w>1.6</w>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>noun phrase</name>
-       <presentation>
+      <name>noun phrase</name>
+      <presentation>
          <rightOf>verb</rightOf>
          <x>0.4</x>
          <w>2.0</w>
       </presentation>
-         <dependency_group/>
+      <dependency_group/>
    </entity_type>
 </entity_model>

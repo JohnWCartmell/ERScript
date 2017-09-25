@@ -24,9 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-      <diagram>
-
-  </diagram>
+      <diagram/>
    </presentation>
    <defaults/>
    <entity_type>
@@ -36,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0</y>
       </presentation>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>NP</type>
          <diagram>
             <path>
@@ -45,33 +45,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>PredP</type>
       </composition>
    </entity_type>
    <entity_type>
       <name>PredP</name>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>Aux</type>
          <diagram>
-            <path>
-         </path>
+            <path/>
          </diagram>
       </composition>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>x</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
       <presentation>
-        <below>sentence</below>
+         <below>sentence</below>
          <x>2.15</x>
-        
       </presentation>
    </entity_type>
    <entity_type>
@@ -96,11 +102,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <y>1.4</y>
          </presentation>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>Det</type>
          </composition>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>N</type>
          </composition>
       </entity_type>
@@ -110,10 +120,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>NP</rightOf>
             <x>1.5</x>
             <y>-1.4</y>
-         
          </presentation>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>NP</type>
             <diagram>
                <path>
@@ -131,13 +142,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <entity_type>
             <name>VP</name>
             <composition>
-               <cardinality>ZeroOrOne</cardinality>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
                <type>NP</type>
                <diagram>
                   <path>
                      <srcattach>0.25</srcattach>
                      <srcarmlen>0.5</srcarmlen>
-                  
                      <destattach>0.75</destattach>
                      <hstep>
                         <absdim>
@@ -148,7 +160,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </diagram>
             </composition>
             <composition>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>V</type>
                <diagram>
                   <path>
@@ -167,7 +181,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <entity_type>
             <name>PrepP</name>
             <composition>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>Prep</type>
             </composition>
             <presentation>

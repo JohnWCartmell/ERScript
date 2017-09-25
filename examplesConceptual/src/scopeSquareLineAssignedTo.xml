@@ -26,25 +26,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>play</name>
       <presentation>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>line</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>is same as</name>
          <type>play </type>
-         <cardinality>ExactlyOne</cardinality>
-         <inverse> </inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse/>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -56,37 +66,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>play</rightOf>
          <x>2.0</x>
-         <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <reference>
-         <name> </name>
+         <name/>
          <type>play</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>is same as</inverse>
       </reference>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>line</name>
       <presentation>
          <below>play</below>
-         <shape>BottomLeft</shape>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
       <reference>
          <name>assigned_to</name>
          <type>character</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -98,7 +122,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>line</rightOf>
          <below>play </below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

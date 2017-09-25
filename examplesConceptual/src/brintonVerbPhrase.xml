@@ -24,9 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-      <diagram>
-
-  </diagram>
+      <diagram/>
    </presentation>
    <defaults/>
    <entity_type>
@@ -64,15 +62,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </presentation>
             <composition>
                <name>indirect_object</name>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>noun phrase</type>
                <diagram>
                   <path>
-                    <label>
-                        <name>Split</name>
+                     <label>
+                        <name>
+                           <Split/>
+                        </name>
                      </label>
-                    <srcattach>0.6</srcattach>
-                    <align>ToSrc</align>
+                     <srcattach>0.6</srcattach>
+                     <align>
+                        <ToSrc/>
+                     </align>
                   </path>
                </diagram>
             </composition>
@@ -85,29 +89,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </presentation>
             <composition>
                <name>object_complement</name>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>NP|AP|PP</type>
                <diagram>
                   <path>
-                    <label>
-                        <name>Split</name>
+                     <label>
+                        <name>
+                           <Split/>
+                        </name>
                      </label>
-                     <align>ToSrc</align>
+                     <align>
+                        <ToSrc/>
+                     </align>
                   </path>
                </diagram>
             </composition>
          </entity_type>
          <composition>
             <name>direct_object</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>noun phrase</type>
             <diagram>
                <path>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                   <srcattach>0.15</srcattach>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                </path>
             </diagram>
          </composition>
@@ -121,15 +137,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <composition>
             <name>subject_complement</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>NP|AP|PP</type>
             <diagram>
                <path>
                   <label>
-                     <name>Split</name>
+                     <name>
+                        <Split/>
+                     </name>
                   </label>
                   <srcattach>0.4</srcattach>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                </path>
             </diagram>
          </composition>
@@ -152,39 +174,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <w>2.5</w>
             </presentation>
             <composition>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>prepositional phrase</type>
                <diagram>
                   <path>
                      <destattach>0.7</destattach>
-                     <align>ToDest</align>
+                     <align>
+                        <ToDest/>
+                     </align>
                   </path>
                </diagram>
             </composition>
          </entity_type>
          <composition>
             <name>prepositional_complement</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>prepositional phrase</type>
             <diagram>
                <path>
                   <srcattach>0.2</srcattach>
                   <label>
-                     <name>Split</name>
-                     <position>Left</position>
+                     <name>
+                        <Split/>
+                     </name>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </composition>
       </entity_type>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>

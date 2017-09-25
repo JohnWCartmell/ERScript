@@ -37,21 +37,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>exit</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <reference>
-        <name>in</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>exit</type>
-        <inverse>to</inverse>
+         <name>in</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>exit</type>
+         <inverse>to</inverse>
       </reference>
       <presentation>
          <below>directed graph</below>
@@ -61,19 +67,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>exit</name>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>to</name>
          <type>vertex</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>in</inverse>
          <diagram>
-           <path>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-           </path>
+            <path>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>

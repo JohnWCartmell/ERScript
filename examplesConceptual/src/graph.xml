@@ -37,14 +37,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>away</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <presentation>
@@ -55,24 +59,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>away</name>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>reverse</name>
          <type>away</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>reverse</inverse>
          <diagram>
-           <path>
-              <srcattach>0.5</srcattach>
-              <destattach>0.5</destattach>
-           </path>
+            <path>
+               <srcattach>0.5</srcattach>
+               <destattach>0.5</destattach>
+            </path>
          </diagram>
       </reference>
       <constructed_relationship>
          <name>to</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
          <join>
             <component>

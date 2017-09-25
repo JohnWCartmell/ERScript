@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>proton</type>
       </composition>
    </entity_type>
@@ -50,7 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>3.5</x>
       </presentation>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>neutron</type>
       </composition>
    </entity_type>

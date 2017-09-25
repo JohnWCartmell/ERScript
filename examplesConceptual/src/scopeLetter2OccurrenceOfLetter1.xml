@@ -33,24 +33,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>0.1</x>
          <y>1.0</y>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>word(1)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>written_using</name>
          <type>alphabet</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -61,11 +71,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>word(1)</name>
       <presentation>
          <below>language</below>
-         <shape>MiddleLeft</shape>
+         <shape>
+            <MiddleLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>letter(2)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -73,31 +87,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>language</rightOf>
          <x>2.0</x>
-         <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <type>letter(1)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>letter(2)</name>
       <presentation>
          <below>word(1)</below>
-         <shape>BottomLeft</shape>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
       <reference>
          <name>occurrence_of</name>
          <type>letter(1)</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -109,7 +135,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>letter(2)</rightOf>
          <below>alphabet</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

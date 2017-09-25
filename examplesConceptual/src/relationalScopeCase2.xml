@@ -23,27 +23,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltaw>0.4</deltaw>
          <deltah>0.2</deltah>
       </diagram>
-  </presentation>
+   </presentation>
    <entity_type>
       <name>departure</name>
       <presentation>
          <x>0.2</x>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <name>left(R)</name>
          <type>source</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                   <position>Left</position>
-                   <yAdjustment>0.45</yAdjustment>
+                  <position>
+                     <Left/>
+                  </position>
+                  <yAdjustment>0.45</yAdjustment>
                </label>
             </path>
          </diagram>
@@ -51,16 +57,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>base(R)</name>
          <type>diagonal</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                 <position>Upside</position>
-                 <xAdjustment>0.2</xAdjustment>
-              </label>
-              <inverse>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <xAdjustment>0.2</xAdjustment>
+               </label>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -70,18 +82,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>diagonal</name>
       <presentation>
-          <rightOf>departure</rightOf> 
+         <rightOf>departure</rightOf>
          <x>2.5</x>
-          <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <name>right(R)</name>
          <type>dest</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                   <yAdjustment>0.45</yAdjustment>
+                  <yAdjustment>0.45</yAdjustment>
                </label>
             </path>
          </diagram>
@@ -90,19 +106,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>source</name>
       <presentation>
-           <below>departure</below>
-           <shape>BottomLeft</shape>
-           <y>1.0</y>
+         <below>departure</below>
+         <shape>
+            <BottomLeft/>
+         </shape>
+         <y>1.0</y>
       </presentation>
       <reference>
          <name>R</name>
          <type>dest</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                 <xAdjustment>0.525</xAdjustment>
-              </label>
+               <label>
+                  <xAdjustment>0.525</xAdjustment>
+               </label>
             </path>
          </diagram>
       </reference>
@@ -112,7 +132,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>source</rightOf>
          <below>diagonal</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

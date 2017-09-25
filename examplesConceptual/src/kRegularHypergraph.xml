@@ -35,16 +35,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>edge</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
-
       <presentation>
          <below>hypergraph</below>
          <x>-1.2</x>
@@ -54,7 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>edge</name>
       <composition>
          <type>incident_point</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>k</inverse>
       </composition>
       <presentation>
@@ -69,21 +74,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>edge</type>
       </dependency>
       <reference>
-       
          <type>vertex</type>
-         <cardinality>ExactlyOne</cardinality>
-       
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              
-              <srcarmlen>0.3</srcarmlen>
-           </path>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>
          <below>edge</below>
          <h>0.9</h>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
    </entity_type>
 </entity_model>

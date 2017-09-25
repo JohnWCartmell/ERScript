@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>2.4</et_width>
-         <et_y_separation>0.7</et_y_separation>
+      <et_width>2.4</et_width>
+      <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>verb phrase</name>
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <deltah>0.5</deltah>
          </presentation>
          <entity_type>
-             <name>mono transitive</name>
+            <name>mono transitive</name>
          </entity_type>
          <entity_type>
             <name>ditransitive</name>
@@ -53,31 +53,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </presentation>
             <composition>
                <name>indirect_object</name>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>noun phrase</type>
                <diagram>
-                   <path>
-                      <srcattach>0.3</srcattach>
-                      <align>ToSrc</align>
-                      <label>
-                        <name>Split</name>
+                  <path>
+                     <srcattach>0.3</srcattach>
+                     <align>
+                        <ToSrc/>
+                     </align>
+                     <label>
+                        <name>
+                           <Split/>
+                        </name>
                      </label>
-                      
-                   </path>
+                  </path>
                </diagram>
             </composition>
          </entity_type>
          <composition>
             <name>direct_object</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>noun phrase</type>
             <diagram>
                <path>
-                   <align>ToDest</align>
-                   <destattach>0.25</destattach>
-                   <label>
-                     <name>Split</name>
-                     <position>Left</position>
+                  <align>
+                     <ToDest/>
+                  </align>
+                  <destattach>0.25</destattach>
+                  <label>
+                     <name>
+                        <Split/>
+                     </name>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </path>
             </diagram>
@@ -85,37 +98,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <composition>
          <name>head</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                <label>
-                  <position>Left</position>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-                <align>ToDest</align>
-                <srcattach>0.35</srcattach>
+               <align>
+                  <ToDest/>
+               </align>
+               <srcattach>0.35</srcattach>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
-       <name>verb</name>
-       <presentation>
-             <below>intransitive</below>
+      <name>verb</name>
+      <presentation>
+         <below>intransitive</below>
          <y>2.7</y>
-       </presentation>
+      </presentation>
    </entity_type>
    <entity_type>
-       <name>noun phrase</name>
-       <presentation>
+      <name>noun phrase</name>
+      <presentation>
          <below>transitive</below>
          <rightOf>verb</rightOf>
          <w>3.0</w>
       </presentation>
-       <dependency_group>
-           <presentation>
+      <dependency_group>
+         <presentation>
             <w>2.5</w>
          </presentation>
-       </dependency_group>
+      </dependency_group>
    </entity_type>
 </entity_model>

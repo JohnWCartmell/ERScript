@@ -32,14 +32,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>entity_modelling</name>
          <presentation>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
    </entity_type>
    <entity_type>
       <name>entity model</name>
       <presentation>
-          <xl>
+         <xl>
             <relative>
                <to>process</to>
                <ratio>1</ratio>
@@ -53,9 +55,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </ym>
       </presentation>
       <reference>
-          <type>entity_modelling</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
+         <type>entity_modelling</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
             <path/>
          </diagram>
       </reference>

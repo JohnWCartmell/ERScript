@@ -40,22 +40,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <composition>
             <name>child</name>
             <type>individual</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>father</inverse>
             <diagram>
                <path>
                   <srcarmlen>0.8</srcarmlen>
-                         <destattach>0.2</destattach>
-                         <hstep>
+                  <destattach>0.2</destattach>
+                  <hstep>
                      <absdim>
                         <src>-1.3</src>
                      </absdim>
                   </hstep>
-                         <label>
+                  <label>
                      <yAdjustment>0.3</yAdjustment>
-                                <position>Right</position>
-                         </label>
-                   </path>
+                     <position>
+                        <Right/>
+                     </position>
+                  </label>
+               </path>
             </diagram>
          </composition>
       </entity_type>
@@ -64,27 +68,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <composition>
             <name>child</name>
             <type>individual</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>mother</inverse>
             <diagram>
                <path>
                   <srcarmlen>0.8</srcarmlen>
-                         <destattach>0.8</destattach>
-                         <hstep>
+                  <destattach>0.8</destattach>
+                  <hstep>
                      <absdim>
                         <src>1.3</src>
                      </absdim>
                   </hstep>
-                         <label>
-                               <yAdjustment>0.3</yAdjustment>
-                               <position>Left</position>
-                         </label>
-                         <inverse>
-                             <label>
-                        <position>Left</position>
+                  <label>
+                     <yAdjustment>0.3</yAdjustment>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+                  <inverse>
+                     <label>
+                        <position>
+                           <Left/>
+                        </position>
                      </label>
-                         </inverse>
-                   </path>
+                  </inverse>
+               </path>
             </diagram>
          </composition>
          <presentation>
@@ -93,13 +103,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <dependency>
          <name>mother</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>female</type>
          <inverse>child</inverse>
       </dependency>
       <dependency>
          <name>father</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>male</type>
          <inverse>child</inverse>
       </dependency>

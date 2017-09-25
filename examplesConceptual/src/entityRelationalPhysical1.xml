@@ -23,207 +23,256 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
-     <diagram>
-        <deltaw>0.3</deltaw>
-        <deltah>0.5</deltah>
-     </diagram>
-  </presentation>
-  <entity_type>
-     <name>entity type</name>
-     <presentation>
+   <presentation>
+      <diagram>
+         <deltaw>0.3</deltaw>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>entity type</name>
+      <presentation>
          <x>0.7</x>
          <deltaw>6.0</deltaw>
-     </presentation>
-     <value>
-        <name>name</name>
-        <type>string</type>
-     </value>
-     <composition>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
          <name>identified by</name>
          <type>identifier</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
-          <diagram>
-             <path>
-                <align>ToDest</align>
-                <label>
-                  <position>Left</position>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-             </path>
-          </diagram>
-     </composition>
-     <composition>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
          <name>attributes</name>
          <type>attribute</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-          <diagram>
-             <path>
-                
-                <align>ToDest</align>
-                <label>
-                  <position>Left</position>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-             </path>
-          </diagram>
-     </composition>
-     <composition>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
          <name>outgoing</name>
          <type>relationship</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <inverse>source</inverse>
          <diagram>
-             <path>
-                <align>ToDest</align>
-                <destattach>0.3</destattach>
-                <label>
-                  <position>Left</position>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.3</destattach>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-                <inverse>
+               <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
-             </path>
+            </path>
          </diagram>
-     </composition>
-     <composition>
+      </composition>
+      <composition>
          <name>incoming</name>
          <type>relationship</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <inverse>destination</inverse>
          <diagram>
-             <path>
-                <align>ToDest</align>
-                <destattach>0.7</destattach>
-             </path>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.7</destattach>
+            </path>
          </diagram>
-     </composition>
-  </entity_type>
-  <group>
-     <name>entity children</name>
-     <presentation>
-        <below>entity type</below>
-        <y>0.4</y>  
-     </presentation>
-     <entity_type>
+      </composition>
+   </entity_type>
+   <group>
+      <name>entity children</name>
+      <presentation>
+         <below>entity type</below>
+         <y>0.4</y>
+      </presentation>
+      <entity_type>
          <name>identifier</name>
-         <presentation>
-            
-         </presentation>
+         <presentation/>
          <reference>
-             
-             <name>is</name>
-             <type>ASSOCIATION</type>
-             <cardinality>ExactlyOne</cardinality>
-             <inverse>is identifier</inverse>
-             <diagram>
-                 <path>
-                    <align>ToSrc</align>
-                    
-                    <label>
-                     <position>Upside</position>
+            <name>is</name>
+            <type>ASSOCIATION</type>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <inverse>is identifier</inverse>
+            <diagram>
+               <path>
+                  <align>
+                     <ToSrc/>
+                  </align>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
-                 </path>
-             </diagram>
+               </path>
+            </diagram>
          </reference>
-     </entity_type>
-     <entity_type>
-        <name>ASSOCIATION</name>
-        <presentation>
+      </entity_type>
+      <entity_type>
+         <name>ASSOCIATION</name>
+         <presentation>
             <rightOf>identifier</rightOf>
             <x>1.5</x>
-        </presentation>
-        <reference>
+         </presentation>
+         <reference>
             <name>is identifier</name>
             <type>identifier</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <inverse>is</inverse>
-        </reference>
-        <entity_type>
-           <name>attribute</name>
-           <value>
+         </reference>
+         <entity_type>
+            <name>attribute</name>
+            <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
                <name>name</name>
-               <type>string</type>
-           </value>
-        </entity_type>
-        <entity_type>
-           <name>relationship</name>
-           <presentation>
+               <type>
+                  <string/>
+               </type>
+            </attribute>
+         </entity_type>
+         <entity_type>
+            <name>relationship</name>
+            <presentation>
                <rightOf>attribute</rightOf>
-               <name>Split</name>
-               <x>0.6</x> 
+               <name>
+                  <Split/>
+               </name>
+               <x>0.6</x>
                <y>0.2</y>
-               
-           </presentation>
-           <value>
+            </presentation>
+            <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
                <name>name</name>
-               <type>string</type>
-           </value>
-           <value>
+               <type>
+                  <string/>
+               </type>
+            </attribute>
+            <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
                <name>optional?</name>
-               <type>string</type>
-           </value>
-           <composition>
+               <type>
+                  <string/>
+               </type>
+            </attribute>
+            <composition>
                <type>implementing_attribute</type>
-               <cardinality>OneOrMore</cardinality>
-           </composition>
-           <dependency>
-              <name>source</name>
-              <type>entity type</type>
-              <cardinality>ExactlyOne</cardinality>
-              <inverse>outgoing</inverse>
-           </dependency>
-           <dependency>
-              <name>destination</name>
-              <type>entity type</type>
-              <cardinality>ExactlyOne</cardinality>
-              <inverse_of>incoming</inverse_of>
-           </dependency>
-        </entity_type>
-     </entity_type>
-     <entity_type>
-        <name>implementing_attribute</name>
-        <presentation>
-           <below>relationship</below>
-           <name>Split</name>
-        </presentation>
-        <reference>
-           <name>is</name>
-           <type>attribute</type>
-           <cardinality>ExactlyOne</cardinality>
-           <diagram>
+               <cardinality>
+                  <OneOrMore/>
+               </cardinality>
+            </composition>
+            <dependency>
+               <name>source</name>
+               <type>entity type</type>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <inverse>outgoing</inverse>
+            </dependency>
+            <dependency>
+               <name>destination</name>
+               <type>entity type</type>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <inverse_of>incoming</inverse_of>
+            </dependency>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>implementing_attribute</name>
+         <presentation>
+            <below>relationship</below>
+            <name>
+               <Split/>
+            </name>
+         </presentation>
+         <reference>
+            <name>is</name>
+            <type>attribute</type>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <diagram>
                <path>
                   <srcarmlen>0.3</srcarmlen>
                   <destattach>0.666</destattach>
                   <destarmlen>0.3</destarmlen>
-                  <label>
-                  </label>
+                  <label/>
                </path>
-           </diagram>
-        </reference>
-        <reference>
-           <name>to</name>
-           <type>attribute</type>
-           <cardinality>ExactlyOne</cardinality>
-           <diagram>
-              <path>
-                 <srcsign>1</srcsign>
-                 <srcarmlen>0.5</srcarmlen>
-                 <destsign>-1</destsign>
-                 <destattach>0.666</destattach>
-                 <destarmlen>0.4</destarmlen>
-                 <vstep>
+            </diagram>
+         </reference>
+         <reference>
+            <name>to</name>
+            <type>attribute</type>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <diagram>
+               <path>
+                  <srcsign>1</srcsign>
+                  <srcarmlen>0.5</srcarmlen>
+                  <destsign>-1</destsign>
+                  <destattach>0.666</destattach>
+                  <destarmlen>0.4</destarmlen>
+                  <vstep>
                      <absdim>
                         <src>0.75</src>
                      </absdim>
                   </vstep>
-                 <label>
-                    <position>Upside</position>
-                 </label>
-              </path>
-           </diagram>
-        </reference>
-     </entity_type>
-  </group>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
+                  </label>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+   </group>
 </entity_model>

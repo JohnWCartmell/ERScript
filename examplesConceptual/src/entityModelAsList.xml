@@ -23,38 +23,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <entity_type>
-     <name>entity model</name>
-     <composition>
-         <type> </type>
-         <cardinality>OneOrMore</cardinality>
-     </composition>
-     <presentation>
-        <x>2.4</x>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name> </name>
-     <presentation>
+   <entity_type>
+      <name>entity model</name>
+      <composition>
+         <type/>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+      </composition>
+      <presentation>
+         <x>2.4</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name/>
+      <presentation>
          <below>entity model</below>
       </presentation>
-     <entity_type>
+      <entity_type>
          <name>entity type</name>
          <presentation>
             <y>-0.1</y>
          </presentation>
-     </entity_type>
-     <entity_type>
-        <name>relationship</name>
-        <presentation>
+      </entity_type>
+      <entity_type>
+         <name>relationship</name>
+         <presentation>
             <rightOf>entity type</rightOf>
          </presentation>
-     </entity_type>
-     <entity_type>
+      </entity_type>
+      <entity_type>
          <name>attribute</name>
          <presentation>
             <rightOf>relationship</rightOf>
          </presentation>
-     </entity_type>
-  </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

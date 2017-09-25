@@ -23,24 +23,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
-     <diagram>
-        <deltaw>0.6</deltaw>
-        <deltah>0.4</deltah> 
-     </diagram>
-  </presentation>
-  <absolute>
+   <presentation>
+      <diagram>
+         <deltaw>0.6</deltaw>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
+   <absolute>
       <name>function (expression) types</name>
       <composition>
          <type>declaration</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <sequence/>
          <diagram>
-            <path>
-        </path>
+            <path/>
          </diagram>
       </composition>
-  </absolute>
+   </absolute>
    <entity_type>
       <name>declaration</name>
       <presentation>
@@ -58,12 +59,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <composition>
             <type>type expression</type>
-            <cardinality>ExactlyOne</cardinality>
-         
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <destattach>0.66</destattach>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </composition>
@@ -76,24 +80,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <w>3.2</w>
          </presentation>
       </entity_type>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <composition>
          <name>relative to</name>
          <id>R1</id>
          <type>formal_given</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <sequence/>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <srcarmlen>0</srcarmlen>
                <destarmlen>0</destarmlen>
                <label>
-                  <position>Left</position>
-              
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -105,7 +116,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>declaration</below>
          <x>-2.0</x>
          <y>1.0</y>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
       <description>
        These are previously represented in relational table META_TYPE_DEPENDENCY with
@@ -113,10 +126,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </description>
       <composition>
          <type>type expression</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.33</destattach>
             </path>
          </diagram>
@@ -127,7 +144,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>formal_given</below>
          <x>0.9</x>
-       
          <deltaw>1.0</deltaw>
          <deltah>0.2</deltah>
       </presentation>
@@ -138,22 +154,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <y>0.75</y>
             <deltaw>0.5</deltaw>
          </presentation>
-         <dependency_group>
-      </dependency_group>
+         <dependency_group/>
          <composition>
             <type>quantity expression</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <sequence/>
             <diagram>
                <path>
                   <destattach>0.33</destattach>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </composition>
          <reference>
             <type>type (declaration)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.3</srcarmlen>
@@ -171,20 +192,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <dependency_group>
             <presentation>
-              <y>0.4</y>
+               <y>0.4</y>
             </presentation>
          </dependency_group>
          <reference>
             <name>substitutes_for</name>
             <type>formal_given</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.7</srcarmlen>
                   <srcattach>0.15</srcattach>
                   <destattach>0.66</destattach>
                   <hstep>
-                    <absdim>
+                     <absdim>
                         <src>-0.40</src>
                      </absdim>
                   </hstep>
@@ -192,7 +215,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <destsign>-1</destsign>
                   <label>
                      <xAdjustment>-0.2</xAdjustment>
-                     <name>Split</name>
+                     <name>
+                        <Split/>
+                     </name>
                   </label>
                </path>
             </diagram>
@@ -203,7 +228,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <x>1.4</x>
                <y>0.6</y>
                <w>2.6</w>
-               <name>Split</name>
+               <name>
+                  <Split/>
+               </name>
             </presentation>
             <description>
               This is previously represented by relational table META_SET_DEPENDENCY.
@@ -211,20 +238,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <reference>
                <name>as</name>
                <type>formal_given</type>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <diagram>
                   <path>
                      <srcarmlen>0.7</srcarmlen>
                      <destattach>0.33</destattach>
                      <hstep>
-                       <absdim>
+                        <absdim>
                            <src>-2.4</src>
                         </absdim>
                      </hstep>
                      <srcsign>-1</srcsign>
                      <destsign>-1</destsign>
                      <label>
-                        <name>Split</name>
+                        <name>
+                           <Split/>
+                        </name>
                      </label>
                   </path>
                </diagram>
@@ -234,16 +265,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>quantival_term</name>
             <presentation>
                <below>actual_given</below>
-             
                <w>2.6</w>
-               <name>Split</name>
+               <name>
+                  <Split/>
+               </name>
             </presentation>
-            <description>
-         </description>
+            <description/>
             <composition>
                <name>with</name>
                <type>quantity expression</type>
-               <cardinality>ZeroOneOrMore</cardinality>
+               <cardinality>
+                  <ZeroOneOrMore/>
+               </cardinality>
                <sequence/>
                <diagram>
                   <path>
@@ -256,7 +289,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </absdim>
                      </hstep>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                      </label>
                   </path>
                </diagram>
@@ -264,19 +299,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <reference>
                <name>head</name>
                <type>quantity (declaration)</type>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <diagram>
                   <path>
                      <srcarmlen>0.7</srcarmlen>
                      <hstep>
-                       <absdim>
+                        <absdim>
                            <src>-2.8</src>
                         </absdim>
                      </hstep>
                      <srcsign>-1</srcsign>
                      <destsign>-1</destsign>
                      <label>
-                        <name>Split</name>
+                        <name>
+                           <Split/>
+                        </name>
                      </label>
                   </path>
                </diagram>

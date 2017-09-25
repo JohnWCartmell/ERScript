@@ -32,20 +32,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>absolute</name>
       <presentation>
          <x>0.5</x>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>performance</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>is same as</name>
          <type>absolute </type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>is same as</inverse>
          <diagram>
-            <path>
-          </path>
+            <path/>
          </diagram>
       </reference>
    </entity_type>
@@ -54,16 +59,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>absolute</rightOf>
          <x>3.0</x>
-         <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <type>town</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>is same as</name>
          <type>absolute</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>is same as</inverse>
       </reference>
    </entity_type>
@@ -71,11 +82,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>performance</name>
       <presentation>
          <below>absolute</below>
-         <shape>MiddleLeft</shape>
+         <shape>
+            <MiddleLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>cast member</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -83,36 +98,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>absolute </below>
          <rightOf>performance</rightOf>
-         <shape>MiddleRight</shape>
+         <shape>
+            <MiddleRight/>
+         </shape>
       </presentation>
       <composition>
          <type>hotel</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
-       <name>cast member</name>
-       <presentation>
+      <name>cast member</name>
+      <presentation>
          <below>performance</below>
-         <shape>BottomLeft</shape>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
-       <reference>
-          <name>stays in</name>
-          <type>hotel</type>
-          <cardinality>ExactlyOne</cardinality>
-          <diagram>
-             <path>
-                <srcarmlen>0.4</srcarmlen>
-             </path>
-          </diagram>
-       </reference>
+      <reference>
+         <name>stays in</name>
+         <type>hotel</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <srcarmlen>0.4</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
    </entity_type>
    <entity_type>
-       <name>hotel</name>
-       <presentation>
+      <name>hotel</name>
+      <presentation>
          <rightOf>cast member</rightOf>
          <below>town</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

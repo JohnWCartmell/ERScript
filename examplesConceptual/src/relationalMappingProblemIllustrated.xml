@@ -23,41 +23,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
-      <diagram>
-
-    </diagram>
-  </presentation>
+   <presentation>
+      <diagram/>
+   </presentation>
    <entity_type>
       <name>A</name>
       <presentation>
-          <x>4.0</x>
-          <shape>Top</shape>
+         <x>4.0</x>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>$k_A$</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>$ak_C$</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <reference>
-          <name>a</name>
-          <type>C</type>
-          <identifying/>
-          <diagram>
-             <path>
-                <srcarmlen>0.4</srcarmlen>
-                <destarmlen>0.3</destarmlen>
-                <destattach>0.3</destattach>
-                 <label>
-                    <position>Upside</position>
-                 </label>
-             </path>
-          </diagram>
+         <name>a</name>
+         <type>C</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcarmlen>0.4</srcarmlen>
+               <destarmlen>0.3</destarmlen>
+               <destattach>0.3</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
       </reference>
    </entity_type>
    <group>
@@ -68,40 +74,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>E</name>
          <presentation>
-             <shape>MiddleLeft</shape>
-             <h>1.65</h>
+            <shape>
+               <MiddleLeft/>
+            </shape>
+            <h>1.65</h>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>$fk_A$</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>$fak_C$</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>$gk_B$</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>$gbk_C$</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <reference>
             <name>f</name>
             <type>A</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <diagram>
                <path>
-   	              <srcattach>0.25</srcattach>
+                  <srcattach>0.25</srcattach>
                   <srcarmlen>0.4</srcarmlen>
                   <destarmlen>0.3</destarmlen>
-                 <label>
-                    <position>Upside</position>
-                 </label>
-                 <inverse>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
+                  </label>
+                  <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
                </path>
@@ -110,15 +132,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>g</name>
             <type>B</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <diagram>
                <path>
-                 <srcattach>0.8</srcattach>
+                  <srcattach>0.8</srcattach>
                   <srcarmlen>0.4</srcarmlen>
                   <destarmlen>0.3</destarmlen>
-                 <label>
-                    <position>Downside</position>
-                 </label>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
                </path>
             </diagram>
          </reference>
@@ -126,46 +152,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>C</name>
          <presentation>
-             <rightOf>E</rightOf>
-             <x>5.0</x>
-             <h>1.65</h>
-             <shape>MiddleRight</shape>
+            <rightOf>E</rightOf>
+            <x>5.0</x>
+            <h>1.65</h>
+            <shape>
+               <MiddleRight/>
+            </shape>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>$k_C$</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
       </entity_type>
    </group>
    <entity_type>
       <name>B</name>
       <presentation>
-          <below>midline</below>
-          <shape>Bottom</shape>
-          <y>0.255</y>
+         <below>midline</below>
+         <shape>
+            <Bottom/>
+         </shape>
+         <y>0.255</y>
       </presentation>
-         <value>
-            <name>$k_B$</name>
-            <type>string</type>
-            <identifying/>
-         </value>
-      <value>
-         <name>$bk_C$</name>
-         <type>string</type>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>$k_B$</name>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>$bk_C$</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
       <reference>
-          <name>b</name>
-          <type>C</type>
-          <identifying/>
-          <diagram>
-             <path>
-                <srcarmlen>0.4</srcarmlen>
-                <destarmlen>0.3</destarmlen>
-                <destattach>0.7</destattach>
-             </path>
-          </diagram>
+         <name>b</name>
+         <type>C</type>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcarmlen>0.4</srcarmlen>
+               <destarmlen>0.3</destarmlen>
+               <destattach>0.7</destattach>
+            </path>
+         </diagram>
       </reference>
    </entity_type>
 </entity_model>

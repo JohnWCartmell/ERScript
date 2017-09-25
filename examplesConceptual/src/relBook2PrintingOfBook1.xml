@@ -36,16 +36,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>printing_of</name>
          <type>book(1)</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>printed_as</inverse>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -60,7 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>printed_as</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>book(2)</type>
          <inverse>printing_of</inverse>
       </reference>

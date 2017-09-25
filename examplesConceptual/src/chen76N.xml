@@ -26,23 +26,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <name>Chen76</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>DEPT</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>EMP</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>PROJ</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>PART</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>SUPP</type>
       </composition>
    </absolute>
@@ -54,16 +64,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>DEPT</name>
          <presentation>
-           <x>0.2</x>
-           <deltaw>0.5</deltaw>
+            <x>0.2</x>
+            <deltaw>0.5</deltaw>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>DEPT-NO</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>DEPT-EMP</type>
             <identifying/>
             <diagram>
@@ -87,31 +101,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>DEPT</rightOf>
             <w>2.5</w>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>EMPLOYEE-NO</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>DEPT-EMP</type>
             <identifying/>
-            <diagram> 
+            <diagram>
                <path>
                   <destattach>0.7</destattach>
                </path>
             </diagram>
          </composition>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>DEP</type>
             <identifying/>
          </composition>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>PROJ-WORKER</type>
             <identifying/>
-            <diagram> 
+            <diagram>
                <path>
                   <destattach>0.25</destattach>
                </path>
@@ -125,7 +147,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <reference>
             <type>EMP</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
          </reference>
       </entity_type>
       <group>
@@ -139,23 +163,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <presentation>
                <w>3.0</w>
             </presentation>
-            <value>
+            <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
                <name>PROJECT-NO</name>
-               <type>string</type>
+               <type>
+                  <string/>
+               </type>
                <identifying/>
-            </value>
+            </attribute>
             <composition>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>PROJ-MAN</type>
                <identifying/>
                <diagram>
                   <path>
-                     <align>ToDest</align>
+                     <align>
+                        <ToDest/>
+                     </align>
                   </path>
                </diagram>
             </composition>
             <composition>
-               <cardinality>OneOrMore</cardinality>
+               <cardinality>
+                  <OneOrMore/>
+               </cardinality>
                <type>PROJ-WORKER</type>
                <identifying/>
                <diagram>
@@ -166,7 +198,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </diagram>
             </composition>
             <composition>
-               <cardinality>OneOrMore</cardinality>
+               <cardinality>
+                  <OneOrMore/>
+               </cardinality>
                <type>PROJ-PART</type>
                <identifying/>
                <diagram>
@@ -191,11 +225,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </presentation>
                <reference>
                   <type>EMP</type>
-                  <cardinality>ExactlyOne</cardinality>
-                
+                  <cardinality>
+                     <ExactlyOne/>
+                  </cardinality>
                   <diagram>
                      <path>
-                       <srcarmlen>0.2</srcarmlen>
+                        <srcarmlen>0.2</srcarmlen>
                      </path>
                   </diagram>
                </reference>
@@ -204,7 +239,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <name>PROJ-WORKER</name>
                <presentation>
                   <below>PROJ-MAN</below>
-               
                   <y>1.0</y>
                   <deltaw>0.55</deltaw>
                </presentation>
@@ -218,7 +252,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <deltaw>0.2</deltaw>
                </presentation>
                <composition>
-                  <cardinality>OneOrMore</cardinality>
+                  <cardinality>
+                     <OneOrMore/>
+                  </cardinality>
                   <type>PROJ-PART-SUPP</type>
                   <identifying/>
                   <diagram>
@@ -244,16 +280,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>PROJ</rightOf>
             <deltaw>.4</deltaw>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>PART-NO</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>PROJ-PART</type>
             <identifying/>
-            <diagram> 
+            <diagram>
                <path>
                   <destattach>0.75</destattach>
                </path>
@@ -266,16 +306,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>PART</rightOf>
             <deltaw>0.45</deltaw>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>SUPP-NO</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>PROJ-PART-SUPP</type>
             <identifying/>
-            <diagram> 
+            <diagram>
                <path>
                   <destattach>0.75</destattach>
                </path>

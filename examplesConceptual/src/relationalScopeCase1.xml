@@ -23,12 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltaw>0.4</deltaw>
          <deltah>0.2</deltah>
       </diagram>
-  </presentation>
+   </presentation>
    <group>
       <name>departure</name>
       <presentation>
@@ -39,18 +39,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>diagonal</name>
       <presentation>
-          <rightOf>departure</rightOf> 
+         <rightOf>departure</rightOf>
          <x>2.5</x>
-          <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <name>right(R)</name>
          <type>dest</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                   <yAdjustment>0.25</yAdjustment>
+                  <yAdjustment>0.25</yAdjustment>
                </label>
             </path>
          </diagram>
@@ -59,27 +63,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>source</name>
       <presentation>
-          <below>departure</below>
-          <shape>BottomLeft</shape>
-          <h>0.7</h>
+         <below>departure</below>
+         <shape>
+            <BottomLeft/>
+         </shape>
+         <h>0.7</h>
       </presentation>
       <reference>
          <name>base(R)</name>
          <type>diagonal</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <diagram>
             <path>
-	              <srcattach>0.25</srcattach>
-              <destattach>0.25</destattach>
-              <srcarmlen>0.45</srcarmlen>
-              <label>
-                 <position>Upside</position>
-                 <xAdjustment>-0.05</xAdjustment>
-                 <yAdjustment>-0.35</yAdjustment>
-              </label>
-              <inverse>
+               <srcattach>0.25</srcattach>
+               <destattach>0.25</destattach>
+               <srcarmlen>0.45</srcarmlen>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <xAdjustment>-0.05</xAdjustment>
+                  <yAdjustment>-0.35</yAdjustment>
+               </label>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -88,15 +100,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>R</name>
          <type>dest</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <diagram>
             <path>
-              <srcattach>0.8</srcattach>
-              <align>ToSrc</align>
-              <label>
-                 <position>Downside</position>
-                 <xAdjustment>0.525</xAdjustment>
-              </label>
+               <srcattach>0.8</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+                  <xAdjustment>0.525</xAdjustment>
+               </label>
             </path>
          </diagram>
       </reference>
@@ -104,10 +122,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>dest</name>
       <presentation>
-          <rightOf>source</rightOf>
-          <below>diagonal</below>
-          <shape>BottomRight</shape>
-          <y>0.255</y>
+         <rightOf>source</rightOf>
+         <below>diagonal</below>
+         <shape>
+            <BottomRight/>
+         </shape>
+         <y>0.255</y>
       </presentation>
    </entity_type>
 </entity_model>

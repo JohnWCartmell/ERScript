@@ -23,17 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
-     <diagram>
-        <deltah>0.6</deltah>
-     </diagram>
-  </presentation>
-  <entity_type>
-     <name>type</name>
-     <composition>
-        <type>type</type>
-        <cardinality>ZeroOneOrMore</cardinality>
-        <diagram>
+   <presentation>
+      <diagram>
+         <deltah>0.6</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>type</name>
+      <composition>
+         <type>type</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <diagram>
             <path>
                <hstep>
                   <absdim>
@@ -41,11 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </hstep>
             </path>
-        </diagram>
-     </composition>
-     <presentation>
+         </diagram>
+      </composition>
+      <presentation>
          <x>0.5</x>
          <y>0.5</y>
       </presentation>
-  </entity_type>
+   </entity_type>
 </entity_model>

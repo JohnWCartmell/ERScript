@@ -29,25 +29,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </diagram>
    </presentation>
    <absolute>
-           <name>sex</name>
+      <name>sex</name>
       <composition>
          <name>male</name>
-                        <type>sex</type>
-         <cardinality>ExactlyOne</cardinality>
-                        <diagram>
+         <type>sex</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
             <path>
                <destattach>0.33</destattach>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
       </composition>
       <composition>
          <name>female</name>
-                        <type>sex</type>
-         <cardinality>ExactlyOne</cardinality>
-                        <diagram>
+         <type>sex</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
             <path>
                <destattach>0.66</destattach>
             </path>
@@ -56,11 +62,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </absolute>
    <entity_type>
       <name>sex</name>
-                <dependency_group>
-                     <presentation>
+      <dependency_group>
+         <presentation>
             <w>0.8</w>
          </presentation>
-                </dependency_group>
+      </dependency_group>
       <presentation>
          <x>0.3</x>
          <y>1.4</y>

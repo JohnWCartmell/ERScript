@@ -23,76 +23,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltaw>0.6</deltaw>
       </diagram>
-  </presentation>
-  <entity_type>
-     <name>division</name>
-     <composition>
+   </presentation>
+   <entity_type>
+      <name>division</name>
+      <composition>
          <type>battalion</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
-            <path>
-                  </path>
+            <path/>
          </diagram>
-     </composition>
-     <presentation>
+      </composition>
+      <presentation>
          <x>2.8</x>
          <y>0.1</y>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name>battalion</name>
-     <composition>
-         <type> </type>
-         <cardinality>OneOrMore</cardinality>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>battalion</name>
+      <composition>
+         <type/>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
-            <path>
-                  </path>
+            <path/>
          </diagram>
-     </composition>
-     <presentation>
+      </composition>
+      <presentation>
          <below>division</below>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name> </name>
-     <presentation>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name/>
+      <presentation>
          <below>battalion</below>
       </presentation>
-     <entity_type>
+      <entity_type>
          <name>company</name>
          <presentation>
             <y>0.2</y>
          </presentation>
-     </entity_type>
-     <entity_type>
-        <name>battery</name>
-        <presentation>
+      </entity_type>
+      <entity_type>
+         <name>battery</name>
+         <presentation>
             <rightOf>company</rightOf>
          </presentation>
-     </entity_type>
-     <entity_type>
+      </entity_type>
+      <entity_type>
          <name>squadron</name>
          <presentation>
             <rightOf>battery</rightOf>
          </presentation>
-     </entity_type>
-     <composition>
-        <type>soldier</type>
-        <cardinality>OneOrMore</cardinality>
-        <diagram>
-            <path>
-                 </path>
-        </diagram>
-     </composition>
-  </entity_type>
-  <entity_type>
-     <name>soldier</name>
-     <presentation>
-         <below> </below>
+      </entity_type>
+      <composition>
+         <type>soldier</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <diagram>
+            <path/>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>soldier</name>
+      <presentation>
+         <below/>
       </presentation>
-  </entity_type>
+   </entity_type>
 </entity_model>

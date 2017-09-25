@@ -36,19 +36,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>codeTest</name>
       <composition>
          <type>A(1)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <name>a</name>
          <type>A(2)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <group>
-       <name>lhs</name>
+      <name>lhs</name>
       <presentation>
-          <x>4.0</x>
-          <y>1.3</y>
+         <x>4.0</x>
+         <y>1.3</y>
       </presentation>
       <module_name>lhs</module_name>
       <entity_type>
@@ -57,28 +61,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <deltaw>0.3</deltaw>
             <y>0.5</y>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>bool</name>
-            <type>boolean</type>
-         </value>
-         <value>
+            <type>
+               <boolean/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>timestamp</name>
-            <type>dateTime</type>
-         </value>
-         <value>
+            <type>
+               <dateTime/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>real</name>
-            <type>float</type>
+            <type>
+               <float/>
+            </type>
             <optional/>
-         </value>
+         </attribute>
          <choice>
             <name>colour</name>
             <from>colour</from>
@@ -87,29 +101,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <composition>
             <name>x</name>
             <type>X(1)</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <identifying/>
             <inverse>..</inverse>
          </composition>
          <reference>
             <name>f</name>
             <type>A(2)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagonal>
-              <theabsolute/>
+               <theabsolute/>
             </diagonal>
             <riser>
-              <theabsolute/>
+               <theabsolute/>
             </riser>
             <diagram>
                <path>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
                   <scope>
@@ -131,17 +155,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>..</name>
             <type>A(1)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse_of>x</inverse_of>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <reference>
             <name>basedOn</name>
             <type>X(1)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagonal>
                <component>
                   <rel>..</rel>
@@ -166,53 +196,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <composition>
             <name>b1</name>
             <type>B1</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <identifying/>
             <inverse>p1</inverse>
             <pullback>
                <type>B2</type>
                <along>
                   <component>
-                    <rel>subject</rel>
+                     <rel>subject</rel>
                   </component>
                </along>
                <riser2>
                   <component>
-                    <rel>..</rel>
+                     <rel>..</rel>
                   </component>
                </riser2>
                <projection_rel>g</projection_rel>
-            </pullback> 
+            </pullback>
          </composition>
          <reference>
             <name>subject</name>
             <type>X(2)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <identifying/>
             <diagonal>
-              <join>
-                 <component>
+               <join>
+                  <component>
                      <rel>..</rel>
-                 </component>
-                 <component>
+                  </component>
+                  <component>
                      <rel>f</rel>
-                 </component>
-              </join>
+                  </component>
+               </join>
             </diagonal>
             <riser>
                <component>
-                 <rel>p2</rel>
+                  <rel>p2</rel>
                </component>
             </riser>
             <diagram>
                <path>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
                   <scope>
@@ -224,8 +264,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </diagram>
          </reference>
       </entity_type>
-
-
       <entity_type>
          <name>B1</name>
          <presentation>
@@ -236,18 +274,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>p1</name>
             <type>X(1)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse_of>b1</inverse_of>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <composition>
-           <type>P</type>
-           <inverse>..</inverse>
-           <cardinality>ZeroOrOne</cardinality>
-           <pullback>
+            <type>P</type>
+            <inverse>..</inverse>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <pullback>
                <type>P</type>
                <projection_rel>pBasedOn</projection_rel>
                <along>
@@ -260,12 +304,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <rel>..</rel>
                   </component>
                </riser2>
-           </pullback>
+            </pullback>
          </composition>
          <reference>
             <name>basedOn</name>
             <type>B1</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagonal>
                <join>
                   <component>
@@ -283,7 +329,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </riser>
             <key>
                <component>
-                 <rel>g</rel>
+                  <rel>g</rel>
                </component>
             </key>
             <diagram>
@@ -305,7 +351,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>g</name>
             <type>B2</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <identifying/>
             <projection/>
             <diagonal>
@@ -327,13 +375,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </riser>
             <diagram>
                <path>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
                   <scope>
@@ -345,7 +399,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </diagram>
          </reference>
       </entity_type>
-
       <entity_type>
          <name>P</name>
          <presentation>
@@ -356,14 +409,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <type>B1</type>
             <name>..</name>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <reference>
             <name>pBasedOn</name>
             <type>P</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <projection/>
             <diagram>
                <path>
@@ -391,14 +448,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </join>
             </diagonal>
             <riser>
-              <component>
+               <component>
                   <rel>..</rel>
-              </component>
+               </component>
             </riser>
          </reference>
-      </entity_type> 
+      </entity_type>
    </group>
-
    <group>
       <name>rhs</name>
       <presentation>
@@ -406,42 +462,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>4.0</x>
       </presentation>
       <module_name>rhs</module_name>
-
       <entity_type>
          <name>A(2)</name>
          <presentation>
             <y>1.0</y>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>number</name>
-            <type>integer</type>
+            <type>
+               <integer/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
             <name>x</name>
             <type>X(2)</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <identifying/>
             <inverse>p2</inverse>
          </composition>
       </entity_type>
       <entity_type>
          <name>X(2)</name>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>Xname1</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>Xname2</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <presentation>
             <below>A(2)</below>
             <rightOf>X(1)</rightOf>
@@ -450,29 +515,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>p2</name>
             <type>A(2)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse_of>x</inverse_of>
          </dependency>
          <composition>
             <name>b2</name>
             <type>B2</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <identifying/>
             <inverse>..</inverse>
          </composition>
       </entity_type>
       <entity_type>
          <name>B2</name>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>B2name1</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>B2name2</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <presentation>
             <rightOf>B1</rightOf>
             <below>X(2)</below>
@@ -481,23 +554,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>..</name>
             <type>X(2)</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse_of>b2</inverse_of>
          </dependency>
          <composition>
             <name>y</name>
             <type>Y</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>..</inverse>
          </composition>
       </entity_type>
       <entity_type>
          <name>Y</name>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <presentation>
             <below>B2</below>
             <deltaw>0.3</deltaw>
@@ -505,21 +584,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>..</name>
             <type>B2</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse_of>y</inverse_of>
          </dependency>
       </entity_type>
    </group>
    <enumeration_type>
-       <name>colour</name>
-       <enumeration_value>
-           <literal>Red</literal>
-       </enumeration_value>
-       <enumeration_value>
-           <literal>Blue</literal>
-       </enumeration_value>
-       <enumeration_value>
-           <literal>Yellow</literal>
-       </enumeration_value>
+      <name>colour</name>
+      <enumeration_value>
+         <literal>Red</literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>Blue</literal>
+      </enumeration_value>
+      <enumeration_value>
+         <literal>Yellow</literal>
+      </enumeration_value>
    </enumeration_type>
 </entity_model>

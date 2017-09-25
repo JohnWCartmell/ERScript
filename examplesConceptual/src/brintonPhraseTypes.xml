@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-      <diagram>
-  </diagram>
+      <diagram/>
    </presentation>
    <defaults/>
    <entity_type>
@@ -35,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <w>2.0</w>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
       <entity_type>
@@ -44,7 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>noun_phrase</rightOf>
             <w>2.0</w>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
       <entity_type>
@@ -53,7 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>verb_phrase</rightOf>
             <w>2.0</w>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
       <entity_type>
@@ -62,7 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>adjectival_phrase</rightOf>
             <w>2.0</w>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
       <entity_type>
@@ -71,7 +78,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>adverbial_phrase</rightOf>
             <w>2.0</w>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
    </entity_type>

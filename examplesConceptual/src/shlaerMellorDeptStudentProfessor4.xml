@@ -23,12 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-
    <presentation>
       <diagram>
          <deltah>1.0</deltah>
       </diagram>
-   </presentation> 
+   </presentation>
    <entity_type>
       <name>department</name>
       <presentation>
@@ -36,37 +35,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
          <deltaw>0.2</deltaw>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>departmentId</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
          <id>R3</id>
          <type>student</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>within</inverse>
          <diagram>
             <path>
                <inverse>
                   <label>
-                      <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
             </path>
          </diagram>
       </composition>
       <composition>
-      
          <id>R1</id>
          <type>professor</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>within</inverse>
          <diagram>
-            <path>
-            </path>
+            <path/>
          </diagram>
       </composition>
    </entity_type>
@@ -80,34 +85,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>within</name>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>studentNoInDept</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <reference>
             <name>advised_by</name>
             <type>professor</type>
             <id>R2</id>
             <scope>R3</scope>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
                   <destarmlen>0.5</destarmlen>
                   <label>
-                     <name>Split</name> 
-                     <position>Upside</position>
+                     <name>
+                        <Split/>
+                     </name>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <id>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                         <xAdjustment>-0.2</xAdjustment>
                      </label>
                   </id>
                   <scope>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                         <xAdjustment>-0.3</xAdjustment>
                      </label>
                   </scope>
@@ -115,25 +132,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </diagram>
          </reference>
          <presentation>
-           <name>Split</name>
-           <deltaw>0.2</deltaw>
+            <name>
+               <Split/>
+            </name>
+            <deltaw>0.2</deltaw>
          </presentation>
       </entity_type>
       <entity_type>
          <name>professor</name>
          <presentation>
-           <rightOf>student</rightOf>
-           <x>1.5</x>
-           <deltaw>0.2</deltaw>
+            <rightOf>student</rightOf>
+            <x>1.5</x>
+            <deltaw>0.2</deltaw>
          </presentation>
          <dependency>
             <name>within</name>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>profNoInDept</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
       </entity_type>
    </group>
 </entity_model>

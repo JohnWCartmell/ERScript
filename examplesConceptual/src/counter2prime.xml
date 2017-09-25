@@ -30,15 +30,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>1.5</deltaw>
       </presentation>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
-	        <name>x</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <name>x</name>
          <type>counter</type>
          <identifying/>
          <sequence/>
-	        <diagram>
+         <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>

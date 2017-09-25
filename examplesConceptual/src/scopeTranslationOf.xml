@@ -31,16 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>language</type>
-         <cardinality>OneOrMore</cardinality>
-          <diagram>
-             <path>
-                <srcattach>0.4</srcattach>
-             </path>
-          </diagram>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <diagram>
+            <path>
+               <srcattach>0.4</srcattach>
+            </path>
+         </diagram>
       </composition>
       <composition>
          <type>language2</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -51,7 +55,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>translated book</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -62,37 +68,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>native book</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
-       <name>translated book</name>
-       <presentation>
+      <name>translated book</name>
+      <presentation>
          <below>language</below>
       </presentation>
-       <reference>
-          <name>translation_of</name>
-          <type>native book</type>
-          <cardinality>ExactlyOne</cardinality>
-          <inverse>translated_as</inverse>
-          <diagram>
-             <path>
-                <srcarmlen>0.4</srcarmlen>
-             </path>
-          </diagram>
-       </reference>
+      <reference>
+         <name>translation_of</name>
+         <type>native book</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>translated_as</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0.4</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
    </entity_type>
    <entity_type>
-       <name>native book</name>
-       <reference>
-          <name>translated_as</name>
-          <type>translated book</type>
-          <cardinality>ZeroOneOrMore</cardinality>
-          <inverse>translation_of</inverse>
-       </reference>
-       <presentation>
+      <name>native book</name>
+      <reference>
+         <name>translated_as</name>
+         <type>translated book</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>translation_of</inverse>
+      </reference>
+      <presentation>
          <rightOf>translated book</rightOf>
          <below>language2</below>
-      </presentation> 
+      </presentation>
    </entity_type>
 </entity_model>

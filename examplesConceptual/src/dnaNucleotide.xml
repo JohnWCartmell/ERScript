@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-     <et_width>2.0</et_width>
+      <et_width>2.0</et_width>
    </defaults>
    <entity_type>
       <name>DNA molecule</name>
@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>nucleotide</type>
          <sequence/>
       </composition>

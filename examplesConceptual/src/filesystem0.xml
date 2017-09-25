@@ -23,47 +23,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <entity_type>
-     <name>folder</name>
-     <presentation>
+   <entity_type>
+      <name>folder</name>
+      <presentation>
          <x>1.1</x>
          <y>0.6</y>
-     </presentation>
-     <dependency>
-         <name> </name>
-         <cardinality>ZeroOrOne</cardinality>
+      </presentation>
+      <dependency>
+         <name/>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>folder</type>
-     </dependency>
-     <composition>
+      </dependency>
+      <composition>
          <type>folder</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-         <inverse> </inverse>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse/>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
-                        <destattach>0.33333333333</destattach>
-                        <hstep>
+               <destattach>0.33333333333</destattach>
+               <hstep>
                   <absdim>
                      <src>-1</src>
                   </absdim>
                </hstep>
-                  </path>
+            </path>
          </diagram>
-     </composition>
-     <composition>
-          <type>file</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-          <diagram>
+      </composition>
+      <composition>
+         <type>file</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <diagram>
             <path>
                <srcattach>0.5</srcattach>
             </path>
          </diagram>
-     </composition>
-  </entity_type>
-  <entity_type>
-     <name>file</name>
-     <presentation>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>file</name>
+      <presentation>
          <below>folder</below>
       </presentation>
-  </entity_type>
+   </entity_type>
 </entity_model>

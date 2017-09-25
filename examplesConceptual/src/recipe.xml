@@ -29,7 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>recipe</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -41,18 +43,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>step</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>ingredient</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>step</name>
       <composition>
          <type>use</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <srcarmlen>0</srcarmlen>
@@ -70,12 +78,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>use of</name>
          <type>ingredient</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>used in</inverse>
          <diagram>
-           <path>
-              <srcarmlen>0.3</srcarmlen>
-           </path>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>
@@ -89,10 +99,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>1.2</x>
       </presentation>
       <reference>
-        <name>used in</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>use</type>
-        <inverse>use of</inverse>
+         <name>used in</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>use</type>
+         <inverse>use of</inverse>
       </reference>
    </entity_type>
 </entity_model>

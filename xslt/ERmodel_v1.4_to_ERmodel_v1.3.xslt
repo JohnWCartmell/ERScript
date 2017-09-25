@@ -43,7 +43,7 @@ CHANGE HISTORY
         xmlns="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
-<xsl:strip-space elements="*" />
+<!-- <xsl:strip-space elements="*" />-->
 
 <xsl:output method="xml" indent="yes"/>
 

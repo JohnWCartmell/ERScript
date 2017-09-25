@@ -37,7 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>individual</name>
       <reference>
          <name>is commanded by</name>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>individual</type>
          <inverse>commands</inverse>
          <diagram>
@@ -53,12 +55,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </vstep>
                <label>
-                  <position>Downside</position>
+                  <position>
+                     <Downside/>
+                  </position>
                   <xAdjustment>-0.5</xAdjustment>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.5</xAdjustment>
                   </label>
                </inverse>
@@ -67,7 +73,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>commands</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>is commanded by</inverse>
       </reference>

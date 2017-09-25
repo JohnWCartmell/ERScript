@@ -23,38 +23,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
-     <diagram>
-        <deltaw>0.9</deltaw>
-     </diagram>
-  </presentation>
-  <absolute>
+   <presentation>
+      <diagram>
+         <deltaw>0.9</deltaw>
+      </diagram>
+   </presentation>
+   <absolute>
       <name>entity_model</name>
       <composition>
          <type>entity type</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.66</destattach>
             </path>
          </diagram>
       </composition>
-  </absolute>
-  <entity_type>
-     <name>entity type</name>
-     <presentation>
-        <x>4.7</x>
-        <y>1.0</y>
-        <w>4.0</w>
-        <h>1.0</h>
-     </presentation>
-      <value>
+   </absolute>
+   <entity_type>
+      <name>entity type</name>
+      <presentation>
+         <x>4.7</x>
+         <y>1.0</y>
+         <w>4.0</w>
+         <h>1.0</h>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>entity type</type>
          <diagram>
             <path>
@@ -69,7 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>attribute</type>
          <identifying/>
          <diagram>
@@ -79,17 +87,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>expressible relationship</type>
          <identifying/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
-  </entity_type>    
-  <group>
+   </entity_type>
+   <group>
       <name>entity_type_children</name>
       <presentation>
          <below>entity type</below>
@@ -99,16 +111,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <y>0.2</y>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>isIdentifying</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
       </entity_type>
       <entity_type>
          <name>expressible relationship</name>
@@ -129,7 +145,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </presentation>
                <reference>
                   <name>inverse</name>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>reference</type>
                   <inverse>inverse</inverse>
                   <diagram>
@@ -141,22 +159,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </reference>
                <reference>
                   <name>scopedBy</name>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>expressible relationship</type>
                   <diagram>
                      <path>
-                       <srcattach>0.8</srcattach>
-                       <destattach>0.7</destattach>
-                       <srcarmlen>0.8</srcarmlen>
-                       <destarmlen>0.5</destarmlen>
-                       <destsign>-1</destsign>
-                       <vstep>
+                        <srcattach>0.8</srcattach>
+                        <destattach>0.7</destattach>
+                        <srcarmlen>0.8</srcarmlen>
+                        <destarmlen>0.5</destarmlen>
+                        <destsign>-1</destsign>
+                        <vstep>
                            <absdim>
                               <src>1.1</src>
                            </absdim>
                         </vstep>
-                       <label>
-                           <position>Upside</position>
+                        <label>
+                           <position>
+                              <Upside/>
+                           </position>
                         </label>
                      </path>
                   </diagram>
@@ -169,15 +191,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </presentation>
                <reference>
                   <name>inverse</name>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>dependency</type>
                   <inverse>inverse_of</inverse>
                   <diagram>
                      <path>
-                         <srcarmlen>1.0</srcarmlen>
-                         <destarmlen>1.0</destarmlen>
-                         <label>
-                           <position>Downside</position>
+                        <srcarmlen>1.0</srcarmlen>
+                        <destarmlen>1.0</destarmlen>
+                        <label>
+                           <position>
+                              <Downside/>
+                           </position>
                         </label>
                      </path>
                   </diagram>
@@ -191,35 +217,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </presentation>
                <reference>
                   <name>inverse_of</name>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>composition</type>
                   <inverse>inverse</inverse>
                </reference>
             </entity_type>
-         </entity_type>  
+         </entity_type>
          <group>
             <name>non-core relationships</name>
-           <presentation>
-              <rightOf>core relationship</rightOf>
-              <x>1.0</x>
-              <y>-0.5</y>
-           </presentation>
+            <presentation>
+               <rightOf>core relationship</rightOf>
+               <x>1.0</x>
+               <y>-0.5</y>
+            </presentation>
             <entity_type>
                <name>identity relationship</name>
                <presentation>
                   <w>1.8</w>
-                  <name>Split</name>
+                  <name>
+                     <Split/>
+                  </name>
                </presentation>
             </entity_type>
             <entity_type>
                <name>constructed relationship</name>
                <presentation>
                   <below>identity relationship</below>
-                  <name>Split</name>
+                  <name>
+                     <Split/>
+                  </name>
                </presentation>
                <reference>
                   <name>inverse</name>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>constructed relationship</type>
                   <inverse>inverse</inverse>
                   <diagram>
@@ -228,7 +262,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </reference>
                <composition>
                   <type>component</type>
-                  <cardinality>ZeroOneOrMore</cardinality>
+                  <cardinality>
+                     <ZeroOneOrMore/>
+                  </cardinality>
                   <sequence/>
                </composition>
                <entity_type>
@@ -236,10 +272,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <presentation>
                      <w>1.8</w>
                   </presentation>
-                  <value>
+                  <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
                      <name>recurse</name>
-                     <type>string</type>
-                  </value>
+                     <type>
+                        <string/>
+                     </type>
+                  </attribute>
                </entity_type>
                <entity_type>
                   <name>aggregate</name>
@@ -248,10 +286,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <w>1.8</w>
                   </presentation>
                </entity_type>
-            </entity_type>   
-         </group> 
+            </entity_type>
+         </group>
          <reference>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <name>type</name>
             <type>entity type</type>
             <identifying/>
@@ -270,99 +310,108 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </reference>
          <composition>
             <type>sequence</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <diagram>
                <path>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </composition>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
             <optional/>
-         </value>
+         </attribute>
          <choice>
             <name>cardinality</name>
             <from>Cardinality</from>
          </choice>
-      </entity_type>  
-  </group>
-
-  <group>
-     <name>entity_type_grandchildren</name>
-     <presentation>
-          <below>entity_type_children</below>
-          <y>0.6</y>
-     </presentation>
-     <entity_type>
+      </entity_type>
+   </group>
+   <group>
+      <name>entity_type_grandchildren</name>
+      <presentation>
+         <below>entity_type_children</below>
+         <y>0.6</y>
+      </presentation>
+      <entity_type>
          <name>sequence</name>
-         <presentation>
-       </presentation>
-     </entity_type>
-  </group>
-
-  <entity_type>
-     <name>component</name>
-     <presentation>
+         <presentation/>
+      </entity_type>
+   </group>
+   <entity_type>
+      <name>component</name>
+      <presentation>
          <below>constructed relationship</below>
          <y>1.0</y>
          <w>2.5</w>
          <h>2.0</h>
-     </presentation>
-     <reference>
-        <name>rel</name>
-        <type>expressible relationship</type>
-        <cardinality>ZeroOrOne</cardinality>
-        <diagram>
-           <path>
+      </presentation>
+      <reference>
+         <name>rel</name>
+         <type>expressible relationship</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <diagram>
+            <path>
                <destattach>0.75</destattach>
                <srcarmlen>1.3</srcarmlen>
                <hstep>
-                 <absdim>
-                    <src>0.1</src>
-                 </absdim>
+                  <absdim>
+                     <src>0.1</src>
+                  </absdim>
                </hstep>
-           </path>
-        </diagram>
-     </reference>
-     <reference>
-        <name>src</name>
-        <type>entity type</type>
-        <cardinality>ZeroOrOne</cardinality>
-        <diagram>
-           <path>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>src</name>
+         <type>entity type</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <diagram>
+            <path>
                <srcsign>1</srcsign>
                <destattach>0.6</destattach>
                <srcarmlen>1.5</srcarmlen>
                <hstep>
-                 <absdim>
-                    <src>0.1</src>
-                 </absdim>
+                  <absdim>
+                     <src>0.1</src>
+                  </absdim>
                </hstep>
-           </path>
-        </diagram>
-     </reference>
-     <reference>
-        <name>dest</name>
-        <type>entity type</type>
-        <cardinality>ZeroOrOne</cardinality>
-        <diagram>
-           <path>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>dest</name>
+         <type>entity type</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <diagram>
+            <path>
                <srcsign>1</srcsign>
                <destattach>0.4</destattach>
                <srcarmlen>1.7</srcarmlen>
                <hstep>
-                 <absdim>
-                    <src>0.1</src>
-                 </absdim>
+                  <absdim>
+                     <src>0.1</src>
+                  </absdim>
                </hstep>
-           </path>
-        </diagram>
-     </reference>
-  </entity_type>
-  <enumeration_type>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <enumeration_type>
       <name>Cardinality</name>
       <enumeration_value>
          <literal>
@@ -384,8 +433,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           OneOrMore
        </literal>
       </enumeration_value>
-  </enumeration_type>
-  <enumeration_type>
+   </enumeration_type>
+   <enumeration_type>
       <name>ValueType</name>
       <enumeration_value>
          <literal>
@@ -407,5 +456,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           float
        </literal>
       </enumeration_value>
-  </enumeration_type>
+   </enumeration_type>
 </entity_model>

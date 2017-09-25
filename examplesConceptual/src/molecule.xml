@@ -34,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>atom</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -48,12 +50,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>atom</name>
       <composition>
          <type>bond formed</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
       </composition>
       <reference>
-        <type>element</type>
-        <cardinality>ExactlyOne</cardinality>
-        <diagram>
+         <type>element</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
             <path>
                <srcarmlen>0.5</srcarmlen>
             </path>
@@ -68,14 +74,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>with</name>
          <type>bond formed</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>with</inverse>
          <diagram>
-           <path>
-              <srcarmlen>1.0</srcarmlen>
-              <destarmlen>1.0</destarmlen>
-       
-           </path>
+            <path>
+               <srcarmlen>1.0</srcarmlen>
+               <destarmlen>1.0</destarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>

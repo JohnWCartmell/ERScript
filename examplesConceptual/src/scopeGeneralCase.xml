@@ -23,26 +23,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltaw>0.2</deltaw>
       </diagram>
-  </presentation>
+   </presentation>
    <entity_type>
       <name>scope left hand context</name>
       <presentation>
          <x>0.2</x>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <name>left hand side</name>
          <type>X</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                   <position>Left</position>
-                   <yAdjustment>0.25</yAdjustment>
+                  <position>
+                     <Left/>
+                  </position>
+                  <yAdjustment>0.25</yAdjustment>
                </label>
             </path>
          </diagram>
@@ -50,16 +56,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>base relationship</name>
          <type>scope right hand context</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                 <position>Upside</position>
-                 <xAdjustment>0.2</xAdjustment>
-              </label>
-              <inverse>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <xAdjustment>0.2</xAdjustment>
+               </label>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -69,18 +81,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>scope right hand context</name>
       <presentation>
-          <rightOf>scope left hand context</rightOf> 
+         <rightOf>scope left hand context</rightOf>
          <x>2.5</x>
-          <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <name>right hand side</name>
          <type>Y</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                   <yAdjustment>0.25</yAdjustment>
+                  <yAdjustment>0.25</yAdjustment>
                </label>
             </path>
          </diagram>
@@ -90,18 +106,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>X</name>
       <presentation>
          <below>scope left hand context</below>
-         <shape>BottomLeft</shape>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
       <reference>
          <name>subject relationship</name>
          <type>Y</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                 <position>Upside</position>
-                 <xAdjustment>0.825</xAdjustment>
-              </label>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <xAdjustment>0.825</xAdjustment>
+               </label>
             </path>
          </diagram>
       </reference>
@@ -111,7 +133,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>X</rightOf>
          <below>scope right hand context</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

@@ -23,60 +23,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltah>1.1</deltah>
          <deltaw>0.6</deltaw>
       </diagram>
-  </presentation>
-  <entity_type>
-     <name>drive</name>
-     <composition>
-          <type>folder</type>
+   </presentation>
+   <entity_type>
+      <name>drive</name>
+      <composition>
+         <type>folder</type>
          <diagram>
-            <path>
-                  </path>
+            <path/>
          </diagram>
-     </composition>
-     <presentation>
+      </composition>
+      <presentation>
          <x>2.8</x>
          <y>0.1</y>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name>Entry</name>
-     <presentation>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>Entry</name>
+      <presentation>
          <below>drive</below>
          <x>0.25</x>
          <deltaw>0.5</deltaw>
       </presentation>
-     <entity_type>
+      <entity_type>
          <name>file</name>
-     </entity_type>
-     <entity_type>
-        <name>folder</name>
-        <composition>
+      </entity_type>
+      <entity_type>
+         <name>folder</name>
+         <composition>
             <type>Entry</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <diagram>
                <path>
-                        <srcattach>0.5</srcattach>
-                        <srcarmlen>1.0</srcarmlen>
-                        <destarmlen>0.6</destarmlen>
-                        <destattach>0.25</destattach>
-                        <hstep>
+                  <srcattach>0.5</srcattach>
+                  <srcarmlen>1.0</srcarmlen>
+                  <destarmlen>0.6</destarmlen>
+                  <destattach>0.25</destattach>
+                  <hstep>
                      <absdim>
                         <src>-3.3</src>
                      </absdim>
                   </hstep>
-                  </path>
+               </path>
             </diagram>
-        </composition>
-        <presentation>
+         </composition>
+         <presentation>
             <rightOf>file</rightOf>
          </presentation>
-     </entity_type>
-     <entity_type>
+      </entity_type>
+      <entity_type>
          <name>shortcut</name>
          <presentation>
             <rightOf>folder</rightOf>
@@ -86,14 +87,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>to</name>
             <diagram>
                <path>
-                      <hstep>
+                  <hstep>
                      <absdim>
                         <src>0.1</src>
                      </absdim>
                   </hstep>
-                  </path>
+               </path>
             </diagram>
          </reference>
-     </entity_type>
-  </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

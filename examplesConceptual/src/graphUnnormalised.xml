@@ -38,21 +38,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>exit</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <constructed_relationship>
-        <name>in</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>exit</type>
-        <inverse>to</inverse>
+         <name>in</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>exit</type>
+         <inverse>to</inverse>
       </constructed_relationship>
       <presentation>
          <below>undirected graph</below>
@@ -62,42 +68,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>exit</name>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <constructed_relationship>
          <name>to</name>
          <type>vertex</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>in</inverse>
          <join>
             <component>
-              <rel>reverse</rel>
+               <rel>reverse</rel>
             </component>
             <component>
-              <rel>from</rel>
+               <rel>from</rel>
             </component>
          </join>
          <diagram>
-           <path>
-              <srcattach>0.5</srcattach>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-           </path>
+            <path>
+               <srcattach>0.5</srcattach>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+            </path>
          </diagram>
       </constructed_relationship>
       <reference>
          <name>reverse</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>exit</type>
          <inverse>reverse</inverse>
          <diagram>
-           <path>
-              <srcsign>-1</srcsign>
-              <destsign>-1</destsign>
-              <srcattach>0.5</srcattach>
-              <destattach>0.5</destattach>
-           </path>
+            <path>
+               <srcsign>-1</srcsign>
+               <destsign>-1</destsign>
+               <srcattach>0.5</srcattach>
+               <destattach>0.5</destattach>
+            </path>
          </diagram>
       </reference>
       <presentation>

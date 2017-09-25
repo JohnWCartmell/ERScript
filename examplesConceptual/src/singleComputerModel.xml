@@ -27,15 +27,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>single computer&gt;</name>
       <composition>
          <type>cpu</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
       <composition>
          <type>memory</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
       <composition>
          <type>drive</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -57,7 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <rightOf>memory</rightOf>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>folder</type>
       </composition>
    </entity_type>

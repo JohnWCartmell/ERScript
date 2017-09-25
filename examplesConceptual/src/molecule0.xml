@@ -30,41 +30,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <entity_type>
       <name>molecule</name>
-   
       <composition>
          <type>atom</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>atom</name>
       <composition>
-         <name> </name>
+         <name/>
          <type>bond</type>
-         <cardinality>OneOrMore</cardinality>
-         <inverse> </inverse>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-                      <inverse>
+               <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
             </path>
          </diagram>
       </composition>
       <composition>
-         <name>  </name>
-        <cardinality>OneOrMore</cardinality>
-        <type>bond</type>
-         <inverse>  </inverse>
+         <name/>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>bond</type>
+         <inverse/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -75,13 +88,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>bond</name>
       <dependency>
-         <name> </name>
-         <cardinality>ExactlyOne</cardinality>
+         <name/>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>atom</type>
       </dependency>
       <dependency>
-         <name>  </name>
-         <cardinality>ExactlyOne</cardinality>
+         <name/>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>atom</type>
       </dependency>
       <presentation>

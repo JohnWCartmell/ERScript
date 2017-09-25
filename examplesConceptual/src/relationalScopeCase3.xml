@@ -26,22 +26,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>base</name>
       <presentation>
-        <x>2.0</x>
-        <y>1.0</y>
-        <h>0.5</h>
-        <w>2.0</w>
-        <shape>Top</shape>
+         <x>2.0</x>
+         <y>1.0</y>
+         <h>0.5</h>
+         <w>2.0</w>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
          <name>left(R)</name>
          <type>source</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
                <srcarmlen>0.15</srcarmlen>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                   <yAdjustment>0.25</yAdjustment>
                   <xAdjustment>-0.625</xAdjustment>
                </label>
@@ -51,13 +57,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>right(R)</name>
          <type>dest</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.8</srcattach>
                <srcarmlen>0.15</srcarmlen>
                <label>
-                  <position>Right</position>
+                  <position>
+                     <Right/>
+                  </position>
                   <yAdjustment>0.25</yAdjustment>
                   <xAdjustment>0.625</xAdjustment>
                </label>
@@ -74,12 +84,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>source</name>
          <presentation>
-            <shape>BottomLeft</shape>
+            <shape>
+               <BottomLeft/>
+            </shape>
          </presentation>
          <reference>
             <name>R</name>
             <type>dest</type>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <diagram>
                <path>
                   <label>
@@ -94,7 +108,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <rightOf>source</rightOf>
             <x>2.0</x>
-            <shape>BottomRight</shape>
+            <shape>
+               <BottomRight/>
+            </shape>
          </presentation>
       </entity_type>
    </group>

@@ -31,11 +31,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>performance</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>play</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -46,12 +50,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>performance_of</name>
          <type>play</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                  <name>Split</name>
-                  <position>Upside</position>
+               <label>
+                  <name>
+                     <Split/>
+                  </name>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -65,7 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>

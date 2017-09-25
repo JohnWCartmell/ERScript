@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>1.8</et_width>
-         <et_y_separation>0.6</et_y_separation>
+      <et_width>1.8</et_width>
+      <et_y_separation>0.6</et_y_separation>
    </defaults>
    <entity_type>
       <name>sentence</name>
@@ -35,32 +35,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <name>subject</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>noun phrase</type>
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-             </path>
+            </path>
          </diagram>
       </composition>
       <composition>
          <name>predicate</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb phrase</type>
       </composition>
    </entity_type>
    <entity_type>
-       <name>noun phrase</name>
-       <presentation>
+      <name>noun phrase</name>
+      <presentation>
          <below>sentence</below>
          <x>-1.0</x>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>verb phrase</name>
-       <presentation>
+      <name>verb phrase</name>
+      <presentation>
          <rightOf>noun phrase</rightOf>
          <x>0.4</x>
       </presentation>

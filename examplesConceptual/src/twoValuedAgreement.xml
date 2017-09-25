@@ -34,11 +34,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>agreement</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
       </composition>
    </absolute>
@@ -50,17 +54,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>supplier</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>individual</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -68,17 +80,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>consumer</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>individual</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Downside</position>
+                  <position>
+                     <Downside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>

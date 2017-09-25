@@ -36,21 +36,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>character</name>
       <composition>
          <type>love</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <reference>
-        <name>receives</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>love</type>
-        <inverse>for</inverse>
+         <name>receives</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>love</type>
+         <inverse>for</inverse>
       </reference>
       <presentation>
          <below>novel</below>
@@ -60,19 +66,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>love</name>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>character</type>
       </dependency>
       <reference>
          <name>for</name>
          <type>character</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>receives</inverse>
          <diagram>
-           <path>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-           </path>
+            <path>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>

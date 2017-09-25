@@ -33,11 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>country</type>
       </composition>
    </absolute>
@@ -50,21 +54,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>country of birth</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>country</type>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </reference>
       <reference>
          <name>town of birth</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>town</type>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </reference>
@@ -72,7 +84,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>country</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>town</type>
       </composition>
       <presentation>

@@ -23,73 +23,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <defaults>
+   <defaults>
       <et_width>1.4</et_width>
    </defaults>
-  <entity_type>
-     <name>Particle</name>
-     <entity_type>
-        <name>Bose Particle</name>
-        <entity_type>
-           <name>photon</name>
-        </entity_type>
-        <entity_type>
-           <name>Meson</name>
-           <presentation>
+   <entity_type>
+      <name>Particle</name>
+      <entity_type>
+         <name>Bose Particle</name>
+         <entity_type>
+            <name>photon</name>
+         </entity_type>
+         <entity_type>
+            <name>Meson</name>
+            <presentation>
                <rightOf>photon</rightOf>
             </presentation>
-        </entity_type>
-        <entity_type>
-           <name>graviton</name>
-           <presentation>
+         </entity_type>
+         <entity_type>
+            <name>graviton</name>
+            <presentation>
                <rightOf>Meson</rightOf>
             </presentation>
-        </entity_type>
-     </entity_type>
-     <entity_type>
-        <name>Fermi Particle</name>
-        <presentation>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>Fermi Particle</name>
+         <presentation>
             <below>Bose Particle</below>
          </presentation>
-        <group>
-           <name>padding</name>
-           <presentation>
+         <group>
+            <name>padding</name>
+            <presentation>
                <w>1.4</w>
             </presentation>
-        </group>
-        <entity_type>
-           <name>electron</name>
-           <presentation>
+         </group>
+         <entity_type>
+            <name>electron</name>
+            <presentation>
                <rightOf>padding</rightOf>
                <y>-0.25</y>
             </presentation>
-        </entity_type>
-        <entity_type>
-           <name>muon</name>
-           <presentation>
+         </entity_type>
+         <entity_type>
+            <name>muon</name>
+            <presentation>
                <rightOf>electron</rightOf>
             </presentation>
-        </entity_type>
-        <group>
-           <presentation>
+         </entity_type>
+         <group>
+            <presentation>
                <below>electron</below>
             </presentation>
-           <entity_type>
-              <name>Nucleon</name>
-           </entity_type>
-           <entity_type>
-              <name>Neutrino</name>
-              <presentation>
+            <entity_type>
+               <name>Nucleon</name>
+            </entity_type>
+            <entity_type>
+               <name>Neutrino</name>
+               <presentation>
                   <rightOf>Nucleon</rightOf>
                </presentation>
-           </entity_type>
-           <entity_type>
-              <name>Baryon</name>
-              <presentation>
+            </entity_type>
+            <entity_type>
+               <name>Baryon</name>
+               <presentation>
                   <rightOf>Neutrino</rightOf>
                </presentation>
-           </entity_type>
-        </group>
-     </entity_type>
-  </entity_type>
+            </entity_type>
+         </group>
+      </entity_type>
+   </entity_type>
 </entity_model>

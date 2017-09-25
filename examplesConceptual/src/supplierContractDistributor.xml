@@ -28,15 +28,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>supplier</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>contract</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>distributor</type>
       </composition>
    </absolute>
@@ -46,12 +52,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>0</x>
          <y>1.0</y>
       </presentation>
-   
    </entity_type>
    <entity_type>
       <name>contract</name>
       <reference>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>supplier</type>
          <diagram>
             <path>
@@ -60,7 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </reference>
       <reference>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>distributor</type>
          <diagram>
             <path>

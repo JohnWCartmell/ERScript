@@ -40,14 +40,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>exit</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <presentation>
@@ -62,24 +66,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>reverse</name>
          <type>exit</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>reverse</inverse>
          <diagram>
-           <path>
+            <path>
                <srcattach>0.1</srcattach>
                <destattach>0.1</destattach>
-           </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>right</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>exit</type>
          <inverse>right of</inverse>
          <diagram>
@@ -89,11 +99,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <srcarmlen>1.0</srcarmlen>
                <destarmlen>1.0</destarmlen>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -101,13 +115,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>right of</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>exit</type>
          <inverse>right</inverse>
       </reference>
       <reference>
          <name>left</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>exit</type>
          <inverse>left of</inverse>
          <diagram>
@@ -117,11 +135,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <srcarmlen>1.0</srcarmlen>
                <destarmlen>1.0</destarmlen>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -129,7 +151,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>left of</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>exit</type>
          <inverse>left</inverse>
       </reference>

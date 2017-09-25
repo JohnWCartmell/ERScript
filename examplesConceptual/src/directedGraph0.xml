@@ -35,11 +35,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>edge</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
@@ -49,16 +53,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>vertex</name>
          <reference>
-           <name>out</name>
-           <cardinality>OneOrMore</cardinality>
-           <type>edge</type>
-           <inverse>from</inverse>
+            <name>out</name>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
+            <type>edge</type>
+            <inverse>from</inverse>
          </reference>
          <reference>
-           <name>in</name>
-           <cardinality>OneOrMore</cardinality>
-           <type>edge</type>
-           <inverse>to</inverse>
+            <name>in</name>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
+            <type>edge</type>
+            <inverse>to</inverse>
          </reference>
       </entity_type>
       <entity_type>
@@ -70,31 +78,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>from</name>
             <type>vertex</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse>out</inverse>
             <diagram>
-              <path>
-                  <align>ToSrc</align>
+               <path>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
-              </path>
+               </path>
             </diagram>
          </reference>
          <reference>
             <name>to</name>
             <type>vertex</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse>in</inverse>
             <diagram>
-              <path>
-                  <align>ToSrc</align>
+               <path>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
-              </path>
+               </path>
             </diagram>
          </reference>
       </entity_type>

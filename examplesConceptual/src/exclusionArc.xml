@@ -33,11 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>part type</type>
          <diagram>
             <path>
-                <destattach>0.3333</destattach>
+               <destattach>0.3333</destattach>
             </path>
          </diagram>
       </composition>
@@ -48,19 +50,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <rightOf>whole type 1</rightOf>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>part type</type>
          <diagram>
             <path>
-                <destattach>0.6666</destattach>
+               <destattach>0.6666</destattach>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
-       <name>part type</name>
-       <dependency_group/>
-       <presentation>
+      <name>part type</name>
+      <dependency_group/>
+      <presentation>
          <below>whole type 1</below>
          <x>1.05</x>
       </presentation>

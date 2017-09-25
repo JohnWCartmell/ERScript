@@ -27,18 +27,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>declaration</name>
       <presentation>
          <x>2.8</x>
-         <shape>Top</shape>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
          <type>given</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>recursive(..)</inverse>
          <diagram>
             <path>
                <srcarmlen>0.4</srcarmlen>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                      <xAdjustment>-0.1</xAdjustment>
                   </label>
                </inverse>
@@ -48,20 +54,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>givens</name>
          <type>formal argument</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
       <name>declarationchildren</name>
-      <presentation>         
-        <below>declaration</below>         
-        <y>0.5</y>
+      <presentation>
+         <below>declaration</below>
+         <y>0.5</y>
       </presentation>
       <entity_type>
          <name>given</name>
          <presentation>
-           <shape>BottomLeft</shape>
-           <w>2.2</w>
+            <shape>
+               <BottomLeft/>
+            </shape>
+            <w>2.2</w>
          </presentation>
          <dependency>
             <name>recursive(..)</name>
@@ -70,7 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>reference to</name>
             <type>formal argument</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.4</srcarmlen>
@@ -83,7 +95,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <rightOf>given</rightOf>
             <x>2.0</x>
-            <shape>BottomRight</shape>
+            <shape>
+               <BottomRight/>
+            </shape>
          </presentation>
       </entity_type>
    </group>

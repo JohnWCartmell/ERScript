@@ -27,11 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>boolean</name>
       <composition>
          <type>true</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
       <composition>
          <type>false</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>

@@ -24,18 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-       <et_width>1.7</et_width>
+      <et_width>1.7</et_width>
    </defaults>
    <entity_type>
       <name>whole type</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>part type</type>
       </composition>
    </entity_type>
    <entity_type>
-       <name>part type</name>
-       <presentation>
+      <name>part type</name>
+      <presentation>
          <below>whole type</below>
       </presentation>
    </entity_type>

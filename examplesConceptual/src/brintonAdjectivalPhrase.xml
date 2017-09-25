@@ -23,9 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation>
-
-</presentation>
+   <presentation/>
    <defaults/>
    <entity_type>
       <name>adjectival phrase</name>
@@ -35,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <w>2.3</w>
       </presentation>
       <composition>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>Advpbar</type>
          <diagram>
             <path>
@@ -44,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>adjective</type>
          <diagram>
             <path>
@@ -58,7 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>adjectival phrase</below>
          <x>-1.45</x>
-         <name>None</name>
+         <name>
+            <None/>
+         </name>
       </presentation>
       <dependency_group>
          <presentation>
@@ -78,28 +82,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <rightOf>degree</rightOf>
             <x>0.2</x>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
             <h>0.8</h>
          </presentation>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>degree</type>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
-                         <srcattach>0.2</srcattach>
-                         <destattach>0.5</destattach>
-                         <destarmlen>0.65</destarmlen>
-                         <hstep>
+                  <srcattach>0.2</srcattach>
+                  <destattach>0.5</destattach>
+                  <destarmlen>0.65</destarmlen>
+                  <hstep>
                      <absdim>
                         <src>-2.3</src>
                      </absdim>
                   </hstep>
-                   </path>
+               </path>
             </diagram>
          </composition>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>adverb</type>
             <diagram>
                <path>

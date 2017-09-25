@@ -30,35 +30,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0</y>
          <w>3.0</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-	        <identifying/>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>date of birth</name>
-         <type>string</type>
-	        <identifying/>
-      </value> 
-      <value>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>nationality</name>
-         <type>string</type>
-	        <optional/>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>passport number</name>
-         <type>string</type>
-	        <optional/>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>is married</name>
-         <type>boolean</type>
-	        <optional/>
-      </value>
-      <value>
+         <type>
+            <boolean/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>height</name>
-         <type>float</type>
-	        <optional/>
-      </value>
+         <type>
+            <float/>
+         </type>
+         <optional/>
+      </attribute>
    </entity_type>
 </entity_model>

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_y_separation>0.7</et_y_separation>
+      <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>intransitive verb phrase</name>
@@ -35,20 +35,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <name>head</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                <label>
-                  <position>Left</position>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
-       <name>verb</name>
-       <presentation>
+      <name>verb</name>
+      <presentation>
          <below>intransitive verb phrase</below>
          <w>1.6</w>
       </presentation>

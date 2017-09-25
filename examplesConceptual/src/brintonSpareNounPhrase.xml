@@ -55,7 +55,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <name>proper_name</name>
                <presentation>
                   <h>0.8</h>
-                  <name>Split</name>
+                  <name>
+                     <Split/>
+                  </name>
                </presentation>
             </entity_type>
             <entity_type>
@@ -73,11 +75,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <w>1.8</w>
                </presentation>
                <composition>
-                  <cardinality>ZeroOrOne</cardinality>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
                   <type>determiner</type>
                </composition>
                <composition>
-                  <cardinality>ExactlyOne</cardinality>
+                  <cardinality>
+                     <ExactlyOne/>
+                  </cardinality>
                   <type>N-bar</type>
                   <diagram>
                      <path>
@@ -95,18 +101,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <y>0.45</y>
                <w>2.9</w>
                <h>0.8</h>
-               <name>Split</name>
+               <name>
+                  <Split/>
+               </name>
             </presentation>
             <composition>
-               <cardinality>ZeroOrOne</cardinality>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
                <type>prepositional_specifier</type>
             </composition>
             <composition>
-               <cardinality>ExactlyOne</cardinality>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
                <type>preposition</type>
             </composition>
             <composition>
-               <cardinality>ZeroOrOne</cardinality>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
                <type>NP|PP</type>
                <diagram>
                   <path>
@@ -120,7 +134,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </hstep>
                      <label>
                         <yAdjustment>0.3</yAdjustment>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                      </label>
                   </path>
                </diagram>
@@ -136,32 +152,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <w>4.0</w>
          </presentation>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>Advpbar</type>
             <diagram>
                <path/>
             </diagram>
          </composition>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>adjective</type>
          </composition>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>prepositional_phrase</type>
             <diagram>
-   	           <path>
+               <path>
                   <srcattach>0.85</srcattach>
-   	              <srcarmlen>5.0</srcarmlen>
-   	              <destattach>0.3</destattach>
-   	              <destarmlen>2.4</destarmlen>
-   	    
-   	              <hstep>
+                  <srcarmlen>5.0</srcarmlen>
+                  <destattach>0.3</destattach>
+                  <destarmlen>2.4</destarmlen>
+                  <hstep>
                      <absdim>
                         <src>12.0</src>
                      </absdim>
                   </hstep>
-   	           </path>
+               </path>
             </diagram>
          </composition>
       </entity_type>
@@ -172,7 +193,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>N-bar-bar</below>
          <x>1.5</x>
          <y>3.35</y>
-         <name>None</name>
+         <name>
+            <None/>
+         </name>
       </presentation>
       <dependency_group>
          <presentation>
@@ -187,7 +210,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <h>0.5</h>
          </presentation>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>adjectival phrase</type>
             <diagram>
                <path>
@@ -202,7 +227,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </diagram>
          </composition>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>yyy</type>
             <diagram>
                <path>
@@ -217,21 +244,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </diagram>
          </composition>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>prepositional_phrase</type>
             <diagram>
                <path>
                   <srcarmlen>1.0</srcarmlen>
                   <destarmlen>2.2</destarmlen>
-                
                   <hstep>
                      <absdim>
                         <src>7.5</src>
                      </absdim>
                   </hstep>
                   <label>
-                    <yAdjustment>0.3</yAdjustment>
-                    <position>Left</position>
+                     <yAdjustment>0.3</yAdjustment>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </path>
             </diagram>
@@ -249,7 +279,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>prepositional_specifier</name>
       <presentation>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
          <below>prepositional_phrase</below>
          <x>-1.3</x>
          <y>2.5</y>
@@ -281,7 +313,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>adjectival phrase</below>
          <x>-1.7777777</x>
          <y>0.5</y>
-         <name>None</name>
+         <name>
+            <None/>
+         </name>
       </presentation>
       <dependency_group>
          <presentation>
@@ -300,27 +334,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>adverbial_phrase</name>
          <presentation>
             <below>degree</below>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
             <h>0.8</h>
          </presentation>
          <composition>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>degree</type>
             <diagram>
                <path>
-                         <srcattach>0.2</srcattach>
-                         <destattach>0.2</destattach>
-                         <destarmlen>0.8</destarmlen>
-                         <hstep>
+                  <srcattach>0.2</srcattach>
+                  <destattach>0.2</destattach>
+                  <destarmlen>0.8</destarmlen>
+                  <hstep>
                      <absdim>
                         <src>-0.8</src>
                      </absdim>
                   </hstep>
-                   </path>
+               </path>
             </diagram>
          </composition>
          <composition>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>adverb</type>
             <diagram>
                <path>

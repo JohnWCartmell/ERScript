@@ -48,23 +48,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <composition>
             <type>cell wall</type>
-            <cardinality>ExactlyOne</cardinality>
-            
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </composition>
          <composition>
             <type>vacuole</type>
-            <cardinality>ExactlyOne</cardinality>
-            
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </composition>
          <composition>
             <type>chloroplast</type>
-            <cardinality>OneOrMore</cardinality>
-            
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
          </composition>
       </entity_type>
       <composition>
          <type>nucleus</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.1</srcattach>
@@ -74,7 +79,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <type>cytoplasm</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -84,7 +91,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <type>cell membrane</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.3</srcattach>

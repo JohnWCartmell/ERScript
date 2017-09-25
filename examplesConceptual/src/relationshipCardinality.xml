@@ -24,16 +24,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-     <diagram>
-        <deltaw>0.3</deltaw>
-     </diagram>
+      <diagram>
+         <deltaw>0.3</deltaw>
+      </diagram>
    </presentation>
    <absolute>
       <name>relationship_cardinality</name>
       <composition>
          <name>ZeroOrOne</name>
          <type>relationship_cardinality</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.2</destattach>
@@ -43,7 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>ExactlyOne</name>
          <type>relationship_cardinality</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.4</destattach>
@@ -53,7 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>OneOrMany</name>
          <type>relationship_cardinality</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.6</destattach>
@@ -63,7 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>ZeroOneOrMany</name>
          <type>relationship_cardinality</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.8</destattach>

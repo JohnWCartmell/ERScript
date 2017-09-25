@@ -26,7 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>sentence</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>clause</type>
          <sequence/>
       </composition>
@@ -35,7 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>clause</name>
       <composition>
          <type>phrase</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
       </composition>
       <presentation>
@@ -46,7 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>phrase</name>
       <composition>
          <type>word</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
       </composition>
       <presentation>
@@ -57,7 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>word</name>
       <composition>
          <type>morpheme</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
       </composition>
       <presentation>

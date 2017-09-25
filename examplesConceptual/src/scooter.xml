@@ -33,19 +33,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <entity_type>
       <name>scooter</name>
-      <presentation> 
-         <x>1.0</x> 
+      <presentation>
+         <x>1.0</x>
       </presentation>
       <composition>
          <name>front wheel</name>
          <type>wheel</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.33</destattach>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -53,10 +59,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>rear wheel</name>
          <type>wheel</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.66</destattach>
             </path>
          </diagram>

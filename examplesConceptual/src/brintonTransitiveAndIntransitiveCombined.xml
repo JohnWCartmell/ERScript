@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>2.4</et_width>
-         <et_y_separation>0.7</et_y_separation>
+      <et_width>2.4</et_width>
+      <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>verb phrase</name>
@@ -42,12 +42,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <composition>
             <name>direct_object</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>noun phrase</type>
             <diagram>
                <path>
                   <label>
-                     <name>Split </name>
+                     <name>
+                        <Split/>
+                     </name>
                   </label>
                </path>
             </diagram>
@@ -55,29 +59,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <composition>
          <name>head</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>verb</type>
          <diagram>
             <path>
-                <label>
-                  <position>Left</position>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-                <align>ToDest</align>
-                <srcattach>0.35</srcattach>
+               <align>
+                  <ToDest/>
+               </align>
+               <srcattach>0.35</srcattach>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
-       <name>verb</name>
-       <presentation>
+      <name>verb</name>
+      <presentation>
          <below>intransitive</below>
          <y>1.5</y>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>noun phrase</name>
-       <presentation>
+      <name>noun phrase</name>
+      <presentation>
          <below>transitive</below>
          <rightOf>verb</rightOf>
       </presentation>

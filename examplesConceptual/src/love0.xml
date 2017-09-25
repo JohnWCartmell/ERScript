@@ -35,11 +35,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>love</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
@@ -58,29 +62,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>of</name>
             <type>character</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
-              <path>
-                  <align>ToSrc</align>
+               <path>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
-              </path>
+               </path>
             </diagram>
          </reference>
          <reference>
             <name>for</name>
             <type>character</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
-              <path>
-                  <align>ToSrc</align>
+               <path>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
-              </path>
+               </path>
             </diagram>
          </reference>
       </entity_type>

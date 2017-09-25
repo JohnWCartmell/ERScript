@@ -30,15 +30,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.2</y>
          <w>2.0</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-	        <optional/>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>date of birth</name>
-         <type>string</type>
-	        <optional/>
-      </value>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
    </entity_type>
 </entity_model>

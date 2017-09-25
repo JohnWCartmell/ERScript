@@ -31,13 +31,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>1.6</x>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>tablename</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>row</type>
          <identifying/>
          <inverse>tbl</inverse>
@@ -45,7 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <path>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                      <xAdjustment>-0.1</xAdjustment>
                   </label>
                </inverse>
@@ -53,7 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>column</type>
          <inverse>tbl</inverse>
          <diagram>
@@ -75,18 +83,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>tbl</name>
             <type>table</type>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>tablename</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>rowno</name>
-            <type>positiveInteger</type>
+            <type>
+               <positiveInteger/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>cell</type>
             <identifying/>
             <inverse>row</inverse>
@@ -94,7 +108,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <path>
                   <inverse>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                      </label>
                   </inverse>
                   <destattach>0.3</destattach>
@@ -112,17 +128,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>tbl</name>
             <type>table</type>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>title</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
-         <value>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>tablename</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <composition>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>cell</type>
             <identifying/>
             <inverse>col</inverse>
@@ -141,22 +163,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>1.3</y>
       </presentation>
       <dependency>
-        <name>row</name>
-        <type>row</type>
+         <name>row</name>
+         <type>row</type>
       </dependency>
       <dependency>
-        <name>col</name>
-        <type>column</type>
+         <name>col</name>
+         <type>column</type>
       </dependency>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>rowno</name>
-         <type>positiveInteger</type>
+         <type>
+            <positiveInteger/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>title</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
    </entity_type>
 </entity_model>

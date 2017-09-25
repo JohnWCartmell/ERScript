@@ -38,7 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>primary cord</type>
       </composition>
    </entity_type>
@@ -58,10 +60,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>non-primary cord</name>
          <composition>
             <type>knot cluster</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <diagram>
                <path>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </composition>
@@ -72,19 +78,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <composition>
          <type>Ascher cord colour</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>
       <composition>
          <type>cord grouping</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -104,11 +118,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>knot</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -117,7 +135,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>cord grouping</name>
       <composition>
          <type>non-primary cord</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <destarmlen>1.0</destarmlen>

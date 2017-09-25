@@ -28,10 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>0.1</x>
          <deltaw>1.5</deltaw>
-         <shape>Top</shape>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>counter</type>
          <identifying/>
          <sequence/>

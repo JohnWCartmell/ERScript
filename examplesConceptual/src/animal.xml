@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>Animal</name>
-      <presentation> </presentation>
+      <presentation/>
       <entity_type>
          <name>man</name>
       </entity_type>

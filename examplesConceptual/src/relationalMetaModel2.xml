@@ -38,24 +38,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>all tables</name>
          <type>table</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
       <name>table</name>
       <presentation>
-        <x>3.5</x>
+         <x>3.5</x>
          <y>1.25</y>
          <w>3.5</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
          <type>primary key column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <sequence/>
          <inverse>of</inverse>
@@ -67,18 +73,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <type>column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>
       <composition>
          <type>foreign key</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
@@ -100,30 +112,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <deltaw>0.1</deltaw>
          </presentation>
-      
-      
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>seq no</name>
-            <type>integer</type>
+            <type>
+               <integer/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <dependency>
             <name>of</name>
          </dependency>
          <reference>
             <name>is</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>column</type>
-            <inverse>in_primary_key</inverse> 
+            <inverse>in_primary_key</inverse>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <name>None</name>
+                        <name>
+                           <None/>
+                        </name>
                      </label>
                   </inverse>
                </path>
@@ -139,16 +159,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>of</name>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <reference>
-           <name>in_primary_key</name>
-           <cardinality>ZeroOrOne</cardinality>
-           <type>primary key column</type>
-           <inverse>is</inverse>
+            <name>in_primary_key</name>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>primary key column</type>
+            <inverse>is</inverse>
          </reference>
       </entity_type>
       <entity_type>
@@ -160,14 +184,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>of</name>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
             <type>foreign key column</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <sequence/>
             <identifying/>
             <inverse>part_of</inverse>
@@ -175,7 +203,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>to</name>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcsign>1</srcsign>
@@ -189,7 +219,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </absdim>
                   </vstep>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </path>
             </diagram>
@@ -202,34 +234,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>foreign key</below>
          <h>0.9</h>
          <deltaw>0.1</deltaw>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
       <dependency>
          <name>part_of</name>
       </dependency>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>seq no</name>
-         <type>integer</type>
+         <type>
+            <integer/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <reference>
          <name>is</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcarmlen>0.3</srcarmlen>
-              <destattach>0.666</destattach>
-              <destarmlen>0.3</destarmlen>
-              <label>
-              </label>
-           </path>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+               <destattach>0.666</destattach>
+               <destarmlen>0.3</destarmlen>
+               <label/>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>to</name>
          <type>primary key column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcsign>1</srcsign>
@@ -243,7 +282,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </vstep>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>

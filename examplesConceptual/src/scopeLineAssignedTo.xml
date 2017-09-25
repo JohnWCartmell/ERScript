@@ -33,15 +33,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>2.0</x>
          <y>1.0</y>
-         <shape>Top</shape>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
          <type>line</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
@@ -53,7 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>line</name>
          <presentation>
-            <shape>BottomLeft</shape>
+            <shape>
+               <BottomLeft/>
+            </shape>
          </presentation>
          <dependency>
             <name>..</name>
@@ -62,19 +70,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>assigned_to</name>
             <type>character</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse>is_assigned</inverse>
             <diagonal>
                <component>
-                 <rel>..</rel>
+                  <rel>..</rel>
                </component>
             </diagonal>
             <riser>
                <component>
-                 <rel>..</rel>
+                  <rel>..</rel>
                </component>
             </riser>
- 
             <diagram>
                <path>
                   <srcarmlen>0.4</srcarmlen>
@@ -96,13 +105,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>is_assigned</name>
             <type>line</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>assigned_to</inverse>
          </reference>
          <presentation>
             <rightOf>line</rightOf>
             <x>3.0</x>
-            <shape>BottomRight</shape>
+            <shape>
+               <BottomRight/>
+            </shape>
          </presentation>
       </entity_type>
    </group>

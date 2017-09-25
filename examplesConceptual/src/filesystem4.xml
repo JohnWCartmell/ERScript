@@ -23,85 +23,98 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltah>0.5</deltah>
          <deltaw>0.8</deltaw>
       </diagram>
-  </presentation>
-  <entity_type>
-     <name>drive</name>
-     <value>
-        <name>drive letter</name>
-        <type>string</type>
-     </value>
-     <composition>
-          <type>folder</type>
+   </presentation>
+   <entity_type>
+      <name>drive</name>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>drive letter</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
+         <type>folder</type>
          <diagram>
-            <path>
-                  </path>
+            <path/>
          </diagram>
-     </composition>
-     <presentation>
+      </composition>
+      <presentation>
          <x>2.3</x>
          <y>0.1</y>
          <w>2.2</w>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name>Entry</name>
-     <presentation>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>Entry</name>
+      <presentation>
          <below>drive</below>
          <x>0.25</x>
          <deltaw>0.5</deltaw>
       </presentation>
-     <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-     </value>
-     <value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>date modified</name>
-         <type>string</type>
-     </value>
-     <entity_type>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <entity_type>
          <name>file</name>
-         <value>
-             <name>size</name>
-             <type>string</type>
-         </value>
-         <value>
-             <name>content</name>
-             <type>string</type>
-         </value>
-     </entity_type>
-     <entity_type>
-        <name>folder</name>
-        <value>
-             <name>name</name>
-             <type>string</type>
-        </value>
-        <composition>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>size</name>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>content</name>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+      </entity_type>
+      <entity_type>
+         <name>folder</name>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>name</name>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <composition>
             <type>Entry</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <diagram>
                <path>
-                        <srcattach>0.5</srcattach>
-                        <srcarmlen>1.0</srcarmlen>
-                        <destarmlen>0.6</destarmlen>
-                        <destattach>0.25</destattach>
-                        <hstep>
+                  <srcattach>0.5</srcattach>
+                  <srcarmlen>1.0</srcarmlen>
+                  <destarmlen>0.6</destarmlen>
+                  <destattach>0.25</destattach>
+                  <hstep>
                      <absdim>
                         <src>-3.3</src>
                      </absdim>
                   </hstep>
-                  </path>
+               </path>
             </diagram>
-        </composition>
-        <presentation>
+         </composition>
+         <presentation>
             <rightOf>file</rightOf>
          </presentation>
-     </entity_type>
-     <entity_type>
+      </entity_type>
+      <entity_type>
          <name>shortcut</name>
          <presentation>
             <rightOf>folder</rightOf>
@@ -111,15 +124,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>to</name>
             <diagram>
                <path>
-                      <destattach>0.3</destattach>
-                      <hstep>
+                  <destattach>0.3</destattach>
+                  <hstep>
                      <absdim>
                         <src>0.1</src>
                      </absdim>
                   </hstep>
-                  </path>
+               </path>
             </diagram>
          </reference>
-     </entity_type>
-  </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

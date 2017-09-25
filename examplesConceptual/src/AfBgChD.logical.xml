@@ -23,149 +23,181 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-	  <defaults>
-		    <et_width>2.2</et_width>
-	  </defaults>
-
+   <defaults>
+      <et_width>2.2</et_width>
+   </defaults>
    <entity_type>
-		    <name>D</name>
-		    <presentation>
-		       <x>0.1</x>
+      <name>D</name>
+      <presentation>
+         <x>0.1</x>
          <y>0.3</y>
          <h>1.6</h>
-		    </presentation>
-		    <value>
-			      <name>d0</name>
-			      <type>string</type>
-			      <identifying/>
-		    </value>
-		    <value>
-			      <name>d1</name>
-			      <type>string</type>
-		    </value>
-		    <value>
-			      <name>d2</name>
-			      <type>string</type>
-		    </value>
-		    <reference>
-			      <name>f</name>
-			      <type>C</type>
-			      <cardinality>ZeroOrOne</cardinality>
-			      <diagram>
-				        <path>
-					          <align>ToSrc</align>
-					          <label>
-						            <position>Upside</position>
-						            <yAdjustment>-0.05</yAdjustment>
-					          </label>
-				        </path>
-			      </diagram>
-		    </reference>
-	  </entity_type>
-	
-
-	  <entity_type>
-		    <name>C</name>
-		    <presentation>
-			      <rightOf>D</rightOf>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>d0</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>d1</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>d2</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <reference>
+         <name>f</name>
+         <type>C</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <yAdjustment>-0.05</yAdjustment>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>C</name>
+      <presentation>
+         <rightOf>D</rightOf>
          <x>1.5</x>
          <h>1.6</h>
-		    </presentation>
-
-		    <value>
-			      <name>c0</name>
-			      <type>string</type>
-			      <identifying/>
-		    </value>
-		    <value>
-			      <name>c1</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-		    <value>
-			      <name>c2</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-		    <reference>
-			      <name>g</name>
-			      <type>B</type>
-			      <cardinality>ExactlyOne</cardinality>
-			      <diagram>
-				        <path>
-					          <align>ToSrc</align>
-					          <label>
-						            <position>Upside</position>
-							           <yAdjustment>-0.05</yAdjustment>		
-					          </label>
-				        </path>
-			      </diagram>
-		    </reference>
-	  </entity_type>
-
-	  <entity_type>
-		    <name>B</name>
-		    <presentation>
-			      <rightOf>C</rightOf>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>c0</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>c1</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>c2</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <reference>
+         <name>g</name>
+         <type>B</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <yAdjustment>-0.05</yAdjustment>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>B</name>
+      <presentation>
+         <rightOf>C</rightOf>
          <x>1.5</x>
          <h>1.6</h>
-		    </presentation>
-
-		    <value>
-			      <name>b0</name>
-			      <type>string</type>
-			      <identifying/>
-		    </value>
-		    <value>
-			      <name>b1</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-		    <value>
-			      <name>b2</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-		    <reference>
-			      <name>h</name>
-			      <type>A</type>
-			      <cardinality>ExactlyOne</cardinality>
-			      <diagram>
-				        <path>
-					          <align>ToSrc</align>
-					          <label>
-						            <position>Upside</position>
-						            <yAdjustment>-0.05</yAdjustment>
-					          </label>
-				        </path>
-			      </diagram>
-		    </reference>
-	  </entity_type>
-	
-	  <entity_type>
-		    <name>A</name>
-		    <presentation>
-			      <rightOf>B</rightOf>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>b0</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>b1</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>b2</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <reference>
+         <name>h</name>
+         <type>A</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <yAdjustment>-0.05</yAdjustment>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>A</name>
+      <presentation>
+         <rightOf>B</rightOf>
          <x>1.5</x>
          <h>1.6</h>
-		    </presentation>
-		
-		    <value>
-			      <name>a0</name>
-			      <type>string</type>
-			      <identifying/>
-		    </value>			
-		    <value>
-			      <name>a1</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-
-		    <value>
-			      <name>a2</name>
-			      <type>string</type>
-			      <optional/>
-		    </value>
-	  </entity_type>
-
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>a0</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>a1</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>a2</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+   </entity_type>
 </entity_model>

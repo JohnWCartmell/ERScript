@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>1.6</et_width>
-         <et_y_separation>0.6</et_y_separation>
+      <et_width>1.6</et_width>
+      <et_y_separation>0.6</et_y_separation>
    </defaults>
    <entity_type>
       <name>university</name>
@@ -34,35 +34,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>building</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>person</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>procedure</type>
       </composition>
    </entity_type>
    <entity_type>
-       <name>building</name>
-       <presentation>
+      <name>building</name>
+      <presentation>
          <below>university</below>
          <x>-2.0</x>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>person</name>
-       <presentation>
+      <name>person</name>
+      <presentation>
          <rightOf>building</rightOf>
          <x>0.4</x>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>procedure</name>
-       <presentation>
+      <name>procedure</name>
+      <presentation>
          <rightOf>person</rightOf>
          <x>0.4</x>
       </presentation>

@@ -38,19 +38,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>exit</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>from</inverse>
       </composition>
       <composition>
          <type>entrance</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>to</inverse>
       </composition>
       <presentation>
@@ -61,13 +67,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>exit</name>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>through</name>
          <type>entrance</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>through</inverse>
          <diagram>
             <path/>
@@ -83,18 +93,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>entrance</name>
       <dependency>
          <name>to</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>through</name>
          <type>exit</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>through</inverse>
       </reference>
       <presentation>
          <rightOf>exit</rightOf>
          <x>1.61</x>
-      </presentation> 
+      </presentation>
    </entity_type>
 </entity_model>

@@ -41,7 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>commands</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>is commanded by</inverse>
          <diagram>
@@ -51,11 +53,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <srcarmlen>1.0</srcarmlen>
                <destarmlen>1.0</destarmlen>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -63,7 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>is commanded by</name>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <type>individual</type>
          <inverse>commands</inverse>
       </reference>

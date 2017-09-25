@@ -23,91 +23,102 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  
-  <entity_type> 
-     <name>drive</name>
-     <composition>
+   <entity_type>
+      <name>drive</name>
+      <composition>
          <type>folder</type>
          <diagram>
-             <path>
+            <path>
                <destattach>0.6666666666</destattach>
-             </path>
+            </path>
          </diagram>
-     </composition>
-     <presentation>
-         <x>2</x> 
-         <y>0.1</y> 
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name>folder</name>
-     <presentation>
+      </composition>
+      <presentation>
+         <x>2</x>
+         <y>0.1</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>folder</name>
+      <presentation>
          <below>drive</below>
          <w>2</w>
          <x>-0.33333333</x>
       </presentation>
-     <value> 
-          <name>name</name>
-          <type>string</type>
-     </value> 
-     <composition>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
          <type>folder</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
-                        <destattach>0.33333333333</destattach>
-                        <hstep>
+               <destattach>0.33333333333</destattach>
+               <hstep>
                   <absdim>
                      <src>-1</src>
                   </absdim>
                </hstep>
-                  </path>
+            </path>
          </diagram>
-     </composition>
-     <composition>
-          <type>entry</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-          <diagram>
+      </composition>
+      <composition>
+         <type>entry</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <diagram>
             <path>
                <srcattach>0.5</srcattach>
             </path>
          </diagram>
-     </composition>
-     <dependency_group/>
-  </entity_type>
-  <entity_type>
-     <name>entry</name>
-     <presentation>
+      </composition>
+      <dependency_group/>
+   </entity_type>
+   <entity_type>
+      <name>entry</name>
+      <presentation>
          <below>folder</below>
          <deltaw>0.2</deltaw>
       </presentation>
-     <value> 
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-     </value> 
-     <entity_type>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <entity_type>
          <name>shortcut</name>
          <reference>
             <type>file</type>
             <name>to</name>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                </path>
             </diagram>
          </reference>
-     </entity_type>
-     <entity_type>
+      </entity_type>
+      <entity_type>
          <name>file</name>
-         <value> 
-             <name>size</name>
-             <type>string</type>
-         </value> 
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>size</name>
+            <type>
+               <string/>
+            </type>
+         </attribute>
          <presentation>
             <rightOf>shortcut</rightOf>
             <x>1</x>
          </presentation>
-     </entity_type>
-  </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

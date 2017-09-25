@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-      <diagram>
-  </diagram>
+      <diagram/>
    </presentation>
    <defaults/>
    <entity_type>
@@ -57,7 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <below>noun</below>
             <h>0.8</h>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
       </entity_type>
       <entity_type>

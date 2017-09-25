@@ -181,6 +181,8 @@ CR18159 JC  18-Oct-2016 In the generation of xpath_foreign_key do not include
 CR18708     16-Nov-2016 Add xpath_iterate and xpath_resolve_candidate attributes.
                         Intoduce a new function era:packArray
 CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xslt
+
+22-Sept-2017 JC Bug fix the generation of xpath_qualified_element_name. 
 -->
 
 <xsl:transform version="2.0" 
@@ -260,7 +262,12 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
             </xpath_qualified_element_name>
           </xsl:when>
           <xsl:otherwise>
+            <!-- 22-Sept-2017 Fix this test using every 
             <xsl:if test="key('entity_type',parentType)/xpath_qualified_type_classifier">
+            -->      
+            <xsl:if test="every $parent_type 
+                          in key('AllIncomingCompositionRelationships',name)/..
+                          satisfies boolean($parent_type/xpath_qualified_type_classifier)">  
               <xpath_qualified_element_name>
                 <xsl:variable name="contexts" as="xs:string*">
                   <xsl:for-each select="key('AllIncomingCompositionRelationships',name)">

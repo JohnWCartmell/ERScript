@@ -37,13 +37,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <h>1.0</h>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>link</type>
       </composition>
       <reference>
          <name>start</name>
          <type>link</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>start of</inverse>
          <diagram>
             <path>
@@ -59,13 +63,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </hstep>
                <label>
-                  <position>Downside</position>
+                  <position>
+                     <Downside/>
+                  </position>
                   <xAdjustment>-0.5</xAdjustment>
                   <yAdjustment>-0.2</yAdjustment>
                </label>
                <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                      <xAdjustment>-0.5</xAdjustment>
                   </label>
                </inverse>
@@ -75,7 +83,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>end</name>
          <type>link</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>end of</inverse>
          <diagram>
             <path>
@@ -91,13 +101,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </hstep>
                <label>
-                  <position>Downside</position>
+                  <position>
+                     <Downside/>
+                  </position>
                   <xAdjustment>0.5</xAdjustment>
                   <yAdjustment>-0.2</yAdjustment>
                </label>
                <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                      <xAdjustment>0.5</xAdjustment>
                   </label>
                </inverse>
@@ -119,19 +133,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </dependency_group>
       <reference>
          <name>start of</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>chain</type>
          <inverse>start</inverse>
       </reference>
       <reference>
          <name>end of</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>chain</type>
          <inverse>end</inverse>
       </reference>
       <reference>
          <name>follows</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>link</type>
          <inverse>followed by</inverse>
          <diagram>
@@ -148,12 +168,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </vstep>
                <label>
-                  <position>Downside</position>
+                  <position>
+                     <Downside/>
+                  </position>
                   <xAdjustment>-0.5</xAdjustment>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.5</xAdjustment>
                   </label>
                </inverse>
@@ -162,7 +186,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </reference>
       <reference>
          <name>followed by</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>link</type>
          <inverse>follows</inverse>
       </reference>

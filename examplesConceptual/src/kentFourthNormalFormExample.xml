@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>1.2</x>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>skill</type>
          <diagram>
             <path>
@@ -42,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>language</type>
          <diagram>
             <path>
@@ -58,7 +62,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>-1.1</x>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>emp-skill-language</type>
          <identifying/>
          <diagram>
@@ -72,7 +78,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>language</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>emp-skill-language</type>
          <identifying/>
          <diagram>
@@ -93,7 +101,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>skill</below>
          <x>1.1</x>
          <y>0.4</y>
-         <shape>Bottom</shape>
+         <shape>
+            <Bottom/>
+         </shape>
       </presentation>
    </entity_type>
 </entity_model>

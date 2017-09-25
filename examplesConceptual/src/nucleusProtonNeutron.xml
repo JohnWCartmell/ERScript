@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>1.8</et_width>
-         <et_y_separation>0.8</et_y_separation>
+      <et_width>1.8</et_width>
+      <et_y_separation>0.8</et_y_separation>
    </defaults>
    <entity_type>
       <name>nucleus</name>
@@ -34,24 +34,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>proton</type>
       </composition>
       <composition>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>neutron</type>
       </composition>
    </entity_type>
    <entity_type>
-       <name>proton</name>
-       <presentation>
+      <name>proton</name>
+      <presentation>
          <below>nucleus</below>
          <x>-1.1</x>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>neutron</name>
-       <presentation>
+      <name>neutron</name>
+      <presentation>
          <rightOf>proton</rightOf>
          <x>0.4</x>
       </presentation>

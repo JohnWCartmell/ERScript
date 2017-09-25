@@ -28,9 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <entity_type>
       <name>matrix</name>
-   
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>row</type>
          <sequence/>
       </composition>
@@ -41,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>matrix</below>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>element</type>
          <sequence/>
          <diagram>
-            <path>
-         </path>
+            <path/>
          </diagram>
       </composition>
    </entity_type>

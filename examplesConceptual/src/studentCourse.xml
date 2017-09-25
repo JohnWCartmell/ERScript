@@ -28,11 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>student</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>course</type>
       </composition>
    </absolute>
@@ -43,17 +47,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>takes</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>course</type>
          <inverse>taken by</inverse>
          <diagram>
             <path>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -64,7 +74,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>course</name>
       <reference>
          <name>taken by</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>student</type>
          <inverse>takes</inverse>
       </reference>

@@ -38,13 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>1.3</x>
          <y>0.1</y>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <composition>
          <type>minor category</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -52,28 +56,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>major category</below>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <composition>
          <type>item</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>proposed_major</name>
          <type>major category</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcsign>-1</srcsign>
-              <destsign>-1</destsign>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-              <label>
-                  <name>Split</name>
+            <path>
+               <srcsign>-1</srcsign>
+               <destsign>-1</destsign>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+               <label>
+                  <name>
+                     <Split/>
+                  </name>
                </label>
-           </path>
+            </path>
          </diagram>
       </reference>
    </entity_type>
@@ -82,22 +94,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>minor category</below>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <reference>
          <name>proposed_minor</name>
          <type>minor category</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-              <label>
-                  <name>Split</name>
+            <path>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+               <label>
+                  <name>
+                     <Split/>
+                  </name>
                </label>
-           </path>
+            </path>
          </diagram>
       </reference>
    </entity_type>

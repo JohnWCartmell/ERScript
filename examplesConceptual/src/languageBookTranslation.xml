@@ -31,18 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>language</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
       <name>language</name>
       <presentation>
-        <xc>
+         <xc>
             <relative>
                <to>languagechildren</to>
             </relative>
          </xc>
-        <yt>
+         <yt>
             <abs>
                <d>1.0</d>
             </abs>
@@ -50,11 +52,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>translated book</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>native book</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
@@ -72,11 +78,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>translation_of</name>
             <type>native book</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse>translated_as</inverse>
             <diagram>
                <path>
-                
                   <srcarmlen>0.4</srcarmlen>
                </path>
             </diagram>
@@ -87,13 +94,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>translated_as</name>
             <type>translated book</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>translation_of</inverse>
          </reference>
          <presentation>
             <rightOf>translated book</rightOf>
             <x>2.0</x>
-         </presentation> 
+         </presentation>
       </entity_type>
    </group>
 </entity_model>

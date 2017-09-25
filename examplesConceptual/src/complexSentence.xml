@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <defaults>
-         <et_width>2.4</et_width>
-         <et_y_separation>0.7</et_y_separation>
+      <et_width>2.4</et_width>
+      <et_y_separation>0.7</et_y_separation>
    </defaults>
    <entity_type>
       <name>complex sentence</name>
@@ -34,24 +34,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <y>0.1</y>
       </presentation>
       <composition>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>main clause</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>subordinate clause</type>
       </composition>
    </entity_type>
    <entity_type>
-       <name>main clause</name>
-       <presentation>
+      <name>main clause</name>
+      <presentation>
          <below>complex sentence</below>
          <x>-1.3</x>
       </presentation>
    </entity_type>
    <entity_type>
-       <name>subordinate clause</name>
-       <presentation>
+      <name>subordinate clause</name>
+      <presentation>
          <rightOf>main clause</rightOf>
          <x>0.4</x>
       </presentation>

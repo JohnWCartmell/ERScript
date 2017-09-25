@@ -31,15 +31,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>book(1)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>book(2)</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>person</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -51,26 +57,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>printing_of</name>
          <type>book(1)</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>printed_as</inverse>
       </reference>
       <reference>
-            <name>owned_by</name>
-            <cardinality>ZeroOrOne</cardinality>
-            <type>person</type>
-            <inverse>owns</inverse>
+         <name>owned_by</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>person</type>
+         <inverse>owns</inverse>
          <diagram>
             <path>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-              <srcattach>0.5</srcattach>
-              <destattach>0.3333</destattach>
-              <label>
-                  <position>Upside</position>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+               <srcattach>0.5</srcattach>
+               <destattach>0.3333</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -80,49 +94,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <group>
       <name>widthgroup</name>
       <presentation>
-          <y>2.0</y>
+         <y>2.0</y>
       </presentation>
       <entity_type>
          <name>book(1)</name>
          <reference>
             <name>printed_as</name>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <type>book(2)</type>
             <inverse>printing_of</inverse>
             <diagram>
                <path>
-                 <srcarmlen>0.6</srcarmlen>
-                 <destarmlen>0.6</destarmlen>
-                 <label>
-                     <position>Upside</position>
+                  <srcarmlen>0.6</srcarmlen>
+                  <destarmlen>0.6</destarmlen>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
-                 <inverse>
+                  <inverse>
                      <label>
-                        <position>Upside</position>
+                        <position>
+                           <Upside/>
+                        </position>
                      </label>
                   </inverse>
                </path>
             </diagram>
-            </reference>
+         </reference>
          <reference>
             <name>authored by</name>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>person</type>
             <inverse>is author of</inverse>
             <diagram>
                <path>
-                 <destattach>0.6666</destattach>
-                 <label>
-                     <position>Downside</position>
+                  <destattach>0.6666</destattach>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
-                 <inverse>
+                  <inverse>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                      </label>
                   </inverse>
                </path>
             </diagram>
-            </reference>
+         </reference>
       </entity_type>
       <entity_type>
          <name>person</name>
@@ -132,13 +158,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <reference>
             <name>owns</name>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <type>book(2)</type>
             <inverse>owned_by</inverse>
          </reference>
          <reference>
             <name>is author of</name>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <type>book(1)</type>
             <inverse>authored by</inverse>
          </reference>

@@ -31,7 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <composition>
          <type>play</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
@@ -42,11 +44,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>line</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <group>
@@ -59,11 +65,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>assigned_to</name>
             <type>character</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <inverse>is_assigned</inverse>
             <diagram>
                <path>
-                
                   <srcarmlen>0.4</srcarmlen>
                </path>
             </diagram>
@@ -74,13 +81,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>is_assigned</name>
             <type>line</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>assigned_to</inverse>
          </reference>
          <presentation>
             <rightOf>line</rightOf>
             <x>2.0</x>
-         </presentation> 
+         </presentation>
       </entity_type>
    </group>
 </entity_model>

@@ -25,45 +25,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>Shape</name>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>fill colour</name>
-         <type>string</type>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>line thickness</name>
-         <type>string</type>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>position</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <entity_type>
          <name>regular polygon</name>
          <presentation>
             <w>2.5</w>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>no of sides</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>length of side</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>orientation</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
       </entity_type>
       <entity_type>
          <name>circle</name>
          <presentation>
             <rightOf>regular polygon</rightOf>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>radius</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
       </entity_type>
       <entity_type>
          <name>ellipse</name>
@@ -71,14 +85,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>circle</rightOf>
             <w>2.5</w>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>major axis</name>
-            <type>string</type>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>minor axis</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
       </entity_type>
    </entity_type>
 </entity_model>

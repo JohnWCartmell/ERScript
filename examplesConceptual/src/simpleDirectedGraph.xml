@@ -34,42 +34,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>0.3</x>
          <y>0.1</y>
          <h>1.1</h>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>arc</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>from</inverse>
          <diagram>
-           <path>
-              <align>ToSrc</align>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
-              </inverse>
-           </path>
+               </inverse>
+            </path>
          </diagram>
       </composition>
       <composition>
-        <cardinality>ZeroOneOrMore</cardinality>
-        <identifying/>
-        <type>arc</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <identifying/>
+         <type>arc</type>
          <inverse>to</inverse>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -81,12 +97,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>arc</name>
       <dependency>
          <name>to</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <dependency>
          <name>from</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <presentation>

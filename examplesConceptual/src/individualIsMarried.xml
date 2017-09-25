@@ -38,13 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>is married to</name>
          <type>individual</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <inverse>is married to</inverse>
          <diagram>
-           <path>
+            <path>
                <srcarmlen>2.8</srcarmlen>
                <destarmlen>0</destarmlen>
-           </path>
+            </path>
          </diagram>
       </reference>
       <presentation>

@@ -25,41 +25,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <entity_type>
       <name>graph</name>
-   
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
-         <name> </name>
+         <name/>
          <type>edge</type>
-         <cardinality>OneOrMore</cardinality>
-         <inverse> </inverse>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-                      <inverse>
+               <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
             </path>
          </diagram>
       </composition>
       <composition>
-         <name>  </name>
-        <cardinality>OneOrMore</cardinality>
-        <type>edge</type>
-         <inverse>  </inverse>
+         <name/>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>edge</type>
+         <inverse/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -70,13 +83,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>edge</name>
       <dependency>
-         <name> </name>
-         <cardinality>ExactlyOne</cardinality>
+         <name/>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <dependency>
-         <name>  </name>
-         <cardinality>ExactlyOne</cardinality>
+         <name/>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <presentation>

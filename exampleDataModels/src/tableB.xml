@@ -34,37 +34,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <description>
        A less obvious way of representing a table. Contrast with the tableA example.
-   </description>       
+   </description>
    <entity_type>
       <name>table</name>
       <presentation>
          <x>2.3</x>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
          <name>rows</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>row</type>
          <identifying/>
          <inverse>ofTable</inverse>
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                      <xAdjustment>-0.05</xAdjustment>
                   </label>
                </inverse>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.3</xAdjustment>
                   </label>
                </id>
@@ -74,14 +84,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <name>columns</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>column</type>
          <inverse>ofTable</inverse>
          <diagram>
             <path>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>-0.3</xAdjustment>
                   </label>
                </id>
@@ -104,27 +118,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>ofTable</name>
             <inverse_of>rows</inverse_of>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>number</name>
-	           <type>integer</type>
-	           <identifying/>
-         </value>
+            <type>
+               <integer/>
+            </type>
+            <identifying/>
+         </attribute>
          <composition>
             <name>cells</name>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>data cell</type>
             <identifying/>
             <inverse>ofRow</inverse>
             <diagram>
                <path>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                         <xAdjustment>-0.05</xAdjustment>
                      </label>
                   </inverse>
@@ -144,16 +168,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>ofTable</name>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>title</name>
-	           <type>string</type>
-	           <identifying/>
-         </value>
+            <type>
+               <string/>
+            </type>
+            <identifying/>
+         </attribute>
          <composition>
             <name>cells</name>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>data cell</type>
             <identifying/>
             <inverse>ofCol</inverse>
@@ -176,18 +206,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <dependency>
          <name>ofRow</name>
          <type>row</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>cells</inverse_of>
       </dependency>
       <dependency>
          <name>ofCol</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>cells</inverse_of>
       </dependency>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>content</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
    </entity_type>
 </entity_model>

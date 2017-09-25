@@ -26,23 +26,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>amino acid</name>
       <reference>
-          <name>coded_for by</name>
-          <type>codon</type>
-          <cardinality>ExactlyOne</cardinality>
-          <inverse>codes_for</inverse>
-          <diagram>
-              <path>
-                 <srcarmlen>0.3</srcarmlen>
-                 <label>
-                  <position>Downside</position>
+         <name>coded_for by</name>
+         <type>codon</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>codes_for</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
                </label>
-                 <inverse>
+               <inverse>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </inverse>
-              </path>
-          </diagram>
+            </path>
+         </diagram>
       </reference>
       <presentation>
          <y>0.5</y>
@@ -56,14 +62,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>nucleotide</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>ExactlyOne</inverse>
          <sequence/>
       </composition>
       <reference>
          <name>codes_for</name>
          <type>amino acid</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </reference>
    </entity_type>
    <entity_type>
@@ -72,35 +82,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <below>codon</below>
       </presentation>
       <entity_type>
-          <name>G</name>
-          <presentation>
-               <x>0.2</x>
-            <w>0.5</w>
-          </presentation>
-      </entity_type>
-      <entity_type>
-          <name>C</name>
-          <presentation>
-             <rightOf>G</rightOf> 
+         <name>G</name>
+         <presentation>
             <x>0.2</x>
             <w>0.5</w>
-          </presentation>
+         </presentation>
       </entity_type>
       <entity_type>
-          <name>U</name>
-          <presentation>
-             <rightOf>C</rightOf> 
+         <name>C</name>
+         <presentation>
+            <rightOf>G</rightOf>
             <x>0.2</x>
             <w>0.5</w>
-          </presentation>
+         </presentation>
       </entity_type>
       <entity_type>
-          <name>A</name>
-          <presentation>
-             <rightOf>U</rightOf>
+         <name>U</name>
+         <presentation>
+            <rightOf>C</rightOf>
             <x>0.2</x>
-            <w>0.5</w> 
-          </presentation>
-       </entity_type>
+            <w>0.5</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>A</name>
+         <presentation>
+            <rightOf>U</rightOf>
+            <x>0.2</x>
+            <w>0.5</w>
+         </presentation>
+      </entity_type>
    </entity_type>
 </entity_model>

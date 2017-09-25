@@ -28,17 +28,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>0.1</x>
          <deltaw>1.5</deltaw>
-         <shape>Top</shape>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
-         <cardinality>ZeroOrOne</cardinality>
-	        <name>x</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <name>x</name>
          <type>X</type>
          <identifying/>
-	        <diagram>
+         <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>

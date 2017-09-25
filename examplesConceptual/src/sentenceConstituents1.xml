@@ -23,20 +23,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <entity_type>
+   <entity_type>
       <presentation>
-        <x>0.1</x>
-        <y>0.1</y>
+         <x>0.1</x>
+         <y>0.1</y>
       </presentation>
       <name>Sentence Constituent</name>
       <entity_type>
-          <name>phrase</name>
+         <name>phrase</name>
       </entity_type>
       <entity_type>
-          <name>word</name>
-          <presentation>
-              <rightOf>phrase</rightOf>
-          </presentation>
+         <name>word</name>
+         <presentation>
+            <rightOf>phrase</rightOf>
+         </presentation>
       </entity_type>
-  </entity_type>
+   </entity_type>
 </entity_model>

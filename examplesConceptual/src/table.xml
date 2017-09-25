@@ -32,11 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>1.5</x>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>row</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>column</type>
       </composition>
    </entity_type>
@@ -47,7 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>-1.45</x>
       </presentation>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>cell</type>
          <identifying/>
          <diagram>
@@ -60,7 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>column</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>cell</type>
          <identifying/>
          <diagram>

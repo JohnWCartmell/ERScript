@@ -24,31 +24,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
-       <diagram>
-            <deltah>0.15</deltah>
-       </diagram>
+      <diagram>
+         <deltah>0.15</deltah>
+      </diagram>
    </presentation>
    <entity_type>
       <name>performance</name>
       <presentation>
-         <shape>TopLeft</shape>
+         <shape>
+            <TopLeft/>
+         </shape>
       </presentation>
       <composition>
          <type>cast member</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <name>of</name>
          <type>play</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -60,54 +70,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>performance</rightOf>
          <x>2.5</x>
-         <shape>TopRight</shape>
+         <shape>
+            <TopRight/>
+         </shape>
       </presentation>
       <composition>
          <type>character</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>cast member</name>
       <presentation>
          <below>performance</below>
-         <shape>BottomLeft</shape>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
       <dependency>
-          <name>..</name>
-          <type>performance</type>
+         <name>..</name>
+         <type>performance</type>
       </dependency>
-            
       <reference>
          <name>plays_part of</name>
          <type>character</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <riser>
-             <component>
-                  <rel>..</rel>
-             </component>
+            <component>
+               <rel>..</rel>
+            </component>
          </riser>
          <diagonal>
-             <join>
-                <component>
+            <join>
+               <component>
                   <rel>..</rel>
-                </component>
-                <component>
+               </component>
+               <component>
                   <rel>of</rel>
-                </component>
-             </join>
+               </component>
+            </join>
          </diagonal>
          <diagram>
             <path>
-              <label>
-                  <position>Upside</position>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
-              <scope>
+               <scope>
                   <label>
                      <xAdjustment>-0.5</xAdjustment>
                   </label>
@@ -121,11 +142,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>cast member</rightOf>
          <below>play</below>
-         <shape>BottomRight</shape>
+         <shape>
+            <BottomRight/>
+         </shape>
       </presentation>
       <dependency>
-          <name>..</name>
-          <type>play</type>
+         <name>..</name>
+         <type>play</type>
       </dependency>
    </entity_type>
 </entity_model>

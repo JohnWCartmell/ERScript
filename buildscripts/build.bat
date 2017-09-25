@@ -56,16 +56,16 @@ echo "Copy the meta-model"
 copy %SRCDIR%\xml\ERmodelERmodel.xml %ERHOMEDIR%\xml\ERmodelERmodel.xml
 
 echo "Copying source xslt files"
-xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\
+xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\ /q
 
 echo "Copying source batch file scripts"
-xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\
+xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\ /q
 
 echo "Copying latex"
-xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\
+xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\ /q
 
 echo "Copying source docs files"
-xcopy %SRCDIR%\docs %ERHOMEDIR%\docs\
+xcopy %SRCDIR%\docs %ERHOMEDIR%\docs\ /q
 
 if not exist %LOGS% mkdir %LOGS%
 
@@ -74,6 +74,9 @@ echo Logging to %LOGS%\build.log
 echo BUILDLOG %DATE%_%TIME% >%LOGS%\build.log
 echo ====================== >>%LOGS%\build.log
 
+echo Downgrading meta-model to v1.3
+call %~dp0\downgrade_meta_model_to_v1.3_model.bat
+
 echo Generating ERmodel.svg
 call %~dp0\generate_logical_svgandlog
 
@@ -81,17 +84,17 @@ echo Generating physical data model and the XML schema (ERmodel.rng)
 call %~dp0\generate_physical_modelandlog
 
 echo validating the meta model is as instance of itself
-call %~dp0\validate_logical_model11
+call %~dp0\validate_logical_model
 
 echo validating the phsyical meta model is an instance of itself
 call %~dp0\validate_physical_model
 
 echo Copying examples into distribution
 
-xcopy %SRCDIR%\examplesConceptual %DISTRIBUTION%\examplesConceptual\ /s
+xcopy %SRCDIR%\examplesConceptual %DISTRIBUTION%\examplesConceptual\ /q /s
 powershell -Command "(gc %DISTRIBUTION%\examplesConceptual\readme.txt) -replace '<DISTRIBUTION>', '%DISTRIBUTIONNAME%' -replace '<ERHOME>', '%ERHOME%' | Out-File %DISTRIBUTION%\examplesConceptual\readme.txt"
 
-xcopy %SRCDIR%\exampleDataModels %DISTRIBUTION%\exampleDataModels\ /s
+xcopy %SRCDIR%\exampleDataModels %DISTRIBUTION%\exampleDataModels\ /q /s
 powershell -Command "(gc %DISTRIBUTION%\exampleDataModels\readme.txt) -replace '<DISTRIBUTION>', '%DISTRIBUTIONNAME%' -replace '<ERHOME>', '%ERHOME%' | Out-File %DISTRIBUTION%\exampleDataModels\readme.txt"
 
 ENDLOCAL

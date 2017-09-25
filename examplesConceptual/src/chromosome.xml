@@ -26,13 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <name>nucleotide</name>
       <composition>
-          <type>gene</type>
-         <cardinality>OneOrMore</cardinality>
+         <type>gene</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <name>U</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.2</destattach>
@@ -42,7 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>C</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.4</destattach>
@@ -52,7 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>A</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.6</destattach>
@@ -62,7 +70,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>G</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.8</destattach>
@@ -74,7 +84,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>gene</name>
       <composition>
          <type>codon</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
       </composition>
       <presentation>
@@ -89,25 +101,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>position 1</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.25</destattach>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-             </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>position 2</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-                <destattach>0.50</destattach>
-                <label>
-                  <position>Upside</position>
+               <destattach>0.50</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -115,12 +135,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>position 3</name>
          <type>nucleotide</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-                 <destattach>0.75</destattach>
-                 <label>
-                  <position>Upside</position>
+               <destattach>0.75</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>

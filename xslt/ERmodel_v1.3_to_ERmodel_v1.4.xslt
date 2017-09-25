@@ -41,7 +41,7 @@ CHANGE HISTORY
         xmlns="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
-<xsl:strip-space elements="*" />
+<!-- <xsl:strip-space elements="*" />  -->
 
 <xsl:output method="xml" indent="yes"/>
 
@@ -49,6 +49,10 @@ CHANGE HISTORY
    <xsl:copy>
       <xsl:apply-templates/>
     </xsl:copy>
+</xsl:template>
+
+<xsl:template match="comment()">
+  <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="value">

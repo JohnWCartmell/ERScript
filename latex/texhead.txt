@@ -4,7 +4,9 @@
 \usepackage{pstricks}
 \usepackage{xifthen}
 \usepackage{amsfonts}
-\input{../ERmodel_v1.3/latex/erdiagram}
+
+\input{../../ERmodel_v1.4/latex/erdiagram}
+
 \usepackage{xcolor}
 \usepackage{color}
 \usepackage{calc}

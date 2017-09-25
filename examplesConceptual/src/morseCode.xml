@@ -30,18 +30,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>letter</name>
       <composition>
          <type>upper_case</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
       <composition>
          <type>lower_case</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
       <reference>
-          <name>has code</name>
-          <type>morse code</type>
-          <cardinality>ExactlyOne</cardinality>
-          <inverse>for</inverse>
-          <diagram>
+         <name>has code</name>
+         <type>morse code</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>for</inverse>
+         <diagram>
             <path/>
          </diagram>
       </reference>
@@ -61,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>lower_case</name>
          <presentation>
-             <rightOf>upper_case</rightOf>
+            <rightOf>upper_case</rightOf>
          </presentation>
       </entity_type>
    </entity_type>
@@ -69,13 +75,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>morse code</name>
       <composition>
          <type>Element</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <sequence/>
       </composition>
       <reference>
-          <name>for</name>
-          <cardinality>OneOrMore</cardinality>
-          <type>letter</type>
+         <name>for</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>letter</type>
       </reference>
       <presentation>
          <rightOf>letter</rightOf>
@@ -93,7 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>dash</name>
          <presentation>
-             <rightOf>dot</rightOf>
+            <rightOf>dot</rightOf>
          </presentation>
       </entity_type>
    </entity_type>

@@ -23,30 +23,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <entity_type>
+   <entity_type>
       <presentation>
-        <x>0.1</x>
-        <y>0.1</y>
+         <x>0.1</x>
+         <y>0.1</y>
       </presentation>
       <name>Nucleon</name>
       <entity_type>
-          <name>proton</name>
+         <name>proton</name>
       </entity_type>
       <entity_type>
-          <name>neutron</name>
-          <presentation>
-              <rightOf>proton</rightOf>
-          </presentation>
+         <name>neutron</name>
+         <presentation>
+            <rightOf>proton</rightOf>
+         </presentation>
       </entity_type>
       <composition>
          <type>quark</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
-  </entity_type>
-  <entity_type>
-     <name>quark</name>
+   </entity_type>
+   <entity_type>
+      <name>quark</name>
       <presentation>
          <below>Nucleon</below>
       </presentation>
-  </entity_type>
+   </entity_type>
 </entity_model>

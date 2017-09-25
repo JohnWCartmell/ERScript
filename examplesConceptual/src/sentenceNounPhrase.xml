@@ -33,19 +33,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <entity_type>
       <name>sentence</name>
-      <presentation> 
-         <x>0.5</x> 
+      <presentation>
+         <x>0.5</x>
       </presentation>
       <composition>
          <name>subject</name>
          <type>noun phrase</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.33</destattach>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -53,10 +59,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>object</name>
          <type>noun phrase</type>
-         <cardinality>ZeroOrOne</cardinality>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.66</destattach>
             </path>
          </diagram>

@@ -28,11 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </defaults>
    <absolute>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>supplier</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>ditributor</type>
       </composition>
    </absolute>
@@ -44,17 +48,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <reference>
          <name>supplies</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>ditributor</type>
          <inverse>supplied by</inverse>
          <diagram>
             <path>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -65,7 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>ditributor</name>
       <reference>
          <name>supplied by</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>supplier</type>
          <inverse>supplies</inverse>
       </reference>

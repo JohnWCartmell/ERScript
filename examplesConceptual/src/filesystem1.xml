@@ -23,64 +23,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  
-  <entity_type>
-     <name>drive</name>
-     <composition>
-          <type>folder</type>
+   <entity_type>
+      <name>drive</name>
+      <composition>
+         <type>folder</type>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.6666666666</destattach>
             </path>
          </diagram>
-     </composition>
-     <presentation>
+      </composition>
+      <presentation>
          <x>1</x>
          <y>0.1</y>
-     </presentation>
-  </entity_type>
-  <entity_type>
-     <name>folder</name>
-     <dependency>
-        <name> </name>
-        <cardinality>ZeroOrOne</cardinality>
-        <type>drive</type>
-     </dependency>
-     <composition>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>folder</name>
+      <dependency>
+         <name/>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>drive</type>
+      </dependency>
+      <composition>
          <type>folder</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-         <inverse> </inverse>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse/>
          <diagram>
-             <path>
-                <align>ToDest</align>
-                <destattach>0.33333333333</destattach>
-                <hstep>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.33333333333</destattach>
+               <hstep>
                   <absdim>
                      <src>-1</src>
                   </absdim>
                </hstep>
-             </path>
+            </path>
          </diagram>
-     </composition>
-     <composition>
-          <type>file</type>
-         <cardinality>ZeroOneOrMore</cardinality>
-          <diagram>
+      </composition>
+      <composition>
+         <type>file</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <diagram>
             <path>
                <srcattach>0.5</srcattach>
             </path>
          </diagram>
-     </composition>
-     <dependency_group/>
-     <presentation>
+      </composition>
+      <dependency_group/>
+      <presentation>
          <below>drive</below>
       </presentation>
-  </entity_type>
-  <entity_type>
-     <name>file</name>
-     <presentation>
+   </entity_type>
+   <entity_type>
+      <name>file</name>
+      <presentation>
          <below>folder</below>
       </presentation>
-  </entity_type>
+   </entity_type>
 </entity_model>

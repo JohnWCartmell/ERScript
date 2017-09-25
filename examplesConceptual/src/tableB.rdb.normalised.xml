@@ -40,34 +40,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <x>2.3</x>
       </presentation>
-      <value>
+      <attribute>
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <elementName>table</elementName>
       <parentType/>
       <composition>
          <id>R1</id>
          <name>rows</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>row</type>
          <identifying/>
          <inverse>ofTable</inverse>
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                      <xAdjustment>-0.05</xAdjustment>
                   </label>
                </inverse>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.3</xAdjustment>
                   </label>
                </id>
@@ -78,14 +88,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <id>R2</id>
          <name>columns</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>column</type>
          <inverse>ofTable</inverse>
          <diagram>
             <path>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>-0.3</xAdjustment>
                   </label>
                </id>
@@ -106,45 +120,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <presentation>
             <deltaw>0.3</deltaw>
          </presentation>
-         <value>
+         <attribute>
             <name>table_name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
             <implementationOf>
                <rel>ofTable</rel>
                <origin>name</origin>
                <destattr>name</destattr>
             </implementationOf>
-         </value>
-         <value>
+         </attribute>
+         <attribute>
             <name>number</name>
-	           <type>integer</type>
-	           <identifying/>
-         </value>
+            <type>
+               <integer/>
+            </type>
+            <identifying/>
+         </attribute>
          <elementName>row</elementName>
          <parentType>table</parentType>
          <dependency>
             <name>ofTable</name>
             <inverse_of>rows</inverse_of>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <xpath_evaluate>..</xpath_evaluate>
          </dependency>
          <composition>
             <id>R3</id>
             <name>cells</name>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>data cell</type>
             <identifying/>
             <inverse>ofRow</inverse>
             <diagram>
                <path>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                         <xAdjustment>-0.05</xAdjustment>
                      </label>
                   </inverse>
@@ -163,32 +189,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <x>0.8</x>
             <deltaw>0.3</deltaw>
          </presentation>
-         <value>
+         <attribute>
             <name>title</name>
-	           <type>string</type>
-	           <identifying/>
-         </value>
-         <value>
+            <type>
+               <string/>
+            </type>
+            <identifying/>
+         </attribute>
+         <attribute>
             <name>table_name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <implementationOf>
                <rel>ofTable</rel>
                <origin>name</origin>
                <destattr>name</destattr>
             </implementationOf>
-         </value>
+         </attribute>
          <elementName>column</elementName>
          <parentType>table</parentType>
          <dependency>
             <name>ofTable</name>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <xpath_evaluate>..</xpath_evaluate>
          </dependency>
          <composition>
             <id>R4</id>
             <name>cells</name>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>data cell</type>
             <identifying/>
             <inverse>ofCol</inverse>
@@ -210,46 +244,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>0.5</deltaw>
          <y>1.7</y>
       </presentation>
-      <value>
+      <attribute>
          <name>row_number</name>
-         <type>integer</type>
+         <type>
+            <integer/>
+         </type>
          <identifying/>
          <implementationOf>
             <rel>ofRow</rel>
             <origin>number</origin>
             <destattr>number</destattr>
          </implementationOf>
-      </value>
-      <value>
+      </attribute>
+      <attribute>
          <name>column_title</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
          <implementationOf>
             <rel>ofCol</rel>
             <origin>title</origin>
             <destattr>title</destattr>
          </implementationOf>
-      </value>
+      </attribute>
       <elementName>data cell</elementName>
       <parentType>row | column</parentType>
       <dependency>
          <name>ofRow</name>
          <type>row</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>cells</inverse_of>
          <xpath_evaluate>..</xpath_evaluate>
       </dependency>
       <dependency>
          <name>ofCol</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>cells</inverse_of>
          <xpath_evaluate>..</xpath_evaluate>
       </dependency>
-      <value>
+      <attribute>
          <name>content</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <xpath_typecheck>self::data cell</xpath_typecheck>
       <xpath_primary_key>concat(../../concat(../../name,':',table_name number) title,':',table_name row_number column_title)</xpath_primary_key>
    </entity_type>

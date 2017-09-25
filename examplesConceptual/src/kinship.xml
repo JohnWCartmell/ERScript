@@ -39,7 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>child</name>
             <type>individual</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>father</inverse>
             <diagram>
                <path>
@@ -51,14 +53,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <reldim>
                         <src>0.2</src>
                      </reldim>
-                  </hstep>  
+                  </hstep>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>-0.2</xAdjustment>
                   </label>
                   <inverse>
                      <label>
-                        <position>Upside</position>
+                        <position>
+                           <Upside/>
+                        </position>
                      </label>
                   </inverse>
                </path>
@@ -70,7 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>child</name>
             <type>individual</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>mother</inverse>
             <diagram>
                <path>
@@ -82,14 +90,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <reldim>
                         <src>-0.2</src>
                      </reldim>
-                  </hstep>  
+                  </hstep>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.2</xAdjustment>
                   </label>
                   <inverse>
                      <label>
-                        <position>Upside</position>
+                        <position>
+                           <Upside/>
+                        </position>
                      </label>
                   </inverse>
                </path>
@@ -101,49 +113,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <reference>
          <name>mother</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>female</type>
          <inverse>child</inverse>
       </reference>
       <reference>
          <name>father</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>male</type>
          <inverse>child</inverse>
       </reference>
       <constructed_relationship>
          <name>parent</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>child</inverse>
          <aggregate>
-           <component>
+            <component>
                <rel>mother</rel>
             </component>
-           <component>
+            <component>
                <rel>father</rel>
             </component>
          </aggregate>
       </constructed_relationship>
       <constructed_relationship>
          <name>child</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>parent</inverse>
          <aggregate>
-           <component>
-                 <src>male</src>
-                 <rel>child</rel>
-           </component>
-           <component>
-                 <src>female</src>
-                 <rel>child</rel>
-           </component>
+            <component>
+               <src>male</src>
+               <rel>child</rel>
+            </component>
+            <component>
+               <src>female</src>
+               <rel>child</rel>
+            </component>
          </aggregate>
       </constructed_relationship>
       <constructed_relationship>
          <name>sibling</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>sibling</inverse>
          <join>
@@ -157,28 +179,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </constructed_relationship>
       <constructed_relationship>
          <name>grandparent</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>grandchild</inverse>
          <join>
-           <component>
+            <component>
                <rel>parent</rel>
             </component>
-           <component>
+            <component>
                <rel>parent</rel>
             </component>
          </join>
       </constructed_relationship>
       <constructed_relationship>
          <name>grandchild</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>grandparent</inverse>
          <join>
-           <component>
+            <component>
                <rel>child</rel>
             </component>
-           <component>
+            <component>
                <rel>child</rel>
             </component>
          </join>
@@ -188,10 +214,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>individual</type>
          <inverse>daughterschild</inverse>
          <join>
-           <component>
+            <component>
                <rel>mother</rel>
             </component>
-           <component>
+            <component>
                <rel>father</rel>
             </component>
          </join>
@@ -200,49 +226,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>maternalgrandfathersmother</name>
          <type>individual</type>
          <join>
-           <component>
+            <component>
                <rel>mother</rel>
             </component>
-           <component>
+            <component>
                <rel>father</rel>
             </component>
-           <component>
+            <component>
                <rel>mother</rel>
             </component>
          </join>
       </constructed_relationship>
       <constructed_relationship>
          <name>maternalgrandparent</name>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>daughterschild</inverse>
          <join>
-           <component>
+            <component>
                <rel>mother</rel>
             </component>
-           <component>
+            <component>
                <rel>parent</rel>
             </component>
          </join>
       </constructed_relationship>
       <constructed_relationship>
          <name>daughterschild</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>maternalgrandparent</inverse>
          <join>
-           <component>
+            <component>
                <rel>child</rel>
                <dest>female</dest>
             </component>
-           <component>
+            <component>
                <rel>child</rel>
             </component>
          </join>
       </constructed_relationship>
       <constructed_relationship>
          <name>cousin</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <inverse>cousin</inverse>
          <join>
@@ -259,7 +291,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </constructed_relationship>
       <constructed_relationship>
          <name>cousinschild</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>individual</type>
          <join>
             <component>

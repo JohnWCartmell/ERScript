@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 JCartmell 17-Sept-2017 Description added.
 -->
-
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
@@ -32,48 +31,64 @@ JCartmell 17-Sept-2017 Description added.
       </diagram>
    </presentation>
    <description>A simple test that for a commuting square of relationships the identifier of the destination entity(A2) is only pulled back a single time to the source entity(B1).
-   </description>   
+   </description>
    <absolute>
       <composition>
          <type>A1</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>A2</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </absolute>
    <entity_type>
       <name>A1</name>
       <presentation>
-          <x>0.6</x>
-          <y>1.3</y>
+         <x>0.6</x>
+         <y>1.3</y>
       </presentation>
-      <value>
-          <name>name</name>
-          <type>string</type>
-          <identifying/>
-      </value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
       <composition>
          <name>b1</name>
          <type>B1</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>p1</inverse>
       </composition>
       <reference>
          <name>f</name>
          <type>A2</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <align>ToSrc</align>
-              <label>
-                  <position>Upside</position>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -86,16 +101,20 @@ JCartmell 17-Sept-2017 Description added.
          <rightOf>A1</rightOf>
          <x>3.0</x>
       </presentation>
-      <value>
-          <name>name</name>
-          <type>string</type>
-          <identifying/>
-      </value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
       <composition>
          <name>b2</name>
          <type>B2</type>
-         <cardinality>OneOrMore</cardinality>
-          <identifying/>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <identifying/>
          <inverse>p2</inverse>
       </composition>
    </entity_type>
@@ -106,21 +125,27 @@ JCartmell 17-Sept-2017 Description added.
          <y>1.5</y>
          <deltaw>0.3</deltaw>
       </presentation>
-      <value>
-          <name>name</name>
-          <type>string</type>
-          <identifying/>
-      </value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
       <dependency>
          <name>p1</name>
          <type>A1</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>b1</inverse_of>
       </dependency>
       <reference>
          <name>g</name>
          <type>B2</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagonal>
             <join>
                <component>
@@ -138,31 +163,39 @@ JCartmell 17-Sept-2017 Description added.
          </riser>
          <diagram>
             <path>
-              <align>ToSrc</align>
-              <label>
-                  <position>Upside</position>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-              <inverse>
+               <inverse>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                   </label>
                </inverse>
-              <scope>
-                 <label>
-                    <xAdjustment>-0.5</xAdjustment>
-                 </label>
-              </scope>
+               <scope>
+                  <label>
+                     <xAdjustment>-0.5</xAdjustment>
+                  </label>
+               </scope>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>B2</name>
-      <value>
-          <name>name</name>
-          <type>string</type>
-          <identifying/>
-      </value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
       <presentation>
          <rightOf>B1</rightOf>
          <below>A2</below>
@@ -171,7 +204,9 @@ JCartmell 17-Sept-2017 Description added.
       <dependency>
          <name>p2</name>
          <type>A2</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>b2</inverse_of>
       </dependency>
    </entity_type>

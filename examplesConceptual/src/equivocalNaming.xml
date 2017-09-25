@@ -23,25 +23,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <entity_type>
-     <name>Figure</name>
-     <entity_type>
-        <name>Animal</name>
-        <entity_type>
-           <name>man</name>
-        </entity_type>
-     </entity_type>
-  </entity_type>
-  <entity_type>
-     <name>Real Thing</name>
-     <presentation>
+   <entity_type>
+      <name>Figure</name>
+      <entity_type>
+         <name>Animal</name>
+         <entity_type>
+            <name>man</name>
+         </entity_type>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>Real Thing</name>
+      <presentation>
          <rightOf>Figure</rightOf>
       </presentation>
-     <entity_type>
-        <name>Animal</name>
-        <entity_type>
-           <name>man</name>
-        </entity_type>
-     </entity_type>
-  </entity_type>
+      <entity_type>
+         <name>Animal</name>
+         <entity_type>
+            <name>man</name>
+         </entity_type>
+      </entity_type>
+   </entity_type>
 </entity_model>

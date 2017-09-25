@@ -31,38 +31,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <h>2.2</h>
          <w>1.8</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>r0r1cname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>r0bname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>aname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>s0r1cname</name>
-         <type>string</type>
-      </value>
-      <value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>s0bname</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <reference>
          <name>r0</name>
          <type>B</type>
          <identifying/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <xAdjustment>0.1</xAdjustment>
                   <yAdjustment>-0.1</yAdjustment>
                </label>
@@ -74,9 +88,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>B</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <xAdjustment>0.1</xAdjustment>
                </label>
             </path>
@@ -91,29 +109,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <h>2.2</h>
          <w>1.8</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>r1cname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>bname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
-      <value>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>s1cname</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <reference>
          <name>r1</name>
          <type>C</type>
          <identifying/>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <xAdjustment>0.1</xAdjustment>
                   <yAdjustment>-0.1</yAdjustment>
                </label>
@@ -125,9 +153,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>C</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <xAdjustment>0.1</xAdjustment>
                </label>
             </path>
@@ -142,10 +174,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <h>2.2</h>
          <w>1.8</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>cname</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
    </entity_type>
 </entity_model>

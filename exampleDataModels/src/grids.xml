@@ -40,15 +40,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <absolute>
       <name>grids</name>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>grid</type>
       </composition>
       <composition>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <type>cardinal</type>
       </composition>
    </absolute>
-
    <entity_type>
       <name>grid</name>
       <presentation>
@@ -57,42 +60,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <deltaw>0.5</deltaw>
          <h>1.6</h>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <reference>
          <name>noOfRows</name>
          <type>cardinal</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-               <align>ToDest</align>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
                <destattach>0.3</destattach>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-           </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>noOfCols</name>
          <type>cardinal</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
+            <path>
                <destattach>0.7</destattach>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
-           </path>
+            </path>
          </diagram>
       </reference>
       <composition>
          <name>rows</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>row</type>
          <identifying/>
          <inverse>..</inverse>
@@ -100,25 +119,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <type>ordinal</type>
             <projection_rel>index</projection_rel>
             <along>
-              <component>
-                 <rel>noOfRows</rel>
-              </component>
+               <component>
+                  <rel>noOfRows</rel>
+               </component>
             </along>
          </pullback>
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                      <xAdjustment>-0.05</xAdjustment>
                   </label>
                </inverse>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>0.3</xAdjustment>
                   </label>
                </id>
@@ -128,7 +153,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <name>columns</name>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <type>column</type>
          <identifying/>
          <inverse>..</inverse>
@@ -136,16 +163,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <type>ordinal</type>
             <projection_rel>index</projection_rel>
             <along>
-              <component>
-                 <rel>noOfCols</rel>
-              </component>
+               <component>
+                  <rel>noOfCols</rel>
+               </component>
             </along>
          </pullback>
          <diagram>
             <path>
                <id>
                   <label>
-                     <position>Downside</position>
+                     <position>
+                        <Downside/>
+                     </position>
                      <xAdjustment>-0.3</xAdjustment>
                   </label>
                </id>
@@ -169,12 +198,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>..</name>
             <inverse_of>rows</inverse_of>
             <type>grid</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </dependency>
          <reference>
             <name>index</name>
             <type>ordinal</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <identifying/>
             <diagonal>
                <join>
@@ -187,30 +220,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </join>
             </diagonal>
             <riser>
-              <component>
+               <component>
                   <rel>..</rel>
-              </component>
+               </component>
             </riser>
             <diagram>
-              <path>
-                  <align>ToDest</align>
+               <path>
+                  <align>
+                     <ToDest/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <scope>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                         <xAdjustment>-4.0</xAdjustment>
                         <yAdjustment>-0.4</yAdjustment>
                      </label>
                   </scope>
                   <destattach>0.3</destattach>
-              </path>
+               </path>
             </diagram>
          </reference>
          <composition>
             <name>cells</name>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <type>cell</type>
             <identifying/>
             <inverse>..</inverse>
@@ -225,13 +266,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </pullback>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                   <inverse>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                         <xAdjustment>-0.05</xAdjustment>
                      </label>
                   </inverse>
@@ -251,12 +298,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>..</name>
             <type>grid</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </dependency>
          <reference>
             <name>index</name>
             <type>ordinal</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <identifying/>
             <diagonal>
                <join>
@@ -269,27 +320,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                </join>
             </diagonal>
             <riser>
-              <component>
+               <component>
                   <rel>..</rel>
-              </component>
+               </component>
             </riser>
             <diagram>
-              <path>
+               <path>
                   <destattach>0.6</destattach>
                   <scope>
                      <label>
-                        <position>Downside</position>
+                        <position>
+                           <Downside/>
+                        </position>
                         <xAdjustment>1.0</xAdjustment>
                         <yAdjustment>0.1</yAdjustment>
                      </label>
                   </scope>
-              </path>
+               </path>
             </diagram>
          </reference>
          <reference>
             <name>cells</name>
             <type>cell</type>
-            <cardinality>OneOrMore</cardinality> 
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <inverse>col</inverse>
          </reference>
       </entity_type>
@@ -314,13 +369,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <dependency>
          <name>..</name>
          <type>row</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse_of>cells</inverse_of>
       </dependency>
       <reference>
          <name>col</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <identifying/>
          <inverse>cells</inverse>
          <diagonal>
@@ -351,32 +410,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </reference>
    </entity_type>
-
    <group>
       <name>reuseable</name>
       <presentation>
          <rightOf>grid</rightOf>
          <x>6.5</x>
       </presentation>
-
       <entity_type>
          <name>cardinal</name>
          <presentation>
             <h>1.6</h>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>zno</name>
-            <type>nonNegativeInteger</type>
+            <type>
+               <nonNegativeInteger/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
             <type>ordinal</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
             <inverse>..</inverse>
             <identifying/>
          </composition>
       </entity_type>
-
       <entity_type>
          <name>ordinal</name>
          <presentation>
@@ -386,13 +446,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <dependency>
             <name>..</name>
             <type>cardinal</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>zno</name>
-            <type>nonNegativeInteger</type>
+            <type>
+               <nonNegativeInteger/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
       </entity_type>
    </group>
 </entity_model>

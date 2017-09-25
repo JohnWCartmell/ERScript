@@ -37,11 +37,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>edge</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
@@ -55,7 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>edge</name>
       <composition>
          <type>incident_point</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <presentation>
          <rightOf>vertex</rightOf>
@@ -67,28 +73,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>reverse</name>
          <type>incident_point</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>reverse</inverse>
          <diagram>
-           <path>
+            <path>
                <srcattach>0.5</srcattach>
                <srcarmlen>1.5</srcarmlen>
-           </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <type>vertex</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcarmlen>0.3</srcarmlen>
-           </path>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>
          <below>edge</below>
          <h>0.9</h>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
    </entity_type>
 </entity_model>

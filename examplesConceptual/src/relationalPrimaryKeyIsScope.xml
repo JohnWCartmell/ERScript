@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-
    <presentation>
       <diagram>
          <deltaw>0</deltaw>
@@ -36,18 +35,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>2.4</x>
          <y>0.1</y>
          <w>1.9</w>
-         <shape>Top</shape>
+         <shape>
+            <Top/>
+         </shape>
       </presentation>
       <composition>
          <type>primary key column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
             <path>
                <inverse>
                   <label>
-                     <position>Left</position>
+                     <position>
+                        <Left/>
+                     </position>
                   </label>
                </inverse>
             </path>
@@ -55,13 +60,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <type>column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
-            <path>
-                
-            </path>
+            <path/>
          </diagram>
       </composition>
    </entity_type>
@@ -78,28 +83,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>is</name>
             <type>column</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
                   <destarmlen>0.5</destarmlen>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                </path>
             </diagram>
          </reference>
          <presentation>
-           <name>Split</name>
-           <shape>BottomLeft</shape>
+            <name>
+               <Split/>
+            </name>
+            <shape>
+               <BottomLeft/>
+            </shape>
          </presentation>
       </entity_type>
       <entity_type>
          <name>column</name>
          <presentation>
-           <rightOf>primary key column</rightOf>
-           <x>1.5</x>
-           <shape>BottomRight</shape>
+            <rightOf>primary key column</rightOf>
+            <x>1.5</x>
+            <shape>
+               <BottomRight/>
+            </shape>
          </presentation>
          <dependency>
             <name>of</name>

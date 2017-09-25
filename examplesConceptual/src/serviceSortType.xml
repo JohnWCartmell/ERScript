@@ -34,54 +34,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>variable</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>sort</name>
       <presentation>
-          <rightOf>service</rightOf>
-          <x>5.0</x>
+         <rightOf>service</rightOf>
+         <x>5.0</x>
          <w>3.0</w>
       </presentation>
       <composition>
          <type>sort_dependency</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <composition>
          <type>type</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
    </entity_type>
    <entity_type>
       <name>variable</name>
       <presentation>
          <below>service</below>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
-      </value>
+         <type>
+            <string/>
+         </type>
+      </attribute>
       <composition>
          <type>binding</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
       <reference>
          <type>sort</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
-              <destattach>0.25</destattach>
-              <hstep>
+               <destattach>0.25</destattach>
+               <hstep>
                   <absdim>
-                      <src>0.25</src>
-                      
+                     <src>0.25</src>
                   </absdim>
-              </hstep>
+               </hstep>
             </path>
          </diagram>
       </reference>
@@ -91,14 +104,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>to</name>
          <type>variable</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcsign>-1</srcsign>
-              <destsign>-1</destsign>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-           </path>
+            <path>
+               <srcsign>-1</srcsign>
+               <destsign>-1</destsign>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>
@@ -112,25 +127,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>sort_dependency</name>
          <presentation>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
          <reference>
             <name>depends on</name>
             <type>sort</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
-              <path>
-                 <srcsign>-1</srcsign>
-                 <destsign>-1</destsign>
-                 <destattach>0.75</destattach>
-                 <srcarmlen>0.5</srcarmlen>
-                 <hstep>
+               <path>
+                  <srcsign>-1</srcsign>
+                  <destsign>-1</destsign>
+                  <destattach>0.75</destattach>
+                  <srcarmlen>0.5</srcarmlen>
+                  <hstep>
                      <absdim>
                         <src>-0.25</src>
-                        
                      </absdim>
-                 </hstep>
-              </path>
+                  </hstep>
+               </path>
             </diagram>
          </reference>
       </entity_type>
@@ -142,11 +160,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </presentation>
          <composition>
             <type>type_dependency</type>
-            <cardinality>ZeroOneOrMore</cardinality>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
          </composition>
          <composition>
             <type>element</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
          </composition>
       </entity_type>
    </group>
@@ -157,11 +179,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <entity_type>
          <name>type_dependency</name>
          <presentation>
-            <name>Split</name>
+            <name>
+               <Split/>
+            </name>
          </presentation>
          <reference>
             <type>sort_dependency</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcattach>0.5</srcattach>
@@ -176,11 +202,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </reference>
          <reference>
             <type>element</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
-                  <align>ToDest</align>
+                  <align>
+                     <ToDest/>
+                  </align>
                </path>
             </diagram>
          </reference>
@@ -191,11 +221,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <rightOf>type_dependency</rightOf>
             <x>2.0</x>
          </presentation>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
-         </value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
       </entity_type>
    </group>
-
 </entity_model>

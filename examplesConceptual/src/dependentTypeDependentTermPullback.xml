@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <defaults>
       <et_width>1.8</et_width>
       <et_height>1.2</et_height>
-   </defaults> 
+   </defaults>
    <presentation>
       <diagram/>
    </presentation>
@@ -40,25 +40,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>with</name>
          <type>term</type>
          <sequence/>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <diagram>
-           <path>
-              <srcarmlen>0</srcarmlen>
-              <destarmlen>0</destarmlen>
+            <path>
+               <srcarmlen>0</srcarmlen>
+               <destarmlen>0</destarmlen>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-           </path>
-        </diagram>
+            </path>
+         </diagram>
       </composition>
       <reference>
          <name>use of</name>
          <type>function (declaration)</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -69,13 +77,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>substituting for</name>
          <type>formal argument</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagram>
             <path>
                <srcarmlen>0.5</srcarmlen>
                <destarmlen>0.5</destarmlen>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                </label>
             </path>
          </diagram>
@@ -83,26 +95,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>function (expression)</below>
          <y>0.5</y>
-         <name>Split</name>
-         <shape>BottomLeft</shape>
+         <name>
+            <Split/>
+         </name>
+         <shape>
+            <BottomLeft/>
+         </shape>
       </presentation>
    </entity_type>
    <entity_type>
       <name>function (declaration)</name>
       <presentation>
-        <rightOf>function (expression)</rightOf>
-        <x>2.4</x>
+         <rightOf>function (expression)</rightOf>
+         <x>2.4</x>
       </presentation>
       <composition>
          <name>givens</name>
          <type>formal argument</type>
-         <cardinality>ZeroOneOrMore</cardinality>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
          <sequence/>
          <diagram>
-           <path>
-              <srcarmlen>0</srcarmlen>
-              <destarmlen>0</destarmlen>
-           </path>
+            <path>
+               <srcarmlen>0</srcarmlen>
+               <destarmlen>0</destarmlen>
+            </path>
          </diagram>
       </composition>
    </entity_type>
@@ -111,7 +129,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <rightOf>term</rightOf>
          <below>function (declaration)</below>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
    </entity_type>
 </entity_model>

@@ -23,152 +23,170 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <absolute>
-    
+   <absolute>
       <name>html</name>
-  </absolute>
+   </absolute>
    <entity_type>
-     <name>html</name>
-     <presentation>
+      <name>html</name>
+      <presentation>
          <x>4.0</x>
          <y>1.5</y>
       </presentation>
- 	    <composition>
+      <composition>
          <type>body</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
-     <name>body</name>
-     <presentation>
+      <name>body</name>
+      <presentation>
          <below>html</below>
       </presentation>
-     <composition>
+      <composition>
          <type>Element_type_1</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
-     <name>Element_type_1</name>
-     <presentation>
+      <name>Element_type_1</name>
+      <presentation>
          <below>body</below>
       </presentation>
- 	    <entity_type>
+      <entity_type>
          <name>Heading</name>
- 	      <entity_type>
+         <entity_type>
             <name>h1</name>
-                     
-             </entity_type>
- 		      <entity_type>
+         </entity_type>
+         <entity_type>
             <name>h2</name>
-                          <presentation>
+            <presentation>
                <rightOf>h1</rightOf>
             </presentation>
-             </entity_type>
-         <value>
+         </entity_type>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
- 	    </entity_type>
- 	    <entity_type>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+      </entity_type>
+      <entity_type>
          <name>p</name>
          <presentation>
             <rightOf>Heading</rightOf>
          </presentation>
- 		      <composition>
+         <composition>
             <type>Element_type_2</type>
-            <cardinality>OneOrMore</cardinality>
-                 <diagram>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
+            <diagram>
                <path>
                   <destattach>0.4</destattach>
                </path>
             </diagram>
-             </composition>
- 	    </entity_type>
- 	    <entity_type>
-          <name>table</name>
-          <presentation>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>table</name>
+         <presentation>
             <rightOf>p</rightOf>
          </presentation>
-          <composition>
+         <composition>
             <type>tr</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
          </composition>
- 	    </entity_type>
+      </entity_type>
    </entity_type>
    <entity_type>
-     <name>tr</name>
-     <presentation>
+      <name>tr</name>
+      <presentation>
          <below>table</below>
          <y>1.0</y>
       </presentation>
- 	    <composition>
+      <composition>
          <type>Table_Cell</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
-     <name>Table_Cell</name>
-     <presentation>
-          <below>tr</below>
-     </presentation>
- 	    <entity_type>
+      <name>Table_Cell</name>
+      <presentation>
+         <below>tr</below>
+      </presentation>
+      <entity_type>
          <name>td</name>
-     </entity_type>
- 	    <entity_type>
+      </entity_type>
+      <entity_type>
          <name>th</name>
          <presentation>
             <rightOf>td</rightOf>
          </presentation>
-     </entity_type>
- 	    <composition>
+      </entity_type>
+      <composition>
          <type>Element_type_2</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <diagram>
             <path>
                <destattach>0.6</destattach>
             </path>
          </diagram>
-     </composition>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Element_type_2</name>
-     <presentation>
-          <below>Element_type_1</below>
+      <presentation>
+         <below>Element_type_1</below>
          <y>4.0</y>
-     </presentation>
- 	    <entity_type>
-          <name>b</name>
-         <value>
+      </presentation>
+      <entity_type>
+         <name>b</name>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
-     </entity_type>
- 	    <entity_type>
-          <name>i</name>
-         <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+      </entity_type>
+      <entity_type>
+         <name>i</name>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
-          <presentation>
-               <rightOf>b</rightOf>
-          </presentation>
-     </entity_type>
- 	    <entity_type>
-          <name>div</name>
-          <value>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <presentation>
+            <rightOf>b</rightOf>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>div</name>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>text</name>
-            <type>string</type>
-         </value>
-          <presentation>
-               <rightOf>i</rightOf>
-          </presentation>
-     </entity_type>
- 	    <entity_type>
-          <name>br</name>
-          <presentation>
-               <rightOf>div</rightOf>
-          </presentation>
-     </entity_type>
+            <type>
+               <string/>
+            </type>
+         </attribute>
+         <presentation>
+            <rightOf>i</rightOf>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>br</name>
+         <presentation>
+            <rightOf>div</rightOf>
+         </presentation>
+      </entity_type>
    </entity_type>
 </entity_model>

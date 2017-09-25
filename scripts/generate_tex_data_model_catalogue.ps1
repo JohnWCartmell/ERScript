@@ -1,6 +1,6 @@
 
 
-$texhead = Get-Content ..\ERmodel_v1.3\latex\texhead.txt
+$texhead = Get-Content ..\ERmodel_v1.4\latex\texhead.txt
 
 Set-Content latex\catalogue.tex $texhead
 
@@ -16,16 +16,16 @@ Get-ChildItem "src"  -Filter *.xml | `
     $modelname = $_.BaseName 
     Add-Content latex\catalogue.tex "\section{" , $modelname , "}`n" -NoNewline
     Add-Content latex\catalogue.tex "\subsection{Logical}`n" -NoNewline
-    Add-Content latex\catalogue.tex "\input{latex/" , $modelname , ".tex}`n" -NoNewLine
+    Add-Content latex\catalogue.tex "\input{", $modelname , ".tex}`n" -NoNewLine
     Add-Content latex\catalogue.tex "\newline`n" -NoNewLine
     Add-Content latex\catalogue.tex "\subsection{Hierarchical}`n" -NoNewline
-    Add-Content latex\catalogue.tex "\input{latex/" , $modelname , ".hierarchical.tex}`n" -NoNewLine
+    Add-Content latex\catalogue.tex "\input{" , $modelname , ".hierarchical.tex}`n" -NoNewLine
     Add-Content latex\catalogue.tex "\newline`n" -NoNewLine
     Add-Content latex\catalogue.tex "\subsection{Relational}`n" -NoNewline
-    Add-Content latex\catalogue.tex "\input{latex/" , $modelname , ".relational.tex}`n" -NoNewLine
+    Add-Content latex\catalogue.tex "\input{" , $modelname , ".relational.tex}`n" -NoNewLine
     Add-Content latex\catalogue.tex "\newline`n" -NoNewLine
 }
   
-$textail = Get-Content ..\ERmodel_v1.3\latex\textail.txt
+$textail = Get-Content ..\ERmodel_v1.4\latex\textail.txt
 
 Add-Content latex\catalogue.tex $textail

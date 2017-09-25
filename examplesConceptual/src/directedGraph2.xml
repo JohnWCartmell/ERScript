@@ -35,21 +35,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <composition>
          <type>vertex</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
       </composition>
    </entity_type>
    <entity_type>
       <name>vertex</name>
       <composition>
          <type>entrance</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>to</inverse>
       </composition>
       <reference>
-        <name>out</name>
-        <cardinality>OneOrMore</cardinality>
-        <type>entrance</type>
-        <inverse>from</inverse>
+         <name>out</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>entrance</type>
+         <inverse>from</inverse>
       </reference>
       <presentation>
          <below>directed graph</below>
@@ -59,21 +65,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <name>entrance</name>
       <dependency>
          <name>to</name>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <type>vertex</type>
       </dependency>
       <reference>
          <name>from</name>
          <type>vertex</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <inverse>out</inverse>
          <diagram>
-           <path>
-              <srcsign>-1</srcsign>
-              <destsign>-1</destsign>
-              <srcarmlen>0.6</srcarmlen>
-              <destarmlen>0.6</destarmlen>
-           </path>
+            <path>
+               <srcsign>-1</srcsign>
+               <destsign>-1</destsign>
+               <srcarmlen>0.6</srcarmlen>
+               <destarmlen>0.6</destarmlen>
+            </path>
          </diagram>
       </reference>
       <presentation>

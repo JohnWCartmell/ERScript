@@ -23,12 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <presentation>
+   <presentation>
       <diagram>
          <deltaw>0.4</deltaw>
       </diagram>
-  </presentation>
-  <defaults>
+   </presentation>
+   <defaults>
       <et_width>1.8</et_width>
    </defaults>
    <entity_type>
@@ -43,9 +43,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -54,12 +58,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>element</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
       <constructed_relationship>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <name>flightleader</name>
          <type>aircraft</type>
          <join>
@@ -86,9 +94,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <diagram>
             <path>
                <label>
-                  <position>Left</position>
+                  <position>
+                     <Left/>
+                  </position>
                </label>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>
@@ -97,7 +109,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <type>aircraft</type>
          <diagram>
             <path>
-               <align>ToSrc</align>
+               <align>
+                  <ToSrc/>
+               </align>
             </path>
          </diagram>
       </composition>

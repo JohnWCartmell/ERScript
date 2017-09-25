@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-
    <defaults>
       <et_width>1.8</et_width>
       <et_height>3.2</et_height>
@@ -43,25 +42,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <composition>
          <name>all tables</name>
          <type>table</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <inverse>root</inverse>
       </composition>
    </absolute>
    <entity_type>
       <name>table</name>
       <presentation>
-        <x>4.85</x>
+         <x>4.85</x>
          <y>1.25</y>
          <w>5.5</w>
       </presentation>
-      <value>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
-         <type>string</type>
+         <type>
+            <string/>
+         </type>
          <identifying/>
-      </value>
+      </attribute>
       <composition>
          <type>primary key column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <sequence/>
          <inverse>of</inverse>
@@ -73,18 +78,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </composition>
       <composition>
          <type>column</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
             <path>
-               <align>ToDest</align>
+               <align>
+                  <ToDest/>
+               </align>
             </path>
          </diagram>
       </composition>
       <composition>
          <type>foreign key</type>
-         <cardinality>OneOrMore</cardinality>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
          <identifying/>
          <inverse>of</inverse>
          <diagram>
@@ -103,17 +114,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </presentation>
       <entity_type>
          <name>primary key column</name>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>seq no</name>
-            <type>integer</type>
-         </value>
+            <type>
+               <integer/>
+            </type>
+         </attribute>
          <dependency>
             <name>of</name>
             <type>table</type>
          </dependency>
          <reference>
             <name>is</name>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <type>column</type>
             <identifying/>
             <diagonal>
@@ -129,9 +144,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <inverse>in_primary_key</inverse>
             <diagram>
                <path>
-                  <align>ToSrc</align>
+                  <align>
+                     <ToSrc/>
+                  </align>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                      <yAdjustment>-0.05</yAdjustment>
                   </label>
                   <id>
@@ -140,14 +159,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </label>
                   </id>
                   <scope>
-                     <label> 
-                        <position>Upside</position> 
+                     <label>
+                        <position>
+                           <Upside/>
+                        </position>
                         <xAdjustment>-0.5</xAdjustment>
                      </label>
                   </scope>
                   <inverse>
                      <label>
-                        <name>None</name>
+                        <name>
+                           <None/>
+                        </name>
                      </label>
                   </inverse>
                </path>
@@ -166,15 +189,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </dependency>
          <reference>
             <name>in_primary_key</name>
-            <cardinality>ZeroOrOne</cardinality>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>primary key column</type>
             <inverse>is</inverse>
          </reference>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
       </entity_type>
       <entity_type>
          <name>foreign key</name>
@@ -186,14 +213,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>of</name>
             <type>table</type>
          </dependency>
-         <value>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
-            <type>string</type>
+            <type>
+               <string/>
+            </type>
             <identifying/>
-         </value>
+         </attribute>
          <composition>
             <type>foreign key column</type>
-            <cardinality>OneOrMore</cardinality>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
             <identifying/>
             <inverse>partof</inverse>
             <diagram>
@@ -205,7 +236,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </inverse>
                   <id>
                      <label>
-                        <position>Left</position>
+                        <position>
+                           <Left/>
+                        </position>
                      </label>
                   </id>
                </path>
@@ -214,12 +247,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>to</name>
             <type>table</type>
-            <cardinality>ExactlyOne</cardinality>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
             <diagonal>
-              <theabsolute/>
+               <theabsolute/>
             </diagonal>
             <riser>
-              <theabsolute/>
+               <theabsolute/>
             </riser>
             <diagram>
                <path>
@@ -234,7 +269,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </absdim>
                   </vstep>
                   <label>
-                     <position>Upside</position>
+                     <position>
+                        <Upside/>
+                     </position>
                   </label>
                   <id>
                      <label>
@@ -256,7 +293,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <presentation>
          <below>foreign key</below>
          <y>0.95 </y>
-         <name>Split</name>
+         <name>
+            <Split/>
+         </name>
       </presentation>
       <dependency>
          <name>partof</name>
@@ -265,63 +304,68 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <reference>
          <name>is</name>
          <type>column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <diagonal>
-           <join>
-              <component>
-                 <rel>partof</rel>
-              </component>
-              <component>
-                 <rel>of</rel>
-              </component>
-           </join>
+            <join>
+               <component>
+                  <rel>partof</rel>
+               </component>
+               <component>
+                  <rel>of</rel>
+               </component>
+            </join>
          </diagonal>
          <riser>
-           <component>
+            <component>
                <rel>of</rel>
-           </component>
+            </component>
          </riser>
          <diagram>
-           <path>
-              <srcarmlen>0.3</srcarmlen>
-              <destattach>0.666</destattach>
-              <destarmlen>0.3</destarmlen>
-              <id>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+               <destattach>0.666</destattach>
+               <destarmlen>0.3</destarmlen>
+               <id>
                   <label>
                      <xAdjustment>-0.7</xAdjustment>
                      <yAdjustment>0.1</yAdjustment>
                   </label>
                </id>
-              <scope>
+               <scope>
                   <label>
-                     <name>NoSplit</name>
+                     <name>
+                        <NoSplit/>
+                     </name>
                      <xAdjustment>-1.7</xAdjustment>
                   </label>
                </scope>
-           </path>
+            </path>
          </diagram>
       </reference>
       <reference>
          <name>to</name>
          <type>primary key column</type>
-         <cardinality>ExactlyOne</cardinality>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
          <identifying/>
          <diagonal>
-           <join>
-              <component>
-                 <rel>partof</rel>
-              </component>
-              <component>
-                 <rel>to</rel>
-              </component>
-           </join>
+            <join>
+               <component>
+                  <rel>partof</rel>
+               </component>
+               <component>
+                  <rel>to</rel>
+               </component>
+            </join>
          </diagonal>
          <riser>
-           <component>
+            <component>
                <rel>of</rel>
-           </component>
+            </component>
          </riser>
-           
          <diagram>
             <path>
                <srcsign>1</srcsign>
@@ -335,7 +379,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </absdim>
                </vstep>
                <label>
-                  <position>Upside</position>
+                  <position>
+                     <Upside/>
+                  </position>
                   <yAdjustment>-0.05</yAdjustment>
                </label>
                <id>
@@ -346,7 +392,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <scope>
                   <label>
                      <xAdjustment>-1.0</xAdjustment>
-                     <name>NoSplit</name>
+                     <name>
+                        <NoSplit/>
+                     </name>
                   </label>
                </scope>
             </path>
