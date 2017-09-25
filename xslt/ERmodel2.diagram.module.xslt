@@ -64,6 +64,8 @@ CR-18712 JC  14-Nov-2016 Don't try printing a constructed_relationship
                          a constructed relatonship without an implementation 
 
 CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
+
+25-Sept-2017 J.Cartmell  Do not display scope on diagram when there is a 'noscopes' parameter.
 -->
 
 <xsl:transform version="2.0" 
@@ -2565,10 +2567,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <!-- <xsl:message>rel_id: '<xsl:value-of select="$rel_id"/>'</xsl:message> -->
   <xsl:variable name="scope">
+    <xsl:if test="not($noscopes)">
     <xsl:for-each select="(ancestor::reference|.)[self::reference]">
         <!--<xsl:call-template name="get_text_of_scope"/>-->
         <xsl:value-of select="scope_display_text"/>
     </xsl:for-each>
+    </xsl:if>
   </xsl:variable>
 
   <xsl:if test="not($rel_id='') and key('whereImplemented',concat(ancestor-or-self::reference/concat(../name,':',name),
