@@ -115,19 +115,22 @@ CR-19099 JC  18-Jan-2016 Support for include directive.
    <xsl:for-each select="distinct-values((//pbe_passno,'0'))">
       <xsl:variable name="passno" select="." />
          <xsl:element name="xsl:template" >
-              <xsl:attribute name="match" select="'*'"/>
+              <xsl:attribute name="match" select="'@*|node()'"/>
               <xsl:attribute name="mode" select="concat('pass_',$passno)"/>
               <xsl:element name="xsl:copy">
                  <xsl:element name="xsl:apply-templates">
+                    <xsl:attribute name="select" select="'@*|node()'"/>
                     <xsl:attribute name="mode" select="concat('pass_',$passno)"/>
                  </xsl:element>
               </xsl:element>
           </xsl:element>
    </xsl:for-each>
    <xsl:element name="xsl:template" >
-      <xsl:attribute name="match" select="'*'"/>
+      <xsl:attribute name="match" select="'@*|node()'"/>
       <xsl:element name="xsl:copy">
-          <xsl:element name="xsl:apply-templates"/>
+          <xsl:element name="xsl:apply-templates">
+             <xsl:attribute name="select" select="'@*|node()'"/>
+          </xsl:element>
       </xsl:element>
    </xsl:element>
 </xsl:template>
