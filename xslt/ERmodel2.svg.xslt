@@ -34,6 +34,7 @@ DESCRIPTION
 CHANGE HISTORY
          JC  12-Sep-2016 Revert to generate html wrapper - move generated pop-up text into html.
 CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
+11-Oct-2017 J.Cartmell Remove the +8.0cm when generating width of diagram.
 -->
 <xsl:transform version="2.0" 
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
@@ -75,7 +76,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <svg:svg>
          <!-- used to add 8.0 to both hieght and width to  make room for info boxes -->
          <!-- removed 22 Dec 2015 -->
+         <!-- removed for the second time 11-Oct-2017 
      <xsl:attribute name="width"><xsl:value-of select="$diagramWidth + 8.0"/>cm</xsl:attribute>
+         -->
+     <xsl:attribute name="width"><xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
      <xsl:attribute name="height"><xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
     <svg:defs>
 

@@ -66,6 +66,8 @@ CR-18712 JC  14-Nov-2016 Don't try printing a constructed_relationship
 CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 25-Sept-2017 J.Cartmell  Do not display scope on diagram when there is a 'noscopes' parameter.
+
+11-Oct-2017 J.Cartmell   Do not generate pop up descriptive text in svg.
 -->
 
 <xsl:transform version="2.0" 
@@ -323,9 +325,11 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
          <xsl:call-template name="getDiagramWidth"/>
       </xsl:with-param>
    </xsl:call-template>
+   <!-- 11-Oct-2017 J. Cartmell Do not generate pop up text in svg
    <xsl:for-each select="absolute|entity_type|group">
       <xsl:call-template name="entity_type_or_group_description"/>
    </xsl:for-each>
+   -->
 </xsl:template>
 
 <xsl:template name="absolute" match="absolute">
