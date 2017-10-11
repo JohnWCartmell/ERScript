@@ -61,6 +61,9 @@ xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\ /q
 echo "Copying source batch file scripts"
 xcopy %SRCDIR%\scripts %ERHOMEDIR%\scripts\ /q
 
+echo "Copying source commands"
+xcopy %SRCDIR%\commands %DISTRIBUTION%\commands\ /q
+
 echo "Copying latex"
 xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\ /q
 
