@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </cardinality>
       </composition>
       <reference>
-         <name>of</name>
+         <name>at</name>
          <type>town</type>
          <cardinality>
             <ExactlyOne/>
