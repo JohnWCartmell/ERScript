@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_type>
+   <name>element</name>
+   <presentation>
+       <x>0.1</x>
+       <y>0.1</y>
+   </presentation>
+   <value>
+      <name>name</name>
+      <type>string</type>
+	  <identifying/>
+   </value>
+   <value>
+      <name>symbol</name>
+      <type>string</type>
+   </value>
+   <value>
+      <name>atomic number</name>
+      <type>integer</type>
+   </value>
+   <value>
+      <name>relative atomic mass</name>
+      <type>float</type>
+   </value>
+   <value>
+      <name>melting point</name>
+      <type>float</type>
+   </value>
+      <value>
+      <name>boiling point</name>
+      <type>float</type>
+   </value>
+      <value>
+      <name>density</name>
+      <type>float</type>
+	  <optional/>
+   </value>
+   <composition>
+       <type>valency</type>
+	   <cardinality>OneOrMore</cardinality>
+	   <identifying/>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>valency</name>
+   <presentation>
+       <below>element</below>
+   </presentation>
+   <value>
+      <name>number</name>
+      <type>integer</type>
+	  <identifying/>
+   </value>
+   </entity_type>
+</entity_model>

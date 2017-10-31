@@ -69,6 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </cardinality>
          <type>data cell</type>
          <identifying/>
+         <pullback/>
          <diagram>
             <path>
                <destattach>0.3</destattach>
@@ -96,6 +97,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <OneOrMore/>
          </cardinality>
          <type>data cell</type>
+         <pullback/>
          <identifying/>
          <diagram>
             <path>

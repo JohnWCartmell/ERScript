@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <cardinality>
                <OneOrMore/>
             </cardinality>
-            <sequence/>
+            <pullback/>
             <type>data cell</type>
             <identifying/>
             <diagram>
@@ -102,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <cardinality>
                <OneOrMore/>
             </cardinality>
-            <sequence/>
+            <pullback/>
             <type>data cell</type>
             <identifying/>
             <diagram>

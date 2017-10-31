@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
-         <deltaw>1.0</deltaw>
+         <deltaw>2.0</deltaw>
       </diagram>
    </presentation>
    <entity_type>
@@ -64,7 +64,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <inverse>commands</inverse>
+         <inverse>commands</inverse>      
+          <riser>
+            <component>
+               <rel>..</rel>
+            </component>
+         </riser>
+         <diagonal>
+            <identity/>
+         </diagonal> 
          <diagram>
             <path>
                <srcarmlen>0.2</srcarmlen>

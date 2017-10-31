@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <absolute>
+    <composition>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>department</type>
+    </composition>
+    <composition>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>location</type>
+    </composition>
+  </absolute>
+
+  <entity_type>
+    <name>department</name>
+    <presentation>
+      <x>1.7</x>
+      <y>1.0</y>
+      <h>2.0</h>
+      <w>2.0</w>
+    </presentation>
+    <composition>
+      <type>employee</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <identifying/>
+    </composition>
+    <reference>
+      <name>location</name>
+      <type>location</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <diagram>
+        <path>
+          <align>
+            <ToDest/>
+          </align>
+          <label>
+            <position>
+              <Upside/>
+            </position>
+          </label>
+        </path>
+      </diagram>
+    </reference>
+    <reference>
+      <name>headOfDept</name>
+      <type>employee</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <inverse>isHeadOf</inverse>
+      <diagram>
+        <path>
+          <srcsign>-1</srcsign>
+          <destsign>-1</destsign>
+          <destattach>0.25</destattach>
+          <hstep>
+            <absdim>
+              <src>-0.3</src>
+            </absdim>
+          </hstep>
+          <label>
+            <position>
+              <Upside/>
+            </position>
+          </label>
+        </path>
+      </diagram>
+    </reference>
+    <attribute>
+      <name>deptCode</name>
+      <type>string</type>
+      <identifying/>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <type>string</type>
+    </attribute>
+  </entity_type>
+  <entity_type>
+    <name>location</name>
+    <presentation>
+      <rightOf>department</rightOf>
+      <x>2.0</x>
+      <h>1.0</h>
+      <w>2.0</w>
+    </presentation>
+
+    <attribute>
+      <name>name</name>
+      <type>string</type>
+    </attribute>
+  </entity_type>
+  <entity_type>
+    <name>employee</name>
+    <presentation>
+      <below>department</below>
+      <x>1.0</x>
+      <h>3.0</h>
+      <w>4.5</w>
+    </presentation>
+    <composition>
+      <type>telephone</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+          <align>
+            <ToDest/>
+          </align>
+        </path>
+      </diagram>
+    </composition>
+    <composition>
+      <type>package</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+          <align>
+            <ToDest/>
+          </align>
+        </path>
+      </diagram>
+    </composition>
+    <composition>
+      <type>review</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+          <srcattach>0.9</srcattach>
+        </path>
+      </diagram>
+    </composition>
+
+    <reference>
+      <name>isHeadOf</name>
+      <type>department</type>
+      <cardinality>
+        <ZeroOrOne/>
+      </cardinality>
+      <inverseOf>headOfDept</inverseOf>
+    </reference>
+    <reference>
+      <name>manager</name>
+      <type>employee</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <inverse>managerOf</inverse>
+      <diagram>
+        <path>
+          <srcsign>-1</srcsign>
+          <destsign>-1</destsign>
+          <srcattach>0.5</srcattach>
+          <destattach>0.75</destattach>
+          <hstep>
+            <absdim>
+              <src>-1.2</src>
+            </absdim>
+          </hstep>
+          <label>
+            <position>
+              <Upside/>
+            </position>
+          </label>
+          <inverse>
+            <label>
+              <position>
+                <Downside/>
+              </position>
+            </label>
+          </inverse>
+        </path>
+      </diagram>
+    </reference>
+    <reference>
+      <name>managerOf</name>
+      <type>employee</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <inverseOf>manager</inverseOf>
+    </reference>
+
+    <attribute>
+      <name>empCode</name>
+      <type>string</type>
+      <identifying/>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <type>string</type>
+    </attribute>
+    <attribute>
+      <name>startDate</name>
+      <type>date</type>
+    </attribute>
+  </entity_type>
+  <group>
+    <presentation>
+      <below>employee</below>
+    </presentation>
+    <entity_type>
+      <name>telephone</name>
+      <presentation>
+        <x>-1.0</x>
+        <y>0.5</y>
+      </presentation>
+      <entity_type>
+        <name>home</name>
+      </entity_type>
+      <entity_type>
+        <name>work</name>
+        <presentation>
+          <below>home</below>
+        </presentation>
+      </entity_type>
+      <entity_type>
+        <name>mobile</name>
+        <presentation>
+          <below>work</below>
+        </presentation>
+      </entity_type>
+
+      <attribute>
+        <name>number</name>
+        <type>string</type>
+        <identifying/>
+      </attribute>
+    </entity_type>
+
+    <entity_type>
+      <name>package</name>
+      <presentation>
+        <rightOf>telephone</rightOf>
+        <x>0.85</x>
+        <y>1.5</y>
+        <h>2.0</h>
+        <w>1.75</w>
+      </presentation>
+      <attribute>
+        <name>from</name>
+        <type>date</type>
+        <identifying/>
+      </attribute>
+      <attribute>
+        <name>to</name>
+        <type>date</type>
+        <optional/>
+      </attribute>
+      <attribute>
+        <name>annualSalary</name>
+        <type>number</type>
+      </attribute>
+    </entity_type>
+  </group>
+
+  <entity_type>
+    <name>review</name>
+    <presentation>
+      <rightOf>package</rightOf>
+      <x>0.6</x>
+      <y>-1.85</y>
+      <h>1.3</h>
+      <w>1.25</w>
+    </presentation>
+    <reference>
+      <name>reviewBy</name>
+      <type>employee</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <diagram>
+        <path>
+          <srcsign>1</srcsign>
+          <srcarmlen>0.15</srcarmlen>
+          <srcattach>0.33</srcattach>
+          <destattach>0.8</destattach>
+          <hstep>
+            <absdim>
+              <src>1.0</src>
+            </absdim>
+          </hstep>
+          <label><position><Upside/></position></label>
+        </path>
+      </diagram>
+    </reference>
+    <attribute>
+      <name>on</name>
+      <type>date</type>
+      <identifying/>
+    </attribute>
+  </entity_type>
+
+</entity_model>

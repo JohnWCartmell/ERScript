@@ -68,8 +68,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <OneOrMore/>
          </cardinality>
          <type>element</type>
-         <sequence/>
          <identifying/>
+         <pullback/>
          <diagram>
             <path>
                <destattach>0.3</destattach>
@@ -85,8 +85,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <OneOrMore/>
          </cardinality>
          <type>element</type>
-         <sequence/>
          <identifying/>
+         <pullback/>
          <diagram>
             <path>
                <destattach>0.7</destattach>

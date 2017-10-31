@@ -474,27 +474,32 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable name= "l_grp_iseven" as="xs:boolean">
       <xsl:choose>
-	  <xsl:when test="exists(self::group)">
-	     <xsl:value-of select="not($p_grp_iseven)"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	     <xsl:value-of select="$p_grp_iseven"/>
-	  </xsl:otherwise>
-       </xsl:choose>
+	       <xsl:when test="exists(self::group)">
+	          <xsl:value-of select="not($p_grp_iseven)"/>
+	        </xsl:when>
+	     <xsl:otherwise>
+	         <xsl:value-of select="$p_grp_iseven"/>
+	      </xsl:otherwise>
+      </xsl:choose>
   </xsl:variable>
   <xsl:if test="not(self::group) or ($debug!='') or (annotation)">
     <xsl:call-template name="entity_type_box">
        <xsl:with-param name="isgroup" select="exists(self::group)"/>  
        <xsl:with-param name="iseven" as="xs:boolean">
-	<xsl:choose>
-	    <xsl:when test="exists(self::group)">
-	       <xsl:value-of select="$l_grp_iseven"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	       <xsl:value-of select="$l_et_iseven"/>
-	    </xsl:otherwise>
-	 </xsl:choose>
+	        <xsl:choose>
+	          <xsl:when test="exists(self::group)">
+	             <xsl:value-of select="$l_grp_iseven"/>
+	          </xsl:when>
+	          <xsl:otherwise>
+	            <xsl:value-of select="$l_et_iseven"/>
+	          </xsl:otherwise>
+	        </xsl:choose>
        </xsl:with-param>
+       <xsl:with-param name="isboundary" 
+                       select="identifier
+                              and (not(dependency/type) or not(xpath_type_classifier))
+                              "
+                        />
        <xsl:with-param name="xcm" select="$xabs"/>
        <xsl:with-param name="ycm" select="$yabs"/>
        <xsl:with-param name="wcm" select="$width"/>
@@ -565,6 +570,16 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <xsl:call-template name="attribute">
       <xsl:with-param name="xcm" select="$xabs + $attribute_xpos_offset"/>
       <xsl:with-param name="ycm"  select="$etnameyPos +(0.3 * (position()+$no_linebreaks_in_etname) )"/>
+        <xsl:with-param name="iseven" as="xs:boolean">
+	        <xsl:choose>
+	          <xsl:when test="exists(self::group)">
+	             <xsl:value-of select="$l_grp_iseven"/>
+	          </xsl:when>
+	          <xsl:otherwise>
+	            <xsl:value-of select="$l_et_iseven"/>
+	          </xsl:otherwise>
+	        </xsl:choose>
+       </xsl:with-param>
       <xsl:with-param name="annotation" select="$annotation"/>
       <xsl:with-param name="deprecated" select="if (deprecated) then 'yes' else 'no'"/>
     </xsl:call-template>

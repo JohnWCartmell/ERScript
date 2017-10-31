@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <defaults>
+    <et_width>1.2</et_width>
+  </defaults>
+  <presentation>
+    <diagram>
+      <deltah>0</deltah>
+    </diagram>
+  </presentation>
+  <absolute>
+    <composition>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>male</type>
+    </composition>
+    <composition>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>female</type>
+    </composition>
+    <composition>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>date</type>
+    </composition>
+  </absolute>
+  <entity_type>
+    <name>male</name>
+    <presentation>
+      <x>0</x>
+      <y>1.0</y>
+    </presentation>
+    <composition>
+      <type>marriage</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+          <destattach>0.33</destattach>
+        </path>
+      </diagram>
+    </composition>
+  </entity_type>
+  <entity_type>
+    <name>female</name>
+    <presentation>
+      <rightOf>male</rightOf>
+      <x>0.2</x>
+    </presentation>
+    <composition>
+      <type>marriage</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+          <destattach>0.66</destattach>
+        </path>
+      </diagram>
+    </composition>
+  </entity_type>
+  <entity_type>
+    <name>date</name>
+    <presentation>
+      <rightOf>female</rightOf>
+      <x>1.0</x>
+    </presentation>
+  </entity_type>
+  <entity_type>
+    <name>marriage</name>
+    <presentation>
+      <below>male</below>
+      <x>0.7</x>
+    </presentation>
+    <composition>
+      <type>divorce</type>
+      <cardinality>
+        <ZeroOrOne/>
+      </cardinality>
+      <identifying/>
+    </composition>
+    <reference>
+      <name>on</name>
+      <type>date</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <identifying/>
+      <diagram>
+        <path>
+           <srcarmlen>0.5</srcarmlen>
+        </path>
+      </diagram>
+    </reference>
+  </entity_type>
+  <entity_type>
+    <name>divorce</name>
+    <presentation>
+      <below>marriage</below>
+      <y>0.5</y>
+    </presentation>
+  </entity_type>
+
+</entity_model>

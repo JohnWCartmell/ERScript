@@ -20,6 +20,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
+13-Oct-2017 J.Cartmell Refine scope display text. If subject reference 
+                       relationship is mandatory display as equality (=) if not
+                       display as less than or equal.
 -->
 
 <!-- 
@@ -296,6 +299,8 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
   <xsl:copy>
      <xsl:apply-templates mode="initial_enrichment_recursive"/>
      <xsl:if test="not(scope_display_text) and riser/*/display_text and diagonal/*/display_text">
+          <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/> 
+                   <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->
           <scope_display_text>
              <xsl:value-of select="concat('~/',riser/*/display_text,'=',diagonal/*/display_text)"/>
           </scope_display_text>
