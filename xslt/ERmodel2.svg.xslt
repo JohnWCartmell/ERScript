@@ -52,7 +52,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   <xsl:output method="xml" indent="yes" />
 
   <xsl:variable name="fileextension">
-    <xsl:value-of select="'svg.html'"/>
+    <xsl:value-of select="'svg'"/>
   </xsl:variable>
   <!--
 <xsl:key name="EntityTypeByLevel" match="entity_type" use="count(ancestor-or-self::entity_type)"/>
@@ -1213,7 +1213,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <svg:text>
       <xsl:attribute name="class" select="$class"/>
       <xsl:choose>
-        <xsl:when test="$class='relname' or $class='scope'">
+        <xsl:when test="$class='relname' or $class='scope' or $class='reletname'">
           <xsl:attribute name="x" select="$x"/>
           <xsl:attribute name="y" select="$y"/>
         </xsl:when>
