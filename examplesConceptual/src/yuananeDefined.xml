@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <inverse>dayAfterTomorrow</inverse>
       </reference>
       <constructed_relationship>
-         <name>youanne</name>
+         <name>yuanane</name>
          <type>day</type>
          <inverse>youanne</inverse>
          <aggregate>

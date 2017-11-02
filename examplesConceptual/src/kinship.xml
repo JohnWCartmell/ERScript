@@ -139,6 +139,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>mother</rel>
             </component>
             <component>
+               <src>individual</src>
                <rel>father</rel>
             </component>
          </aggregate>
@@ -173,6 +174,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>parent</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>child</rel>
             </component>
          </join>
@@ -189,6 +191,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>parent</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>parent</rel>
             </component>
          </join>
@@ -205,6 +208,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>child</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>child</rel>
             </component>
          </join>
@@ -218,6 +222,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>mother</rel>
             </component>
             <component>
+               <src>individual</src>
                <rel>father</rel>
             </component>
          </join>
@@ -230,9 +235,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>mother</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>father</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>mother</rel>
             </component>
          </join>
@@ -249,6 +256,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>mother</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>parent</rel>
             </component>
          </join>
@@ -266,6 +274,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <dest>female</dest>
             </component>
             <component>
+            <src>individual</src>
                <rel>child</rel>
             </component>
          </join>
@@ -282,9 +291,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>parent</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>sibling</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>child</rel>
             </component>
          </join>
@@ -300,6 +311,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <rel>cousin</rel>
             </component>
             <component>
+            <src>individual</src>
                <rel>child</rel>
             </component>
          </join>
