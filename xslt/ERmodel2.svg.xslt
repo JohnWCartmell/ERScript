@@ -504,6 +504,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="wcm"/>
     <xsl:param name="hcm"/>
     <xsl:param name="shape"/>
+    
+    <xsl:message>isboundary is '<xsl:value-of select="$isboundary"/>'</xsl:message>
     <xsl:variable name="cornerRadiuscm">
       <xsl:choose>
         <xsl:when test="$isgroup">

@@ -482,6 +482,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	      </xsl:otherwise>
       </xsl:choose>
   </xsl:variable>
+
   <xsl:if test="not(self::group) or ($debug!='') or (annotation)">
     <xsl:call-template name="entity_type_box">
        <xsl:with-param name="isgroup" select="exists(self::group)"/>  
@@ -495,8 +496,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	          </xsl:otherwise>
 	        </xsl:choose>
        </xsl:with-param>
-       <xsl:with-param name="isboundary" 
-                       select="identifier
+       <xsl:with-param name="isboundary"  as="xs:boolean"
+                       select="boolean(//implementationOf)
                               and (not(dependency/type) or not(xpath_type_classifier))
                               "
                         />
@@ -2783,7 +2784,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	 </xsl:call-template>
       </xsl:variable>
       
-     <xsl:message> construct structure<xsl:copy-of select="$construct_structure"/> </xsl:message>
+     <!--<xsl:message> construct structure<xsl:copy-of select="$construct_structure"/> </xsl:message>-->
       <xsl:variable name="diagramHeight">
 	    <xsl:call-template name="heightcm"/>
       </xsl:variable>
@@ -3071,8 +3072,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    </xsl:call-template>
    <xsl:if test="$ylower!='NONE'">
       <!-- vertical component line left-->
-      <xsl:message> about to call "line" y1cm 
-                     <xsl:value-of select= "$ylower"/> </xsl:message>
       <xsl:call-template name="line">
          <xsl:with-param name="x0cm" select="$srcx" />
          <xsl:with-param name="y0cm" select="$rely + $conrel_height div 2" />
@@ -3081,7 +3080,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
          <xsl:with-param name="p_ismandatory" select="'false'" />
          <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
       </xsl:call-template>
-      <xsl:message> back from "line" </xsl:message>
       <!-- vertical component line right-->
       <xsl:call-template name="line">
          <xsl:with-param name="x0cm" select="$destx" />
