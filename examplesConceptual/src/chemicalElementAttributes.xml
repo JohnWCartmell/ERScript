@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<!-- 6-Nov-2017 element.symbol name identifying in place of element.name -->
 	<entity_type>
 		<name>element</name>
 		<presentation>
@@ -7,12 +8,12 @@
 			<y>0.1</y>
 		</presentation>
 		<value>
-			<name>name</name>
+			<name>symbol</name>
 			<type>string</type>
 			<identifying/>
 		</value>
 		<value>
-			<name>symbol</name>
+			<name>name</name>
 			<type>string</type>
 		</value>
 		<value>
