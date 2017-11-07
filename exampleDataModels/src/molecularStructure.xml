@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <defaults>
+    <et_width>1.9</et_width>
+  </defaults>
+
+  <absolute>
+    <composition>
+      <type>molecularStructure</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+    </composition>
+    <composition>
+      <type>element</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+    </composition>
+  </absolute>
+
+  <entity_type>
+    <name>molecularStructure</name>
+    <presentation>
+      <x>0.1</x>
+      <y>1.5</y>
+    </presentation>
+    <dependency>
+      <name>..</name>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <value>
+      <name>name</name>
+      <type>
+        <string/>
+      </type>
+      <identifying/>
+    </value>
+    <composition>
+      <type>atom</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+    </composition>
+  </entity_type>
+  <entity_type>
+    <name>atom</name>
+    <dependency>
+      <name>..</name>
+      <type>molecularStructure</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <value>
+      <name>atomNo</name>
+      <type>
+        <integer/>
+      </type>
+      <identifying/>
+    </value>
+    <value>
+      <name>x</name>
+      <type>
+        <float/>
+      </type>
+    </value>
+    <value>
+      <name>y</name>
+      <type>
+        <float/>
+      </type>
+    </value>
+    <!--
+      <value>
+        <name>element</name>
+        <type>
+          <string/>
+        </type>
+      </value>
+      -->
+      <!--
+    <composition>
+      <type>bond formed</type>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <identifying/>
+      <inverse>..</inverse>
+    </composition>
+    -->
+    <reference>
+      <name>element</name>
+      <type>element</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+      <diagonal>
+        <join>
+          <component>
+            <rel>..</rel>
+          </component>
+          <component>
+            <rel>..</rel>
+          </component>
+        </join>
+      </diagonal>
+      <riser>
+        <component>
+          <rel>..</rel>
+        </component>
+      </riser>
+      <diagram>
+        <path>
+          <srcarmlen>0.5</srcarmlen>
+        </path>
+      </diagram>
+    </reference>
+    <presentation>
+      <below>molecularStructure</below>
+    </presentation>
+  </entity_type>
+  <!--
+  <entity_type>
+    <name>bond formed</name>
+    <dependency>
+      <name>..</name>
+      <type>atom</type>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <value>
+      <name>ofAtom</name>
+      <type>
+        <integer/>
+      </type>
+      <identifying/>
+    </value>
+    <value>
+      <name>withAtom</name>
+      <type>
+        <integer/>
+      </type>
+      <identifying/>
+    </value>
+    <value>
+      <name>bondType</name>
+      <type>
+        <string/>
+      </type>
+    </value>
+    -->
+    <!--
+          <reference>
+            <name>with</name>
+            <type>bond formed</type>
+            <cardinality>
+              <ExactlyOne/>
+            </cardinality>
+            <inverse>with</inverse>
+            <diagram>
+              <path>
+                <srcarmlen>1.0</srcarmlen>
+                <destarmlen>1.0</destarmlen>
+              </path>
+            </diagram>
+          </reference>
+          -->
+          <!--
+    <presentation>
+      <below>atom</below>
+    </presentation>
+  </entity_type>
+  -->
+
+
+  <entity_type>
+    <name>element</name>
+    <presentation>
+      <rightOf>molecularStructure</rightOf>
+      <x>2.5</x>
+    </presentation>
+    <dependency>
+      <name>..</name>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <value>
+      <name>symbol</name>
+      <type>
+        <string/>
+      </type>
+      <identifying/>
+    </value>
+    <value>
+      <name>name</name>
+      <type>
+        <string/>
+      </type>
+    </value>
+    <value>
+      <name>atomic number</name>
+      <type>
+        <integer/>
+      </type>
+    </value>
+    <value>
+      <name>relative atomic mass</name>
+      <type>
+        <float/>
+      </type>
+    </value>
+    <!--
+    <composition>
+      <type>allotrope</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+    </composition>
+    <composition>
+      <type>valency</type>
+      <cardinality>OneOrMore</cardinality>
+      <identifying/>
+    </composition>
+    -->
+  </entity_type>
+  <!--
+  <group>
+    <presentation>
+      <below>element</below>
+      <y>0.5</y>
+    </presentation>
+    <entity_type>
+      <name>allotrope</name>
+      <presentation>
+        <w>2.1</w>
+      </presentation>
+      <value>
+        <name>name</name>
+        <type>
+          <string/>
+        </type>
+        <identifying/>
+      </value>
+      <value>
+        <name>melting point</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+      <value>
+        <name>boiling point</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+      <value>
+        <name>density</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+    </entity_type>
+    <entity_type>
+      <name>valency</name>
+      <presentation>
+        <rightOf>allotrope</rightOf>
+        <w>2.1</w>
+      </presentation>
+      <value>
+        <name>number</name>
+        <type>
+          <integer/>
+        </type>
+        <identifying/>
+      </value>
+    </entity_type>
+  </group>
+  -->
+
+</entity_model>
