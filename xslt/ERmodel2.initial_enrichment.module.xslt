@@ -187,12 +187,20 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
   </xsl:copy>
 </xsl:template>
 
-<xsl:template name="composition_or_reference" match="composition|reference" mode="explicit">
-    <!-- CR-18497 - move relid generation forward in the process -->
+<xsl:template name="compositionid" match="composition" mode="explicit">
+    <xsl:if test="not(id)">
+       <id>
+          <xsl:text>D</xsl:text>  <!-- D for dependency -->
+          <xsl:number count="composition" level="any" />
+       </id>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template name="referenceid" match="reference" mode="explicit">
     <xsl:if test="not(id)">
        <id>
           <xsl:text>R</xsl:text>
-          <xsl:number count="composition|reference" level="any" />
+          <xsl:number count="reference" level="any" />
        </id>
     </xsl:if>
 </xsl:template>
@@ -200,14 +208,14 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
 <xsl:template match="composition" mode="initial_enrichment_first_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_enrichment_first_pass"/>
-    <xsl:call-template name="composition_or_reference"/>
+    <xsl:call-template name="compositionid"/>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="reference" mode="initial_enrichment_first_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_enrichment_first_pass"/>
-    <xsl:call-template name="composition_or_reference"/>
+    <xsl:call-template name="referenceid"/>
     <xsl:if test="not(projection) and key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name">
         <projection/>
     </xsl:if>
