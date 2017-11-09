@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+
+	<absolute>
+		<composition>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<type>company</type>
+		</composition>
+		<composition>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<type>book</type>
+		</composition>
+		<composition>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<type>individual</type>
+		</composition>
+	</absolute>
+	<entity_type>
+		<name>company</name>
+		<presentation>
+			<x>0.1</x>
+			<y>1.5</y>
+			<h>1.5</h>
+		</presentation>
+		<attribute>
+			<name>name</name>
+			<type>string</type>
+			<identifying/>
+		</attribute>
+	</entity_type>
+
+	<entity_type>
+		<name>book</name>
+		<presentation>
+			<rightOf>company</rightOf>
+			<x>2.3</x>
+			<h>1.5</h>
+		</presentation>
+		<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+			<name>title</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</attribute>
+		<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+			<name>author name</name>
+			<type>
+				<string/>
+			</type>
+			<implementationOf>
+				<rel>author</rel>
+			</implementationOf>
+		</attribute>
+		<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+			<name>publisher name</name>
+			<type>
+				<string/>
+			</type>
+			<implementationOf>
+				<rel>publisher</rel>
+			</implementationOf>
+		</attribute>
+
+		<reference>
+			<name>author</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<type>individual</type>
+			<diagram>
+				<path>
+					<srcattach>0.5</srcattach>
+					<align>
+						<ToSrc/>
+					</align>
+					<label>
+						<position>
+							<Upside/>
+						</position>
+					</label>
+					<id>
+						<label>
+							<position>
+								<Downside/>
+							</position>
+							<xAdjustment>-0.15</xAdjustment>
+						</label>
+					</id>
+				</path>
+			</diagram>
+		</reference>
+		<reference>
+			<name>publisher</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<type>company</type>
+			<diagram>
+				<path>
+					<srcattach>0.5</srcattach>
+					<align>
+						<ToSrc/>
+					</align>
+					<label>
+						<position>
+							<Upside/>
+						</position>
+					</label>
+										<id>
+						<label>
+							<position>
+								<Downside/>
+							</position>
+							<xAdjustment>-0.3</xAdjustment>
+						</label>
+					</id>
+				</path>
+			</diagram>
+		</reference>
+	</entity_type>
+	<entity_type>
+		<name>individual</name>
+		<presentation>
+			<rightOf>book</rightOf>
+			<x>2.3</x>
+			<h>1.5</h>
+		</presentation>
+		<attribute>
+			<name>name</name>
+			<type>string</type>
+			<identifying/>
+		</attribute>
+	</entity_type>
+</entity_model>

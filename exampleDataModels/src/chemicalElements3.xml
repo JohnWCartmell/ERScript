@@ -29,13 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 	<absolute>
 		<composition>
-			<type>molecularStructure</type>
-			<cardinality>
-				<OneOrMore/>
-			</cardinality>
-			<inverse>..</inverse>
-		</composition>
-		<composition>
 			<type>element</type>
 			<cardinality>
 				<OneOrMore/>
@@ -45,167 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	</absolute>
 
 	<entity_type>
-		<name>molecularStructure</name>
-		<presentation>
-			<x>1.0</x>
-			<y>1.5</y>
-		</presentation>
-		<dependency>
-			<name>..</name>
-			<cardinality>
-				<ExactlyOne/>
-			</cardinality>
-		</dependency>
-		<value>
-			<name>name</name>
-			<type>
-				<string/>
-			</type>
-			<identifying/>
-		</value>
-		<composition>
-			<type>atom</type>
-			<cardinality>
-				<OneOrMore/>
-			</cardinality>
-			<identifying/>
-			<inverse>..</inverse>
-		</composition>
-	</entity_type>
-	<entity_type>
-		<name>atom</name>
-		<presentation>
-			<below>molecularStructure</below>
-			<deltaw>0.2</deltaw>
-		</presentation>
-		<dependency>
-			<name>..</name>
-			<type>molecularStructure</type>
-			<cardinality>
-				<ExactlyOne/>
-			</cardinality>
-		</dependency>
-		<value>
-			<name>atomId</name>
-			<type>
-				<integer/>
-			</type>
-			<identifying/>
-		</value>
-		<value>
-			<name>x</name>
-			<type>
-				<float/>
-			</type>
-		</value>
-		<value>
-			<name>y</name>
-			<type>
-				<float/>
-			</type>
-		</value>
-		<!--
-      <value>
-        <name>element</name>
-        <type>
-          <string/>
-        </type>
-      </value>
-      -->
-		<composition>
-			<type>bond formed</type>
-			<cardinality>
-				<ZeroOneOrMore/>
-			</cardinality>
-			<identifying/>
-			<inverse>of</inverse>
-		</composition>
-		<reference>
-			<name>element</name>
-			<type>element</type>
-			<cardinality>
-				<ExactlyOne/>
-			</cardinality>
-			<!--
-			<diagonal>
-				<join>
-					<component>
-						<rel>..</rel>
-					</component>
-					<component>
-						<rel>..</rel>
-					</component>
-				</join>
-			</diagonal>
-			<riser>
-				<component>
-					<rel>..</rel>
-				</component>
-			</riser>
-			-->
-			<diagram>
-				<path>
-					<align><ToSrc/></align>
-				</path>
-			</diagram>
-		</reference>
-
-	</entity_type>
-
-	<entity_type>
-		<name>bond formed</name>
-		<dependency>
-			<name>of</name>
-			<type>atom</type>
-			<cardinality>
-				<ExactlyOne/>
-			</cardinality>
-		</dependency>
-		<value>
-			<name>withAtomId</name>
-			<type>
-				<integer/>
-			</type>
-			<identifying/>
-			         <implementationOf>
-            <rel>with</rel>
-            <destattr>AtomId</destattr>
-            <typeOfOrigin>atom</typeOfOrigin>
-            <attrOfOrigin>AtomId</attrOfOrigin>
-         </implementationOf>
-		</value>
-		<value>
-			<name>bondType</name>
-			<type>
-				<string/>
-			</type>
-		</value>
-		<reference>
-			<name>with</name>
-			<type>bond formed</type>
-			<cardinality>
-				<ExactlyOne/>
-			</cardinality>
-			<identifying/>
-			<inverse>with</inverse>
-			<diagram>
-				<path>
-					<srcarmlen>1.0</srcarmlen>
-					<destarmlen>1.0</destarmlen>
-				</path>
-			</diagram>
-		</reference>      
-		<presentation>
-			<below>atom</below>
-		</presentation>
-	</entity_type>
-
-
-	<entity_type>
 		<name>element</name>
 		<presentation>
-			<rightOf>atom</rightOf>
-			<x>6.0</x>
+			<x>2.4</x>
+			<y>1.5</y>
 		</presentation>
 		<dependency>
 			<name>..</name>
@@ -232,24 +68,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<integer/>
 			</type>
 		</value>
+		<value>
+			<name>relative atomic mass</name>
+			<type>
+				<float/>
+			</type>
+			<implementationOf/>
+		</value>
 		<composition>
 			<type>isotope</type>
-			<cardinality><OneOrMore/></cardinality>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
 			<inverse>..</inverse>
 			<identifying/>
 		</composition>
 		<composition>
 			<type>allotrope</type>
-			<cardinality><OneOrMore/></cardinality>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
 			<inverse>..</inverse>
+			<diagram>
+				<path>
+					<align>
+						<ToSrc/>
+					</align>
+				</path>
+			</diagram>
 		</composition>
 		<composition>
 			<type>valency</type>
-			<cardinality><OneOrMore/></cardinality>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
 			<identifying/>
 			<inverse>..</inverse>
 		</composition>
-
 	</entity_type>
 
 	<group>
@@ -277,13 +132,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<identifying/>
 			</value>
 			<value>
-				<name>mass</name>
+				<name>relative isotopic mass</name>
 				<type>
 					<float/>
 				</type>
 			</value>
-		   <value>
-				<name>abundancy</name>
+			<value>
+				<name>abundancy ratio</name>
 				<type>
 					<float/>
 				</type>
@@ -294,6 +149,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			<name>allotrope</name>
 			<presentation>
 				<rightOf>isotope</rightOf>
+				<w>2.1</w>
 			</presentation>
 			<dependency>
 				<name>..</name>
@@ -335,7 +191,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			<name>valency</name>
 			<presentation>
 				<rightOf>allotrope</rightOf>
-				<!-- <w>2.1</w> -->
+				<w>1.5</w> 
 			</presentation>
 			<dependency>
 				<name>..</name>
