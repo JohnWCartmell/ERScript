@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>0.2</deltaw>
+      </diagram>
+   </presentation>
+
+   <defaults>
+      <et_width>1.5</et_width>
+      <et_y_separation>1.0</et_y_separation>
+   </defaults>
+   <entity_type>
+      <name>compound</name>
+      <presentation>
+         <x>2.75</x>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+
+      <composition>
+	     <name>formula</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>occurring element</type>
+         <identifying/>
+         <inverse>of</inverse>
+         <diagram>
+            <path>
+               <id>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                     <xAdjustment>-0.6</xAdjustment>
+                  </label>
+               </id>
+               <destarmlen>0.5</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <group>
+      <presentation>
+         <below>compound</below>
+      </presentation>
+      <entity_type>
+         <name>occurring element</name>
+         <presentation>
+            <deltaw>0.4</deltaw>
+         </presentation>
+         <dependency>
+            <name>of</name>
+            <type>compound</type>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+         </dependency>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>symbol</name>
+            <type>
+               <integer/>
+            </type>
+            <identifying/>
+         </attribute>
+		          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>number</name>
+            <type>
+               <positiveInteger/>
+            </type>
+			<optional/>
+         </attribute>
+
+      </entity_type>
+   </group>
+</entity_model>
