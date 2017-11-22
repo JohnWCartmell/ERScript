@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>department</name>
       <presentation>
-         <x>2.4</x>
+         <x>2.6</x>
          <y>0.1</y>
          <deltaw>0.2</deltaw>
       </presentation>
@@ -43,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <identifying/>
       </attribute>
       <composition>
-         <id>R3</id>
          <type>student</type>
          <cardinality>
             <OneOrMore/>
@@ -63,7 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <id>R1</id>
          <type>professor</type>
          <cardinality>
             <OneOrMore/>
@@ -95,10 +93,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <reference>
             <name>advised_by</name>
             <type>professor</type>
-            <id>R2</id>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
+            <diagonal>
+                <component><rel>within</rel></component>
+            </diagonal>
+            <riser>
+                 <component><rel>within</rel></component>
+            </riser>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
@@ -111,13 +114,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <Upside/>
                      </position>
                   </label>
-                  <id>
+                  <scope>
                      <label>
-                        <position>
-                           <Downside/>
-                        </position>
+                        <xAdjustment>-1.0</xAdjustment>
                      </label>
-                  </id>
+                  </scope>
+                  
                </path>
             </diagram>
          </reference>
@@ -132,7 +134,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <name>professor</name>
          <presentation>
             <rightOf>student</rightOf>
-            <x>1.5</x>
+            <x>2.5</x>
             <deltaw>0.2</deltaw>
          </presentation>
          <dependency>

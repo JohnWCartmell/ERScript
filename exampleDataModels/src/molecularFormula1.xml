@@ -45,13 +45,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </type>
          <identifying/>
       </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>molar mass</name>
+         <type>
+            <float/>
+         </type>
+      </attribute>
       <composition>
 	     <name>aliases</name>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
          <type>alias</type>
-         <identifying/>
 		 <inverse>for</inverse>
          <diagram>
             <path>

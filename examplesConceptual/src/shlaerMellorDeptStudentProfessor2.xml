@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>department</name>
       <presentation>
-         <x>2.8</x>
+         <x>3.0</x>
          <y>0.1</y>
          <deltaw>0.2</deltaw>
       </presentation>
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <identifying/>
       </attribute>
       <composition>
-         <id>R3</id>
+         <id>D1</id>
          <type>student</type>
          <cardinality>
             <OneOrMore/>
@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
-         <id>R1</id>
+         <id>D2</id>
          <type>professor</type>
          <cardinality>
             <OneOrMore/>
@@ -86,11 +86,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>within</name>
          </dependency>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <name>departmentId (R3)</name>
+            <name>departmentId</name>
             <type>
                <string/>
             </type>
             <identifying/>
+            <implementationOf>
+               <rel>within</rel>
+               <origin>departmentId</origin>
+               <destattr>departmentId</destattr>
+            </implementationOf>
+            
          </attribute>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>studentNoInDept</name>
@@ -100,21 +106,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <identifying/>
          </attribute>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <name>advisiorDeptId (R2)</name>
+            <name>advisiorDeptId</name>
             <type>
                <string/>
             </type>
+         <implementationOf>
+               <rel>advised_by</rel>
+               <origin>departmentId</origin>
+               <destattr>departmentId</destattr>
+            </implementationOf>
          </attribute>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <name>advisorNo(R2)</name>
+            <name>advisorNo</name>
             <type>
                <string/>
             </type>
+             <implementationOf>
+               <rel>advised_by</rel>
+               <origin>profNoInDept</origin>
+               <destattr>profNoInDept</destattr>
+            </implementationOf>        
          </attribute>
          <reference>
             <name>advised_by</name>
             <type>professor</type>
-            <id>R2</id>
+            <id>R1</id>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -159,11 +175,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <name>within</name>
          </dependency>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <name>departmentId (R1)</name>
+            <name>departmentId</name>
             <type>
                <string/>
             </type>
             <identifying/>
+            <implementationOf>
+               <rel>within</rel>
+               <origin>departmentId</origin>
+               <destattr>departmentId</destattr>
+            </implementationOf>
          </attribute>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>profNoInDept</name>

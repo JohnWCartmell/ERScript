@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <presentation>
+    <diagram>
+      <deltaw>0.2</deltaw>
+    </diagram>
+  </presentation>
+
+  <defaults>
+    <et_width>1.5</et_width>
+    <et_y_separation>1.0</et_y_separation>
+  </defaults>
+
+  <absolute>
+      <composition>
+      <type>compound</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+    </composition>
+    
+    <composition>
+      <type>element</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+    </composition>
+  </absolute>
+
+  <entity_type>
+    <name>compound</name>
+    <presentation>
+      <x>2.75</x>
+      <y>1.5</y>
+      <deltaw>0.1</deltaw>
+    </presentation>
+    <dependency>
+      <name>..</name>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <name>name</name>
+      <type>
+        <string/>
+      </type>
+      <identifying/>
+    </attribute>
+    <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <name>molar mass</name>
+      <type>
+        <float/>
+      </type>
+      <implementationOf/>
+    </attribute>
+    <composition>
+      <name>aliases</name>
+      <cardinality>
+        <ZeroOneOrMore/>
+      </cardinality>
+      <type>alias</type>
+      <inverse>for</inverse>
+      <diagram>
+        <path>
+          <label>
+            <position>
+              <Left/>
+            </position>
+          </label>
+          <inverse>
+            <label>
+              <position>
+                <Left/>
+              </position>
+              <xAdjustment>-0.05</xAdjustment>
+            </label>
+          </inverse>
+          <id>
+            <label>
+              <position>
+                <Downside/>
+              </position>
+              <xAdjustment>0.3</xAdjustment>
+            </label>
+          </id>
+          <destarmlen>0.5</destarmlen>
+        </path>
+      </diagram>
+    </composition>
+    <composition>
+      <name>formula</name>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <type>occurring element</type>
+      <identifying/>
+      <inverse>of</inverse>
+      <diagram>
+        <path>
+          <id>
+            <label>
+              <position>
+                <Downside/>
+              </position>
+              <xAdjustment>-0.3</xAdjustment>
+            </label>
+          </id>
+          <destarmlen>0.5</destarmlen>
+        </path>
+      </diagram>
+    </composition>
+  </entity_type>
+  <group>
+    <presentation>
+      <below>compound</below>
+    </presentation>
+    <entity_type>
+      <name>alias</name>
+      <presentation>
+        <deltaw>0.3</deltaw>
+      </presentation>
+      <dependency>
+        <name>for</name>
+        <type>compound</type>
+        <cardinality>
+          <ExactlyOne/>
+        </cardinality>
+      </dependency>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+        <name>aliased name</name>
+        <type>
+          <string/>
+        </type>
+        <identifying/>
+      </attribute>
+    </entity_type>
+    <entity_type>
+      <name>occurring element</name>
+      <presentation>
+        <rightOf>alias</rightOf>
+        <x>0.8</x>
+        <deltaw>0.1</deltaw>
+      </presentation>
+      <dependency>
+        <name>of</name>
+        <type>compound</type>
+        <cardinality>
+          <ExactlyOne/>
+        </cardinality>
+      </dependency>
+      <reference>
+          <name>instance of</name>
+          <type>element</type>
+          <identifying/>
+          <cardinality><ExactlyOne/></cardinality>
+          <diagram>
+             <path>
+                <srcarmlen>0.7</srcarmlen>
+             </path>
+          </diagram>
+      </reference>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+        <name>symbol</name>
+        <type>
+          <integer/>
+        </type>
+        <identifying/>
+        <implementationOf><rel>instance of</rel></implementationOf>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+        <name>number</name>
+        <type>
+          <positiveInteger/>
+        </type>
+        <optional/>
+      </attribute>
+    </entity_type>
+  </group>
+  
+  <entity_type>
+    <name>element</name>
+    <presentation>
+      <rightOf>occurring element</rightOf>
+      <x>2.0</x>
+      <y>-1.5</y>
+    </presentation>
+    <dependency>
+      <name>..</name>
+      <cardinality>
+        <ExactlyOne/>
+      </cardinality>
+    </dependency>
+    <value>
+      <name>symbol</name>
+      <type>
+        <string/>
+      </type>
+      <identifying/>
+    </value>
+    <value>
+      <name>name</name>
+      <type>
+        <string/>
+      </type>
+    </value>
+    <value>
+      <name>atomic number</name>
+      <type>
+        <integer/>
+      </type>
+    </value>
+    <value>
+      <name>relative atomic mass</name>
+      <type>
+        <float/>
+      </type>
+      <implementationOf/>
+    </value>
+    <composition>
+      <type>isotope</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+      <identifying/>
+    </composition>
+    <composition>
+      <type>allotrope</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <inverse>..</inverse>
+      <diagram>
+        <path>
+          <align>
+            <srcattach>0.75</srcattach>
+            <ToSrc/>
+          </align>
+        </path>
+      </diagram>
+    </composition>
+    <composition>
+      <type>valency</type>
+      <cardinality>
+        <OneOrMore/>
+      </cardinality>
+      <identifying/>
+      <inverse>..</inverse>
+    </composition>
+  </entity_type>
+
+  <group>
+    <presentation>
+      <below>element</below>
+      <y>0.5</y>
+    </presentation>
+    <entity_type>
+      <name>isotope</name>
+      <presentation>
+        <y>0.5</y>
+        <!--<w>2.1</w>-->
+      </presentation>
+      <dependency>
+        <name>..</name>
+        <type>element</type>
+        <cardinality>
+          <ExactlyOne/>
+        </cardinality>
+      </dependency>
+      <value>
+        <name>numberOfNeutrons</name>
+        <type>
+          <integer/>
+        </type>
+        <identifying/>
+      </value>
+      <value>
+        <name>relative isotopic mass</name>
+        <type>
+          <float/>
+        </type>
+      </value>
+      <value>
+        <name>abundancy ratio</name>
+        <type>
+          <float/>
+        </type>
+      </value>
+    </entity_type>
+
+    <entity_type>
+      <name>allotrope</name>
+      <presentation>
+        <rightOf>isotope</rightOf>
+        <y>-0.5</y>
+        <w>2.1</w>
+      </presentation>
+      <dependency>
+        <name>..</name>
+        <type>element</type>
+        <cardinality>
+          <ExactlyOne/>
+        </cardinality>
+      </dependency>
+      <value>
+        <name>name</name>
+        <type>
+          <string/>
+        </type>
+        <identifying/>
+      </value>
+      <value>
+        <name>melting point</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+      <value>
+        <name>boiling point</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+      <value>
+        <name>density</name>
+        <type>
+          <float/>
+        </type>
+        <optional/>
+      </value>
+    </entity_type>
+    <entity_type>
+      <name>valency</name>
+      <presentation>
+        <rightOf>allotrope</rightOf>
+        <w>1.5</w> 
+      </presentation>
+      <dependency>
+        <name>..</name>
+        <type>element</type>
+        <cardinality>
+          <ExactlyOne/>
+        </cardinality>
+      </dependency>
+      <value>
+        <name>number</name>
+        <type>
+          <integer/>
+        </type>
+        <identifying/>
+      </value>
+    </entity_type>
+  </group>
+
+
+</entity_model>
