@@ -498,7 +498,9 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   <xsl:template name="entity_type_box" saxon:trace="yes" xmlns:saxon="http://icl.com/saxon">
     <xsl:param name="isgroup"/>
     <xsl:param name="iseven"/>
+    <!-- FAILED EXPERIMENT 
     <xsl:param name="isboundary"/>
+    -->
     <xsl:param name="xcm"/>
     <xsl:param name="ycm"/>
     <xsl:param name="wcm"/>
@@ -600,7 +602,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           <xsl:when test="not (string-length($shape)=0)">
             <xsl:attribute name="class">etodd</xsl:attribute>
           </xsl:when>
+   <!-- FAILED EXPERIMENT 
           <xsl:when test="$iseven or $isboundary">
+          -->
+          <xsl:when test="$iseven">
             <xsl:attribute name="class">eteven</xsl:attribute>
           </xsl:when>
           <xsl:otherwise>

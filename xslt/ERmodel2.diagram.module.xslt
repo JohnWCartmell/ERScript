@@ -496,11 +496,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	          </xsl:otherwise>
 	        </xsl:choose>
        </xsl:with-param>
+       <!-- FAILED EXPERIMENT
        <xsl:with-param name="isboundary"  as="xs:boolean"
                        select="boolean(//implementationOf)
                               and (not(dependency/type) or not(xpath_type_classifier))
                               "
                         />
+                        -->
        <xsl:with-param name="xcm" select="$xabs"/>
        <xsl:with-param name="ycm" select="$yabs"/>
        <xsl:with-param name="wcm" select="$width"/>
