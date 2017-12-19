@@ -505,7 +505,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="hcm"/>
     <xsl:param name="shape"/>
     
-    <xsl:message>isboundary is '<xsl:value-of select="$isboundary"/>'</xsl:message>
+    <!--<xsl:message>isboundary is '<xsl:value-of select="$isboundary"/>'</xsl:message>-->
     <xsl:variable name="cornerRadiuscm">
       <xsl:choose>
         <xsl:when test="$isgroup">
@@ -628,8 +628,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           <xsl:text>cm</xsl:text>
         </xsl:attribute>
       </svg:rect>
+     <!-- FAILED EXPERIMENT
       <xsl:if test="$isboundary">
-        <!-- NEW rectangle -->
         <svg:rect>
           <xsl:choose>
             <xsl:when test="$isgroup">
@@ -665,8 +665,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
             <xsl:text>cm</xsl:text>
           </xsl:attribute>
         </svg:rect>
-        <!-- END NEW rect -->
       </xsl:if>
+      -->
     </svg:svg>
 
   </xsl:template>
