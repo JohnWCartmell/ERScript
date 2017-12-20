@@ -4,6 +4,8 @@
 \usepackage{pstricks}
 \usepackage{xifthen}
 \usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{wasysym}
 
 \input{../../ERmodel_v1.4/latex/erdiagram}
 
