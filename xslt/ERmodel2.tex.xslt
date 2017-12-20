@@ -181,7 +181,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <xsl:param name="annotation"/>
   <xsl:param name="deprecated"/>
   <xsl:call-template name="newline"/>
-  <xsl:text>\erattr{</xsl:text>
+  <xsl:choose>
+     <xsl:when test="implementationOf">
+        <xsl:text>\erdattr{</xsl:text>
+     </xsl:when>
+     <xsl:otherwise>
+        <xsl:text>\erattr{</xsl:text>
+     </xsl:otherwise>
+  </xsl:choose>
   <xsl:value-of select="round($xcm*1000) div 1000"/>
   <xsl:text>}{</xsl:text>
   <xsl:value-of select="-round((($ycm - 0.1))*1000) div 1000"/>

@@ -77,7 +77,6 @@
 % et top right
 \newcommand {\erettr}[4]
 {
-%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
 \psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)
 }
 
@@ -175,6 +174,13 @@
 }
 % \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 idenitfying} {#5 text}
 \newcommand {\erattr}[5]
+{
+\ifthenelse{\equal{#3}{1}}
+{\rput[l]{0}(#1,#2){{\tiny $\blacksquare$} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
+{\rput[l]{0}(#1,#2){{\tiny \CIRCLE} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
+}
+
+\newcommand {\erdattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
 {\rput[l]{0}(#1,#2){{\tiny $\square$} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}

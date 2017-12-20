@@ -573,7 +573,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <xsl:call-template name="attribute">
       <xsl:with-param name="xcm" select="$xabs + $attribute_xpos_offset"/>
       <xsl:with-param name="ycm"  select="$etnameyPos +(0.3 * (position()+$no_linebreaks_in_etname) )"/>
-        <xsl:with-param name="iseven" as="xs:boolean">
+      <!--       
+       <xsl:with-param name="iseven" as="xs:boolean">
 	        <xsl:choose>
 	          <xsl:when test="exists(self::group)">
 	             <xsl:value-of select="$l_grp_iseven"/>
@@ -583,6 +584,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	          </xsl:otherwise>
 	        </xsl:choose>
        </xsl:with-param>
+       -->
       <xsl:with-param name="annotation" select="$annotation"/>
       <xsl:with-param name="deprecated" select="if (deprecated) then 'yes' else 'no'"/>
     </xsl:call-template>
