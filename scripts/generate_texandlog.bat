@@ -1,5 +1,7 @@
 @ECHO OFF
 
+call %~dp0\set_path_variables
+
 set filename=%1
 set filenamebase=%filename:~0,-4%
 
