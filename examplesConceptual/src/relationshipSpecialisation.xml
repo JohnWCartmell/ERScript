@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>A</name>
+      <presentation>
+	     <deltaw>0.15</deltaw>
+	  </presentation>
+      <entity_type>
+         <name>A1</name>
+		 	  <reference>
+         <name>f1</name>
+         <type>X1</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+      </entity_type>
+      <entity_type>
+         <name>A2</name>
+         <presentation>
+            <below>A1</below>
+         </presentation>
+		 	  <reference>
+         <name>f2</name>
+         <type>X2</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+      </entity_type>
+	  <reference>
+         <name>f</name>
+         <type>X</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+			<srcattach>0.15</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>X</name>
+      <presentation>
+            <rightOf>A</rightOf>
+			<x>2.0</x>
+         </presentation>
+      <entity_type>
+         <name>X1</name>
+		 <presentation>
+		     <x>0.5</x>
+	     </presentation>
+      </entity_type>
+      <entity_type>
+         <name>X2</name>
+         <presentation>
+            <below>X1</below>
+         </presentation>
+      </entity_type>
+   </entity_type>
+</entity_model>
