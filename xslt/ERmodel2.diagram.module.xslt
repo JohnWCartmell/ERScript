@@ -163,7 +163,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:variable name="seq_x_start" select="0.06"/>
 <xsl:variable name="seq_x_sweepout" select="0.35"/>
 <xsl:variable name="relid_offset" select="0.3"/>
-<xsl:variable name="relid_width" select="0.1"/>
+<xsl:variable name="relid_width" select="0.15"/>   <!--previously 0.1 changed to be same as width crowfoot 05/02/2019 -->
 <xsl:variable name="relid_step" select="0.075"/>   <!-- was 0.1 -->
 <!-- used in depicting constructed realtionships: -->
 <xsl:variable name="conrel_etname_yspacer" select="0.1"/>
@@ -1711,7 +1711,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
        </xsl:otherwise>
      </xsl:choose>
   </xsl:if>
-  <xsl:if test="identifying and not(pullback)">
+  <xsl:if test="identifying">  <!-- and not(pullback) -->  <!-- 05/02/2019 -->
      <xsl:call-template name="identifier_comprel">
 	<xsl:with-param name="x" select="$destx"/>
 	<xsl:with-param name="y" select="$desty"/>
