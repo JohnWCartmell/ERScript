@@ -138,8 +138,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:variable name="relcrowbendy" select="0.17"/>
 <xsl:variable name="recursiverelxmargin" select="0.5"/>
 <xsl:variable name="etframearc" select="0.2"/>
-<xsl:variable name="relLabelxSeparation" select="0.1"/>
-<xsl:variable name="relLabelySeparation" select="0.1"/>
+<xsl:variable name="relLabelxSeparation" select="0.15"/>  <!-- 06/02/2019 What if .. changed from 0.1 -->
+<xsl:variable name="relLabelySeparation" select="0.15"/>  <!-- 06/02/2019 What if .. changed from 0.1 -->
 <xsl:variable name="relLabelLineHeight" select="0.3"/>
 <xsl:variable name="arcDefaultWidthRatio" select="0.8"/>
 <xsl:variable name="arcDefaultOffset" select="0.2"/>
@@ -162,8 +162,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:variable name="seq_y_top_offset" select="$seq_y_offset + 4 * $seq_y_step"/>
 <xsl:variable name="seq_x_start" select="0.06"/>
 <xsl:variable name="seq_x_sweepout" select="0.35"/>
-<xsl:variable name="relid_offset" select="0.3"/>
-<xsl:variable name="relid_width" select="0.15"/>   <!--previously 0.1 changed to be same as width crowfoot 05/02/2019 -->
+<xsl:variable name="relid_offset" select="0.25"/>  <!-- 05/02/2019 previously was 0.3 (= 2 * relcrowlen) -->
+<xsl:variable name="relid_width" select="0.1"/>   
 <xsl:variable name="relid_step" select="0.075"/>   <!-- was 0.1 -->
 <!-- used in depicting constructed realtionships: -->
 <xsl:variable name="conrel_etname_yspacer" select="0.1"/>
@@ -1711,10 +1711,18 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
        </xsl:otherwise>
      </xsl:choose>
   </xsl:if>
-  <xsl:if test="identifying">  <!-- and not(pullback) -->  <!-- 05/02/2019 -->
+  <xsl:if test="identifying and not(pullback)">  
      <xsl:call-template name="identifier_comprel">
 	<xsl:with-param name="x" select="$destx"/>
-	<xsl:with-param name="y" select="$desty"/>
+	<xsl:with-param name="y" select="$desty - $relid_offset"/>
+	<xsl:with-param name="width" select="$relid_width"/>
+     </xsl:call-template>
+  </xsl:if>
+    <xsl:if test="identifying and pullback">  
+     <xsl:call-template name="identifier_comprel">
+	<xsl:with-param name="x" select="$destx"/>
+	<xsl:with-param name="y" select="$desty - 2 * $relcrowlen"/>
+	<xsl:with-param name="width" select="$relcrowwidth"/>
      </xsl:call-template>
   </xsl:if>
   <xsl:if test="pullback">
@@ -2186,11 +2194,18 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
     </xsl:call-template>
   </xsl:if>
-  <xsl:if test="identifying and not(projection)">
+  <xsl:if test="identifying and not(projection)">  
      <xsl:call-template name="identifier_refrel">
-	<xsl:with-param name="x" select="$srcx"/>
+	<xsl:with-param name="x" select="$srcx +($relid_offset  * $srcsign)"/>
 	<xsl:with-param name="y" select="$srcy"/>
-	<xsl:with-param name="sign" select="$srcsign"/>
+	<xsl:with-param name="width" select="$relid_width"/>
+     </xsl:call-template>
+  </xsl:if>
+  <xsl:if test="identifying and projection">  
+     <xsl:call-template name="identifier_refrel">
+	<xsl:with-param name="x" select="$srcx +(2 * $relcrowlen  * $srcsign)"/>
+	<xsl:with-param name="y" select="$srcy"/>
+	<xsl:with-param name="width" select="$relcrowwidth"/>
      </xsl:call-template>
   </xsl:if>
   <xsl:if test="projection">
@@ -2204,6 +2219,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 
+<!-- 06/02/2019 This template originally just called for relationship labels.
+     Hence use of $relLabelxSeparation and $relLabelySeparation
+	 Now also used for rel ids and scopes
+-->
 <xsl:template name="drawText">
   <xsl:param name="text"/>
   <xsl:param name="class"/>
@@ -2280,7 +2299,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 <xsl:template name="relationship_name" match="composition|reference">
-  <xsl:param name="srcx"/>
+  <xsl:param name="srcx"/> <!-- this is the point of attachement of the relationship -->
   <xsl:param name="srcy"/>
   <xsl:param name="xsign"/>
   <xsl:call-template name="drawText">

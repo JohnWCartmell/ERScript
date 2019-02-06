@@ -362,7 +362,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			<xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
 		</xsl:call-template>
 		<xsl:call-template name="crowsfoot_across">
-			<xsl:with-param name="xcm" select="$xcm"/>
+			<xsl:with-param name="xcm" select="$xcm + 2 * $sign * $relcrowwidth"/>
 			<xsl:with-param name="ycm" select="$ycm"/>
 			<xsl:with-param name="sign" select="$sign * -1"/>
 			<xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
@@ -372,33 +372,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<xsl:template name="identifier_comprel">
 		<xsl:param name="x"/>
 		<xsl:param name="y"/>
+		<xsl:param name="width"/>
 		<xsl:text>\eridcomprel{</xsl:text>
-		<xsl:value-of select="$x - $relid_width"/>
+		<xsl:value-of select="$x - $width"/>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="$x + $relid_width"/>
+		<xsl:value-of select="$x + $width"/>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="-($y - $relid_offset - $relid_step)"/>
-		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="-($y  - $relid_offset)"/>
-		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="-($y - $relid_offset + $relid_step)"/>
+		<xsl:value-of select="-($y)"/>
 		<xsl:text>}</xsl:text>
 	</xsl:template>
 
 	<xsl:template name="identifier_refrel">
 		<xsl:param name="x"/>
 		<xsl:param name="y"/>
-		<xsl:param name="sign"/>
+		<xsl:param name="width"/>
 		<xsl:text>\eridrefrel{</xsl:text>
-		<xsl:value-of select="$x + ($relid_offset  * $sign) - $relid_step"/>
+		<xsl:value-of select="$x"/>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="$x + ($relid_offset  * $sign)"/>
+		<xsl:value-of select="-($y - $width)"/>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="$x + ($relid_offset  * $sign) + $relid_step"/>
-		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="-($y - $relid_width)"/>
-		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="-($y + $relid_width)"/>
+		<xsl:value-of select="-($y + $width)"/>
 		<xsl:text>}</xsl:text>
 	</xsl:template>
 
