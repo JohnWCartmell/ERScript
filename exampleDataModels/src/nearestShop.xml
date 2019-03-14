@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<!-- This is a model implied by the wikipedia entry for BCNF describing a table which cannot be normalised into BCNF -->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+	<presentation>
+		<diagram>
+			<deltaw>0.2</deltaw>
+		</diagram>
+	</presentation>
+	<defaults>
+		<et_width>1.5</et_width>
+		<et_y_separation>1.0</et_y_separation>
+	</defaults>
+	<description>
+       To each person there is a table of nearest shops of each type.
+	</description>
+
+
+
+	<group>
+		<name>participating entitites</name>
+		<presentation>       
+			<x>0.1</x>
+		</presentation>
+		<entity_type>
+			<name>person</name>
+			<presentation>
+				<w>1.8</w>
+			</presentation>
+			<attribute>
+				<name>name</name>
+				<type>
+					<string/>
+				</type>
+				<identifying/>
+			</attribute>
+			<composition>
+				<name>has</name>
+				<cardinality>
+					<OneOrMore/>
+				</cardinality>
+				<type>nearestShop</type>
+				<identifying/>
+				<inverse>to</inverse>
+				<diagram>
+					<path>
+						<label>
+							<position>
+								<Left/>
+							</position>
+						</label>
+						<inverse>
+							<label>
+								<position>
+									<Left/>
+								</position>
+								<xAdjustment>-0.05</xAdjustment>
+							</label>
+						</inverse>
+						<destattach>0.15</destattach>
+						<destarmlen>0.6</destarmlen>
+					</path>
+				</diagram>
+			</composition>
+
+		</entity_type>
+		<entity_type>
+			<name>shopType</name>
+			<presentation>
+				<rightOf>person</rightOf>
+				<x>0.8</x>
+				<w>1.8</w>
+			</presentation>
+			<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+				<name>name</name>
+				<type>
+					<string/>
+				</type>
+				<identifying/>
+			</attribute>
+			<composition>
+				<name>used as</name>
+				<cardinality>
+					<OneOrMore/>
+				</cardinality>
+				<type>nearestShop</type>
+				<identifying/>
+				<inverse>ofType</inverse>
+				<diagram>
+					<path>
+						<destattach>0.5</destattach>
+						<destarmlen>0.6</destarmlen>
+						<label>
+							<position>
+								<Left/>
+							</position>
+						</label>
+						<inverse>
+							<label>
+								<position>
+									<Left/>
+								</position>
+							</label>
+						</inverse>
+					</path>
+				</diagram>
+			</composition>
+		</entity_type>
+
+		<entity_type>
+			<name>shop</name>
+			<presentation>
+				<w>1.8</w>
+				<rightOf>shopType</rightOf>
+				<x>0.8</x>
+			</presentation>
+			<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+				<name>name</name>
+				<type>
+					<integer/>
+				</type>
+				<identifying/>
+			</attribute>
+			<composition>
+				<name>being</name>
+				<cardinality>
+					<OneOrMore/>
+				</cardinality>
+				<type>nearestShop</type>
+				<identifying/>
+				<inverse>is</inverse>
+				<diagram>
+					<path>
+						<label>
+							<position>
+								<Left/>
+							</position>
+						</label>
+						<inverse>
+							<label>
+								<position>
+									<Left/>
+								</position>
+								<xAdjustment>-0.05</xAdjustment>
+							</label>
+						</inverse>
+						<destattach>0.8</destattach>
+						<destarmlen>0.6</destarmlen>
+					</path>
+				</diagram>
+			</composition>
+			<reference>
+				<name>type</name>
+				<type>shopType</type>
+				<cardinality><ExactlyOne/></cardinality>
+				<diagram>
+					<path>
+						<align><ToSrc/></align>
+					</path>
+				</diagram>
+			</reference>
+		</entity_type>
+
+	</group>
+	<entity_type>
+		<name>nearestShop</name>
+		<presentation>
+			<below>participating entitites</below>
+			<deltaw>1.5</deltaw>
+			<y>1.7</y>
+		</presentation>
+		<dependency>
+			<name>to</name>
+			<type>person</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse_of>has</inverse_of>
+		</dependency>
+		<dependency>
+			<name>is</name>
+			<type>shop</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse_of>being</inverse_of>
+		</dependency>
+		<dependency>
+			<name>ofType</name>
+			<type>shopType</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse_of>used as</inverse_of>
+		</dependency>
+		<attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+			<name>distance</name>
+			<type>
+				<string/>
+			</type>
+		</attribute>
+	</entity_type>
+</entity_model>

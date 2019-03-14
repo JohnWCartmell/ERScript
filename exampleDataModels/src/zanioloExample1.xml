@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>0.2</deltaw>
+      </diagram>
+   </presentation>
+   <defaults>
+      <et_width>1.5</et_width>
+      <et_y_separation>1.0</et_y_separation>
+   </defaults>
+   <description>
+       Logical abstraction of Zaniolo's first example.
+   </description>
+   
+    <entity_type>
+         <name>manager</name>
+         <presentation>
+		     <x>0.1</x>
+			 <deltaw>0.3</deltaw>
+         </presentation>
+         <attribute>
+            <name>MGID</name>
+            <type>
+               <string/>
+            </type>
+            <identifying/>
+         </attribute>
+		 <reference>
+		     <name>manages</name>
+			 <cardinality><ExactlyOne/></cardinality>
+			 <type>department</type>
+			 <inverse>manager</inverse>	
+	     </reference>
+    </entity_type>
+ 
+   <group>
+      <name>department and account</name>
+         <presentation>
+            <rightOf>manager</rightOf>
+			<x>2.0</x>
+         </presentation>
+
+      <entity_type>
+         <name>department</name>
+		 <presentation>
+		    <deltaw>0.1</deltaw>
+	     </presentation>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>D#</name>
+            <type>
+               <integer/>
+            </type>
+            <identifying/>
+         </attribute>
+		 <reference>
+		     <name>manager</name>
+			 <cardinality><ExactlyOne/></cardinality>
+			 <type>manager</type>
+			 <inverse>manages</inverse>				 
+			 <physical_prefix/>
+			 <diagram>
+			     <path>
+				    <SrcAlign/>
+			     </path>
+            </diagram>				
+	     </reference>
+         <composition>
+            <name>has</name>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
+            <type>DeptAcc</type>
+            <identifying/>
+            <inverse>dept</inverse>
+            <diagram>
+               <path>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+                  <inverse>
+                     <label>
+                        <position>
+                           <Left/>
+                        </position>
+                        <xAdjustment>-0.05</xAdjustment>
+                     </label>
+                  </inverse>
+                  <destattach>0.3</destattach>
+                  <destarmlen>0.6</destarmlen>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>account</name>
+         <presentation>
+            <rightOf>department</rightOf>
+            <x>0.8</x>
+            <deltaw>0.3</deltaw>
+         </presentation>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>ACC#</name>
+            <type>
+               <string/>
+            </type>
+            <identifying/>
+         </attribute>
+         <composition>
+            <name>used as</name>
+            <cardinality>
+               <OneOrMore/>
+            </cardinality>
+            <type>DeptAcc</type>
+            <identifying/>
+            <inverse>account</inverse>
+            <diagram>
+               <path>
+                  <destattach>0.7</destattach>
+                  <destarmlen>0.6</destarmlen>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+   </group>
+   <entity_type>
+      <name>DeptAcc</name>
+      <presentation>
+         <below>department and account</below>
+         <deltaw>0.5</deltaw>
+         <y>1.7</y>
+      </presentation>
+      <dependency>
+         <name>dept</name>
+         <type>department</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse_of>has</inverse_of>
+      </dependency>
+      <dependency>
+         <name>account</name>
+         <type>account</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse_of>used as</inverse_of>
+		 <physical_prefix/>
+      </dependency>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>budget</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>

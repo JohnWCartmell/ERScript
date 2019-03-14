@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+
+JCartmell 17-Sept-2017 Description added.
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <description>To be used as an example of process of achieving well-formulated model.
+   </description>
+
+   <entity_type>
+      <name>delivery</name>
+      <presentation>
+         <x>0.5</x>
+         <y>0.1</y>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>orderId</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+	  <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>deliveryNo</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>consists_of</name>
+         <type>delivery_item</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <identifying/>
+         <inverse>in</inverse>
+      </composition>
+      <reference>
+         <name>from</name>
+         <type>warehouse</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>warehouse</name>
+      <presentation>
+         <rightOf>delivery</rightOf>
+         <x>4.0</x>
+      </presentation>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>has_record_of</name>
+         <type>stock_item</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <identifying/>
+         <inverse>held_at</inverse>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>delivery_item</name>
+      <presentation>
+         <below>delivery</below>
+         <y>1.5</y>
+         <deltaw>0.3</deltaw>
+      </presentation>
+      <dependency>
+         <name>in</name>
+         <type>delivery</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse_of>consists_of</inverse_of>
+      </dependency>
+      <reference>
+         <name>delivery_of</name>
+         <type>stock_item</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+		 <identifying/>
+         <diagonal>
+            <join>
+               <component>
+                  <rel>in</rel>
+               </component>
+               <component>
+                  <rel>from</rel>
+               </component>
+            </join>
+         </diagonal>
+         <riser>
+            <component>
+               <rel>held_at</rel>
+            </component>
+         </riser>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+               <scope>
+                  <label>
+                     <xAdjustment>-0.5</xAdjustment>
+					 <yAdjustment>-0.32</yAdjustment>
+                  </label>
+               </scope>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>stock_item</name>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>itemId</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <presentation>
+         <rightOf>delivery_item</rightOf>
+         <below>warehouse</below>
+         <deltaw>0.3</deltaw>
+      </presentation>
+      <dependency>
+         <name>held_at</name>
+         <type>warehouse</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse_of>has_record_of</inverse_of>
+      </dependency>
+   </entity_type>
+</entity_model>
