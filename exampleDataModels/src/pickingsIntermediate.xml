@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+
+JCartmell 15 March 2019 Created.
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+	<presentation>
+		<diagram>
+			<deltah>0.5</deltah>
+		</diagram>
+	</presentation>
+	<description>To be used as an example of process of achieving well-formulated model.
+	</description>
+
+	<entity_type>
+		<name>delivery</name>
+		<presentation>
+			<x>0.5</x>
+			<y>0.1</y>
+			<deltaw>0.3</deltaw>
+		</presentation>
+		<attribute>
+			<name>deliveryId</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</attribute>
+		<attribute>
+			<name>warehouse</name>
+			<type>
+				<string/>
+			</type>
+		</attribute>
+		<composition>
+			<name>consists_of</name>
+			<type>pick</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<identifying/>
+			<inverse>for</inverse>
+		</composition>
+	</entity_type>
+
+	<entity_type>
+		<name>pick</name>
+		<presentation>
+			<below>delivery</below>
+			<y>1.5</y>
+			<deltaw>0.3</deltaw>
+		</presentation>
+		<attribute>
+			<name>quantity</name>
+			<type>
+				<string/>
+			</type>
+		</attribute>
+		<dependency>
+			<name>for</name>
+			<type>delivery</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse_of>consists_of</inverse_of>
+		</dependency>
+		<reference>
+			<name>from</name>
+			<type>crate</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<identifying/>
+			<diagram>
+				<path>
+					<align>
+						<ToSrc/>
+					</align>
+					<label>
+						<position>
+							<Downside/>
+						</position>
+					</label>
+					<inverse>
+						<label>
+							<position>
+								<Downside/>
+							</position>
+						</label>
+					</inverse>
+				</path>
+			</diagram>
+		</reference>
+	</entity_type>
+	<entity_type>
+		<name>crate</name>
+		<attribute>
+			<name>itemId</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</attribute>
+		<attribute>
+			<name>warehouse</name>
+			<type>
+				<string/>
+			</type>
+		</attribute>
+		<presentation>
+			<rightOf>pick</rightOf>
+			<x>4.0</x>
+			<y>-0.3</y>
+			<deltaw>0.3</deltaw>
+		</presentation>
+	</entity_type>
+</entity_model>
