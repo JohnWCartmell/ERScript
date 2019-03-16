@@ -128,7 +128,7 @@ JCartmell 15 March 2019  Created.
 			<inverse_of>consists_of</inverse_of>
 		</dependency>
 		<reference>
-			<name>delivery_of</name>
+			<name>from</name>
 			<type>crate</type>
 			<cardinality>
 				<ExactlyOne/>
@@ -187,6 +187,12 @@ JCartmell 15 March 2019  Created.
 				<string/>
 			</type>
 			<identifying/>
+		</attribute>
+	    <attribute>
+			<name>itemType</name>
+			<type>
+				<string/>
+			</type>
 		</attribute>
 		<presentation>
 			<rightOf>pick</rightOf>
