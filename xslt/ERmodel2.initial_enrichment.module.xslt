@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 13-Oct-2017 J.Cartmell Refine scope display text. If subject reference 
                        relationship is mandatory display as equality (=) if not
                        display as less than or equal.
+15-Mar-2019 J.Cartmell Modify display text of scope. 
+                       Change from ~p=q to D:p=S:q 
+                       where D is Destination and S is Source
 -->
 
 <!-- 
@@ -55,6 +58,7 @@ Description
         scope_display_text : string r,;
                                  # text presentation of the scope constraint
                                  # using ~/<riser text>=<diag text>
+                                 # using D:<riser text>=S:<diag text>
         optional projection : entity ;
                                  # if the reference is specified as the 
                                  # projection_rel by a pullback. 
@@ -310,7 +314,8 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
           <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/> 
                    <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->
           <scope_display_text>
-             <xsl:value-of select="concat('~/',riser/*/display_text,'=',diagonal/*/display_text)"/>
+             <xsl:value-of select="concat('d:',riser/*/display_text,'=s:',diagonal/*/display_text)"/>
+             <!-- was        <xsl:value-of select="concat('~/',riser/*/display_text,'=',diagonal/*/display_text)"/> -->
           </scope_display_text>
      </xsl:if>
   </xsl:copy>

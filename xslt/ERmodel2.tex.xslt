@@ -20,6 +20,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
+15/03/2019 Modify ERText to honour 'class' parameter by planting calls to macros
+                                 er<class> in place of vanila ertext.
 -->
 
 <xsl:transform version="2.0" 
@@ -498,7 +500,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:text>\ertext{</xsl:text>
+		<xsl:variable name="macroname" select="concat('\er',$class)"/>
+		<xsl:value-of select="$macroname"/>
+		<xsl:text>{</xsl:text>
 		<xsl:value-of select="round($x*1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
 		<xsl:value-of select="-round($y *1000) div 1000"/>

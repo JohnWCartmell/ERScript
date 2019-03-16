@@ -37,6 +37,7 @@ CHANGE HISTORY
          JC  12-Sep-2016 Revert to generate html wrapper - move generated pop-up text into html.
 CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 11-Oct-2017 J.Cartmell Remove the +8.0cm when generating width of diagram.
+15-Mar-2019 J.Cartmell Modify class def of scope - font size same as relationship name and italicise.
 -->
 <xsl:transform version="2.0" 
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
@@ -144,7 +145,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke: black;
           stroke-width: 1
         }
-	      .deprecatedattrname {
+	    .deprecatedattrname {
           fill: black;
           font-size: 11px ;
           font-style: italic;
@@ -258,9 +259,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           font-size: .30px ;
           font-style: italic
         }
-		    .scope {
+		 .scope {
           fill: black ;
-          font-size: .275px ;
+          font-size: .25px ;  
+		  font-style: italic
         }
       ]]>
         </svg:style>
