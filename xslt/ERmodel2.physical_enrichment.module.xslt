@@ -124,6 +124,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 18-Sept-2017 JC         Correct comment regarding when seqNo attribute is identifying.
 
+2-Apr-2019   JC         or condition added to ensure that foreign keys are generated for
+                        reflexive relationships. Tested on molecularGeometry example.
+
 -->
 
 <xsl:transform version="2.0" 
@@ -343,10 +346,18 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                     and not(key)             
                                     ]">     <!-- simplifying assumption that key covers missing identifiers subject to future generalisation -->
                 <!-- @ reference relationship that is not already implemented-->
-      <xsl:if test="era:et_is_implemented(root(),type)">
-         <!--
+				
+				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
+      <xsl:if test="era:et_is_implemented(root(),type)
+	                or
+	                (   name=inverse 
+						  and  
+				        era:et_is_implemented(root(),../dependency/type)
+				     )
+						">
+         
          <xsl:message>Imp. R'<xsl:value-of select="name"/>'</xsl:message>
-          -->
+         
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
          <xsl:variable name="implementing_attributes" 
