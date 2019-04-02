@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/molecularGeometry.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<!-- 
+   Created 1 Apr 2019 Example of pullback.
+
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+	<defaults>
+		<et_width>3.0</et_width>
+	</defaults>
+
+	<absolute>
+		<composition>
+			<type>conformation</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<inverse>..</inverse>
+		</composition>
+		<composition>
+			<type>molStruct</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<inverse>..</inverse>
+		</composition>
+		<composition>
+			<type>element</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<inverse>..</inverse>
+		</composition>
+	</absolute>
+
+	<entity_type>
+		<name>conformation</name>
+		<presentation>
+			<x>1.0</x>
+			<y>1.5</y>
+			<w>2.6</w>
+			<h>1.1</h>
+		</presentation>
+		<dependency>
+			<name>..</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>id</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</value>
+		<reference>
+			<name>of</name>
+			<type>molStruct</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<diagram>
+				<path>
+					<align><ToSrc/></align>
+				</path>
+			</diagram>
+		</reference>
+		<composition>
+			<type>position</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<identifying/>
+			<inverse>..</inverse>
+			<pullback>
+				<type>column</type>
+				<along>
+					<component>
+						<rel>of</rel>
+					</component>
+				</along>
+				<projection_rel>atom</projection_rel>
+			</pullback>
+		</composition>
+	</entity_type>
+	<entity_type>
+		<name>position</name>
+		<presentation>
+			<below>conformation</below>
+			<deltaw>0.2</deltaw>
+			<y>0.5</y>
+		<!--	<h>2.0</h> -->
+		</presentation>
+		<dependency>
+			<name>..</name>
+			<type>conformation</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>x</name>
+			<type>
+				<float/>
+			</type>
+		</value>
+		<value>
+			<name>y</name>
+			<type>
+				<float/>
+			</type>
+		</value>
+		<value>
+			<name>z</name>
+			<type>
+				<float/>
+			</type>
+		</value>
+		<reference>
+			<name>atom</name>
+			<type>atom</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<identifying/>
+			<diagram>
+				<path>
+					<align><ToSrc/></align>
+					<scope><label><xAdjustment>-0.4</xAdjustment></label></scope>
+				</path>
+			</diagram>
+			<diagonal>
+				<join>
+					<component>
+						<rel>..</rel>
+					</component>
+				</join>
+			</diagonal>
+			<riser>
+				<join>
+					<component>
+						<rel>..</rel>
+					</component>
+				</join>
+			</riser>
+		</reference>
+	</entity_type>
+
+
+	<entity_type>
+		<name>molStruct</name>
+		<presentation>
+			<rightOf>conformation</rightOf>
+			<x>3.5</x>
+			<w>2.6</w>
+			<h>1.1</h>
+		</presentation>
+		<dependency>
+			<name>..</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>name</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</value>
+		<composition>
+			<type>atom</type>
+			<cardinality>
+				<OneOrMore/>
+			</cardinality>
+			<identifying/>
+			<inverse>..</inverse>
+		</composition>
+	</entity_type>
+	<entity_type>
+		<name>atom</name>
+		<presentation>
+			<below>molStruct</below>
+			<rightOf>position</rightOf>
+			<deltaw>0.2</deltaw>
+			<!--<h>2.0</h>-->
+			<deltah>0.6</deltah>
+		</presentation>
+		<dependency>
+			<name>..</name>
+			<type>molStruct</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>number</name>
+			<type>
+				<integer/>
+			</type>
+			<identifying/>
+		</value>
+		<composition>
+			<type>bond formed</type>
+			<cardinality>
+				<ZeroOneOrMore/>
+			</cardinality>
+			<identifying/>
+			<inverse>of</inverse>
+		</composition>
+		<reference>
+			<name>element</name>
+			<type>element</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<diagram>
+				<path>
+					<align><ToSrc/></align>
+				</path>
+			</diagram>
+		</reference>
+
+	</entity_type>
+
+	<entity_type>
+		<name>bond formed</name>
+		<dependency>
+			<name>of</name>
+			<type>atom</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>bondType</name>
+			<type>
+				<string/>
+			</type>
+		</value>
+		<reference>
+			<name>with</name>
+			<type>bond formed</type>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<identifying/>
+			<inverse>with</inverse>
+			<diagram>
+				<path>
+					<srcarmlen>1.0</srcarmlen>
+					<destarmlen>1.0</destarmlen>
+					<scope><label><xAdjustment>-0.1</xAdjustment><yAdjustment>-0.1</yAdjustment></label></scope>
+				</path>
+			</diagram>
+			<diagonal>
+				<join>
+					<component>
+						<rel>of</rel>
+					</component>
+					<component>
+						<rel>..</rel>
+					</component>
+				</join>
+			</diagonal>
+			<riser>
+				<join>
+					<component>
+						<rel>of</rel>
+					</component>
+					<component>
+						<rel>..</rel>
+					</component>
+				</join>
+			</riser>
+		</reference>      
+		<presentation>
+			<below>atom</below>
+			<deltaw>0.3</deltaw>
+		</presentation>
+	</entity_type>
+
+
+	<entity_type>
+		<name>element</name>
+		<presentation>
+			<rightOf>atom</rightOf>
+			<x>3.0</x>
+		</presentation>
+		<dependency>
+			<name>..</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+		</dependency>
+		<value>
+			<name>symbol</name>
+			<type>
+				<string/>
+			</type>
+			<identifying/>
+		</value>
+		<value>
+			<name>name</name>
+			<type>
+				<string/>
+			</type>
+		</value>
+		<value>
+			<name>atomic number</name>
+			<type>
+				<integer/>
+			</type>
+		</value>
+	</entity_type>
+
+
+</entity_model>
