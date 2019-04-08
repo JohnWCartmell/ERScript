@@ -38,7 +38,7 @@
    </value>
    <composition>
        <type>valency</type>
-	   <cardinality>OneOrMore</cardinality>
+	   <cardinality><OneOrMore/></cardinality>
 	   <identifying/>
    </composition>
 </entity_type>

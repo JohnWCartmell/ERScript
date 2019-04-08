@@ -26,12 +26,11 @@
 		</value>
 		<composition>
 			<type>allotrope</type>
-			<cardinality>OneOrMore</cardinality>
-			<identifying/>
+			<cardinality><OneOrMore/></cardinality>
 		</composition>
 		<composition>
 			<type>valency</type>
-			<cardinality>OneOrMore</cardinality>
+			<cardinality><OneOrMore/></cardinality>
 			<identifying/>
 		</composition>
 	</entity_type>
