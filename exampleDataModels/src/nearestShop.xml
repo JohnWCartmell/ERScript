@@ -149,7 +149,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<OneOrMore/>
 				</cardinality>
 				<type>nearestShop</type>
-				<identifying/>
+				<!-- <identifying/>  This is part of a mono source but confusing if marked as idemntifying. -->
 				<inverse>is</inverse>
 				<diagram>
 					<path>
