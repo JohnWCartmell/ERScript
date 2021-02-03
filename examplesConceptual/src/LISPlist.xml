@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ****************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
+****************************************************************
+
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+	<presentation>
+		<diagram>
+			<deltah>0.5</deltah>
+			<deltaw>0.8</deltaw>
+		</diagram>
+	</presentation>
+	<entity_type>
+		<name>1</name>
+		<presentation>
+			<x>0.1</x>
+			<y>1.0</y>
+		</presentation>
+		<reference>
+			<type>Empty</type>
+			<name>nil</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse>t</inverse>
+			<diagram>
+				<path>
+					<label><position><Upside/></position></label>
+					<align><ToSrc/></align>
+				</path>
+			</diagram>
+		</reference>
+	</entity_type>
+	<entity_type>
+		<name>A</name>
+		<presentation>
+			<below>1</below>
+			<y>0.95</y>
+		</presentation>
+			<reference>
+				<name>p1inverse</name>
+				<cardinality>
+					<OneOrMore/>
+				</cardinality>
+				<type>AxList</type>
+				<inverse>p1</inverse>
+			</reference>
+	</entity_type>
+	<entity_type>
+		<name>AxList</name>
+		<presentation>
+			<rightOf>A</rightOf>
+			<x>1.5</x>
+			<y>-0.7</y>
+			<h>1.8</h>
+			<deltaw>0.5</deltaw>
+		</presentation>
+		<reference>
+			<type>Cons</type>
+			<name>cons</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<inverse>head,tail</inverse>
+			<diagram>
+				<path>
+					<label><position><Upside/></position></label>
+					<align><ToSrc/></align>
+				</path>
+			</diagram>
+		</reference>
+		<reference>
+			<type>List</type>
+			<name>p2</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+				<identifying/>
+			<inverse>p2inverse</inverse>
+			<diagram>
+				<path>
+					<label><position><Upside/></position></label>
+					<inverse><label><name><None/></name></label></inverse>
+					<srcattach>0.55</srcattach>
+					<align><ToSrc/></align>
+				</path>
+			</diagram>
+		</reference>
+		<reference>
+			<type>A</type>
+			<name>p1</name>
+			<cardinality>
+				<ExactlyOne/>
+			</cardinality>
+			<identifying/>
+			<inverse>p1inverse</inverse>
+			<diagram>
+				<path>
+					<label><position><Upside/></position></label>
+					<inverse><label><name><None/></name></label></inverse>
+					<align><ToDest/></align>
+				</path>
+			</diagram>
+		</reference>
+	</entity_type>
+	<entity_type>
+		<name>List</name>
+		<presentation>
+			<rightOf>1</rightOf>
+			<x>4.5</x>
+			<y>-0.5</y>
+			<deltaw>1.0</deltaw>
+			<deltah>0.15</deltah>
+		</presentation>
+		<entity_type>
+			<name>Empty</name>
+			<presentation>
+				<x>1.2</x>
+				<y>0.15</y>
+			</presentation>
+			<reference>
+				<name>t</name>
+				<cardinality>
+					<ExactlyOne/>
+				</cardinality>
+				<type>1</type>
+				<inverse>nil</inverse>
+			</reference>
+		</entity_type>
+		<entity_type>
+			<name>Cons</name>
+			<presentation>
+				<below>Empty</below>
+				<h>0.9</h>
+			</presentation>
+			<reference>
+				<name>head,tail</name>
+				<cardinality><ExactlyOne/></cardinality>
+				<type>AxList</type>
+				<inverse>cons</inverse>
+			</reference>
+			<!--
+			<reference>
+				<type>List</type>
+				<name>tail</name>
+				<cardinality><ExactlyOne/></cardinality>
+				<diagram>
+					<path>
+						<destattach>0.3</destattach>
+						<hstep>
+							<absdim>
+								<src>0.5</src>
+							</absdim>
+						</hstep>
+					</path>
+				</diagram>
+			</reference>
+			<reference>
+				<type>A</type>
+				<name>head</name>
+				<cardinality><ExactlyOne/></cardinality>
+				<diagram>
+					<path>
+						<hstep>
+							<absdim>
+								<src>0.5</src>
+							</absdim>
+						</hstep>
+					</path>
+				</diagram>
+			</reference>
+			-->
+		</entity_type>
+			<reference>
+				<name>p2inverse</name>
+				<cardinality>
+					<OneOrMore/>
+				</cardinality>
+				<type>AxList</type>
+				<inverse>p2</inverse>
+			</reference>
+	</entity_type>
+
+</entity_model>
