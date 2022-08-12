@@ -360,7 +360,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <h3>
           <xsl:value-of select="name"/>
         </h3>
-        <xsl:apply-templates select="description/*"/>
+        <xsl:apply-templates select="description/*"/> <!-- THIS LINE DOESNT DO ANYTHING 12 August 2022-->
+                                                      <!-- POP UP INFO NOT WORKING AT ALL THIS BUG ACTUALLY HIDDEMN AT MOMENT 12 August 2022 -->
       </div>
     </div>
     <xsl:for-each select="entity_type|group">
