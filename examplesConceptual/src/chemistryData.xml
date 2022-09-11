@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  *********************************************************************
+ERmodel_v1.2/instances/catalogue/src/conceptualModels/chemistryData.xml 
+**********************************************************************
+
+
+-->
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.6</et_width>
+      <et_y_separation>0.6</et_y_separation>
+   </defaults>
+   <entity_type>
+      <name>university</name>
+      <presentation>
+         <x>2.0</x>
+         <y>0</y>
+      </presentation>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>building</type>
+      </composition>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>person</type>
+      </composition>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>procedure</type>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>building</name>
+      <presentation>
+         <below>university</below>
+         <x>-2.0</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>person</name>
+      <presentation>
+         <rightOf>building</rightOf>
+         <x>0.4</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>procedure</name>
+      <presentation>
+         <rightOf>person</rightOf>
+         <x>0.4</x>
+      </presentation>
+   </entity_type>
+</entity_model>
