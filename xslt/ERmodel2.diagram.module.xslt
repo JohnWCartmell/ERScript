@@ -68,6 +68,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 25-Sept-2017 J.Cartmell  Do not display scope on diagram when there is a 'noscopes' parameter.
 
 11-Oct-2017 J.Cartmell   Do not generate pop up descriptive text in svg.
+
+12-Sep-2022 J.cartmell Add a 'slideware' parameter. This is only relevant to tex generation 
+                        and directs that hierarchical and relational attributes be
+                        surrounded by onslide directives. Also attributes not annotated in this case.
 -->
 
 <xsl:transform version="2.0" 
@@ -81,6 +85,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:param name="filestem"/>
 <xsl:param name="debug"/>
 <xsl:param name="noscopes"/>
+<xsl:param name="slideware"/>
 
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
@@ -587,6 +592,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
        -->
       <xsl:with-param name="annotation" select="$annotation"/>
       <xsl:with-param name="deprecated" select="if (deprecated) then 'yes' else 'no'"/>
+      <xsl:with-param name="slideware"  select="$slideware" />
     </xsl:call-template>
   </xsl:for-each>
   <xsl:for-each select="entity_type|group">

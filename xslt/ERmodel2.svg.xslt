@@ -686,6 +686,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="iseven"/>
     <xsl:param name="annotation"/>
     <xsl:param name="deprecated"/>
+    <xsl:param name="slideware"/> <!-- 12 Sept 2022 ... no support implemented in svg as yet -->
     <svg:text>
       <xsl:attribute name="class">
         <!--

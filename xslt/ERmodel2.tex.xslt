@@ -22,6 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 15/03/2019 Modify ERText to honour 'class' parameter by planting calls to macros
                                  er<class> in place of vanila ertext.
+12-Sep-2022 J.cartmell Implement a 'slideware' parameter. This is only relevant to tex generation 
+                        and directs that hierarchical and relational attributes be
+                        surrounded by onslide directives. Also attributes not annotated in this case.
 -->
 
 <xsl:transform version="2.0" 
@@ -182,10 +185,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<xsl:param name="ycm"/>
 		<xsl:param name="annotation"/>
 		<xsl:param name="deprecated"/>
+		<xsl:param name="slideware"/>
+		<xsl:message> in attribute with slideware'<xsl:value-of select="$slideware"/>'</xsl:message>
 		<xsl:call-template name="newline"/>
 		<xsl:choose>
+			<xsl:when test="implementationOf and $slideware">
+		  <xsl:variable name="level">
+           <xsl:value-of select="if (key('ReferenceBySrcTypeAndName',concat(../name,':',implementationOf/rel)))
+           	                     then 2 
+           	                     else 3"/>
+      </xsl:variable>
+				<xsl:text disable-output-escaping="yes">\onslide&lt;</xsl:text>
+        <xsl:value-of select="$level"/>
+				<xsl:text disable-output-escaping="yes">-&gt;{\erdattr{</xsl:text>
+			</xsl:when>
 			<xsl:when test="implementationOf">
-				<xsl:text>\erdattr{</xsl:text>
+				<xsl:text>{\erdattr{</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>\erattr{</xsl:text>
@@ -213,9 +228,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="name" />
-		<xsl:value-of select="$annotation" />
+		<xsl:value-of select="replace(name, '_', '\\textunderscore ')" /> <!-- 12/09/2022-->
+		<xsl:value-of select="if ($slideware) then '' else $annotation" />
 		<xsl:text>}</xsl:text>
+		<xsl:if test="implementationOf">
+			<xsl:text>}</xsl:text>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="wrap_entity_type">
