@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ****************************************************************
-ERmodel_v1.2/instances/catalogue/src/dataModels/cricketMatch.xml 
-****************************************************************
-
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
+  **********************************************************************************
+ERmodel_v1.2/instances/catalogue/src/dataModels/cricketMatch.physicalAbbreviated.xml 
+************************************************************************************
 -->
+
+<!-- Until such a time as I support the single sourcing of this and similar examples I have three
+separate source files that differ only in details of presentation
+               cricketMatch.logical.xml   ... this is the real thing. It is annotated with scopes etc and with presentation that suits logical rather than physical
+               cricketmatch.physical.xml  ... a copy of the above whose presentation is then changed to suit the relational model
+               cricketMatch.physicalAbbreviated ... a stripped down version of the above physical model in that depedencies removed.
+-->   
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
@@ -287,11 +276,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>player</name>
       <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <name>name</name>
+         <name>number</name>
          <type>
             <string/>
          </type>
          <identifying/>
+      </attribute>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
       </attribute>
       <presentation>
          <rightOf>over</rightOf>
