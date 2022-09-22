@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 12-Sep-2022 J.cartmell Implement a 'slideware' parameter. This is only relevant to tex generation 
                         and directs that hierarchical and relational attributes be
                         surrounded by onslide directives. Also attributes not annotated in this case.
+22-Sep-2022 J.Cartmell Escape # characters in names since special charcaters in latex.
 -->
 
 <xsl:transform version="2.0" 
@@ -228,7 +229,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:text>}{</xsl:text>
-		<xsl:value-of select="replace(name, '_', '\\textunderscore ')" /> <!-- 12/09/2022-->
+		<xsl:value-of select="replace(replace(name, '_', '\\textunderscore '),'#','\\#')" /> <!-- 12/09/2022-->
 		<xsl:value-of select="if ($slideware) then '' else $annotation" />
 		<xsl:text>}</xsl:text>
 		<xsl:if test="implementationOf">
