@@ -3,29 +3,16 @@
 ERmodel_v1.2/src/ERmodel2.tex.xslt 
 ****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
 
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 15/03/2019 Modify ERText to honour 'class' parameter by planting calls to macros
                                  er<class> in place of vanila ertext.
 12-Sep-2022 J.cartmell Implement a 'slideware' parameter. This is only relevant to tex generation 
                         and directs that hierarchical and relational attributes be
                         surrounded by onslide directives. Also attributes not annotated in this case.
-22-Sep-2022 J.Cartmell Escape # characters in names since special charcaters in latex.
+22-Sep-2022 J.Cartmell Escape # characters in names since special characters in latex.
+                        Modify tex generated for hierarchical and relational attributes so
+                        as to make possible the successive revealing of attributes in a Beamer presentation.
 -->
 
 <xsl:transform version="2.0" 
@@ -186,22 +173,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<xsl:param name="ycm"/>
 		<xsl:param name="annotation"/>
 		<xsl:param name="deprecated"/>
-		<xsl:param name="slideware"/>
-		<xsl:message> in attribute with slideware'<xsl:value-of select="$slideware"/>'</xsl:message>
+		<!--<xsl:param name="slideware"/>-->
 		<xsl:call-template name="newline"/>
-		<xsl:choose>
-			<xsl:when test="implementationOf and $slideware">
-		  <xsl:variable name="level">
-           <xsl:value-of select="if (key('ReferenceBySrcTypeAndName',concat(../name,':',implementationOf/rel)))
-           	                     then 2 
-           	                     else 3"/>
-      </xsl:variable>
-				<xsl:text disable-output-escaping="yes">\onslide&lt;</xsl:text>
-        <xsl:value-of select="$level"/>
-				<xsl:text disable-output-escaping="yes">-&gt;{\erdattr{</xsl:text>
+		<xsl:choose>   <!-- 22/09/2022 modified to distinguish attributes in realtional and hierarchical models -->
+			<xsl:when test="implementationOf and key('ReferenceBySrcTypeAndName',concat(../name,':',implementationOf/rel))">
+				<xsl:text>\erHierarchicalAttribute{</xsl:text>
 			</xsl:when>
 			<xsl:when test="implementationOf">
-				<xsl:text>{\erdattr{</xsl:text>
+				<xsl:text>\erRelationalAttribute{</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>\erattr{</xsl:text>
@@ -230,11 +209,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</xsl:choose>
 		<xsl:text>}{</xsl:text>
 		<xsl:value-of select="replace(replace(name, '_', '\\textunderscore '),'#','\\#')" /> <!-- 12/09/2022-->
-		<xsl:value-of select="if ($slideware) then '' else $annotation" />
+	                                                                                       <!-- 22/09/2022-->
+		<xsl:text>}{</xsl:text>                                                              <!-- 22/09/2022-->
+		<xsl:value-of select="$annotation" />
 		<xsl:text>}</xsl:text>
-		<xsl:if test="implementationOf">
-			<xsl:text>}</xsl:text>
-		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="wrap_entity_type">

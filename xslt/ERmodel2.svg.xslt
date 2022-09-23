@@ -38,6 +38,7 @@ CHANGE HISTORY
 CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 11-Oct-2017 J.Cartmell Remove the +8.0cm when generating width of diagram.
 15-Mar-2019 J.Cartmell Modify class def of scope - font size same as relationship name and italicise.
+23-Sep-2022 J.Cartmell Add a class for relid - same font as relname.
 -->
 <xsl:transform version="2.0" 
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
@@ -254,15 +255,20 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           font-size: .25px ;
           font-style: italic
         }
+        .relid {
+          fill: black ;
+          font-size: .25px ;
+          font-style: italic
+        }
         .reletname {
           fill: black ;
           font-size: .30px ;
           font-style: italic
         }
-		 .scope {
+		    .scope {
           fill: black ;
           font-size: .25px ;  
-		  font-style: italic
+		      font-style: italic
         }
       ]]>
         </svg:style>
@@ -360,8 +366,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <h3>
           <xsl:value-of select="name"/>
         </h3>
-        <xsl:apply-templates select="description/*"/> <!-- THIS LINE DOESNT DO ANYTHING 12 August 2022-->
-                                                      <!-- POP UP INFO NOT WORKING AT ALL THIS BUG ACTUALLY HIDDEMN AT MOMENT 12 August 2022 -->
+        <xsl:apply-templates select="description/*"/>
       </div>
     </div>
     <xsl:for-each select="entity_type|group">
@@ -686,7 +691,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="iseven"/>
     <xsl:param name="annotation"/>
     <xsl:param name="deprecated"/>
-    <xsl:param name="slideware"/> <!-- 12 Sept 2022 ... no support implemented in svg as yet -->
     <svg:text>
       <xsl:attribute name="class">
         <!--
