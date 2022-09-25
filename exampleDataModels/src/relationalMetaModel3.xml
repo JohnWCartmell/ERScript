@@ -38,7 +38,7 @@
    <entity_type>
       <name>table</name>
       <presentation>
-         <x>5.2</x>
+         <x>4.4</x>
          <y>1.25</y>
          <w>5.5</w>
       </presentation>
@@ -108,6 +108,9 @@
                <integer/>
             </type>
          </attribute> -->
+      <presentation>
+         <deltaw>0.1</deltaw>
+      </presentation>
          <dependency>
             <name>of</name>
             <type>table</type>
@@ -170,7 +173,7 @@
          <presentation>
             <rightOf>primary key entry</rightOf>
             <x>2.3</x>
-            <deltaw>0.1</deltaw>
+            <deltaw>0.2</deltaw>
          </presentation>
          <dependency>
             <name>of</name>
@@ -252,10 +255,10 @@
                   <srcarmlen>1.1</srcarmlen>
                   <destsign>-1</destsign>
                   <destattach>0.666</destattach>
-                  <destarmlen>5.0</destarmlen>
+                  <destarmlen>4.2</destarmlen>
                   <vstep>
                      <absdim>
-                        <src>5.4</src>
+                        <src>5.2</src>
                      </absdim>
                   </vstep>
                   <label>
@@ -283,7 +286,7 @@
       <presentation>
          <below>foreign key</below>
          <y>0.95 </y>
-         <deltaw>0.3</deltaw>
+         <deltaw>0.4</deltaw>
          <name>
             <Split/>
          </name>
