@@ -176,8 +176,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       </xsl:for-each>
 </xsl:template>
 
-            
-
 <xsl:template match="*" mode="first_physical_pass">
   <xsl:copy>
      <xsl:apply-templates mode="first_physical_pass"/>
@@ -360,20 +358,52 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
+         <xsl:variable name="entity_model" 
+                       as="element()" select="/entity_model"/> 
          <xsl:variable name="implementing_attributes" 
                        as="element(value)*" >
            <xsl:for-each select="key('EntityTypes',type)">
-             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
+             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">  
+                                 <!-- BUG fixed: 25/09/2022 Bug noticed in relationalMetaModel3 data model.
+                                      In the case that this single-valued relationship has
+                                      a single valued identifying inverse then these 
+                                      implmenting attributes wrongly include  identifying
+                                      attributes of the destination type which are already reinstantiations
+                                      of identifying attributes of source entity type of this relationship 
+                                      We are going to have to filter these 'implementing attributes'.
+                                      Filter has been added below.
+                                 -->
                <xsl:with-param name="navigation" select="$relationship/riser/*"/>
                <xsl:with-param name="reentry" select="false()"/>
              </xsl:call-template>
            </xsl:for-each>
          </xsl:variable>
          <xsl:for-each select="$implementing_attributes"> 
-            <xsl:call-template name="reinstantiate_attribute">
-               <xsl:with-param name="relationship" select="$relationship"/>
-            </xsl:call-template>
+            <!-- This is the obvious place to filter -->
+            <!-- This trace was used during development 
+            <xsl:message> About to reinstantiate attribute<xsl:value-of select="name"/> </xsl:message>
+            <xsl:message> which is part of implementation of relationship <xsl:value-of select="implementationOf/rel"/>  </xsl:message>
+            <xsl:message> whilst implementing  <xsl:value-of select="$relationship/name"/>  </xsl:message>
+            <xsl:message> whose inverse is  <xsl:value-of select="$relationship/inverse"/>  </xsl:message>
+            <xsl:for-each select="key('RelationshipBySrcTypeAndName',era:packArray(($relationship/type,$relationship/inverse)),$entity_model)">
+                  <xsl:message>           which is  <xsl:value-of select="cardinality"/>  </xsl:message>
+                  <xsl:if test="identifying">
+                     <xsl:message>           and is identifying</xsl:message>
+                  </xsl:if> 
+            </xsl:for-each>
+            -->
+            <xsl:if test="not($relationship/inverse) or not(key('RelationshipBySrcTypeAndName',
+                                         era:packArray(($relationship/type,$relationship/inverse)),$entity_model)
+                                    /((cardinality='ExactlyOne' or cardinality='ZeroOrOne') and identifying))
+                                 "> <!-- this is to filter out duplication of an identifying attribute as a foreign key-->
+                                    <!-- filter added 25/09/2022. Exhibited on entity model relationalMetaModel3 -->
+               <xsl:message> Go ahead and reinstantiate </xsl:message>
+               <xsl:call-template name="reinstantiate_attribute">
+                  <xsl:with-param name="relationship" select="$relationship"/>
+               </xsl:call-template>
+            </xsl:if>
          </xsl:for-each>
+
          <!--<xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message>-->
       </xsl:if>
     </xsl:for-each>
