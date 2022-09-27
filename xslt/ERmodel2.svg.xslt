@@ -1233,7 +1233,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <svg:text>
       <xsl:attribute name="class" select="$class"/>
       <xsl:choose>
-        <xsl:when test="$class='relname' or $class='scope' or $class='reletname'">
+        <xsl:when test="$class='relname' or $class='scope' 
+                          or $class='relid' or $class='reletname'">
           <xsl:attribute name="x" select="$x"/>
           <xsl:attribute name="y" select="$y"/>
         </xsl:when>
