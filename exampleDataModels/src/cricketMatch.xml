@@ -100,7 +100,7 @@ separate source files that differ only in details of presentation
                <OneOrMore/>
             </cardinality>
             <identifying/>
-            <inverse>p1</inverse>
+            <inverse>..</inverse>
          </composition>
          <reference>
             <name>battingSide</name>
@@ -200,7 +200,7 @@ separate source files that differ only in details of presentation
                <OneOrMore/>
             </cardinality>
             <identifying/>
-            <inverse>p2</inverse>
+            <inverse>..</inverse>
          </composition>
       </entity_type>
    </group>
@@ -220,7 +220,7 @@ separate source files that differ only in details of presentation
          <identifying/>
       </attribute>
       <dependency>
-         <!--<name>p1</name>-->
+         <!--<name>..</name>-->
          <type>innings</type>
          <cardinality>
             <ExactlyOne/>
@@ -245,14 +245,14 @@ separate source files that differ only in details of presentation
          <diagonal>
             <join>
                <component>
-                  <rel>p1</rel>
+                  <rel>..</rel>
                </component>
             </join>
          </diagonal>
          <riser>
             <join>
                <component>
-                  <rel>p2</rel>
+                  <rel>..</rel>
                </component>
             </join>
          </riser>
@@ -298,7 +298,7 @@ separate source files that differ only in details of presentation
          <deltaw>0.3</deltaw>
       </presentation>
       <dependency>
-         <!--<name>p2</name>-->
+         <!--<name>..</name>-->
          <type>side</type>
          <cardinality>
             <ExactlyOne/>
@@ -321,7 +321,7 @@ separate source files that differ only in details of presentation
          <identifying/>
       </attribute>
       <dependency>
-         <!--<name>p1</name>-->
+         <!--<name>..</name>-->
          <type>over</type>
          <cardinality>
             <ExactlyOne/>
@@ -340,14 +340,14 @@ separate source files that differ only in details of presentation
                   <rel>..</rel>
                </component>
                <component>
-                  <rel>p1</rel>
+                  <rel>..</rel>
                </component>
             </join>
          </diagonal>
          <riser>
             <join>
                <component>
-                  <rel>p2</rel>
+                  <rel>..</rel>
                </component>
             </join>
          </riser>
