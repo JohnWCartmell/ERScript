@@ -247,6 +247,9 @@ separate source files that differ only in details of presentation
                <component>
                   <rel>..</rel>
                </component>
+               <component>
+                  <rel>fieldingSide</rel>
+               </component>
             </join>
          </diagonal>
          <riser>
@@ -268,7 +271,7 @@ separate source files that differ only in details of presentation
                </label>
                <scope>
                   <label>
-                     <xAdjustment>-0.5</xAdjustment>
+                     <xAdjustment>-1.2</xAdjustment>
                   </label>
                </scope>
             </path>
@@ -342,6 +345,9 @@ separate source files that differ only in details of presentation
                <component>
                   <rel>..</rel>
                </component>
+               <component>
+                  <rel>battingSide</rel>
+               </component>
             </join>
          </diagonal>
          <riser>
@@ -363,7 +369,8 @@ separate source files that differ only in details of presentation
                </label>
                <scope>
                   <label>
-                     <xAdjustment>1.1</xAdjustment>
+                     <xAdjustment>2.7</xAdjustment>
+                     <yAdjustment>-0.6</yAdjustment>
                      <position>
                         <Downside/>
                      </position>  

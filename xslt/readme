@@ -1,1 +1,51 @@
 This folder contains the meta data transforms and code generators applicable to Series1 entity models expressed in xml.
+
+29/09/2022 Shortcoming no script to run ERmodelERmodel.referental_integrity.xslt
+Need checkERmodelReferentialIntegrity.bat
+set filename=%1
+set filenamebase=%filename:~0,-4%
+
+call %~dp0\set_path_variables
+
+java -jar %SAXON_PATH%\saxon9he.jar ^
+               -s:..\temp\%filenamebase%.xml ^
+               -xsl:%ERHOME%\xslt\ERmodelERmodel.referential_integrity.xslt ^
+               -o:..\docs\%filenamebase%.referential_integrity_check.xml 
+================================
+
+29/09/2022 Shortcoming in referential integrity check in that the referential integrity and proper typing
+of diagonals and risers in scopes of relationships is not checked.
+
+29/09/2022 Possible bug in the generation of ref integrity checking.
+
+In ERmodelERmodel.referential_integrity.xslt two problems I think. First I think in building error text.
+Changed it to be like this:
+
+                    select="concat($in_filename_wo_extension,'.errors.xml')"/>
+      <xsl:variable name="state">
+         <xsl:apply-templates/>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="boolean($state/descendant-or-self::error)">
+            <xsl:result-document href="{$error_filename}">
+               <xsl:for-each select="$state/*">
+                  <xsl:copy>
+                     <xsl:apply-templates mode="straight_copy"/>
+                  </xsl:copy>
+               </xsl:for-each>
+            </xsl:result-document>
+            <xsl:variable name="errortext"
+                          select="string-join($state/descendant-or-self::error,
+                                              '-----------------------')"/>#
+
+Second in that the default xpath namespace in the gnerated transform is 
+"http://www.entitymodelling.org/ERmodel"
+and error is looked for with 
+$state/descendant-or-self::error)
+but error is generated with empty namespace because there is no default namespace.
+Change top of generated file to be
+<xsl:transform version="2.0" 
+        xmlns="http://www.entitymodelling.org/ERmodel"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+
