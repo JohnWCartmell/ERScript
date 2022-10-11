@@ -13,6 +13,9 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 22-Sep-2022 J.Cartmell Escape # characters in names since special characters in latex.
                         Modify tex generated for hierarchical and relational attributes so
                         as to make possible the successive revealing of attributes in a Beamer presentation.
+11-Oct-2022 J. Cartmell Add all attributes into the scheme of 22-Sept-2022 so that display of attributes
+                        can be 'switched off' in a Beamer presentation.
+
 -->
 
 <xsl:transform version="2.0" 
@@ -183,7 +186,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 				<xsl:text>\erRelationalAttribute{</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>\erattr{</xsl:text>
+				<xsl:text>\erCoreAttribute{</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="round($xcm*1000) div 1000"/>
