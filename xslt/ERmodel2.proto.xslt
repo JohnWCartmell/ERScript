@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <xsl:call-template name="sum_type"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:for-each select="ancestor-or-self::*/(value|choice|composition)">
+        <xsl:for-each select="ancestor-or-self::*/(attribute|composition)">
           <xsl:choose>
             <xsl:when test="self::composition">
               <xsl:call-template name="message_relationship">
@@ -187,8 +187,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:param name="field_number"/>
     <xsl:call-template name="newlineindent2"/>
     <xsl:choose>
-      <xsl:when test="(cardinality = 'OneOrMore') or (cardinality= 'ZeroOneOrMore')"><xsl:text>repeated </xsl:text></xsl:when>
-      <xsl:when test="cardinality = 'ZeroOrOne'">optional </xsl:when>
+      <xsl:when test=" cardinality/OneOrMore  or  cardinality/ZeroOneOrMore "><xsl:text>repeated </xsl:text></xsl:when>
+      <xsl:when test="cardinality/ZeroOrOne">optional </xsl:when>
       <xsl:otherwise>required </xsl:otherwise>
     </xsl:choose>
     <xsl:value-of select="type"/>

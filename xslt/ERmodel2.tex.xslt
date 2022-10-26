@@ -98,35 +98,35 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:param name="ycm"/>
 		<xsl:param name="wcm"/>
 		<xsl:param name="hcm"/>
-		<xsl:param name="shape"/>
+		<xsl:param name="shape" as="node()?"/>
 		<xsl:call-template name="newline"/>
 		<!--<xsl:message> entity_type_box isgroup '<xsl:value-of select="$isgroup"/></xsl:message>-->
 		<xsl:choose>
 			<xsl:when test="$isgroup">
 				<xsl:value-of select="'\ergrp{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='Top'">
+			<xsl:when test="$shape/Top">
 				<xsl:value-of select="'\erettop{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='TopLeft'">
+			<xsl:when test="$shape/TopLeft">
 				<xsl:value-of select="'\erettl{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='MiddleLeft'">
+			<xsl:when test="$shape/MiddleLeft">
 				<xsl:value-of select="'\eretml{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='BottomLeft'">
+			<xsl:when test="$shape/BottomLeft">
 				<xsl:value-of select="'\eretbl{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='TopRight'">
+			<xsl:when test="$shape/TopRight">
 				<xsl:value-of select="'\erettr{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='MiddleRight'">
+			<xsl:when test="$shape/MiddleRight">
 				<xsl:value-of select="'\eretmr{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='BottomRight'">
+			<xsl:when test="$shape/BottomRight">
 				<xsl:value-of select="'\eretbr{'"/>
 			</xsl:when>
-			<xsl:when test="$shape='Bottom'">
+			<xsl:when test="$shape/Bottom">
 				<xsl:value-of select="'\eretbtm{'"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -171,7 +171,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 </xsl:template>
 -->
 
-	<xsl:template name="attribute" match="value|choice">
+	<xsl:template name="attribute" match="attribute">
 		<xsl:param name="xcm"/>
 		<xsl:param name="ycm"/>
 		<xsl:param name="annotation"/>
@@ -179,7 +179,17 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<!--<xsl:param name="slideware"/>-->
 		<xsl:call-template name="newline"/>
 		<xsl:choose>   <!-- 22/09/2022 modified to distinguish attributes in realtional and hierarchical models -->
+			<xsl:when test="count(implementationOf) = 2">  <!-- added 26/10/2022 so that a hand coded example
+				                                                      shlaerMellorDeptStudentProfessor3 
+				                                                       can be made to work.
+				                                                   (Even though this example doesn't meet schema in that
+				                                                   in metamodel implementationOf is specified as single valued)
+				                                                   This example is better at documenting ALL implmented relationships
+				                                              -->
+				<xsl:text>\erRelationalAttribute{</xsl:text>
+			</xsl:when>
 			<xsl:when test="implementationOf and key('ReferenceBySrcTypeAndName',concat(../name,':',implementationOf/rel))">
+
 				<xsl:text>\erHierarchicalAttribute{</xsl:text>
 			</xsl:when>
 			<xsl:when test="implementationOf">

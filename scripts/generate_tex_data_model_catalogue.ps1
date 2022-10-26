@@ -1,6 +1,6 @@
 
 
-$texhead = Get-Content ..\ERmodel_v1.4\latex\texhead.txt
+$texhead = Get-Content ..\ERmodel_v1.5\latex\texhead.txt
 
 Set-Content latex\catalogue.tex $texhead
 
@@ -26,6 +26,6 @@ Get-ChildItem "src"  -Filter *.xml | `
     Add-Content latex\catalogue.tex "\newline`n" -NoNewLine
 }
   
-$textail = Get-Content ..\ERmodel_v1.4\latex\textail.txt
+$textail = Get-Content ..\ERmodel_v1.5\latex\textail.txt
 
 Add-Content latex\catalogue.tex $textail

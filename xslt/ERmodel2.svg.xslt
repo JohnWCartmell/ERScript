@@ -513,7 +513,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="ycm"/>
     <xsl:param name="wcm"/>
     <xsl:param name="hcm"/>
-    <xsl:param name="shape"/>
+    <xsl:param name="shape" as="node()?"/>
     
     <!--<xsl:message>isboundary is '<xsl:value-of select="$isboundary"/>'</xsl:message>-->
     <xsl:variable name="cornerRadiuscm">
@@ -528,28 +528,28 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:variable>
     <xsl:variable name="xAdjustment">
       <xsl:choose>
-        <xsl:when test="$shape='Top'">
+        <xsl:when test="$shape/Top">
           <xsl:value-of select="0"/>
         </xsl:when>
-        <xsl:when test="$shape='TopLeft'">
+        <xsl:when test="$shape/TopLeft">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='MiddleLeft'">
+        <xsl:when test="$shape/MiddleLeft">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='BottomLeft'">
+        <xsl:when test="$shape/BottomLeft">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='TopRight'">
+        <xsl:when test="$shape/TopRight">
           <xsl:value-of select="0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='MiddleRight'">
+        <xsl:when test="$shape/MiddleRight">
           <xsl:value-of select="0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='BottomRight'">
+        <xsl:when test="$shape/BottomRight">
           <xsl:value-of select="0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='Bottom'">
+        <xsl:when test="$shape/Bottom">
           <xsl:value-of select="0"/>
         </xsl:when>
         <xsl:otherwise>
@@ -559,28 +559,28 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:variable>
     <xsl:variable name="yAdjustment">
       <xsl:choose>
-        <xsl:when test="$shape='Top'">
+        <xsl:when test="$shape/Top">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='TopLeft'">
+        <xsl:when test="$shape/TopLeft">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='MiddleLeft'">
+        <xsl:when test="$shape/MiddleLeft">
           <xsl:value-of select="0"/>
         </xsl:when>
-        <xsl:when test="$shape='BottomLeft'">
+        <xsl:when test="$shape/BottomLeft">
           <xsl:value-of select="0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='TopRight'">
+        <xsl:when test="$shape/TopRight">
           <xsl:value-of select="-0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='MiddleRight'">
+        <xsl:when test="$shape/MiddleRight">
           <xsl:value-of select="0"/>
         </xsl:when>
-        <xsl:when test="$shape='BottomRight'">
+        <xsl:when test="$shape/BottomRight">
           <xsl:value-of select="0.2"/>
         </xsl:when>
-        <xsl:when test="$shape='Bottom'">
+        <xsl:when test="$shape/Bottom">
           <xsl:value-of select="0.2"/>
         </xsl:when>
         <xsl:otherwise>
@@ -685,7 +685,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   </xsl:template>
 
 
-  <xsl:template name="attribute" match="value|choice">
+  <xsl:template name="attribute" match="attribute">
     <xsl:param name="xcm"/>
     <xsl:param name="ycm"/>
     <xsl:param name="iseven"/>

@@ -120,7 +120,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  	 <xsl:value-of select="name"/>
        </td>
        <td>
-	 <xsl:value-of select="cardinality"/>
+	 <xsl:value-of select="cardinality/name()"/>
        </td>
        <td>
 	 <xsl:value-of select="type"/>
@@ -160,7 +160,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  	 <xsl:value-of select="name"/>
        </td>
        <td>
-	 <xsl:value-of select="cardinality"/>
+	 <xsl:value-of select="cardinality/name()"/>
        </td>
        <td>
 	 <xsl:value-of select="type"/>
@@ -190,12 +190,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </xsl:template>
 
 <xsl:template name="entityTypeAttributes" match="entity_type">
-   <xsl:for-each select="value|choice">
+   <xsl:for-each select="attribute">
      <tr>
        <xsl:if test="position()=1">
           <xsl:element name="td">
              <xsl:attribute name="rowspan">
-                 <xsl:value-of select="count(../(value|choice))"/>
+                 <xsl:value-of select="count(../attribute)"/>
              </xsl:attribute>
  	     <xsl:value-of select="../name"/>
           </xsl:element>

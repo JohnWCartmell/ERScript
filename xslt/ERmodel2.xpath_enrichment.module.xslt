@@ -318,12 +318,12 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
     <xsl:if test="not(xpath_local_key)">
       <xpath_local_key>
         <xsl:choose>
-          <xsl:when test="count(ancestor-or-self::entity_type/value[identifying]/name)=1">
-            <xsl:value-of select="ancestor-or-self::entity_type/value[identifying]/name"/>
+          <xsl:when test="count(ancestor-or-self::entity_type/attribute[identifying]/name)=1">
+            <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>era:packArray((</xsl:text>
-            <xsl:value-of select="string-join(ancestor-or-self::entity_type/value[identifying]/name,',')"/>
+            <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name,',')"/>
             <xsl:text>))</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
@@ -344,14 +344,14 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
               <xsl:when test="key('AllIncomingCompositionRelationships',name)[identifying/inherited]">   
                 <xsl:value-of select="concat(xpath_parent_entity,'/')"/>
                 <xsl:text>descendant-or-self::entity_type/</xsl:text>    <!-- CHANGE THIS MAKE MORE GENERIC -->
-                <xsl:if test="exists(ancestor-or-self::entity_type/value[identifying])">
+                <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
                   <xsl:text>concat(</xsl:text>
                 </xsl:if>
                 <!-- parent primary key -->
                 <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
-                <xsl:if test="exists(ancestor-or-self::entity_type/value[identifying])">
+                <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
                   <xsl:text>,':',current()/</xsl:text>
-                  <xsl:value-of select="ancestor-or-self::entity_type/value[identifying]/name"/>
+                  <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name"/>
                   <!-- what if many of these - a bug in the above I think JC 16-Nov-2016  -->
                   <!-- this bourne out by AX1X2BCD entity type C primary key              -->
                   <xsl:text>)</xsl:text>
@@ -490,7 +490,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
     <xsl:variable 
             name="is_implemented_by_fk" as="xs:boolean"
-            select="(cardinality = 'ZeroOrOne' or cardinality = 'ExactlyOne')
+            select="(cardinality/ZeroOrOne or cardinality/ExactlyOne)
                     and  (if (not(inverse)) 
                           then true()
                           else boolean(riser)

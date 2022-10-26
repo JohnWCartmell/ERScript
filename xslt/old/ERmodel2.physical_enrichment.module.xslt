@@ -1,6 +1,32 @@
+<!-- 
+****************************************************************
+ERmodel_v1.2/src/ERmodel2.physical_enrichment.module.xslt 
+****************************************************************
 
+Copyright 2016, 2107 Cyprotex Discovery Ltd.
+
+This file is part of the the ERmodel suite of models and transforms.
+
+The ERmodel suite is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ERmodel suite is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+****************************************************************
+-->
 
 <!--
+
+****************************************
+ERmodel2.physical_enrichment.module.xslt
+****************************************
 
 
 DESCRIPTION
@@ -30,7 +56,7 @@ DISCUSSION
       to be more generic by putting temporary attributes in a 'temp'
       namespace and removing all elements having this namespace in
       the final pass. The main algorithm would need deal with
-      uncertainty of namespace for 'attribute' elements in a number of   (16 August 2022 - UPGRADED to latest metamodel  value >>> attribute)
+      uncertainty of namespace for 'value' elements in a number of
       places and would need not propogate name space when foreign
       keys are created.
 
@@ -101,8 +127,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 2-Apr-2019   JC         or condition added to ensure that foreign keys are generated for
                         reflexive relationships. Tested on molecularGeometry example.
 
-16-Aug-2022 J.Cartmell UPGRADED to latest metamodel  regarding cardinality and attribute 
-
 -->
 
 <xsl:transform version="2.0" 
@@ -152,8 +176,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       </xsl:for-each>
 </xsl:template>
 
-            
-
 <xsl:template match="*" mode="first_physical_pass">
   <xsl:copy>
      <xsl:apply-templates mode="first_physical_pass"/>
@@ -164,19 +186,19 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
   <xsl:copy>
      <xsl:apply-templates mode="first_physical_pass"/>
      <xsl:variable name="has_identifiers" as="xs:boolean">
-       <xsl:value-of select="boolean((reference|attribute)/identifying)" />  <!-- 16 August 2022 - UPGRADED to latest metamodel : value|choice >>>  attribute -->
+       <xsl:value-of select="boolean((reference|value|choice)/identifying)" />  
      </xsl:variable>
      <xsl:for-each select="key('IncomingCompositionRelationships',name)">
        <xsl:if test="sequence">
-          <xsl:if test="not(attribute[name='seqNo'])">                              <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
-             <attribute>                                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+          <xsl:if test="not(value[name='seqNo'])">
+             <value>
                 <name>seqNo</name>
-                <type><integer/></type>                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : <type>integer</type> >>> <type><integer/></type> -->
+                <type>integer</type>
                 <for_sequence/>
                 <xsl:if test="identifying and not($has_identifiers)">
                      <identifying/>
                 </xsl:if>
-             </attribute>                                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+             </value>
           </xsl:if>
        </xsl:if>
      </xsl:for-each>
@@ -312,16 +334,15 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        </xsl:for-each>
     </xsl:if>
     <!-- copy identifying attributes --> 
-    <xsl:apply-templates select="attribute[identifying]"/>                                           <!--16 August 2022 - UPGRADED to latest metamodel  value >>> attribute -->
+    <xsl:apply-templates select="value[identifying]"/>
 
     <!-- add implementing attributes for reference relationships which are single valued-->
     <!-- though could be single valued on each side (noted as issue as at 18-Oct-2016 (JC)) -->
-    <xsl:for-each select="reference[ (cardinality/ZeroOrOne or cardinality/ExactlyOne)
+    <xsl:for-each select="reference[ (cardinality = 'ZeroOrOne' or cardinality='ExactlyOne')
                                     and not(key('whereImplemented',
                                             era:packArray((../name,name))))
                                     and not(key)             
-                                    ]">       <!-- 16 August 2022 - UPGRADED to latest metamodel : cardinality = 'ZeroOrOne' or cardinality = 'ExactlyOne' >>> cardinality/ZeroOrOne or cardinality/ExactlyOne -->    
-                                    <!-- simplifying assumption that key covers missing identifiers subject to future generalisation -->
+                                    ]">     <!-- simplifying assumption that key covers missing identifiers subject to future generalisation -->
                 <!-- @ reference relationship that is not already implemented-->
 				
 				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
@@ -337,30 +358,62 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
+         <xsl:variable name="entity_model" 
+                       as="element()" select="/entity_model"/> 
          <xsl:variable name="implementing_attributes" 
-                       as="element(attribute)*" >                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                       as="element(value)*" >
            <xsl:for-each select="key('EntityTypes',type)">
-             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
+             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">  
+                                 <!-- BUG fixed: 25/09/2022 Bug noticed in relationalMetaModel3 data model.
+                                      In the case that this single-valued relationship has
+                                      a single valued identifying inverse then these 
+                                      implmenting attributes wrongly include  identifying
+                                      attributes of the destination type which are already reinstantiations
+                                      of identifying attributes of source entity type of this relationship 
+                                      We are going to have to filter these 'implementing attributes'.
+                                      Filter has been added below.
+                                 -->
                <xsl:with-param name="navigation" select="$relationship/riser/*"/>
                <xsl:with-param name="reentry" select="false()"/>
              </xsl:call-template>
            </xsl:for-each>
          </xsl:variable>
          <xsl:for-each select="$implementing_attributes"> 
-            <xsl:call-template name="reinstantiate_attribute">
-               <xsl:with-param name="relationship" select="$relationship"/>
-            </xsl:call-template>
+            <!-- This is the obvious place to filter -->
+            <!-- This trace was used during development 
+            <xsl:message> About to reinstantiate attribute<xsl:value-of select="name"/> </xsl:message>
+            <xsl:message> which is part of implementation of relationship <xsl:value-of select="implementationOf/rel"/>  </xsl:message>
+            <xsl:message> whilst implementing  <xsl:value-of select="$relationship/name"/>  </xsl:message>
+            <xsl:message> whose inverse is  <xsl:value-of select="$relationship/inverse"/>  </xsl:message>
+            <xsl:for-each select="key('RelationshipBySrcTypeAndName',era:packArray(($relationship/type,$relationship/inverse)),$entity_model)">
+                  <xsl:message>           which is  <xsl:value-of select="cardinality"/>  </xsl:message>
+                  <xsl:if test="identifying">
+                     <xsl:message>           and is identifying</xsl:message>
+                  </xsl:if> 
+            </xsl:for-each>
+            -->
+            <xsl:if test="not($relationship/inverse) or not(key('RelationshipBySrcTypeAndName',
+                                         era:packArray(($relationship/type,$relationship/inverse)),$entity_model)
+                                    /((cardinality='ExactlyOne' or cardinality='ZeroOrOne') and identifying))
+                                 "> <!-- this is to filter out duplication of an identifying attribute as a foreign key-->
+                                    <!-- filter added 25/09/2022. Exhibited on entity model relationalMetaModel3 -->
+               <xsl:message> Go ahead and reinstantiate </xsl:message>
+               <xsl:call-template name="reinstantiate_attribute">
+                  <xsl:with-param name="relationship" select="$relationship"/>
+               </xsl:call-template>
+            </xsl:if>
          </xsl:for-each>
+
          <!--<xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message>-->
       </xsl:if>
     </xsl:for-each>
    
     <!-- copy remaining substructure --> 
     <xsl:apply-templates 
-               select="*[not(self::attribute[identifying])       
+               select="*[not(self::value[identifying]) 
                          and not(self::name) 
                          and not (self::presentation)]"
-                mode="recursive_physical_enrichment"/>                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                mode="recursive_physical_enrichment"/>
   </xsl:copy>
   <!-- <xsl:message> END ENTITY TYPE <xsl:value-of select="name"/> </xsl:message> -->
 </xsl:template>
@@ -375,14 +428,25 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        and all referential identifying attributes 
              that implement reference relationships
    -->
-
-    <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying and                 
+   <!-- 10/05/2016
+   <xsl:copy-of select="value[identifying and 
+   -->
+   <!--
+   <xsl:sequence select="value[identifying and 
+                               (not(implementationOf) or
+                               key('RelationshipBySrcTypeAndName',
+                                   concat(../name ,':',implementationOf/rel)
+                                  )[self::reference]
+                               )
+                              ]"/>
+    -->
+    <xsl:for-each select="ancestor-or-self::entity_type/value[identifying and 
                                (not(implementationOf) or
                                key('RelationshipBySrcTypeAndName',
                                    era:packArray((../name ,implementationOf/rel))
                                   )[self::reference]
                                )
-                              ]">                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                              ]">   <!--CR-18059 -->
          <xsl:copy>
             <xsl:element name="typeOfOrigin">
                   <xsl:value-of select="../name"/>
@@ -413,7 +477,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       <!--
       <xsl:message>NavigationHead type '<xsl:value-of select="$navigationHead/type"/>'</xsl:message>
       -->
-      <xsl:variable name="identifying_attributes" as="element(attribute)*">                             <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+      <xsl:variable name="identifying_attributes" as="element(value)*">
          <xsl:for-each select="key('EntityTypes',$navigationHead/type)">
             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
                <xsl:with-param name="navigation" select="$navigationTail"/>
@@ -624,7 +688,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 <xsl:message> ############################## get_identifying_attributes #### at entity type <xsl:value-of select="name"/> </xsl:message>
 <xsl:message>implemented_rel_name: '<xsl:value-of select="$implemented_rel_name"/>'</xsl:message>
    -->
-   <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+   <xsl:for-each select="ancestor-or-self::entity_type/value[identifying]">   <!-- CR-18059 -->
       <xsl:copy>
          <xsl:variable name="prefix" select="if(implementationOf) then '' 
                                            else concat($attr_nameprefix,$compound_name_separator)"/>
@@ -665,7 +729,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    </xsl:for-each>
 </xsl:template>
 
-<xsl:template name="reinstantiate_attribute" match="attribute" mode="explicit">                             <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+<xsl:template name="reinstantiate_attribute" match="value" mode="explicit">
    <xsl:param name="relationship" as="node()"/>
 
    <xsl:variable name="prefixstem"
@@ -682,10 +746,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                          else $relprefix"/>
    <xsl:variable name="relname" select="$relationship/name"/>
    <xsl:variable name="is_identifying" select="$relationship/identifying/name()"/>
-   <xsl:variable as="xs:boolean" name="is_optional" select="$relationship/cardinality/ZeroOrOne or $relationship/cardinality/ZeroOneOrMore"/>
-                                <!-- 16 August 2022 - UPGRADED to latest metamodel : $relationship/cardinality='ZeroOrOne' or $relationship/cardinality='ZeroOneOrMore'
-                                            >>> $relationship/cardinality/ZeroOrOne or $relationship/cardinality/ExactlyOne -->
-   <xsl:element name="attribute">                                   <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+   <xsl:variable as="xs:boolean" name="is_optional" select="$relationship/cardinality='ZeroOrOne' or $relationship/cardinality='ZeroOneOrMore'"/>
+
+   <xsl:element name="value">
       <xsl:element name="name">
          <xsl:value-of select="if ($style='hs') then $relname else concat($prefix,name)"/>
       </xsl:element>
@@ -753,14 +816,14 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 -->
 
 
-<xsl:template match="*[ not(self::attribute) ]" 
-              mode="final_physical_pass">                                        <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+<xsl:template match="*[ not(self::value) ]" 
+              mode="final_physical_pass"> 
   <xsl:copy>
     <xsl:apply-templates mode="final_physical_pass"/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="attribute" mode="final_physical_pass">                           <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+<xsl:template match="value" mode="final_physical_pass">
    <xsl:if test="$style='r'
                  or not (name='seqNo')
                  or implementationOf

@@ -143,7 +143,7 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
         </xsl:message>
       </xsl:if>
      <xsl:if test="ancestor-or-self::entity_type/xmlRepresentation[1][text()='Anonymous'] 
-                   and not(ancestor-or-self::entity_type/value/xmlRepresentation[text()='Anonymous'])">
+                   and not(ancestor-or-self::entity_type/attribute/xmlRepresentation[text()='Anonymous'])">
         <xsl:message terminate="yes">
           Entity '<xsl:value-of select="name"/>' has xmlRepresentation Anonymous 
           and must have a single attribute with xmlRepresentation Anonymous
@@ -168,9 +168,9 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
             </name>
             <xsl:choose>
 <!-- CR-17916 
-              <xsl:when test="count(ancestor-or-self::entity_type/(value|choice|reference|composition))=0 and count(value|choice|reference|composition)=0"> 
+              <xsl:when test="count(ancestor-or-self::entity_type/(attribute|reference|composition))=0 and count(attribute|reference|composition)=0"> 
 -->
-              <xsl:when test="count(ancestor-or-self::entity_type/(value|choice|composition[not(transient)]))=0 and count(value|choice|composition[not(transient)])=0">  <!-- CR-18127 -->
+              <xsl:when test="count(ancestor-or-self::entity_type/(attribute|composition[not(transient)]))=0 and count(attribute|composition[not(transient)])=0">  <!-- CR-18127 -->
                  <empty/>
               </xsl:when>
               <xsl:otherwise>
@@ -208,15 +208,15 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
            </oneOrMore>
         </optional>
 
-        <xsl:if test="ancestor-or-self::entity_type/(value|choice)/
+        <xsl:if test="ancestor-or-self::entity_type/attribute/
                       xmlRepresentation[text()='Anonymous'] and
-                      count(ancestor-or-self::entity_type/(value|choice)) > 1">
+                      count(ancestor-or-self::entity_type/attribute) > 1">
           <xsl:message terminate="no">
             Entity '<xsl:value-of select="name"/>' has more than one attribute
             which is not allowed when an attribute has xmlRepresentation Anonymous 
           </xsl:message>
         </xsl:if>
-        <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)|(value|choice)">
+        <xsl:for-each select="ancestor-or-self::entity_type/attribute|attribute">
           <xsl:if test="optional">
             <optional>
               <xsl:call-template name="mand_attribute"/>
@@ -234,12 +234,12 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
 
 <xsl:template name="possibly_optional_comp_rel" match="composition">
   <xsl:choose>
-    <xsl:when test="(cardinality = 'ZeroOrOne')or(cardinality = 'ZeroOneOrMore')">
+    <xsl:when test=" cardinality/ZeroOrOne or cardinality/ZeroOneOrMore ">
       <optional>
          <xsl:call-template name="possibly_named_comp_rel"/>
       </optional>
     </xsl:when>
-    <xsl:when test="(cardinality = 'ExactlyOne')or(cardinality = 'OneOrMore')">
+    <xsl:when test=" cardinality/ExactlyOne or cardinality/OneOrMore ">
          <xsl:call-template name="possibly_named_comp_rel"/>
     </xsl:when>
     <xsl:otherwise>
@@ -248,7 +248,7 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
        of type 
           <xsl:value-of select="type"/>
        cardinality is:
-          <xsl:value-of select="cardinality"/>
+          <xsl:value-of select="cardinality/name()"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -273,14 +273,14 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
           <xsl:value-of select="if (key('EntityTypes',type)/identifier) then key('EntityTypes',type)/identifier else key('EntityTypes',type)/name"/>
     </xsl:variable>
           <xsl:choose>
-            <xsl:when test="(cardinality = 'ZeroOrOne') or (cardinality = 'ExactlyOne')">
+            <xsl:when test=" cardinality/ZeroOrOne  or  cardinality/ExactlyOne ">
                 <ref>
                   <xsl:attribute name="name">
                     <xsl:value-of select="$destinationDefinitionName"/>
                   </xsl:attribute>
                 </ref>
             </xsl:when>
-            <xsl:when test="(cardinality = 'ZeroOneOrMore')or(cardinality = 'OneOrMore')">
+            <xsl:when test=" cardinality/ZeroOneOrMore or cardinality/OneOrMore ">
                 <oneOrMore>
                   <ref>
                     <xsl:attribute name="name">
@@ -292,7 +292,7 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
           </xsl:choose>
 </xsl:template>
 
-<xsl:template name="mand_attribute" match="value|choice">
+<xsl:template name="mand_attribute" match="attribute">
   <xsl:variable name="representation">
      <xsl:choose>
         <xsl:when test="xmlRepresentation">
@@ -326,31 +326,19 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
 </xsl:template>
 
 <xsl:template name="attribute_body">
-  <xsl:choose>
-    <xsl:when test="name()='value'">
        <data>
          <xsl:attribute name="type">
-           <xsl:value-of select="type"/>
+           <xsl:value-of select="type/*/name()"/>
          </xsl:attribute>
          <xsl:attribute name="datatypeLibrary">http://www.w3.org/2001/XMLSchema-datatypes</xsl:attribute>
        </data>
-    </xsl:when>
-    <xsl:when test="name()='choice'">
-       <xsl:variable name="enumeration_type_name" select="from" />
-       <choice>
-          <xsl:for-each select="key('Enumeration',$enumeration_type_name)/enumeration_value">
-            <value> <xsl:value-of select="."/> </value>
-          </xsl:for-each>
-       </choice>
-    </xsl:when>
-  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="singular_entity_type" match="entity_type">
-    <xsl:for-each select="ancestor-or-self::entity_type/value">
+    <xsl:for-each select="ancestor-or-self::entity_type/attribute">
       <data>
         <xsl:attribute name="type">
-          <xsl:value-of select="type"/>
+          <xsl:value-of select="type/*/name()"/>
         </xsl:attribute>
         <xsl:attribute name="datatypeLibrary">http://www.w3.org/2001/XMLSchema-datatypes</xsl:attribute>
       </data>

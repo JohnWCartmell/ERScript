@@ -299,7 +299,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
     </era:js_objectlisttype>
     <era:js_membertype>
       <xsl:value-of select="$objecttype"/>
-      <xsl:if test="cardinality='ZeroOneOrMore' or cardinality='OneOrMore'">
+      <xsl:if test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
           <xsl:text>_List</xsl:text>
       </xsl:if>
     </era:js_membertype>
@@ -430,7 +430,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
               </era:attribute>
             </xsl:for-each>
           </xsl:if>
-          <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[identifying]">
+          <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">
             <era:attribute>
               <era:name><xsl:value-of select="concat(../js_classname,'_',js_membername)"/></era:name>
               <era:type><xsl:value-of select="js_membertype"/></era:type>
@@ -778,7 +778,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           </xsl:choose>
         </era:inverse_cardinality>
       </xsl:if>
-      <xsl:if test="not(jscheck) and js and cardinality = 'ZeroOrOne'">
+      <xsl:if test="not(jscheck) and js and cardinality/ZeroOrOne">
         <era:jscheck>
           <xsl:call-template name="ensure_relationship_exists">
             <xsl:with-param name="varname" select="concat('this.', string-join(preceding-sibling::component/js|js, '.'))"/>
@@ -841,7 +841,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           'interface', 'protected', 'implements', 'instanceof'   "/>
 </xsl:variable>
 
-<xsl:template name="js_member_name" match="value|choice|composition" mode="explicit">
+<xsl:template name="js_member_name" match="attribute|composition" mode="explicit">
    <xsl:variable name="name0">
       <xsl:choose>
       <xsl:when test="name">
@@ -1037,11 +1037,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
      </xsl:if>
      <xsl:call-template name="parent_member"/>
    </xsl:if>
-   <xsl:for-each select="(ancestor::entity_type)/(value|choice)[identifying]">
+   <xsl:for-each select="(ancestor::entity_type)/attribute[identifying]">
      <xsl:text>, </xsl:text>
      <xsl:call-template name="data_member"/>
    </xsl:for-each>
-   <xsl:for-each select="(value|choice)[identifying]">
+   <xsl:for-each select="attribute[identifying]">
      <xsl:text>, public readonly </xsl:text>
      <xsl:call-template name="data_member"/>
    </xsl:for-each>
@@ -1049,7 +1049,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:call-template name="newline"/>
    <xsl:if test="parent::entity_type">
       <xsl:text>        super(parent</xsl:text>
-      <xsl:for-each select="../(value|choice)[identifying]">
+      <xsl:for-each select="../attribute[identifying]">
         <xsl:text>, </xsl:text>
         <xsl:value-of select="js_membername"/>
       </xsl:for-each>
@@ -1080,7 +1080,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
          <xsl:value-of select="ancestor-or-self::entity_type/reference[projection]/js_membername"/>
    </xsl:variable>
    <xsl:variable name="destet" select="ancestor-or-self::entity_type/reference[projection]/type"/>
-   <xsl:for-each select="key('EntityTypes',$destet)/ancestor-or-self::entity_type/(value|choice)[identifying]">
+   <xsl:for-each select="key('EntityTypes',$destet)/ancestor-or-self::entity_type/attribute[identifying]">
       <xsl:value-of select="concat(', ', $actualname, '.',  name)"/>
    </xsl:for-each>
    <xsl:text>);</xsl:text>
@@ -1109,12 +1109,12 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:variable name="actualname">
          <xsl:value-of select="js_classname"/>
    </xsl:variable>
-   <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[identifying]">
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">
       <xsl:value-of select="concat(', subject.',  name)"/>
    </xsl:for-each>
    <xsl:text>);</xsl:text>
    <xsl:call-template name="newline"/>
-   <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[not(identifying)]">
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute[not(identifying)]">
       <xsl:value-of select="concat('        newEntity.',name, ' = subject.',  name, ' ;')"/>
       <xsl:call-template name="newline"/>
    </xsl:for-each>
@@ -1142,19 +1142,19 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
   <xsl:value-of select="js_membername"/>
   <xsl:text>(): </xsl:text>
   <xsl:value-of select="js_membertype"/>
-  <xsl:if test="cardinality='ZeroOrOne'">
+  <xsl:if test="cardinality/ZeroOrOne">
     <xsl:text> | undefined</xsl:text>
   </xsl:if>
   <xsl:text> {</xsl:text>
   <xsl:choose>
-  <xsl:when test="cardinality = 'ZeroOrOne' or cardinality='ExactlyOne'">
+  <xsl:when test="cardinality/ZeroOrOne or cardinality/ExactlyOne">
     <xsl:value-of select="diagonal/jscheck"/>
     <xsl:value-of select="jscheck"/>
     <xsl:call-template name="newline"/>
     <xsl:text>        let diagonal = this</xsl:text>
     <xsl:value-of select="diagonal/js"/>
     <xsl:text>;</xsl:text>
-    <xsl:if test="navigation_cardinality='OneOrMore' or navigation_cardinality = 'ZeroOneOrMore'">
+    <xsl:if test="navigation_cardinality/OneOrMore or navigation_cardinality/ZeroOneOrMore ">
       <xsl:for-each select="js_foreign_key/attribute[needs_check]">
         <xsl:call-template name="newline"/>
         <xsl:text>        if (</xsl:text>
@@ -1183,10 +1183,10 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:call-template name="newline"/>
     <xsl:text>        return diagonal</xsl:text>
     <xsl:value-of select="riser/js"/>
-    <xsl:if test="navigation_cardinality='OneOrMore' or navigation_cardinality = 'ZeroOneOrMore'">
+    <xsl:if test="navigation_cardinality/OneOrMore or navigation_cardinality/ZeroOneOrMore ">
       <xsl:text>.where(e =&gt; util.keysMatch(foreignKey, e.primaryKey))</xsl:text>
       <xsl:text>.withCardinality('</xsl:text>
-      <xsl:value-of select="cardinality"/>
+      <xsl:value-of select="cardinality/name()"/>
       <xsl:text>');</xsl:text>
     </xsl:if>
   </xsl:when>
@@ -1206,7 +1206,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:variable name="objecttype" select="js_objecttype"/>
    <xsl:variable name="src_module_name" as="node()?" select="../module_name"/>
    <xsl:variable name="compname" as="node()?" select="name"/>
-   <xsl:variable name="cardinality" select="cardinality"/>
+   <xsl:variable name="cardinality" select="cardinality/name()"/>
    <xsl:for-each select="key('EntityTypes',type)/descendant-or-self::entity_type[not(entity_type)]">
          <!-- <xsl:value-of select="$compname"/>  -->
       <xsl:text>    create</xsl:text>
@@ -1228,13 +1228,13 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:if>
       <xsl:value-of select="js_classname"/>
       <xsl:text>(this</xsl:text>
-      <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[identifying]">
+      <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">
          <xsl:text>, </xsl:text>
          <xsl:value-of select="js_membername"/>
       </xsl:for-each>
       <xsl:text>);</xsl:text>
       <xsl:call-template name="newline"/>
-      <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[not(identifying)]">
+      <xsl:for-each select="ancestor-or-self::entity_type/attribute[not(identifying)]">
          <xsl:text>        newEntity.</xsl:text>
          <xsl:value-of select="js_membername"/>
          <xsl:text> = </xsl:text>
@@ -1246,7 +1246,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:text>        this.</xsl:text>
       <xsl:value-of select="$membername"/>
       <xsl:choose>
-           <xsl:when test="$cardinality='ZeroOneOrMore' or $cardinality='OneOrMore'">
+           <xsl:when test="$cardinality = 'ZeroOneOrMore' or $cardinality = 'OneOrMore'">
               <xsl:text>.push(newEntity);</xsl:text>
            </xsl:when>
            <xsl:otherwise>
@@ -1270,7 +1270,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         <xsl:text> !== undefined) {</xsl:text>
         <xsl:call-template name="newline"/>
       <xsl:choose>
-         <xsl:when test="cardinality='ZeroOneOrMore' or cardinality='OneOrMore'">
+         <xsl:when test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
             <xsl:text>            for(let target of this</xsl:text>
             <xsl:value-of select="(pullback|copy)/along/js"/>
             <xsl:text>.</xsl:text>
@@ -1308,7 +1308,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:if>
       <xsl:call-template name="newline"/>
       <xsl:choose>
-         <xsl:when test="cardinality='ZeroOneOrMore' or cardinality='OneOrMore'">
+         <xsl:when test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
             <xsl:text>                    this.</xsl:text>
             <xsl:value-of select="js_membername"/>
             <xsl:text>.push(newEntity);</xsl:text>
@@ -1361,7 +1361,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:if test="not(self::absolute)">
          <xsl:text>parent</xsl:text>
       </xsl:if>
-      <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/(value|choice)[identifying]">
+      <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/attribute[identifying]">
          <xsl:text>,</xsl:text>
          <xsl:call-template name="newline"/>
          <xsl:text>            util.parseAttribute(node, '</xsl:text>
@@ -1382,7 +1382,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:for-each>
       <xsl:text>);</xsl:text>
       <xsl:call-template name="newline"/>
-      <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/(value|choice)[not(identifying)]">
+      <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/attribute[not(identifying)]">
          <xsl:text>        entity.</xsl:text>
          <xsl:value-of select="js_membername"/>
          <xsl:text> = util.parseAttribute(node, '</xsl:text>
@@ -1415,7 +1415,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                   <xsl:text>_children = util.getNodes(node, ['</xsl:text>
                   <xsl:value-of select="name"/>
                   <xsl:text>']).withCardinality('</xsl:text>
-                  <xsl:value-of select="if (cardinality='ZeroOrOne' or cardinality='ZeroOneOrMore')
+                  <xsl:value-of select="if (cardinality/ZeroOrOne or cardinality/ZeroOneOrMore )
                                         then 'ZeroOrOne'
                                         else 'ExactlyOne'"/>
                   <xsl:text>');</xsl:text>
@@ -1428,7 +1428,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                </xsl:variable>
                <xsl:variable name="typearray" select="string-join($leaftypes,''', ''')"/> 
                <xsl:text>        </xsl:text>
-               <xsl:if test="(cardinality='ZeroOrOne' or cardinality='ZeroOneOrMore') and name">
+               <xsl:if test="(cardinality/ZeroOrOne or cardinality/ZeroOneOrMore ) and name">
                   <xsl:text>if (</xsl:text>
                   <xsl:value-of select="js_membername"/>
                   <xsl:text>_children !== undefined) </xsl:text>                  
@@ -1436,7 +1436,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                <xsl:text>{</xsl:text>
                <xsl:call-template name="newline"/>
                <xsl:choose>
-                  <xsl:when test="cardinality='ZeroOneOrMore' or cardinality='OneOrMore'">
+                  <xsl:when test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
                      <xsl:text>            util.loadChildren(</xsl:text>
                      <xsl:if test="not(name)">
                         <xsl:text>node</xsl:text>
@@ -1453,7 +1453,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                      <xsl:value-of select="js_membername"/>
                      <xsl:text>);</xsl:text>
                   </xsl:when>
-                  <xsl:when test="cardinality='ZeroOrOne'">
+                  <xsl:when test="cardinality/ZeroOrOne">
                      <xsl:text>            entity.</xsl:text>
                      <xsl:value-of select="js_membername"/>
                      <xsl:text> = </xsl:text>
@@ -1549,7 +1549,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="serialisation_section" match="absolute|entity_type" mode="expicit">
-   <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/(value|choice)">
+   <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/attribute">
       <xsl:call-template name="newline"/>
       <xsl:text>        util.serialiseAttribute(document, node, '</xsl:text>
       <xsl:value-of select="name"/>
@@ -1575,12 +1575,12 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
          <xsl:if test="key('EntityTypes',type)/module_name">   
             <xsl:call-template name="newline"/>
             <xsl:text>        </xsl:text>
-            <xsl:if test="cardinality='ZeroOrOne'">
+            <xsl:if test="cardinality/ZeroOrOne">
                 <xsl:text>if (this.</xsl:text>
                 <xsl:value-of select="js_membername"/>
                 <xsl:text> !== undefined) </xsl:text>
             </xsl:if>
-            <xsl:if test="cardinality='ZeroOneOrMore'">
+            <xsl:if test="cardinality/ZeroOneOrMore ">
                 <xsl:text>if (this.</xsl:text>
                 <xsl:value-of select="js_membername"/>
                 <xsl:text>.length &gt; 0) </xsl:text>
@@ -1601,7 +1601,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
             <xsl:text>;</xsl:text>
             <xsl:call-template name="newline"/>
             <xsl:choose>
-              <xsl:when test="cardinality='ZeroOneOrMore' or cardinality='OneOrMore'">
+              <xsl:when test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
                 <xsl:text>            for(let child of this.</xsl:text>
                 <xsl:value-of select="js_membername"/>
                 <xsl:text>) {</xsl:text>
@@ -1688,7 +1688,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 
 <xsl:template name="list_def_attributes" match="entity_type" mode="expicit">
    <!-- Attributes -->
-   <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/(value|choice)">
+   <xsl:for-each select="(self::absolute|ancestor-or-self::entity_type)/attribute">
       <xsl:text>    get </xsl:text>
       <xsl:value-of select="js_membername"/>
       <xsl:text>(): </xsl:text>
@@ -1723,10 +1723,10 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           <xsl:value-of select="js_objectlisttype"/>
           <xsl:text>(</xsl:text>                
           <xsl:choose>
-              <xsl:when test="cardinality='ExactlyOne'">
+              <xsl:when test="cardinality/ExactlyOne">
                   <xsl:text>this.map(</xsl:text>
               </xsl:when>
-              <xsl:when test="cardinality='ZeroOrOne'">
+              <xsl:when test="cardinality/ZeroOrOne">
                   <xsl:text>util.mapDefined(this, </xsl:text>
               </xsl:when>
               <xsl:otherwise>
@@ -1762,7 +1762,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="attribute_name_sequence" match="entity_type" mode="expicit">
-   <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)">
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute">
       <xsl:value-of select="name"/>
    </xsl:for-each>
 </xsl:template>
@@ -1782,7 +1782,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="identifying_data_members_decl_sequence" match="entity_type" mode="expicit">
-   <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)[identifying]">
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">
         <xsl:variable name="flatten">
            <xsl:call-template name="data_member"/>
         </xsl:variable>
@@ -1791,7 +1791,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="data_members_decl_sequence" match="entity_type" mode="expicit">
-   <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)">
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute">
         <xsl:variable name="flatten">
            <xsl:call-template name="data_member"/>
         </xsl:variable>
@@ -1799,7 +1799,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    </xsl:for-each>
 </xsl:template>
 
-<xsl:template name="data_member" match="value|choice|composition" mode="expicit">
+<xsl:template name="data_member" match="attribute|composition" mode="expicit">
    <xsl:value-of select="js_membername"/>
    <xsl:text>: </xsl:text>
    <xsl:value-of select="js_membertype"/>
@@ -1809,11 +1809,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="data_member_fields" match="entity_type|absolute" mode="expicit">
-  <xsl:for-each select="value|choice|composition">
+  <xsl:for-each select="attribute|composition">
     <!-- need fuller spec for modules -->
     <xsl:if test="not(self::composition) or key('EntityTypes',type)/module_name">
       <xsl:choose>
-        <xsl:when test="self::composition and (cardinality='ZeroOneOrMore' or cardinality='OneOrMore')">
+        <xsl:when test="self::composition and (cardinality/ZeroOneOrMore  or cardinality/OneOrMore)">
           <xsl:call-template name="newline"/>
           <xsl:text>    readonly </xsl:text>
           <xsl:value-of select="js_membername"/>
@@ -1822,7 +1822,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           <xsl:text>();</xsl:text>
           <xsl:call-template name="newline"/>
         </xsl:when>
-        <xsl:when test="optional or (self::composition and cardinality = 'ZeroOrOne')">
+        <xsl:when test="optional or (self::composition and cardinality/ZeroOrOne)">
           <xsl:call-template name="newline"/>
           <xsl:text>    </xsl:text>
           <xsl:value-of select="js_membername"/>

@@ -341,7 +341,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
              <xsl:with-param name="ycm" select="-0.3" />
              <xsl:with-param name="wcm" select="$diagramWidth" />
              <xsl:with-param name="hcm" select="0.5" />
-             <xsl:with-param name="shape" select="''" />
+             <xsl:with-param name="shape" select="nonesuchthingy" />
           </xsl:call-template>
       </xsl:with-param>
    </xsl:call-template>
@@ -535,9 +535,9 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   <xsl:variable name="etnameyPos">
     <xsl:value-of select="$yabs +  $etname_y_offset"/>
   </xsl:variable>
-  <xsl:if test="not(presentation/name = 'None') and not(self::group)">
+  <xsl:if test="not(presentation/name/None) and not(self::group)">
      <xsl:choose>
-	<xsl:when test="not(entity_type|value|choice)">
+	<xsl:when test="not(entity_type|attribute)">
 	   <!-- center the text in the box -->
 	   <xsl:call-template name="entity_type_name"> 
 	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
@@ -557,7 +557,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:if>
   <xsl:variable name="no_linebreaks_in_etname">  
     <xsl:choose>
-      <xsl:when test="presentation/name = 'Split'">
+      <xsl:when test="presentation/name/Split">
 	 <xsl:value-of select="string-length(name) - string-length(replace(name,'_',''))"/>
      </xsl:when>
       <xsl:otherwise>
@@ -565,7 +565,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <xsl:for-each select="value|choice">
+  <xsl:for-each select="attribute">
     <xsl:variable name="annotation">
        <xsl:call-template name="annotation"/>
     </xsl:variable>
@@ -596,7 +596,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:for-each>
 </xsl:template>
 
-<xsl:template name="annotation" match="value|choice">
+<xsl:template name="annotation" match="attribute">
    <xsl:if test="implementationOf">   <!-- optimisation and beginings of restructure within above when when/if -->
       <xsl:text>(</xsl:text>
       <xsl:for-each select="implementationOf">
@@ -631,7 +631,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:template name="maxNoOfCharsInEntityTypeName"> 
    <xsl:choose>
-      <xsl:when test="presentation/name = 'Split'">   
+      <xsl:when test="presentation/name/Split">   
 	 <xsl:call-template name="maxCharsWhenSplitLines">
 	    <xsl:with-param name="pText" select="name"/>
 	 </xsl:call-template>
@@ -668,7 +668,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    <xsl:param name="ycm" />
    <xsl:param name="xsign" />
    <xsl:choose>
-      <xsl:when test="presentation/name = 'Split'">    <!-- add some other split directives sometime -->
+      <xsl:when test="presentation/name/Split">    <!-- add some other split directives sometime -->
 	 <xsl:call-template name="spitLines">
 	    <xsl:with-param name="pText" select="name"/>
 	    <xsl:with-param name="x" select="$xcm"/>
@@ -868,7 +868,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 
-<xsl:template name="attribute_xRight_relative_to_parent" match="value|choice">
+<xsl:template name="attribute_xRight_relative_to_parent" match="attribute">
    <xsl:variable name="annotation">
        <xsl:call-template name="annotation"/>
    </xsl:variable>
@@ -1002,13 +1002,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       <xsl:when test="presentation/w">
 	 <xsl:value-of select="presentation/w"/>
       </xsl:when>
-      <xsl:when test="entity_type|value|choice|name">
+      <xsl:when test="entity_type|attribute|name">
 	 <xsl:variable name="xRightArray" as="xs:double *">
 	    <xsl:for-each select="entity_type|group">  
 				     <!-- added '|group' 26Nov2014 -->
 		<xsl:call-template name="et_subtype_xRight_relative_to_parent"/>
 	    </xsl:for-each>
-	    <xsl:for-each select="value|choice">
+	    <xsl:for-each select="attribute">
 		<xsl:call-template name="attribute_xRight_relative_to_parent"/>
 	    </xsl:for-each>
 	    <xsl:value-of select="$width_for_et_name"/>
@@ -1289,12 +1289,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:template name="offset_to_ets" match="entity_type|group">
    <xsl:variable name="numberOfparentAttributes">
-      <xsl:value-of select="count(parent::entity_type/value)
+      <xsl:value-of select="count(parent::entity_type/attribute)
 				+count(parent::entity_type/choice)"/>
    </xsl:variable>   
    <xsl:variable name="no_linebreaks_in_etname">
       <xsl:choose>
-	 <xsl:when test="parent::entity_type/presentation/name = 'Split'">
+	 <xsl:when test="parent::entity_type/presentation/name/Split">
 	    <xsl:value-of select="string-length(parent::entity_type/name) 
 			   - string-length(replace(parent::entity_type/name,'_',''))"/>
 	 </xsl:when>
@@ -1318,12 +1318,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:template name="self_offset_to_ets" match="entity_type|group">
    <xsl:variable name="numberOfAttributes">
-      <xsl:value-of select="count(self::entity_type/value)
+      <xsl:value-of select="count(self::entity_type/attribute)
 				+count(self::entity_type/choice)"/>
    </xsl:variable>   
    <xsl:variable name="no_linebreaks_in_etname">
       <xsl:choose>
-	 <xsl:when test="self::entity_type/presentation/name = 'Split'">
+	 <xsl:when test="self::entity_type/presentation/name/Split">
 	    <xsl:value-of select="string-length(self::entity_type/name) 
 			   - string-length(replace(self::entity_type/name,'_',''))"/>
 	 </xsl:when>
@@ -1525,7 +1525,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable name="destx">
     <xsl:choose>
-      <xsl:when test="diagram/path/align='ToSrc'">
+      <xsl:when test="diagram/path/align/ToSrc">
 	<xsl:value-of select="max((min(($srcx0,$xDestMax)),$xDestMin))"/>
       </xsl:when>
       <xsl:otherwise>
@@ -1545,7 +1545,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable name="srcx">
     <xsl:choose>
-      <xsl:when test="diagram/path/align='ToDest'">
+      <xsl:when test="diagram/path/align/ToDest">
 	<xsl:value-of select="$destx"/>
       </xsl:when>
       <xsl:when test="name(..)!='absolute'">
@@ -1566,13 +1566,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable  name="srcMandatory">
       <xsl:value-of select="not(cardinality) 
-			    or (cardinality = 'ExactlyOne')
-			    or(cardinality = 'OneOrMore')"/>
+			    or  cardinality/ExactlyOne 
+			    or cardinality/OneOrMore "/>
   </xsl:variable>
   <xsl:variable  name="destMandatory">
       <xsl:value-of select="not($inverse/cardinality) 
-			    or ($inverse/cardinality = 'ExactlyOne')
-			    or($inverse/cardinality = 'OneOrMore')"/>
+			    or  $inverse/cardinality/ExactlyOne 
+			    or $inverse/cardinality/OneOrMore "/>
   </xsl:variable>
 
   <xsl:variable name="srcarmlen">
@@ -1615,7 +1615,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	   <xsl:value-of select="$comprelDestArmLenDelta + 
 					    + $relid_offset + $relid_step"/>
 	</xsl:when>
-	<xsl:when test="(cardinality = 'ZeroOneOrMore')or(cardinality = 'OneOrMore')">
+	<xsl:when test=" cardinality/ZeroOneOrMore or cardinality/OneOrMore ">
 	   <xsl:value-of select="$comprelDestArmLenDelta + $relcrowlen"/>
 	</xsl:when>
 	<xsl:otherwise>
@@ -1629,7 +1629,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <xsl:with-param name="srcy" select="$srcy"/>
     <xsl:with-param name="xsign">
       <xsl:choose>
-	<xsl:when test="diagram/path/label/position='Left'">
+	<xsl:when test="diagram/path/label/position/Left">
 	   <xsl:value-of select="-1"/>
 	</xsl:when>
 	<xsl:otherwise>
@@ -1644,7 +1644,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:with-param name="desty" select="$desty"/>
 	<xsl:with-param name="xsign">
 	<xsl:choose>
-	  <xsl:when test="diagram/path/inverse/label/position='Left'">
+	  <xsl:when test="diagram/path/inverse/label/position/Left">
 	     <xsl:value-of select="-1"/>
 	  </xsl:when>
 	  <xsl:otherwise>
@@ -1730,7 +1730,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:with-param name="y" select="$desty"/>
      </xsl:call-template>
   </xsl:if>
-  <xsl:if test="(cardinality = 'ZeroOneOrMore')or(cardinality = 'OneOrMore')">
+  <xsl:if test=" cardinality/ZeroOneOrMore or cardinality/OneOrMore ">
      <xsl:call-template name="crowsfoot_down">
 	<xsl:with-param name="x" select="$destx"/>
 	<xsl:with-param name="y" select="$desty"/>
@@ -1948,8 +1948,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
 
   <xsl:variable name="destMandatory">
-      <xsl:value-of select="($inverse/cardinality = 'ExactlyOne')
-			    or($inverse/cardinality = 'OneOrMore')"/>
+      <xsl:value-of select=" $inverse/cardinality/ExactlyOne 
+			    or $inverse/cardinality/OneOrMore "/>
   </xsl:variable>
 
   <xsl:variable name="srcbasex">
@@ -2027,7 +2027,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable name="desty">
     <xsl:choose>
-      <xsl:when test="diagram/path/align='ToSrc'">
+      <xsl:when test="diagram/path/align/ToSrc">
 	<xsl:value-of select="max((min(($srcy0,$yDestMax)),$yDestMin))"/>
       </xsl:when>
       <xsl:otherwise>
@@ -2037,7 +2037,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable name="srcy">
     <xsl:choose>
-      <xsl:when test="diagram/path/align='ToDest'">
+      <xsl:when test="diagram/path/align/ToDest">
 	<xsl:value-of select="$desty"/>
       </xsl:when>
       <xsl:when test="name(..)!='absolute'">
@@ -2118,7 +2118,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
   <xsl:variable  name="srcMandatory">
       <xsl:value-of 
-	    select="(cardinality = 'ExactlyOne')or(cardinality = 'OneOrMore')"/>
+	    select=" cardinality/ExactlyOne or cardinality/OneOrMore "/>
   </xsl:variable>
   <xsl:call-template name="relationship_name">
      <xsl:with-param name="srcx" select="$srcx"/>
@@ -2175,7 +2175,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:with-param name="pdestMandatory" select="$destMandatory" />
 	<xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
   </xsl:call-template>
-  <xsl:if test="(cardinality = 'ZeroOneOrMore')or(cardinality = 'OneOrMore')">
+  <xsl:if test=" cardinality/ZeroOneOrMore or cardinality/OneOrMore ">
      <xsl:call-template name="crowsfoot_across">
 	 <xsl:with-param name="xcm" select="$destx"/>
 	 <xsl:with-param name="ycm" select="$desty"/>
@@ -2184,8 +2184,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     </xsl:call-template>
   </xsl:if>
   <xsl:if test="not(inverse) 
-		 or ($inverse/cardinality = 'ZeroOneOrMore')
-		 or ($inverse/cardinality = 'OneOrMore')">
+		 or  $inverse/cardinality/ZeroOneOrMore 
+		 or  $inverse/cardinality/OneOrMore ">
      <xsl:call-template name="crowsfoot_across">
 	 <xsl:with-param name="xcm" select="$srcx"/>
 	 <xsl:with-param name="ycm" select="$srcy"/>
@@ -2230,15 +2230,15 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   <xsl:param name="xsign"/>
   <xsl:param name="xAdjustment"/>
   <xsl:param name="ysignDefault"/>
-  <xsl:param name="yPosition"/>
+  <xsl:param name="yPosition" as="node()?"/>
   <xsl:param name="yAdjustment"/>
-  <xsl:param name="presentation"/>
+  <xsl:param name="presentation" as="node()?"/>
   <xsl:variable name="ysign">
      <xsl:choose>
-	<xsl:when test="$yPosition='Downside'">
+	<xsl:when test="$yPosition/Downside">
 	   <xsl:value-of select="1"/>
 	</xsl:when>
-	<xsl:when test="$yPosition='Upside'">
+	<xsl:when test="$yPosition/Upside">
 	   <xsl:value-of select="-1"/>
 	</xsl:when>
 	<xsl:otherwise>
@@ -2273,7 +2273,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <!-- <xsl:value-of select="10"/>  -->
   </xsl:variable>
   <xsl:choose>
-     <xsl:when test="$presentation = 'NoSplit'">           <!-- added 5 Jan 2016 -->
+     <xsl:when test="$presentation/NoSplit">           <!-- added 5 Jan 2016 -->
        <xsl:call-template name="ERtext">
 	  <xsl:with-param name="x" select="$px + $xLabelAdjustment + $xsign * $relLabelxSeparation"/>
 	  <xsl:with-param name="y" select="$y"/>
@@ -2282,7 +2282,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	  <xsl:with-param name="class" select="$class"/>
         </xsl:call-template>
      </xsl:when>
-     <xsl:when test="$presentation = 'None'">  
+     <xsl:when test="$presentation/None">  
      </xsl:when>
      <xsl:otherwise>
         <xsl:call-template name="spitLines">
@@ -2311,15 +2311,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:value-of select="diagram/path/label/xAdjustment"/>
      </xsl:with-param>
      <xsl:with-param name="ysignDefault" select="+1"/>
-     <xsl:with-param name="yPosition">
-	<xsl:value-of select="diagram/path/label/position"/>
-     </xsl:with-param>
+     <xsl:with-param name="yPosition" select="diagram/path/label/position"/>
      <xsl:with-param name="yAdjustment">
 	<xsl:value-of select="diagram/path/label/yAdjustment"/>
      </xsl:with-param>
-     <xsl:with-param name="presentation">
-         <xsl:value-of select="diagram/path/label/name"/>
-     </xsl:with-param>
+     <xsl:with-param name="presentation"
+                     select="diagram/path/label/name"/>
    </xsl:call-template>
 </xsl:template>
 
@@ -2337,15 +2334,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:value-of select="diagram/path/inverse/label/xAdjustment"/>
      </xsl:with-param>
      <xsl:with-param name="ysignDefault" select="-1"/>
-     <xsl:with-param name="yPosition">
-	<xsl:value-of select="diagram/path/inverse/label/position"/>
-     </xsl:with-param>
+     <xsl:with-param name="yPosition" select="diagram/path/inverse/label/position"/>
      <xsl:with-param name="yAdjustment">
 	<xsl:value-of select="diagram/path/inverse/label/yAdjustment"/>
      </xsl:with-param>
-     <xsl:with-param name="presentation">
-         <xsl:value-of select="diagram/path/inverse/label/name"/>
-     </xsl:with-param>
+     <xsl:with-param name="presentation"
+                     select="diagram/path/inverse/label/name"/>
    </xsl:call-template>
 </xsl:template>
 
@@ -2644,15 +2638,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
                   <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/xAdjustment"/>
           </xsl:with-param>
       	 <xsl:with-param name="ysignDefault" select="-1"/>
-          <xsl:with-param name="yPosition">
-      	     <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/position"/>
-          </xsl:with-param>
+          <xsl:with-param name="yPosition"
+      	                 select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/position"/>
           <xsl:with-param name="yAdjustment">
                   <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/yAdjustment"/>
          </xsl:with-param>
-      	 <xsl:with-param name="presentation">
-      	    <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/presentation"/>
-         </xsl:with-param>
+      	 <xsl:with-param name="presentation"
+      	                 select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/presentation"/>
      </xsl:call-template>
   </xsl:if>
   <xsl:if test="not($scope='')">
@@ -2680,15 +2672,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
                <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/xAdjustment"/>
         </xsl:with-param>
    	  <xsl:with-param name="ysignDefault" select="-1"/>
-        <xsl:with-param name="yPosition">
-   	    <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/position"/>
-        </xsl:with-param>
+        <xsl:with-param name="yPosition"
+   	                  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/position"/>
         <xsl:with-param name="yAdjustment">
                <xsl:value-of  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/yAdjustment"/>
         </xsl:with-param>
-   	  <xsl:with-param name="presentation">
-   	        <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/name"/>
-        </xsl:with-param>
+   	  <xsl:with-param name="presentation"
+   	                  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/name"/>
      </xsl:call-template>
   </xsl:if>
   <xsl:if test="$psrc_x2 != $pdest_x2 or $psrc_y2 != $pdest_y2">  
@@ -2991,13 +2981,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <xsl:variable  name="srcMandatory">
       <xsl:value-of select="not(cardinality) 
-                            or (cardinality = 'ExactlyOne')
-                            or(cardinality = 'OneOrMore')"/>
+                            or  cardinality/ExactlyOne 
+                            or cardinality/OneOrMore "/>
   </xsl:variable>
   <xsl:variable  name="destMandatory">
       <xsl:value-of select="not($inverse/cardinality) 
-                            or ($inverse/cardinality = 'ExactlyOne')
-                            or($inverse/cardinality = 'OneOrMore')"/>
+                            or  $inverse/cardinality/ExactlyOne 
+                            or $inverse/cardinality/OneOrMore "/>
   </xsl:variable>
 
    <!-- horizontal relationship line -->
@@ -3028,8 +3018,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    </xsl:call-template>
   <!-- crowsfoot left hand side -->
   <xsl:if test="not(inverse) 
-                 or ($inverse/cardinality = 'ZeroOneOrMore')
-                 or ($inverse/cardinality = 'OneOrMore')">
+                 or  $inverse/cardinality/ZeroOneOrMore 
+                 or  $inverse/cardinality/OneOrMore ">
      <xsl:call-template name="crowsfoot_across">
          <xsl:with-param name="xcm" select="$srcx"/>
          <xsl:with-param name="ycm" select="$rely"/>
@@ -3057,7 +3047,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
    </xsl:call-template>
   <!-- crowsfoot right hand side -->
-  <xsl:if test="(cardinality = 'ZeroOneOrMore')or(cardinality = 'OneOrMore')">
+  <xsl:if test=" cardinality/ZeroOneOrMore or cardinality/OneOrMore ">
      <xsl:call-template name="crowsfoot_across">
          <xsl:with-param name="xcm" select="$destx"/>
          <xsl:with-param name="ycm" select="$rely"/>

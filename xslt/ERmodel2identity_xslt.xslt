@@ -98,7 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <xsl:template name="concrete_entity_type" match="entity_type">
 <!--
   <xsl:choose>
-    <xsl:when test="not(ancestor-or-self::entity_type/composition) and count(ancestor-or-self::entity_type/(value|choice|reference))=1 and not(ancestor-or-self::entity_type/value/optional)">
+    <xsl:when test="not(ancestor-or-self::entity_type/composition) and count(ancestor-or-self::entity_type/(attribute|reference))=1 and not(ancestor-or-self::entity_type/attribute/optional)">
       <xsl:call-template name="singular_entity_type"/>
     </xsl:when>
     <xsl:otherwise>
@@ -118,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:attribute name="name">
        <xsl:value-of select="name"/>
     </xsl:attribute>
-    <xsl:for-each select="value|choice">
+    <xsl:for-each select="attribute">
        <xsl:call-template name="named_attribute"/>
     </xsl:for-each>
     <xsl:for-each select="composition">
@@ -155,7 +155,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:attribute name="name">
        <xsl:value-of select="name"/>
     </xsl:attribute>
-    <xsl:for-each select="ancestor-or-self::entity_type/(value|choice)">
+    <xsl:for-each select="ancestor-or-self::entity_type/attribute">
        <xsl:call-template name="named_attribute"/>
     </xsl:for-each>
     <xsl:for-each select="ancestor-or-self::entity_type/composition">
@@ -185,7 +185,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </xsl:for-each>
   </xsl:element>
 </xsl:template>
-<xsl:template name="named_attribute" match="value|choice">
+<xsl:template name="named_attribute" match="attribute">
   <xsl:element name="element">
     <xsl:attribute name="name">
       <xsl:value-of select="name"/>
