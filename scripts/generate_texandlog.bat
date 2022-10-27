@@ -1,6 +1,7 @@
 @ECHO OFF
+REM Run this from the src folder
 
-call %~dp0\set_path_variables
+if not exist ..\logs mkdir ..\logs
 
 set filename=%1
 set filenamebase=%filename:~0,-4%
@@ -11,6 +12,6 @@ echo ********************************************** >>build.log
 echo ** generate tex for %filename%                 >>build.log           
 echo ********************************************** >>build.log
 
-call %ERHOME%\scripts\genTex >temp\%filenamebase%.tex.log %1 2>&1  & type temp\%filenamebase%.tex.log | findstr "[Ee]rror"
+call %ERHOME%\scripts\genTex >..\logs\%filenamebase%.tex.log %1 2>&1  & type ..\logs\%filenamebase%.tex.log | findstr "[Ee]rror"
 
-type temp\%filenamebase%.tex.log >>build.log
+type ..\logs\%filenamebase%.tex.log >>..\build.log

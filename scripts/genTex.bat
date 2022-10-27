@@ -1,5 +1,9 @@
 @echo off
 
+REM run this from the folder which has the src xml file
+
+if not exist ..\latex mkdir ..\latex
+
 set filename=%1
 set filenamebase=%filename:~0,-4%
 

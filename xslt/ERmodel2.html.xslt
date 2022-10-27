@@ -214,12 +214,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </xsl:if>
        </td>
        <td>
-         <xsl:if test="name()='value'">
-	   <xsl:value-of select="type"/>
-         </xsl:if>
-         <xsl:if test="name()='choice'">
-            <xsl:value-of select='from'/>
-         </xsl:if>
+	   <xsl:value-of select="type/name()"/>
        </td>
       <td>
          <xsl:value-of select="description"/>

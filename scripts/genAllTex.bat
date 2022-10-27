@@ -1,12 +1,11 @@
 @echo off
+REM run this from the src folder
 
 call %~dp0\set_path_variables
 
 SETLOCAL ENABLEDELAYEDEXPANSION
-echo BUILDLOG %DATE%_%TIME% >build.log
-echo ====================== >>build.log
-
-if not exist temp mkdir temp
+echo BUILDLOG %DATE%_%TIME% >..\build.log
+echo ====================== >>..\build.log
 
 
 FOR %%x IN (*.xml) DO (

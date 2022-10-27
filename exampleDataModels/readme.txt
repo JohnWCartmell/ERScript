@@ -15,10 +15,13 @@ commutative diagrams to generate physical models in third normal form. It
 can be used to generate hierarchical models suitable for representation in 
 XML or tabular models suitable for a relational database.
 
+To build all the examples in a Microsoft Windows environment use the windows command prompt: 
+cd to this exampleDataModels folder
+and then run the script ..\<ERHOME>\scripts\buildAllLogicalandPhysical.bat 
+
  
-In a Microsoft Windows environment the script build_examples can be used 
-to generate both hierarchical and relational models and associated svg 
-diagrams for all models in the src folder. This script uses all the 
+Both hierarchical and relational models and associated svg 
+diagrams are generated for all models in the src folder. This script uses all the 
 following scripts which can also be used individually:
 
   <DISTRIBUTION>\<ERHOME>\scripts\genSvg can be used to generate or 

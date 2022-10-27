@@ -1,4 +1,7 @@
 @ECHO OFF
+REM Run this from the src folder
+
+if not exist ..\logs mkdir ..\logs
 
 set filename=%1
 set filenamebase=%filename:~0,-4%
@@ -9,6 +12,6 @@ echo ********************************************** >>build.log
 echo ** generate svg for %filename%                 >>build.log           
 echo ********************************************** >>build.log
 
-call %ERHOME%\scripts\genSvg >temp\%filenamebase%.svg.log %1 2>&1  & type temp\%filenamebase%.svg.log | findstr "[Ee]rror"
+call %ERHOME%\scripts\genSvg >..\logs\%filenamebase%.svg.log %1 2>&1  & type ..\logs\%filenamebase%.svg.log | findstr "[Ee]rror"
 
-type temp\%filenamebase%.svg.log >>build.log
+type ..\logs\%filenamebase%.svg.log >>..\build.log
