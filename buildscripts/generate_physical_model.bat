@@ -10,3 +10,5 @@ java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.physical.xml -xsl:%X
 java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.physical.xml -xsl:%XSLT%/ERmodel2.referential_integrity_xslt.xslt -o:%XSLT%\ERmodelERmodel.referential_integrity.xslt
 
 java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.physical.xml -xsl:%XSLT%/ERmodel2.svg.xslt -o:%DOCS%/ERmodel.physical.svg filestem=ERmodel.physical noscopes=y
+
+java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.physical.xml -xsl:%XSLT%/ERmodel2.html.xslt -o:%DOCS%/ERmodel.physical.report.html

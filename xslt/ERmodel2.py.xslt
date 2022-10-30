@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 ****************************************************************
 ERmodel_v1.2/src/ERmodel2.py.xslt 
@@ -22,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 
-<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
      CR-17018 Modify so that support for protocol buffers is optional and doesn't occur by default.
@@ -616,7 +616,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <xsl:template name="add_child_functions">
    <xsl:for-each select="composition">
       <xsl:variable name="cardinality">
-         <xsl:value-of select="cardinality/name()"/>
+         <xsl:value-of select="cardinality/*/name()"/>
       </xsl:variable>
       <xsl:for-each select="key('EntityTypes',type)">
         <xsl:for-each select="descendant-or-self::entity_type[not(entity_type)]">

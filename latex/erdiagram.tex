@@ -99,12 +99,20 @@
 \psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)
 }
 
-% \ergrp{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
+% \ergradient{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill} %was \ergrp
 % #5 corner radius is unused!
 \newcommand {\ergrp}[6]
 { 
 \ifthenelse{\equal{#6}{1}}
 {\psframe[fillstyle=solid,fillcolor=verylightgrey](#1,#2)(#3,#4)}
+{\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
+}
+
+% \erbox{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
+\newcommand {\erbox}[6]
+{ 
+\ifthenelse{\equal{#6}{1}}
+{\psframe[fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)}
 {\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
 }
 

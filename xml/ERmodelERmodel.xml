@@ -239,12 +239,15 @@ v1.4    JC 22-Sept-2017 Removal of enumeration types.
             <presentation>
                <rightOf>entity_type</rightOf>
             </presentation>
+            <descrription>A grouping of entity types. By default groups are not visually represented in the ER diagram.</descrription>
             <attribute>
                <name>annotation</name>
                <type>
                   <string/>
                </type>
                <optional/>
+               <description>If groups are given an annotation then the group extent is represented on the ER diagram and labelled with the annotation.
+               </description>
             </attribute>
          </entity_type>
          <composition>
@@ -294,6 +297,7 @@ v1.4    JC 22-Sept-2017 Removal of enumeration types.
             <string/>
          </type>
          <optional/>
+         <description>Used by code generators (eg. in generated typescript)</description>
       </attribute>
       <composition>
          <cardinality>
@@ -1740,6 +1744,18 @@ v1.4    JC 22-Sept-2017 Removal of enumeration types.
             <name>Bottom</name>
             <presentation>
                <below>BottomRight</below>
+            </presentation>
+         </entity_type>
+         <entity_type>
+            <name>Box</name>
+            <presentation>
+               <below>Bottom</below>
+            </presentation>
+         </entity_type>
+         <entity_type>
+            <name>Gradient</name>
+            <presentation>
+               <below>Box</below>
             </presentation>
          </entity_type>
       </entity_type>

@@ -2,3 +2,5 @@
 rem call %~dp0\set_path_variables
 
 java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.xml -xsl:%XSLT%/ERmodel2.svg.xslt -o:%DOCS%/ERmodel.logical.svg filestem=ERmodel.logical noscopes=y
+
+java -jar %SAXON_PATH%\saxon9he.jar -s:%XML%\ERmodelERmodel.xml -xsl:%XSLT%/ERmodel2.html.xslt -o:%DOCS%/ERmodel.logical.report.html

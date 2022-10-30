@@ -129,8 +129,13 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         fill: black;
         font-size: 30px;
         }
-        .group {
+        .Gradient {
           fill: url(#topdowngrey);
+        }        
+        .Box {
+          fill: white;
+          stroke: black;
+          stroke-width: 1;
         }
         .groupannotation {
           fill: grey;
@@ -513,9 +518,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="ycm"/>
     <xsl:param name="wcm"/>
     <xsl:param name="hcm"/>
-    <xsl:param name="shape" as="node()?"/>
-    
-    <!--<xsl:message>isboundary is '<xsl:value-of select="$isboundary"/>'</xsl:message>-->
+    <xsl:param name="shape" as="element(shape)?"/>
     <xsl:variable name="cornerRadiuscm">
       <xsl:choose>
         <xsl:when test="$isgroup">
@@ -605,13 +608,12 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
       <svg:rect>
         <xsl:choose>
           <xsl:when test="$isgroup">
-            <xsl:attribute name="class">group</xsl:attribute>
+            <xsl:attribute name="class" select="$shape/*/name()"/>
           </xsl:when>
-          <xsl:when test="not (string-length($shape)=0)">
-            <xsl:attribute name="class">etodd</xsl:attribute>
-          </xsl:when>
-   <!-- FAILED EXPERIMENT 
-          <xsl:when test="$iseven or $isboundary">
+          <!-- not cutrrentl;y doing anything 28/10/2022 
+            <xsl:when test="not (string-length($shape)=0)">
+              <xsl:attribute name="class">etodd</xsl:attribute>
+            </xsl:when>
           -->
           <xsl:when test="$iseven">
             <xsl:attribute name="class">eteven</xsl:attribute>

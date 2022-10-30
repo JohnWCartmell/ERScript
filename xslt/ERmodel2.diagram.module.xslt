@@ -341,7 +341,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
              <xsl:with-param name="ycm" select="-0.3" />
              <xsl:with-param name="wcm" select="$diagramWidth" />
              <xsl:with-param name="hcm" select="0.5" />
-             <xsl:with-param name="shape" select="nonesuchthingy" />
+             <!--<xsl:with-param name="shape" select="nonesuchthingy" />-->
           </xsl:call-template>
       </xsl:with-param>
    </xsl:call-template>
@@ -482,7 +482,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       </xsl:choose>
   </xsl:variable>
 
-  <xsl:if test="not(self::group) or ($debug!='') or (annotation)">
+  <xsl:if test="not(self::group) or ($debug!='') or (exists(presentation/shape))">
     <xsl:call-template name="entity_type_box">
        <xsl:with-param name="isgroup" select="exists(self::group)"/>  
        <xsl:with-param name="iseven" as="xs:boolean">
@@ -495,13 +495,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	          </xsl:otherwise>
 	        </xsl:choose>
        </xsl:with-param>
-       <!-- FAILED EXPERIMENT
-       <xsl:with-param name="isboundary"  as="xs:boolean"
-                       select="boolean(//implementationOf)
-                              and (not(dependency/type) or not(xpath_type_classifier))
-                              "
-                        />
-                        -->
        <xsl:with-param name="xcm" select="$xabs"/>
        <xsl:with-param name="ycm" select="$yabs"/>
        <xsl:with-param name="wcm" select="$width"/>
@@ -513,7 +506,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   <xsl:if test ="annotation">
      <xsl:variable name="xcm" select="$xabs + 0.1"/>
 	 <xsl:variable name="ycm" select="$yabs + 0.3"/>
-	 <xsl:variable name="xsign" select="-1"/>
+	 <xsl:variable name="xsign" select="1"/>  <!-- group annotation was previously external to the group boundary -->
+                                             <!-- modify to be in the bounding box of the group 28/10/2022-->
   	 <xsl:call-template name="spitLines">
 	    <xsl:with-param name="pText" select="annotation"/>
 	    <xsl:with-param name="x" select="$xcm"/>
@@ -522,37 +516,28 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	    <xsl:with-param name="ysign" select="+1"/>
 	    <xsl:with-param name="class" select="'groupannotation'"/>
 	 </xsl:call-template>
-	 <!-- add support for line splitting annotations 
-	 <xsl:call-template name="ERtext">
-	    <xsl:with-param name="x" select="$xabs + 0.1"/>
-	    <xsl:with-param name="y" select="$yabs + 0.3"/>
-	    <xsl:with-param name="xsign" select="+1"/>
-	    <xsl:with-param name="pText" select="annotation"/>
-	    <xsl:with-param name="class" select="'groupannotation'"/>
-	 </xsl:call-template>
-	 -->
   </xsl:if>
   <xsl:variable name="etnameyPos">
     <xsl:value-of select="$yabs +  $etname_y_offset"/>
   </xsl:variable>
   <xsl:if test="not(presentation/name/None) and not(self::group)">
      <xsl:choose>
-	<xsl:when test="not(entity_type|attribute)">
-	   <!-- center the text in the box -->
-	   <xsl:call-template name="entity_type_name"> 
-	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
-	     <xsl:with-param name="ycm" select="$etnameyPos"/>
-	     <xsl:with-param name="xsign" select="0"/>
-	   </xsl:call-template>
-	</xsl:when>
-	<xsl:otherwise>
-	   <!-- run the text from the left -->
-	   <xsl:call-template name="entity_type_name"> 
-	     <xsl:with-param name="xcm" select="$xabs + $etnamexPos"/>
-	     <xsl:with-param name="ycm" select="$etnameyPos"/>
-	     <xsl:with-param name="xsign" select="+1"/>
-	   </xsl:call-template>
-	</xsl:otherwise>
+   	<xsl:when test="not(entity_type|attribute)">
+   	   <!-- center the text in the box -->
+   	   <xsl:call-template name="entity_type_name"> 
+   	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
+   	     <xsl:with-param name="ycm" select="$etnameyPos"/>
+   	     <xsl:with-param name="xsign" select="0"/>
+   	   </xsl:call-template>
+   	</xsl:when>
+   	<xsl:otherwise>
+   	   <!-- run the text from the left -->
+   	   <xsl:call-template name="entity_type_name"> 
+   	     <xsl:with-param name="xcm" select="$xabs + $etnamexPos"/>
+   	     <xsl:with-param name="ycm" select="$etnameyPos"/>
+   	     <xsl:with-param name="xsign" select="+1"/>
+   	   </xsl:call-template>
+   	</xsl:otherwise>
      </xsl:choose>
   </xsl:if>
   <xsl:variable name="no_linebreaks_in_etname">  

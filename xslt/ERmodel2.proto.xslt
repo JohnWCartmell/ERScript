@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 ****************************************************************
 ERmodel_v1.2/src/ERmodel2.proto.xslt 
@@ -21,8 +22,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
-
-<?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:transform version="2.0" 
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -93,13 +92,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <xsl:with-param name="field_number" select="position()"/>
               </xsl:call-template>
             </xsl:when>
-            <xsl:when test="self::value">
+            <xsl:when test="self::attribute">
               <xsl:call-template name="message_attribute">
-                <xsl:with-param name="field_number" select="position()"/>
-              </xsl:call-template>
-            </xsl:when>
-            <xsl:when test="self::choice">
-              <xsl:call-template name="message_enumeration">
                 <xsl:with-param name="field_number" select="position()"/>
               </xsl:call-template>
             </xsl:when>
@@ -134,12 +128,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:otherwise>required </xsl:otherwise>
     </xsl:choose>
     <xsl:call-template name="field_line">
-      <xsl:with-param name="type" select="type"/>
+      <xsl:with-param name="type" select="type/*/name()"/>
       <xsl:with-param name="name" select="name"/>
       <xsl:with-param name="field_number" select="$field_number"/>
     </xsl:call-template>
   </xsl:template>
   
+  <!-- This was used as the mapping for meta entity type 'choice' 
+        but this has been removed from the meta model.
   <xsl:template name="message_enumeration">
     <xsl:param name="field_number"/>
     <xsl:call-template name="newlineindent2"/>
@@ -153,6 +149,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:with-param name="field_number" select="$field_number"/>
     </xsl:call-template>
   </xsl:template>
+  -->
   
   <xsl:template name="field_line">
     <xsl:param name="type"/>
@@ -176,6 +173,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </xsl:when>
       <xsl:when test="$type_name = 'boolean'">
         <xsl:text>bool</xsl:text>
+      </xsl:when>
+      <xsl:when test="$type_name = 'nonNegativeInteger'">
+        <xsl:text>int32</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$type_name"/>
