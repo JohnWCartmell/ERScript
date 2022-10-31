@@ -429,13 +429,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:value-of select="python_name"/>
     <xsl:text> = </xsl:text>
     <xsl:choose>
-      <xsl:when test="type='float'">
+      <xsl:when test="type/*/name()='float'">
         <xsl:text>float</xsl:text>
       </xsl:when>
-      <xsl:when test="type='integer'">
+      <xsl:when test="type/*/name()='integer'">
         <xsl:text>int</xsl:text>
       </xsl:when>
-      <xsl:when test="type='boolean'">
+      <xsl:when test="type/*/name()='boolean'">
         <xsl:text>"true" == </xsl:text>
       </xsl:when>
     </xsl:choose>
@@ -469,14 +469,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:otherwise><xsl:text>False</xsl:text></xsl:otherwise>
   </xsl:choose>
   <xsl:text>, (</xsl:text>
-  <xsl:if test="self::choice">
-    <xsl:variable name="enum_type" select="from"/>
-    <xsl:for-each select="//enumeration_type[name=$enum_type]/enumeration_value">
-      <xsl:text>"</xsl:text>
-      <xsl:value-of select="literal"/>
-      <xsl:text>", </xsl:text>
-    </xsl:for-each>
-  </xsl:if>
   <xsl:text>))</xsl:text>
 </xsl:template>
 
@@ -601,7 +593,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </xsl:template>
 
 <xsl:template name="serialise_attributes">
-  <xsl:for-each select="(ancestor-or-self::entity_type/attribute|attribute)">
+  <xsl:for-each select="(ancestor-or-self::entity_type/attribute)">
     <xsl:call-template name="newlineindent4"/>
     <xsl:text>if self.</xsl:text><xsl:value-of select="python_name"/><xsl:text> is not None:</xsl:text>
     <xsl:call-template name="newlineindent6"/>
@@ -615,9 +607,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <xsl:template name="add_child_functions">
    <xsl:for-each select="composition">
-      <xsl:variable name="cardinality">
-         <xsl:value-of select="cardinality/*/name()"/>
-      </xsl:variable>
+      <xsl:variable name="cardinality" as="element(cardinality)"
+                   select="cardinality"/>
       <xsl:for-each select="key('EntityTypes',type)">
         <xsl:for-each select="descendant-or-self::entity_type[not(entity_type)]">
           <xsl:call-template name="create_function">
@@ -631,43 +622,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <xsl:template name="create_function" match="entity_type">
    <xsl:param name="membername"/>
-   <xsl:param name="cardinality"/>
+   <xsl:param name="cardinality" as="element(cardinality)"/>
    <xsl:variable name="classname">
-      <xsl:value-of select="name"/>
+      <xsl:value-of select="pythonname"/>
    </xsl:variable>
    <xsl:variable name="create_fn_name">
-       <xsl:value-of  select="concat('create_',name)"/>
+       <xsl:value-of  select="concat('create_',$classname)"/>
    </xsl:variable>
    <xsl:call-template name="indent2"/>
    <xsl:text>def </xsl:text><xsl:value-of select="$create_fn_name"/><xsl:text>(self</xsl:text>
-   <xsl:if test="(ancestor-or-self::entity_type/attribute|attribute)">
+   <xsl:if test="(ancestor-or-self::entity_type/attribute)">
        <xsl:text>,</xsl:text>
    </xsl:if>
    <xsl:call-template name="init_formal_arguments"/> 
    <xsl:text>):</xsl:text>
    <xsl:call-template name="newlineindent4"/>
    <xsl:choose>
-      <xsl:when test="($cardinality = 'ZeroOrOne') or ($cardinality = 'ExactlyOne')">
+      <xsl:when test="($cardinality/ZeroOrOne) or ($cardinality/ExactlyOne)">
          <xsl:text>self.</xsl:text><xsl:value-of select="$membername"/>
          <xsl:text>=</xsl:text>
       </xsl:when>
-        <xsl:when test="($cardinality = 'ZeroOneOrMore')or($cardinality = 'OneOrMore')">
+        <xsl:when test="($cardinality/ZeroOneOrMore)or($cardinality/OneOrMore)">
           <xsl:text>self.</xsl:text><xsl:value-of select="$membername"/><xsl:text>.append(</xsl:text>
       </xsl:when>
    </xsl:choose>
    <xsl:value-of select="$classname"/><xsl:text>(self</xsl:text>
-   <xsl:if test="(ancestor-or-self::entity_type/attribute|attribute)">
+   <xsl:if test="(ancestor-or-self::entity_type/attribute)">
       <xsl:text>,</xsl:text>
    </xsl:if>
    <xsl:call-template name="init_actual_arguments"/>
    <xsl:text>)</xsl:text>
-   <xsl:if test="($cardinality = 'ZeroOneOrMore')or($cardinality = 'OneOrMore')">
+   <xsl:if test="($cardinality/ZeroOneOrMore)or($cardinality/OneOrMore)">
         <xsl:text>)</xsl:text>
    </xsl:if>
    <xsl:call-template name="newlineindent4"/>
    <xsl:text>return self.</xsl:text>
    <xsl:value-of select="$membername"/>
-   <xsl:if test="($cardinality = 'ZeroOneOrMore')or($cardinality = 'OneOrMore')">
+   <xsl:if test="($cardinality/ZeroOneOrMore)or($cardinality/OneOrMore)">
       <xsl:text>[-1]</xsl:text>
    </xsl:if>
    <xsl:call-template name="newline"/>
@@ -675,16 +666,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </xsl:template>
 
 <xsl:template name="init_formal_arguments">
-  <xsl:for-each select="(ancestor-or-self::entity_type/attribute|attribute)[not(exists(optional))]">
+  <xsl:for-each select="(ancestor-or-self::entity_type/attribute)[not(exists(optional))]">
       <xsl:if test="position() > 1">
         <xsl:text>,</xsl:text>
       </xsl:if>
       <xsl:call-template name="formal_argument_to_init"/>
   </xsl:for-each>
-  <xsl:if test="(ancestor-or-self::entity_type/attribute|attribute)[optional] and (ancestor-or-self::entity_type/attribute|attribute)[not(exists(optional))]">
+  <xsl:if test="(ancestor-or-self::entity_type/attribute)[optional] and (ancestor-or-self::entity_type/attribute)[not(exists(optional))]">
       <xsl:text>,</xsl:text>
   </xsl:if>
-  <xsl:for-each select="(ancestor-or-self::entity_type/attribute|attribute)[optional]">
+  <xsl:for-each select="(ancestor-or-self::entity_type/attribute)[optional]">
       <xsl:if test="position() > 1">
         <xsl:text>,</xsl:text>
       </xsl:if>
@@ -712,25 +703,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <xsl:value-of select="concat(upper-case(substring($defaultvalue,1,1)),substring($defaultvalue,2))"/>
        </xsl:when>
        <xsl:when test="type='string'">
-          <xsl:text>"</xsl:text><xsl:value-of select="optional/value"/><xsl:text>"</xsl:text>
+          <xsl:text>"</xsl:text><xsl:value-of select="optional/attribute"/><xsl:text>"</xsl:text>
        </xsl:when>
        <xsl:otherwise> 
-          <xsl:value-of select="optional/value"/>
+          <xsl:value-of select="optional/attribute"/>
        </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
 
 <xsl:template name="init_actual_arguments">
-  <xsl:for-each select="(ancestor-or-self::entity_type/attribute|attribute)[not(exists(optional))]">
+  <xsl:for-each select="(ancestor-or-self::entity_type/attribute)[not(exists(optional))]">
       <xsl:if test="position() > 1">
         <xsl:text>,</xsl:text>
       </xsl:if>
       <xsl:value-of select="python_name"/>
   </xsl:for-each>
-  <xsl:if test="(ancestor-or-self::entity_type/attribute|attribute)[optional] and (ancestor-or-self::entity_type/attribute|attribute)[not(exists(optional))]">
+  <xsl:if test="(ancestor-or-self::entity_type/attribute)[optional] and (ancestor-or-self::entity_type/attribute)[not(exists(optional))]">
       <xsl:text>,</xsl:text>
   </xsl:if>
-  <xsl:for-each select="(ancestor-or-self::entity_type/attribute|attribute)[optional]">
+  <xsl:for-each select="(ancestor-or-self::entity_type/attribute)[optional]">
       <xsl:if test="position() > 1">
         <xsl:text>,</xsl:text>
       </xsl:if>
