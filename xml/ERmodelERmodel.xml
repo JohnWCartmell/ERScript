@@ -630,6 +630,12 @@ v1.4    JC 22-Sept-2017 Removal of enumeration types.
                   <ZeroOrOne/>
                </cardinality>
                <type>navigation</type>
+               <description>
+                  Defining a 'key' for a  reference relationship (along with a 'diagonal' and a 'riser') defines it to be the unique relationship
+                  into a pullback entity type corresponding to a given relationship into
+                  the pulled back type. A reference relationship with a key is therefore in many ways 
+                  a constructed relationship.
+               </description>
                <diagram>
                   <path>
                      <srcattach>0.75</srcattach>

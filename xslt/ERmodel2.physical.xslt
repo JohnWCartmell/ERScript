@@ -141,6 +141,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
           style should be either 'h' hierarchical or 'hs' hierarchical stylised or 'r' relational 
       </xsl:message>
     </xsl:if>
+
     <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
     <xsl:variable name="state">
       <xsl:call-template name="initial_enrichment">

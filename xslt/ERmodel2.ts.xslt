@@ -129,20 +129,15 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 -->
 <xsl:function name="era:join_cardinalities" as="xs:string">
   <xsl:param name="cardinalities" as="element()*"/>
-  <xsl:message>join_cardinalities count<xsl:value-of select="count($cardinalities/*)"/> </xsl:message>
-  <xsl:message>join_cardinalities elements <xsl:value-of select="$cardinalities/*/name()"/> </xsl:message>
   <xsl:choose>
     <xsl:when test="count($cardinalities)=0">
-                    <xsl:message>Count is zero</xsl:message>
                    <xsl:value-of select="'ExactlyOne'"/>
     </xsl:when>
     <xsl:when test="count($cardinalities/*)=0">
-                    <xsl:message>Revised Count is zero</xsl:message>
                    <xsl:value-of select="'ExactlyOne'"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="left" select="$cardinalities[1]/*/name()"/>
-      <xsl:message>join_cardinalities left is <xsl:value-of select="$left"/></xsl:message>
       <xsl:variable name="right" select="era:join_cardinalities($cardinalities[position()&gt;1])"/>
       <xsl:value-of select="if      ($left = $right) then $left 
                             else if ($left = 'ExactlyOne') then $right 
@@ -159,13 +154,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 <!-- here I use it for constructing cardinality nodes -->
 <xsl:template name="element" match="*" mode="explicit">
     <xsl:param name="name" as="xs:string"/>
-    <xsl:element name="{$name}" />
+    <xsl:element name="{$name}" namespace="http://www.entitymodelling.org/ERmodel"/>
 </xsl:template>
 
 <xsl:template name="join_cardinality" match="*" mode="explicit">
     <xsl:param name="cardinalities" as="element(cardinality)*"/>
-      <xsl:message>join_cardinality count<xsl:value-of select="count($cardinalities/*)"/> </xsl:message>
-  <xsl:message>join_cardinality elements <xsl:value-of select="$cardinalities/*/name()"/> </xsl:message>
     <era:cardinality>
         <xsl:variable name="temp" select="era:join_cardinalities($cardinalities)"/>
         <xsl:if test="string-length($temp)=0">
@@ -179,7 +172,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 
 <xsl:template name="navigation_cardinality" match="*" mode="explicit">
     <xsl:param name="cardinalities" as="element(cardinality)*"/>
-    <xsl:message>navigation_cardinality</xsl:message>
+    <xsl:variable name="temp" select="era:join_cardinalities($cardinalities)"/>
+        <xsl:if test="string-length($temp)=0">
+            <xsl:message terminate="yes">Terminate in navigation_cardinality AT <xsl:value-of select="name()"/>count<xsl:value-of select="count($cardinalities/*)"/>elements <xsl:value-of select="$cardinalities/*/name()"/>
+            </xsl:message>
+        </xsl:if>
     <era:navigation_cardinality>
         <xsl:call-template name="element">
            <xsl:with-param name="name" select="era:join_cardinalities($cardinalities)"/>
@@ -189,7 +186,6 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 
 <xsl:template name="inverse_cardinality" match="*" mode="explicit">
     <xsl:param name="cardinalities" as="element(inverse_cardinality)*"/>
-    <xsl:message>inverse_cardinality</xsl:message>
     <era:inverse_cardinality>
         <xsl:call-template name="element">
            <xsl:with-param name="name" select="era:join_cardinalities($cardinalities)"/>
@@ -695,7 +691,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:if>
       <xsl:if test="not(cardinality) and (component|join|theabsolute|identity)/inverse_cardinality">
         <era:cardinality>
-            <xsl:value-of select="(component|join|theabsolute|identity)/inverse_cardinality/*"/>
+            <xsl:copy-of select="(component|join|theabsolute|identity)/inverse_cardinality/*"/>
         </era:cardinality>
         <!-- CHECK THE ABOVE-->
       </xsl:if>
@@ -766,9 +762,6 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         </era:jslookup>
       </xsl:if>
       <xsl:if test="not(cardinality) and (every $component in component satisfies boolean($component/cardinality))">
-        <xsl:message>join -  number of components <xsl:value-of select="count(component)"/></xsl:message>
-        <xsl:message>join -  component/cardinality <xsl:value-of select="component/cardinality"/></xsl:message>
-        <xsl:message>join -  component/cardinality/*/name() <xsl:value-of select="component/cardinality/*/name()"/></xsl:message>
         <!--
         <era:cardinality><xsl:element name="era:join_cardinalities(component/cardinality)"/></era:cardinality>
         -->
@@ -849,7 +842,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           <xsl:variable name="owningEnts" select="ancestor::entity_type"/>
           <xsl:text>.</xsl:text>
           <xsl:value-of select="js_inverse"/>
-          <xsl:if test="$ref/sequence and $ref/identifying and not($owningEnts/value[identifying])">
+          <xsl:if test="$ref/sequence and $ref/identifying and not($owningEnts/attribute[identifying])">
             <xsl:text>.atIndex(foreignKey.</xsl:text>
             <xsl:value-of select="$ref/js_membername"/>
             <xsl:text>_seqNo</xsl:text>
@@ -1232,14 +1225,14 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:for-each>
       <xsl:call-template name="newline"/>
       <xsl:text>        };</xsl:text>
-      </xsl:if>
-      <xsl:call-template name="newline"/>
+    </xsl:if>
+    <xsl:call-template name="newline"/>
     <xsl:text>        return diagonal</xsl:text>
     <xsl:value-of select="riser/js"/>
     <xsl:if test="navigation_cardinality/OneOrMore or navigation_cardinality/ZeroOneOrMore ">
       <xsl:text>.where(e =&gt; util.keysMatch(foreignKey, e.primaryKey))</xsl:text>
       <xsl:text>.withCardinality('</xsl:text>
-      <xsl:value-of select="cardinality/name()"/>
+      <xsl:value-of select="cardinality/*/name()"/>
       <xsl:text>');</xsl:text>
     </xsl:if>
   </xsl:when>
@@ -1259,7 +1252,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:variable name="objecttype" select="js_objecttype"/>
    <xsl:variable name="src_module_name" as="node()?" select="../module_name"/>
    <xsl:variable name="compname" as="node()?" select="name"/>
-   <xsl:variable name="cardinality" select="cardinality/name()"/>
+   <xsl:variable name="cardinality" select="cardinality/*/name()"/>
    <xsl:for-each select="key('EntityTypes',type)/descendant-or-self::entity_type[not(entity_type)]">
          <!-- <xsl:value-of select="$compname"/>  -->
       <xsl:text>    create</xsl:text>
@@ -1660,15 +1653,15 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
   <xsl:value-of select="js_listclassname"/>
   <xsl:text> extends </xsl:text>
   <xsl:choose>
-    <xsl:when test="$rel[sequence and identifying] and not(value[identifying])">
+    <xsl:when test="$rel[sequence and identifying] and not(attribute[identifying])">
       <xsl:text>EntitySequenceList&lt;</xsl:text>
-      <xsl:value-of select="$rel/../name"/>
+      <xsl:value-of select="$rel/../js_classname"/>                          <!-- 31/10/2022 was $rel/../name -->
       <xsl:text>, </xsl:text>
       <xsl:value-of select="js_classname"/>
       <xsl:text>&gt; {</xsl:text>
       <xsl:call-template name="newline"/>
       <xsl:text>    protected navigate(parent: </xsl:text>
-      <xsl:value-of select="$rel/../name"/>
+      <xsl:value-of select="$rel/../js_classname"/>                    <!-- 31/10/2022 was $rel/../name -->
       <xsl:text>) { return parent.</xsl:text>
       <xsl:value-of select="$rel/js_membername"/>
       <xsl:text>; }</xsl:text>

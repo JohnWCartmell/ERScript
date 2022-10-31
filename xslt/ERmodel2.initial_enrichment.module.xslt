@@ -254,17 +254,21 @@ COMMENT OUT AND FIND OUT
       one case used outgoing dependency and its type and other incoming composition
        we cannot rely on dependency/type because this isnt present for compositions from absolute
                   so why not just rely on incoming compositions?
-                  -->
+-->
+   <!--  GOT a bug in car example so then modified on 31 Oct 2022 ... see below -->
+     
 <xsl:template match="entity_type
                      [not(parentType)]
                      " 
               mode="initial_enrichment_recursive"
               priority="6">
    <xsl:copy> 
-      <parentType> 
-         <xsl:value-of select="string-join(key('IncomingCompositionRelationships',
-                                       ancestor-or-self::entity_type/name)/../name,
-                                     ' | ')"/>
+      <parentType>                              
+         <xsl:value-of select="string-join(key('AllIncomingCompositionRelationships',
+                                               descendant-or-self::entity_type/name
+                                               )/../name,
+                                     ' | ')"/>               <!-- used key 'IncomingCompositionRelationships' from 16 Aug until 31 Oct 
+                                                                  this fixes immediate problem but needs further testing -->
       </parentType>
       <!-- 
         Define

@@ -166,20 +166,22 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
      <xsl:variable name="has_identifiers" as="xs:boolean">
        <xsl:value-of select="boolean((reference|attribute)/identifying)" />  <!-- 16 August 2022 - UPGRADED to latest metamodel : value|choice >>>  attribute -->
      </xsl:variable>
-     <xsl:for-each select="key('IncomingCompositionRelationships',name)">
-       <xsl:if test="sequence">
-          <xsl:if test="not(attribute[name='seqNo'])">                              <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
-             <attribute>                                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+     <!-- 31 October 2022 if brought outside of for-each if as must be intended -->
+    <xsl:if test="not(attribute[name='seqNo'])">                             <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute-->
+         <xsl:for-each select="key('IncomingCompositionRelationships',name)">
+           <xsl:if test="sequence">
+            <xsl:message> Addding Sequence attribute </xsl:message>
+             <attribute>                                                        <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
                 <name>seqNo</name>
-                <type><integer/></type>                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : <type>integer</type> >>> <type><integer/></type> -->
+                <type><integer/></type>                                         <!-- 16 August 2022 - UPGRADED to latest metamodel : <type>integer</type> >>> <type><integer/></type> -->
                 <for_sequence/>
                 <xsl:if test="identifying and not($has_identifiers)">
                      <identifying/>
                 </xsl:if>
-             </attribute>                                                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
-          </xsl:if>
-       </xsl:if>
-     </xsl:for-each>
+             </attribute>                                                       <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+           </xsl:if>
+         </xsl:for-each>
+     </xsl:if>
  </xsl:copy>
 </xsl:template>
 
@@ -575,7 +577,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:choose>
       <xsl:when test="not($headRelNavigationTail/identifying)">  
                 <desttype><xsl:value-of select="$headRel/type"/></desttype>
-            <xsl:for-each select="value[implementationOf/rel=$headRel/name]">
+            <xsl:for-each select="attribute[implementationOf/rel=$headRel/name]">
                  <where_component>
                     <srcattr><xsl:value-of select="name"/></srcattr>
                     <destattr><xsl:value-of select="implementationOf/destattr"/></destattr>
