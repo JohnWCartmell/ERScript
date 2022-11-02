@@ -40,6 +40,20 @@
       </xsl:element>
    </xsl:template>
 
+   <xsl:template match="dependency_group/presentation" mode="reachpresentation">
+      <xsl:element name="entity_type" namespace="http://www.entitymodelling.org/ERmodel">
+         <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
+            <xsl:value-of select="../../name"/><!-- name of source entity type -->
+         </xsl:element>
+         <xsl:element name="dependency_group" namespace="http://www.entitymodelling.org/ERmodel">  
+                                    <!-- maybe should be reference or composition? -->
+            <xsl:copy>
+               <xsl:apply-templates select="@*|node()" mode="copypresentation"/>
+            </xsl:copy>
+         </xsl:element>
+      </xsl:element>
+   </xsl:template>
+
    <xsl:template match="diagram" mode="reachpresentation">
       <xsl:element name="entity_type" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
