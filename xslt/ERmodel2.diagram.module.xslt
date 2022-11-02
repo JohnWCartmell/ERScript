@@ -94,6 +94,9 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:key name="IncomingCompositionRelationships" 
          match="composition" 
          use="type"/>
+<xsl:key name="AllIncomingCompositionRelationships" 
+         match="composition" 
+         use="key('EntityTypes',type)/descendant-or-self::entity_type/name"/> 
 <xsl:key name="ConstructedRelationshipsByQualifiedName" 
          match="constructed_relationship" 
          use="concat(../name,'.',name)"/>
