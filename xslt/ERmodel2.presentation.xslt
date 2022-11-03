@@ -12,9 +12,9 @@
 
    <xsl:template match="entity_model" mode="reachpresentation">
       <xsl:message> In root entity in entity_model</xsl:message>
-      <xsl:copy>
+      <xsl:element name="refinement" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:apply-templates select="*" mode="reachpresentation"/>
-      </xsl:copy>
+      </xsl:element>
    </xsl:template>
 
    <xsl:template match="entity_model/presentation" mode="reachpresentation">

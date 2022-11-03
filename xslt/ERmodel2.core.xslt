@@ -3,10 +3,12 @@
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                version="2.0"
                xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
+
+   <xsl:strip-space elements="*"/>
    <xsl:output method="xml" indent="yes"/>
 
    <xsl:template match="/">
-      <xsl:message> In root entity in 2.core which is <xsl:value-of select="name()"/></xsl:message>
+      <xsl:message>root entity in 2.core which is <xsl:value-of select="name()"/></xsl:message>
       <xsl:copy>
          <xsl:apply-templates select="*" mode="omitpresentation"/>
       </xsl:copy>
