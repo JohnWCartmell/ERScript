@@ -80,9 +80,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:param name="filestem"/>
 <xsl:param name="debug"/>
 <xsl:param name="noscopes"/>
-
+<xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="ERmodel.assembly.module.xslt"/>
 <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
 
 <!-- 
@@ -187,9 +188,12 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:variable>
 -->
 
-<xsl:variable name="diagramWidth">    <!-- used by absolute-->
-    <xsl:call-template name="getDiagramWidth"/>
-</xsl:variable>
+<!-- This cannot be a global variable after modularisation change 
+     and so this no longer used previously used by absolute and elsewhere
+            <xsl:variable name="diagramWidth">   
+                <xsl:call-template name="getDiagramWidth"/>
+            </xsl:variable>
+-->
 
 <xsl:variable name="etDefaultWidth">
    <xsl:choose>
@@ -228,11 +232,26 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    </xsl:choose>
 </xsl:variable>
 
-<xsl:template name="main" match="/entity_model">
+<xsl:template name="main" match="/">
+<xsl:message>In main in 2.diagram.module --- debug = <xsl:value-of select="$debug"/> </xsl:message>
+
+   <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
+    <xsl:variable name="state">
+      <xsl:apply-templates select="*" mode="assembly"/>
+    </xsl:variable>
+    <xsl:message> name of $state is <xsl:value-of select="$state/name()"/> </xsl:message>
+    <xsl:message> name of $state/* is <xsl:value-of select="$state/*/name()"/> </xsl:message>
+   <xsl:if test="$debugon">
+      <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:result-document href="initial_assembly_for_svg_temp.xml" method="xml">
+        <xsl:sequence select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
+
    <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
    <xsl:variable name="state">
       <xsl:call-template name="initial_enrichment">
-          <xsl:with-param name="document" select="."/>
+          <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
    </xsl:variable>
 
@@ -335,6 +354,9 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 <xsl:template name="absolute" match="absolute">
+   <xsl:variable name="diagramWidth">   
+        <xsl:call-template name="getDiagramWidth"/>
+   </xsl:variable>
    <xsl:call-template name="wrap_entity_type">
       <xsl:with-param name="content">
           <xsl:call-template name="entity_type_box">
@@ -915,7 +937,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    <xsl:variable name="w">
       <xsl:choose>
 	 <xsl:when test="name()='absolute'">
-	    <xsl:value-of select="$diagramWidth" />
+         <xsl:variable name="diagramWidth">   
+              <xsl:call-template name="getDiagramWidth"/>
+         </xsl:variable>
+	      <xsl:value-of select="$diagramWidth" />
 	 </xsl:when>
 	 <xsl:otherwise>
 	    <xsl:call-template name="et_width"/>
@@ -1394,6 +1419,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 
 <xsl:template name="getDiagramWidth">
+   <xsl:message>Getting diagram width starting from name <xsl:value-of select="name()"/></xsl:message>
+   <xsl:message>Getting diagram width starting from child name <xsl:value-of select="*/name()"/></xsl:message>
    <xsl:choose>
       <xsl:when test="/entity_model/diagram/box/w">   <!-- this branch not supported by schema-->
 	 <xsl:value-of select="/entity_model/diagram/box/w"/>

@@ -9,13 +9,7 @@
 
    <xsl:param name="filestem"/>
 
-   <xsl:template match="/">
-      <xsl:copy>
-         <xsl:apply-templates select="*" mode="genmain"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <xsl:template match="entity_model" mode="genmain">
+   <xsl:template match="/" >
       <xsl:copy>
          <xsl:element name="extend" namespace="http://www.entitymodelling.org/ERmodel">
              <xsl:element name="content" namespace="http://www.entitymodelling.org/ERmodel"> 
@@ -32,17 +26,5 @@
       </xsl:copy>
    </xsl:template>
 
-<!--
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-  <extend >
-      <content>
-         <include filename="grids.core.xml"/>
-      </content>
-      <with> 
-         <include filename="grids.presentation.xml"/>
-      </with>
-  </extend>
-</entity_model>
--->
 
 </xsl:transform>

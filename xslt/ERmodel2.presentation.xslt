@@ -13,21 +13,19 @@
    <xsl:template match="entity_model" mode="reachpresentation">
       <xsl:message> In root entity in entity_model</xsl:message>
       <xsl:element name="refinement" namespace="http://www.entitymodelling.org/ERmodel">
+         <xsl:copy>
+            <xsl:apply-templates select="presentation" mode="copypresentation"/>
+            <xsl:apply-templates select="defaults" mode="copypresentation"/>
+         </xsl:copy>
          <xsl:apply-templates select="*" mode="reachpresentation"/>
       </xsl:element>
-   </xsl:template>
-
-   <xsl:template match="entity_model/presentation" mode="reachpresentation">
-         <xsl:copy>
-               <xsl:apply-templates select="@*|node()" mode="copypresentation"/>
-         </xsl:copy>
    </xsl:template>
 
    <xsl:template match="@*|node()" mode="reachpresentation">
          <xsl:apply-templates select="@*|node()" mode="reachpresentation"/>
    </xsl:template>
 
-   <xsl:template match="presentation" mode="reachpresentation">
+   <xsl:template match="*[not(self::entity_model)]/presentation" mode="reachpresentation">
       <xsl:variable name="containerelementname" select="../name()"/>
       <xsl:element name="{$containerelementname}" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
@@ -54,7 +52,7 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="diagram" mode="reachpresentation">
+   <xsl:template match="*[self::reference|self::composition]/diagram" mode="reachpresentation">
       <xsl:element name="entity_type" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
             <xsl:value-of select="../../name"/><!-- name of source entity type -->

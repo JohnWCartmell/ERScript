@@ -56,6 +56,8 @@ CR18553 JC  21-Oct-2016 Work now done in a series of enrichment modules.
 CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xslt
 CR19229 JC  27-Jan-2016 Support absolute scopes.
 
+3-Oct-2022 JC Modularistion support add an initial assembly pass.
+
 -->
 
 <xsl:transform version="2.0" 
@@ -123,14 +125,13 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
   <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
 
-
   <!-- Make copy template available as a default -->
   <xsl:template match="*" >
     <xsl:copy>
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
-
+  <xsl:include href="ERmodel.assembly.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.physical_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
@@ -142,10 +143,22 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:message>
     </xsl:if>
 
-    <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
+    <xsl:message>at doc root child nodes are <xsl:value-of select="*/name()"/></xsl:message>
+
+    <!-- an initial assembly (see ERmodel2.assembly.xslt)        -->
+    <xsl:variable name="state">
+      <xsl:apply-templates select="*" mode="assembly"/>
+    </xsl:variable>
+
+    <xsl:if test="$debugon">
+      <xsl:result-document href="initial_assembly_temp.xml" method="xml">
+        <xsl:sequence select="$state/entity_model"/>
+      </xsl:result-document>
+    </xsl:if>
+    <!-- is followed by an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
     <xsl:variable name="state">
       <xsl:call-template name="initial_enrichment">
-        <xsl:with-param name="document" select="."/>
+        <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
     </xsl:variable>
     <xsl:if test="$debugon">

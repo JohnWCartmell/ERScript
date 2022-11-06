@@ -8,7 +8,7 @@
    <xsl:output method="xml" indent="yes"/>
 
    <xsl:template match="/">
-      <xsl:message>root entity in 2.core which is <xsl:value-of select="name()"/></xsl:message>
+      <xsl:message>ERmodel2.core.xslt: root entity  <xsl:value-of select="name()"/></xsl:message>
       <xsl:copy>
          <xsl:apply-templates select="*" mode="omitpresentation"/>
       </xsl:copy>
@@ -20,6 +20,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <xsl:template match="*[self::presentation|self::diagram]" mode="omitpresentation"/>
+   <xsl:template match="*[self::defaults|self::presentation|self::diagram]" mode="omitpresentation"/>
 
 </xsl:transform>
