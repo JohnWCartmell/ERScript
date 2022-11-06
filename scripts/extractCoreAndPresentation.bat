@@ -12,8 +12,8 @@ set filenamebase=%filename:~0,-4%
 
 call %~dp0\scripts\set_path_variables
 
-java -jar %SAXON_PATH%\saxon9he.jar -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.presentation.xslt -o:..\temp\%filenamebase%.presentation.xml
+java -jar %SAXON_JAR% -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.presentation.xslt -o:..\temp\%filenamebase%.presentation.xml
 
-java -jar %SAXON_PATH%\saxon9he.jar -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.core.xslt -o:..\temp\%filenamebase%.core.xml
+java -jar %SAXON_JAR% -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.core.xslt -o:..\temp\%filenamebase%.core.xml
 
-java -jar %SAXON_PATH%\saxon9he.jar -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.main.xslt -o:..\temp\%filenamebase%.main.xml filestem=%filenamebase%
+java -jar %SAXON_JAR% -s:%filenamebase%.xml -xsl:%ERHOME%\xslt\ERmodel2.main.xslt -o:..\temp\%filenamebase%.main.xml filestem=%filenamebase%
