@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <description>
+      A further test of the code generators and a demonstator of pullbacks. Should move to separate folder and 
+      as an example of elaboration.
+   </description>
+   <absolute>
+      <name>grids</name>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>grid</type>
+      </composition>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>cardinal</type>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>grid</name>
+      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <reference>
+         <name>noOfRows</name>
+         <type>cardinal</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </reference> 
+   </entity_type>
+   <exclude condition="self::absolute or (self::description and parent::entity_model)">
+      <from>
+            <include filename="cardinals.core.xml" rootless="true"/>
+      </from>
+   </exclude>
+</entity_model>

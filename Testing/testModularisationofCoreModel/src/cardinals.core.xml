@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <description>
+      cardinal number along with its ordinals
+   </description>
+   <absolute>
+      <composition>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>cardinal</type>
+      </composition>
+   </absolute>
+   <group>
+      <name>universals</name>
+      <entity_type>
+         <name>cardinal</name>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>zno</name>
+            <type>
+               <nonNegativeInteger/>
+            </type>
+            <identifying/>
+         </attribute>
+         <composition>
+            <type>ordinal</type>
+            <cardinality>
+               <ZeroOneOrMore/>
+            </cardinality>
+            <inverse>..</inverse>
+            <identifying/>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>ordinal</name>
+         <dependency>
+            <name>..</name>
+            <type>cardinal</type>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+         </dependency>
+         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <name>zno</name>
+            <type>
+               <nonNegativeInteger/>
+            </type>
+            <identifying/>
+         </attribute>
+      </entity_type>
+   </group>
+</entity_model>

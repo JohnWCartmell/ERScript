@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+  <entity_type>
+      <name>andy</name>
+  </entity_type>
+  <entity_type>
+      <name>fred</name>
+      <attribute><name>fff1</name></attribute>
+   </entity_type>
+  <entity_type>
+      <name>jim</name>
+      <attribute><name>j1</name></attribute>
+      <entity_type>
+          <name>zoe</name>
+          <attribute><name>z1</name></attribute>
+      </entity_type>
+  </entity_type>
+</entity_model>
