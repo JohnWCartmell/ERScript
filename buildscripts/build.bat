@@ -53,7 +53,10 @@ echo "Copy the readme"
 copy %SRCDIR%\readme.md %DISTRIBUTION%\readme.md
 
 echo "Copy the meta-model"
-copy %SRCDIR%\xml\ERmodelERmodel.xml %ERHOMEDIR%\xml\ERmodelERmodel.xml
+copy %SRCDIR%\xml\ERmodelERmodel.core.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.xml
+copy %SRCDIR%\xml\ERmodelERmodel.core.presentation.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.presentation.xml
+copy %SRCDIR%\xml\ERmodelERmodel.core.diagram.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.diagram.xml
+copy %SRCDIR%\xml\ERmodelERmodel.physical.diagram.xml %ERHOMEDIR%\xml\ERmodelERmodel.physical.diagram.xml
 
 echo "Copying source xslt files"
 xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\ /q

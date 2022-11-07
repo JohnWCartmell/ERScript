@@ -1,1 +1,0 @@
-echo test ERHOMEDIR%ERHOMEDIR%

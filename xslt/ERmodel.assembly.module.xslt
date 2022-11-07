@@ -6,7 +6,7 @@
                version="2.0"
                xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
    <xsl:strip-space elements="*"/>
-   <xsl:output method="xml" indent="yes"/>
+   <!--<xsl:output method="xml" indent="yes"/>--> <!-- had to remove this because conflicted with ERmodel2.tex -->
 
    <!-- Supports 1. <include @filename @rootless>
                  2. <exclude @condition>
@@ -98,8 +98,16 @@
          <xsl:apply-templates select="@*|node()" mode="refine">
             <xsl:with-param name="with" select="$with"/>
          </xsl:apply-templates>
-         <xsl:apply-templates select="$with/refinement/entity_type[name=current()/../name]/relationship[name=current()/name]/*"
+         <xsl:choose>
+            <xsl:when test="exists(name)">
+                <xsl:apply-templates select="$with/refinement/entity_type[name=current()/../name]/relationship[name=current()/name]/*"
                               mode="copy_refinement"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:apply-templates select="$with/refinement/entity_type[name=current()/../name]/relationship[not(exists(name))][type=current()/type]/*"
+                              mode="copy_refinement"/>
+            </xsl:otherwise>
+         </xsl:choose>
       </xsl:copy>
    </xsl:template>
 
@@ -112,7 +120,7 @@
             <xsl:with-param name="with" select="$with"/>
          </xsl:apply-templates>
       -->
-         <xsl:apply-templates select="$with/refinement/entity_type[name=../current()/name]/dependency_group/*"
+         <xsl:apply-templates select="$with/refinement/entity_type[name=current()/../name]/dependency_group/*"
                               mode="copy_refinement"/>
       </xsl:copy>
    </xsl:template>
@@ -121,11 +129,15 @@
           <!-- dont copy this (its only there to identify the relationship whose detail is to be copied) -->
    </xsl:template>
 
-      <xsl:template match="refinement/group/name" mode="copy_refinement">
+   <xsl:template match="refinement/group/name" mode="copy_refinement">
           <!-- dont copy this (its only there to identify the group whose detail is to be copied) -->
    </xsl:template>
 
-      <xsl:template match="refinement/entity_type/relationship/name" mode="copy_refinement">
+   <xsl:template match="refinement/entity_type/relationship/name" mode="copy_refinement">
+          <!-- dont copy this (its only there to identify the relationship whose detail is to be copied) -->
+   </xsl:template>
+
+   <xsl:template match="refinement/entity_type/relationship/type" mode="copy_refinement">
           <!-- dont copy this (its only there to identify the relationship whose detail is to be copied) -->
    </xsl:template>
 

@@ -79,8 +79,9 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:param name="filestem"/>
 <xsl:param name="debug"/>
-<xsl:param name="noscopes"/>
+<xsl:param name="noscopes" as="xs:string?"/>
 <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+<xsl:variable name="scopeson" as="xs:boolean" select="if (not(exists($noscopes))) then true() else $noscopes='n'" />
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
@@ -234,13 +235,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:template name="main" match="/">
 <xsl:message>In main in 2.diagram.module --- debug = <xsl:value-of select="$debug"/> </xsl:message>
+<xsl:message>In main not exists $scopeson = <xsl:value-of select="$scopeson"/> </xsl:message>
 
    <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
     <xsl:variable name="state">
       <xsl:apply-templates select="*" mode="assembly"/>
     </xsl:variable>
-    <xsl:message> name of $state is <xsl:value-of select="$state/name()"/> </xsl:message>
-    <xsl:message> name of $state/* is <xsl:value-of select="$state/*/name()"/> </xsl:message>
+
    <xsl:if test="$debugon">
       <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="initial_assembly_for_svg_temp.xml" method="xml">
@@ -1419,8 +1420,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 
 <xsl:template name="getDiagramWidth">
-   <xsl:message>Getting diagram width starting from name <xsl:value-of select="name()"/></xsl:message>
-   <xsl:message>Getting diagram width starting from child name <xsl:value-of select="*/name()"/></xsl:message>
    <xsl:choose>
       <xsl:when test="/entity_model/diagram/box/w">   <!-- this branch not supported by schema-->
 	 <xsl:value-of select="/entity_model/diagram/box/w"/>
@@ -2618,11 +2617,11 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   </xsl:variable>
   <!-- <xsl:message>rel_id: '<xsl:value-of select="$rel_id"/>'</xsl:message> -->
   <xsl:variable name="scope">
-    <xsl:if test="not($noscopes)">
-    <xsl:for-each select="(ancestor::reference|.)[self::reference]">
-        <!--<xsl:call-template name="get_text_of_scope"/>-->
-        <xsl:value-of select="scope_display_text"/>
-    </xsl:for-each>
+    <xsl:if test="$scopeson">
+       <xsl:for-each select="(ancestor::reference|.)[self::reference]">
+           <!--<xsl:call-template name="get_text_of_scope"/>-->
+           <xsl:value-of select="scope_display_text"/>
+       </xsl:for-each>
     </xsl:if>
   </xsl:variable>
 

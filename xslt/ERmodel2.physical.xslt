@@ -131,7 +131,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
-  <xsl:include href="ERmodel.assembly.xslt"/>
+  <xsl:include href="ERmodel.assembly.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.physical_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>

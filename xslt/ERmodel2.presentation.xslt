@@ -25,7 +25,7 @@
          <xsl:apply-templates select="@*|node()" mode="reachpresentation"/>
    </xsl:template>
 
-   <xsl:template match="*[not(self::entity_model)]/presentation" mode="reachpresentation">
+   <xsl:template match="*[not(self::entity_model|self::dependency_group)]/presentation" mode="reachpresentation">
       <xsl:variable name="containerelementname" select="../name()"/>
       <xsl:element name="{$containerelementname}" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
@@ -59,9 +59,18 @@
          </xsl:element>
          <xsl:element name="relationship" namespace="http://www.entitymodelling.org/ERmodel">  
                                     <!-- maybe should be reference or composition? -->
-            <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
-               <xsl:value-of select="../name"/> <!-- name of parent relationship -->
-            </xsl:element>
+            <xsl:choose>
+               <xsl:when test="exists(../name)">
+               <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
+                  <xsl:value-of select="../name"/> <!-- name of parent relationship -->
+               </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:element name="type" namespace="http://www.entitymodelling.org/ERmodel">
+                  <xsl:value-of select="../type"/> <!-- type of parent relationship -->
+               </xsl:element>
+            </xsl:otherwise>
+         </xsl:choose>
             <xsl:copy>
                <xsl:apply-templates select="@*|node()" mode="copypresentation"/>
             </xsl:copy>
