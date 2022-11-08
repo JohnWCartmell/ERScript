@@ -1450,6 +1450,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 <xsl:template name="composition" match="composition">
+   <xsl:variable name="path">
+   <path>
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
@@ -1680,17 +1682,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
      </xsl:call-template>
   </xsl:if>
 
-  <xsl:if test="$destarmlen > 0">
-     <xsl:call-template name="line">
-        <xsl:with-param name="x0cm"  select="$destx"/>
-        <xsl:with-param name="y0cm"  select="$desty - $destarmlen div 2"/>
-        <xsl:with-param name="x1cm"  select="$destx"/>
-        <xsl:with-param name="y1cm"  select="$desty"/>
-        <xsl:with-param name="p_ismandatory" select="$destMandatory"/>
-        <xsl:with-param name="p_isconstructed" select="'false'"/>
-     </xsl:call-template>
-  </xsl:if>
-
   <xsl:call-template name="traverse">
      <xsl:with-param name="psrc_x1" select="$srcx" />
      <xsl:with-param name="psrc_y1" select="$srcy + $srcarmlen div 2" />
@@ -1706,6 +1697,17 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
      <xsl:with-param name="pdestMandatory" select="$destMandatory" />
      <xsl:with-param name="p_isconstructed" select="'false'"/>
   </xsl:call-template>
+
+    <xsl:if test="$destarmlen > 0">
+     <xsl:call-template name="line">
+        <xsl:with-param name="x0cm"  select="$destx"/>
+        <xsl:with-param name="y0cm"  select="$desty - $destarmlen div 2"/>
+        <xsl:with-param name="x1cm"  select="$destx"/>
+        <xsl:with-param name="y1cm"  select="$desty"/>
+        <xsl:with-param name="p_ismandatory" select="$destMandatory"/>
+        <xsl:with-param name="p_isconstructed" select="'false'"/>
+     </xsl:call-template>
+  </xsl:if>
 
   <xsl:if test="sequence">
      <xsl:choose>
@@ -1750,6 +1752,11 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	<xsl:with-param name="y" select="$desty"/>
      </xsl:call-template>
   </xsl:if>
+</path>
+</xsl:variable>
+   <xsl:call-template name="process_path_then_render">
+      <xsl:with-param name="path" select="$path/path"/>
+   </xsl:call-template>
 </xsl:template>
 
 
@@ -1951,6 +1958,8 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
 
+<xsl:variable name="path">
+<path>
   <xsl:variable name="inverse">
      <xsl:if test='inverse'>
        <xsl:for-each select="key('RelationshipBySrcTypeAndName',
@@ -2229,6 +2238,11 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
 	 </xsl:call-template>
   </xsl:if>
+  </path>
+</xsl:variable>
+   <xsl:call-template name="process_path_then_render">
+      <xsl:with-param name="path" select="$path/path"/>
+   </xsl:call-template>
 </xsl:template>
 
 
@@ -2428,42 +2442,43 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   <xsl:param name="psrcMandatory"/>
   <xsl:param name="pdestMandatory"/>
   <xsl:param name="p_isconstructed"/>
-  <xsl:choose>
-    <xsl:when test="vstep|hstep|diagram/path/(vstep|hstep)">
-      <xsl:for-each select="vstep|hstep|diagram/path/(vstep|hstep)">
-	<xsl:call-template name="step"> 
-	  <xsl:with-param name="psrc_x1" select="$psrc_x1" />
-	  <xsl:with-param name="psrc_y1" select="$psrc_y1" />
-	  <xsl:with-param name="psrc_x2" select="$psrc_x2" />
-	  <xsl:with-param name="psrc_y2" select="$psrc_y2" />
-	  <xsl:with-param name="pdest_x1" select="$pdest_x1" />
-	  <xsl:with-param name="pdest_y1" select="$pdest_y1" />
-	  <xsl:with-param name="pdest_x2" select="$pdest_x2" />
-	  <xsl:with-param name="pdest_y2" select="$pdest_y2" />
-	  <xsl:with-param name="srcsign" select="$srcsign" />
-	  <xsl:with-param name="destsign" select="$destsign" />
-	  <xsl:with-param name="psrcMandatory" select="$psrcMandatory" />
-	  <xsl:with-param name="pdestMandatory" select="$pdestMandatory" />
-	  <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
-	</xsl:call-template>
-      </xsl:for-each>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:call-template name="completeTraverse"> 
-	  <xsl:with-param name="psrc_x1" select="$psrc_x1" />
-	  <xsl:with-param name="psrc_y1" select="$psrc_y1" />
-	  <xsl:with-param name="psrc_x2" select="$psrc_x2" />
-	  <xsl:with-param name="psrc_y2" select="$psrc_y2" />
-	  <xsl:with-param name="pdest_x1" select="$pdest_x1" />
-	  <xsl:with-param name="pdest_y1" select="$pdest_y1" />
-	  <xsl:with-param name="pdest_x2" select="$pdest_x2" />
-	  <xsl:with-param name="pdest_y2" select="$pdest_y2" />
-	  <xsl:with-param name="psrcMandatory" select="$psrcMandatory" />
-	  <xsl:with-param name="pdestMandatory" select="$pdestMandatory" />
-	  <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
-      </xsl:call-template>
-    </xsl:otherwise>
-  </xsl:choose>
+        <xsl:choose>
+          <xsl:when test="vstep|hstep|diagram/path/(vstep|hstep)">
+            <xsl:for-each select="vstep|hstep|diagram/path/(vstep|hstep)">
+      	<xsl:call-template name="step"> 
+      	  <xsl:with-param name="psrc_x1" select="$psrc_x1" />
+      	  <xsl:with-param name="psrc_y1" select="$psrc_y1" />
+      	  <xsl:with-param name="psrc_x2" select="$psrc_x2" />
+      	  <xsl:with-param name="psrc_y2" select="$psrc_y2" />
+      	  <xsl:with-param name="pdest_x1" select="$pdest_x1" />
+      	  <xsl:with-param name="pdest_y1" select="$pdest_y1" />
+      	  <xsl:with-param name="pdest_x2" select="$pdest_x2" />
+      	  <xsl:with-param name="pdest_y2" select="$pdest_y2" />
+      	  <xsl:with-param name="srcsign" select="$srcsign" />
+      	  <xsl:with-param name="destsign" select="$destsign" />
+      	  <xsl:with-param name="psrcMandatory" select="$psrcMandatory" />
+      	  <xsl:with-param name="pdestMandatory" select="$pdestMandatory" />
+      	  <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
+      	</xsl:call-template>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="completeTraverse"> 
+         	  <xsl:with-param name="psrc_x1" select="$psrc_x1" />
+         	  <xsl:with-param name="psrc_y1" select="$psrc_y1" />
+         	  <xsl:with-param name="psrc_x2" select="$psrc_x2" />
+         	  <xsl:with-param name="psrc_y2" select="$psrc_y2" />
+         	  <xsl:with-param name="pdest_x1" select="$pdest_x1" />
+         	  <xsl:with-param name="pdest_y1" select="$pdest_y1" />
+         	  <xsl:with-param name="pdest_x2" select="$pdest_x2" />
+         	  <xsl:with-param name="pdest_y2" select="$pdest_y2" />
+         	  <xsl:with-param name="psrcMandatory" select="$psrcMandatory" />
+         	  <xsl:with-param name="pdestMandatory" select="$pdestMandatory" />
+         	  <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
+            </xsl:call-template>
+          </xsl:otherwise>
+        </xsl:choose>
+
 </xsl:template>
 
 <xsl:template name="step" match="vstep|hstep"> 
@@ -2558,17 +2573,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <xsl:with-param name="p_ismandatory" select="$psrcMandatory" />
     <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
   </xsl:call-template>
-  <xsl:call-template name="drawAngle">
-    <xsl:with-param name="pa_x" select="$pdest_x1" />   
-    <xsl:with-param name="pa_y" select="$pdest_y1" />
-    <xsl:with-param name="pb_x" select="$pdest_x2" />
-    <xsl:with-param name="pb_y" select="$pdest_y2" />
-    <xsl:with-param name="pc_x" select="$deststep_x1" />
-    <xsl:with-param name="pc_y" select="$deststep_y1" />
-    <xsl:with-param name="p_ismandatory" select="$pdestMandatory" />
-    <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
-  </xsl:call-template>
-
   <xsl:call-template name="traverse"> 
     <xsl:with-param name="psrc_x1" select="$srcstep_x1" />
     <xsl:with-param name="psrc_y1" select="$srcstep_y1" />
@@ -2584,6 +2588,17 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
     <xsl:with-param name="pdestMandatory" select="$pdestMandatory" />
     <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
   </xsl:call-template>
+  <xsl:call-template name="drawAngle">
+    <xsl:with-param name="pa_x" select="$deststep_x1" />
+    <xsl:with-param name="pa_y" select="$deststep_y1" />
+    <xsl:with-param name="pc_x" select="$pdest_x1" />   
+    <xsl:with-param name="pc_y" select="$pdest_y1" />
+    <xsl:with-param name="pb_x" select="$pdest_x2" />
+    <xsl:with-param name="pb_y" select="$pdest_y2" />
+    <xsl:with-param name="p_ismandatory" select="$pdestMandatory" />
+    <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
+  </xsl:call-template>
+
 </xsl:template>
 
 <xsl:template name="completeTraverse"> 
@@ -2707,6 +2722,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	     <xsl:with-param name="p_ismandatory" select="$psrcMandatory"/>
 	     <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
 	  </xsl:call-template>
+     <midpoint/>
 	  <xsl:call-template name="line">
 	     <xsl:with-param name="x0cm" select="$xIntermediate"/>
 	     <xsl:with-param name="y0cm" select="$yIntermediate"/>
@@ -2727,6 +2743,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 	    <xsl:with-param name="p_ismandatory" select="$psrcMandatory"/>
 	    <xsl:with-param name="p_isconstructed" select="$p_isconstructed"/>
 	  </xsl:call-template>
+     <midpoint/>
 	  <xsl:call-template name="drawAngle">
 	    <xsl:with-param name="pa_x" select="$xIntermediate" />
 	    <xsl:with-param name="pa_y" select="$yIntermediate" />
@@ -3415,7 +3432,45 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    </xsl:choose>
 </xsl:template>
 
+<xsl:template name="process_path">
+   <xsl:param name="path" as="element(path)"/>
+   <xsl:message>Number of lines in path is <xsl:value-of select="count($path/line)"/></xsl:message>
+   <xsl:message>Number of lines before midpoint is 
+   <xsl:value-of select="count($path/line[not(exists(following-sibling::midpoint))])"/>
+   </xsl:message>
+      <xsl:message>Number of lines after midpoint is 
+   <xsl:value-of select="count($path/line[not(exists(preceding-sibling::midpoint))])"/>
+   </xsl:message>
+   <path>
+      <line>
+         <xsl:copy-of select="$path/line[not(exists(preceding-sibling::midpoint))]/
+            *[self::mandatory|self::optional|self::point[following-sibling::point|parent::line[not(following-sibling::*[1][self::line])]]]"/>
+      </line>
+      <line>
+         <xsl:copy-of select="$path/line[not(exists(following-sibling::midpoint))]/
+            *[self::mandatory|self::optional|self::point[following-sibling::point|parent::line[not(following-sibling::line)]]]"/>
+      </line>
+   </path>
+</xsl:template>
 
+<xsl:template name="process_path_then_render">
+   <xsl:param name="path" as="element(path)"/>
+   <before>
+    <xsl:call-template name="render_path">
+      <xsl:with-param name="path" select="$path"/>
+   </xsl:call-template>
+</before>
+   <xsl:variable name="processed_path">
+      <xsl:call-template name="process_path">
+       <xsl:with-param name="path" select="$path"/>
+    </xsl:call-template>
+   </xsl:variable>
+   <after>
+   <xsl:call-template name="render_path">
+      <xsl:with-param name="path" select="$processed_path/path"/>
+   </xsl:call-template>
+</after>
+</xsl:template>
 </xsl:transform>
 <!-- end of file: ERmodel_v1.2/src/ERmodel2.diagram.module.xslt--> 
 

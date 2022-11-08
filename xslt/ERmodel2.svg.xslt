@@ -41,6 +41,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 23-Sep-2022 J.Cartmell Add a class for relid - same font as relname.
 -->
 <xsl:transform version="2.0" 
+        xmlns="http://www.entitymodelling.org/ERmodel"
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -1021,6 +1022,44 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </svg:path>
   </xsl:template>
 
+  <xsl:template name="render_path">
+    <xsl:param name="path" as="element(path)"/>
+    <xsl:copy-of select="$path"/>
+  </xsl:template>
+
+  <xsl:template name="linedecoration">
+    <xsl:param name="x0cm"/>
+    <xsl:param name="y0cm"/>
+    <xsl:param name="x1cm"/>
+    <xsl:param name="y1cm"/>
+    <xsl:param name="p_ismandatory"/>
+    <xsl:param name="p_isconstructed"/>
+    <xsl:variable name="class">
+      <xsl:choose>
+        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
+        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!--
+    <svg:path>
+      <xsl:attribute name="class">
+        <xsl:value-of select="$class"/>
+      </xsl:attribute>
+      <xsl:attribute name="d">
+        <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
+        <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
+      </xsl:attribute>
+    </svg:path>
+  -->
+    <line>
+        <xsl:if test="$p_ismandatory = 'true'">
+            <mandatory/>
+        </xsl:if>
+        <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
+        <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
+    </line>
+  </xsl:template>
+
   <xsl:template name="line">
     <xsl:param name="x0cm"/>
     <xsl:param name="y0cm"/>
@@ -1034,6 +1073,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <!--
     <svg:path>
       <xsl:attribute name="class">
         <xsl:value-of select="$class"/>
@@ -1043,6 +1083,14 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
       </xsl:attribute>
     </svg:path>
+  -->
+    <line>
+        <xsl:if test="$p_ismandatory = 'true'">
+            <mandatory/>
+        </xsl:if>
+        <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
+        <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
+    </line>
   </xsl:template>
 
   <xsl:template name="arrow">
@@ -1265,6 +1313,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+<!--
     <svg:path>
       <xsl:attribute name="class">
         <xsl:value-of select="$class"/>
@@ -1278,6 +1327,20 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:value-of select="$pc_x"/>,<xsl:value-of select="$pc_y"/>
       </xsl:attribute>
     </svg:path>
+  -->
+    <line>
+        <xsl:choose>
+        <xsl:when test="$p_ismandatory = 'true'">
+            <mandatory/>
+        </xsl:when>
+        <xsl:otherwise>
+             <optional/>
+        </xsl:otherwise>
+        </xsl:choose>
+        <point><x><xsl:value-of select="$pa_x"/></x><y><xsl:value-of select="$pa_y"/></y></point>
+        <point><x><xsl:value-of select="$pb_x"/></x><y><xsl:value-of select="$pb_y"/></y></point>
+        <point><x><xsl:value-of select="$pc_x"/></x><y><xsl:value-of select="$pc_y"/></y></point>
+    </line>
   </xsl:template>
 
   <!-- NOT USED -->
