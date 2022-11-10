@@ -111,11 +111,18 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke: black;
           stroke-width: 1
         }
+        .eteven:hover{
+          fill: #EEEECC;
+        }
         .etodd {
           fill: white;
           stroke: black;
           stroke-width: 1
         }
+        .etodd:hover{
+          fill: lightgrey
+        }
+
         .outertitlebox {
           fill-opacity: 0;
           stroke: black;
@@ -168,6 +175,17 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke-width: .02;
           stroke-dasharray: 0.07 0.07;
           fill: none
+        }
+        .relationshiphitarea {
+          fill:none;
+          stroke: black;
+          stroke-width: .2;
+          stroke-opacity:0;
+          pointer-events: stroke;
+        }
+        .relationshiphitarea:hover {
+          stroke: turquoise;
+          stroke-opacity:0.5;
         }
         .relationshipbackground {
           stroke: #FFFFCC;
@@ -1023,8 +1041,61 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   </xsl:template>
 
   <xsl:template name="render_path">
-    <xsl:param name="path" as="element(path)"/>
-    <xsl:copy-of select="$path"/>
+    <xsl:param name="source_to_midpoint" as="element(line)"/> 
+    <xsl:param name="midpoint_to_destination" as="element(line)"/>
+    <xsl:call-template name="render_halfline">
+      <xsl:with-param name="line" select="$source_to_midpoint"/>
+    </xsl:call-template>
+    <xsl:call-template name="render_halfline">
+      <xsl:with-param name="line" select="$midpoint_to_destination"/>
+    </xsl:call-template>
+    <!--
+    <xsl:variable name="entire_line">
+
+    </xsl:variable>
+  -->
+    <xsl:call-template name="render_line">
+      <xsl:with-param name="class" select="'relationshiphitarea'"/>
+      <xsl:with-param name="line" as="element(line)">
+          <line>
+            <xsl:copy-of select="$source_to_midpoint/point"/>
+            <xsl:copy-of select="$midpoint_to_destination/point"/>
+          </line>
+        </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+    <xsl:template name="render_halfline">
+    <xsl:param name="line" as="element(line)"/>
+    <xsl:variable name="class">
+          <xsl:value-of select="if ($line/mandatory) then 'mandatoryrelationshipline' 
+                                else if ($line/optional) then 'optionalrelationshipline' 
+                                else 'outofspec'"/>
+    </xsl:variable>
+    <xsl:call-template name="render_line">
+      <xsl:with-param name="line" select="$line"/>
+      <xsl:with-param name="class" select="$class"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="render_line">
+    <xsl:param name="line" as="element(line)"/> 
+    <xsl:param name="class" as="xs:string"/>  
+    <svg:path>
+       <xsl:attribute name="class" select="$class"/>
+       <xsl:attribute name="d">
+          <xsl:text>M</xsl:text>
+          <xsl:value-of select="substring($line/point[1]/x,1,5)"/>
+          <xsl:text>,</xsl:text>
+          <xsl:value-of select="substring($line/point[1]/y,1,5)"/>
+          <xsl:for-each select="$line/point[position() &gt; 1]">
+                <xsl:text>L</xsl:text>
+                <xsl:value-of select="substring(x,1,5)"/>
+                <xsl:text>,</xsl:text>
+                <xsl:value-of select="substring(y,1,5)"/>
+          </xsl:for-each>
+        </xsl:attribute>
+    </svg:path>
   </xsl:template>
 
   <xsl:template name="linedecoration">
@@ -1067,6 +1138,12 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="y1cm"/>
     <xsl:param name="p_ismandatory"/>
     <xsl:param name="p_isconstructed"/>
+    <xsl:message>line: x0 <xsl:value-of select="$x0cm"/>
+                       y0 <xsl:value-of select="$y0cm"/>
+                       x1 <xsl:value-of select="$x1cm"/>
+                       y1 <xsl:value-of select="$y1cm"/>
+                       mandatory <xsl:value-of select="$p_ismandatory"/>
+                       </xsl:message>
     <xsl:variable name="class">
       <xsl:choose>
         <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
@@ -1085,9 +1162,14 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </svg:path>
   -->
     <line>
-        <xsl:if test="$p_ismandatory = 'true'">
+        <xsl:choose>
+        <xsl:when test="$p_ismandatory = 'true'">
             <mandatory/>
-        </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+             <optional/>
+        </xsl:otherwise>
+        </xsl:choose>
         <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
         <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
     </line>
