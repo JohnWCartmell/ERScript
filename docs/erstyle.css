@@ -40,7 +40,8 @@
    }
    div.bigsvg{
 	 float:left; 
-	 /*width:79%;*/
+	 /*width:79%;*/    /* for most diagrams is good that width 80%, say, leaving room for info boxes/*
+                       /* I should try setting width from code */
 	 margin-left: 10px;  
 	 border:1px solid grey;
      overflow:scroll;	 
@@ -60,10 +61,15 @@
 	float:right;
 	margin-right:0.5cm;
 	}
+
+   div.metatype {    /* added for info box surround 11/11/2022*/
+    float:left;
+    }
 	
    div.closecontainer {
 	float:right;
 	}
+
 
   div.footer{
 	float:left;

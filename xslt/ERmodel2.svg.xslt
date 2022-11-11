@@ -112,7 +112,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke-width: 1
         }
         .eteven:hover{
-          fill: #FFFFAA;
+          fill: #FFFF77;
         }
         .etodd {
           fill: white;
@@ -134,8 +134,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke-width: 1;
         }
         .titletext {
-        fill: black;
-        font-size: 30px;
+          fill: black;
+          font-size: 30px;
         }
         .Gradient {
           fill: url(#topdowngrey);
@@ -213,19 +213,31 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           fill: none
         }
         .etname {
+          cursor: pointer;
           fill: black;
           font-size: 11px ;
+          pointer-events: none;
         }
         .attrname {
+          cursor: pointer;
           fill: black;
           font-size: 11px ;
-          font-style: italic
+          font-style: italic;
         }
-        .idattrname {
+        .attrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+        .idattrname {       
+          cursor: pointer;
           fill: black;
           font-size: 11px ;
           font-style: italic ;
-          text-decoration: underline
+          text-decoration: underline ;
+        }
+        .idattrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
         }
         .surfaceattrnameeven {
           fill: black;
@@ -275,11 +287,13 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           font-style: normal
         }
         .relname {
+          cursor: pointer;
           fill: black ;
           font-size: .25px ;
           font-style: italic
         }
         .relid {
+          cursor: pointer;
           fill: black ;
           font-size: .25px ;
           font-style: italic
@@ -290,6 +304,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           font-style: italic
         }
 		    .scope {
+          cursor: pointer;
           fill: black ;
           font-size: .25px ;  
 		      font-style: italic
@@ -369,14 +384,51 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute">
     <xsl:param name="levelNumber"/>
-    <xsl:variable name="text_div_id" as="xs:string?">
-        <xsl:call-template name="element_text_div_id"/>  
-    </xsl:variable>
     <div>
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
+      <xsl:call-template name="infotextbox" />
+  
+    </div>
+    <xsl:for-each select="entity_type|group">
+      <xsl:call-template name="descriptive_text">
+        <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
+      </xsl:call-template>
+    </xsl:for-each>
+    <xsl:for-each select="reference|composition">
+      <xsl:call-template name="descriptive_text">
+        <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
+      </xsl:call-template>
+    </xsl:for-each>
+
+  </xsl:template>
+
+  <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute">
+      <xsl:variable name="text_div_id" as="xs:string?">
+        <xsl:call-template name="element_text_div_id"/>  
+      </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
         <xsl:attribute name="class" select="'infotextbox'"/>
+        <div>
+          <xsl:attribute name="class" select="'metatype'"/>
+          <xsl:choose>
+            <xsl:when test="self::entity_type">
+              <xsl:text>Entity Type</xsl:text>
+            </xsl:when>
+            <xsl:when test="self::group">
+              <xsl:text>Group (of Entity Types)</xsl:text>
+            </xsl:when>
+            <xsl:when test="self::reference">
+              <xsl:text>Reference Relationship</xsl:text>
+            </xsl:when>
+            <xsl:when test="self::composition">
+              <xsl:text>Composition Relationship</xsl:text>
+            </xsl:when>
+            <xsl:when test="self::attribute">
+              <xsl:text>Attribute</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </div>
         <div>
           <xsl:attribute name="class" select="'closecontainer'"/>
           <button>
@@ -392,18 +444,18 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <h3>
           <xsl:value-of select="name"/>
         </h3>
-        <xsl:apply-templates select="description/*"/>
+        <xsl:apply-templates select="description"/>
+        <xsl:for-each select="attribute">
+          <xsl:call-template name="infotextbox"/>
+        </xsl:for-each> 
       </div>
-    </div>
-    <xsl:for-each select="entity_type|group|reference|composition|attribute">
-      <xsl:call-template name="descriptive_text">
-        <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
-      </xsl:call-template>
-    </xsl:for-each>
   </xsl:template>
 
   <xsl:template name="element_id" match="group|entity_type|reference|composition|attribute">
     <xsl:choose>
+      <xsl:when test="self::absolute">
+        <xsl:value-of select="'Abs'"/>
+      </xsl:when>
       <xsl:when test="self::entity_type|self::group">
         <xsl:value-of select="concat('E',name)"/>
       </xsl:when>
@@ -1079,9 +1131,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
                 <xsl:value-of select="substring(y,1,5)"/>
           </xsl:for-each>
         </xsl:attribute>
-        <xsl:message>Element id is <xsl:value-of select="$element_id"/></xsl:message>
         <xsl:if test="exists($element_id)">
-          <xsl:message>Adding onclick attribute</xsl:message>
           <xsl:attribute name="onclick">
             <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
           </xsl:attribute>
@@ -1129,29 +1179,12 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="y1cm"/>
     <xsl:param name="p_ismandatory"/>
     <xsl:param name="p_isconstructed"/>
-    <xsl:message>line: x0 <xsl:value-of select="$x0cm"/>
-                       y0 <xsl:value-of select="$y0cm"/>
-                       x1 <xsl:value-of select="$x1cm"/>
-                       y1 <xsl:value-of select="$y1cm"/>
-                       mandatory <xsl:value-of select="$p_ismandatory"/>
-                       </xsl:message>
     <xsl:variable name="class">
       <xsl:choose>
         <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
         <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <!--
-    <svg:path>
-      <xsl:attribute name="class">
-        <xsl:value-of select="$class"/>
-      </xsl:attribute>
-      <xsl:attribute name="d">
-        <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
-        <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
-      </xsl:attribute>
-    </svg:path>
-  -->
     <line>
         <xsl:choose>
         <xsl:when test="$p_ismandatory = 'true'">
