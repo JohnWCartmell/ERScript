@@ -1670,7 +1670,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
      </xsl:call-template>
   </xsl:if>
   <xsl:variable name="path">
-   <path>
+      <path>
         <xsl:if test="$srcarmlen > 0">
            <xsl:call-template name="line">
               <xsl:with-param name="x0cm"  select="$srcx"/>
@@ -1708,13 +1708,15 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
               <xsl:with-param name="p_isconstructed" select="'false'"/>
            </xsl:call-template>
         </xsl:if>
-    </path>
-</xsl:variable>
-<xsl:call-template name="process_path_then_render">
-   <xsl:with-param name="path" select="$path/path"/>
-</xsl:call-template>
-<!-- following moved from inside above path 
- -->
+      </path>
+   </xsl:variable>
+   <xsl:call-template name="process_path_then_render">
+      <xsl:with-param name="relationship_element_id"> 
+            <xsl:call-template name="element_text_div_id"/>
+      </xsl:with-param>
+      <xsl:with-param name="path" select="$path/path"/>
+   </xsl:call-template>
+
      <xsl:if test="sequence">
      <xsl:choose>
        <xsl:when test="identifying">
@@ -2204,6 +2206,9 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       </path>
    </xsl:variable>
    <xsl:call-template name="process_path_then_render">
+      <xsl:with-param name="relationship_element_id"> 
+         <xsl:call-template name="element_text_div_id"/>
+      </xsl:with-param>
       <xsl:with-param name="path" select="$path/path"/>
    </xsl:call-template>
 
@@ -3459,6 +3464,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 </xsl:template>
 
 <xsl:template name="process_path_then_render">
+   <xsl:param name="relationship_element_id" as="xs:string?"/> 
    <xsl:param name="path" as="element(path)"/>
    <xsl:variable name="processed_path">
        <xsl:call-template name="process_path">
@@ -3478,6 +3484,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
    -->
 
    <xsl:call-template name="render_path">
+      <xsl:with-param name="relationship_element_id" select="$relationship_element_id"/> 
       <xsl:with-param name="source_to_midpoint" select="$processed_path/path/line[1]"/>    
       <xsl:with-param name="midpoint_to_destination" select="$processed_path/path/line[2]"/>
    </xsl:call-template>

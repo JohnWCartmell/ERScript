@@ -112,7 +112,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           stroke-width: 1
         }
         .eteven:hover{
-          fill: #EEEECC;
+          fill: #FFFFAA;
         }
         .etodd {
           fill: white;
@@ -184,7 +184,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           pointer-events: stroke;
         }
         .relationshiphitarea:hover {
-          stroke: turquoise;
+          stroke: #15D4FA;
           stroke-opacity:0.5;
         }
         .relationshipbackground {
@@ -367,13 +367,15 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </div>
   </xsl:template>
 
-  <xsl:template name="descriptive_text" match="entity_type|group">
+  <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute">
     <xsl:param name="levelNumber"/>
-    <!--<xsl:message> level Number is <xsl:value-of select="$levelNumber"/></xsl:message> -->
+    <xsl:variable name="text_div_id" as="xs:string?">
+        <xsl:call-template name="element_text_div_id"/>  
+    </xsl:variable>
     <div>
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
       <div>
-        <xsl:attribute name="id" select="concat(name,'_text')"/>
+        <xsl:attribute name="id" select="$text_div_id"/>
         <xsl:attribute name="class" select="'infotextbox'"/>
         <div>
           <xsl:attribute name="class" select="'closecontainer'"/>
@@ -381,7 +383,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
             <xsl:attribute name="class" select="'close'"/>
             <xsl:attribute name="onClick" >
               <xsl:text>document.getElementById('</xsl:text>
-              <xsl:value-of select="concat(name,'_text')"/>
+              <xsl:value-of select="$text_div_id"/>       
               <xsl:text>').style.display='none';</xsl:text>
             </xsl:attribute>
             <xsl:text>x</xsl:text>
@@ -393,11 +395,32 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:apply-templates select="description/*"/>
       </div>
     </div>
-    <xsl:for-each select="entity_type|group">
+    <xsl:for-each select="entity_type|group|reference|composition|attribute">
       <xsl:call-template name="descriptive_text">
         <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
       </xsl:call-template>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="element_id" match="group|entity_type|reference|composition|attribute">
+    <xsl:choose>
+      <xsl:when test="self::entity_type|self::group">
+        <xsl:value-of select="concat('E',name)"/>
+      </xsl:when>
+      <xsl:when test="self::composition|self::reference">
+        <xsl:value-of select="concat('R',../name,'_',name,'T',type)"/>
+      </xsl:when>
+      <xsl:when test="self::attribute">
+        <xsl:value-of select="concat('A',../name,'_',translate(name, ' ', ''))"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="element_text_div_id" match="group|entity_type|reference|composition|attribute">
+    <xsl:variable name="element_id" as="xs:string">
+          <xsl:call-template name="element_id"/>
+    </xsl:variable>
+    <xsl:value-of select="concat($element_id,'_text')"/>
   </xsl:template>
 
   <xsl:template name="wrap_relationships" match="entity_model">   
@@ -611,6 +634,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
       </xsl:choose>
     </xsl:variable>
 
+    <xsl:variable name="element_id">
+      <xsl:call-template name="element_text_div_id"/>
+    </xsl:variable>
+
     <svg:svg>
       <xsl:attribute name="x">
         <xsl:value-of select="$xcm - 0.1 - $xAdjustment"/>cm</xsl:attribute>
@@ -643,7 +670,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         </xsl:choose>
 
         <xsl:attribute name="onclick">
-          <xsl:value-of select="concat('top.notify(''',name, '_text'')')"/>
+          <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
         </xsl:attribute>
         <xsl:attribute name="x">
           <xsl:value-of select="0.1 + $xAdjustment"/>cm</xsl:attribute>
@@ -662,45 +689,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           <xsl:text>cm</xsl:text>
         </xsl:attribute>
       </svg:rect>
-     <!-- FAILED EXPERIMENT
-      <xsl:if test="$isboundary">
-        <svg:rect>
-          <xsl:choose>
-            <xsl:when test="$isgroup">
-              <xsl:attribute name="class">group</xsl:attribute>
-            </xsl:when>
-            <xsl:when test="not (string-length($shape)=0)">
-              <xsl:attribute name="class">etodd</xsl:attribute>
-            </xsl:when>
-            <xsl:when test="$iseven">
-              <xsl:attribute name="class">eteven</xsl:attribute>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:attribute name="class">etodd</xsl:attribute>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:attribute name="onclick">
-            <xsl:value-of select="concat('top.notify(''',name, '_text'')')"/>
-          </xsl:attribute>
-          <xsl:attribute name="x">
-            <xsl:value-of select="0.1 + $xAdjustment"/>cm</xsl:attribute>
-          <xsl:attribute name="y">
-            <xsl:value-of select="0.1 + $yAdjustment + 0.05"/>cm</xsl:attribute>
-          <xsl:attribute name="rx">
-            <xsl:value-of select="$cornerRadiuscm"/>cm</xsl:attribute>
-          <xsl:attribute name="ry">
-            <xsl:value-of select="$cornerRadiuscm"/>cm</xsl:attribute>
-          <xsl:attribute name="width">
-            <xsl:value-of select="$wcm"/>
-            <xsl:text>cm</xsl:text>
-          </xsl:attribute>
-          <xsl:attribute name="height">
-            <xsl:value-of select="$hcm -0.05"/>
-            <xsl:text>cm</xsl:text>
-          </xsl:attribute>
-        </svg:rect>
-      </xsl:if>
-      -->
     </svg:svg>
 
   </xsl:template>
@@ -712,24 +700,20 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="iseven"/>
     <xsl:param name="annotation"/>
     <xsl:param name="deprecated"/>
+    <xsl:variable name="element_id" as="xs:string">
+      <xsl:call-template name="element_text_div_id"/>
+    </xsl:variable> 
     <svg:text>
       <xsl:attribute name="class">
-        <!--
-        <xsl:value-of select="concat(
-                                if (implementationOf) then 'surface' else '',    
-                                if (identifying) then 'idattrname' else (if($deprecated='yes') then 'deprecatedattrname' else 'attrname'),
-                                if (implementationOf) then (if ($iseven) then 'even' else 'odd') else ''
-                                    )   
-                             "/>
-      -->
         <xsl:value-of select="   
                                 if (identifying) then 'idattrname' else (if($deprecated='yes') then 'deprecatedattrname' else 'attrname')   
                              "/>
       </xsl:attribute>
-      <xsl:attribute name="x">
-        <xsl:value-of select="$xcm + 0.175"/>cm</xsl:attribute>
-      <xsl:attribute name="y">
-        <xsl:value-of select="$ycm"/>cm</xsl:attribute>
+      <xsl:attribute name="x"><xsl:value-of select="$xcm + 0.175"/>cm</xsl:attribute>
+      <xsl:attribute name="y"><xsl:value-of select="$ycm"/>cm</xsl:attribute>
+      <xsl:attribute name="onclick">
+            <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
+      </xsl:attribute>
       <xsl:if test="xmlRepresentation='Anonymous'">
         <xsl:text>(</xsl:text>
       </xsl:if>
@@ -776,9 +760,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   <xsl:template name="wrap_entity_type">
     <xsl:param name="content"/>
-    <!--
-  <xsl:message>wrap entity type <xsl:value-of select="name"/> </xsl:message>
-  -->
     <svg:g>
       <xsl:attribute name="id">
         <xsl:value-of select="replace(name,' ','_')"/>
@@ -1042,7 +1023,8 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   <xsl:template name="render_path">
     <xsl:param name="source_to_midpoint" as="element(line)"/> 
-    <xsl:param name="midpoint_to_destination" as="element(line)"/>
+    <xsl:param name="midpoint_to_destination" as="element(line)"/> 
+    <xsl:param name="relationship_element_id" as="xs:string"/> 
     <xsl:call-template name="render_halfline">
       <xsl:with-param name="line" select="$source_to_midpoint"/>
     </xsl:call-template>
@@ -1055,6 +1037,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:variable>
   -->
     <xsl:call-template name="render_line">
+      <xsl:with-param name="element_id" select="$relationship_element_id"/>
       <xsl:with-param name="class" select="'relationshiphitarea'"/>
       <xsl:with-param name="line" as="element(line)">
           <line>
@@ -1065,7 +1048,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:call-template>
   </xsl:template>
 
-    <xsl:template name="render_halfline">
+  <xsl:template name="render_halfline">
     <xsl:param name="line" as="element(line)"/>
     <xsl:variable name="class">
           <xsl:value-of select="if ($line/mandatory) then 'mandatoryrelationshipline' 
@@ -1079,6 +1062,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   </xsl:template>
 
   <xsl:template name="render_line">
+    <xsl:param name="element_id" as="xs:string?"/>
     <xsl:param name="line" as="element(line)"/> 
     <xsl:param name="class" as="xs:string"/>  
     <svg:path>
@@ -1095,6 +1079,13 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
                 <xsl:value-of select="substring(y,1,5)"/>
           </xsl:for-each>
         </xsl:attribute>
+        <xsl:message>Element id is <xsl:value-of select="$element_id"/></xsl:message>
+        <xsl:if test="exists($element_id)">
+          <xsl:message>Adding onclick attribute</xsl:message>
+          <xsl:attribute name="onclick">
+            <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
+          </xsl:attribute>
+        </xsl:if>
     </svg:path>
   </xsl:template>
 
