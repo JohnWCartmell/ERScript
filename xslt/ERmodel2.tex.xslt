@@ -407,6 +407,59 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:text>}</xsl:text>
 	</xsl:template>
 
+  <xsl:template name="render_hitarea">
+      <xsl:param name="rel_id" as="xs:string"/>
+      <xsl:param name="line" as="element(line)"/>
+      <!-- no action - no hit area representation  in tex -->
+   </xsl:template>
+                   
+  <xsl:template name="render_half_of_relationship" match="constructed_relationship|composition|reference">
+      <xsl:param name="line" as="element(line)"/>
+      <xsl:param name="p_ismandatory"/>
+<xsl:message>render_half</xsl:message>
+      <xsl:for-each select="$line/point[exists(following-sibling::point)]">
+      	<xsl:message> call line_section</xsl:message>
+	      <xsl:call-template name="line_section">
+	      	<xsl:with-param name="x0cm" select="substring(x,1,5)"/>
+					<xsl:with-param name="y0cm" select="substring(y,1,5)"/>
+					<xsl:with-param name="x1cm" select="substring(following-sibling::point[1]/x,1,5)" />
+					<xsl:with-param name="y1cm" select="substring(following-sibling::point[1]/y,1,5)"/>
+					<xsl:with-param name="p_ismandatory" select="$p_ismandatory"/>
+				</xsl:call-template>
+      </xsl:for-each>
+      <xsl:message>end render_half</xsl:message>
+  </xsl:template>
+
+	<xsl:template name="line_section" match="constructed_relationship|composition|reference">   
+		<xsl:param name="x0cm"/>
+		<xsl:param name="y0cm"/>
+		<xsl:param name="x1cm"/>
+		<xsl:param name="y1cm"/>
+		<xsl:param name="p_ismandatory"/>
+		<xsl:text>\errelarm{</xsl:text>	
+		<xsl:value-of select="round(number($x0cm) *1000) div 1000"/>
+		<xsl:text>}{</xsl:text>
+		<!--<xsl:value-of select="round(($diagramHeight - $y0cm) *1000) div 1000"/> -->
+		<xsl:value-of select="-round(number($y0cm) *1000) div 1000"/>
+		<xsl:text>}{</xsl:text>
+		<xsl:value-of select="round(number($x1cm) *1000) div 1000"/>
+		<xsl:text>}{</xsl:text>
+		<!--<xsl:value-of select="round(($diagramHeight - $y1cm) *1000) div 1000"/> -->
+		<xsl:value-of select="-round(number($y1cm) *1000) div 1000"/>
+		<xsl:text>}{</xsl:text>
+		<xsl:choose>
+			<xsl:when test="$p_ismandatory = 'true'">1</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>}{</xsl:text>
+		<xsl:choose>
+			<xsl:when test="self::constructed_relationship">1</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>}</xsl:text>
+	</xsl:template>
+
+<!-- unchanged -->
 	<xsl:template name="line">
 		<xsl:param name="x0cm"/>
 		<xsl:param name="y0cm"/>
@@ -523,6 +576,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:text>}</xsl:text>
 	</xsl:template>
 
+<!--
 	<xsl:template name="drawAngle"> 
 		<xsl:param name="pa_x"/>
 		<xsl:param name="pa_y"/>
@@ -535,17 +589,14 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:text>\errelangle{</xsl:text>
 		<xsl:value-of select="round($pa_x*1000)div 1000"/>
 		<xsl:text>}{</xsl:text>
-		<!--<xsl:value-of select="round(($diagramHeight - $pa_y) *1000) div 1000"/> -->
 		<xsl:value-of select="-round($pa_y *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
 		<xsl:value-of select="round($pb_x*1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
-		<!--<xsl:value-of select="round(($diagramHeight - $pb_y) *1000) div 1000"/> -->
 		<xsl:value-of select="-round($pb_y *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
 		<xsl:value-of select="round($pc_x*1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
-		<!--<xsl:value-of select="round(($diagramHeight - $pc_y) *1000) div 1000"/> -->
 		<xsl:value-of select="-round($pc_y *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
 		<xsl:if test="$p_ismandatory = 'false'">0</xsl:if>
@@ -555,6 +606,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:if test="$p_isconstructed = 'true'">1</xsl:if>
 		<xsl:text>}</xsl:text>
 	</xsl:template>
+-->
 
 
 	<xsl:template name="titlebox" saxon:trace="yes" xmlns:saxon="http://icl.com/saxon">

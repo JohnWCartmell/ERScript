@@ -3397,42 +3397,23 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
        </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
-<!--
-  <xsl:template name="linedecoration">
-    <xsl:param name="x0cm"/>
-    <xsl:param name="y0cm"/>
-    <xsl:param name="x1cm"/>
-    <xsl:param name="y1cm"/>
+
+  <xsl:template name="drawAngle"> 
+    <xsl:param name="pa_x"/>
+    <xsl:param name="pa_y"/>
+    <xsl:param name="pb_x"/>
+    <xsl:param name="pb_y"/>
+    <xsl:param name="pc_x"/>
+    <xsl:param name="pc_y"/>
     <xsl:param name="p_ismandatory"/>
     <xsl:param name="p_isconstructed"/>
-    <xsl:variable name="class">
-      <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
-        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
- -->
-    <!--
-    <svg:path>
-      <xsl:attribute name="class">
-        <xsl:value-of select="$class"/>
-      </xsl:attribute>
-      <xsl:attribute name="d">
-        <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
-        <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
-      </xsl:attribute>
-    </svg:path>
-  -->
-  <!--
     <line>
-        <xsl:if test="$p_ismandatory = 'true'">
-            <mandatory/>
-        </xsl:if>
-        <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
-        <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
+        <point><x><xsl:value-of select="$pa_x"/></x><y><xsl:value-of select="$pa_y"/></y></point>
+        <point><x><xsl:value-of select="$pb_x"/></x><y><xsl:value-of select="$pb_y"/></y></point>
+        <point><x><xsl:value-of select="$pc_x"/></x><y><xsl:value-of select="$pc_y"/></y></point>
     </line>
   </xsl:template>
--->
+
   <!-- becomes line_segment -->
   <xsl:template name="line_segment" >
     <xsl:param name="x0cm"/>

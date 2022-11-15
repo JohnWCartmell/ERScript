@@ -914,43 +914,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   </xsl:template>
 
 
-<!--
-  <xsl:template name="render_path">
-    <xsl:param name="source_to_midpoint" as="element(line)"/> 
-    <xsl:param name="midpoint_to_destination" as="element(line)"/> 
-    <xsl:param name="relationship_element_id" as="xs:string"/> 
-    <xsl:call-template name="render_halfline">
-      <xsl:with-param name="line" select="$source_to_midpoint"/>
-    </xsl:call-template>
-    <xsl:call-template name="render_halfline">
-      <xsl:with-param name="line" select="$midpoint_to_destination"/>
-    </xsl:call-template>
-    <xsl:call-template name="render_line">
-      <xsl:with-param name="element_id" select="$relationship_element_id"/>
-      <xsl:with-param name="class" select="'relationshiphitarea'"/>
-      <xsl:with-param name="line" as="element(line)">
-          <line>
-            <xsl:copy-of select="$source_to_midpoint/point"/>
-            <xsl:copy-of select="$midpoint_to_destination/point"/>
-          </line>
-        </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-
-  <xsl:template name="render_halfline">
-    <xsl:param name="line" as="element(line)"/>
-    <xsl:variable name="class">
-          <xsl:value-of select="if ($line/mandatory) then 'mandatoryrelationshipline' 
-                                else if ($line/optional) then 'optionalrelationshipline' 
-                                else 'outofspec'"/>
-    </xsl:variable>
-    <xsl:call-template name="render_line">
-      <xsl:with-param name="line" select="$line"/>
-      <xsl:with-param name="class" select="$class"/>
-    </xsl:call-template>
-  </xsl:template>
--->
-
   <xsl:template name="render_hitarea">
       <xsl:param name="rel_id" as="xs:string"/>
       <xsl:param name="line" as="element(line)"/>
@@ -1002,56 +965,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         </xsl:if>
     </svg:path>
   </xsl:template>
-<!--
-  <xsl:template name="linedecoration">
-    <xsl:param name="x0cm"/>
-    <xsl:param name="y0cm"/>
-    <xsl:param name="x1cm"/>
-    <xsl:param name="y1cm"/>
-    <xsl:param name="p_ismandatory"/>
-    <xsl:param name="p_isconstructed"/>
-    <xsl:variable name="class">
-      <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
-        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <line>
-        <xsl:if test="$p_ismandatory = 'true'">
-            <mandatory/>
-        </xsl:if>
-        <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
-        <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
-    </line>
-  </xsl:template>
-
-  <xsl:template name="line">
-    <xsl:param name="x0cm"/>
-    <xsl:param name="y0cm"/>
-    <xsl:param name="x1cm"/>
-    <xsl:param name="y1cm"/>
-    <xsl:param name="p_ismandatory"/>
-    <xsl:param name="p_isconstructed"/>
-    <xsl:variable name="class">
-      <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
-        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <line>
-        <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">
-            <mandatory/>
-        </xsl:when>
-        <xsl:otherwise>
-             <optional/>
-        </xsl:otherwise>
-        </xsl:choose>
-        <point><x><xsl:value-of select="$x0cm"/></x><y><xsl:value-of select="$y0cm"/></y></point>
-        <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
-    </line>
-  </xsl:template>
--->
 
   <xsl:template name="arrow">
     <xsl:param name="x0cm"/>
@@ -1258,50 +1171,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </svg:text>
   </xsl:template>
 
-  <xsl:template name="drawAngle"> 
-    <xsl:param name="pa_x"/>
-    <xsl:param name="pa_y"/>
-    <xsl:param name="pb_x"/>
-    <xsl:param name="pb_y"/>
-    <xsl:param name="pc_x"/>
-    <xsl:param name="pc_y"/>
-    <xsl:param name="p_ismandatory"/>
-    <xsl:param name="p_isconstructed"/>
-    <xsl:variable name="class">
-      <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
-        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-<!--
-    <svg:path>
-      <xsl:attribute name="class">
-        <xsl:value-of select="$class"/>
-      </xsl:attribute>
-      <xsl:attribute name="d">
-        <xsl:text>M</xsl:text>
-        <xsl:value-of select="$pa_x"/>,<xsl:value-of select="$pa_y"/>
-        <xsl:text>L</xsl:text>
-        <xsl:value-of select="$pb_x"/>,<xsl:value-of select="$pb_y"/>
-        <xsl:text>L</xsl:text>
-        <xsl:value-of select="$pc_x"/>,<xsl:value-of select="$pc_y"/>
-      </xsl:attribute>
-    </svg:path>
-  -->
-    <line>
-        <xsl:choose>
-        <xsl:when test="$p_ismandatory = 'true'">
-            <mandatory/>
-        </xsl:when>
-        <xsl:otherwise>
-             <optional/>
-        </xsl:otherwise>
-        </xsl:choose>
-        <point><x><xsl:value-of select="$pa_x"/></x><y><xsl:value-of select="$pa_y"/></y></point>
-        <point><x><xsl:value-of select="$pb_x"/></x><y><xsl:value-of select="$pb_y"/></y></point>
-        <point><x><xsl:value-of select="$pc_x"/></x><y><xsl:value-of select="$pc_y"/></y></point>
-    </line>
-  </xsl:template>
+
 
   <!-- NOT USED -->
   <xsl:template name="draw1Corner" >
