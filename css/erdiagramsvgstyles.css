@@ -1,0 +1,203 @@
+.eteven {
+          fill: #FFFFCC;
+          stroke: black;
+          stroke-width: 1
+        }
+        .eteven:hover{
+          fill: #FFFF77;
+        }
+        .etodd {
+          fill: white;
+          stroke: black;
+          stroke-width: 1
+        }
+        .etodd:hover{
+          fill: lightgrey
+        }
+
+        .outertitlebox {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titlebox {
+          fill: #FCFCFC;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titletext {
+          fill: black;
+          font-size: 30px;
+        }
+        .Gradient {
+          fill: url(#topdowngrey);
+        }        
+        .Box {
+          fill: white;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .groupannotation {
+          fill: grey;
+          font-size: 11px ;
+        }
+        .attrmarker {
+          fill:black;
+          stroke: black;
+          stroke-width: 1
+        }
+        .surfaceattrmarker {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1
+        }
+	    .deprecatedattrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic;
+          text-decoration: line-through;
+        }
+        .mandatoryrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .optionalrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          stroke-dasharray: 0.07 0.07;
+          fill: none
+        }
+        .relationshiphitarea {
+          fill:none;
+          stroke: black;
+          stroke-width: .2;
+          stroke-opacity:0;
+          pointer-events: stroke;
+        }
+        .relationshiphitarea:hover {
+          stroke: #15D4FA;
+          stroke-opacity:0.5;
+        }
+        .relationshipbackground {
+          stroke: #FFFFCC;
+          stroke-width: .20;
+          fill: none
+        }
+        .arrow {
+          stroke: red;
+          stroke-width: .02;
+          fill: none
+        }
+        .crowsfoot {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .arc {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .squiggle {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .etname {
+          cursor: pointer;
+          fill: black;
+          font-size: 11px ;
+          pointer-events: none;
+        }
+        .attrname {
+          cursor: pointer;
+          fill: black;
+          font-size: 11px ;
+          font-style: italic;
+        }
+        .attrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+        .idattrname {       
+          cursor: pointer;
+          fill: black;
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline ;
+        }
+        .idattrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+        .surfaceattrnameeven {
+          fill: black;
+          filter: url(#surfaceattreven);
+          font-size: 11px ;
+          font-style: italic
+        }
+        .surfaceidattrnameeven {
+          fill: black;
+          filter: url(#surfaceattreven);
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .surfaceattrnameodd {
+          fill: black;
+          filter: url(#surfaceattrodd);
+          font-size: 11px ;
+          font-style: italic
+        }
+        .surfaceidattrnameodd {
+          fill: black;
+          filter: url(#surfaceattrodd);
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .popupInfoBox {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal ;
+          visibility: hidden
+        }
+        .popupBoundingBox {
+          fill: white;
+          stroke: black;
+          stroke-width: 2
+        }
+        .popupHeadingText {
+          fill: black;
+          font-size: 12px ;
+          font-style: normal
+        }
+        .popupDetailText {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal
+        }
+        .relname {
+          cursor: pointer;
+          fill: black ;
+          font-size: .25px ;
+          font-style: italic
+        }
+        .relid {
+          cursor: pointer;
+          fill: black ;
+          font-size: .25px ;
+          font-style: italic
+        }
+        .reletname {
+          fill: black ;
+          font-size: .30px ;
+          font-style: italic
+        }
+		    .scope {
+          cursor: pointer;
+          fill: black ;
+          font-size: .25px ;  
+		      font-style: italic
+        }

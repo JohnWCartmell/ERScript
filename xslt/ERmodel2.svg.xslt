@@ -88,13 +88,15 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
       <xsl:attribute name="height">
         <xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
-      <svg:defs>
 
+      <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
+             type="text/css"
+             href="/css/erdiagramsvgstyles.css"/>
+      <svg:defs>
         <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
           <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
           <svg:stop offset="100%" style="stop-color:white;stop-opacity:1" />
         </svg:linearGradient>
-
         <svg:filter x="0" y="0" width="1" height="1" id="surfaceattreven">
           <svg:feFlood flood-color="white"/>
           <svg:feComposite in="SourceGraphic" />
@@ -103,214 +105,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           <svg:feFlood flood-color="#FFFFCC"/>
           <svg:feComposite in="SourceGraphic" />
         </svg:filter>
-
-        <svg:style type="text/css">
-          <![CDATA[
-        .eteven {
-          fill: #FFFFCC;
-          stroke: black;
-          stroke-width: 1
-        }
-        .eteven:hover{
-          fill: #FFFF77;
-        }
-        .etodd {
-          fill: white;
-          stroke: black;
-          stroke-width: 1
-        }
-        .etodd:hover{
-          fill: lightgrey
-        }
-
-        .outertitlebox {
-          fill-opacity: 0;
-          stroke: black;
-          stroke-width: 1;
-        }
-        .titlebox {
-          fill: #FCFCFC;
-          stroke: black;
-          stroke-width: 1;
-        }
-        .titletext {
-          fill: black;
-          font-size: 30px;
-        }
-        .Gradient {
-          fill: url(#topdowngrey);
-        }        
-        .Box {
-          fill: white;
-          stroke: black;
-          stroke-width: 1;
-        }
-        .groupannotation {
-          fill: grey;
-          font-size: 11px ;
-        }
-        .attrmarker {
-          fill:black;
-          stroke: black;
-          stroke-width: 1
-        }
-        .surfaceattrmarker {
-          fill-opacity: 0;
-          stroke: black;
-          stroke-width: 1
-        }
-	    .deprecatedattrname {
-          fill: black;
-          font-size: 11px ;
-          font-style: italic;
-          text-decoration: line-through;
-        }
-        .mandatoryrelationshipline {
-          stroke: black;
-          stroke-width: .02;
-          fill: none
-        }
-        .optionalrelationshipline {
-          stroke: black;
-          stroke-width: .02;
-          stroke-dasharray: 0.07 0.07;
-          fill: none
-        }
-        .relationshiphitarea {
-          fill:none;
-          stroke: black;
-          stroke-width: .2;
-          stroke-opacity:0;
-          pointer-events: stroke;
-        }
-        .relationshiphitarea:hover {
-          stroke: #15D4FA;
-          stroke-opacity:0.5;
-        }
-        .relationshipbackground {
-          stroke: #FFFFCC;
-          stroke-width: .20;
-          fill: none
-        }
-        .arrow {
-          stroke: red;
-          stroke-width: .02;
-          fill: none
-        }
-        .crowsfoot {
-          stroke: black;
-          stroke-width: .02;
-          fill: none
-        }
-        .arc {
-          stroke: black;
-          stroke-width: .02;
-          fill: none
-        }
-        .squiggle {
-          stroke: black;
-          stroke-width: .02;
-          fill: none
-        }
-        .etname {
-          cursor: pointer;
-          fill: black;
-          font-size: 11px ;
-          pointer-events: none;
-        }
-        .attrname {
-          cursor: pointer;
-          fill: black;
-          font-size: 11px ;
-          font-style: italic;
-        }
-        .attrname:hover {
-          font-weight:bold;
-          font-size: 12px ;
-        }
-        .idattrname {       
-          cursor: pointer;
-          fill: black;
-          font-size: 11px ;
-          font-style: italic ;
-          text-decoration: underline ;
-        }
-        .idattrname:hover {
-          font-weight:bold;
-          font-size: 12px ;
-        }
-        .surfaceattrnameeven {
-          fill: black;
-          filter: url(#surfaceattreven);
-          font-size: 11px ;
-          font-style: italic
-        }
-        .surfaceidattrnameeven {
-          fill: black;
-          filter: url(#surfaceattreven);
-          font-size: 11px ;
-          font-style: italic ;
-          text-decoration: underline
-        }
-        .surfaceattrnameodd {
-          fill: black;
-          filter: url(#surfaceattrodd);
-          font-size: 11px ;
-          font-style: italic
-        }
-        .surfaceidattrnameodd {
-          fill: black;
-          filter: url(#surfaceattrodd);
-          font-size: 11px ;
-          font-style: italic ;
-          text-decoration: underline
-        }
-        .popupInfoBox {
-          fill: black;
-          font-size: 10px ;
-          font-style: normal ;
-          visibility: hidden
-        }
-        .popupBoundingBox {
-          fill: white;
-          stroke: black;
-          stroke-width: 2
-        }
-        .popupHeadingText {
-          fill: black;
-          font-size: 12px ;
-          font-style: normal
-        }
-        .popupDetailText {
-          fill: black;
-          font-size: 10px ;
-          font-style: normal
-        }
-        .relname {
-          cursor: pointer;
-          fill: black ;
-          font-size: .25px ;
-          font-style: italic
-        }
-        .relid {
-          cursor: pointer;
-          fill: black ;
-          font-size: .25px ;
-          font-style: italic
-        }
-        .reletname {
-          fill: black ;
-          font-size: .30px ;
-          font-style: italic
-        }
-		    .scope {
-          cursor: pointer;
-          fill: black ;
-          font-size: .25px ;  
-		      font-style: italic
-        }
-      ]]>
-        </svg:style>
       </svg:defs>
       <xsl:copy-of select="$content"/>
     </svg:svg>
@@ -323,16 +117,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
       <html>
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-          <link rel="stylesheet" type="text/css" href="erstyle.css"/>
-
-          <script>
-                    function notify(id){
-		        var divElement = document.getElementById(id);
-			divElement.style.display = 'block';
-			divElement.style.visibility = 'visible';
-			divElement.style.opacity = 1;}
+          <link rel="stylesheet" type="text/css" href="/css/erstyle.css"/>
+          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
+          <script src="/js/ersvgdiagraminteraction.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
-
         </head>
         <body>
           <div> 
@@ -362,11 +150,25 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
               </div>
               <div> 
                 <xsl:attribute name="class" select="'infolist'"/>
-                <xsl:for-each select="entity_type|group">
-                  <xsl:call-template name="descriptive_text">
-                    <xsl:with-param name="levelNumber" select="1"/>
-                  </xsl:call-template>
-                </xsl:for-each>
+                <xsl:attribute name="id" select="'infolist'"/>
+        <div>
+          <xsl:attribute name="class" select="'closecontainer'"/>
+          <button>
+            <xsl:attribute name="class" select="'close'"/>
+            <xsl:attribute name="onClick" >
+              <xsl:text>closeallinfotextboxes()</xsl:text>
+            </xsl:attribute>
+            <xsl:text>xx</xsl:text>
+          </button> 
+        </div>
+                <div>       
+                  <xsl:attribute name="class" select="'infolistinner'"/>
+                  <xsl:for-each select="entity_type|group">
+                    <xsl:call-template name="descriptive_text">
+                      <xsl:with-param name="levelNumber" select="1"/>
+                    </xsl:call-template>
+                  </xsl:for-each>
+                </div>
               </div>
             </div>
           </div>
@@ -404,7 +206,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute">
       <xsl:variable name="text_div_id" as="xs:string?">
+        <xsl:value-of select="concat(id,'_text')"/>
+<!--
         <xsl:call-template name="element_text_div_id"/>  
+      -->
       </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
@@ -450,8 +255,9 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         </xsl:for-each> 
       </div>
   </xsl:template>
-
+<!--
   <xsl:template name="element_id" match="group|entity_type|reference|composition|attribute">
+    <xsl:value-of select="id"/>
     <xsl:choose>
       <xsl:when test="self::absolute">
         <xsl:value-of select="'Abs'"/>
@@ -467,14 +273,17 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
       </xsl:when>
     </xsl:choose>
   </xsl:template>
+-->
 
+
+<!--
   <xsl:template name="element_text_div_id" match="group|entity_type|reference|composition|attribute">
     <xsl:variable name="element_id" as="xs:string">
           <xsl:call-template name="element_id"/>
     </xsl:variable>
-    <xsl:value-of select="concat($element_id,'_text')"/>
+    <xsl:value-of select="concat(id,'_text')"/>
   </xsl:template>
-
+-->
   <xsl:template name="wrap_relationships" match="entity_model">   
     <xsl:param name="relationships"/>
     <xsl:param name="diagramHeight"/>
@@ -687,7 +496,10 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:variable>
 
     <xsl:variable name="element_id">
+      <xsl:value-of select="concat(id,'_text')"/>
+      <!--
       <xsl:call-template name="element_text_div_id"/>
+    -->
     </xsl:variable>
 
     <svg:svg>
@@ -752,9 +564,12 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="iseven"/>
     <xsl:param name="annotation"/>
     <xsl:param name="deprecated"/>
-    <xsl:variable name="element_id" as="xs:string">
+    <xsl:variable name="element_id">
+      <xsl:value-of select="concat(id,'_text')"/>
+      <!--
       <xsl:call-template name="element_text_div_id"/>
-    </xsl:variable> 
+    -->
+    </xsl:variable>
     <svg:text>
       <xsl:attribute name="class">
         <xsl:value-of select="   
@@ -1073,6 +888,33 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </svg:path>
   </xsl:template>
 
+<!-- reinstated for use from relationship construction diagrams -->
+    <xsl:template name="line">
+    <xsl:param name="x0cm"/>
+    <xsl:param name="y0cm"/>
+    <xsl:param name="x1cm"/>
+    <xsl:param name="y1cm"/>
+    <xsl:param name="p_ismandatory"/>
+    <xsl:param name="p_isconstructed"/>
+    <xsl:variable name="class">
+      <xsl:choose>
+        <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
+        <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <svg:path>
+      <xsl:attribute name="class">
+        <xsl:value-of select="$class"/>
+      </xsl:attribute>
+      <xsl:attribute name="d">
+        <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
+        <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
+      </xsl:attribute>
+    </svg:path>
+  </xsl:template>
+
+
+<!--
   <xsl:template name="render_path">
     <xsl:param name="source_to_midpoint" as="element(line)"/> 
     <xsl:param name="midpoint_to_destination" as="element(line)"/> 
@@ -1083,11 +925,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:call-template name="render_halfline">
       <xsl:with-param name="line" select="$midpoint_to_destination"/>
     </xsl:call-template>
-    <!--
-    <xsl:variable name="entire_line">
-
-    </xsl:variable>
-  -->
     <xsl:call-template name="render_line">
       <xsl:with-param name="element_id" select="$relationship_element_id"/>
       <xsl:with-param name="class" select="'relationshiphitarea'"/>
@@ -1112,8 +949,35 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
       <xsl:with-param name="class" select="$class"/>
     </xsl:call-template>
   </xsl:template>
+-->
 
-  <xsl:template name="render_line">
+  <xsl:template name="render_hitarea">
+      <xsl:param name="rel_id" as="xs:string"/>
+      <xsl:param name="line" as="element(line)"/>
+
+      <xsl:call-template name="write_path">
+         <xsl:with-param name="element_id" select="$rel_id"/>
+         <xsl:with-param name="class" select="'relationshiphitarea'"/>
+         <xsl:with-param name="line" select="$line"/>
+      </xsl:call-template>
+   </xsl:template>
+
+  <xsl:template name="render_half_of_relationship" match="constructed_relationship|composition|reference">
+      <xsl:param name="line" as="element(line)"/>
+      <xsl:param name="p_ismandatory"/>
+      <xsl:variable name="class">
+        <xsl:choose>
+          <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
+          <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:call-template name="write_path">
+         <xsl:with-param name="class" select="$class"/>
+         <xsl:with-param name="line" select="$line"/>
+      </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="write_path">
     <xsl:param name="element_id" as="xs:string?"/>
     <xsl:param name="line" as="element(line)"/> 
     <xsl:param name="class" as="xs:string"/>  
@@ -1138,7 +1002,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         </xsl:if>
     </svg:path>
   </xsl:template>
-
+<!--
   <xsl:template name="linedecoration">
     <xsl:param name="x0cm"/>
     <xsl:param name="y0cm"/>
@@ -1152,17 +1016,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <!--
-    <svg:path>
-      <xsl:attribute name="class">
-        <xsl:value-of select="$class"/>
-      </xsl:attribute>
-      <xsl:attribute name="d">
-        <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
-        <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
-      </xsl:attribute>
-    </svg:path>
-  -->
     <line>
         <xsl:if test="$p_ismandatory = 'true'">
             <mandatory/>
@@ -1198,6 +1051,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <point><x><xsl:value-of select="$x1cm"/></x><y><xsl:value-of select="$y1cm"/></y></point>
     </line>
   </xsl:template>
+-->
 
   <xsl:template name="arrow">
     <xsl:param name="x0cm"/>

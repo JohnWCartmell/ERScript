@@ -73,6 +73,12 @@ xcopy %SRCDIR%\latex %ERHOMEDIR%\latex\ /q
 echo "Copying source docs files"
 xcopy %SRCDIR%\docs %ERHOMEDIR%\docs\ /q
 
+echo "copying css files"
+xcopy %SRCDIR%\css %DISTRIBUTION%\css\ /q
+
+echo "copying js files"
+xcopy %SRCDIR%\js %DISTRIBUTION%\js\ /q
+
 if not exist %LOGS% mkdir %LOGS%
 
 echo Logging to %LOGS%\build.log

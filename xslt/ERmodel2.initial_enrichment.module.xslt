@@ -149,25 +149,6 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
    <xsl:copy-of select="$result"/>
 </xsl:template>
 
-<!-- In the first pass just add namespace definitions -->
-<xsl:template match="*"
-              mode="initial_enrichment_first_pass"> 
-  <xsl:copy>
-    <xsl:apply-templates mode="initial_enrichment_first_pass"/>
-  </xsl:copy>
-</xsl:template>
-
-<xsl:template match="entity_model"
-              mode="initial_enrichment_first_pass"
-              priority="1"> 
-  <xsl:copy>
-    <!-- add prefixes for namespaces -->
-    <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
-    <xsl:namespace name="era" select="'http://www.entitymodelling.org/ERmodel'"/>
-    <xsl:namespace name="er-js" select="'http://www.entitymodelling.org/ERmodel/javascript'"/>  
-    <xsl:apply-templates mode="initial_enrichment_first_pass"/>
-  </xsl:copy>
-</xsl:template>
 
 <!-- recursive enrichment starts here -->
 <!-- FOLLOWING HAS BEEN RECODED IN meta model -->

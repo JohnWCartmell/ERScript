@@ -31,13 +31,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    </presentation>
    <entity_type>
       <name>drive</name>
+      <description>A drive such as a USB drive or a disk drive.</description>
       <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>drive letter</name>
+         <description>In the Microsft Windows system disk drives are identified by drive letters.</description>
          <type>
             <string/>
          </type>
       </attribute>
       <composition>
+         <description>The root folder of a drive.</description>
          <type>folder</type>
          <diagram>
             <path/>
@@ -56,28 +59,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          <x>0.25</x>
          <deltaw>0.5</deltaw>
       </presentation>
+      <description>Something held within a folder of a drive.
+                   Can be a file, another folder or a shortcut.
+      </description>
       <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>name</name>
+        <description>The name of an entry i.e. of a file, a folder or a shortcut. 
+                     Names of entries must be unique within the folders that contain them.
+         </description>
          <type>
             <string/>
          </type>
       </attribute>
       <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
          <name>date modified</name>
+         <description>The date that the entry was last modified.</description>
          <type>
-            <string/>
+            <date/>
          </type>
       </attribute>
       <entity_type>
          <name>file</name>
+         <description>A file on disk within a folder.</description>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>size</name>
+            <description>The size of a file measured in bytes.</description>
             <type>
                <string/>
             </type>
          </attribute>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>content</name>
+            <description>Representing the comntent of a file.</description>
             <type>
                <string/>
             </type>
@@ -85,6 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
          <name>folder</name>
+         <description>A set of files and folders.</description>
          <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
             <name>name</name>
             <type>
@@ -92,6 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </type>
          </attribute>
          <composition>
+            <description>An entry within a folder</description>
             <type>Entry</type>
             <cardinality>
                <ZeroOneOrMore/>
@@ -116,6 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </entity_type>
       <entity_type>
          <name>shortcut</name>
+         <description>A shortcut to a folder or a file.</description>
          <presentation>
             <rightOf>folder</rightOf>
          </presentation>
