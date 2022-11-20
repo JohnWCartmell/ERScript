@@ -225,12 +225,15 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
             </xsl:when>
             <xsl:when test="self::reference">
               <xsl:text>Reference Relationship</xsl:text>
+              <xsl:value-of select="display_text"/>
             </xsl:when>
             <xsl:when test="self::composition">
               <xsl:text>Composition Relationship</xsl:text>
+              <xsl:value-of select="display_text"/>
             </xsl:when>
             <xsl:when test="self::attribute">
               <xsl:text>Attribute</xsl:text>
+              <xsl:value-of select="display_text"/>
             </xsl:when>
           </xsl:choose>
         </div>

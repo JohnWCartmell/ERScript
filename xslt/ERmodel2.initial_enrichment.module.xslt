@@ -40,25 +40,15 @@ Description
  (2) It creates the following derived attributes:
      
       absolute => 
-            identifier : string,   # see entity_type.identifier
             elementName : string   # xml element name - not necessarily unique
 
      entity_type => 
-            identifier : string,  # based on name but syntactically 
-                                  # an identifier whilst still being unique
             elementName : string, # xml element name - not necessarily unique
             parentType : string   # the pipe ('|') separated types 
                                   # from which there are incoming 
                                   # composition relationships
 
-     composition|reference => 
-            id:string             # a short id of form R<n> for some n
-
      reference =>
-        scope_display_text : string r,;
-                                 # text presentation of the scope constraint
-                                 # using ~/<riser text>=<diag text>
-                                 # using D:<riser text>=S:<diag text>
         optional projection : entity ;
                                  # if the reference is specified as the 
                                  # projection_rel by a pullback. 
@@ -76,10 +66,6 @@ Description
       navigation =>
         src : string,           # the name of the source entity type
         dest : string,          # the name of the destination entity type
-        display_text : string   # text presentation of the navigation using
-                                #       / for join
-                                #       . for the identity
-                                #       ^ for the absolute
 
       join | component => identification_status : ('Identifying', 'NotIdentifying')
 
@@ -151,23 +137,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
 
 
 <!-- recursive enrichment starts here -->
-<!-- FOLLOWING HAS BEEN RECODED IN meta model -->
-<xsl:template match="*[self::absolute|self::entity_type]
-                     [not(identifier)]
-                     "
-              mode="initial_enrichment_recursive"
-              priority="2">
-  <xsl:copy>
-      <identifier trace="2">
-          <xsl:value-of select="translate(replace(name,'\((\d)\)','_$1'),
-                                          ' ',
-                                          '_'
-                                         )
-                               "/>
-      </identifier>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-  </xsl:copy>
-</xsl:template>
+
 
 <!-- FOLLOWING HAS BEEN RECODED IN meta model -->
 <!-- added somewhat later (Oct 2022) What I guess I mean by the above comment is that
@@ -189,7 +159,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
   </xsl:copy>
 </xsl:template>
 
-
+<!-- Moved to initial_enrichment_first_pass.module 
 <xsl:template match="composition
                      [not(id)]
                     "
@@ -197,7 +167,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
               priority="4">
    <xsl:copy>
        <id>
-          <xsl:text>S</xsl:text>  <!-- S for structure -->
+          <xsl:text>S</xsl:text>  
           <xsl:number count="composition" level="any" />
        </id>
        <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
@@ -217,19 +187,8 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
     </xsl:copy>
 </xsl:template>
 
-<!-- IS THE FOLLOWING USED
-COMMENT OUT AND FIND OUT
-<xsl:variable name="keywords" as="xs:string *">
-   <xsl:sequence select="
-          '', 'do', 'if', 'in', 'for', 'let', 'new', 'try', 'var', 'case',
-          'else', 'enum', 'eval', 'null', 'this', 'true', 'void', 'with',
-          'break', 'catch', 'class', 'const', 'false', 'super', 'throw',
-          'while', 'yield', 'delete', 'export', 'import', 'public', 'return',
-          'static', 'switch', 'typeof', 'default', 'extends', 'finally',
-          'package', 'private', 'continue', 'debugger', 'function', 'arguments',
-          'interface', 'protected', 'implements', 'instanceof'   "/>
-</xsl:variable>
 -->
+
 
 <!-- in the logic below there were two cases prior to 16 Aug 2022
       one case used outgoing dependency and its type and other incoming composition
@@ -252,7 +211,7 @@ COMMENT OUT AND FIND OUT
                                                                   this fixes immediate problem but needs further testing -->
       </parentType>
       <!-- 
-        Define
+        In future define
         all_incoming_composition_relationships 
         = (ancestor_or_self::entity_type)/incoming_composition_relationships
 
@@ -353,36 +312,7 @@ COMMENT OUT AND FIND OUT
 </xsl:template>
 
 
-<xsl:template match="reference
-                     [not(scope_display_text)]
-                     [riser/*/display_text]
-                     [diagonal/*/display_text]
-              "
-              priority="999"
-              mode="initial_enrichment_recursive"> 
-  <xsl:copy>
-     <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-          <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/>  
-                   <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->             
-                  <!-- 16 August 2022 - UPGRADED to latest metamodel  cardinality but note code wasn't correct to start with -->
-          <scope_display_text>
-             <xsl:value-of select="concat('d:',riser/*/display_text,'=s:',diagonal/*/display_text)"/>
-             <!-- was        <xsl:value-of select="concat('~/',riser/*/display_text,'=',diagonal/*/display_text)"/> -->
-             <!-- In future would we   want to type the * in riser/*/display_text to ease
-                  static checking. On the otherhand the dest of riser is known to be navigation.
-                  The above is equivalent to
-                       riser/*[self::navigation]/display_text
-                  Except that need to replace navigation by all its concrete subtypes.0
-                  Arguably writing it that way might look we were applying a filter which we are not.
-                  Question: in macro language should I not write riser/display_text and
-                  know that the intermediate * will be generated in the xpath. Because the /
-                  is not then the zptha ? then maybe we should surround each navigation by #'s'
-                  and write the command macro as
-                  "concat('d:',#riser/display_text#,'=s:',#diagonal/display_text#)"   
-             -->
-          </scope_display_text>
-  </xsl:copy>
-</xsl:template>
+
 
 <xsl:template match="reference/projection
                      [not(host_type)]"
@@ -405,91 +335,7 @@ COMMENT OUT AND FIND OUT
   </xsl:copy>
 </xsl:template>
 
-<!-- display_text -->
-<xsl:template match="identity
-                     [not(display_text)]
-                    " 
-              priority="8"
-              mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <display_text>
-         <xsl:value-of select="'.'"/>
-      </display_text>
-     <!--becomes
-      <optional>
-        <default>
-            <macro>'.'</macro>
-        </default>
-      </optional>
-      -->
-   </xsl:copy>
-</xsl:template>
 
-<xsl:template match="theabsolute
-                     [not(display_text)]
-                     " 
-              priority="9"
-              mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <display_text>
-         <xsl:value-of select="'^'"/>
-      </display_text>
-      <!-- similar to previous -->
-   </xsl:copy>
-</xsl:template>
-
-<xsl:template match="join
-                     [not(display_text)]
-                     [every $component in component satisfies $component/display_text]
-                     "
-                     priority="10"
-                     mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <display_text>
-         <xsl:value-of select="string-join(component/display_text,'/')"/>
-      </display_text>
-      <!-- becomes
-      <optional>
-        <default>
-           <macro>string-join(#component/display_text#,'/')</macro>
-        </default>
-      </optional>
-      -->
-   </xsl:copy>
-</xsl:template>
-
-<xsl:template match="component
-                     [not(display_text)]" 
-                     priority="11"
-                     mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <display_text>
-         <xsl:value-of select="rel"/>
-      </display_text>
-      <!-- oooooo - this will be ambiguous in macro language - is rel the relationship
-                     or the foreign key attribute? 
-                     Get away with it in this case we can represent as
-      <optional>
-        <default>
-           <macro>rel</macro>            ............ note no use of #'s'
-        </default>
-      </optional>
-
-      Could also ignore the foreign key and specify more sematically(though less efficient)
-      <optional>
-        <default>
-           <macro>#rel/name#</macro>        
-        </default>
-      </optional>   
-
-      Consider though use of % for all attributes. 
-      -->
-   </xsl:copy>
-</xsl:template>
 
 <!-- There follows 4 templates to define src for identity and the absolute --> 
 <!-- BUT I don't see how it is defined in the case that the incoming composition
@@ -506,8 +352,10 @@ COMMENT OUT AND FIND OUT
      ../[constructed_relationship]   +> ..[constructed_relationship]/src
      inverse(diagonal)               +> inverse(diagonal)/src
      inverse(riser)                  +> inverse(riser)/type
-     inverse(key)                         ... this case is missing (and I cant remember what 
-                                                        concept of key is this!!)
+     inverse(key)                         ... this case is missing (key specifies 
+                                                   relationship targets pullback and 
+                                                   value implied by key relationship into
+                                                          object that is pulled back)
                                                         /key seems to be used as part of building
                                                         xpath_local_key in xpath_enichment.
      -->  

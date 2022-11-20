@@ -1,0 +1,444 @@
+
+<!-- In the first pass add namespace definitions  and
+  create the following derived attributes (These attributes are non-persistent. )
+     
+    absolute => 
+            id : string          # constant value "A" 
+
+    group => 
+            id: string            # a short id of form G<n> for some n
+
+    entity_type => 
+            id: string            # a short id of form E<n> for some n
+
+    composition => 
+            id:string             # a short id of form S<n> for some n
+
+    reference => 
+            id:string             # a short id of form R<n> for some n
+
+    attribute => 
+            id:string             # a short id of form R<n> for some n
+-->
+
+<xsl:transform version="2.0" 
+        xmlns="http://www.entitymodelling.org/ERmodel"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
+        xmlns:xlink="http://www.w3.org/TR/xlink"
+        xpath-default-namespace="http://www.entitymodelling.org/ERmodel" >
+<!--
+   entity_type|group|composition|absolute
+    
+         absolute => 
+            identifier : string,   # identify is "^"
+
+     entity_type =>
+            id:string             # a short id of the form E<n> for some n 
+            identifier : string,  # based on name but syntactically 
+                                  # an identifier whilst still being unique
+
+    attribute => 
+            id:string             # a short id of form A<n> for some n
+            identifier : string   # <et.identifier>.<attrname> 
+            display_text: string  # is <attrname>:<attrtype>
+
+     composition => 
+            id:string             # a short id of form S<n> for some n
+            identifier : string   # <et.identifier>.<relname> providing rel is named
+                                  # <et.identifier>:<dest.et.identifier> otherwise
+
+            display_text: string  # is <relname>:<dest et name> {|?|+|*}
+
+     reference =>
+            id:string             # a short id of form S<n> for some n
+            identifier : string   # <et.identifier>.<relname> providing rel is named
+                                  # <et.identifier>:<dest.et.identifier> otherise
+            scope_display_text : string r,;
+                                 # text presentation of the scope constraint
+                                 # using ~/<riser text>=<diag text>
+                                 # using D:<riser text>=S:<diag text>
+            display_text: string  # is <relname>:<dest et name> {|?|+|*}
+
+      navigation ::= identity | theabsolute | join | aggregate | component
+      
+      navigation =>  display_text : string   # text presentation of the navigation using
+                                #       / for join
+                                #       | for aggregation  ??????????????????????????????????????????????????
+                                #       . for the identity
+                                #       ^ for the absolute
+                                          
+-->
+
+
+<xsl:template name="documentation_enrichment">
+   <xsl:param name="document"/>
+   <xsl:variable name ="next">
+      <xsl:for-each select="$document">
+         <xsl:copy>
+           <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+         </xsl:copy>
+      </xsl:for-each>
+   </xsl:variable>
+   <xsl:variable name="result">
+      <xsl:choose>
+         <xsl:when test="not(deep-equal($document,$next))">     
+            <xsl:message> changed in documentation enrichment recursive</xsl:message>
+            <xsl:call-template name="documentation_enrichment">
+               <xsl:with-param name="document" select="$next"/>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:message> unchanged fixed point of documentation enrichment recursive </xsl:message>
+            <xsl:copy-of select="$document"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:variable>  
+   <xsl:copy-of select="$result"/>
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="documentation_enrichment_recursive">
+  <xsl:copy>
+     <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="entity_model"
+              mode="documentation_enrichment_recursive"> 
+  <xsl:copy>
+    <!-- add prefixes for namespaces -->
+    <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
+    <xsl:namespace name="era" select="'http://www.entitymodelling.org/ERmodel'"/>
+    <xsl:namespace name="er-js" select="'http://www.entitymodelling.org/ERmodel/javascript'"/>  
+    <xsl:apply-templates mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="entity_type
+                     [not(id)]
+                    "
+              mode="documentation_enrichment_recursive">
+              <xsl:message>enriching entity type</xsl:message>
+   <xsl:copy>
+       <id>
+          <xsl:text>E</xsl:text>  <!-- S for structure -->
+          <xsl:number count="entity_type" level="any" />
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="group
+                     [not(id)]
+                    "
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+       <id>
+          <xsl:text>G</xsl:text>  <!-- S for structure -->
+          <xsl:number count="entity_type" level="any" />
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="composition
+                     [not(id)]
+                    "
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+       <id>
+          <xsl:text>S</xsl:text>  <!-- S for structure -->
+          <xsl:number count="composition" level="any" />
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="reference
+                     [not(id)]" 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+       <id>
+          <xsl:text>R</xsl:text>
+          <xsl:number count="reference" level="any" />
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="attribute
+                     [not(id)]" 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+       <id>
+          <xsl:text>A</xsl:text>
+          <xsl:number count="attribute" level="any" />
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<!-- FOLLOWING HAS BEEN RECODED IN meta model of entity logic fer future use-->
+
+<xsl:template match="absolute
+                     [not(identifier)]
+                     "
+              mode="documentation_enrichment_recursive"
+              priority="2">
+  <xsl:copy>
+      <identifier>
+          <xsl:value-of select="'^'"/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="entity_type
+                     [not(identifier)]
+                     "
+              mode="documentation_enrichment_recursive"
+              priority="2">
+  <xsl:copy>
+      <identifier >
+          <xsl:value-of select="translate(replace(name,'\((\d)\)','_$1'),
+                                          ' ',
+                                          '_'
+                                         )
+                               "/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="attribute
+                     [not(identifier)]
+                     [../identifier]
+                     "
+              mode="documentation_enrichment_recursive"
+              priority="2">
+  <xsl:copy>
+      <identifier >
+          <xsl:value-of select="concat(../identifier,'.',name)"/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[self::reference|self::composition]
+                     [not(identifier)]
+                     [../identifier]
+                     [name]
+                     "
+              mode="documentation_enrichment_recursive"
+              priority="2">
+  <xsl:copy>
+      <identifier >
+          <xsl:value-of select="concat(../identifier,'.',name)"/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[self::reference|self::composition]
+                     [not(identifier)]
+                     [../identifier]
+                     [not(name)]
+                     [//entity_type[name=current()/type]/identifier]
+                     "
+              mode="documentation_enrichment_recursive"
+              priority="2">
+  <xsl:copy>
+      <identifier >
+          <xsl:value-of select="concat(../identifier,':',
+                                       //entity_type[name=current()/type]/identifier
+                                       )
+            "/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+
+<!-- scope_display_text  -->
+<xsl:template match="reference
+                     [not(scope_display_text)]
+                     [riser/*/display_text]
+                     [diagonal/*/display_text]
+              "
+              priority="3"
+              mode="documentation_enrichment_recursive"> 
+  <xsl:copy>
+     <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+          <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/>  
+                   <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->             
+                  <!-- 16 August 2022 - UPGRADED to latest metamodel  cardinality but note code wasn't correct to start with -->
+          <scope_display_text>
+             <xsl:value-of select="concat('d:',riser/*/display_text,'=s:',diagonal/*/display_text)"/>
+             <!-- was        <xsl:value-of select="concat('~/',riser/*/display_text,'=',diagonal/*/display_text)"/> -->
+             <!-- In future would we   want to type the * in riser/*/display_text to ease
+                  static checking. On the otherhand the dest of riser is known to be navigation.
+                  The above is equivalent to
+                       riser/*[self::navigation]/display_text
+                  Except that need to replace navigation by all its concrete subtypes.0
+                  Arguably writing it that way might look we were applying a filter which we are not.
+                  Question: in macro language should I not write riser/display_text and
+                  know that the intermediate * will be generated in the xpath. Because the /
+                  is not then the zptha ? then maybe we should surround each navigation by #'s'
+                  and write the command macro as
+                  "concat('d:',#riser/display_text#,'=s:',#diagonal/display_text#)"   
+             -->
+          </scope_display_text>
+  </xsl:copy>
+</xsl:template>
+
+<!-- display_text  starts here -->
+<xsl:template match="identity
+                     [not(display_text)]
+                    " 
+              priority="8"
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="'.'"/>
+      </display_text>
+     <!--becomes
+      <optional>
+        <default>
+            <macro>'.'</macro>
+        </default>
+      </optional>
+      -->
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="theabsolute
+                     [not(display_text)]
+                     " 
+              priority="9"
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="'^'"/>
+      </display_text>
+      <!-- similar to previous -->
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="join
+                     [not(display_text)]
+                     [every $component in component satisfies $component/display_text]
+                     "
+                     priority="10"
+                     mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="string-join(component/display_text,'/')"/>
+      </display_text>
+      <!-- in future becomes
+      <optional>
+        <default>
+           <macro>string-join(#component/display_text#,'/')</macro>
+        </default>
+      </optional>
+      -->
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="component
+                     [not(display_text)]" 
+                     priority="11"
+                     mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="rel"/>
+      </display_text>
+      <!-- oooooo - this will be ambiguous in macro language - is rel the relationship
+                     or the foreign key attribute? 
+                     Get away with it in this case we can represent as
+      <optional>
+        <default>
+           <macro>rel</macro>            ............ note no use of #'s'
+        </default>
+      </optional>
+
+      Could also ignore the foreign key and specify more sematically(though less efficient)
+      <optional>
+        <default>
+           <macro>#rel/name#</macro>        
+        </default>
+      </optional>   
+
+      Consider though use of % for all attributes. 
+      -->
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[self::reference|self::composition]
+                    [not(display_text)]
+                    [identifier]
+                    [cardinality/ZeroOrOne]
+                    " 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="concat(name, ' : ', type,'?')"/>
+      </display_text>
+    </xsl:copy>
+</xsl:template>  
+
+<xsl:template match="*[self::reference|self::composition]
+                    [not(display_text)]
+                    [identifier]
+                    [cardinality/ExactlyOne]
+                    " 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="concat(name, ' : ', type)"/>
+      </display_text>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[self::reference|self::composition]
+                    [not(display_text)]
+                    [identifier]
+                    [cardinality/ZeroOneOrMore]
+                    " 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="concat(name, ' : ', type,'*')"/>
+      </display_text>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[self::reference|self::composition]
+                    [not(display_text)]
+                    [identifier]
+                    [cardinality/OneOrMore]
+                    " 
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="concat(name, ' : ', type,'+')"/>
+      </display_text>
+    </xsl:copy>
+</xsl:template>
+
+
+
+
+
+<!-- display_text  ends -->
+
+
+</xsl:transform>

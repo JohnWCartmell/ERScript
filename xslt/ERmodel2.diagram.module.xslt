@@ -86,9 +86,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
-<xsl:include href="ERmodel2.initial_enrichment_first_pass.module.xslt"/>
-<xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
-
+<xsl:include href="ERmodel.consolidate.module.xslt"/>
+<xsl:include href="ERmodel2.documentation_enrichment.module.xslt"/>
+<!-- <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/> probably no longer required
+since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt (17 Nov 2022) -->
 <!-- 
 -->
 
@@ -245,16 +246,20 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
       <xsl:apply-templates select="*" mode="assembly"/>
     </xsl:variable>
 
+   <xsl:variable name="state">
+      <xsl:apply-templates select="$state" mode="consolidate"/>
+   </xsl:variable>
+
    <xsl:if test="$debugon">
       <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="initial_assembly_for_svg_temp.xml" method="xml">
-        <xsl:sequence select="$state"/>
+        <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>
 
    <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
    <xsl:variable name="state">
-      <xsl:call-template name="initial_enrichment">
+      <xsl:call-template name="documentation_enrichment">
           <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
    </xsl:variable>
@@ -1457,13 +1462,13 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
-  <!--
+
    <xsl:message> composition relationship 
 	  <xsl:value-of select="../name"/> .
 	  <xsl:value-of select="name"/> 
 	 type  <xsl:value-of select="type"/> 
    </xsl:message>
-  -->
+
   <xsl:if test="not(key('EntityTypes',type))">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'missing-entity-type'), type)"/>
   </xsl:if>
@@ -3453,13 +3458,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 
 <xsl:template name="process_path">
    <xsl:param name="path" as="element(path)"/>
-   <xsl:message>Number of lines in path is <xsl:value-of select="count($path/line)"/></xsl:message>
-   <xsl:message>Number of lines before midpoint is 
-   <xsl:value-of select="count($path/line[not(exists(following-sibling::midpoint))])"/>
-   </xsl:message>
-      <xsl:message>Number of lines after midpoint is 
-   <xsl:value-of select="count($path/line[not(exists(preceding-sibling::midpoint))])"/>
-   </xsl:message>
    <path>
       <line>
          <xsl:copy-of select="$path/line[not(exists(preceding-sibling::midpoint))]/
