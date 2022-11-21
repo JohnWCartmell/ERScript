@@ -12,20 +12,20 @@
       </xsl:copy>
    </xsl:template>
 
-   <xsl:template match="entity_model" mode="description_template">
-      <xsl:message> In root entity in entity_model</xsl:message>
-      <xsl:element name="refinement" namespace="http://www.entitymodelling.org/ERmodel">
-         <xsl:apply-templates select="*" mode="description_template"/>
-      </xsl:element>
-   </xsl:template>
 
    <xsl:template match="@*|node()" mode="description_template">
+   </xsl:template>
+
+   <xsl:template match="entity_model" mode="description_template">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="description_template"/>
+      </xsl:copy>
    </xsl:template>
 
    <xsl:template match="*[self::absolute|self::entity_type|self::group]"
                  mode="description_template">
       <xsl:copy>
-         <xsl:attribute name="name" select="name"/>
+         <xsl:copy-of select="name" copy-namespaces="no"/>
             <xsl:element name="description" namespace="http://www.entitymodelling.org/ERmodel">
                <xsl:choose>
                   <xsl:when test="description">
@@ -54,8 +54,7 @@
    <xsl:template match="*[self::attribute]"
                  mode="description_template">
       <xsl:copy copy-namespaces="no"> <!-- <attribute> -->
-         <xsl:attribute name="id" select= "concat(../name,'.',name)"/>
-         <!--<xsl:copy-of select="name" copy-namespaces="no"/>-->
+         <xsl:copy-of select="name" copy-namespaces="no"/>
          <xsl:element name="description" namespace="http://www.entitymodelling.org/ERmodel">
             <xsl:choose>
                <xsl:when test="description">
@@ -74,11 +73,8 @@
    <xsl:template match="*[self::reference|self::composition|self::dependency|self::constructed_relationship]"
                  mode="description_template">
       <xsl:copy>
-         <xsl:attribute name="id" select="concat(../name,
-                                                 if(name) then '.'  else ':' ,
-                                                 if(name) then name else type
-                                                )
-                                         "/>
+          <xsl:copy-of select="name" copy-namespaces="no"/>
+          <xsl:copy-of select="type" copy-namespaces="no"/>
          <xsl:element name="description" namespace="http://www.entitymodelling.org/ERmodel">
                <xsl:copy-of select="description/(*|text())"/>
                <xsl:text>.</xsl:text>

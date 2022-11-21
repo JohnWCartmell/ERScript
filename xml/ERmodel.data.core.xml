@@ -9,12 +9,14 @@
             <ZeroOneOrMore/>
          </cardinality>
       </composition>
+      <xxx/>
       <composition>
          <type>absolute</type>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
       </composition>
+      <!-- PPPPPPPPPPP
       <composition>
          <name>presentation</name>
          <cardinality>
@@ -28,6 +30,7 @@
          </cardinality>
          <type>defaults</type>
       </composition>
+   -->
       <composition>
          <cardinality>
             <ZeroOrOne/>
@@ -38,6 +41,7 @@
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
    </xml>
+   <!--  PPP
    <entity_type>
       <name>diagram</name>
       <attribute>
@@ -86,6 +90,7 @@
          <optional/>
       </attribute>
    </entity_type>
+-->
    <entity_type>
       <name>xml</name>
       <attribute>
@@ -166,12 +171,17 @@
          </type>
          <optional/>
       </attribute>
+         <!--
+            <entity_type>
+            <name>ENTITY_TYPE</name>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
-         <type>presentation</type>
+         <type>presentation</type>    
       </composition>
+      </entity_type>
+   -->
       <composition>
          <cardinality>
             <ZeroOneOrMore/>
@@ -264,12 +274,14 @@
    </entity_type>
    <entity_type>
       <name>dependency_group</name>
+      <!--
       <composition>
-         <type>presentation</type>
+         <type>presentation</type>    
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
       </composition>
+   -->
    </entity_type>
    <entity_type>
       <name>Relationship</name>
@@ -407,6 +419,9 @@
          <name>type</name>
          <type>ENTITY_TYPE</type>
       </reference>
+      <!-- PPPPPPPPPPP
+      <entity_type>
+         <name>composition</name>
       <composition>
          <name>diagram</name>
          <type>path</type>
@@ -414,6 +429,8 @@
             <ZeroOrOne/>
          </cardinality>
       </composition>
+      </entity_type>
+   -->
       <composition>
          <type>sequence</type>
          <cardinality>
@@ -470,6 +487,7 @@
          </type>
       </attribute>
    </entity_type>
+   <!--
    <entity_type>
       <name>presentation</name>
       <dependency_group/>
@@ -690,6 +708,7 @@
          <optional/>
       </attribute>
    </entity_type>
+-->
    <entity_type>
       <name>sequence</name>
    </entity_type>
@@ -871,6 +890,7 @@
       </description>
       </reference>
    </entity_type>
+   <!--
    <group>
       <name>presentation_children</name>
       <entity_type>
@@ -944,6 +964,7 @@
          </entity_type>
       </entity_type>
    </group>
+-->
    <group>
       <name>attribute_children</name>
       <entity_type>
@@ -1079,6 +1100,7 @@
          <name>deprecated</name>
       </entity_type>
    </group>
+   <!--
    <group>
       <name>path_children</name>
       <entity_type>
@@ -1199,6 +1221,7 @@
          </entity_type>
       </entity_type>
    </group>
+-->
    <entity_type>
       <name>xmlStyle(2)</name>
       <dependency_group/>

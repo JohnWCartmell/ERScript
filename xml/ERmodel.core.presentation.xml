@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refinement xmlns="http://www.entitymodelling.org/ERmodel">
-   <entity_model xmlns:era="http://www.entitymodelling.org/ERmodel"/>
-   <entity_type>
-      <name>entity_model</name>
-      <relationship>
+   <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+      xmlns:era="http://www.entitymodelling.org/ERmodel">
+   <absolute>
+      <composition>
          <type>entity_type_like</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <destattach>0.66</destattach>
             </path>
          </diagram>
-      </relationship>
-   </entity_type>
+      </composition>
+   </absolute>
    <entity_type>
       <name>diagram</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
@@ -66,7 +65,7 @@
    </entity_type>
    <entity_type>
       <name>entity_type</name>
-      <relationship>
+      <composition>
          <name>xmlRepresentation</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -83,7 +82,7 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>entity_type</name>
@@ -100,7 +99,7 @@
    </entity_type>
    <entity_type>
       <name>entity_type_like</name>
-      <relationship>
+      <composition>
          <type>entity_type_like</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -115,11 +114,11 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>ENTITY_TYPE</name>
-      <relationship>
+      <composition>
          <type>presentation</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -128,11 +127,11 @@
                <destarmlen>0.75</destarmlen>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>ENTITY_TYPE</name>
-      <relationship>
+      <composition>
          <type>dependency_group</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -140,11 +139,11 @@
                <destattach>0.5</destattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>ENTITY_TYPE</name>
-      <relationship>
+      <composition>
          <type>Relationship</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -153,7 +152,7 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
@@ -166,7 +165,7 @@
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <type>implementationOf</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -175,11 +174,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <name>type</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -188,11 +187,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <type>identifying(2)</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -201,11 +200,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <type>optional</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -214,11 +213,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <type>deprecated</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -227,11 +226,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <relationship>
+      <composition>
          <name>xmlStyle</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -240,7 +239,7 @@
                <destarmlen>0.3</destarmlen>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>dependency_group</name>
@@ -265,7 +264,7 @@
    </entity_type>
    <entity_type>
       <name>dependency_group</name>
-      <relationship>
+      <composition>
          <type>presentation</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -273,7 +272,7 @@
                <destarmlen>0.65</destarmlen>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
@@ -311,7 +310,7 @@
    </entity_type>
    <entity_type>
       <name>reference</name>
-      <relationship>
+      <reference>
          <name>inverse</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -325,11 +324,11 @@
                </scope>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>reference</name>
-      <relationship>
+      <composition>
          <name>diagonal</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -344,11 +343,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>reference</name>
-      <relationship>
+      <composition>
          <name>riser</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -358,11 +357,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>reference</name>
-      <relationship>
+      <composition>
          <name>key</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -372,11 +371,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>reference</name>
-      <relationship>
+      <composition>
          <type>projection</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -385,7 +384,7 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>constructed_relationship</name>
@@ -401,18 +400,18 @@
    </entity_type>
    <entity_type>
       <name>constructed_relationship</name>
-      <relationship>
+      <reference>
          <name>inverse</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcarmlen>1.0</srcarmlen>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>constructed_relationship</name>
-      <relationship>
+      <composition>
          <type>navigation</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -422,7 +421,7 @@
                <destattach>0.3</destattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>composition</name>
@@ -435,7 +434,7 @@
    </entity_type>
    <entity_type>
       <name>composition</name>
-      <relationship>
+      <reference>
          <name>inverse</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -463,22 +462,22 @@
                </inverse>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>composition</name>
-      <relationship>
+      <composition>
          <type>initialiser</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <destarmlen>1.1</destarmlen>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
-      <relationship>
+      <reference>
          <name>type</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -492,12 +491,14 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
-      <relationship>
+      <composition>
          <name>diagram</name>
+         <type>path</type>
+         <hello/>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <align>
@@ -511,11 +512,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
-      <relationship>
+      <composition>
          <type>sequence</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -524,11 +525,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
-      <relationship>
+      <composition>
          <type>identifying(1)</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -537,11 +538,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>Relationship</name>
-      <relationship>
+      <composition>
          <name>cardinality</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -550,7 +551,7 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
@@ -572,7 +573,7 @@
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>xl</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -582,11 +583,11 @@
                <srcattach>0.15</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>xc</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -596,11 +597,11 @@
                <srcattach>0.21</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>xr</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -610,11 +611,11 @@
                <srcattach>0.27</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>yt</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -624,11 +625,11 @@
                <srcattach>0.33</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>ym</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -638,11 +639,11 @@
                <srcattach>0.39</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>yb</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -652,11 +653,11 @@
                <srcattach>0.46</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>shape</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -665,11 +666,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <composition>
          <name>name</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -677,11 +678,11 @@
                <destattach>0.35</destattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <reference>
          <name>rightOf</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -696,11 +697,11 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>presentation</name>
-      <relationship>
+      <reference>
          <name>below</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -715,7 +716,7 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>path</name>
@@ -738,7 +739,7 @@
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <type>label</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -748,11 +749,11 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <name>inverse</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -765,11 +766,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <name>id</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -783,11 +784,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <name>scope</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -801,22 +802,22 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <name>align</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcattach>0.65</srcattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>path</name>
-      <relationship>
+      <composition>
          <type>step</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -824,7 +825,7 @@
                <destarmlen>0.4</destarmlen>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>sequence</name>
@@ -919,7 +920,7 @@
    </entity_type>
    <entity_type>
       <name>pullback</name>
-      <relationship>
+      <reference>
          <name>projection_rel</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -935,7 +936,7 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>copy</name>
@@ -945,7 +946,7 @@
    </entity_type>
    <entity_type>
       <name>copy</name>
-      <relationship>
+      <composition>
          <name>riser2</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -957,11 +958,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>initialiser</name>
-      <relationship>
+      <composition>
          <name>along</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -975,11 +976,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>initialiser</name>
-      <relationship>
+      <reference>
          <name>type</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -997,7 +998,7 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>navigation</name>
@@ -1045,7 +1046,7 @@
    </entity_type>
    <entity_type>
       <name>component</name>
-      <relationship>
+      <reference>
          <name>rel</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1058,7 +1059,7 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <group>
       <name>component children</name>
@@ -1074,7 +1075,7 @@
    </entity_type>
    <entity_type>
       <name>navigation</name>
-      <relationship>
+      <reference>
          <name>src</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1089,11 +1090,11 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>navigation</name>
-      <relationship>
+      <reference>
          <name>dest</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1108,7 +1109,7 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <group>
       <name>presentation_children</name>
@@ -1135,7 +1136,7 @@
    </entity_type>
    <entity_type>
       <name>relative</name>
-      <relationship>
+      <reference>
          <name>to</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1149,7 +1150,7 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>abs</name>
@@ -1238,7 +1239,7 @@
    </entity_type>
    <entity_type>
       <name>implementationOf</name>
-      <relationship>
+      <reference>
          <name>destattr</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1263,11 +1264,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>implementationOf</name>
-      <relationship>
+      <reference>
          <name>attrOfOrigin</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1292,11 +1293,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>implementationOf</name>
-      <relationship>
+      <reference>
          <name>typeOfOrigin</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1319,11 +1320,11 @@
                </label>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>implementationOf</name>
-      <relationship>
+      <reference>
          <name>rel</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1338,7 +1339,7 @@
                </scope>
             </path>
          </diagram>
-      </relationship>
+      </reference>
    </entity_type>
    <entity_type>
       <name>value_type</name>
@@ -1444,23 +1445,23 @@
    </entity_type>
    <entity_type>
       <name>label</name>
-      <relationship>
+      <composition>
          <name>name</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <destattach>0.65</destattach>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>label</name>
-      <relationship>
+      <composition>
          <name>position</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path/>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>src_or_dest</name>
@@ -1499,7 +1500,7 @@
    </entity_type>
    <entity_type>
       <name>step</name>
-      <relationship>
+      <composition>
          <type>step</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1512,11 +1513,11 @@
                </hstep>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>step</name>
-      <relationship>
+      <composition>
          <type>dimension</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
@@ -1525,7 +1526,7 @@
                </align>
             </path>
          </diagram>
-      </relationship>
+      </composition>
    </entity_type>
    <entity_type>
       <name>dimension</name>
@@ -1646,4 +1647,4 @@
          <below>Element(1)</below>
       </presentation>
    </entity_type>
-</refinement>
+</entity_model>

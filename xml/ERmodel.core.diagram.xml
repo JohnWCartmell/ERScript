@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+               xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <include_model filename="ERmodel.data.core.xml"/>
+      <include_model filename="ERmodel.data.core.descriptive_text.xml"/>
+      <include_model filename="ERmodel.presentation.core.xml"/>
+      <include_model filename="ERmodel.core.presentation.xml"/>
+</entity_model>
