@@ -119,7 +119,6 @@
                      [not(id)]
                     "
               mode="documentation_enrichment_recursive">
-              <xsl:message>enriching entity type</xsl:message>
    <xsl:copy>
        <id>
           <xsl:text>E</xsl:text>  <!-- S for structure -->

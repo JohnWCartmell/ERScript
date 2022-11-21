@@ -14,23 +14,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <xsl:template match="group" mode="consolidate">
+   <xsl:template match="absolute" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
-         <xsl:copy-of select="following::group[name=current()/name]
-                                        /*[not(self::name)
-                                          ]"/> 
-      </xsl:copy>
-   </xsl:template>
-
-   <xsl:template match="group[preceding::group[name=current()/name]]" mode="consolidate">
-              <!-- this template is deliberately left blank -->
-   </xsl:template>
-
-   <xsl:template match="entity_type" mode="consolidate">
-      <xsl:copy>
-         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
-         <xsl:copy-of select="following::entity_type[name=current()/name]
+         <xsl:copy-of select="following::absolute
                                         /*[not(self::name
                                                | self::reference[some $localref in current()/reference
                                                                  satisfies $localref/name = name] 
@@ -47,8 +34,56 @@
       </xsl:copy>
    </xsl:template>
 
+   <xsl:template match="absolute[preceding::absolute]" mode="consolidate">
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
+
+   <xsl:template match="group" mode="consolidate">
+      <xsl:message>consolidating group</xsl:message>
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:copy-of select="following::group[name=current()/name]
+                                        /*[not(self::name)
+                                          ]"/> 
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="group[preceding::group[name=current()/name]]" mode="consolidate">
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
+   <xsl:template match="entity_type" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:apply-templates select="following::entity_type[name=current()/name]
+                                        /*[not(self::name
+                                               | self::reference[some $localref in current()/reference
+                                                                 satisfies $localref/name = name] 
+                                               | self::composition[some $localcomp in current()/composition
+                                                                 satisfies ($localcomp/name=name
+                                                                           or (not($localcomp/name)
+                                                                                and 
+                                                                               $localcomp/type=type
+                                                                              )
+                                                                           )
+                                                                 ]
+                                              )
+                                          ]"
+                              mode="consolidate"/> 
+      </xsl:copy>
+   </xsl:template>
+
    <xsl:template match="entity_type[preceding::entity_type[name=current()/name]]" mode="consolidate">
               <!-- this template is deliberately left blank -->
+   </xsl:template>
+
+   <xsl:template match="absolute/reference" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:copy-of select="following::reference[name=current()/name and parent::absolute]
+                                                  /*[not(self::name)]"/> 
+      </xsl:copy>
    </xsl:template>
 
    <xsl:template match="reference" mode="consolidate">
@@ -56,6 +91,21 @@
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:copy-of select="following::reference[name=current()/name and ../name = current()/../name]
                                                   /*[not(self::name)]"/> 
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="absolute/composition" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:copy-of select="following::composition[ parent::absolute
+                                                      and
+                                                      ( name=current()/name 
+                                                                or (  not(current()/name) 
+                                                                      and not(name)  
+                                                                      and type = current()/type
+                                                                    )
+                                                      ) 
+                                                    ]/*[not(self::name|self::type)]"/> 
       </xsl:copy>
    </xsl:template>
 
@@ -72,6 +122,18 @@
                                                       ) 
                                                     ]/*[not(self::name|self::type)]"/> 
       </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="composition[preceding::composition[../name = current()/../name
+                                                            and
+                                                            ( name=current()/name 
+                                                                      or (  not(current()/name) 
+                                                                            and not(name)  
+                                                                            and type = current()/type
+                                                                          )
+                                                            ) 
+                                                          ]]" mode="consolidate">
+              <!-- this template is deliberately left blank -->
    </xsl:template>
 
 </xsl:transform>

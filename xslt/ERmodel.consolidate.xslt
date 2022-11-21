@@ -7,11 +7,15 @@
    <xsl:strip-space elements="*"/>
    <xsl:output method="xml" indent="yes"/>
 
+ <xsl:include href="ERmodel.assembly.module.xslt"/>
  <xsl:include href="ERmodel.consolidate.module.xslt"/>
 
    <xsl:template match="/">
       <xsl:message>ERmodel.consolidate.xslt</xsl:message>
-         <xsl:apply-templates select="." mode="consolidate"/>
+      <xsl:variable name="state">
+         <xsl:apply-templates select="*" mode="assembly"/>
+      </xsl:variable>
+      <xsl:apply-templates select="$state" mode="consolidate"/>
    </xsl:template>
 
 </xsl:transform>

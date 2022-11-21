@@ -53,11 +53,12 @@
    </xsl:template>
 
    <xsl:template match="*[self::reference|self::composition]/diagram" mode="reachpresentation">
+      <xsl:variable name="relationship_type" select="../name()"/>
       <xsl:element name="entity_type" namespace="http://www.entitymodelling.org/ERmodel">
          <xsl:element name="name" namespace="http://www.entitymodelling.org/ERmodel">
             <xsl:value-of select="../../name"/><!-- name of source entity type -->
          </xsl:element>
-         <xsl:element name="relationship" namespace="http://www.entitymodelling.org/ERmodel">  
+         <xsl:element name="{$relationship_type}" namespace="http://www.entitymodelling.org/ERmodel">  
                                     <!-- maybe should be reference or composition? -->
             <xsl:choose>
                <xsl:when test="exists(../name)">

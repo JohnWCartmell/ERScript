@@ -80,8 +80,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:param name="filestem"/>
 <xsl:param name="ERhomeFolderName"/>
 <xsl:param name="debug"/>
+<xsl:param name="trace"/>
 <xsl:param name="noscopes" as="xs:string?"/>
 <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+<xsl:variable name="traceon" as="xs:boolean" select="$trace='y'" />
 <xsl:variable name="scopeson" as="xs:boolean" select="if (not(exists($noscopes))) then true() else $noscopes='n'" />
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
@@ -322,7 +324,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
 <xsl:template name="diagram_content" match="entity_model">
    <xsl:for-each select="entity_type|group">
-       <xsl:if test="$debug!=''">
+       <xsl:if test="$traceon">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type name')"/>   
           <xsl:text>}</xsl:text>
@@ -446,7 +448,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:template name="entity_type_content" match="entity_type|group">
   <xsl:param name="p_et_iseven"/>
   <xsl:param name="p_grp_iseven"/>
-       <xsl:if test="$debug!=''">
+       <xsl:if test="$traceon">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call et_x')"/>   
           <xsl:text>}</xsl:text>
@@ -456,7 +458,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	<xsl:with-param name="scheme" select="'ABSOLUTE'"/>
      </xsl:call-template>
   </xsl:variable>
-       <xsl:if test="$debug!=''">
+       <xsl:if test="$traceon">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call et_y')"/>   
           <xsl:text>}</xsl:text>
@@ -469,7 +471,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name= "height">
      <xsl:call-template name="et_height"/>
   </xsl:variable>
-       <xsl:if test="$debug!=''">
+       <xsl:if test="$traceon">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call width')"/>   
           <xsl:text>}</xsl:text>
@@ -477,7 +479,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name= "width">
      <xsl:call-template name="et_width"/>
   </xsl:variable>
-       <xsl:if test="$debug!=''">
+       <xsl:if test="$traceon">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type back from width')"/>   
           <xsl:text>}</xsl:text>

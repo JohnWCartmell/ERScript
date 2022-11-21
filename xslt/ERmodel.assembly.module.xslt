@@ -32,9 +32,9 @@
       </xsl:copy>
    </xsl:template>
 
-   <xsl:template match="include" mode="assembly">
+   <xsl:template match="include_model" mode="assembly">
       <xsl:message>In include</xsl:message>
-       <xsl:apply-templates select="document(@filename)/*" mode="assembly"/>
+       <xsl:apply-templates select="document(@filename)/entity_model/*" mode="assembly"/>
    </xsl:template>
 
    <xsl:template match="extend" mode="assembly">
