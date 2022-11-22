@@ -28,7 +28,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <?xml-stylesheet type="text/xsl" href="ERModel2HTML.xslt"?>
 
-<xsl:template match="/entity_model">
+
+<xsl:include href="ERmodel.assembly.module.xslt"/>
+<xsl:include href="ERmodel.consolidate.module.xslt"/>
+
+<xsl:template match="/">
+  <xsl:message>In ERmodel2.html.xslt</xsl:message>
+  <xsl:variable name="state">
+    <xsl:apply-templates select="*" mode="assembly"/>
+  </xsl:variable>
+
+  <xsl:variable name="state">
+    <xsl:apply-templates select="$state" mode="consolidate"/>
+  </xsl:variable>
+
+  <xsl:apply-templates select="$state/entity_model" mode="html"/>
+
+</xsl:template>
+
+   
+<xsl:template match="/entity_model" mode="html">
+  <xsl:message>Generate html from entity model</xsl:message>
   <html>
   <style type="text/css">
 

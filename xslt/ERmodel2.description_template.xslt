@@ -47,8 +47,8 @@
                   </xsl:otherwise>
                </xsl:choose>
             </xsl:element>
-      </xsl:copy>
-      <xsl:apply-templates select="*" mode="description_template"/>
+            <xsl:apply-templates select="*" mode="description_template"/>
+      </xsl:copy>   
    </xsl:template>
 
    <xsl:template match="*[self::attribute]"

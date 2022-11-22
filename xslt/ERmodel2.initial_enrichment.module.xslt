@@ -97,6 +97,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
 
 <xsl:template name="initial_enrichment">
    <xsl:param name="document"/>
+   <!--
    <xsl:variable name="current_state">
       <xsl:for-each select="$document">
          <xsl:copy>
@@ -104,8 +105,10 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
+-->
    <xsl:call-template name="initial_enrichment_recursive">
-      <xsl:with-param name="interim" select="$current_state"/>
+    <!--  <xsl:with-param name="interim" select="$current_state"/>-->
+      <xsl:with-param name="interim" select="$document"/>
    </xsl:call-template>
 </xsl:template>
 

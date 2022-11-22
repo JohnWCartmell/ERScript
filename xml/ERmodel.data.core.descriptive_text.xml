@@ -1,139 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel">
+
    <absolute>
       <name>entity_model</name>
       <description>An entity type..</description>
+      <composition>
+         <type>entity_type_like</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>absolute</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>xml</type>
+         <description>.</description>
+      </composition>
    </absolute>
-   <composition>
-      <type>entity_type_like</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>absolute</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>xml</type>
-      <description>.</description>
-   </composition>
    <entity_type>
       <name>xml</name>
       <description>An entity type..</description>
+      <attribute>
+         <name>namespace_uri</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <composition>
+         <name>attributeDefault</name>
+         <type>xmlStyle(2)</type>
+         <description>.</description>
+      </composition>
    </entity_type>
-   <attribute>
-      <name>namespace_uri</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <composition>
-      <name>attributeDefault</name>
-      <type>xmlStyle(2)</type>
-      <description>.</description>
-   </composition>
    <entity_type>
       <name>ENTITY_TYPE</name>
       <description>A generalisation of the types absolute and entity_type_like..</description>
+      <entity_type>
+         <name>absolute</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>entity_type_like</name>
+         <description>A generalisation of the types entity_type and group..</description>
+         <entity_type>
+            <name>entity_type</name>
+            <description>An entity type..</description>
+            <composition>
+               <name>xmlRepresentation</name>
+               <type>xmlStyle(1)</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <entity_type>
+            <name>group</name>
+            <description>An entity type..</description>
+            <attribute>
+               <name>annotation</name>
+               <description>An attribute of typestring.</description>
+            </attribute>
+         </entity_type>
+         <composition>
+            <type>entity_type_like</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <attribute>
+         <name>name</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>description</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>xpath</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>module_name</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <composition>
+         <type>dependency_group</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>Relationship</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>attribute</type>
+         <description>.</description>
+      </composition>
    </entity_type>
-   <entity_type>
-      <name>absolute</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>entity_type_like</name>
-      <description>A generalisation of the types entity_type and group..</description>
-   </entity_type>
-   <entity_type>
-      <name>entity_type</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <composition>
-      <name>xmlRepresentation</name>
-      <type>xmlStyle(1)</type>
-      <description>.</description>
-   </composition>
-   <entity_type>
-      <name>group</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <attribute>
-      <name>annotation</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <composition>
-      <type>entity_type_like</type>
-      <description>.</description>
-   </composition>
-   <attribute>
-      <name>name</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>description</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>xpath</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>module_name</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <composition>
-      <type>dependency_group</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>Relationship</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>attribute</type>
-      <description>.</description>
-   </composition>
    <entity_type>
       <name>attribute</name>
       <description>An entity type..</description>
+      <dependency>
+         <name>..</name>
+         <type>ENTITY_TYPE</type>
+         <description>.</description>
+      </dependency>
+      <composition>
+         <type>implementationOf</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>type</name>
+         <type>value_type</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>identifying(2)</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>optional</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>deprecated</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>xmlStyle</name>
+         <type>xmlStyle(2)</type>
+         <description>.</description>
+      </composition>
+      <attribute>
+         <name>name</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>description</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
    </entity_type>
-   <dependency>
-      <name>..</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </dependency>
-   <composition>
-      <type>implementationOf</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>type</name>
-      <type>value_type</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>identifying(2)</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>optional</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>deprecated</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>xmlStyle</name>
-      <type>xmlStyle(2)</type>
-      <description>.</description>
-   </composition>
-   <attribute>
-      <name>name</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>description</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
    <entity_type>
       <name>dependency_group</name>
       <description>An entity type..</description>
@@ -141,131 +142,135 @@
    <entity_type>
       <name>Relationship</name>
       <description>A generalisation of the types reference_or_dependency, constructed_relationship and composition..</description>
-   </entity_type>
-   <dependency>
-      <name>..</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </dependency>
-   <entity_type>
-      <name>reference_or_dependency</name>
-      <description>A generalisation of the types dependency and reference..</description>
-   </entity_type>
-   <entity_type>
-      <name>dependency</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <reference>
-      <name>inverse_of</name>
-      <type>composition</type>
-      <description>.</description>
-   </reference>
-   <entity_type>
-      <name>reference</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <attribute>
-      <name>js</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>xpath_evaluate</name>
-      <description>An xpath expression which can be used to evaluate this reference using primary keys and foreign keys. 
+      <dependency>
+         <name>..</name>
+         <type>ENTITY_TYPE</type>
+         <description>.</description>
+      </dependency>
+      <entity_type>
+         <name>reference_or_dependency</name>
+         <description>A generalisation of the types dependency and reference..</description>
+         <entity_type>
+            <name>dependency</name>
+            <description>An entity type..</description>
+            <reference>
+               <name>inverse_of</name>
+               <type>composition</type>
+               <description>.</description>
+            </reference>
+         </entity_type>
+         <entity_type>
+            <name>reference</name>
+            <description>An entity type..</description>
+            <attribute>
+               <name>js</name>
+               <description>An attribute of typestring.</description>
+            </attribute>
+            <attribute>
+               <name>xpath_evaluate</name>
+               <description>An xpath expression which can be used to evaluate this reference using primary keys and foreign keys. 
                            This attribute is generated by logical2physical unless it is hand coded in the logical.
           </description>
-   </attribute>
-   <reference>
-      <name>inverse</name>
-      <type>reference</type>
-      <description>.</description>
-   </reference>
-   <composition>
-      <name>diagonal</name>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>riser</name>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>key</name>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>projection</type>
-      <description>.</description>
-   </composition>
-   <entity_type>
-      <name>constructed_relationship</name>
-      <description>An entity type..</description>
+            </attribute>
+            <reference>
+               <name>inverse</name>
+               <type>reference</type>
+               <description>.</description>
+            </reference>
+            <composition>
+               <name>diagonal</name>
+               <type>navigation</type>
+               <description>.</description>
+            </composition>
+            <composition>
+               <name>riser</name>
+               <type>navigation</type>
+               <description>.</description>
+            </composition>
+            <composition>
+               <name>key</name>
+               <type>navigation</type>
+               <description>This relationship is defined for a relationships whose destination type is a pullback object
+                            and which is the unique relationship into the pullback determined by a 'diagonal' and a 'key'.
+                            Despite the fact that such relationships are represented as reference relationships even though
+                           might be better represented as certauin types of constructed relationship.  
+               </description>
+            </composition>
+            <composition>
+               <type>projection</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>constructed_relationship</name>
+         <description>An entity type..</description>
+         <reference>
+            <name>inverse</name>
+            <type>constructed_relationship</type>
+            <description>.</description>
+         </reference>
+         <composition>
+            <type>navigation</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>composition</name>
+         <description>An entity type..</description>
+         <reference>
+            <name>inverse</name>
+            <type>dependency</type>
+            <description>.</description>
+         </reference>
+         <composition>
+            <type>transient</type>
+            <description>.</description>
+         </composition>
+         <composition>
+            <type>initialiser</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <reference>
+         <name>type</name>
+         <type>ENTITY_TYPE</type>
+         <description>.</description>
+      </reference>
+      <composition>
+         <type>sequence</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>identifying(1)</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>cardinality</name>
+         <type>cardinality</type>
+         <description>.</description>
+      </composition>
+      <attribute>
+         <name>name</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>description</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>scope</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>physical_prefix</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
    </entity_type>
-   <reference>
-      <name>inverse</name>
-      <type>constructed_relationship</type>
-      <description>.</description>
-   </reference>
-   <composition>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <entity_type>
-      <name>composition</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <reference>
-      <name>inverse</name>
-      <type>dependency</type>
-      <description>.</description>
-   </reference>
-   <composition>
-      <type>transient</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>initialiser</type>
-      <description>.</description>
-   </composition>
-   <reference>
-      <name>type</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </reference>
-   <composition>
-      <type>sequence</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <type>identifying(1)</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>cardinality</name>
-      <type>cardinality</type>
-      <description>.</description>
-   </composition>
-   <attribute>
-      <name>name</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>description</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>id</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>scope</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <attribute>
-      <name>physical_prefix</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
    <entity_type>
       <name>sequence</name>
       <description>An entity type..</description>
@@ -273,265 +278,265 @@
    <group>
       <name>righthand_children</name>
       <description>A generalisation of the types projection, identifying(1), inherited and cardinality..</description>
+      <entity_type>
+         <name>projection</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>identifying(1)</name>
+         <description>An entity type..</description>
+         <composition>
+            <type>inherited</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>inherited</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>cardinality</name>
+         <description>A generalisation of the types ZeroOrOne, ExactlyOne, ZeroOneOrMore and OneOrMore..</description>
+         <entity_type>
+            <name>ZeroOrOne</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>ExactlyOne</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>ZeroOneOrMore</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>OneOrMore</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
    </group>
-   <entity_type>
-      <name>projection</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>identifying(1)</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <composition>
-      <type>inherited</type>
-      <description>.</description>
-   </composition>
-   <entity_type>
-      <name>inherited</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>cardinality</name>
-      <description>A generalisation of the types ZeroOrOne, ExactlyOne, ZeroOneOrMore and OneOrMore..</description>
-   </entity_type>
-   <entity_type>
-      <name>ZeroOrOne</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>ExactlyOne</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>ZeroOneOrMore</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>OneOrMore</name>
-      <description>An entity type..</description>
-   </entity_type>
    <group>
       <name>composition_children</name>
       <description>A generalisation of the types transient and initialiser..</description>
+      <entity_type>
+         <name>transient</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>initialiser</name>
+         <description>A generalisation of the types pullback and copy..</description>
+         <dependency>
+            <name>..</name>
+            <type>composition</type>
+            <description>.</description>
+         </dependency>
+         <entity_type>
+            <name>pullback</name>
+            <description>An entity type..</description>
+            <reference>
+               <name>projection_rel</name>
+               <type>reference</type>
+               <description>.</description>
+            </reference>
+         </entity_type>
+         <entity_type>
+            <name>copy</name>
+            <description>An entity type..</description>
+            <composition>
+               <name>riser2</name>
+               <type>navigation</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <composition>
+            <name>along</name>
+            <type>navigation</type>
+            <description>.</description>
+         </composition>
+         <reference>
+            <name>type</name>
+            <type>ENTITY_TYPE</type>
+            <description>.</description>
+         </reference>
+      </entity_type>
    </group>
-   <entity_type>
-      <name>transient</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>initialiser</name>
-      <description>A generalisation of the types pullback and copy..</description>
-   </entity_type>
-   <dependency>
-      <name>..</name>
-      <type>composition</type>
-      <description>.</description>
-   </dependency>
-   <entity_type>
-      <name>pullback</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <reference>
-      <name>projection_rel</name>
-      <type>reference</type>
-      <description>.</description>
-   </reference>
-   <entity_type>
-      <name>copy</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <composition>
-      <name>riser2</name>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <composition>
-      <name>along</name>
-      <type>navigation</type>
-      <description>.</description>
-   </composition>
-   <reference>
-      <name>type</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </reference>
    <entity_type>
       <name>navigation</name>
       <description>A generalisation of the types complex and component..</description>
-   </entity_type>
-   <attribute>
-      <name>xpath_evaluate</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <entity_type>
-      <name>complex</name>
-      <description>A generalisation of the types join and aggregate..</description>
-   </entity_type>
-   <composition>
-      <type>component</type>
-      <description>.</description>
-   </composition>
-   <entity_type>
-      <name>join</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>aggregate</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>component</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <reference>
-      <name>rel</name>
-      <type>Relationship</type>
-      <description>.</description>
-   </reference>
-   <group>
-      <name>component children</name>
-      <description>A generalisation of the types identity and theabsolute..</description>
-   </group>
-   <entity_type>
-      <name>identity</name>
-      <description>
+      <attribute>
+         <name>xpath_evaluate</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <entity_type>
+         <name>complex</name>
+         <description>A generalisation of the types join and aggregate..</description>
+         <composition>
+            <type>component</type>
+            <description>.</description>
+         </composition>
+         <entity_type>
+            <name>join</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>aggregate</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>component</name>
+         <description>An entity type..</description>
+         <reference>
+            <name>rel</name>
+            <type>Relationship</type>
+            <description>.</description>
+         </reference>
+      </entity_type>
+      <group>
+         <name>component children</name>
+         <description>A generalisation of the types identity and theabsolute..</description>
+         <entity_type>
+            <name>identity</name>
+            <description>
                 The identity navigation.
         </description>
-   </entity_type>
-   <entity_type>
-      <name>theabsolute</name>
-      <description>
+         </entity_type>
+         <entity_type>
+            <name>theabsolute</name>
+            <description>
                 A navigation to the ansolute.
         </description>
-   </entity_type>
-   <reference>
-      <name>src</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </reference>
-   <reference>
-      <name>dest</name>
-      <type>ENTITY_TYPE</type>
-      <description>Introduced for potential use in better 
+         </entity_type>
+      </group>
+      <reference>
+         <name>src</name>
+         <type>ENTITY_TYPE</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>dest</name>
+         <type>ENTITY_TYPE</type>
+         <description>Introduced for potential use in better 
                            scoping of 'rel' relationship for which require 'previous' navigation.
                            Currently derived during enrichment.
       .</description>
-   </reference>
+      </reference>
+   </entity_type>
    <group>
       <name>attribute_children</name>
       <description>A generalisation of the types implementationOf, value_type, identifying(2), optional and deprecated..</description>
+      <entity_type>
+         <name>implementationOf</name>
+         <description>An entity type..</description>
+         <dependency>
+            <name>..</name>
+            <type>attribute</type>
+            <description>.</description>
+         </dependency>
+         <reference>
+            <name>destattr</name>
+            <type>attribute</type>
+            <description>.</description>
+         </reference>
+         <reference>
+            <name>attrOfOrigin</name>
+            <type>attribute</type>
+            <description>.</description>
+         </reference>
+         <reference>
+            <name>typeOfOrigin</name>
+            <type>ENTITY_TYPE</type>
+            <description>.</description>
+         </reference>
+         <reference>
+            <name>rel</name>
+            <type>reference_or_dependency</type>
+            <description>.</description>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>value_type</name>
+         <description>A generalisation of the types boolean, date, dateTime, integer, float, nonNegativeInteger, positiveInteger, string and time..</description>
+         <entity_type>
+            <name>boolean</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>date</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>dateTime</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>integer</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>float</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>nonNegativeInteger</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>positiveInteger</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>string</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>time</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>identifying(2)</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>optional</name>
+         <description>An entity type..</description>
+         <attribute>
+            <name>value</name>
+            <description>An attribute of typestring.</description>
+         </attribute>
+      </entity_type>
+      <entity_type>
+         <name>deprecated</name>
+         <description>An entity type..</description>
+      </entity_type>
    </group>
-   <entity_type>
-      <name>implementationOf</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <dependency>
-      <name>..</name>
-      <type>attribute</type>
-      <description>.</description>
-   </dependency>
-   <reference>
-      <name>destattr</name>
-      <type>attribute</type>
-      <description>.</description>
-   </reference>
-   <reference>
-      <name>attrOfOrigin</name>
-      <type>attribute</type>
-      <description>.</description>
-   </reference>
-   <reference>
-      <name>typeOfOrigin</name>
-      <type>ENTITY_TYPE</type>
-      <description>.</description>
-   </reference>
-   <reference>
-      <name>rel</name>
-      <type>reference_or_dependency</type>
-      <description>.</description>
-   </reference>
-   <entity_type>
-      <name>value_type</name>
-      <description>A generalisation of the types boolean, date, dateTime, integer, float, nonNegativeInteger, positiveInteger, string and time..</description>
-   </entity_type>
-   <entity_type>
-      <name>boolean</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>date</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>dateTime</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>integer</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>float</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>nonNegativeInteger</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>positiveInteger</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>string</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>time</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>identifying(2)</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>optional</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <attribute>
-      <name>value</name>
-      <description>An attribute of typestring.</description>
-   </attribute>
-   <entity_type>
-      <name>deprecated</name>
-      <description>An entity type..</description>
-   </entity_type>
    <entity_type>
       <name>xmlStyle(2)</name>
       <description>A generalisation of the types Attribute, Element(2) and Anonymous(2)..</description>
-   </entity_type>
-   <entity_type>
-      <name>Attribute</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>Element(2)</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>Anonymous(2)</name>
-      <description>An entity type..</description>
+      <entity_type>
+         <name>Attribute</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Element(2)</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Anonymous(2)</name>
+         <description>An entity type..</description>
+      </entity_type>
    </entity_type>
    <entity_type>
       <name>xmlStyle(1)</name>
       <description>A generalisation of the types Element(1) and Anonymous(1)..</description>
-   </entity_type>
-   <entity_type>
-      <name>Element(1)</name>
-      <description>An entity type..</description>
-   </entity_type>
-   <entity_type>
-      <name>Anonymous(1)</name>
-      <description>An entity type..</description>
+      <entity_type>
+         <name>Element(1)</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Anonymous(1)</name>
+         <description>An entity type..</description>
+      </entity_type>
    </entity_type>
 </entity_model>

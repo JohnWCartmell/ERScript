@@ -259,7 +259,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:result-document>
     </xsl:if>
 
-   <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
+   <!-- an initial enrichment (see ERmodel2.documentation__enrichment.module.xslt)        -->
    <xsl:variable name="state">
       <xsl:call-template name="documentation_enrichment">
           <xsl:with-param name="document" select="$state"/>
@@ -1464,12 +1464,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
-
+<!--
    <xsl:message> composition relationship 
 	  <xsl:value-of select="../name"/> .
 	  <xsl:value-of select="name"/> 
 	 type  <xsl:value-of select="type"/> 
    </xsl:message>
+-->
 
   <xsl:if test="not(key('EntityTypes',type))">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'missing-entity-type'), type)"/>

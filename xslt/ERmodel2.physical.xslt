@@ -121,7 +121,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
          use="era:packArray((../../name,rel))"/>
 
 
-  <xsl:param name="debug" />
+  <xsl:param name="debug" as="xs:string?"/>
   <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
 
@@ -132,6 +132,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     </xsl:copy>
   </xsl:template>
   <xsl:include href="ERmodel.assembly.module.xslt"/>
+  <xsl:include href="ERmodel.consolidate.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.physical_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
@@ -144,13 +145,19 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     </xsl:if>
 
     <xsl:message>at doc root child nodes are <xsl:value-of select="*/name()"/></xsl:message>
+    <xsl:message>debug <xsl:value-of select="$debug"/></xsl:message>
 
     <!-- an initial assembly (see ERmodel2.assembly.xslt)        -->
     <xsl:variable name="state">
-      <xsl:apply-templates select="*" mode="assembly"/>
+      <xsl:apply-templates select="." mode="assembly"/>
+    </xsl:variable>
+
+    <xsl:variable name="state">
+      <xsl:apply-templates select="$state" mode="consolidate"/>
     </xsl:variable>
 
     <xsl:if test="$debugon">
+      <xsl:message>Debug is on </xsl:message>
       <xsl:result-document href="initial_assembly_temp.xml" method="xml">
         <xsl:sequence select="$state/entity_model"/>
       </xsl:result-document>

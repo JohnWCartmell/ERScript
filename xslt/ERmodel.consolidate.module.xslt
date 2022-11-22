@@ -17,6 +17,7 @@
    <xsl:template match="absolute" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <!-- should what follows be apply-templates ???-->
          <xsl:copy-of select="following::absolute
                                         /*[not(self::name
                                                | self::reference[some $localref in current()/reference
@@ -43,7 +44,7 @@
       <xsl:message>consolidating group</xsl:message>
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
-         <xsl:copy-of select="following::group[name=current()/name]
+         <xsl:apply-templates select="following::group[name=current()/name]
                                         /*[not(self::name)
                                           ]"/> 
       </xsl:copy>
@@ -82,7 +83,7 @@
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:copy-of select="following::reference[name=current()/name and parent::absolute]
-                                                  /*[not(self::name)]"/> 
+                                                  /*[not(self::name|self::type)]"/> 
       </xsl:copy>
    </xsl:template>
 
@@ -90,7 +91,7 @@
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:copy-of select="following::reference[name=current()/name and ../name = current()/../name]
-                                                  /*[not(self::name)]"/> 
+                                                  /*[not(self::name|self::type)]"/> 
       </xsl:copy>
    </xsl:template>
 
