@@ -4,97 +4,107 @@
 
    <absolute>
       <name>entity_model</name>
-      <description>An entity type..</description>
+      <description> This entity mdel is an instance of itself.</description>
       <composition>
          <type>entity_type_like</type>
-         <description>.</description>
+         <description></description>
       </composition>
       <composition>
          <type>absolute</type>
-         <description>.</description>
+         <description></description>
       </composition>
       <composition>
          <type>xml</type>
-         <description>.</description>
+         <description></description>
       </composition>
    </absolute>
    <entity_type>
       <name>xml</name>
-      <description>An entity type..</description>
+      <description>Implementation details relevant only when instances of the subject the entity model are represented in xml.</description>
       <attribute>
          <name>namespace_uri</name>
-         <description>An attribute of typestring.</description>
+         <description>XML namespace used by elements  when instances of the subject entity model are held in xml.</description>
       </attribute>
       <composition>
          <name>attributeDefault</name>
          <type>xmlStyle(2)</type>
-         <description>.</description>
+         <description>The default representation of ER attributes within the XML schema to describe instances of the subject entity model.</description>
       </composition>
    </entity_type>
    <entity_type>
       <name>ENTITY_TYPE</name>
-      <description>A generalisation of the types absolute and entity_type_like..</description>
+      <description>A generalisation of the types absolute and entity_type_like.</description>
       <entity_type>
          <name>absolute</name>
-         <description>An entity type..</description>
+         <description>An entity type which is defined to have a single instance which is the structural root of instances of this 
+         entity model.</description>
       </entity_type>
       <entity_type>
          <name>entity_type_like</name>
-         <description>A generalisation of the types entity_type and group..</description>
+         <description>A generalisation of the types entity_type and group.</description>
          <entity_type>
             <name>entity_type</name>
-            <description>An entity type..</description>
+            <description>Instances of this type are entity types in the subject entity model. 
+               Each entity type describes a class of entities by describing the relationships that they participate in and the
+               properties that may be attributed to them.</description>
             <composition>
                <name>xmlRepresentation</name>
                <type>xmlStyle(1)</type>
-               <description>.</description>
+               <description>Describes how entities of the entity type will be represented in xml.</description>
             </composition>
          </entity_type>
          <entity_type>
             <name>group</name>
-            <description>An entity type..</description>
+            <description>A way of grouping entity types together. Groups may be used to
+               assist in layout of an ER  diagram or in some cases to partition an entity model into distinct modules
+               used for example in code genweration into typescript.
+                </description>
             <attribute>
                <name>annotation</name>
-               <description>An attribute of typestring.</description>
+               <description>Text to be placed on a diagram and used to trigger representation of the group outline on the ER diagram.
+               </description>
             </attribute>
          </entity_type>
          <composition>
             <type>entity_type_like</type>
-            <description>.</description>
+            <description>The subtypes of a type or the contents of a group. </description>
          </composition>
       </entity_type>
       <attribute>
          <name>name</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>An attribute of typestring.</description>
+         <description>Text documenting the meaning of the entity type or group.</description>
       </attribute>
       <attribute>
          <name>xpath</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string. Where does this come from?</description>
       </attribute>
       <attribute>
          <name>module_name</name>
-         <description>An attribute of typestring.</description>
+         <description>An optional attribute of a group. If this attribute has a value for a particular group then
+            the group is interpreted as defining a module for code generation into typescript.</description>
       </attribute>
       <composition>
          <type>dependency_group</type>
-         <description>.</description>
+         <description>This is only used for diagramming purposes. It is used to represent an exclusion arc on an ER diagram. 
+            In practice all outgoing dependencies from an entity type must be mutually inclusive and so
+            every entity type with multiple outgoing dependencies implicitly has an exclusion arc.</description>
       </composition>
       <composition>
          <type>Relationship</type>
-         <description>.</description>
+         <description>The set of outgoing relationships from an entity type.</description>
       </composition>
       <composition>
          <type>attribute</type>
-         <description>.</description>
+         <description>The set of attributes of an entity type. </description>
       </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <description>An entity type..</description>
+      <description>A property of an entity type.</description>
       <dependency>
          <name>..</name>
          <type>ENTITY_TYPE</type>
@@ -102,37 +112,42 @@
       </dependency>
       <composition>
          <type>implementationOf</type>
-         <description>.</description>
+         <description>If this is defined then the attribute is one that is only present in a physical entity model
+                      and is present to implement a particular relationship out from the entity type.
+         </description>
       </composition>
       <composition>
          <name>type</name>
          <type>value_type</type>
-         <description>.</description>
+         <description>The type of the value of the attribute.</description>
       </composition>
       <composition>
          <type>identifying(2)</type>
-         <description>.</description>
+         <description>If this is defined then it signifies that the attribute is one of a set of identifying attributes 
+                       of the entity type and therefore in a physical model a part of the primary key.
+         </description>
       </composition>
       <composition>
          <type>optional</type>
-         <description>.</description>
+         <description>If defined then the attribute is optional.</description>
       </composition>
       <composition>
          <type>deprecated</type>
-         <description>.</description>
+         <description>If defined then the attribute is deprecated i.e. only  used in historic data and is not to be used in future.</description>
       </composition>
       <composition>
          <name>xmlStyle</name>
          <type>xmlStyle(2)</type>
-         <description>.</description>
+         <description>How the attribute is to be represented in xml.
+         </description>
       </composition>
       <attribute>
          <name>name</name>
-         <description>An attribute of typestring.</description>
+         <description>The name of the attrbute.</description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>An attribute of typestring.</description>
+         <description>A textual description of the atttribute.</description>
       </attribute>
    </entity_type>
    <entity_type>
@@ -164,7 +179,7 @@
             <description>An entity type..</description>
             <attribute>
                <name>js</name>
-               <description>An attribute of typestring.</description>
+               <description>A javascript expression to evaluate the reference relationship .</description>
             </attribute>
             <attribute>
                <name>xpath_evaluate</name>
