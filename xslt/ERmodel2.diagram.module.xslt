@@ -78,7 +78,6 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel" >
 
 <xsl:param name="filestem"/>
-<xsl:param name="ERhomeFolderName"/>
 <xsl:param name="debug"/>
 <xsl:param name="trace"/>
 <xsl:param name="noscopes" as="xs:string?"/>
@@ -241,7 +240,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:template name="main" match="/">
 <xsl:message>In main in 2.diagram.module --- debug = <xsl:value-of select="$debug"/> </xsl:message>
 <xsl:message>In main not exists $scopeson = <xsl:value-of select="$scopeson"/> </xsl:message>
-<xsl:message>In main ERhomeFolderName = <xsl:value-of select="$ERhomeFolderName"/> </xsl:message>
+
 
    <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
     <xsl:variable name="state">
@@ -617,7 +616,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   </xsl:for-each>
 </xsl:template>
 
-<xsl:template name="annotation" match="attribute">
+<xsl:template name="annotation" match="attribute" mode="explicit">
    <xsl:if test="implementationOf">   <!-- optimisation and beginings of restructure within above when when/if -->
       <xsl:text>(</xsl:text>
       <xsl:for-each select="implementationOf">
@@ -684,7 +683,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="entity_type_name">
+<xsl:template name="entity_type_name" >
    <xsl:param name="xcm" />
    <xsl:param name="ycm" />
    <xsl:param name="xsign" />
@@ -711,7 +710,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_xFromRelative" match="entity_type|group">      
+<xsl:template name="et_xFromRelative" match="entity_type|group" mode="explicit">      
    <!-- 
      This is called for an entity type that is defined as  relative to another
 	  below or rightOf another entity type. 
@@ -821,7 +820,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_x" match="entity_type|group">
+<xsl:template name="et_x" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
            <xsl:variable name="number">
    <xsl:choose>
@@ -889,7 +888,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 
-<xsl:template name="attribute_xRight_relative_to_parent" match="attribute">
+<xsl:template name="attribute_xRight_relative_to_parent" match="attribute" mode="explicit">
    <xsl:variable name="annotation">
        <xsl:call-template name="annotation"/>
    </xsl:variable>
@@ -897,7 +896,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 
-<xsl:template name="et_subtype_xRight_relative_to_parent" match="entity_type|group">
+<xsl:template name="et_subtype_xRight_relative_to_parent" match="entity_type|group" mode="explicit">
    <xsl:variable name="x">
       <xsl:call-template name="et_x">
 	 <xsl:with-param name="scheme" select="'LOCAL'"/>
@@ -909,7 +908,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:value-of select="$x + $w"/>
 </xsl:template>
 
-<xsl:template name="et_x_ratio_w" match="entity_type|group">
+<xsl:template name="et_x_ratio_w" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
    <xsl:param name="ratio"/>
    <xsl:variable name="xLeft">
@@ -930,7 +929,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_xMid" match="entity_type|group">
+<xsl:template name="et_xMid" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
    <xsl:call-template name="et_x_ratio_w">
       <xsl:with-param name="scheme" select="$scheme"/>
@@ -938,7 +937,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:call-template>
 </xsl:template>
 
-<xsl:template name="etxRight" match="absolute|entity_type|group">
+<xsl:template name="etxRight" match="absolute|entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
    <xsl:variable name="x">
       <xsl:call-template name="et_x">
@@ -961,7 +960,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:sequence select="number($x + $w)"/>
 </xsl:template>
 
-<xsl:template name="et_height" match="entity_type|group">
+<xsl:template name="et_height" match="entity_type|group" mode="explicit">
    <xsl:variable name="heightIncrement">
       <xsl:choose>
          <xsl:when test="presentation/deltah">
@@ -1005,7 +1004,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_width" match="entity_type|group">
+<xsl:template name="et_width" match="entity_type|group" mode="explicit">
   <xsl:variable name="maxNoOfCharsInEntityTypeName">
      <xsl:call-template name="maxNoOfCharsInEntityTypeName"/>
   </xsl:variable>
@@ -1059,7 +1058,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_y_ratio_h" match="entity_type|group">
+<xsl:template name="et_y_ratio_h" match="entity_type|group" mode="explicit">
    <xsl:param name="ratio"/>
    <xsl:variable name="y">
       <xsl:call-template name="et_y">
@@ -1072,20 +1071,20 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:value-of select="$y + $h * $ratio"/> 
 </xsl:template>
 
-<xsl:template name="etLowerEdgey" match="entity_type|group">
+<xsl:template name="etLowerEdgey" match="entity_type|group" mode="explicit">
    <xsl:call-template name="et_y_ratio_h">
 	<xsl:with-param name="ratio" select="1"/>
    </xsl:call-template>
 </xsl:template>
 
-<xsl:template name="etMidPointy" match="entity_type|group">
+<xsl:template name="etMidPointy" match="entity_type|group" mode="explicit">
    <xsl:call-template name="et_y_ratio_h">
       <xsl:with-param name="ratio" select="0.5"/>
    </xsl:call-template>
 </xsl:template>
 
 <!-- y functions -->
-<xsl:template name="et_yFromRelative" match="entity_type|group">
+<xsl:template name="et_yFromRelative" match="entity_type|group" mode="explicit">
    <!-- 
      This template is called for an entity type that is defined as below or rightOf or relative to another entity type. 
      The entity type that it is defined as above or below must have the same locality i.e they both must have the same 
@@ -1232,7 +1231,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:choose>
 </xsl:template>
 
-<xsl:template name="et_y" match="entity_type|group">
+<xsl:template name="et_y" match="entity_type|group" mode="explicit">
    <xsl:param name='scheme'/>
    <!-- LOCAL or ABSOLUTE addressing -->
    <xsl:variable name="result">
@@ -1311,7 +1310,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:value-of select="$result"/>
 </xsl:template>
 
-<xsl:template name="offset_to_ets" match="entity_type|group">
+<xsl:template name="offset_to_ets" match="entity_type|group" mode="explicit">
    <xsl:variable name="numberOfparentAttributes">
       <xsl:value-of select="count(parent::entity_type/attribute)
 				+count(parent::entity_type/choice)"/>
@@ -1340,7 +1339,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 
-<xsl:template name="self_offset_to_ets" match="entity_type|group">
+<xsl:template name="self_offset_to_ets" match="entity_type|group" mode="explicit">
    <xsl:variable name="numberOfAttributes">
       <xsl:value-of select="count(self::entity_type/attribute)
 				+count(self::entity_type/choice)"/>
@@ -1368,7 +1367,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:value-of select="$result"/>
 </xsl:template>
 
-<xsl:template name="et_yLower" match="entity_type|group">
+<xsl:template name="et_yLower" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
    <xsl:if test="not($scheme='ABSOLUTE' or $scheme='LOCAL')">
        <xsl:message> et_yLower called with invalid scheme:'<xsl:value-of select="$scheme"/>' </xsl:message>
@@ -1384,7 +1383,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:value-of select="$y + $h"/>
 </xsl:template>
 
-<xsl:template name="et_yLowerPlusDelta" match="entity_type|group">
+<xsl:template name="et_yLowerPlusDelta" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
    <xsl:variable name="yLower">
       <xsl:call-template name="et_yLower">
@@ -1707,7 +1706,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
         </xsl:if>
       </path>
    </xsl:variable>
-   <xsl:call-template name="process_path_then_render">
+   <xsl:call-template name="process_path_then_render">  <!-- this call from "composition" -->
       <xsl:with-param name="relationship_element_id"> 
             <xsl:value-of select="concat(id,'_text')"/>
       </xsl:with-param>
@@ -2189,7 +2188,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
         </xsl:if>
       </path>
    </xsl:variable>
-   <xsl:call-template name="process_path_then_render">
+   <xsl:call-template name="process_path_then_render">  <!-- this call from "reference|constructed_relationship" -->
       <xsl:with-param name="relationship_element_id"> 
          <xsl:value-of select="concat(id,'_text')"/>
       </xsl:with-param>
@@ -2255,6 +2254,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:param name="yPosition" as="node()?"/>
   <xsl:param name="yAdjustment"/>
   <xsl:param name="presentation" as="node()?"/>
+  <xsl:message>Arrive in drawText class <xsl:value-of select="$class"/></xsl:message>
   <xsl:variable name="ysign">
      <xsl:choose>
 	<xsl:when test="$yPosition/Downside">
@@ -2307,6 +2307,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
      <xsl:when test="$presentation/None">  
      </xsl:when>
      <xsl:otherwise>
+      <xsl:message>Going for spitLines</xsl:message>
         <xsl:call-template name="spitLines">
            <xsl:with-param name="pText" select="$text"/>
            <xsl:with-param name="x" select="$px + $xLabelAdjustment"/>
@@ -2599,128 +2600,69 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   </xsl:variable>
   <xsl:variable name="xIntermediate" select="($psrc_x2 + $pdest_x2) div 2"/>
   <xsl:variable name="yIntermediate" select="($psrc_y2 + $pdest_y2) div 2"/>
-  <xsl:variable name="rel_id">
-    <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/id"/>
-  </xsl:variable>
-  <!-- <xsl:message>rel_id: '<xsl:value-of select="$rel_id"/>'</xsl:message> -->
-  <xsl:variable name="scope">
-    <xsl:if test="$scopeson">
-       <xsl:for-each select="(ancestor::reference|.)[self::reference]">
-           <!--<xsl:call-template name="get_text_of_scope"/>-->
-           <xsl:value-of select="scope_display_text"/>
-       </xsl:for-each>
-    </xsl:if>
-  </xsl:variable>
 
-  <xsl:if test="not($rel_id='') and key('whereImplemented',concat(ancestor-or-self::reference/concat(../name,':',name),
-                                                                  ancestor-or-self::composition/concat(type,':',inverse)
-                                                                 )
-                                       )">
-     <xsl:variable name="relid_xsign">
-        <xsl:choose>
-           <xsl:when test="$colinear='true'">
-                <xsl:value-of select="1"/>
-           </xsl:when>
-           <xsl:when test="($pdest_y2 - $psrc_y2) div ($pdest_x2 - $psrc_x2) &lt; 0">
-                <xsl:value-of select="-1"/>
-           </xsl:when>
-           <xsl:otherwise>
+<!-- drawText of scope and relid removed. 21/11/2022 (moved into path processing and rendering)-->
+<!-- new -->
+   <xsl:variable name="sign">
+     <xsl:choose>
+        <xsl:when test="$colinear='true'">
              <xsl:value-of select="1"/>
-           </xsl:otherwise>
-        </xsl:choose>
-     </xsl:variable>
-     <xsl:call-template name="drawText">
-      	 <xsl:with-param name="text" select="$rel_id"/>
-      	 <xsl:with-param name="class" select="'relid'"/>  <!-- changed from relname 23/09/2022 -->
-      	 <xsl:with-param name="px" select="$xIntermediate"/>
-      	 <xsl:with-param name="py" select="$yIntermediate"/>
-      	 <xsl:with-param name="xsign" select="$relid_xsign"/>
-          <xsl:with-param name="xAdjustment">
-                  <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/xAdjustment"/>
-          </xsl:with-param>
-      	 <xsl:with-param name="ysignDefault" select="-1"/>
-          <xsl:with-param name="yPosition"
-      	                 select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/position"/>
-          <xsl:with-param name="yAdjustment">
-                  <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/yAdjustment"/>
-         </xsl:with-param>
-      	 <xsl:with-param name="presentation"
-      	                 select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/presentation"/>
-     </xsl:call-template>
-  </xsl:if>
-  <xsl:if test="not($scope='')">
-     <xsl:variable name="relid_xsign">
-        <xsl:choose>
-           <xsl:when test="$colinear='true'">
-                <xsl:value-of select="1"/>
-           </xsl:when>
-           <xsl:when test="($pdest_y2 - $psrc_y2) div ($pdest_x2 - $psrc_x2) &lt; 0">
-                <xsl:value-of select="-1"/>
-           </xsl:when>
-           <xsl:otherwise>
-             <xsl:value-of select="1"/>
-           </xsl:otherwise>
-        </xsl:choose>
-     </xsl:variable>
-     <xsl:call-template name="drawText">
-   	  <xsl:with-param name="text" select="$scope"/>
-   	  <xsl:with-param name="class" select="'scope'"/>
-   	  <xsl:with-param name="px" select="$xIntermediate"/>
-   	  <!-- <xsl:with-param name="py" select="$yIntermediate + (if(not($rel_id='')) then $relLabelLineHeight else 0)"/>   edited 28/06/2016 -->
-   	  <xsl:with-param name="py" select="$yIntermediate + $relLabelLineHeight + 0.15"/>
-   	  <xsl:with-param name="xsign" select="$relid_xsign"/>
-        <xsl:with-param name="xAdjustment">
-               <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/xAdjustment"/>
-        </xsl:with-param>
-   	  <xsl:with-param name="ysignDefault" select="-1"/>
-        <xsl:with-param name="yPosition"
-   	                  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/position"/>
-        <xsl:with-param name="yAdjustment">
-               <xsl:value-of  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/yAdjustment"/>
-        </xsl:with-param>
-   	  <xsl:with-param name="presentation"
-   	                  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/name"/>
-     </xsl:call-template>
-  </xsl:if>
+        </xsl:when>
+        <xsl:when test="($pdest_y2 - $psrc_y2) div ($pdest_x2 - $psrc_x2) &lt; 0">
+             <xsl:value-of select="-1"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="1"/>
+        </xsl:otherwise>
+     </xsl:choose>
+   </xsl:variable>
+
   <xsl:if test="$psrc_x2 != $pdest_x2 or $psrc_y2 != $pdest_y2">  
   <!-- This causes missing line piece bug if verticalSep = 2*comprelArmLen -->
     <xsl:choose>
        <xsl:when test="$colinear='true'">
-
-     <!-- changes to line_segment -->
-	  <xsl:call-template name="line_segment">
-	     <xsl:with-param name="x0cm" select="$psrc_x1"/>
-	     <xsl:with-param name="y0cm" select="$psrc_y1"/>
-	     <xsl:with-param name="x1cm" select="$xIntermediate"/>
-	     <xsl:with-param name="y1cm" select="$yIntermediate"/>
-	  </xsl:call-template>
-     <midpoint/>
-     <!-- changes to line_segment -->
-	  <xsl:call-template name="line_segment">
-	     <xsl:with-param name="x0cm" select="$xIntermediate"/>
-	     <xsl:with-param name="y0cm" select="$yIntermediate"/>
-	     <xsl:with-param name="x1cm" select="$pdest_x1"/>
-	     <xsl:with-param name="y1cm" select="$pdest_y1"/>
-	  </xsl:call-template>
+           <!-- changes to line_segment -->
+      	  <xsl:call-template name="line_segment">
+      	     <xsl:with-param name="x0cm" select="$psrc_x1"/>
+      	     <xsl:with-param name="y0cm" select="$psrc_y1"/>
+      	     <xsl:with-param name="x1cm" select="$xIntermediate"/>
+      	     <xsl:with-param name="y1cm" select="$yIntermediate"/>
+      	  </xsl:call-template>
+            <midpoint>
+               <sign><xsl:value-of select="$sign"/></sign>
+               <x><xsl:value-of select="$xIntermediate"/></x>
+               <y><xsl:value-of select="$yIntermediate"/></y>
+            </midpoint>
+           <!-- changes to line_segment -->
+      	  <xsl:call-template name="line_segment">
+      	     <xsl:with-param name="x0cm" select="$xIntermediate"/>
+      	     <xsl:with-param name="y0cm" select="$yIntermediate"/>
+      	     <xsl:with-param name="x1cm" select="$pdest_x1"/>
+      	     <xsl:with-param name="y1cm" select="$pdest_y1"/>
+      	  </xsl:call-template>
        </xsl:when>
        <xsl:otherwise>
-	  <xsl:call-template name="drawAngle">
-	    <xsl:with-param name="pa_x" select="$psrc_x1" />
-	    <xsl:with-param name="pa_y" select="$psrc_y1" />
-	    <xsl:with-param name="pb_x" select="$psrc_x2" />
-	    <xsl:with-param name="pb_y" select="$psrc_y2" />
-	    <xsl:with-param name="pc_x" select="$xIntermediate" />
-	    <xsl:with-param name="pc_y" select="$yIntermediate" />
-	  </xsl:call-template>
-     <midpoint/>
-	  <xsl:call-template name="drawAngle">
-	    <xsl:with-param name="pa_x" select="$xIntermediate" />
-	    <xsl:with-param name="pa_y" select="$yIntermediate" />
-	    <xsl:with-param name="pb_x" select="$pdest_x2" />
-	    <xsl:with-param name="pb_y" select="$pdest_y2" />
-	    <xsl:with-param name="pc_x" select="$pdest_x1" />
-	    <xsl:with-param name="pc_y" select="$pdest_y1" />
-	  </xsl:call-template>
+      	  <xsl:call-template name="drawAngle">
+      	    <xsl:with-param name="pa_x" select="$psrc_x1" />
+      	    <xsl:with-param name="pa_y" select="$psrc_y1" />
+      	    <xsl:with-param name="pb_x" select="$psrc_x2" />
+      	    <xsl:with-param name="pb_y" select="$psrc_y2" />
+      	    <xsl:with-param name="pc_x" select="$xIntermediate" />
+      	    <xsl:with-param name="pc_y" select="$yIntermediate" />
+      	  </xsl:call-template>
+           <midpoint>
+               <sign><xsl:value-of select="$sign"/></sign>
+               <x><xsl:value-of select="$xIntermediate"/></x>
+               <y><xsl:value-of select="$yIntermediate"/></y>
+            </midpoint>
+      	  <xsl:call-template name="drawAngle">
+      	    <xsl:with-param name="pa_x" select="$xIntermediate" />
+      	    <xsl:with-param name="pa_y" select="$yIntermediate" />
+      	    <xsl:with-param name="pb_x" select="$pdest_x2" />
+      	    <xsl:with-param name="pb_y" select="$pdest_y2" />
+      	    <xsl:with-param name="pc_x" select="$pdest_x1" />
+      	    <xsl:with-param name="pc_y" select="$pdest_y1" />
+      	  </xsl:call-template>
        </xsl:otherwise>
     </xsl:choose>
  </xsl:if>
@@ -3442,7 +3384,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
           <xsl:with-param name="path" select="$path"/>
        </xsl:call-template>
    </xsl:variable>
-   <!--
    <trace>
       <before>
          <xsl:copy-of select="$path"/>
@@ -3451,11 +3392,20 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          <xsl:copy-of select="$processed_path"/>
       </after>
    </trace>
-   -->
    <xsl:call-template name="render_path">
       <xsl:with-param name="relationship_element_id" select="$relationship_element_id"/> 
       <xsl:with-param name="source_to_midpoint" select="$processed_path/path/line[1]"/>    
       <xsl:with-param name="midpoint_to_destination" select="$processed_path/path/line[2]"/>
+   </xsl:call-template>
+   <xsl:call-template name="render_scope">
+      <xsl:with-param name="midpointx" select="$path/midpoint/x"/>
+      <xsl:with-param name="midpointy" select="$path/midpoint/y"/>
+      <xsl:with-param name="sign" select="$path/midpoint/sign"/>
+   </xsl:call-template>
+   <xsl:call-template name="render_relid">
+      <xsl:with-param name="midpointx" select="$path/midpoint/x"/>
+      <xsl:with-param name="midpointy" select="$path/midpoint/y"/>
+      <xsl:with-param name="sign" select="$path/midpoint/sign"/>
    </xsl:call-template>
 </xsl:template>
 
@@ -3518,6 +3468,84 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
         </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
+
+   <xsl:template name="render_scope" match="reference|composition">
+      <xsl:param name="midpointx"/>
+      <xsl:param name="midpointy"/>
+      <xsl:param name="sign"/>
+      <xsl:variable name="scope" as="xs:string?" select="ancestor-or-self::reference/scope_display_text"/>
+     <xsl:message>Value of $scope is now '<xsl:value-of select="$scope"/>'</xsl:message>
+     <xsl:if test="not($scope='')">
+        <xsl:message>Passed the non empty test</xsl:message>
+
+        <xs:message>About to drawText with scope </xs:message>
+        <xsl:call-template name="drawText">
+           <xsl:with-param name="text" select="$scope"/>
+           <xsl:with-param name="class" select="'scope'"/>
+           <xsl:with-param name="px" select="$midpointx"/>
+           <xsl:with-param name="py" select="$midpointy + $relLabelLineHeight + 0.15"/>
+           <xsl:with-param name="xsign" select="$sign"/>
+           <xsl:with-param name="xAdjustment">
+                  <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/xAdjustment"/>
+           </xsl:with-param>
+           <xsl:with-param name="ysignDefault" select="-1"/>
+           <xsl:with-param name="yPosition"
+                           select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/position"/>
+           <xsl:with-param name="yAdjustment">
+                  <xsl:value-of  select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/yAdjustment"/>
+           </xsl:with-param>
+           <xsl:with-param name="presentation"
+                           select="(ancestor::reference|ancestor::composition|.)/diagram/path/scope/label/name"/>
+        </xsl:call-template>
+     </xsl:if>
+   </xsl:template>
+
+   <xsl:template name="render_relid" match="reference|composition">
+      <xsl:param name="midpointx"/>
+      <xsl:param name="midpointy"/>
+      <xsl:param name="sign"/>
+        <xsl:variable name="rel_id" select="(ancestor::reference|ancestor::composition|.)/id" />
+     <xsl:if test="not($rel_id='') and key('whereImplemented',concat(ancestor-or-self::reference/concat(../name,':',name),
+                                                                     ancestor-or-self::composition/concat(type,':',inverse)
+                                                                    )
+                                          )">
+        <xsl:call-template name="drawText">
+             <xsl:with-param name="text" select="$rel_id"/>
+             <xsl:with-param name="class" select="'relid'"/>  
+             <xsl:with-param name="px" select="$midpointx"/>
+             <xsl:with-param name="py" select="$midpointy"/>
+             <xsl:with-param name="xsign" select="$sign"/>
+             <xsl:with-param name="xAdjustment">
+                     <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/xAdjustment"/>
+             </xsl:with-param>
+             <xsl:with-param name="ysignDefault" select="-1"/>
+             <xsl:with-param name="yPosition"
+                             select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/position"/>
+             <xsl:with-param name="yAdjustment">
+                     <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/yAdjustment"/>
+            </xsl:with-param>
+             <xsl:with-param name="presentation"
+                             select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/presentation"/>
+        </xsl:call-template>
+     </xsl:if>
+   </xsl:template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </xsl:transform>
 

@@ -32,29 +32,24 @@
    entity_type|group|composition|absolute
     
          absolute => 
-            identifier : string,   # identify is "^"
 
      entity_type =>
             id:string             # a short id of the form E<n> for some n 
             identifier : string,  # based on name but syntactically 
                                   # an identifier whilst still being unique
+                                  I THINK THIS IS USED IN CODE GENERATION
+                                  IN WHICH CASE MAYBE BELONGS ELSEWHERE
 
     attribute => 
             id:string             # a short id of form A<n> for some n
-            identifier : string   # <et.identifier>.<attrname> 
             display_text: string  # is <attrname>:<attrtype>
 
      composition => 
             id:string             # a short id of form S<n> for some n
-            identifier : string   # <et.identifier>.<relname> providing rel is named
-                                  # <et.identifier>:<dest.et.identifier> otherwise
-
             display_text: string  # is <relname>:<dest et name> {|?|+|*}
 
      reference =>
             id:string             # a short id of form S<n> for some n
-            identifier : string   # <et.identifier>.<relname> providing rel is named
-                                  # <et.identifier>:<dest.et.identifier> otherise
             scope_display_text : string r,;
                                  # text presentation of the scope constraint
                                  # using ~/<riser text>=<diag text>
@@ -118,7 +113,7 @@
 <xsl:template match="entity_type
                      [not(id)]
                     "
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive" priority="1">
    <xsl:copy>
        <id>
           <xsl:text>E</xsl:text>  <!-- S for structure -->
@@ -131,7 +126,7 @@
 <xsl:template match="group
                      [not(id)]
                     "
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive" priority="1">
    <xsl:copy>
        <id>
           <xsl:text>G</xsl:text>  <!-- S for structure -->
@@ -144,7 +139,7 @@
 <xsl:template match="composition
                      [not(id)]
                     "
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
        <id>
           <xsl:text>S</xsl:text>  <!-- S for structure -->
@@ -156,7 +151,7 @@
 
 <xsl:template match="reference
                      [not(id)]" 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
        <id>
           <xsl:text>R</xsl:text>
@@ -168,7 +163,7 @@
 
 <xsl:template match="attribute
                      [not(id)]" 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
        <id>
           <xsl:text>A</xsl:text>
@@ -180,6 +175,7 @@
 
 <!-- FOLLOWING HAS BEEN RECODED IN meta model of entity logic fer future use-->
 
+<!--
 <xsl:template match="absolute
                      [not(identifier)]
                      "
@@ -192,12 +188,12 @@
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
   </xsl:copy>
 </xsl:template>
+-->
 
 <xsl:template match="entity_type
                      [not(identifier)]
                      "
-              mode="documentation_enrichment_recursive"
-              priority="2">
+              mode="documentation_enrichment_recursive" priority="2">
   <xsl:copy>
       <identifier >
           <xsl:value-of select="translate(replace(name,'\((\d)\)','_$1'),
@@ -210,6 +206,7 @@
   </xsl:copy>
 </xsl:template>
 
+<!--
 <xsl:template match="attribute
                      [not(identifier)]
                      [../identifier]
@@ -258,6 +255,8 @@
   </xsl:copy>
 </xsl:template>
 
+-->
+
 
 <!-- scope_display_text  -->
 <xsl:template match="reference
@@ -268,6 +267,7 @@
               priority="3"
               mode="documentation_enrichment_recursive"> 
   <xsl:copy>
+    <xsl:message>generating scope_display text</xsl:message>
      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
           <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/>  
                    <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->             
@@ -379,10 +379,9 @@
 
 <xsl:template match="*[self::reference|self::composition]
                     [not(display_text)]
-                    [identifier]
                     [cardinality/ZeroOrOne]
                     " 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="13">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <display_text>
@@ -393,10 +392,9 @@
 
 <xsl:template match="*[self::reference|self::composition]
                     [not(display_text)]
-                    [identifier]
                     [cardinality/ExactlyOne]
                     " 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="13">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <display_text>
@@ -407,10 +405,9 @@
 
 <xsl:template match="*[self::reference|self::composition]
                     [not(display_text)]
-                    [identifier]
                     [cardinality/ZeroOneOrMore]
                     " 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="13">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <display_text>
@@ -421,10 +418,9 @@
 
 <xsl:template match="*[self::reference|self::composition]
                     [not(display_text)]
-                    [identifier]
                     [cardinality/OneOrMore]
                     " 
-              mode="documentation_enrichment_recursive">
+              mode="documentation_enrichment_recursive"  priority="13">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <display_text>

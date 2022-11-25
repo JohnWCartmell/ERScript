@@ -184,7 +184,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </div>
   </xsl:template>
 
-  <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute">
+  <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute" mode="explicit">
     <xsl:param name="levelNumber"/>
     <div>
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
@@ -204,7 +204,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   </xsl:template>
 
-  <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute">
+  <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute" mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
 <!--
@@ -672,7 +672,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 -->
 
 
-  <xsl:template name="entity_type_or_group_description" match="absolute|entity_type|group">
+  <xsl:template name="entity_type_or_group_description" match="absolute|entity_type|group" mode="explicity">
     <xsl:choose>
       <xsl:when test="name()='entity_type'">
         <xsl:call-template name="entity_type_description"/>
@@ -689,7 +689,7 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
   </xsl:template>
 
 
-  <xsl:template name="entity_type_description" match="absolute|entity_type">
+  <xsl:template name="entity_type_description" match="absolute|entity_type" mode="explicit">
     <!--
    <xsl:message> <xsl:value-of select = "name()" /> </xsl:message>
  -->
@@ -1118,7 +1118,6 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     <xsl:param name="xsign"/>
     <xsl:param name="pText"/>
     <xsl:param name="class"/>
-
     <xsl:variable name= "modifiedText">
       <xsl:choose>
         <xsl:when test="$class='scope'">
