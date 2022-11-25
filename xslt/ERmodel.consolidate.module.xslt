@@ -46,7 +46,8 @@
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:apply-templates select="following::group[name=current()/name]
                                         /*[not(self::name)
-                                          ]"/> 
+                                          ]" 
+                              mode="consolidate"/> 
       </xsl:copy>
    </xsl:template>
 
@@ -60,6 +61,8 @@
          <xsl:apply-templates select="following::entity_type[name=current()/name]
                                         /*[not(self::name
                                                | self::reference[some $localref in current()/reference
+                                                                 satisfies $localref/name = name] 
+                                               | self::attribute[some $localref in current()/attribute
                                                                  satisfies $localref/name = name] 
                                                | self::composition[some $localcomp in current()/composition
                                                                  satisfies ($localcomp/name=name
@@ -94,6 +97,31 @@
                                                   /*[not(self::name|self::type)]"/> 
       </xsl:copy>
    </xsl:template>
+
+   <xsl:template match="reference[preceding::reference[../name = current()/../name
+                                                            and name=current()/name 
+                                                      ]
+                                 ]" 
+                 mode="consolidate">
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
+   <xsl:template match="attribute" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:copy-of select="following::attribute[name=current()/name and ../name = current()/../name]
+                                                  /*[not(self::name)]"/> 
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="attribute[preceding::attribute[../name = current()/../name
+                                                            and name=current()/name 
+                                                      ]
+                                 ]" 
+                 mode="consolidate">
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
 
    <xsl:template match="absolute/composition" mode="consolidate">
       <xsl:copy>
