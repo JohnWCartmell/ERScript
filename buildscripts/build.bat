@@ -52,11 +52,11 @@ if not exist %ERHOMEDIR%\logs mkdir %ERHOMEDIR%\logs
 echo "Copy the readme"
 copy %SRCDIR%\readme.md %DISTRIBUTION%\readme.md
 
+echo "Copy the readme"
+copy %SRCDIR%\html\index.html %DISTRIBUTION%\index.html
+
 echo "Copy the meta-model"
-copy %SRCDIR%\xml\ERmodelERmodel.core.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.xml
-copy %SRCDIR%\xml\ERmodelERmodel.core.presentation.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.presentation.xml
-copy %SRCDIR%\xml\ERmodelERmodel.core.diagram.xml %ERHOMEDIR%\xml\ERmodelERmodel.core.diagram.xml
-copy %SRCDIR%\xml\ERmodelERmodel.physical.diagram.xml %ERHOMEDIR%\xml\ERmodelERmodel.physical.diagram.xml
+xcopy %SRCDIR%\xml\ %ERHOMEDIR%\xml\ /q
 
 echo "Copying source xslt files"
 xcopy %SRCDIR%\xslt %ERHOMEDIR%\xslt\ /q
@@ -86,18 +86,17 @@ echo Logging to %LOGS%\build.log
 echo BUILDLOG %DATE%_%TIME% >%LOGS%\build.log
 echo ====================== >>%LOGS%\build.log
 
-
-echo Generating ERmodel.svg
-call %~dp0\generate_logical_svgandlog
-
-echo Generating physical data model and the XML schema (ERmodel.rng)
-call %~dp0\generate_physical_modelandlog
+echo "building the meta model"
+cd %ERHOMEDIR%\xml 
+call ..\scripts\buildMetaModel.bat
 
 echo validating the meta model is as instance of itself and has referential integrity
-call %~dp0\validate_logical_model
+call ..\scripts\validate_logical_metamodel
 
 echo validating the phsyical meta model  has referential integrity
-call %~dp0\validate_physical_model
+call ..\scripts\validate_physical_metamodel
+
+cd ..\..\..
 
 echo Copying examples into distribution
 

@@ -22,7 +22,7 @@
    <entity_type>
       <name>ENTITY_TYPE</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <x>6.0</x>        
+         <x>12.0</x>        
          <y>1.0</y>
          <deltaw>6.0</deltaw>
          <deltah>0.1</deltah>
@@ -32,6 +32,7 @@
       <name>absolute</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <rightOf>entity_type_like</rightOf>
+         <deltaw>0.2</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
@@ -75,7 +76,6 @@
       <name>entity_type</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <w>2.6</w>
-         <h>1.0</h>
       </presentation>
    </entity_type>
    <entity_type>
