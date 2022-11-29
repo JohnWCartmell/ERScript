@@ -35,10 +35,6 @@
 
      entity_type =>
             id:string             # a short id of the form E<n> for some n 
-            identifier : string,  # based on name but syntactically 
-                                  # an identifier whilst still being unique
-                                  I THINK THIS IS USED IN CODE GENERATION
-                                  IN WHICH CASE MAYBE BELONGS ELSEWHERE
 
     attribute => 
             id:string             # a short id of form A<n> for some n
@@ -190,21 +186,7 @@
 </xsl:template>
 -->
 
-<xsl:template match="entity_type
-                     [not(identifier)]
-                     "
-              mode="documentation_enrichment_recursive" priority="2">
-  <xsl:copy>
-      <identifier >
-          <xsl:value-of select="translate(replace(name,'\((\d)\)','_$1'),
-                                          ' ',
-                                          '_'
-                                         )
-                               "/>
-      </identifier>
-      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
-  </xsl:copy>
-</xsl:template>
+
 
 <!--
 <xsl:template match="attribute
@@ -267,7 +249,6 @@
               priority="3"
               mode="documentation_enrichment_recursive"> 
   <xsl:copy>
-    <xsl:message>generating scope_display text</xsl:message>
      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
           <xsl:variable name="operator" select="if (cardinality/ZeroOrOne or cardinality=ZeroOneOrMore) then '=' else 'LTEQ'"/>  
                    <!-- 13-Oct-2017  'LTEQ' code will be translated by ERmodel2.svg.xslt -->             

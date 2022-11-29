@@ -694,13 +694,15 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       <xsl:choose>
          <xsl:when test="$is_identifying='identifying'">
             <xsl:apply-templates 
-                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation)]" 
-                       mode="with_identifier"/>
+                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation                      
+                                  | self::typeOfOrigin | self::attrOfOrigin | self::optional)]" 
+                       mode="with_identifier"/> <!-- | self::typeOfOrigin | self::attrOfOrigin | self::optional added 29/11/2022 --> 
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates 
-                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation)]" 
-                       mode="without_identifier"/>
+                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation
+                                  | self::typeOfOrigin | self::attrOfOrigin | self::optional)]" 
+                       mode="without_identifier"/> <!-- | self::typeOfOrigin | self::attrOfOrigin | self::optional added 29/11/2022 --> 
          </xsl:otherwise>
       </xsl:choose>
       <xsl:if test="$is_optional">

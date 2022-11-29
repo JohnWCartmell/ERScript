@@ -40,9 +40,14 @@ Description
  (2) It creates the following derived attributes:
      
       absolute => 
-            elementName : string   # xml element name - not necessarily unique
+            identifier : string,  #see entity_type.identifier
+            elementName : string  # xml element name - not necessarily unique
 
      entity_type => 
+            identifier : string,  # based on name but syntactically 
+                                  # an identifier whilst still being unique
+                                  # USED in generation of rng hence i.e. mapping to xml 
+                                  # also used in generation of xslt for ref integrity check
             elementName : string, # xml element name - not necessarily unique
             parentType : string   # the pipe ('|') separated types 
                                   # from which there are incoming 
@@ -52,10 +57,7 @@ Description
         optional projection : entity ;
                                  # if the reference is specified as the 
                                  # projection_rel by a pullback. 
-     projection => 
-         host_type : string      # the source entity type of the pullback
-                                 # composition relationship 
-                                 # this is '' if absolute is the source
+
           
 
      dependency => optional identifying : ()
@@ -67,7 +69,7 @@ Description
         src : string,           # the name of the source entity type
         dest : string,          # the name of the destination entity type
 
-      join | component => identification_status : ('Identifying', 'NotIdentifying')
+
 
             
 
@@ -146,6 +148,28 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
 <!-- added somewhat later (Oct 2022) What I guess I mean by the above comment is that
      elementName has been added as a derived attribute in the file EntityLogicMetaModel.xml
 -->
+
+
+<!-- KEEP THE FOLLOWING IN SOME COMPLETION XSLT -->
+<!-- Adding identifier to ERA..logical -->
+<xsl:template match="*[self::absolute|self::entity_type]
+                     [not(identifier)]
+                     "
+              mode="initial_enrichment_recursive" priority="2">
+  <xsl:copy>
+      <identifier >
+          <xsl:value-of select="translate(replace(name,'\((\d)\)','_$1'),
+                                          ' ',
+                                          '_'
+                                         )
+                               "/>
+      </identifier>
+      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
+  </xsl:copy>
+</xsl:template>
+
+<!-- elementName already in ERA..logical -->
+
 <xsl:template match="*[self::absolute|self::entity_type]
                       [not(elementName)]
                       " mode="initial_enrichment_recursive"
@@ -162,35 +186,8 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
   </xsl:copy>
 </xsl:template>
 
-<!-- Moved to initial_enrichment_first_pass.module 
-<xsl:template match="composition
-                     [not(id)]
-                    "
-              mode="initial_enrichment_recursive"
-              priority="4">
-   <xsl:copy>
-       <id>
-          <xsl:text>S</xsl:text>  
-          <xsl:number count="composition" level="any" />
-       </id>
-       <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-    </xsl:copy>
-</xsl:template>
 
-<xsl:template match="reference
-                     [not(id)]" 
-              mode="initial_enrichment_recursive"
-              priority="5">
-   <xsl:copy>
-       <id>
-          <xsl:text>R</xsl:text>
-          <xsl:number count="reference" level="any" />
-       </id>
-       <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-    </xsl:copy>
-</xsl:template>
 
--->
 
 
 <!-- in the logic below there were two cases prior to 16 Aug 2022
@@ -199,7 +196,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
                   so why not just rely on incoming compositions?
 -->
    <!--  GOT a bug in car example so then modified on 31 Oct 2022 ... see below -->
-     
+     <!-- add this to ERA logical XXXXXXXXXXXXXXXXXXX-->
 <xsl:template match="entity_type
                      [not(parentType)]
                      " 
@@ -250,8 +247,8 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
        Initial guess but now need to read the code.
 
        a copy is a pullback plus copy of all attributes, reference relationships 
-       and compositional structure. (CHECK that copy is implemented in xslt
-       ...it was introduced for use in js in car).
+       and compositional structure. [CHECK that copy is implemented in xslt
+       ...it was introduced for use in js in chromatographic analysis record (car)].
        If this is the difference between the two then for a composition such as 
        this, i.e. that represents one of a set of enumerated values 
        (actually a flag in this very case) then pullback is the same as copy.
@@ -317,26 +314,7 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
 
 
 
-<xsl:template match="reference/projection
-                     [not(host_type)]"
-              mode="initial_enrichment_recursive"
-              priority="7">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-        <host_type>
-            <xsl:for-each select="key('IncomingCompositionRelationships', ../../name)/..">
-               <xsl:value-of select="if (self::absolute) then '' else name"/>
-            </xsl:for-each>
-        </host_type>
-        <!-- host_type is defined as
-                parent::reference/src/incoming_composition_relationships/src/
-                                                  (if (self::absolute) then '' else name
-           The assumption is that there is only one incoming composition relationship. 
-           This could be policed to some extent by making the inverse to prjection_rel single valued?
-           host_type is used in xpath enrichment in support for pullbacks.
-        -->
-  </xsl:copy>
-</xsl:template>
+
 
 
 
@@ -658,47 +636,6 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
    </xsl:copy>
 </xsl:template>
 
-<!-- Two templates for
-             complex => identification_status
-    This is pretty ugly because we have remodelled  the idea of an
-    optional identifying flag just because we wanted
-    to implement using recurive incremental enrichment.
--->
-<xsl:template match="join
-                     [not(identification_status)]
-                     [every $component in component satisfies $component/identification_status]" 
-              priority="19"
-              mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <identification_status>
-            <xsl:value-of select="if (every $component in component 
-                                      satisfies ($component/identification_status = 'Identifying')
-                                     )
-                                  then 'Identifying'
-                                  else 'NotIdentifying'
-                                 "/>
-      </identification_status>
-   </xsl:copy>
-</xsl:template>
 
-<xsl:template match="component
-                     [not(identification_status)]
-                     [src]
-                     " 
-                     priority="23"
-                     mode="initial_enrichment_recursive">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-      <identification_status>   
-         <xsl:value-of select="if(key('AllRelationshipBySrcTypeAndName',
-                                            era:packArray((src,rel)))
-                                       /identifying)
-                                    then 'Identifying'
-                                    else 'NotIdentifying'
-                                   "/>  
-      </identification_status>
-   </xsl:copy>
-</xsl:template>
 
 </xsl:transform>

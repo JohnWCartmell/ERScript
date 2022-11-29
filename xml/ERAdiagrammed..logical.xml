@@ -92,11 +92,9 @@
 
    <entity_type>
       <name>Relationship</name>
-      <yyy/>
       <composition>
          <name>diagram</name>
          <type>path</type>
-         <zzz/>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>

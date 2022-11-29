@@ -2254,7 +2254,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:param name="yPosition" as="node()?"/>
   <xsl:param name="yAdjustment"/>
   <xsl:param name="presentation" as="node()?"/>
-  <xsl:message>Arrive in drawText class <xsl:value-of select="$class"/></xsl:message>
   <xsl:variable name="ysign">
      <xsl:choose>
 	<xsl:when test="$yPosition/Downside">
@@ -2307,7 +2306,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
      <xsl:when test="$presentation/None">  
      </xsl:when>
      <xsl:otherwise>
-      <xsl:message>Going for spitLines</xsl:message>
         <xsl:call-template name="spitLines">
            <xsl:with-param name="pText" select="$text"/>
            <xsl:with-param name="x" select="$px + $xLabelAdjustment"/>
@@ -3474,11 +3472,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:param name="midpointy"/>
       <xsl:param name="sign"/>
       <xsl:variable name="scope" as="xs:string?" select="ancestor-or-self::reference/scope_display_text"/>
-     <xsl:message>Value of $scope is now '<xsl:value-of select="$scope"/>'</xsl:message>
      <xsl:if test="not($scope='')">
-        <xsl:message>Passed the non empty test</xsl:message>
-
-        <xs:message>About to drawText with scope </xs:message>
         <xsl:call-template name="drawText">
            <xsl:with-param name="text" select="$scope"/>
            <xsl:with-param name="class" select="'scope'"/>

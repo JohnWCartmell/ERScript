@@ -56,7 +56,6 @@
       <composition>
          <name>diagram</name>
          <type>path</type>
-         <hello/>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <align>
@@ -641,12 +640,6 @@
       <name>Downside</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>Upside</below>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name>xmlStyle(2)</name>
-      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <rightOf>deprecated</rightOf>
       </presentation>
    </entity_type>
    

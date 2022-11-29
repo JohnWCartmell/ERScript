@@ -67,6 +67,7 @@ CR-18839 JC  02-Dec-2016 Modify to expand the ER functions library
 
 <xsl:transform version="2.0" 
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+        xmlns:era="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
 <xsl:strip-space elements="*" />
@@ -74,6 +75,105 @@ CR-18839 JC  02-Dec-2016 Modify to expand the ER functions library
 <xsl:output method="xml" indent="yes"/>
 
 <xsl:key name="entity_type" match="entity_type" use="name"/>
+  <xsl:key name="Testkey" 
+         match="entity_type|group" 
+         use="(if (false()) then '' else '',description)"/>
+  <xsl:key name="EntityTypes" 
+         match="absolute|entity_type|group" 
+         use="if(string-length(name)=0 and self::absolute) then 'EMPTYVALUEREPLACED' else name"/>
+  <!--CR19229 added absolute -->
+  <xsl:key name="IncomingCompositionRelationships" 
+         match="composition" 
+         use="type"/>
+  <!-- CR-18032 -->
+  <xsl:key name="AllIncomingCompositionRelationships" 
+         match="composition" 
+         use="key('EntityTypes',type)/descendant-or-self::entity_type/name"/>    
+  <!-- was "descendant-or-self::entity_type/type" until 23-Aug-2016 and therefore primary key for "reference" in meta-model wrong-->
+  <!-- end CR-18032 -->
+  <xsl:key name="AllMasterEntityTypes" 
+         match="entity_type" 
+         use="composition/key('EntityTypes',type)/descendant-or-self::entity_type/name"/>
+  <xsl:key name="CompRelsByDestTypeAndInverseName" 
+         match="composition" 
+         use="era:packArray((type,inverse))"/>
+  <xsl:key name="ConstructedRelationshipsByQualifiedName" 
+         match="constructed_relationship" 
+         use="era:packArray((../name,name))"/>
+  <xsl:key name="CoreRelationshipsByQualifiedName" 
+         match="reference|composition|dependency" 
+         use="era:packArray((../name,name))"/>
+  <xsl:key name="RelationshipBySrcTypeAndName" 
+         match="reference|composition|dependency|constructed_relationship" 
+         use="era:packArray((../name,name))"/>
+  <!-- CR-18032 -->
+  <xsl:key name="AllRelationshipBySrcTypeAndName"
+         match="reference|composition|dependency|constructed_relationship"
+         use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
+  <!-- end CR-18032 -->
+  <xsl:key name="whereImplemented" 
+         match="implementationOf"
+         use="era:packArray((../../name,rel))"/>
+
+
+<xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
+
+
+<xsl:template match="/">
+   <xsl:variable name="xpath_enriched_model">
+         <xsl:call-template name="recursive_xpath_enrichment">
+            <xsl:with-param name="interim" select="."/>
+         </xsl:call-template>
+   </xsl:variable>
+   <!--<xsl:variable name="xpath_enriched_model" as="element(entity_model)" select="entity_model"/>-->
+   <xsl:for-each select="$xpath_enriched_model">
+      <xsl:call-template name="generate_transform"/>
+   </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="generate_transform" match="entity_model" mode="explicit">  
+      <xsl:element name="xsl:transform">
+         <xsl:attribute name="version">2.0</xsl:attribute>
+         <xsl:namespace name="era" select="'http://www.entitymodelling.org/ERmodel'"/>
+         <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
+         <xsl:if test="entity_model/xml/namespace_uri">
+             <xsl:message> GENERATING NAMESPACE </xsl:message>
+             <xsl:attribute name="xpath-default-namespace"
+                            select="/entity_model/xml/namespace_uri"/>
+         </xsl:if>
+         <xsl:element name ="xsl:output">
+             <xsl:attribute name="method">xml</xsl:attribute>
+             <xsl:attribute name="indent">yes</xsl:attribute>
+         </xsl:element>
+<!--
+         <xsl:element name="xsl:include">
+             <xsl:attribute name="href">ERmodel.functions.module.xslt</xsl:attribute>
+         </xsl:element>
+
+-->
+         <xsl:value-of disable-output-escaping="yes" select="unparsed-text('ERmodel.functions.fragment.xslt')"/>
+
+         <!-- plant keys for primary keys-->
+         <xsl:apply-templates mode="key_section"/>
+
+         <xsl:call-template name="generate_root_template"/>
+
+         <!-- plant wildcard template -->
+         <xsl:element name="xsl:template" >
+            <xsl:attribute name="name" select="'wildcard'"/>   
+            <xsl:attribute name="match" select="'*'"/>
+            <xsl:element name="xsl:copy">
+               <xsl:element name="xsl:apply-templates"/>
+            </xsl:element>
+         </xsl:element>
+
+         <!-- plant template for every entity type -->
+         <xsl:apply-templates mode="main_section"/>
+      </xsl:element>
+</xsl:template>
+
+
 
 
 <xsl:template name="generate_root_template">
@@ -151,46 +251,6 @@ CR-18839 JC  02-Dec-2016 Modify to expand the ER functions library
 
 
 
-<xsl:template match="/">
-      <xsl:element name="xsl:transform">
-         <xsl:attribute name="version">2.0</xsl:attribute>
-         <xsl:namespace name="era" select="'http://www.entitymodelling.org/ERmodel'"/>
-         <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
-         <xsl:if test="entity_model/xml/namespace_uri">
-             <xsl:message> GENERATING NAMESPACE </xsl:message>
-             <xsl:attribute name="xpath-default-namespace"
-                            select="/entity_model/xml/namespace_uri"/>
-         </xsl:if>
-         <xsl:element name ="xsl:output">
-             <xsl:attribute name="method">xml</xsl:attribute>
-             <xsl:attribute name="indent">yes</xsl:attribute>
-         </xsl:element>
-<!--
-         <xsl:element name="xsl:include">
-             <xsl:attribute name="href">ERmodel.functions.module.xslt</xsl:attribute>
-         </xsl:element>
-
--->
-         <xsl:value-of disable-output-escaping="yes" select="unparsed-text('ERmodel.functions.fragment.xslt')"/>
-
-         <!-- plant keys for primary keys-->
-         <xsl:apply-templates mode="key_section"/>
-
-         <xsl:call-template name="generate_root_template"/>
-
-         <!-- plant wildcard template -->
-         <xsl:element name="xsl:template" >
-            <xsl:attribute name="name" select="'wildcard'"/>   
-            <xsl:attribute name="match" select="'*'"/>
-            <xsl:element name="xsl:copy">
-               <xsl:element name="xsl:apply-templates"/>
-            </xsl:element>
-         </xsl:element>
-
-         <!-- plant template for every entity type -->
-         <xsl:apply-templates mode="main_section"/>
-      </xsl:element>
-</xsl:template>
 
 
 <xsl:template match="*" mode="key_section">
@@ -252,6 +312,7 @@ CR-18839 JC  02-Dec-2016 Modify to expand the ER functions library
 </xsl:template>
 
 <xsl:template  match="reference" mode="main_section">
+   <xsl:message>xpath_evaluate <xsl:value-of select="xpath_evaluate"/></xsl:message>
   <xsl:if test="not(key('entity_type',type)/ancestor::group[name='external'])">
      <xsl:if test="xpath_is_defined and not(xpath_is_defined='')and xpath_foreign_key">  
                            <!-- currently do not need check anythng is a reference relationship has a key constraint-->

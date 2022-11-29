@@ -131,6 +131,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
+  
   <xsl:include href="ERmodel.assembly.module.xslt"/>
   <xsl:include href="ERmodel.consolidate.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
@@ -174,13 +175,19 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:result-document>
     </xsl:if>
     <!-- is followed by the main algorithm (see ERmodel2.physical_enrichment.module.xslt) -->
+    <!--
     <xsl:variable name="state">
+    -->
       <xsl:call-template name="physical_enrichment">
         <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
+      <!--
     </xsl:variable>
+  -->
 
     <!-- and finally the document is optionally enriched by xpath attributes (see ERmodel2.xpath_enrichment.module.xslt) -->
+    <!-- but it doesn't have to be does it ?? could do this on the fly where needed -->
+    <!--
     <xsl:choose>
       <xsl:when test="$style='h' or $style='hs'">
         <xsl:call-template name="recursive_xpath_enrichment">
@@ -191,6 +198,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
         <xsl:sequence select="$state"/>
       </xsl:otherwise>
     </xsl:choose>    
+  -->
   </xsl:template>
 
 </xsl:transform>

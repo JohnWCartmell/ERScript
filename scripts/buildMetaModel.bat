@@ -21,9 +21,9 @@ java -jar %SAXON_JAR% -s:ERAdiagrammed..diagram.xml -xsl:%ERHOME%\xslt\ERmodel2.
 
 REM LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-java -jar %SAXON_JAR% -s:ERA..logical.xml -xsl:%ERHOME%\xslt\ERmodel2.physical.xslt -o:ERA..physical.xml style=h debug=y
+java -jar %SAXON_JAR% -s:ERA..logical.xml -xsl:%ERHOME%\xslt\ERmodel2.physical.xslt -o:ERA..physical.xml style=hs debug=y
 
-java -jar %SAXON_JAR% -s:ERAdiagrammed..logical.xml -xsl:%ERHOME%\xslt\ERmodel2.physical.xslt -o:ERAdiagrammed..physical.xml style=h debug=y
+java -jar %SAXON_JAR% -s:ERAdiagrammed..logical.xml -xsl:%ERHOME%\xslt\ERmodel2.physical.xslt -o:ERAdiagrammed..physical.xml style=hs debug=y
 
 
 REM PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,4 +36,17 @@ call %ERHOME%\scripts\genHtmlReport ERA..physical.xml
 java -jar %SAXON_JAR% -s:ERA..physical..diagram.xml -xsl:%ERHOME%\xslt\ERmodel2.html.xslt -o:..\docs\ERA..physical.report.html
 
 call %ERHOME%\scripts\genHtmlReport ERAdiagrammed..physical.xml
+
 java -jar %SAXON_JAR% -s:ERAdiagrammed..physical..diagram.xml -xsl:%ERHOME%\xslt\ERmodel2.html.xslt -o:..\docs\ERAdiagrammed..physical.report.html
+
+REM generation of xml schema
+
+java -jar %SAXON_JAR% -s:ERA..physical.xml -xsl:%ERHOME%\xslt\ERmodel2.rng.xslt -o:%ERHOME%\schemas\ERA.rng
+
+java -jar %SAXON_JAR% -s:ERAdiagrammed..physical.xml -xsl:%ERHOME%\xslt\ERmodel2.rng.xslt -o:%ERHOME%\schemas\ERAdiagrammed.rng
+
+REM generate xslt's
+
+java -jar %SAXON_JAR% -s:ERA..physical.xml -xsl:%ERHOME%\xslt\ERmodel2.elaboration_xslt.xslt -o:%ERHOME%\xslt\ERmodelERmodel.elaboration.xslt
+
+java -jar %SAXON_JAR% -s:ERA..physical.xml -xsl:%ERHOME%\xslt\ERmodel2.referential_integrity_xslt.xslt -o:%ERHOME%\xslt\ERmodelERmodel.referential_integrity.xslt

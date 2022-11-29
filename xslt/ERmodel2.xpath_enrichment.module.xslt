@@ -162,6 +162,16 @@ DESCRIPTION
         pbe_passno : nonNegativeNumber
                                 # used as an intermediate in the
                                 # calculation of pbe_passno for a pullback
+                                
+FINALLY 29/11/2022 MOVED FRPM initial_enrichment
+
+join | component => identification_status : ('Identifying', 'NotIdentifying')
+
+projection => 
+         host_type : string      # the source entity type of the pullback
+                                 # composition relationship 
+                                 # this is '' if absolute is the source
+
 
 DISCUSSION
   It would be neat to replace the xpath naming prefix with an xpath namespace and 
@@ -201,8 +211,81 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
        match="implementationOf"
        use="era:packArray((../../name,rel))"/>
 
+<xsl:key name="AllRelationshipBySrcTypeAndName"
+         match="reference|composition|dependency|constructed_relationship"
+         use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
+
+
+<!-- MOVED FROM initial_enrichment -->
+       <!-- Two templates for
+             complex => identification_status
+    This is pretty ugly because we have remodelled  the idea of an
+    optional identifying flag just because we wanted
+    to implement using recurive incremental enrichment.
+-->
+<xsl:template match="join
+                     [not(identification_status)]
+                     [every $component in component satisfies $component/identification_status]" 
+              priority="19"
+              mode="recursive_xpath_enrichment">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="recursive_xpath_enrichment"/>
+      <identification_status>
+            <xsl:value-of select="if (every $component in component 
+                                      satisfies ($component/identification_status = 'Identifying')
+                                     )
+                                  then 'Identifying'
+                                  else 'NotIdentifying'
+                                 "/>
+      </identification_status>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="component
+                     [not(identification_status)]
+                     [src]
+                     " 
+                     priority="23"
+                     mode="recursive_xpath_enrichment">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="recursive_xpath_enrichment"/>
+      <identification_status>   
+         <xsl:value-of select="if(key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel)))
+                                       /identifying)
+                                    then 'Identifying'
+                                    else 'NotIdentifying'
+                                   "/>  
+      </identification_status>
+   </xsl:copy>
+</xsl:template>
+
+<!-- host_type is REALLY a derived relationship whih we are caching-->
+<xsl:template match="reference/projection
+                     [not(host_type)]"
+              mode="recursive_xpath_enrichment"
+              priority="7">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="recursive_xpath_enrichment"/>
+        <host_type>
+            <xsl:for-each select="key('IncomingCompositionRelationships', ../../name)/..">
+               <xsl:value-of select="if (self::absolute) then '' else name"/>
+            </xsl:for-each>
+        </host_type>
+        <!-- host_type is defined as
+                parent::reference/src/incoming_composition_relationships/src/
+                                                  (if (self::absolute) then '' else name
+           The assumption is that there is only one incoming composition relationship. 
+           This could be policed to some extent by making the inverse to prjection_rel single valued?
+           host_type is used in xpath enrichment in support for pullbacks.
+        -->
+  </xsl:copy>
+</xsl:template>
+
+
+
 <xsl:template name="recursive_xpath_enrichment">
-  <xsl:param name="mode" />
+ <!-- <xsl:param name="mode" />-->
   <xsl:param name="interim"/>
   <xsl:variable name ="next">
     <xsl:for-each select="$interim">
@@ -587,7 +670,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
           </xpath_evaluate>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:if test="diagonal/*/xpath_evaluate"> 
+          <xsl:if test="diagonal/*/xpath_evaluate and riser/*/identification_status"> 
             <xpath_evaluate>
               <xsl:text>key('</xsl:text>
               <xsl:value-of select="key('EntityTypes',type)/identifier"/>
@@ -637,7 +720,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="reference/projection " mode="recursive_xpath_enrichment">
+<xsl:template match="reference/projection[host_type] " mode="recursive_xpath_enrichment">
   <xsl:copy>
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
 
@@ -890,26 +973,24 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
   </xsl:choose>
 </xsl:function>
 
-<xsl:template match="riser/component|riser/*/component" mode="recursive_xpath_enrichment">
+<xsl:template match="riser/component|riser/*/component
+                           [not(following-sibling::component) or following-sibling::component/identification_status]
+                    " mode="recursive_xpath_enrichment">
   <xsl:copy>
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
     <xsl:call-template name="component"/>
     <!-- xpath_delta_key -->
     <xsl:if test="not(xpath_delta_key)">
-      <xsl:message>Still thinking </xsl:message>
       <xsl:choose>
         <xsl:when test="not(following-sibling::component)">
-          <xsl:message>no next component </xsl:message>
           <xpath_delta_key>
           </xpath_delta_key>
         </xsl:when>
         <xsl:when test="following-sibling::component/identification_status='NotIdentifying'">
-          <xsl:message>next component not identifying</xsl:message>
           <xpath_delta_key>
           </xpath_delta_key>
         </xsl:when>
         <xsl:when test="following-sibling::component[1]/xpath_delta_key">
-          <xsl:message>next component has xpath_local_key</xsl:message>
           <xsl:if test="key('EntityTypes',dest)/xpath_local_key
                               and xpath_evaluate
                             ">
@@ -934,6 +1015,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
     </xsl:if>
   </xsl:copy>
 </xsl:template>
+
 
 </xsl:transform>
 <!-- end of file: ERmodel_v1.2/src/ERmodel2.xpath_enrichment.module.xslt--> 
