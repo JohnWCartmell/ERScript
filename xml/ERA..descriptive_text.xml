@@ -72,7 +72,8 @@
       </entity_type>
       <attribute>
          <name>name</name>
-         <description>An attribute of type string.</description>
+         <description>An attribute of type string and that uniquely identifies a group or entity type.
+            The name of absolute is the name of the whole and is therefore a name for the entire entity model.</description>
       </attribute>
       <attribute>
          <name>description</name>
