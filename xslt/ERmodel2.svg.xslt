@@ -3,25 +3,6 @@
 ERmodel_v1.2/src/ERmodel2.svg.xslt 
 ****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
-13-Oct-2017 J.Cartmell Change to support conditional display of scope 
-                       operator as equality or less than or equal.
 -->
 
 <!-- 
@@ -34,11 +15,10 @@ DESCRIPTION
   Uses module ERmodel2.diagram.module.xslt.
 
 CHANGE HISTORY
-         JC  12-Sep-2016 Revert to generate html wrapper - move generated pop-up text into html.
-CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
-11-Oct-2017 J.Cartmell Remove the +8.0cm when generating width of diagram.
-15-Mar-2019 J.Cartmell Modify class def of scope - font size same as relationship name and italicise.
+
 23-Sep-2022 J.Cartmell Add a class for relid - same font as relname.
+01-Dec-2022            Changes to support pop up descriptions in html divs --
+                       this is essentially a blend of previous approaches to this.
 -->
 <xsl:transform version="2.0" 
         xmlns="http://www.entitymodelling.org/ERmodel"
@@ -141,34 +121,20 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
             <div> 
               <xsl:attribute name="class" select="'bigbody'"/>
               <div> 
-                <xsl:attribute name="class" select="'bigsvg'"/>
+                <xsl:attribute name="class" select="'svgcontainer'"/>
                 <embed>
                   <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
                   </xsl:message>
                   <xsl:attribute name="src" select="concat($acting_filestem,'.svg')"/>
                 </embed>
-              </div>
-              <div> 
-                <xsl:attribute name="class" select="'infolist'"/>
-                <xsl:attribute name="id" select="'infolist'"/>
-        <div>
-          <xsl:attribute name="class" select="'closecontainer'"/>
-          <button>
-            <xsl:attribute name="class" select="'close'"/>
-            <xsl:attribute name="onClick" >
-              <xsl:text>closeallinfotextboxes()</xsl:text>
-            </xsl:attribute>
-            <xsl:text>xx</xsl:text>
-          </button> 
-        </div>
-                <div>       
-                  <xsl:attribute name="class" select="'infolistinner'"/>
+
+
                   <xsl:for-each select="entity_type|group">
                     <xsl:call-template name="descriptive_text">
                       <xsl:with-param name="levelNumber" select="1"/>
                     </xsl:call-template>
                   </xsl:for-each>
-                </div>
+
               </div>
             </div>
           </div>
@@ -186,11 +152,17 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
 
   <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute" mode="explicit">
     <xsl:param name="levelNumber"/>
+        <xsl:variable name="popUpxPos">
+      <xsl:call-template name="popUpxPos"/>
+    </xsl:variable>
+    <xsl:variable name="popUpyPos">
+          <xsl:call-template name="popUpyPos"/>
+    </xsl:variable>
     <div>
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
+      <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
       <xsl:call-template name="infotextbox" />
-  
-    </div>
+      <!--   </div>  start to nest-->
     <xsl:for-each select="entity_type|group">
       <xsl:call-template name="descriptive_text">
         <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
@@ -201,15 +173,12 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
         <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
       </xsl:call-template>
     </xsl:for-each>
-
+    </div><!-- start to nest -->
   </xsl:template>
 
   <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute" mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
-<!--
-        <xsl:call-template name="element_text_div_id"/>  
-      -->
       </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
@@ -688,20 +657,14 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
     </xsl:choose>
   </xsl:template>
 
-
-  <xsl:template name="entity_type_description" match="absolute|entity_type" mode="explicit">
-    <!--
-   <xsl:message> <xsl:value-of select = "name()" /> </xsl:message>
- -->
-
-    <xsl:variable name="popUpxPos">
-      <!--Start of description popup-box code-->
+  <xsl:template name="popUpxPos" match="absolute|entity_type|group" mode="explicit">
       <xsl:choose>
-        <xsl:when test="name(..)='entity_type'">
+        <xsl:when test="parent::entity_type|parent::group">    <!-- parent group added for html pop ups 01/12/2022 -->
           <xsl:value-of select="0.5"/> 
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="xRight">
+          <!--     no longer get rid of groups from info stack 01/12/2022
             <xsl:choose>
               <xsl:when test="name(..)='group'">
                 <xsl:for-each select="parent::group">
@@ -711,19 +674,23 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
                 </xsl:for-each>
               </xsl:when>
               <xsl:otherwise>
+              -->
                 <xsl:call-template name="etxRight">
                   <xsl:with-param name="scheme" select="'ABSOLUTE'"/>
                 </xsl:call-template> 
+                <!--
               </xsl:otherwise>
             </xsl:choose>
+          -->
           </xsl:variable>
           <xsl:value-of select="$xRight + 0.2"/>
         </xsl:otherwise>
       </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="popUpyPos">
+  </xsl:template>
+
+  <xsl:template name="popUpyPos" match="absolute|entity_type|group" mode="explicit">
       <xsl:choose>
-        <xsl:when test="name(..)='entity_type'">
+        <xsl:when test="parent::entity_type|parent::group">  <!-- parent group added for html pop ups 01/12/2022 -->
           <xsl:value-of select="2"/>
         </xsl:when>
         <xsl:when test="name()='absolute'">
@@ -735,12 +702,25 @@ CR-18651 JC  04-Nov-2016 Modify presentation of scopes.
           </xsl:call-template>
         </xsl:otherwise>
       </xsl:choose>
+  </xsl:template>
+
+
+  <xsl:template name="entity_type_description" match="absolute|entity_type" mode="explicit">
+    <xsl:variable name="popUpxPos">
+      <xsl:call-template name="popUpxPos"/>
+    </xsl:variable>
+    <xsl:variable name="popUpyPos">
+          <xsl:call-template name="popUpyPos"/>
     </xsl:variable>
     <svg:svg>
       <xsl:attribute name="x">
-        <xsl:value-of select="$popUpxPos"/>cm</xsl:attribute>
+        <xsl:call-template name="popUpxPos"/>
+        <xsl:text>cm</xsl:text>
+      </xsl:attribute>
       <xsl:attribute name="y">
-        <xsl:value-of select="$popUpyPos"/>cm</xsl:attribute>
+        <xsl:call-template name="popUpyPos"/>
+        <xsl:text>cm</xsl:text>
+      </xsl:attribute>
       <svg:g> 
         <xsl:attribute name="class">popupInfoBox</xsl:attribute>
         <svg:rect>

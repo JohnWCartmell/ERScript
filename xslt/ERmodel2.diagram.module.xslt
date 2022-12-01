@@ -3,22 +3,6 @@
 ERmodel_v1.2/src/ERmodel2.diagram.module.xslt 
 ****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************
 -->
 
@@ -67,6 +51,10 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 11-Oct-2017 J.Cartmell   Do not generate pop up descriptive text in svg.
 23-Sep-2022 J.Cartmell   Modify so that relationship identifiers can be given generated differently to
                          relationship names so that there display can be controlled in generated diagrams. 
+01-Dec-2022              Changes to support pop up descriptions in html divs overlaying the svg.
+                         This is essentially a blend of previous approaches to this - one approach was to pop
+                         up svg text the other to have text in html made visible next to the svg. What we have now
+                         done is taken the positioning from the svg version and the content from the html version.
 -->
 
 <xsl:transform version="2.0" 
@@ -356,11 +344,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          <xsl:call-template name="getDiagramWidth"/>
       </xsl:with-param>
    </xsl:call-template>
-   <!-- 11-Oct-2017 J. Cartmell Do not generate pop up text in svg
+   <!-- 11-Oct-2017 J. Cartmell Do not generate pop up text in svg -->
+   <!-- 30-Nov-2022 Do generate -->
+   <!-- 1-Dec-2022 Dont
    <xsl:for-each select="absolute|entity_type|group">
       <xsl:call-template name="entity_type_or_group_description"/>
    </xsl:for-each>
-   -->
+ End don;t generate -->
 </xsl:template>
 
 <xsl:template name="absolute" match="absolute">
