@@ -17,7 +17,7 @@ DESCRIPTION
 CHANGE HISTORY
 
 23-Sep-2022 J.Cartmell Add a class for relid - same font as relname.
-01-Dec-2022            Changes to support pop up descriptions in html divs --
+01-Dec-2022            Changes to support pop up descriptions in html divs ...
                        this is essentially a blend of previous approaches to this.
 -->
 <xsl:transform version="2.0" 
@@ -97,7 +97,6 @@ CHANGE HISTORY
       <html>
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-          <link rel="stylesheet" type="text/css" href="/css/erstyle.css"/>
           <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
           <script src="/js/ersvgdiagraminteraction.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
@@ -106,18 +105,22 @@ CHANGE HISTORY
           <div> 
             <xsl:attribute name="class" select="'bigouter'"/>
             <div>
-              <xsl:attribute name="class" select="'header'"/>
+              <xsl:attribute name="class" select="'entityModelHeader'"/>
+              <xsl:text>Entity Model:</xsl:text>
               <xsl:value-of select="absolute/name"/>
-              <br/>
-              <p>
+            </div>
+            <!--<xsl:call-template name="clearleft"/>-->
+            <div>
+                <xsl:attribute name="class" select="'entityModelDescription'"/>
                 <xsl:for-each select="absolute/description">
                   <xsl:apply-templates/>
                 </xsl:for-each>
-              </p>
             </div>
-            <xsl:call-template name="clearleft"/>
-            <hr/>
-            <xsl:call-template name="clearleft"/>
+            <!--<xsl:call-template name="clearleft"/>-->
+            <hr>
+              <xsl:attribute name="class" select="'rule'"/>
+            </hr>
+            <!--<xsl:call-template name="clearleft"/>-->
             <div> 
               <xsl:attribute name="class" select="'bigbody'"/>
               <div> 
@@ -147,6 +150,7 @@ CHANGE HISTORY
   <xsl:template name="clearleft">
     <div>
       <xsl:attribute name="style" select="'clear:left'"/>
+      <xsl:text> </xsl:text>
     </div>
   </xsl:template>
 
@@ -184,78 +188,56 @@ CHANGE HISTORY
         <xsl:attribute name="id" select="$text_div_id"/>
         <xsl:attribute name="class" select="'infotextbox'"/>
         <div>
-          <xsl:attribute name="class" select="'metatype'"/>
-          <xsl:choose>
-            <xsl:when test="self::entity_type">
-              <xsl:text>Entity Type</xsl:text>
-            </xsl:when>
-            <xsl:when test="self::group">
-              <xsl:text>Group (of Entity Types)</xsl:text>
-            </xsl:when>
-            <xsl:when test="self::reference">
-              <xsl:text>Reference Relationship</xsl:text>
-              <xsl:value-of select="display_text"/>
-            </xsl:when>
-            <xsl:when test="self::composition">
-              <xsl:text>Composition Relationship</xsl:text>
-              <xsl:value-of select="display_text"/>
-            </xsl:when>
-            <xsl:when test="self::attribute">
-              <xsl:text>Attribute</xsl:text>
-              <xsl:value-of select="display_text"/>
-            </xsl:when>
-          </xsl:choose>
-        </div>
+            <xsl:attribute name="class" select="'descriptionHeader'"/>
+          <div>
+            <xsl:attribute name="class" select="'metatype'"/>
+            <xsl:choose>
+              <xsl:when test="self::entity_type">
+                <b><xsl:text>Entity Type: </xsl:text></b>
+              </xsl:when>
+              <xsl:when test="self::group">
+                <b><xsl:text>Group (of Entity Types): </xsl:text></b>
+              </xsl:when>
+              <xsl:when test="self::reference">
+                <b><xsl:text>Reference Relationship: </xsl:text></b>
+                <xsl:value-of select="display_text"/>
+              </xsl:when>
+              <xsl:when test="self::composition">
+                <b><xsl:text>Composition Relationship: </xsl:text></b>
+                <xsl:value-of select="display_text"/>
+              </xsl:when>
+              <xsl:when test="self::attribute">
+                <b><xsl:text>attribute: </xsl:text></b>
+                <xsl:value-of select="display_text"/>
+              </xsl:when>
+            </xsl:choose>
+            <xsl:value-of select="name"/>
+          </div> 
+          <div>
+            <xsl:attribute name="class" select="'closecontainer'"/>
+            <button>
+              <xsl:attribute name="class" select="'close'"/>
+              <xsl:attribute name="onClick" >
+                <xsl:text>document.getElementById('</xsl:text>
+                <xsl:value-of select="$text_div_id"/>       
+                <xsl:text>').style.display='none';</xsl:text>
+              </xsl:attribute>
+              <xsl:text>x</xsl:text>
+            </button> 
+          </div>
+          <!--<xsl:call-template name="clearleft"/>-->
+        </div> <!-- end of descriptionHeader -->
         <div>
-          <xsl:attribute name="class" select="'closecontainer'"/>
-          <button>
-            <xsl:attribute name="class" select="'close'"/>
-            <xsl:attribute name="onClick" >
-              <xsl:text>document.getElementById('</xsl:text>
-              <xsl:value-of select="$text_div_id"/>       
-              <xsl:text>').style.display='none';</xsl:text>
-            </xsl:attribute>
-            <xsl:text>x</xsl:text>
-          </button> 
+          <xsl:attribute name="class" select="'otherDescription'"/>
+          <xsl:value-of select="description"/>
         </div>
-        <h3>
-          <xsl:value-of select="name"/>
-        </h3>
-        <xsl:apply-templates select="description"/>
         <xsl:for-each select="attribute">
           <xsl:call-template name="infotextbox"/>
         </xsl:for-each> 
       </div>
   </xsl:template>
-<!--
-  <xsl:template name="element_id" match="group|entity_type|reference|composition|attribute">
-    <xsl:value-of select="id"/>
-    <xsl:choose>
-      <xsl:when test="self::absolute">
-        <xsl:value-of select="'Abs'"/>
-      </xsl:when>
-      <xsl:when test="self::entity_type|self::group">
-        <xsl:value-of select="concat('E',name)"/>
-      </xsl:when>
-      <xsl:when test="self::composition|self::reference">
-        <xsl:value-of select="concat('R',../name,'_',name,'T',type)"/>
-      </xsl:when>
-      <xsl:when test="self::attribute">
-        <xsl:value-of select="concat('A',../name,'_',translate(name, ' ', ''))"/>
-      </xsl:when>
-    </xsl:choose>
-  </xsl:template>
--->
 
 
-<!--
-  <xsl:template name="element_text_div_id" match="group|entity_type|reference|composition|attribute">
-    <xsl:variable name="element_id" as="xs:string">
-          <xsl:call-template name="element_id"/>
-    </xsl:variable>
-    <xsl:value-of select="concat(id,'_text')"/>
-  </xsl:template>
--->
   <xsl:template name="wrap_relationships" match="entity_model">   
     <xsl:param name="relationships"/>
     <xsl:param name="diagramHeight"/>

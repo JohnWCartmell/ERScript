@@ -1,19 +1,85 @@
 /* styles used in wrapping ER diagrams represented in svg and in wrapping associated detail of entiities, relationships and attributes */
  
    div.bigbody{
-	background-color:white;
-	width:100%; 
-	margin-right:1px;
-	border: 3px solid ; 
+		background-color:white;
+		width:100%; 
+		margin-right:1px;
+		border: 3px solid ; 
    }
+
+ 	div.entityModelHeader{
+		float:left;
+	   padding-left:5%;
+	   padding-top:20px;
+	   padding-bottom:20px;
+		background-color:white;
+		font-size: 16pt;
+		/* font-family: Montserrat; */
+		font-family: sans-serif ;
+		color:#445aa9;
+   }
+
+   div.entityModelDescription{
+		float:left;	
+	   padding-left:5%;
+	   padding-top:20px;
+	   padding-bottom:20px;
+		clear:left;
+		display:block;
+		background-color:white;
+		font-size: 10pt;
+		/* font-family: Montserrat; */
+		font-family: sans-serif ;
+   }
+
+   div.descriptionHeader{
+    	display:block;
+      padding-left:0px;
+      padding-right:0px;
+	   padding-top:0px;
+	   padding-bottom:1px;
+	   border-width:1pt;
+	   border-bottom-style:solid;
+		font-size: 10pt;
+		font-family: sans-serif ;
+   }
+   div.descriptionHeader::after {
+	   content: "";
+	   clear: both;
+	   display: table;
+	}
+
+   hr.rule{
+   	clear:left;
+   }
+
+   div.otherDescription{
+   	clear:left;
+   	display:block;
+   	padding-top:1px;
+   	background-color:white;
+		font-size: 10pt;
+		font-family: sans-serif ;
+   }
+
+
+  	p {
+	   font-size: 10pt;
+		line-height: 1.5;
+    }
+
+
+   p.small {
+      font-size: 9pt;
+    }
    
-  div.bigouter{
-	float:left;
-	margin-left:20px;
-	background-color:white;
-	font-size: medium;
-        color:#283769;
-        width:98%
+   div.bigouter{
+		float:left;
+		margin-left:20px;
+		background-color:white;
+		font-size: medium;
+		color:#283769;
+		width:98%
    }
    div.svgcontainer{       /* name changed from bigsvg 01/12/2022 */
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */
@@ -24,22 +90,14 @@
 		border:1px solid grey;
 	   overflow:scroll;	 
    }
-
-   div.infolist{
-   	  display: none;
-        width:20%; 
-        float:left; 
-    }   
-
-    div.infolistinner{
-    	padding-right: 30px;
-    }
+  
 
    div.metatype {    /* added for info box surround 11/11/2022*/
     float:left;
     }
 	
    div.closecontainer {
+   margin-top: 0px;
 	float:right;
 	}
 
@@ -53,7 +111,7 @@
 	div.infolevel2{
 		position:absolute;
 		width:100%;
-	    float:left;
+	   float:left;
 		padding-left:10px;
 		margin-right:30px;	
 	}

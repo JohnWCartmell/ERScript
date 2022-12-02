@@ -2,9 +2,7 @@ function notify(id){
  var divElement = document.getElementById(id);
    divElement.style.display = 'block';
    divElement.style.visibility = 'visible';
-   divElement.style.opacity = 1;
-   var yinfolist = document.getElementById('infolist');
-   yinfolist.style.display = 'block';}
+   divElement.style.opacity = 1;}
 
 function closeallinfotextboxes(){
    var textboxes = document.getElementsByClassName("infotextbox");
