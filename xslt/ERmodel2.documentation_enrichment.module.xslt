@@ -273,6 +273,22 @@
 </xsl:template>
 
 <!-- display_text  starts here -->
+
+
+<xsl:template match="attribute
+                    [not(display_text)]
+                    " 
+              mode="documentation_enrichment_recursive"  priority="13">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <display_text>
+         <xsl:value-of select="concat(name, ' : ', type/*/name())"/>
+         <xsl:if test="optional"><xsl:text>?</xsl:text></xsl:if>
+      </display_text>
+    </xsl:copy>
+</xsl:template>  
+
+
 <xsl:template match="identity
                      [not(display_text)]
                     " 

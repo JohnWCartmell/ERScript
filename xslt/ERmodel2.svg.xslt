@@ -194,9 +194,11 @@ CHANGE HISTORY
             <xsl:choose>
               <xsl:when test="self::entity_type">
                 <b><xsl:text>Entity Type: </xsl:text></b>
+                <xsl:value-of select="name"/>
               </xsl:when>
               <xsl:when test="self::group">
                 <b><xsl:text>Group (of Entity Types): </xsl:text></b>
+                <xsl:value-of select="name"/>
               </xsl:when>
               <xsl:when test="self::reference">
                 <b><xsl:text>Reference Relationship: </xsl:text></b>
@@ -211,7 +213,6 @@ CHANGE HISTORY
                 <xsl:value-of select="display_text"/>
               </xsl:when>
             </xsl:choose>
-            <xsl:value-of select="name"/>
           </div> 
           <div>
             <xsl:attribute name="class" select="'closecontainer'"/>
