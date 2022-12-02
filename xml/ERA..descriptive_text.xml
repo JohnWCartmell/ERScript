@@ -4,7 +4,8 @@
 
    <absolute>
       <name>entity_model</name>
-      <description> This entity mdel is an instance of itself.</description>
+      <description> This is a meta-model --- it is an entity model which describes the structure of a typical entity model --- as such 
+      this entity model is self-descriptive. </description>
       <composition>
          <type>entity_type_like</type>
          <description></description>
@@ -105,7 +106,12 @@
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <description>A property of an entity type.</description>
+      <description>A part of the structure of an entity type. An attribute is a named property that may be attributed 
+         to entitites of the type. Often thought of as a slot within an entity which may be filled in with a value.
+         Dates, numeric values, names, text descriptions, colour and truth values (booleans) only make sense 
+         as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
+         In a physical representation attributes may be present simply to implement relationships. 
+      </description>
       <dependency>
          <name>..</name>
          <type>ENTITY_TYPE</type>
@@ -177,10 +183,11 @@
          </entity_type>
          <entity_type>
             <name>reference</name>
-            <description>An entity type..</description>
+            <description>A binary relationship between entities but not a composition relationship.
+            </description>
             <attribute>
                <name>js</name>
-               <description>A javascript expression to evaluate the reference relationship .</description>
+               <description>A javascript expression to evaluate the reference relationship.</description>
             </attribute>
             <attribute>
                <name>xpath_evaluate</name>
@@ -209,7 +216,7 @@
                <description>This relationship is defined for a relationships whose destination type is a pullback object
                             and which is the unique relationship into the pullback determined by a 'diagonal' and a 'key'.
                             Despite the fact that such relationships are represented as reference relationships even though
-                           might be better represented as certauin types of constructed relationship.  
+                           might be better represented as certain types of constructed relationship.  
                </description>
             </composition>
             <composition>
@@ -220,7 +227,7 @@
       </entity_type>
       <entity_type>
          <name>constructed_relationship</name>
-         <description>An entity type..</description>
+         <description>A binary relationship between entities that can be derived from other more primitive relationships. </description>
          <reference>
             <name>inverse</name>
             <type>constructed_relationship</type>
@@ -233,7 +240,7 @@
       </entity_type>
       <entity_type>
          <name>composition</name>
-         <description>An entity type..</description>
+         <description>A relationship between entities in which entitites on one side of the relationship may be said to be in part composed of entitites on the other side.</description>
          <reference>
             <name>inverse</name>
             <type>dependency</type>
