@@ -100,6 +100,8 @@ CHANGE HISTORY
           <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
           <script src="/js/ersvgdiagraminteraction.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
+          <script src="/js/draggable.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+          </script>
         </head>
         <body>
           <div> 
@@ -124,14 +126,15 @@ CHANGE HISTORY
             <div> 
               <xsl:attribute name="class" select="'bigbody'"/>
               <div> 
-                <xsl:attribute name="class" select="'svgcontainer'"/>
-                <embed>
-                  <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
-                  </xsl:message>
-                  <xsl:attribute name="src" select="concat($acting_filestem,'.svg')"/>
-                </embed>
-
-
+                <xsl:attribute name="class" select="'svganddivcontainer'"/>
+                <div> 
+                   <xsl:attribute name="id" select="'svgcontainer'"/>
+                  <embed>
+                    <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
+                    </xsl:message>
+                    <xsl:attribute name="src" select="concat($acting_filestem,'.svg')"/>
+                  </embed>
+                </div>
                   <xsl:for-each select="entity_type|group">
                     <xsl:call-template name="descriptive_text">
                       <xsl:with-param name="levelNumber" select="1"/>
@@ -230,7 +233,14 @@ CHANGE HISTORY
         </div> <!-- end of descriptionHeader -->
         <div>
           <xsl:attribute name="class" select="'otherDescription'"/>
-          <xsl:value-of select="description"/>
+          <xsl:choose>
+            <xsl:when test="description">
+                  <xsl:value-of select="description"/>
+            </xsl:when>
+            <xsl:otherwise>
+                  <i><xsl:text>TBD</xsl:text></i>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
         <xsl:for-each select="attribute">
           <xsl:call-template name="infotextbox"/>

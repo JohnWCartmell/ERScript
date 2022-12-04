@@ -33,7 +33,8 @@
    }
 
    div.descriptionHeader{
-    	display:block;
+    	display:block;	
+		cursor:move;
       padding-left:0px;
       padding-right:0px;
 	   padding-top:0px;
@@ -62,12 +63,10 @@
 		font-family: sans-serif ;
    }
 
-
   	p {
 	   font-size: 10pt;
 		line-height: 1.5;
     }
-
 
    p.small {
       font-size: 9pt;
@@ -81,17 +80,14 @@
 		color:#283769;
 		width:98%
    }
-   div.svgcontainer{       /* name changed from bigsvg 01/12/2022 */
+   div.svganddivcontainer{      
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */
 		float:left; 
-		/*width:79%;*/    /* for most diagrams is good that width 80%, say, leaving room for info boxes/*
-	                       /* I should try setting width from code */
 		margin-left: 10px;  
 		border:1px solid grey;
 	   overflow:scroll;	 
    }
   
-
    div.metatype {    /* added for info box surround 11/11/2022*/
     float:left;
     }
@@ -116,7 +112,6 @@
 		margin-right:30px;	
 	}
 	div.infolevel3{
-
 		position:absolute;
 		width:100%;
 		float:left;
@@ -154,3 +149,16 @@
 		transition: opacity 1s linear ;
 	}
 
+	div.visibleinfotextbox{
+		display:block;
+		opacity:1;  /*xxxxxxxxxxxxxxxxxxxxxxxxx want a 0 here but have 1 when debugging*/
+		box-shadow: 5px 5px 2px grey; 
+		border: 1px solid ; 
+		font-family: sans-serif; 
+		line-height 2.0; 
+		font-size: 9pt; 
+		padding-left:5px;   padding-right:5px; padding-top:5px; padding-bottom:5px; 
+		color:#283769;
+		background-color:rgb(238,238,238);
+		transition: opacity 1s linear ;
+	}
