@@ -68,15 +68,33 @@
           stroke-dasharray: 0.07 0.07;
           fill: none
         }
-        .relationshiphitarea {
+        .relationshiphitarea,
+        .relationshippopped,
+        .relationshipdiagonal,
+        .relationshipriser
+         {
           fill:none;
-          stroke: black;
           stroke-width: .2;
-          stroke-opacity:0;
           pointer-events: stroke;
+        }
+        .relationshiphitarea{
+          stroke: black;
+          stroke-opacity:0;          
         }
         .relationshiphitarea:hover {
           stroke: #15D4FA;
+          stroke-opacity:0.5;
+        }
+        .relationshippopped {
+          stroke: #15D4FA;
+          stroke-opacity:0.5;
+        }
+        .relationshipdiagonal {
+          stroke: red;
+          stroke-opacity:0.5;
+        }
+        .relationshipriser {
+          stroke: blue;
           stroke-opacity:0.5;
         }
         .relationshipbackground {

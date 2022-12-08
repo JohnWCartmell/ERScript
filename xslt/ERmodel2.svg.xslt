@@ -102,6 +102,9 @@ CHANGE HISTORY
           </script>
           <script src="/js/draggable.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
+          <script>
+               <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
+          </script>
         </head>
         <body>
           <div> 
@@ -129,18 +132,17 @@ CHANGE HISTORY
                 <xsl:attribute name="class" select="'svganddivcontainer'"/>
                 <div> 
                    <xsl:attribute name="id" select="'svgcontainer'"/>
-                  <embed>
+                  <object>
                     <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
                     </xsl:message>
-                    <xsl:attribute name="src" select="concat($acting_filestem,'.svg')"/>
-                  </embed>
+                    <xsl:attribute name="id" select="'svg-object'"/>
+                    <xsl:attribute name="data" select="concat($acting_filestem,'.svg')"/>
+                    <xsl:attribute name="type" select="'image/svg+xml'"/>
+                    <xsl:text>filler to stop contraction of this xml element</xsl:text>
+                  </object>
+                  <!--<object id ="svg-object" data="cricketMatch.svg" type="image/svg+xml"></object>-->
                 </div>
-                  <xsl:for-each select="entity_type|group">
-                    <xsl:call-template name="descriptive_text">
-                      <xsl:with-param name="levelNumber" select="1"/>
-                    </xsl:call-template>
-                  </xsl:for-each>
-
+                <xsl:call-template name="render_descriptive_text"/>                
               </div>
             </div>
           </div>
@@ -150,6 +152,20 @@ CHANGE HISTORY
     <!--          -->
   </xsl:template>
 
+  <!-- assume groups are not nested within entity types -->
+  <xsl:template name="render_descriptive_text" 
+                 match="entity_model|entity_type|group">
+    <xsl:for-each select="entity_type">
+        <xsl:call-template name="descriptive_text">
+           <xsl:with-param name="levelNumber" select="1"/>
+        </xsl:call-template>
+    </xsl:for-each>
+    <xsl:for-each select="group">
+        <xsl:call-template name="render_descriptive_text"/>
+    </xsl:for-each>
+  </xsl:template>
+
+
   <xsl:template name="clearleft">
     <div>
       <xsl:attribute name="style" select="'clear:left'"/>
@@ -157,9 +173,39 @@ CHANGE HISTORY
     </div>
   </xsl:template>
 
-  <xsl:template name="descriptive_text" match="entity_type|group|reference|composition|attribute" mode="explicit">
+  <xsl:template name="plant_javascript_scope_rel_id_arrays"
+                match="entity_model"
+                mode="explicit">
+    <xsl:text>
+        const diagonal_elements = {</xsl:text>
+    <xsl:for-each select="descendant::reference">
+        <xsl:text>
+        "</xsl:text>
+        <xsl:value-of select="id"/>
+        <xsl:text>":[</xsl:text>
+        <xsl:value-of select="diagonal/*/rel_id_csl"/>
+        <xsl:text>],</xsl:text>
+    </xsl:for-each>
+    <xsl:text>} ;</xsl:text>
+        <xsl:text>
+        const riser_elements = {</xsl:text>
+    <xsl:for-each select="descendant::reference">
+        <xsl:text>
+        "</xsl:text>
+        <xsl:value-of select="id"/>
+        <xsl:text>":[</xsl:text>
+        <xsl:value-of select="riser/*/rel_id_csl"/>
+        <xsl:text>],</xsl:text>
+    </xsl:for-each>
+    <xsl:text>} ;
+    </xsl:text>
+  </xsl:template>
+
+  <xsl:template name="descriptive_text" 
+                match="entity_type|reference|composition|attribute" 
+                mode="explicit">
     <xsl:param name="levelNumber"/>
-        <xsl:variable name="popUpxPos">
+    <xsl:variable name="popUpxPos">
       <xsl:call-template name="popUpxPos"/>
     </xsl:variable>
     <xsl:variable name="popUpyPos">
@@ -169,21 +215,20 @@ CHANGE HISTORY
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
       <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
       <xsl:call-template name="infotextbox" />
-      <!--   </div>  start to nest-->
-    <xsl:for-each select="entity_type|group">
-      <xsl:call-template name="descriptive_text">
-        <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
-      </xsl:call-template>
-    </xsl:for-each>
-    <xsl:for-each select="reference|composition">
-      <xsl:call-template name="descriptive_text">
-        <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
-      </xsl:call-template>
-    </xsl:for-each>
-    </div><!-- start to nest -->
+      <xsl:for-each select="entity_type">
+        <xsl:call-template name="descriptive_text">
+          <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
+        </xsl:call-template>
+      </xsl:for-each>
+      <xsl:for-each select="reference|composition">
+        <xsl:call-template name="descriptive_text">
+          <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
+        </xsl:call-template>
+      </xsl:for-each>
+    </div>
   </xsl:template>
 
-  <xsl:template name="infotextbox" match="entity_type|group|reference|composition|attribute" mode="explicit">
+  <xsl:template name="infotextbox" match="entity_type|reference|composition|attribute" mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
       </xsl:variable>
@@ -197,10 +242,6 @@ CHANGE HISTORY
             <xsl:choose>
               <xsl:when test="self::entity_type">
                 <b><xsl:text>Entity Type: </xsl:text></b>
-                <xsl:value-of select="name"/>
-              </xsl:when>
-              <xsl:when test="self::group">
-                <b><xsl:text>Group (of Entity Types): </xsl:text></b>
                 <xsl:value-of select="name"/>
               </xsl:when>
               <xsl:when test="self::reference">
@@ -233,6 +274,14 @@ CHANGE HISTORY
         </div> <!-- end of descriptionHeader -->
         <div>
           <xsl:attribute name="class" select="'otherDescription'"/>
+          <xsl:if test="id">
+            Id : <xsl:value-of select="id"/>
+            <br/>
+          </xsl:if>
+          <xsl:if test="scope_display_text">
+            Scope : <xsl:value-of select="scope_display_text"/>
+            <br/>
+          </xsl:if>
           <xsl:choose>
             <xsl:when test="description">
                   <xsl:value-of select="description"/>
@@ -461,7 +510,7 @@ CHANGE HISTORY
     </xsl:variable>
 
     <xsl:variable name="element_id">
-      <xsl:value-of select="concat(id,'_text')"/>
+      <xsl:value-of select="id"/>
       <!--
       <xsl:call-template name="element_text_div_id"/>
     -->
@@ -499,7 +548,7 @@ CHANGE HISTORY
         </xsl:choose>
 
         <xsl:attribute name="onclick">
-          <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
+          <xsl:value-of select="concat('top.showEntityTypeDetail(''',$element_id,''')')"/>
         </xsl:attribute>
         <xsl:attribute name="x">
           <xsl:value-of select="0.1 + $xAdjustment"/>cm</xsl:attribute>
@@ -530,7 +579,7 @@ CHANGE HISTORY
     <xsl:param name="annotation"/>
     <xsl:param name="deprecated"/>
     <xsl:variable name="element_id">
-      <xsl:value-of select="concat(id,'_text')"/>
+      <xsl:value-of select="id"/>
       <!--
       <xsl:call-template name="element_text_div_id"/>
     -->
@@ -544,7 +593,7 @@ CHANGE HISTORY
       <xsl:attribute name="x"><xsl:value-of select="$xcm + 0.175"/>cm</xsl:attribute>
       <xsl:attribute name="y"><xsl:value-of select="$ycm"/>cm</xsl:attribute>
       <xsl:attribute name="onclick">
-            <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
+            <xsl:value-of select="concat('top.showAttributeDetail(''',$element_id,''')')"/>
       </xsl:attribute>
       <xsl:if test="xmlRepresentation='Anonymous'">
         <xsl:text>(</xsl:text>
@@ -633,7 +682,7 @@ CHANGE HISTORY
 </xsl:template>
 -->
 
-
+<!--
   <xsl:template name="entity_type_or_group_description" match="absolute|entity_type|group" mode="explicity">
     <xsl:choose>
       <xsl:when test="name()='entity_type'">
@@ -649,10 +698,11 @@ CHANGE HISTORY
       </xsl:when>
     </xsl:choose>
   </xsl:template>
+-->
 
   <xsl:template name="popUpxPos" match="absolute|entity_type|group" mode="explicit">
       <xsl:choose>
-        <xsl:when test="parent::entity_type|parent::group">    <!-- parent group added for html pop ups 01/12/2022 -->
+        <xsl:when test="parent::entity_type">    
           <xsl:value-of select="0.5"/> 
         </xsl:when>
         <xsl:otherwise>
@@ -681,9 +731,9 @@ CHANGE HISTORY
       </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="popUpyPos" match="absolute|entity_type|group" mode="explicit">
+  <xsl:template name="popUpyPos" match="absolute|entity_type" mode="explicit">
       <xsl:choose>
-        <xsl:when test="parent::entity_type|parent::group">  <!-- parent group added for html pop ups 01/12/2022 -->
+        <xsl:when test="parent::entity_type">  
           <xsl:value-of select="2"/>
         </xsl:when>
         <xsl:when test="name()='absolute'">
@@ -697,7 +747,7 @@ CHANGE HISTORY
       </xsl:choose>
   </xsl:template>
 
-
+<!--
   <xsl:template name="entity_type_description" match="absolute|entity_type" mode="explicit">
     <xsl:variable name="popUpxPos">
       <xsl:call-template name="popUpxPos"/>
@@ -766,6 +816,7 @@ CHANGE HISTORY
       </svg:g>
     </svg:svg>
   </xsl:template>
+-->
   <!--End of description code-->
 
   <xsl:template name="start_relationship">
@@ -921,6 +972,9 @@ CHANGE HISTORY
     <xsl:param name="line" as="element(line)"/> 
     <xsl:param name="class" as="xs:string"/>  
     <svg:path>
+        <xsl:if test="exists($element_id)">
+           <xsl:attribute name="id" select="concat($element_id,'_hitarea')"/>
+        </xsl:if>
        <xsl:attribute name="class" select="$class"/>
        <xsl:attribute name="d">
           <xsl:text>M</xsl:text>
@@ -936,7 +990,7 @@ CHANGE HISTORY
         </xsl:attribute>
         <xsl:if test="exists($element_id)">
           <xsl:attribute name="onclick">
-            <xsl:value-of select="concat('top.notify(''',$element_id,''')')"/>
+            <xsl:value-of select="concat('top.showRelationshipDetail(''',$element_id,''')')"/>
           </xsl:attribute>
         </xsl:if>
     </svg:path>

@@ -76,6 +76,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
 <xsl:include href="ERmodel.consolidate.module.xslt"/>
+<xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
 <xsl:include href="ERmodel2.documentation_enrichment.module.xslt"/>
 <!-- <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/> probably no longer required
 since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt (17 Nov 2022) -->
@@ -246,12 +247,27 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:result-document>
     </xsl:if>
 
-   <!-- an initial enrichment (see ERmodel2.documentation__enrichment.module.xslt)        -->
+   <!-- an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
+   <!-- because documentation_enrichment needs to use component.src --> 
+   <xsl:variable name="state">
+      <xsl:call-template name="initial_enrichment">
+          <xsl:with-param name="document" select="$state"/>
+      </xsl:call-template>
+   </xsl:variable>
+
+   <!-- further enrichment (see ERmodel2.documentation_enrichment.module.xslt)        -->
    <xsl:variable name="state">
       <xsl:call-template name="documentation_enrichment">
           <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
    </xsl:variable>
+
+   <xsl:if test="$debugon">
+      <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:result-document href="documentation_enrichment_for_svg_temp.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
 
    <xsl:for-each select="$state/entity_model">
       <xsl:call-template name="entity_model_diagram"/> 
@@ -1697,9 +1713,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </path>
    </xsl:variable>
    <xsl:call-template name="process_path_then_render">  <!-- this call from "composition" -->
-      <xsl:with-param name="relationship_element_id"> 
-            <xsl:value-of select="concat(id,'_text')"/>
-      </xsl:with-param>
+      <xsl:with-param name="relationship_element_id" select="id"/> 
+            <!--<xsl:value-of select="concat(id,'_text')"/>
+      </xsl:with-param>-->
       <xsl:with-param name="path" select="$path/path"/>
    </xsl:call-template>
 
@@ -2180,7 +2196,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:variable>
    <xsl:call-template name="process_path_then_render">  <!-- this call from "reference|constructed_relationship" -->
       <xsl:with-param name="relationship_element_id"> 
-         <xsl:value-of select="concat(id,'_text')"/>
+         <xsl:value-of select="id"/>
+         <!--<xsl:value-of select="concat(id,'_text')"/>-->
       </xsl:with-param>
       <xsl:with-param name="path" select="$path/path"/>
    </xsl:call-template>

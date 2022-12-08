@@ -23,6 +23,7 @@
 
 <xsl:transform version="2.0" 
         xmlns="http://www.entitymodelling.org/ERmodel"
+        xmlns:era="http://www.entitymodelling.org/ERmodel"
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
@@ -44,6 +45,9 @@
             id:string             # a short id of form S<n> for some n
             display_text: string  # is <relname>:<dest et name> {|?|+|*}
 
+      dependency => 
+            id:string             # defined as id of inverse composition
+
      reference =>
             id:string             # a short id of form S<n> for some n
             scope_display_text : string r,;
@@ -54,14 +58,21 @@
 
       navigation ::= identity | theabsolute | join | aggregate | component
       
-      navigation =>  display_text : string   # text presentation of the navigation using
-                                #       / for join
-                                #       | for aggregation  ??????????????????????????????????????????????????
-                                #       . for the identity
-                                #       ^ for the absolute
-                                          
+         navigation =>  display_text : string  # text presentation of the navigation using
+                                               #       / for join
+                                               #       | for aggregation  ?
+                                               #       . for the identity
+                                               #       ^ for the absolute
+                        rel_id_csl : string    # comma separated list of rel ids         
 -->
 
+<xsl:key name="AllRelationshipBySrcTypeAndName"
+         match="reference|composition|dependency|constructed_relationship"
+         use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
+
+<xsl:key name="CompositionByDestTypeAndInverseName" 
+         match="composition" 
+         use="concat(type,':',inverse)"/>
 
 <xsl:template name="documentation_enrichment">
    <xsl:param name="document"/>
@@ -144,6 +155,20 @@
        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
     </xsl:copy>
 </xsl:template>
+
+<xsl:template match="dependency
+                     [not(id)]
+                     [key('CompositionByDestTypeAndInverseName',concat(../name,':',name))/id]
+                    "
+              mode="documentation_enrichment_recursive"  priority="1">
+   <xsl:copy>
+       <id>
+          <xsl:value-of select="key('CompositionByDestTypeAndInverseName',concat(../name,':',name))/id"/>
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
 
 <xsl:template match="reference
                      [not(id)]" 
@@ -425,12 +450,75 @@
       </display_text>
     </xsl:copy>
 </xsl:template>
-
-
-
-
-
 <!-- display_text  ends -->
+
+<!-- rel_id_array -->
+
+<xsl:template match="identity
+                     [not(rel_id_csl)]
+                    " 
+              priority="8"
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <rel_id_csl>
+         <xsl:value-of select="''"/>
+      </rel_id_csl>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="theabsolute
+                     [not(rel_id_csl)]
+                     " 
+              priority="9"
+              mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <rel_id_csl>
+         <xsl:value-of select="'??'"/>
+      </rel_id_csl>
+
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="join
+                     [not(rel_id_csl)]
+                     [every $component in component satisfies $component/rel_id_csl]
+                     "
+                     priority="10"
+                     mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <rel_id_csl>
+         <xsl:value-of select="string-join(component/rel_id_csl,',')"/>
+      </rel_id_csl>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="component
+                     [src]
+                     [key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel)))/id]
+                     [not(rel_id_csl)]" 
+                     priority="11"
+                     mode="documentation_enrichment_recursive">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+      <rel_id_csl>
+         <xsl:value-of select="concat('''',
+                                      key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel)))/id,
+                                      '''')"/>
+      </rel_id_csl>
+            <xsl:message>setting rel_id_csl for component </xsl:message>
+   </xsl:copy>
+</xsl:template>
+
+<!-- rel_id_csl ends -->
+
+
+
+
 
 
 </xsl:transform>
