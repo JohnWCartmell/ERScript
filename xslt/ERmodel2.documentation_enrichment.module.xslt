@@ -63,7 +63,13 @@
                                                #       | for aggregation  ?
                                                #       . for the identity
                                                #       ^ for the absolute
-                        rel_id_csl : string    # comma separated list of rel ids         
+                        rel_id_csl : string    # comma separated list of rel ids 
+                        rel_inv_csl : string   # array of 1's and -1's   # -1 for a dependency 
+                                                                         # 1 otherwise
+                                                                         # used for direction of 
+                                                                         # travel in animation
+
+
 -->
 
 <xsl:key name="AllRelationshipBySrcTypeAndName"
@@ -452,7 +458,7 @@
 </xsl:template>
 <!-- display_text  ends -->
 
-<!-- rel_id_array -->
+<!-- rel_id_xsl -->
 
 <xsl:template match="identity
                      [not(rel_id_csl)]
@@ -464,6 +470,9 @@
       <rel_id_csl>
          <xsl:value-of select="''"/>
       </rel_id_csl>
+      <rel_inv_csl>
+         <xsl:text>1</xsl:text>
+      </rel_inv_csl>
    </xsl:copy>
 </xsl:template>
 
@@ -477,6 +486,9 @@
       <rel_id_csl>
          <xsl:value-of select="'??'"/>
       </rel_id_csl>
+      <rel_inv_csl>
+         <xsl:text>1</xsl:text>
+      </rel_inv_csl>
 
    </xsl:copy>
 </xsl:template>
@@ -492,6 +504,9 @@
       <rel_id_csl>
          <xsl:value-of select="string-join(component/rel_id_csl,',')"/>
       </rel_id_csl>
+        <rel_inv_csl>
+         <xsl:value-of select="string-join(component/rel_inv_csl,',')"/>
+      </rel_inv_csl>
    </xsl:copy>
 </xsl:template>
 
@@ -510,7 +525,13 @@
                                             era:packArray((src,rel)))/id,
                                       '''')"/>
       </rel_id_csl>
-            <xsl:message>setting rel_id_csl for component </xsl:message>
+      <rel_inv_csl>
+         <xsl:value-of select="concat('''',
+                                      key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel)))/
+                                               (if(self::dependency) then -1 else 1),
+                                      '''')"/>
+      </rel_inv_csl>
    </xsl:copy>
 </xsl:template>
 

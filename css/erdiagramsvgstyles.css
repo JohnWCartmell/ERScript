@@ -77,14 +77,21 @@
           stroke-width: .2;
           pointer-events: stroke;
         }
+
         .relationshiphitarea{
           stroke: black;
-          stroke-opacity:0;          
+          stroke-opacity:0;  
         }
         .relationshiphitarea:hover {
-          stroke: #15D4FA;
+          stroke: yellow ; 
           stroke-opacity:0.5;
         }
+
+        .relationshipMouseOver {
+          stroke: yellow ; 
+          stroke-opacity:0.5;
+        }
+        
         .relationshippopped {
           stroke: #15D4FA;
           stroke-opacity:0.5;
@@ -92,7 +99,11 @@
         .relationshipdiagonal {
           stroke: red;
           stroke-opacity:0.5;
-        }
+          stroke-dasharray: 7 ;
+          stroke-dashoffset: 0 ;
+          #animation: dash 5s linear forwards;
+          }
+
         .relationshipriser {
           stroke: blue;
           stroke-opacity:0.5;

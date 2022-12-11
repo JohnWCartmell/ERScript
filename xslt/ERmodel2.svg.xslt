@@ -187,6 +187,17 @@ CHANGE HISTORY
         <xsl:text>],</xsl:text>
     </xsl:for-each>
     <xsl:text>} ;</xsl:text>
+    <xsl:text>
+        const diagonal_element_directions = {</xsl:text>
+    <xsl:for-each select="descendant::reference">
+        <xsl:text>
+        "</xsl:text>
+        <xsl:value-of select="id"/>
+        <xsl:text>":[</xsl:text>
+        <xsl:value-of select="diagonal/*/rel_inv_csl"/>
+        <xsl:text>],</xsl:text>
+    </xsl:for-each>
+    <xsl:text>} ;</xsl:text>
         <xsl:text>
         const riser_elements = {</xsl:text>
     <xsl:for-each select="descendant::reference">
@@ -195,6 +206,17 @@ CHANGE HISTORY
         <xsl:value-of select="id"/>
         <xsl:text>":[</xsl:text>
         <xsl:value-of select="riser/*/rel_id_csl"/>
+        <xsl:text>],</xsl:text>
+    </xsl:for-each>
+    <xsl:text>} ;</xsl:text>
+    <xsl:text>
+        const riser_element_directions = {</xsl:text>
+    <xsl:for-each select="descendant::reference">
+        <xsl:text>
+        "</xsl:text>
+        <xsl:value-of select="id"/>
+        <xsl:text>":[</xsl:text>
+        <xsl:value-of select="riser/*/rel_inv_csl"/>
         <xsl:text>],</xsl:text>
     </xsl:for-each>
     <xsl:text>} ;
@@ -990,7 +1012,7 @@ CHANGE HISTORY
         </xsl:attribute>
         <xsl:if test="exists($element_id)">
           <xsl:attribute name="onclick">
-            <xsl:value-of select="concat('top.showRelationshipDetail(''',$element_id,''')')"/>
+            <xsl:value-of select="concat('top.clickRelationship(''',$element_id,''')')"/>
           </xsl:attribute>
         </xsl:if>
     </svg:path>
