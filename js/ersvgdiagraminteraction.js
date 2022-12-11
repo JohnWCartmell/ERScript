@@ -51,19 +51,33 @@ function showRelationshipDetail(id){
    hitAreaElement.classList.add("relationshippopped");
    console.log('after pop class List',hitAreaElement.classList);
    console.log('after pop class List',hitAreaElement.classList);
+   var rel_ids = [];
+   var colours = [];
+   var directions = [];
+   // diagonal
    diagonal_ids = diagonal_elements[id] ;
-   diagonal_directions = diagonal_element_directions[id] ;
-   diagonal_colours = diagonal_ids.map(id => 'red') ;
-   subject_id = id;
-   subject_colour='#15D4FA';
-   subject_direction = 1;
-   riser_ids = riser_elements[id] ;
-   riser_colours = riser_ids.map(id => '#15D4FA') ;
-   riser_directions = riser_element_directions[id]
+   if (diagonal_ids !== undefined){
+      rel_ids = rel_ids.concat(diagonal_ids) ;
+      directions = directions.concat(diagonal_element_directions[id]) ;
+      colours=colours.concat(diagonal_ids.map(id => 'red')) ;
+   };
 
-   animatePath(diagonal_ids.concat([subject_id],riser_ids),
-               diagonal_directions.concat([subject_direction],riser_directions),
-               diagonal_colours.concat([subject_colour],riser_colours)
+   // now for subject rel itself
+   rel_ids = rel_ids.concat([id]) ;
+   directions = directions.concat([1]) ;
+   colours = colours.concat(['#15D4FA']) ;
+
+   //riser 
+   riser_ids = riser_elements[id] ;
+   if (riser_ids !== undefined) {
+      rel_ids = rel_ids.concat(riser_ids) ;
+      directions = directions.concat(riser_element_directions[id]) ;
+      colours = colours.concat(riser_ids.map(id => '#15D4FA')) ;
+   } ;
+
+   animatePath(rel_ids,
+               directions,
+               colours
                );
 } ;
 
@@ -91,7 +105,7 @@ function animatePath(pathElementIds,pathElementDirections,colourArray){
 } ;
 
 // Globals
-var pathVelocity = 3; // meaning 3 units (cm?) per second
+var pathVelocity = 20; // meaning 3 units (cm?) per second
 
  
 
