@@ -106,6 +106,24 @@
               <!-- this template is deliberately left blank -->
    </xsl:template>
 
+   <xsl:template match="dependency" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:message>Copying following dependency</xsl:message>
+         <xsl:copy-of select="following::dependency[name=current()/name and ../name = current()/../name]
+                                                  /*[not(self::name|self::type)]"/> 
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="dependency[preceding::dependency[../name = current()/../name
+                                                            and name=current()/name 
+                                                      ]
+                                 ]" 
+                 mode="consolidate">
+                 <xsl:message>Pruning depdendency</xsl:message>
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
    <xsl:template match="attribute" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
