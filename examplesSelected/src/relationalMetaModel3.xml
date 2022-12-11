@@ -32,7 +32,7 @@
          <cardinality>
             <OneOrMore/>
          </cardinality>
-         <inverse>root</inverse>
+         <inverse>..</inverse>
       </composition>
    </absolute>
    <entity_type>
@@ -49,6 +49,11 @@
          </type>
          <identifying/>
       </attribute>
+      <dependency>
+         <name>..</name>
+         <cardinality><ExactlyOne/></cardinality>   
+         <type></type>
+      </dependency>
       <composition>
          <type>primary key entry</type>
          <cardinality>
@@ -244,10 +249,21 @@
                <ExactlyOne/>
             </cardinality>
             <diagonal>
-               <theabsolute/>
+               <!-- was the absolute -->
+               <join>
+               <component>
+                  <rel>of</rel>
+               </component> 
+               <component>
+                  <rel>..</rel>
+               </component> 
+               </join>
             </diagonal>
             <riser>
-               <theabsolute/>
+               <!-- was the absolute -->
+               <component>
+                  <rel>..</rel>
+               </component>
             </riser>
             <diagram>
                <path>
