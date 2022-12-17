@@ -71,7 +71,7 @@
 
 
 -->
-
+<!-- these are found in in ERAmodel2.diagram.module
 <xsl:key name="AllRelationshipBySrcTypeAndName"
          match="reference|composition|dependency|constructed_relationship"
          use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
@@ -79,7 +79,7 @@
 <xsl:key name="CompositionByDestTypeAndInverseName" 
          match="composition" 
          use="concat(type,':',inverse)"/>
-
+-->
 <xsl:template name="documentation_enrichment">
    <xsl:param name="document"/>
    <xsl:variable name ="next">
@@ -484,7 +484,7 @@
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <rel_id_csl>
-         <xsl:value-of select="'??'"/>
+         <xsl:value-of select="'''??'''"/>
       </rel_id_csl>
       <rel_inv_csl>
          <xsl:text>1</xsl:text>
@@ -520,6 +520,12 @@
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <rel_id_csl>
+        <xsl:message>src is <xsl:value-of select="src"/> rel is <xsl:value-of select="rel"/></xsl:message>
+        <xsl:message>retreived id is <xsl:value-of select="key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel)))/id"/> </xsl:message>
+        <xsl:message>cardinality <xsl:value-of select="count(key('AllRelationshipBySrcTypeAndName',
+                                            era:packArray((src,rel))))"/> </xsl:message>
+
          <xsl:value-of select="concat('''',
                                       key('AllRelationshipBySrcTypeAndName',
                                             era:packArray((src,rel)))/id,

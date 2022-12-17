@@ -68,10 +68,20 @@ CHANGE HISTORY
         <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
       <xsl:attribute name="height">
         <xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
+          <xsl:choose>
+              <xsl:when test="$bundleOn">
+                <svg:style>
+                    <xsl:value-of select="unparsed-text('../../css/erdiagramsvgstyles.css')" 
+                              disable-output-escaping="yes"/>
+                </svg:style>
+              </xsl:when>
+              <xsl:otherwise>
+                <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
+                       type="text/css"
+                       href="/css/erdiagramsvgstyles.css"/>
+              </xsl:otherwise>
+          </xsl:choose>
 
-      <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
-             type="text/css"
-             href="/css/erdiagramsvgstyles.css"/>
       <svg:defs>
         <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
           <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
@@ -97,14 +107,46 @@ CHANGE HISTORY
       <html>
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
-          <script src="/js/ersvgdiagraminteraction.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+          <xsl:choose>
+              <xsl:when test="$bundleOn">
+                <style>
+                    <xsl:value-of select="unparsed-text('../../css/ersvgdiagramwrapper.css')" 
+                              disable-output-escaping="yes"/>
+                </style>
+              </xsl:when>
+              <xsl:otherwise>
+                <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
+              </xsl:otherwise>
+          </xsl:choose>
+          <xsl:if test="$animateOn">
+          <script>
+            <xsl:choose>
+               <xsl:when test="$bundleOn">
+                  <xsl:value-of select="unparsed-text('../../js/ersvgdiagraminteraction.js')" 
+                              disable-output-escaping="yes"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:attribute name="src" select="'/js/ersvgdiagraminteraction.js'"/>
+            This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+              </xsl:otherwise>
+          </xsl:choose>
           </script>
-          <script src="/js/draggable.js">This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+          <script>
+            <xsl:choose>
+               <xsl:when test="$bundleOn">
+                  <xsl:value-of select="unparsed-text('../../js/draggable.js')" 
+                              disable-output-escaping="yes"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:attribute name="src" select="'/js/draggable.js'"/>
+            This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+              </xsl:otherwise>
+          </xsl:choose>
           </script>
           <script>
                <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
           </script>
+          </xsl:if>
         </head>
         <body>
           <div> 

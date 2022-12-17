@@ -65,13 +65,21 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
         xmlns:xlink="http://www.w3.org/TR/xlink"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel" >
 
-<xsl:param name="filestem"/>
-<xsl:param name="debug"/>
-<xsl:param name="trace"/>
-<xsl:param name="noscopes" as="xs:string?"/>
-<xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
-<xsl:variable name="traceon" as="xs:boolean" select="$trace='y'" />
-<xsl:variable name="scopeson" as="xs:boolean" select="if (not(exists($noscopes))) then true() else $noscopes='n'" />
+<xsl:param name="filestem" as="xs:string"/>
+<xsl:param name="bundle"   as="xs:string?" select="y" />    <!-- inlines required scripts and css styling into the html file -->
+<xsl:param name="animate"  as="xs:string?" select="n"/>
+<xsl:param name="debug"    as="xs:string?" select="n"/>
+<xsl:param name="trace"    as="xs:string?" select="n"/>
+<xsl:param name="scopes"   as="xs:string?" select="y"/>
+<xsl:param name="relids"   as="xs:string?" select="n"/>
+
+
+<xsl:variable name="bundleOn"  as="xs:boolean" select="$bundle='y'" />
+<xsl:variable name="animateOn" as="xs:boolean" select="$animate='y'" />
+<xsl:variable name="debugOn"   as="xs:boolean" select="$debug='y'" />
+<xsl:variable name="traceOn"   as="xs:boolean" select="$trace='y'" />
+<xsl:variable name="scopesOn"  as="xs:boolean" select="$scopes='y'" />
+<xsl:variable name="relidsOn"  as="xs:boolean" select="$relids='y'" />
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
@@ -227,9 +235,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:variable>
 
 <xsl:template name="main" match="/">
-<xsl:message>In main in 2.diagram.module --- debug = <xsl:value-of select="$debug"/> </xsl:message>
-<xsl:message>In main not exists $scopeson = <xsl:value-of select="$scopeson"/> </xsl:message>
-
+<xsl:message>
+   ========================
+   --- bundle = <xsl:value-of select="$bundle"/>
+   --- animate = <xsl:value-of select="$animate"/>
+   --- debug = <xsl:value-of select="$debug"/>
+   --- trace = <xsl:value-of select="$trace"/>
+   --- scopes = <xsl:value-of select="$scopes"/>
+   --- relids = <xsl:value-of select="$relids"/> 
+   ========================
+</xsl:message>
 
    <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
     <xsl:variable name="state">
@@ -240,7 +255,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:apply-templates select="$state" mode="consolidate"/>
    </xsl:variable>
 
-   <xsl:if test="$debugon">
+   <xsl:if test="$debugOn">
       <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="initial_assembly_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
@@ -262,7 +277,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:call-template>
    </xsl:variable>
 
-   <xsl:if test="$debugon">
+   <xsl:if test="$debugOn">
       <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="documentation_enrichment_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
@@ -327,7 +342,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
 <xsl:template name="diagram_content" match="entity_model">
    <xsl:for-each select="entity_type|group">
-       <xsl:if test="$traceon">
+       <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type name')"/>   
           <xsl:text>}</xsl:text>
@@ -453,7 +468,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:template name="entity_type_content" match="entity_type|group">
   <xsl:param name="p_et_iseven"/>
   <xsl:param name="p_grp_iseven"/>
-       <xsl:if test="$traceon">
+       <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call et_x')"/>   
           <xsl:text>}</xsl:text>
@@ -463,7 +478,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	<xsl:with-param name="scheme" select="'ABSOLUTE'"/>
      </xsl:call-template>
   </xsl:variable>
-       <xsl:if test="$traceon">
+       <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call et_y')"/>   
           <xsl:text>}</xsl:text>
@@ -476,7 +491,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name= "height">
      <xsl:call-template name="et_height"/>
   </xsl:variable>
-       <xsl:if test="$traceon">
+       <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type about to call width')"/>   
           <xsl:text>}</xsl:text>
@@ -484,7 +499,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name= "width">
      <xsl:call-template name="et_width"/>
   </xsl:variable>
-       <xsl:if test="$traceon">
+       <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
                <xsl:value-of select="trace(string(name),'entity type back from width')"/>   
           <xsl:text>}</xsl:text>
@@ -523,7 +538,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:choose>
   </xsl:variable>
 
-  <xsl:if test="not(self::group) or ($debug!='') or (exists(presentation/shape))">
+  <xsl:if test="not(self::group) or ($debugOn) or (exists(presentation/shape))">
     <xsl:call-template name="entity_type_box">
        <xsl:with-param name="isgroup" select="exists(self::group)"/>  
        <xsl:with-param name="iseven" as="xs:boolean">
