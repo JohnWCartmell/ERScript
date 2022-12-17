@@ -3,6 +3,8 @@
 Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
+   [Parameter(Mandatory=(Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs')]
+       [string]$outputFolder,
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -30,7 +32,7 @@ $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
 
-$outputFolder = $srcDirectoryName + '\..\docs'
+#$outputFolder = $srcDirectoryName + '\..\docs'
 If(!(test-path -PathType container $outputFolder))
 {
       New-Item -ItemType Directory -Path $outputFolder
