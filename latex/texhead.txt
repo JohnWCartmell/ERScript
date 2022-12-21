@@ -7,7 +7,7 @@
 \usepackage{amssymb}
 \usepackage{wasysym}
 
-\input{../../ERmodel_v1.5/latex/erdiagram}
+\input{../../ERmodel_v1.6/latex/erdiagram}
 
 \usepackage{xcolor}
 \usepackage{color}

@@ -17,7 +17,7 @@ FOR %%x IN (*.xml) DO (
   echo           **** generating svg:
   echo                                      ERmodel2.svg.xslt
   echo                           !modelname!.xml ------------^> docs\!modelname!.svg
-  call %ERHOME%\scripts\generate_svgandlog %%x
+  powershell -Command "%ERHOME%\scripts\genSVG.ps1  %%x -animate"
   echo. 
 
   echo.

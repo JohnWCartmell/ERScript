@@ -3,8 +3,8 @@
 Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
-   [Parameter(Mandatory=(Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs')]
-       [string]$outputFolder,
+   [Parameter(Mandatory=$False)]
+       [string]$outputFolder={(Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'},
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]

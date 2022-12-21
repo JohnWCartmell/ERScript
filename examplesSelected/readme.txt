@@ -1,5 +1,5 @@
 
-** Folder <DISTRIBUTION>/exampleDataModels **
+** Folder <DISTRIBUTION>/exampleSelected **
 
 The ER models in the src subfolder are logical models and need  to be 
 transformed to physical models using the logical2physical transform 

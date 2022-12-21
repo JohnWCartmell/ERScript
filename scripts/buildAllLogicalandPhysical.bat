@@ -16,6 +16,10 @@ cd src
 call %ERHOME%\scripts\genAllPhysical
 cd ..
 
+echo GEBNERATING PHYSICAL SVGs
+cd temp
+call %ERHOME%\scripts\genAllSvg
+cd ..
 
 echo GENERATING TEX for all logical >>build.log
 cd src
