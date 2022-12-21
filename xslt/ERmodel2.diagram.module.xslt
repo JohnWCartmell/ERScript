@@ -2212,7 +2212,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:call-template name="process_path_then_render">  <!-- this call from "reference|constructed_relationship" -->
       <xsl:with-param name="relationship_element_id"> 
          <xsl:value-of select="id"/>
-         <!--<xsl:value-of select="concat(id,'_text')"/>-->
       </xsl:with-param>
       <xsl:with-param name="path" select="$path/path"/>
    </xsl:call-template>
@@ -2621,7 +2620,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name="xIntermediate" select="($psrc_x2 + $pdest_x2) div 2"/>
   <xsl:variable name="yIntermediate" select="($psrc_y2 + $pdest_y2) div 2"/>
 
-<!-- drawText of scope and relid removed. 21/11/2022 (moved into path processing and rendering)-->
+<!-- drawText of scope and relid removed. 21/11/2022 
+(moved into path processing and rendering)-->
 <!-- new -->
    <xsl:variable name="sign">
      <xsl:choose>
@@ -3404,14 +3404,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
           <xsl:with-param name="path" select="$path"/>
        </xsl:call-template>
    </xsl:variable>
-   <trace>
-      <before>
-         <xsl:copy-of select="$path"/>
-      </before>
-      <after>
-         <xsl:copy-of select="$processed_path"/>
-      </after>
-   </trace>
+   <xsl:if test="$traceOn">
+      <trace>
+         <before>
+            <xsl:copy-of select="$path"/>
+         </before>
+         <after>
+            <xsl:copy-of select="$processed_path"/>
+         </after>
+      </trace>
+   </xsl:if>
    <xsl:call-template name="render_path">
       <xsl:with-param name="relationship_element_id" select="$relationship_element_id"/> 
       <xsl:with-param name="source_to_midpoint" select="$processed_path/path/line[1]"/>    
@@ -3520,7 +3522,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:param name="midpointx"/>
       <xsl:param name="midpointy"/>
       <xsl:param name="sign"/>
-        <xsl:variable name="rel_id" select="(ancestor::reference|ancestor::composition|.)/id" />
+        <xsl:variable name="rel_id" 
+              select="(ancestor::reference|ancestor::composition|.)/id" />
      <xsl:if test="not($rel_id='') and key('whereImplemented',concat(ancestor-or-self::reference/concat(../name,':',name),
                                                                      ancestor-or-self::composition/concat(type,':',inverse)
                                                                     )
