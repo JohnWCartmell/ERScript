@@ -16,17 +16,24 @@ function showEntityTypeDetail(id){
  var divElement = myHTMLDoc.getElementById(id + "_text");
  //divElement.setAttributeNS(null,'class', 'infotextboxpopped');
     //divElement.class='infotextboxpopped';
-   divElement.style.display = 'block';
+   //divElement.style.display = 'block';
    divElement.style.visibility = 'visible';
-   divElement.style.opacity = 1;
+   divElement.style.pointerEvents = 'auto';
+   //divElement.style.opacity = 1;
   }
+
+function closePopUp(id){
+   console.log('close call')
+ var divElement = myHTMLDoc.getElementById(id + "_text");
+   divElement.style.visibility = 'hidden';
+   divElement.style.pointerEvents = 'none';
+
+}
 
 function showAttributeDetail(id){
  var divElement = document.getElementById(id + "_text");
+ console.log(divElement);
    divElement.setAttributeNS(null,'class', 'display:block;visibility:visible;opacity:1');
-   //divElement.style.display = 'block';
-   //divElement.style.visibility = 'visible';
-      //divElement.style.opacity = 1;
   }
 
 function clickRelationship(id){
@@ -43,9 +50,10 @@ function clickRelationship(id){
 
 function showRelationshipDetail(id){   
    var divElement = document.getElementById(id + "_text");
-   divElement.style.display = 'block';
+   //divElement.style.display = 'block';
    divElement.style.visibility = 'visible';
-   divElement.style.opacity = 1;
+  // divElement.style.opacity = 1;
+   divElement.style.pointerEvents = 'auto';
   
    var hitAreaElement = svgDoc.getElementById(id + "_hitarea");
    hitAreaElement.classList.add("relationshippopped");
@@ -107,7 +115,6 @@ function animatePath(pathElementIds,pathElementDirections,colourArray){
 // Globals
 var pathVelocity = 20; // meaning 3 units (cm?) per second
 
- 
 
 function resetDisplay () {
    console.log('Resetting display --- length', resetArray.length)
@@ -141,6 +148,7 @@ function animateRel(relHitArea,timing,length,duration,direction,colour){
    //console.log(animation) ;
 }
 
+/* This below will need changing to new display,visibility scheme if used in future */
 function closeallinfotextboxes(){
    var textboxes = document.getElementsByClassName("infotextbox");
    for(var i=0; i<textboxes.length; i++){

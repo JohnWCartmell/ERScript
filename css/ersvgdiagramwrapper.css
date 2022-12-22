@@ -1,10 +1,10 @@
 /* styles used in wrapping ER diagrams represented in svg and in wrapping associated detail of entiities, relationships and attributes */
  
    div.bigbody{
+   	height:100%;
 		background-color:white;
-		width:100%; 
 		margin-right:1px;
-		border: 3px solid ; 
+		border: 3px solid purple; 
    }
 
  	div.entityModelHeader{
@@ -83,13 +83,19 @@
 		color:#283769;
 		width:98%
    }
-   div.svganddivcontainer{      
+   div.svganddivcontainer{ 
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */
-	   width:120%;
+	   width:max-content;
 		float:left; 
 		margin-left: 10px;  
 		border:1px solid grey;
-	   overflow:scroll;	 
+	   /*overflow:auto;	 */
+   }
+
+   #svgcontainer{
+   	width:max-content;
+   	border:1px solid red;
+   	margin:4px;
    }
   
    div.metatype {    /* added for info box surround 11/11/2022*/
@@ -102,37 +108,33 @@
 	}
 
 	div.infolevel1{
+		pointer-events:none;
 		position:absolute;
-		width:50%;
+		width:max-content;
 		float:left;
 		padding-left:0px;
 		margin-right:40px;		
 	}
 	div.infolevel2{
 		position:absolute;
-		width:100%;
 	   float:left;
 		padding-left:10px;
 		margin-right:30px;	
 	}
 	div.infolevel3{
 		position:absolute;
-		width:100%;
 		float:left;
 		padding-left:20px;
 		margin-right:20px	
 	}
 	div.infolevel4{
-
 		position:absolute;
-		width:100%;
 		float:left;
 		padding-left:30px;
 		margin-right:10px	
 	}
 	div.infolevel5{
 		position:absolute;
-		width:100%;
 		float:left;
 		padding-left:40px;
 		margin-right:0px	
@@ -140,8 +142,9 @@
 	
 /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
  	div.infotextbox{
-		display:none;
-		opacity:0;  /*xxxxxxxxxxxxxxxxxxxxxxxxx want a 0 here but have 1 when debugging*/
+		display:block;
+		visibility:hidden;
+		pointer-events:none;
 		box-shadow: 5px 5px 2px grey; 
 		border: 1px solid ; 
 		font-family: sans-serif; 
@@ -150,23 +153,7 @@
 		padding-left:5px;   padding-right:5px; padding-top:5px; padding-bottom:5px; 
 		color:#283769;
 		background-color:rgb(238,238,238);
-		transition: opacity 1s linear ;
 	}
 
-	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
- 	div.infotextboxpopped{
-		display:block;
-		opacity:1;  /* 1 when popped*/
-		visibility:visible;
-		box-shadow: 5px 5px 2px grey; 
-		border: 1px solid ; 
-		font-family: sans-serif; 
-		line-height 2.0; 
-		font-size: 9px; 
-		padding-left:5px;   padding-right:5px; padding-top:5px; padding-bottom:5px; 
-		color:#283769;
-		background-color:rgb(238,238,238);
-		transition: opacity 1s linear ;
-	}
 
 	

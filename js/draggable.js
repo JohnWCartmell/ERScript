@@ -43,18 +43,22 @@ function initialise() {
   var elmnt ="" ;
 
 
-
   function dragMouseDown(e) {
     e = e || window.event;
     e.preventDefault();  /* why? */
     elmnt = e.currentTarget;
+    console.log("start drag myclass " + elmnt.className + "id" + elmnt.id)
+    console.log("visibility",elmnt.style.visibility)
+    for (const child of elmnt.children) {
+        console.log(' child id', child.id);
+    }
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
-    console.log("start drag myclass " + elmnt.className + "id" + elmnt.id)
+    console.log("continue drag myclass " + elmnt.className + "id" + elmnt.id)
     svgContainerElement.style.pointerEvents = "none";
   }
 

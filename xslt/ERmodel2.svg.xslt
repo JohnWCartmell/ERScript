@@ -327,9 +327,9 @@ CHANGE HISTORY
             <button>
               <xsl:attribute name="class" select="'close'"/>
               <xsl:attribute name="onClick" >
-                <xsl:text>document.getElementById('</xsl:text>
-                <xsl:value-of select="$text_div_id"/>       
-                <xsl:text>').style.display='none';</xsl:text>
+                <xsl:text>closePopUp('</xsl:text>
+                <xsl:value-of select="id"/>       
+                <xsl:text>');</xsl:text>
               </xsl:attribute>
               <xsl:text>x</xsl:text>
             </button> 
