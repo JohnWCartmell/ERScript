@@ -1,7 +1,8 @@
 /* styles used in wrapping ER diagrams represented in svg and in wrapping associated detail of entiities, relationships and attributes */
  
    div.bigbody{
-   	height:100%;
+   	display:flow-root;
+   	width:max-content;
 		background-color:white;
 		margin-right:1px;
 		border: 3px solid purple; 
@@ -28,42 +29,14 @@
 		display:block;
 		background-color:white;
 		font-size: 10px;
-		/* font-family: Montserrat; */
 		font-family: sans-serif ;
    }
-
-/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
-   div.descriptionHeader{
-    	display:block;	
-		cursor:move;
-      padding-left:0px;
-      padding-right:0px;
-	   padding-top:0px;
-	   padding-bottom:1px;
-	   border-width:1pt;
-	   border-bottom-style:solid;
-		font-size: 10px;
-		font-family: sans-serif ;
-   }
-   div.descriptionHeader::after {
-	   content: "";
-	   clear: both;
-	   display: table;
-	}
 
    hr.rule{
    	clear:left;
    }
 
-/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
-   div.otherDescription{
-   	clear:left;
-   	display:block;
-   	padding-top:1px;
-   	background-color:white;
-		font-size: 10px;
-		font-family: sans-serif ;
-   }
+
 
 /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
   	p {
@@ -83,6 +56,10 @@
 		color:#283769;
 		width:98%
    }
+
+/* svganddivconatiner => svgcontainer ;
+                         infolevel1 */
+
    div.svganddivcontainer{ 
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */
 	   width:max-content;
@@ -97,22 +74,104 @@
    	border:1px solid red;
    	margin:4px;
    }
-  
+
+/* infolevel1 => infotextbox, 
+                 infolevel2 * ;
+
+   infolevel2 => infotextbox, 
+                 infolevel3 * ;
+
+   infolevel3 => infotextbox, 
+                 infolevel4 * ;
+
+   infolevel4 => infotextbox, 
+                 infolevel5 * ;
+
+   infotextbox => descriptionHeader, 
+                  otherDescription ;
+ 
+   descriptionHeader => metatype,
+                        closeContainer ;
+
+   closeContainer => close ;
+
+   /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
+ 	div.infotextbox{
+ 		height: 3cm ;
+ 		overflow:auto;
+		display:block;
+		visibility:hidden;
+		pointer-events:none;
+		box-shadow: 5px 5px 2px grey; 
+		border: 1px solid ; 
+		font-family: sans-serif; 
+		line-height 2.0; 
+		font-size: 9px; 
+		padding-left:5px;   padding-right:5px; padding-top:5px; padding-bottom:5px; 
+		color:#283769;
+		background-color:rgb(238,238,238);
+	}
+
+   /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
+   div.descriptionHeader{
+    	display:flow-root;	
+		cursor:move;
+	   padding-bottom:3px;
+	   padding-right: 1cm;  //  leave space in container for abs positioned (out of flow) close button container
+	   border-width:1pt;
+	   border-bottom-style:solid;
+		font-size: 10px;
+		font-family: sans-serif ;
+		height: max-content;
+   }
+
    div.metatype {    /* added for info box surround 11/11/2022*/
+    display:inline-block;
     float:left;
+    white-space: nowrap;
     }
 	
    div.closecontainer {
-   margin-top: 0px;
-	float:right;
+   display:block;
+   position: absolute;
+   top: 0px; 
+   right: 0px
+	}
+
+	button.close{
+		border: 1px solid ;
+	}
+
+	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
+   div.otherDescription{
+   	clear:left;
+   	display:block;
+   	padding-top:1px;
+   	background-color:white;
+		font-size: 10px;
+		font-family: sans-serif ;
+   }
+
+   	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
+   table.attributeTable{
+		font-size: 10px;
+		font-family: sans-serif;
+		margin-left:10px;
+    white-space: nowrap;
+   }
+
+   button.popout{
+   	font-size: 10px;
+   	margin: 0px 0px 0px 30px;
+   	padding:0px;
+		border: 1px solid ;
 	}
 
 	div.infolevel1{
 		pointer-events:none;
 		position:absolute;
-		width:max-content;
+		width:min-content;
 		float:left;
-		padding-left:0px;
 		margin-right:40px;		
 	}
 	div.infolevel2{
@@ -140,20 +199,4 @@
 		margin-right:0px	
 	}
 	
-/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
- 	div.infotextbox{
-		display:block;
-		visibility:hidden;
-		pointer-events:none;
-		box-shadow: 5px 5px 2px grey; 
-		border: 1px solid ; 
-		font-family: sans-serif; 
-		line-height 2.0; 
-		font-size: 9px; 
-		padding-left:5px;   padding-right:5px; padding-top:5px; padding-bottom:5px; 
-		color:#283769;
-		background-color:rgb(238,238,238);
-	}
-
-
 	

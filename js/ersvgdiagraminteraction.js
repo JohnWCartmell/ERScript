@@ -14,9 +14,6 @@ var currentlySelectedRelationshipId = undefined;
 
 function showEntityTypeDetail(id){
  var divElement = myHTMLDoc.getElementById(id + "_text");
- //divElement.setAttributeNS(null,'class', 'infotextboxpopped');
-    //divElement.class='infotextboxpopped';
-   //divElement.style.display = 'block';
    divElement.style.visibility = 'visible';
    divElement.style.pointerEvents = 'auto';
    //divElement.style.opacity = 1;
@@ -24,16 +21,16 @@ function showEntityTypeDetail(id){
 
 function closePopUp(id){
    console.log('close call')
- var divElement = myHTMLDoc.getElementById(id + "_text");
+   var divElement = myHTMLDoc.getElementById(id + "_text");
    divElement.style.visibility = 'hidden';
    divElement.style.pointerEvents = 'none';
-
-}
+  }
 
 function showAttributeDetail(id){
  var divElement = document.getElementById(id + "_text");
  console.log(divElement);
-   divElement.setAttributeNS(null,'class', 'display:block;visibility:visible;opacity:1');
+    divElement.style.visibility = 'visible';
+   divElement.style.pointerEvents = 'auto';
   }
 
 function clickRelationship(id){
@@ -50,7 +47,6 @@ function clickRelationship(id){
 
 function showRelationshipDetail(id){   
    var divElement = document.getElementById(id + "_text");
-   //divElement.style.display = 'block';
    divElement.style.visibility = 'visible';
   // divElement.style.opacity = 1;
    divElement.style.pointerEvents = 'auto';

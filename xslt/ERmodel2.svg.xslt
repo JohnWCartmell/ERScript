@@ -198,7 +198,7 @@ CHANGE HISTORY
   <xsl:template name="render_descriptive_text" 
                  match="entity_model|entity_type|group">
     <xsl:for-each select="entity_type">
-        <xsl:call-template name="descriptive_text">
+        <xsl:call-template name="infobox">
            <xsl:with-param name="levelNumber" select="1"/>
         </xsl:call-template>
     </xsl:for-each>
@@ -265,8 +265,8 @@ CHANGE HISTORY
     </xsl:text>
   </xsl:template>
 
-  <xsl:template name="descriptive_text" 
-                match="entity_type|reference|composition|attribute" 
+  <xsl:template name="infobox" 
+                match="entity_type|reference|composition|arribute" 
                 mode="explicit">
     <xsl:param name="levelNumber"/>
     <xsl:variable name="popUpxPos">
@@ -279,8 +279,9 @@ CHANGE HISTORY
       <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
       <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
       <xsl:call-template name="infotextbox" />
+      <!--
       <xsl:for-each select="entity_type">
-        <xsl:call-template name="descriptive_text">
+        <xsl:call-template name="infobox">
           <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
         </xsl:call-template>
       </xsl:for-each>
@@ -289,10 +290,22 @@ CHANGE HISTORY
           <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
         </xsl:call-template>
       </xsl:for-each>
+      -->
     </div>
+    <xsl:for-each select="entity_type">
+      <xsl:call-template name="infobox">
+        <xsl:with-param name="levelNumber" select="1"/>
+      </xsl:call-template>
+    </xsl:for-each>
+    <xsl:for-each select="reference|composition|attribute">
+      <xsl:call-template name="infobox">
+        <xsl:with-param name="levelNumber" select="1"/>
+      </xsl:call-template>
+    </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="infotextbox" match="entity_type|reference|composition|attribute" mode="explicit">
+  <xsl:template name="infotextbox" match="entity_type|reference|composition|attribute" 
+                                   mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
       </xsl:variable>
@@ -317,7 +330,7 @@ CHANGE HISTORY
                 <xsl:value-of select="display_text"/>
               </xsl:when>
               <xsl:when test="self::attribute">
-                <b><xsl:text>attribute: </xsl:text></b>
+                <b><xsl:text>Attribute: </xsl:text></b>
                 <xsl:value-of select="display_text"/>
               </xsl:when>
             </xsl:choose>
@@ -354,11 +367,36 @@ CHANGE HISTORY
                   <i><xsl:text>TBD</xsl:text></i>
             </xsl:otherwise>
           </xsl:choose>
+          <xsl:if test="attribute">
+            <div><b>Attributes</b></div>
+            <table>
+              <xsl:attribute name="class" select="'attributeTable'"/>
+              <xsl:for-each select="attribute">
+                <xsl:call-template name="attributesummary"/>
+              </xsl:for-each>
+            </table>
+          </xsl:if> 
         </div>
-        <xsl:for-each select="attribute">
-          <xsl:call-template name="infotextbox"/>
-        </xsl:for-each> 
       </div>
+  </xsl:template>
+
+  <xsl:template name="attributesummary" match="attribute" mode="explicit">
+     <tr>
+        <td>
+          <xsl:value-of select="display_text"/>
+        </td>
+        <td>
+          <button>
+              <xsl:attribute name="class" select="'popout'"/>
+              <xsl:attribute name="onClick" >
+                <xsl:text>showAttributeDetail('</xsl:text>
+                <xsl:value-of select="id"/>       
+                <xsl:text>');</xsl:text>
+              </xsl:attribute>
+              <xsl:text>=&gt;</xsl:text>
+          </button> 
+        </td>
+     </tr>
   </xsl:template>
 
 
@@ -765,11 +803,13 @@ CHANGE HISTORY
 -->
 
   <xsl:template name="popUpxPos" match="absolute|entity_type|group" mode="explicit">
+    <!--
       <xsl:choose>
         <xsl:when test="parent::entity_type">    
           <xsl:value-of select="0.5"/> 
         </xsl:when>
         <xsl:otherwise>
+        -->
           <xsl:variable name="xRight">
           <!--     no longer get rid of groups from info stack 01/12/2022
             <xsl:choose>
@@ -791,11 +831,14 @@ CHANGE HISTORY
           -->
           </xsl:variable>
           <xsl:value-of select="$xRight + 0.2"/>
+          <!--
         </xsl:otherwise>
       </xsl:choose>
+    -->
   </xsl:template>
 
   <xsl:template name="popUpyPos" match="absolute|entity_type" mode="explicit">
+    <!--
       <xsl:choose>
         <xsl:when test="parent::entity_type">  
           <xsl:value-of select="2"/>
@@ -804,11 +847,14 @@ CHANGE HISTORY
           <xsl:value-of select="0.2"/>
         </xsl:when>
         <xsl:otherwise>
+        -->
           <xsl:call-template name="et_y">
             <xsl:with-param name="scheme" select="'ABSOLUTE'"/>
           </xsl:call-template>
+          <!--
         </xsl:otherwise>
       </xsl:choose>
+    -->
   </xsl:template>
 
 <!--
