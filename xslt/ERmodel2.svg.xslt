@@ -198,9 +198,7 @@ CHANGE HISTORY
   <xsl:template name="render_descriptive_text" 
                  match="entity_model|entity_type|group">
     <xsl:for-each select="entity_type">
-        <xsl:call-template name="infobox">
-           <xsl:with-param name="levelNumber" select="1"/>
-        </xsl:call-template>
+        <xsl:call-template name="infoboxContainer"/>
     </xsl:for-each>
     <xsl:for-each select="group">
         <xsl:call-template name="render_descriptive_text"/>
@@ -265,10 +263,9 @@ CHANGE HISTORY
     </xsl:text>
   </xsl:template>
 
-  <xsl:template name="infobox" 
+  <xsl:template name="infoboxContainer" 
                 match="entity_type|reference|composition|arribute" 
                 mode="explicit">
-    <xsl:param name="levelNumber"/>
     <xsl:variable name="popUpxPos">
       <xsl:call-template name="popUpxPos"/>
     </xsl:variable>
@@ -276,44 +273,28 @@ CHANGE HISTORY
           <xsl:call-template name="popUpyPos"/>
     </xsl:variable>
     <div>
-      <xsl:attribute name="class" select="concat('infolevel',$levelNumber)"/>
+      <xsl:attribute name="class" select="'infoboxContainer'"/>
       <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
-      <xsl:call-template name="infotextbox" />
-      <!--
-      <xsl:for-each select="entity_type">
-        <xsl:call-template name="infobox">
-          <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
-        </xsl:call-template>
-      </xsl:for-each>
-      <xsl:for-each select="reference|composition">
-        <xsl:call-template name="descriptive_text">
-          <xsl:with-param name="levelNumber" select="$levelNumber + 1"/>
-        </xsl:call-template>
-      </xsl:for-each>
-      -->
+      <xsl:call-template name="infobox" />
     </div>
     <xsl:for-each select="entity_type">
-      <xsl:call-template name="infobox">
-        <xsl:with-param name="levelNumber" select="1"/>
-      </xsl:call-template>
+      <xsl:call-template name="infoboxContainer"/>
     </xsl:for-each>
     <xsl:for-each select="reference|composition|attribute">
-      <xsl:call-template name="infobox">
-        <xsl:with-param name="levelNumber" select="1"/>
-      </xsl:call-template>
+      <xsl:call-template name="infoboxContainer"/>
     </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="infotextbox" match="entity_type|reference|composition|attribute" 
+  <xsl:template name="infobox" match="entity_type|reference|composition|attribute" 
                                    mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
       </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
-        <xsl:attribute name="class" select="'infotextbox'"/>
+        <xsl:attribute name="class" select="'infobox'"/>
         <div>
-            <xsl:attribute name="class" select="'descriptionHeader'"/>
+            <xsl:attribute name="class" select="'infoboxHeader'"/>
           <div>
             <xsl:attribute name="class" select="'metatype'"/>
             <xsl:choose>
@@ -348,9 +329,9 @@ CHANGE HISTORY
             </button> 
           </div>
           <!--<xsl:call-template name="clearleft"/>-->
-        </div> <!-- end of descriptionHeader -->
+        </div> <!-- end of infoboxHeader -->
         <div>
-          <xsl:attribute name="class" select="'otherDescription'"/>
+          <xsl:attribute name="class" select="'infoboxBody'"/>
           <xsl:if test="id">
             Id : <xsl:value-of select="id"/>
             <br/>

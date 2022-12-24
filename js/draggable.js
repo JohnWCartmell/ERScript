@@ -1,16 +1,5 @@
-// Make the DIV element draggable:
-//dragElement(document.getElementById("E1_info"));
+// Make the DIV elements of class infoboxContainer draggable by its header of class infoboxHeader.
 
-/* function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-  */
 
 /*Globals */
 var svgContainerElement;
@@ -30,7 +19,7 @@ function initialise() {
   console.log("svg container" + svgContainerElement) ;
   /*svgContainerElement.style.pointerEvents = "none";*/
 
-  const freeStandingInfoBlocks = document.querySelectorAll(".infolevel1");
+  const freeStandingInfoBlocks = document.querySelectorAll(".infoboxContainer");
   console.log("topblocls:" + freeStandingInfoBlocks.length )
   for (let i = 0; i < freeStandingInfoBlocks.length; i++) {
     freeStandingInfoBlocks[i].onmousedown=dragMouseDown;

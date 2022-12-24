@@ -58,7 +58,7 @@
    }
 
 /* svganddivconatiner => svgcontainer ;
-                         infolevel1 */
+                         infoboxContainer */
 
    div.svganddivcontainer{ 
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */
@@ -75,29 +75,20 @@
    	margin:4px;
    }
 
-/* infolevel1 => infotextbox, 
-                 infolevel2 * ;
+/* infoboxContainer => infobox; 
 
-   infolevel2 => infotextbox, 
-                 infolevel3 * ;
 
-   infolevel3 => infotextbox, 
-                 infolevel4 * ;
-
-   infolevel4 => infotextbox, 
-                 infolevel5 * ;
-
-   infotextbox => descriptionHeader, 
-                  otherDescription ;
+   infobox => infoboxHeader, 
+                  infoboxBody ;
  
-   descriptionHeader => metatype,
+   infoboxHeader => metatype,
                         closeContainer ;
 
    closeContainer => close ;
 
    /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
- 	div.infotextbox{
- 		height: 3cm ;
+ 	div.infobox{
+ 		/*height: 3cm ;*/
  		overflow:auto;
 		display:block;
 		visibility:hidden;
@@ -113,7 +104,7 @@
 	}
 
    /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
-   div.descriptionHeader{
+   div.infoboxHeader{
     	display:flow-root;	
 		cursor:move;
 	   padding-bottom:3px;
@@ -143,13 +134,16 @@
 	}
 
 	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
-   div.otherDescription{
+   div.infoboxBody{
+      height: 3cm ;	
+ 		overflow:auto;
    	clear:left;
    	display:block;
    	padding-top:1px;
    	background-color:white;
 		font-size: 10px;
-		font-family: sans-serif ;
+		font-family: sans-serif ;	
+		resize:both;	
    }
 
    	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
@@ -167,12 +161,13 @@
 		border: 1px solid ;
 	}
 
-	div.infolevel1{
+	div.infoboxContainer{
+		border:1px solid red;
 		pointer-events:none;
 		position:absolute;
 		width:min-content;
 		float:left;
-		margin-right:40px;		
+		margin-right:40px;
 	}
 	div.infolevel2{
 		position:absolute;

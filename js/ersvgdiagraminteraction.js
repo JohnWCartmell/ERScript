@@ -145,8 +145,8 @@ function animateRel(relHitArea,timing,length,duration,direction,colour){
 }
 
 /* This below will need changing to new display,visibility scheme if used in future */
-function closeallinfotextboxes(){
-   var textboxes = document.getElementsByClassName("infotextbox");
+function closeallinfoboxes(){
+   var textboxes = document.getElementsByClassName("infobox");
    for(var i=0; i<textboxes.length; i++){
              textboxes[i].style.display='none';
    }  
