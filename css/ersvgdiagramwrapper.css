@@ -75,9 +75,7 @@
    	margin:4px;
    }
 
-/* infoboxContainer => infobox; 
-
-
+/* 
    infobox => infoboxHeader, 
                   infoboxBody ;
  
@@ -86,9 +84,13 @@
 
    closeContainer => close ;
 
+   */
+
    /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
  	div.infobox{
- 		/*height: 3cm ;*/
+ 		position:absolute;
+		width:min-content;
+		float:left; /*new prior*/
  		overflow:auto;
 		display:block;
 		visibility:hidden;
@@ -161,37 +163,6 @@
 		border: 1px solid ;
 	}
 
-	div.infoboxContainer{
-		border:1px solid red;
-		pointer-events:none;
-		position:absolute;
-		width:min-content;
-		float:left;
-		margin-right:40px;
-	}
-	div.infolevel2{
-		position:absolute;
-	   float:left;
-		padding-left:10px;
-		margin-right:30px;	
-	}
-	div.infolevel3{
-		position:absolute;
-		float:left;
-		padding-left:20px;
-		margin-right:20px	
-	}
-	div.infolevel4{
-		position:absolute;
-		float:left;
-		padding-left:30px;
-		margin-right:10px	
-	}
-	div.infolevel5{
-		position:absolute;
-		float:left;
-		padding-left:40px;
-		margin-right:0px	
-	}
+
 	
 	

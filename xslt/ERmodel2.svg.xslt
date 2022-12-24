@@ -198,7 +198,7 @@ CHANGE HISTORY
   <xsl:template name="render_descriptive_text" 
                  match="entity_model|entity_type|group">
     <xsl:for-each select="entity_type">
-        <xsl:call-template name="infoboxContainer"/>
+        <xsl:call-template name="infoboxGenerate"/>
     </xsl:for-each>
     <xsl:for-each select="group">
         <xsl:call-template name="render_descriptive_text"/>
@@ -263,36 +263,33 @@ CHANGE HISTORY
     </xsl:text>
   </xsl:template>
 
-  <xsl:template name="infoboxContainer" 
+  <xsl:template name="infoboxGenerate" 
                 match="entity_type|reference|composition|arribute" 
                 mode="explicit">
+    <xsl:call-template name="infobox" />
+    <xsl:for-each select="entity_type">
+      <xsl:call-template name="infoboxGenerate"/>
+    </xsl:for-each>
+    <xsl:for-each select="reference|composition|attribute">
+      <xsl:call-template name="infoboxGenerate"/>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="infobox" match="entity_type|reference|composition|attribute" 
+                                   mode="explicit">
     <xsl:variable name="popUpxPos">
       <xsl:call-template name="popUpxPos"/>
     </xsl:variable>
     <xsl:variable name="popUpyPos">
           <xsl:call-template name="popUpyPos"/>
     </xsl:variable>
-    <div>
-      <xsl:attribute name="class" select="'infoboxContainer'"/>
-      <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
-      <xsl:call-template name="infobox" />
-    </div>
-    <xsl:for-each select="entity_type">
-      <xsl:call-template name="infoboxContainer"/>
-    </xsl:for-each>
-    <xsl:for-each select="reference|composition|attribute">
-      <xsl:call-template name="infoboxContainer"/>
-    </xsl:for-each>
-  </xsl:template>
-
-  <xsl:template name="infobox" match="entity_type|reference|composition|attribute" 
-                                   mode="explicit">
       <xsl:variable name="text_div_id" as="xs:string?">
         <xsl:value-of select="concat(id,'_text')"/>
       </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
-        <xsl:attribute name="class" select="'infobox'"/>
+        <xsl:attribute name="class" select="'infobox'"/>       
+        <xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>
         <div>
             <xsl:attribute name="class" select="'infoboxHeader'"/>
           <div>

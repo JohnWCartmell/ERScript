@@ -19,7 +19,7 @@ function initialise() {
   console.log("svg container" + svgContainerElement) ;
   /*svgContainerElement.style.pointerEvents = "none";*/
 
-  const freeStandingInfoBlocks = document.querySelectorAll(".infoboxContainer");
+  const freeStandingInfoBlocks = document.querySelectorAll(".infobox");
   console.log("topblocls:" + freeStandingInfoBlocks.length )
   for (let i = 0; i < freeStandingInfoBlocks.length; i++) {
     freeStandingInfoBlocks[i].onmousedown=dragMouseDown;
