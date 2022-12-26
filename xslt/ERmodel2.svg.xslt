@@ -365,6 +365,7 @@ CHANGE HISTORY
         </td>
         <td>
           <button>
+              <xsl:attribute name="id" select="id"/>
               <xsl:attribute name="class" select="'popout'"/>
               <xsl:attribute name="onClick" >
                 <xsl:text>showAttributeDetail('</xsl:text>
@@ -665,6 +666,7 @@ CHANGE HISTORY
     -->
     </xsl:variable>
     <svg:text>
+      <xsl:attribute name="id"><xsl:value-of select="id"/></xsl:attribute>
       <xsl:attribute name="class">
         <xsl:value-of select="   
                                 if (identifying) then 'idattrname' else (if($deprecated='yes') then 'deprecatedattrname' else 'attrname')   

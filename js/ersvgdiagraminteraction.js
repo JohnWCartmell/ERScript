@@ -1,40 +1,60 @@
 /* Global */
-var svgObject
-var myHTMLDoc
+var svgDoc
+
 
 var resetArray = [] ;
 var currentlySelectedRelationshipId = undefined;
 
-  window.addEventListener("load", function() {
-    myHTMLDoc = document ; 
-    svgObject = document.getElementById('svg-object');
-    svgDoc = svgObject.contentDocument;
+window.addEventListener("load", function() {
+   const svgObject = document.getElementById('svg-object');
+   svgDoc = svgObject.contentDocument; 
+   const popoutButtons = document.querySelectorAll(".popout");
+   for (let i = 0; i < popoutButtons.length; i++) {
+      popoutButtons[i].onclick=showAttributeDetailAtCursor;
+   };
+   const attributes = svgDoc.querySelectorAll(".idattrname");
+   console.log("Number of id attributes",attributes.length)
+   for (let i = 0; i < attributes.length; i++) {
+      attributes[i].onclick=showAttributeDetailAtCursor;
+   };
   });
 
 
 function showEntityTypeDetail(id){
- var divElement = myHTMLDoc.getElementById(id + "_text");
+   const divElement = document.getElementById(id + "_text");
    divElement.style.visibility = 'visible';
    divElement.style.pointerEvents = 'auto';
    //divElement.style.opacity = 1;
-  }
+   }
 
 function closePopUp(id){
    console.log('close call')
-   var divElement = myHTMLDoc.getElementById(id + "_text");
+   const divElement = document.getElementById(id + "_text");
    divElement.style.visibility = 'hidden';
    divElement.style.pointerEvents = 'none';
+
   }
+
+function showAttributeDetailAtCursor(e){
+   console.log('myevent ',e);
+   console.log('pos: ',e.clientX,e.clientY);
+   e = e || window.event;
+   const attributeElmnt = e.currentTarget;
+   const id = attributeElmnt.id;
+   const infoboxDivElement = document.getElementById(id + "_text");
+   infoboxDivElement.style.left=e.clientX;
+   infoboxDivElement.style.top=e.clientY;
+   infoboxDivElement.style.visibility = 'visible';
+   infoboxDivElement.style.pointerEvents = 'auto';
+};
 
 function showAttributeDetail(id){
- var divElement = document.getElementById(id + "_text");
- console.log(divElement);
-    divElement.style.visibility = 'visible';
+   const divElement = document.getElementById(id + "_text");
+   divElement.style.visibility = 'visible';
    divElement.style.pointerEvents = 'auto';
-  }
+   }
 
 function clickRelationship(id){
-   var hitAreaElement = svgDoc.getElementById(id + "_hitarea");
    resetDisplay();
    if (currentlySelectedRelationshipId ==id) {
       currentlySelectedRelationshipId = undefined ;
@@ -46,9 +66,8 @@ function clickRelationship(id){
 } ;
 
 function showRelationshipDetail(id){   
-   var divElement = document.getElementById(id + "_text");
+   const divElement = document.getElementById(id + "_text");
    divElement.style.visibility = 'visible';
-  // divElement.style.opacity = 1;
    divElement.style.pointerEvents = 'auto';
   
    var hitAreaElement = svgDoc.getElementById(id + "_hitarea");
@@ -59,20 +78,18 @@ function showRelationshipDetail(id){
    var colours = [];
    var directions = [];
    // diagonal
-   diagonal_ids = diagonal_elements[id] ;
+   const diagonal_ids = diagonal_elements[id] ;
    if (diagonal_ids !== undefined){
       rel_ids = rel_ids.concat(diagonal_ids) ;
       directions = directions.concat(diagonal_element_directions[id]) ;
       colours=colours.concat(diagonal_ids.map(id => 'red')) ;
    };
-
    // now for subject rel itself
    rel_ids = rel_ids.concat([id]) ;
    directions = directions.concat([1]) ;
    colours = colours.concat(['#15D4FA']) ;
-
    //riser 
-   riser_ids = riser_elements[id] ;
+   const riser_ids = riser_elements[id] ;
    if (riser_ids !== undefined) {
       rel_ids = rel_ids.concat(riser_ids) ;
       directions = directions.concat(riser_element_directions[id]) ;
@@ -86,17 +103,17 @@ function showRelationshipDetail(id){
 } ;
 
 function animatePath(pathElementIds,pathElementDirections,colourArray){
-   pathComponentElements = pathElementIds.map(id => svgDoc.getElementById(id + "_hitarea"));
+   const pathComponentElements = pathElementIds.map(id => svgDoc.getElementById(id + "_hitarea"));
    //console.log(pathComponentElements);
-   pathComponentLengths = pathComponentElements.map(pathElement => pathElement.getTotalLength());
+   const pathComponentLengths = pathComponentElements.map(pathElement => pathElement.getTotalLength());
    //console.log(pathComponentLengths);
-   totalLength = pathComponentLengths.reduce((total,num) => total + num, 0);
-   durationMillisecs = totalLength * 1000 / pathVelocity ;
+   const totalLength = pathComponentLengths.reduce((total,num) => total + num, 0);
+   const durationMillisecs = totalLength * 1000 / pathVelocity ;
    var proportionSoFar = 0 ;
    for (let i = 0; i < pathComponentElements.length; i++) {
-      thisComponent = pathComponentElements[i] ;
-      thisLength = pathComponentLengths [i] ;
-      proportionThisComponent = thisLength / totalLength ;
+      let thisComponent = pathComponentElements[i] ;
+      let thisLength = pathComponentLengths [i] ;
+      let proportionThisComponent = thisLength / totalLength ;
       animateRel(thisComponent,
                  [0,proportionSoFar,proportionSoFar + proportionThisComponent,1],
                  thisLength,
@@ -113,15 +130,12 @@ var pathVelocity = 20; // meaning 3 units (cm?) per second
 
 
 function resetDisplay () {
-   console.log('Resetting display --- length', resetArray.length)
    resetArray.forEach(id => resetRelationship(id));
    resetArray = [];
 }
 
 function resetRelationship(id){
    var relHitArea = svgDoc.getElementById(id + "_hitarea");
-   //relHitArea.style.strokeOpacity = 0 ;
-
 // see https://www.petercollingridge.co.uk/tutorials/svg/interactive/mouseover-effects/
    relHitArea.style.strokeOpacity = "" ;
    relHitArea.style.stroke="" ;
@@ -131,7 +145,6 @@ function resetRelationship(id){
 
 function animateRel(relHitArea,timing,length,duration,direction,colour){
    // direction is either 1 for animate forward along path or -1 for animate in reverse direction
-   console.log(relHitArea.style);
    relHitArea.style.strokeWidth = 0.2 ;
    relHitArea.style.strokeOpacity = 0.5 ;
    relHitArea.style.stroke=colour ;
@@ -146,10 +159,10 @@ function animateRel(relHitArea,timing,length,duration,direction,colour){
 
 /* This below will need changing to new display,visibility scheme if used in future */
 function closeallinfoboxes(){
-   var textboxes = document.getElementsByClassName("infobox");
+   const textboxes = document.getElementsByClassName("infobox");
    for(var i=0; i<textboxes.length; i++){
              textboxes[i].style.display='none';
    }  
-   var infolist = document.getElementById("infolist");
+   const infolist = document.getElementById("infolist");
    infolist.style.display = 'none';
                            }
