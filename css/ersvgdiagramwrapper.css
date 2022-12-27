@@ -11,8 +11,8 @@
  	div.entityModelHeader{
 		float:left;
 	   padding-left:5%;
-	   padding-top:20px;
-	   padding-bottom:20px;
+	   padding-top:10px;
+	   padding-bottom:5px;
 		background-color:white;
 		font-size: 16px;
 		/* font-family: Montserrat; */
@@ -23,8 +23,8 @@
    div.entityModelDescription{
 		float:left;	
 	   padding-left:5%;
-	   padding-top:20px;
-	   padding-bottom:20px;
+	   padding-top:5px;
+	   padding-bottom:5px;
 		clear:left;
 		display:block;
 		background-color:white;
@@ -35,7 +35,6 @@
    hr.rule{
    	clear:left;
    }
-
 
 
 /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
@@ -58,7 +57,7 @@
    }
 
 /* svganddivconatiner => svgcontainer ;
-                         infoboxContainer */
+                         infobox */
 
    div.svganddivcontainer{ 
 	   position:relative;  /* added 01/12/2022 so that html can be position within this containing div */

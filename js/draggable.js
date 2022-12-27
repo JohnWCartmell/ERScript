@@ -1,27 +1,26 @@
-// Make the DIV elements of class infoboxContainer draggable by its header of class infoboxHeader.
+// Make the DIV elements of class infobox draggable by its header of class infoboxHeader.
 
 
 /*Globals */
 var svgContainerElement;
 
 if (document.readyState === 'loading') {  // Loading hasn't finished yet
-  console.log("Adding initialisation event listener")
-  document.addEventListener('DOMContentLoaded', initialise);
+  console.log("Adding initialiseDragging event listener")
+  document.addEventListener('DOMContentLoaded', initialiseDragging);
 } else {  // `DOMContentLoaded` has already fired
-  initialise();
+  initialiseDragging();
 }
 
-function initialise() {
-  console.info('initialising');
+function initialiseDragging() {
+  console.info('initialising dragging');
   svgContainerElement = document.querySelector("#svgcontainer");
-  console.log("svg container" + svgContainerElement) ;
 
   const freeStandingInfoBlocks = document.querySelectorAll(".infoboxHeader");
-  console.log("topblocls:" + freeStandingInfoBlocks.length )
   for (let i = 0; i < freeStandingInfoBlocks.length; i++) {
     freeStandingInfoBlocks[i].onmousedown=dragMouseDown;
   }
-}
+} ;
+
 
 /*Globals */
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -42,7 +41,7 @@ function initialise() {
     document.onmousemove = elementDrag;
     console.log("continue drag myclass " + infoboxElmnt.className + "id" + infoboxElmnt.id)
     svgContainerElement.style.pointerEvents = "none";
-  }
+  } ;
 
 
   function elementDrag(e) {
@@ -56,11 +55,11 @@ function initialise() {
     // set the element's new position: avoid going negative
     infoboxElmnt.style.top = Math.max(infoboxElmnt.offsetTop - pos2,0) + "px";  
     infoboxElmnt.style.left = Math.max(infoboxElmnt.offsetLeft - pos1,0) + "px";
-  }
+  } ;
 
   function closeDragElement() {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
     svgContainerElement.style.pointerEvents = "auto";
-  }
+  } ;

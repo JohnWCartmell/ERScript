@@ -367,11 +367,13 @@ CHANGE HISTORY
           <button>
               <xsl:attribute name="id" select="id"/>
               <xsl:attribute name="class" select="'popout'"/>
+              <!--
               <xsl:attribute name="onClick" >
                 <xsl:text>showAttributeDetail('</xsl:text>
                 <xsl:value-of select="id"/>       
                 <xsl:text>');</xsl:text>
               </xsl:attribute>
+              -->
               <xsl:text>=&gt;</xsl:text>
           </button> 
         </td>
@@ -611,6 +613,7 @@ CHANGE HISTORY
         <xsl:text>cm</xsl:text>
       </xsl:attribute>
       <svg:rect>
+        <xsl:attribute name="id" select="id"/>
         <xsl:choose>
           <xsl:when test="$isgroup">
             <xsl:attribute name="class" select="$shape/*/name()"/>
@@ -627,10 +630,11 @@ CHANGE HISTORY
             <xsl:attribute name="class">etodd</xsl:attribute>
           </xsl:otherwise>
         </xsl:choose>
-
+        <!--
         <xsl:attribute name="onclick">
           <xsl:value-of select="concat('top.showEntityTypeDetail(''',$element_id,''')')"/>
         </xsl:attribute>
+        -->
         <xsl:attribute name="x">
           <xsl:value-of select="0.1 + $xAdjustment"/>cm</xsl:attribute>
         <xsl:attribute name="y">
@@ -674,9 +678,11 @@ CHANGE HISTORY
       </xsl:attribute>
       <xsl:attribute name="x"><xsl:value-of select="$xcm + 0.175"/>cm</xsl:attribute>
       <xsl:attribute name="y"><xsl:value-of select="$ycm"/>cm</xsl:attribute>
+      <!--
       <xsl:attribute name="onclick">
             <xsl:value-of select="concat('top.showAttributeDetail(''',$element_id,''')')"/>
       </xsl:attribute>
+    -->
       <xsl:if test="xmlRepresentation='Anonymous'">
         <xsl:text>(</xsl:text>
       </xsl:if>
@@ -1063,6 +1069,7 @@ CHANGE HISTORY
     <xsl:param name="class" as="xs:string"/>  
     <svg:path>
         <xsl:if test="exists($element_id)">
+           <xsl:attribute name="data-relid" select="$element_id"/>
            <xsl:attribute name="id" select="concat($element_id,'_hitarea')"/>
         </xsl:if>
        <xsl:attribute name="class" select="$class"/>
@@ -1078,11 +1085,13 @@ CHANGE HISTORY
                 <xsl:value-of select="substring(y,1,5)"/>
           </xsl:for-each>
         </xsl:attribute>
+        <!--
         <xsl:if test="exists($element_id)">
           <xsl:attribute name="onclick">
             <xsl:value-of select="concat('top.clickRelationship(''',$element_id,''')')"/>
           </xsl:attribute>
         </xsl:if>
+        -->
     </svg:path>
   </xsl:template>
 
