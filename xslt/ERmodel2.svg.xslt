@@ -339,7 +339,7 @@ CHANGE HISTORY
           </xsl:if>
           <xsl:choose>
             <xsl:when test="description">
-                  <xsl:value-of select="description"/>
+                  <xsl:copy-of select="description"/>  <!-- was xsl:value-of -->
             </xsl:when>
             <xsl:otherwise>
                   <i><xsl:text>TBD</xsl:text></i>
