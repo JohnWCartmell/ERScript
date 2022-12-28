@@ -20,7 +20,6 @@ Param(
 )
 
 
-
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 echo $commandFolder
@@ -32,7 +31,9 @@ $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
 
-#$outputFolder = $srcDirectoryName + '\..\docs'
+$outputFolder = $srcDirectoryName + '\..\docs'
+
+echo ('outputFolder' + $outputFolder)
 If(!(test-path -PathType container $outputFolder))
 {
       New-Item -ItemType Directory -Path $outputFolder
