@@ -25,6 +25,7 @@ separate source files that differ only in details of presentation
             <OneOrMore/>
          </cardinality>
       </composition>
+      <description> The game of cricket.</description>
    </absolute>
    <entity_type>
       <name>match</name>
