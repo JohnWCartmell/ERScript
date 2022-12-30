@@ -13,7 +13,7 @@ Logical
 -------
 The following are all souce file:
 
-* _ERA..logical.xml_ is a logical ER model of the concepts of entity, relationship and attribute (e, r and a). In one way of speaking _ERA..logical.xml_ is an instance of itself. More precisely it is an instance of _ERA.physical.xml_. 
+* _ERA..logical.xml_ is a logical ER model of the concepts of entity, relationship and attribute (e, r and a). In one way of speaking _ERA..logical.xml_ is an instance of itself. More precisely it is an instance of _ERA..physical.xml_ (see below). 
 
 * _ERAdiagrammed..logical.xml_ extends _ERA..logical.xml_ to be a logical ER model of the e,r and a concepts along with a presentation on a diagram in the ER style.
 
@@ -24,9 +24,9 @@ as presentation for _ERA..physical.xml_.
 * _ERAdiagrammed..presentation.xml_ extends file _ERA..presentation.xml_ to contain 
 presentation directives for the concepts described in the model _ERAdiagrammed..logical.xml_. It can also be used as presentation for _ERAdiagrammed..physical.xml_.
 
-* _ERA..diagram.xml_ is the source for a ER style diagrammatic representation of the ERA logical model. It is an aggregation of _ERA..logical.xml_ and _ERA..presentation.xml_ and a file of associated documentation _ERA..descriptive_text.xml_. _ERA..diagram.xml is an instance of _ERAdiagrammed..physical.xml_.  
+* _ERA..diagram.xml_ is the source for a ER style diagrammatic representation of the ERA logical model. It aggregates _ERA..logical.xml_ and _ERA..presentation.xml_ and a file of associated documentation _ERA..descriptive_text.xml_. _ERA..diagram.xml_ is an instance of _ERAdiagrammed..physical.xml_.  
 
-* _ERAdiagrammed..diagram.xml_ is the source for a ER style diagrammatic representation of the ERAdiagrammed  logical model. It is an aggregation of _ERAdiagrammed..logical.xml_ and _ERAdiagrammed..presentation.xml_ and the file  _ERA..descriptive_text.xml_.
+* _ERAdiagrammed..diagram.xml_ is the source for a ER style diagrammatic representation of the ERAdiagrammed  logical model. It aggregates  _ERAdiagrammed..logical.xml_, _ERAdiagrammed..presentation.xml_ and the file  _ERA..descriptive_text.xml_.
 _ERAdiagrammed..diagram.xml_ is an instance of _ERAdiagrammed..physical.xml_.
 
 * _ERA..descriptive_text.xml_ contains text describing the various e, r and a of model ERA. 
