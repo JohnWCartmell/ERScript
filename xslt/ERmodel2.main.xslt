@@ -9,20 +9,14 @@
 
    <xsl:param name="filestem"/>
 
-   <xsl:template match="/" >
+   <xsl:template match="/entity_model" >
       <xsl:copy>
-         <xsl:element name="extend" namespace="http://www.entitymodelling.org/ERmodel">
-             <xsl:element name="content" namespace="http://www.entitymodelling.org/ERmodel"> 
-               <xsl:element name="include" namespace="http://www.entitymodelling.org/ERmodel">
+               <xsl:element name="include_model" namespace="http://www.entitymodelling.org/ERmodel">
                     <xsl:attribute name="filename" select="concat($filestem,'.core.xml')"/>
                </xsl:element>
-             </xsl:element>
-             <xsl:element name="with" namespace="http://www.entitymodelling.org/ERmodel"> 
-               <xsl:element name="include" namespace="http://www.entitymodelling.org/ERmodel">
+               <xsl:element name="include_model" namespace="http://www.entitymodelling.org/ERmodel">
                     <xsl:attribute name="filename" select="concat($filestem,'.presentation.xml')"/>
                </xsl:element>
-             </xsl:element>
-         </xsl:element>
       </xsl:copy>
    </xsl:template>
 
