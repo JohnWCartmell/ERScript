@@ -196,43 +196,15 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                 <xsl:call-template name="getDiagramWidth"/>
             </xsl:variable>
 -->
+<!-- also the follwoing can no longer be global post modularisation 
+         etDefaultWidth
+         etDefaultySeparation
+         etDefaultyDeltaSeparation
+-->
 
-<xsl:variable name="etDefaultWidth">
-   <xsl:choose>
-      <xsl:when test="/entity_model/defaults/et_width">
-         <xsl:value-of select="/entity_model/defaults/et_width"/>
-      </xsl:when>
-      <xsl:otherwise>
-         <xsl:value-of select="1.3333"/>
-      </xsl:otherwise>
-   </xsl:choose>
-</xsl:variable>
 
-<xsl:variable name="etDefaultySeparation">   <!-- this is y separation used when one et positioned below another -->
-   <xsl:choose>
-      <xsl:when test="/entity_model/defaults/et_y_separation">
-         <xsl:value-of select="/entity_model/defaults/et_y_separation"/>
-      </xsl:when>
-      <xsl:otherwise>
-         <xsl:value-of select="0.3"/> 
-      </xsl:otherwise>
-   </xsl:choose>
-</xsl:variable>
 
-<xsl:variable name="etDefaultyDeltaSeparation"> 
-           <!-- this is  a delta to y separation when et being 
-                positioned below has outgoing composition 
-           -->
-   <xsl:choose>
-      <xsl:when test="/entity_model/defaults/et_y_delta_separation">
-         <xsl:value-of select="/entity_model/defaults/et_y_delta_separation"/>
-      </xsl:when>
-      <xsl:otherwise>
-         <xsl:value-of select="0.6"/> 
-                  <!-- hit bug if this + 0.3 exactly 2 * comprelArmLen-->
-      </xsl:otherwise>
-   </xsl:choose>
-</xsl:variable>
+
 
 <xsl:template name="main" match="/">
 <xsl:message>
@@ -245,6 +217,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    --- relids = <xsl:value-of select="$relids"/> 
    ========================
 </xsl:message>
+
+
 
    <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
     <xsl:variable name="state">
@@ -283,6 +257,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>
+
 
    <xsl:for-each select="$state/entity_model">
       <xsl:call-template name="entity_model_diagram"/> 
@@ -341,6 +316,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="diagram_content" match="entity_model">
+
    <xsl:for-each select="entity_type|group">
        <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
@@ -1026,6 +1002,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="et_width" match="entity_type|group" mode="explicit">
+   <xsl:variable name="etDefaultWidth">
+   <xsl:choose>
+      <xsl:when test="/entity_model/defaults/et_width">
+         <xsl:value-of select="/entity_model/defaults/et_width"/>
+      </xsl:when>
+      <xsl:otherwise>
+         <xsl:value-of select="1.3333"/>
+      </xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
   <xsl:variable name="maxNoOfCharsInEntityTypeName">
      <xsl:call-template name="maxNoOfCharsInEntityTypeName"/>
   </xsl:variable>
@@ -1122,6 +1108,17 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	   Calling et_height from et_yFromRelative(<xsl:value-of select="name"/>)
        </xsl:message>
    -->
+   <xsl:variable name="etDefaultySeparation">   <!-- this is y separation used when one et positioned below another -->
+      <xsl:choose>
+         <xsl:when test="/entity_model/defaults/et_y_separation">
+            <xsl:value-of select="/entity_model/defaults/et_y_separation"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="0.3"/> 
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:variable>
+
    <xsl:variable name="height">
       <xsl:call-template name="et_height"/>
    </xsl:variable>
@@ -1406,6 +1403,20 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
 <xsl:template name="et_yLowerPlusDelta" match="entity_type|group" mode="explicit">
    <xsl:param name="scheme"/>
+   <xsl:variable name="etDefaultyDeltaSeparation"> 
+              <!-- this is  a delta to y separation when et being 
+                   positioned below has outgoing composition 
+              -->
+      <xsl:choose>
+         <xsl:when test="/entity_model/defaults/et_y_delta_separation">
+            <xsl:value-of select="/entity_model/defaults/et_y_delta_separation"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="0.6"/> 
+                     <!-- hit bug if this + 0.3 exactly 2 * comprelArmLen-->
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:variable>
    <xsl:variable name="yLower">
       <xsl:call-template name="et_yLower">
 	 <xsl:with-param name="scheme" select="$scheme"/>
