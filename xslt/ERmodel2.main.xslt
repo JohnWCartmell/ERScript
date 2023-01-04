@@ -12,10 +12,10 @@
    <xsl:template match="/entity_model" >
       <xsl:copy>
                <xsl:element name="include_model" namespace="http://www.entitymodelling.org/ERmodel">
-                    <xsl:attribute name="filename" select="concat($filestem,'.core.xml')"/>
+                    <xsl:attribute name="filename" select="concat($filestem,'..logical.xml')"/>
                </xsl:element>
                <xsl:element name="include_model" namespace="http://www.entitymodelling.org/ERmodel">
-                    <xsl:attribute name="filename" select="concat($filestem,'.presentation.xml')"/>
+                    <xsl:attribute name="filename" select="concat($filestem,'..presentation.xml')"/>
                </xsl:element>
       </xsl:copy>
    </xsl:template>
