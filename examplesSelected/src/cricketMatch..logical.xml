@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  **********************************************************************************
-ERmodel_v1.2/instances/catalogue/src/dataModels/cricketMatch.xml 
-************************************************************************************
--->
-
-<!-- Until such a time as I support the single sourcing of this and similar examples I have three
-separate source files that differ only in details of presentation
-               cricketMatch.logical.xml   ... this is the real thing. It is annotated with scopes etc and with presentation that suits logical rather than physical
-               cricketmatch.physical.xml  ... a copy of the above whose presentation is then changed to suit the relational model. Other changes as well? Not sure.
--->   
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <presentation>
-      <diagram>
-         <deltah>0.5</deltah>
-      </diagram>
-   </presentation>
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
    <absolute>
@@ -25,16 +9,10 @@ separate source files that differ only in details of presentation
             <OneOrMore/>
          </cardinality>
       </composition>
-      <description> The game of cricket.</description>
    </absolute>
    <entity_type>
       <name>match</name>
-      <presentation>
-         <x>2.9</x>
-         <y>1.1</y>
-         <w>4</w>
-      </presentation>
-      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <attribute>
          <name>id</name>
          <type>
             <string/>
@@ -42,25 +20,14 @@ separate source files that differ only in details of presentation
          <identifying/>
       </attribute>
       <composition>
-         <!--<name>all innings</name>-->
          <type>innings</type>
          <cardinality>
             <OneOrMore/>
          </cardinality>
          <identifying/>
          <inverse>..</inverse>
-         <diagram>
-            <path>
-               <label>
-                  <position>
-                     <Left/>
-                  </position>
-               </label>
-            </path>
-         </diagram>
       </composition>
       <composition>
-         <!--<name>all side</name>-->
          <type>side</type>
          <cardinality>
             <OneOrMore/>
@@ -71,18 +38,9 @@ separate source files that differ only in details of presentation
    </entity_type>
    <group>
       <name>inmatch</name>
-      <presentation>
-         <below>match</below>
-         <x>-0.2</x>
-         <y>0.35</y>
-      </presentation>
       <entity_type>
          <name>innings</name>
-         <presentation>
-            <h>1.8</h>
-            <deltaw>0.5</deltaw>
-         </presentation>
-         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <attribute>
             <name>number</name>
             <type>
                <string/>
@@ -92,10 +50,9 @@ separate source files that differ only in details of presentation
          <dependency>
             <name>..</name>
             <type>match</type>
-            <inverse_of></inverse_of>
+            <inverse_of/>
          </dependency>
          <composition>
-            <!--<name>b1</name>-->
             <type>over</type>
             <cardinality>
                <OneOrMore/>
@@ -109,24 +66,6 @@ separate source files that differ only in details of presentation
             <cardinality>
                <ExactlyOne/>
             </cardinality>
-            <diagram>
-               <path>
-                  <srcattach>0.25</srcattach>
-                  <align>
-                     <ToSrc/>
-                  </align>
-                  <label>
-                     <position>
-                        <Upside/>
-                     </position>
-                  </label>
-                  <scope>
-                     <label>
-                        <xAdjustment>-0.4</xAdjustment>
-                     </label>
-                  </scope>
-               </path>
-            </diagram>
             <diagonal>
                <component>
                   <rel>..</rel>
@@ -144,24 +83,6 @@ separate source files that differ only in details of presentation
             <cardinality>
                <ExactlyOne/>
             </cardinality>
-            <diagram>
-               <path>
-                  <srcattach>0.75</srcattach>
-                  <align>
-                     <ToSrc/>
-                  </align>
-                  <label>
-                     <position>
-                        <Upside/>
-                     </position>
-                  </label>
-                  <scope>
-                     <label>
-                        <xAdjustment>-0.4</xAdjustment>
-                     </label>
-                  </scope>
-               </path>
-            </diagram>
             <diagonal>
                <component>
                   <rel>..</rel>
@@ -176,13 +97,7 @@ separate source files that differ only in details of presentation
       </entity_type>
       <entity_type>
          <name>side</name>
-         <presentation>
-            <rightOf>innings</rightOf>
-            <x>3.0</x>
-            <h>1.8</h>
-            <deltaw>0.5</deltaw>
-         </presentation>
-         <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <attribute>
             <name>name</name>
             <type>
                <string/>
@@ -192,10 +107,9 @@ separate source files that differ only in details of presentation
          <dependency>
             <name>..</name>
             <type>match</type>
-            <inverse_of></inverse_of>
+            <inverse_of/>
          </dependency>
          <composition>
-            <!--<name>b2</name>-->
             <type>player</type>
             <cardinality>
                <OneOrMore/>
@@ -207,13 +121,7 @@ separate source files that differ only in details of presentation
    </group>
    <entity_type>
       <name>over</name>
-      <presentation>
-         <below>innings</below>
-         <h>1.8</h>
-         <y>0.6</y>
-         <deltaw>0.3</deltaw>
-      </presentation>
-      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <attribute>
          <name>number</name>
          <type>
             <string/>
@@ -226,10 +134,9 @@ separate source files that differ only in details of presentation
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <inverse_of></inverse_of>
+         <inverse_of/>
       </dependency>
       <composition>
-         <!--<name>xxx</name>-->
          <type>delivery</type>
          <cardinality>
             <OneOrMore/>
@@ -260,64 +167,35 @@ separate source files that differ only in details of presentation
                </component>
             </join>
          </riser>
-         <diagram>
-            <path>
-               <align>
-                  <ToSrc/>
-               </align>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-               </label>
-               <scope>
-                  <label>
-                     <xAdjustment>-1.2</xAdjustment>
-                  </label>
-               </scope>
-            </path>
-         </diagram>
       </reference>
    </entity_type>
    <entity_type>
       <name>player</name>
-      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <attribute>
          <name>number</name>
          <type>
             <string/>
          </type>
          <identifying/>
       </attribute>
-      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <attribute>
          <name>name</name>
          <type>
             <string/>
          </type>
       </attribute>
-      <presentation>
-         <rightOf>over</rightOf>
-         <below>side</below>
-         <!--<y>0.05</y>-->
-         <h>1.8</h>
-         <deltaw>0.3</deltaw>
-      </presentation>
       <dependency>
          <name>..</name>
          <type>side</type>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <inverse_of></inverse_of>
+         <inverse_of/>
       </dependency>
    </entity_type>
    <entity_type>
       <name>delivery</name>
-      <presentation>
-         <below>over</below>
-         <y>0.6</y>
-         <deltaw>0.3</deltaw>
-      </presentation>
-      <attribute xmlns:era="http://www.entitymodelling.org/ERmodel">
+      <attribute>
          <name>number</name>
          <type>
             <string/>
@@ -330,7 +208,7 @@ separate source files that differ only in details of presentation
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <inverse_of></inverse_of>
+         <inverse_of/>
       </dependency>
       <reference>
          <name>facingBatter</name>
@@ -358,27 +236,6 @@ separate source files that differ only in details of presentation
                </component>
             </join>
          </riser>
-         <diagram>
-            <path>
-               <align>
-                  <ToSrc/>
-               </align>
-               <label>
-                  <position>
-                     <Downside/>
-                  </position>
-               </label>
-               <scope>
-                  <label>
-                     <xAdjustment>2.7</xAdjustment>
-                     <yAdjustment>-0.6</yAdjustment>
-                     <position>
-                        <Downside/>
-                     </position>  
-                  </label>
-               </scope>
-            </path>
-         </diagram>
       </reference>
    </entity_type>
 </entity_model>

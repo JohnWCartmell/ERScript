@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>sentence</name>
+      <description>
+         <p>
+				This type represents the structure of simple sentences. Simple sentences have both a subject and a predicate. 
+			</p>
+         <p>
+				In the example sentence "the young athelete set a new record" the subject is "the young athelete" and the phrase "set a new record" is the predicate.
+			</p>
+      </description>
+      <composition>
+         <name>subject</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>noun phrase</type>
+      </composition>
+      <composition>
+         <name>predicate</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>verb phrase</type>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>verb phrase</name>
+      <description>
+         <p>
+	There are a number of different types of verb phrase. In our example sentence "set a new record" is the verb phrase and it is transitive verb phrase because the verb "set" has an object phrase "a new record".
+   </p>
+         <p>
+	Examples of the different types of verb phrase from Brinton(2000):
+	<ul>
+               <li>(i)  monotransitive: "set a new record" </li>
+               <li>(ii) intransitive: "cries" </li>
+               <li>(iii)ditransitive: "sent Olga roses" </li>
+               <li>(iv) copulative: "is a chemist" </li>
+               <li>(v)  complex transitive: "consider him a fool" </li>
+               <li>(vi) mono prepositional: "stood on the ladder" </li>
+               <li>(vii)diprepositional: "argued with him about money" </li>
+            </ul>
+         </p>
+      </description>
+      <entity_type>
+         <name>intransitive</name>
+         <description>
+An intransitive verb phrase is just a verb a standing alone as the entirety of a predicate. 
+
+			</description>
+      </entity_type>
+      <entity_type>
+         <name>transitive</name>
+         <description>
+An intransitive verb phrase is just a verb a standing alone as the entirety of a predicate. 
+
+			</description>
+         <entity_type>
+            <name>mono transitive</name>
+            <description>
+A mono transitive  verb phrase consists of a verb said to be the head of the phrase and a direct object. In the example "set a new record"  the word "set" is the verb and the noun phrase "a new record" is the direct object.
+
+				</description>
+         </entity_type>
+         <entity_type>
+            <name>ditransitive</name>
+            <description>
+               <p>
+A ditransitive verb phrase consists of  a verb said to be the head of the phrase and both a direct and an indirect object.
+</p>
+               <p>
+
+In the example "sent Olga roses" the direct object is "Olga" and the indirect object is "the roses".
+</p>
+            </description>
+            <composition>
+               <name>indirect_object</name>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <type>noun phrase</type>
+            </composition>
+         </entity_type>
+         <entity_type>
+            <name>complex transitive</name>
+            <description>
+               <p>
+A complex transitive verb phrase consists of a verb said to be the head of the phrase and both a direct object and an object complement. 
+</p>
+               <p>
+In the example  "consider him a fool" the direct object is "him" and the object complement is "a fool"
+</p>
+            </description>
+            <composition>
+               <name>object_complement</name>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <type>NP|AP|PP</type>
+            </composition>
+         </entity_type>
+         <composition>
+            <name>direct_object</name>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>noun phrase</type>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>copulative</name>
+         <description>
+            <p>
+A copulative verb phrase consists of a verb said to be the head of the phrase and a subject complement which can be either a noun phrase, an adjectival phrase or a preopositional phrase.
+</p>
+            <p>
+In the example "is a chemist" the complement is the noun phrase "the chemist".
+</p>
+         </description>
+         <composition>
+            <name>subject_complement</name>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>NP|AP|PP</type>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>prepositional</name>
+         <description>
+	A preposition is a word at the head of a propositional phrase. 
+	Examples of words that can appear in this way are: "at", "by", "from", "in", "to".
+			</description>
+         <entity_type>
+            <name>mono prepositional</name>
+            <description>
+               <p>
+A mono prepositional verb phrase consists of a verb and a single prepositional complement which together form the entirety of a predicate. 
+</p>
+               <p>
+In the example "stood on the ladder" the prepositional complement is the preposition phrase "on the ladder".
+</p>
+            </description>
+         </entity_type>
+         <entity_type>
+            <name>diprepositional</name>
+            <description>
+               <p>
+A diprepositional verb phrase consists of a verb and two prepositional phrases.
+</p>
+               <p>
+In the example predicate "argued with him about money" the  phrases "with him" and "about money" are both prepositional phrases.
+</p>
+            </description>
+            <composition>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <type>prepositional phrase</type>
+            </composition>
+         </entity_type>
+         <composition>
+            <name>prepositional_complement</name>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>prepositional phrase</type>
+         </composition>
+      </entity_type>
+      <composition>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <name>head</name>
+         <type>verb_group</type>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>verb_group</name>
+      <description>
+	This entity type describes the head of a verb phrase which may be simple a verb or it may be a verb along with various auxiliaries such as "had" and "will" modifying the verb in some way.  The verbs "arrive", "run", "set" are all verbs and therefore can appear as instances of this type at the head of the verb phrase. So to can "have arrived", "will run", "could set" as well as longer forms such as 
+	"could have been biting". We do not describe the more detailed structure in this model. 
+
+		</description>
+   </entity_type>
+   <entity_type>
+      <name>NP|AP|PP</name>
+      <dependency_group/>
+      <entity_type>
+         <name>NP|PP</name>
+         <description/>
+         <entity_type>
+            <name>noun phrase</name>
+            <description/>
+            <entity_type>
+               <name>proper_name</name>
+               <description/>
+            </entity_type>
+            <entity_type>
+               <name>pronoun</name>
+               <description>
+	Examples: I, you, he, she, we, they.
+
+					</description>
+            </entity_type>
+            <entity_type>
+               <name>N-bar-bar</name>
+               <description>
+                  <p>
+	This terminology derives from Chomsky (1970).
+	An N-bar-bar consists of an N-bar (which we can summarise as being a noun, possibly modifed) and optionally a determiner i.e an "a/an" or "the".
+	The example patterns that we give of N-bars are therefore also give examples of N-bar-bars and also from them we can construct examples of N-bar-bars using the definite or indefinite article, thus: "a red ball",  
+	"the drink on the table" and so on.
+    </p>
+                  <p>	
+	N-bar-bar as a name can be considered to be shorthand for possibly determined possibly modified noun.
+    </p>
+                  <p>
+    In passing and in a meta turn of mind I can't hep but note that "a possibly determined possibly modified noun" is self-applicable i.e. it is a possibly determined possibly modified noun.
+    </p>
+               </description>
+               <composition>
+                  <cardinality>
+                     <ZeroOrOne/>
+                  </cardinality>
+                  <type>determiner</type>
+               </composition>
+               <composition>
+                  <cardinality>
+                     <ExactlyOne/>
+                  </cardinality>
+                  <type>N-bar</type>
+               </composition>
+            </entity_type>
+         </entity_type>
+         <entity_type>
+            <name>prepositional phrase</name>
+            <description>
+               <p>
+A prepositional phrase can appear in a number of different contexts. They can be nested and consist of at least one preposition ("with", "to", "from", "under" and so on) and  a noun phrase.
+</p>
+               <p>
+Examples of increasing levels of nesting are: "on the table", "on the table under the stairs", "on the table under the stairs in the red house".
+</p>
+               <p>
+Prepositional phrases may also include words that qualify the preposition
+in some way and which are described as prepositional specifers. Thus in the example "directly under the table" the word "directly" is used as a prepositional specifier. Likewise "two days" is being used as a prepositional specifier in the example "on the table two days after the event" 
+</p>
+            </description>
+            <composition>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
+               <type>prepositional_specifier</type>
+            </composition>
+            <composition>
+               <cardinality>
+                  <ExactlyOne/>
+               </cardinality>
+               <type>preposition</type>
+            </composition>
+            <composition>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
+               <type>NP|PP</type>
+            </composition>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>adjectival phrase</name>
+         <description>
+            <p>
+	Adjectival phrases may appear either (i) modifying a noun or (ii) an already modified noun in a noun phrase or else (iii) as subject complement within a copulative verb phrase or (iv) as object complement within a complex transitive verb phrase.
+	</p>
+            <p>
+	Example contexts therefore are:
+	<ol style="list-style-type:lower-roman">
+                  <li> The [AP] athelete</li>
+                  <li> The [AP] french athelete</li>
+                  <li> I am [AP] </li>
+                  <li> I think it [AP]</li>
+               </ol>
+            </p>
+            <p>
+	Adjectival phrases always contain adjectives and sometimes contain adverbs and/or degree words. 
+	</p>
+            <p>
+	Examples: "young", "very large" and "light red".
+    </p>
+         </description>
+         <composition>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>Advpbar</type>
+         </composition>
+         <composition>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>adjective</type>
+         </composition>
+         <composition>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>prepositional phrase</type>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>yyy</name>
+      <description/>
+      <dependency_group/>
+      <entity_type>
+         <name>N-bar</name>
+         <description>
+            <p>
+	This terminology and indeed this entity type is slightly odd but we find it in our reference tyext (Brinton) and the orginal concept came from Chomsky. 
+	As an entity modeller I would try and anme it what by what it is rather than by this technical N-bar term and what this is is a "possible modified noun". The given model (which follows Brinton) reflects that a noun appearing anywhere within a sentence may be possibly modified by an adjectival phrase or a prepositional phrase and that these modifications can be nested. 
+	</p>
+            <p>
+	Thus all nouns can considered N-bar phrases as too, when [N] is a noun, can the following "red [N]", "long red [N]", "[N] on the table", "red [N] on the table under the stairs".
+	</p>
+         </description>
+         <composition>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>adjectival phrase</type>
+         </composition>
+         <composition>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>yyy</type>
+         </composition>
+         <composition>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>prepositional phrase</type>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>noun</name>
+         <description>
+    Examples: athelete, house, race, record, stream, water.
+
+			</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>prepositional_specifier</name>
+      <description>
+	A word or words in use to qualify a preposition in a prepositional phrase.
+	Examples of words that can be used in this way are: "close", "right", "straight", "directly", "two days".
+
+		</description>
+   </entity_type>
+   <entity_type>
+      <name>preposition</name>
+      <description/>
+   </entity_type>
+   <entity_type>
+      <name>determiner</name>
+      <description>
+         <p>
+	A determiner is a word that is  part of a noun phrase and functions as a specifer to make the phrase more definite. It includes demonstratives of which there are four: "this", "these", "that" and "those", articles of which there are just the indefinite: "a"/"an" and the definite "the",  
+	wh-words: "which", "what", and "whose", possessives such as "my", "your", "his", "hers", and "ours" but also "John's", "Alison's"  and so on and quantifiers such as "some", "all", "any", "every", "each", and numerals such as "one", "two", "three" and so on.
+	</p>
+      </description>
+   </entity_type>
+   <entity_type>
+      <name>Advpbar</name>
+      <description/>
+      <dependency_group/>
+      <entity_type>
+         <name>degree</name>
+         <description>
+            <p>
+	Examples of degree words are: more, most, quite, rather, so, too, very.
+	</p>
+            <p>
+	A degree word may appear directly as part of an adjectival phrase 
+	in which case it modifies the head adjective of the parent phrase 
+	or else they may appear within an adverbial phrase (which itself is nested within an adjectival phrase) and in this instance it modifies the head adverb of the adverbial phrase.
+	</p>
+         </description>
+      </entity_type>
+      <entity_type>
+         <name>adverbial_phrase</name>
+         <description/>
+         <composition>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>degree</type>
+         </composition>
+         <composition>
+            <cardinality>
+               <ExactlyOne/>
+            </cardinality>
+            <type>adverb</type>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>adverb</name>
+      <description>
+	general adverb
+	Examples: abruptly, brightly, clearly, quickly.
+	Adverbs appear within adjectival phrases and modify the head adjective of the parent adjectival phrase.
+		</description>
+   </entity_type>
+   <entity_type>
+      <name>adjective</name>
+      <description>
+	Examples: fierce, tasty, long, new, red, right, rosy, silk, young.
+		</description>
+   </entity_type>
+</entity_model>
