@@ -4,7 +4,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder={(Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'},
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName),
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -20,9 +20,8 @@ Param(
 )
 
 
-$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-echo $commandFolder
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 echo ('pathtosourcefile' + $pathToSourceXMLfile)
 
@@ -30,8 +29,6 @@ $filenamebase=(Get-Item $pathToSourceXMLfile).Basename
 $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
-
-$outputFolder = $srcDirectoryName + '\..\docs'
 
 echo ('outputFolder' + $outputFolder)
 If(!(test-path -PathType container $outputFolder))
@@ -42,11 +39,10 @@ If(!(test-path -PathType container $outputFolder))
 
 . ($commandFolder +'\set_path_variables.ps1')
 
-echo $SAXON_JAR
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\ERmodel2.svg.xslt `
-                       -o:..\docs\$filenamebase.svg `
+                       -o:$outputFolder\$filenamebase.svg `
                        filestem=$filenamebase `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `
                        animate=$(If ($animate){'y'}Else{'n'}) `
