@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <include_model filename="brintonSimpleSentenceStructure..logical.xml"/>
+   <include_model filename="brintonSimpleSentenceStructure..descriptive_text.xml"/>
    <include_model filename="brintonSimpleSentenceStructure..presentation.xml"/>
 </entity_model>
