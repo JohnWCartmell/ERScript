@@ -14,6 +14,7 @@
       </xsl:copy>
    </xsl:template>
 
+
    <xsl:template match="absolute" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
