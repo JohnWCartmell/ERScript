@@ -44,29 +44,31 @@ echo ('diagram source is' + $diagramSource)
 
 $animateOption = if($animate){'-animate '}{''}
 
-powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource -outputFolder ..\docs " + "$animateOption")
+powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ..\docs ' + "$animateOption")
 
 java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..report.html
 
+if ($physicalType -ne '')
+{
+    #  LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#  LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType debug=$(If ($debugswitch){'y'}Else{'n'})
 
-java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType debug=$(If ($debugswitch){'y'}Else{'n'})
+    #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource" + '-outputFolder ..\docs' + "$animateOption")
-
-
-java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
-
-#  generation of xml schema
-
-java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
+    powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource" + ' -outputFolder ..\docs ' + "$animateOption")
 
 
-#  generate xslt's
+    java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
 
-java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.elaboration.xslt
+    #  generation of xml schema
 
-java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.referential_integrity.xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
+
+
+    #  generate xslt's
+
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.elaboration.xslt
+
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.referential_integrity.xslt
+}
