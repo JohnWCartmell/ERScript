@@ -10,15 +10,12 @@ Param(
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-echo $commandFolder
-
 echo ('pathtosourcefile' + $pathToSourceXMLfile)
 
 $filenamebase=(Get-Item $pathToSourceXMLfile).Basename
 $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
-
 
 echo ('outputFolder' + $outputFolder)
 If(!(test-path -PathType container $outputFolder))
