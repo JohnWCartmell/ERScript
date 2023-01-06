@@ -31,6 +31,7 @@
    </xsl:copy>
 </xsl:template>
 
+
 <xsl:template  match="entity_type" 
                     mode="initial_pass">
    <xsl:copy>
@@ -47,6 +48,13 @@
 
 <xsl:template match="@*|node()" mode="newform">
    <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="newform"/>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="entity_model" mode="newform">
+   <xsl:copy>
+      <xsl:attribute name="ERScriptVersion" select="1.6"/>
       <xsl:apply-templates select="@*|node()" mode="newform"/>
    </xsl:copy>
 </xsl:template>
