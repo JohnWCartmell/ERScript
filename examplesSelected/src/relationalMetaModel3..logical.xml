@@ -48,8 +48,8 @@
          </identifying>
          <composition type="foreign key entry*" inverse="partof"/>
          <reference name="to_table" type="table">
-            <diagonal path="was the absolute of/.."/>
-            <riser path="was the absolute .."/>
+            <diagonal path="of/.."/>
+            <riser path=".."/>
          </reference>
       </entity_type>
    </group>
