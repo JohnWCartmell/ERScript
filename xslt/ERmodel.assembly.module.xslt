@@ -13,9 +13,19 @@
       </xsl:copy>
    </xsl:template>
 
+
    <xsl:template match="include_model" mode="assembly">
+      <!-- Note that this implementation supports recursive includes -->
       <xsl:message>In include_model</xsl:message>
-       <xsl:apply-templates select="document(@filename)/entity_model/*" mode="assembly"/>
+       <xsl:variable name="included_entity_model" 
+                     as="element(entity_model)"
+                     select="document(@filename)/entity_model"/>
+       <xsl:variable name="included_entity_model_after_parsing_if_required"
+                     as="element(entity_model)">
+            <xsl:apply-templates select="$included_entity_model" mode="parse__conditional"/>
+       </xsl:variable>
+
+       <xsl:apply-templates select="$entity_model_after_conditional_conversion/*" mode="assembly"/>
    </xsl:template>
 
 </xsl:transform>
