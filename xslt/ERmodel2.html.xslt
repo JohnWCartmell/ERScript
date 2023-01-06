@@ -28,15 +28,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <?xml-stylesheet type="text/xsl" href="ERModel2HTML.xslt"?>
 
-
+<xsl:include href="ERmodelv1.6.parser.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
 <xsl:include href="ERmodel.consolidate.module.xslt"/>
 
 <xsl:template match="/">
   <xsl:message>In ERmodel2.html.xslt</xsl:message>
-  <xsl:variable name="state">
-    <xsl:apply-templates select="*" mode="assembly"/>
-  </xsl:variable>
+
+    <!-- optional parsing of v1.6 -->
+    <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
+   <xsl:variable name="state">
+       <xsl:choose>
+         <xsl:when test="entity_model/@ERScriptVersion='1.6'">
+
+               <xsl:apply-templates select="." mode="parse__conditional"/>
+             <!-- cant get assembly to work here -->
+             <!-- therefore support newform on included files and on top level files but not both -->
+         </xsl:when>
+         <xsl:otherwise>
+               <xsl:apply-templates select="." mode="assembly"/>  
+          </xsl:otherwise>
+       </xsl:choose>
+   </xsl:variable>
 
   <xsl:variable name="state">
     <xsl:apply-templates select="$state" mode="consolidate"/>

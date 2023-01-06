@@ -165,11 +165,6 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
        </xsl:choose>
    </xsl:variable>
 
-    <!-- an initial assembly (see ERmodel2.assembly.xslt)        -->
-    <xsl:variable name="state">
-      <xsl:apply-templates select="$state" mode="assembly"/>
-    </xsl:variable>
-
     <xsl:variable name="state">
       <xsl:apply-templates select="$state" mode="consolidate"/>
     </xsl:variable>
