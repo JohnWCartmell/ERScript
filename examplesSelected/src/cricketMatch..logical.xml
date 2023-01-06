@@ -1,241 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
    <absolute>
-      <composition>
-         <type>match</type>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-      </composition>
+      <composition type="match*"/>
    </absolute>
-   <entity_type>
-      <name>match</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <composition>
-         <type>innings</type>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <identifying/>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <type>side</type>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <identifying/>
-         <inverse>..</inverse>
-      </composition>
+   <entity_type name="match">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <composition type="innings*"/>
+      <composition type="side*"/>
    </entity_type>
-   <group>
-      <name>inmatch</name>
-      <entity_type>
-         <name>innings</name>
-         <attribute>
-            <name>number</name>
-            <type>
-               <string/>
-            </type>
-            <identifying/>
-         </attribute>
-         <dependency>
-            <name>..</name>
-            <type>match</type>
-            <inverse_of/>
-         </dependency>
-         <composition>
-            <type>over</type>
-            <cardinality>
-               <OneOrMore/>
-            </cardinality>
-            <identifying/>
-            <inverse>..</inverse>
-         </composition>
-         <reference>
-            <name>battingSide</name>
-            <type>side</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+   <group name="inmatch">
+      <entity_type name="innings">
+         <identifying>
+            <context type="match"/>
+            <attribute name="number" type="string"/>
+         </identifying>
+         <composition type="over*"/>
+         <reference name="battingSide" type="side">
+            <diagonal path=".."/>
+            <riser path=".."/>
          </reference>
-         <reference>
-            <name>fieldingSide</name>
-            <type>side</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+         <reference name="fieldingSide" type="side">
+            <diagonal path=".."/>
+            <riser path=".."/>
          </reference>
       </entity_type>
-      <entity_type>
-         <name>side</name>
-         <attribute>
-            <name>name</name>
-            <type>
-               <string/>
-            </type>
-            <identifying/>
-         </attribute>
-         <dependency>
-            <name>..</name>
-            <type>match</type>
-            <inverse_of/>
-         </dependency>
-         <composition>
-            <type>player</type>
-            <cardinality>
-               <OneOrMore/>
-            </cardinality>
-            <identifying/>
-            <inverse>..</inverse>
-         </composition>
+      <entity_type name="side">
+         <identifying>
+            <context type="match"/>
+            <attribute name="name" type="string"/>
+         </identifying>
+         <composition type="player*"/>
       </entity_type>
    </group>
-   <entity_type>
-      <name>over</name>
-      <attribute>
-         <name>number</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <dependency>
-         <name>..</name>
-         <type>innings</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <inverse_of/>
-      </dependency>
-      <composition>
-         <type>delivery</type>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <identifying/>
-         <inverse>..</inverse>
-      </composition>
-      <reference>
-         <name>bowler</name>
-         <type>player</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <diagonal>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>fieldingSide</rel>
-               </component>
-            </join>
-         </diagonal>
-         <riser>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </join>
-         </riser>
+   <entity_type name="over">
+      <identifying>
+         <context type="innings"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <composition type="delivery*"/>
+      <reference name="bowler" type="player">
+         <diagonal path="../fieldingSide"/>
+         <riser path=".."/>
       </reference>
    </entity_type>
-   <entity_type>
-      <name>player</name>
-      <attribute>
-         <name>number</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>name</name>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <dependency>
-         <name>..</name>
-         <type>side</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <inverse_of/>
-      </dependency>
+   <entity_type name="player">
+      <identifying>
+         <context type="side"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <attribute name="name" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>delivery</name>
-      <attribute>
-         <name>number</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <dependency>
-         <name>..</name>
-         <type>over</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <inverse_of/>
-      </dependency>
-      <reference>
-         <name>facingBatter</name>
-         <type>player</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <diagonal>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>battingSide</rel>
-               </component>
-            </join>
-         </diagonal>
-         <riser>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </join>
-         </riser>
+   <entity_type name="delivery">
+      <identifying>
+         <context type="over"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <reference name="facingBatter" type="player">
+         <diagonal path="../../battingSide"/>
+         <riser path=".."/>
       </reference>
    </entity_type>
 </entity_model>

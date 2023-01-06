@@ -1,251 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <description>
       A further test of the code generators and a demonstator of pullbacks. Should move to separate folder and 
       as an example of elaboration.
    </description>
    <absolute>
-      <name>grids</name>
-      <composition>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <type>grid</type>
-      </composition>
-      <composition>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <type>cardinal</type>
-      </composition>
+      <composition type="grid*"/>
+      <composition type="cardinal*"/>
    </absolute>
-   <entity_type>
-      <name>grid</name>
-      <attribute>
-         <name>name</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <reference>
-         <name>noOfRows</name>
-         <type>cardinal</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>noOfCols</name>
-         <type>cardinal</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </reference>
-      <composition>
-         <name>rows</name>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>row</type>
-         <identifying/>
-         <inverse>..</inverse>
+   <entity_type name="grid">
+      <identifying>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <composition name="rows" type="row*">
          <pullback>
-            <type>ordinal</type>
             <projection_rel>index</projection_rel>
             <along>
-               <component>
-                  <rel>noOfRows</rel>
-               </component>
+               noOfRows
             </along>
          </pullback>
       </composition>
-      <composition>
-         <name>columns</name>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>column</type>
-         <identifying/>
-         <inverse>..</inverse>
+      <composition name="columns" type="column*">
          <pullback>
-            <type>ordinal</type>
             <projection_rel>index</projection_rel>
             <along>
-               <component>
-                  <rel>noOfCols</rel>
-               </component>
+               noOfCols
             </along>
          </pullback>
       </composition>
+      <reference name="noOfRows" type="cardinal"/>
+      <reference name="noOfCols" type="cardinal"/>
    </entity_type>
-   <group>
-      <name>row and column</name>
-      <entity_type>
-         <name>row</name>
-         <dependency>
-            <name>..</name>
-            <inverse_of>rows</inverse_of>
-            <type>grid</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </dependency>
-         <reference>
-            <name>index</name>
-            <type>ordinal</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <identifying/>
-            <diagonal>
-               <join>
-                  <component>
-                     <rel>..</rel>
-                  </component>
-                  <component>
-                     <rel>noOfRows</rel>
-                  </component>
-               </join>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
-         </reference>
-         <composition>
-            <name>cells</name>
-            <cardinality>
-               <OneOrMore/>
-            </cardinality>
-            <type>cell</type>
-            <identifying/>
-            <inverse>..</inverse>
+   <group name="row and column">
+      <entity_type name="row">
+         <identifying>
+            <context type="grid"/>
+            <reference name="index" type="ordinal">
+               <diagonal path="../noOfRows"/>
+               <riser path=".."/>
+            </reference>
+         </identifying>
+         <composition name="cells" type="cell*">
             <pullback>
-               <type>column</type>
                <along>
-                  <component>
-                     <rel>..</rel>
-                  </component>
+                  ..
                </along>
                <projection_rel>col</projection_rel>
             </pullback>
          </composition>
       </entity_type>
-      <entity_type>
-         <name>column</name>
-         <dependency>
-            <name>..</name>
-            <type>grid</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </dependency>
-         <reference>
-            <name>index</name>
-            <type>ordinal</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <identifying/>
-            <diagonal>
-               <join>
-                  <component>
-                     <rel>..</rel>
-                  </component>
-                  <component>
-                     <rel>noOfCols</rel>
-                  </component>
-               </join>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
-         </reference>
-         <reference>
-            <name>cells</name>
-            <type>cell</type>
-            <cardinality>
-               <OneOrMore/>
-            </cardinality>
+      <entity_type name="column">
+         <identifying>
+            <context type="grid"/>
+            <reference name="index" type="ordinal">
+               <diagonal path="../noOfCols"/>
+               <riser path=".."/>
+            </reference>
+         </identifying>
+         <reference name="cells" type="cell*">
             <inverse>col</inverse>
          </reference>
       </entity_type>
    </group>
-   <entity_type>
-      <name>cell</name>
-      <dependency>
-         <name>..</name>
-         <type>row</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <inverse_of>cells</inverse_of>
-      </dependency>
-      <reference>
-         <name>col</name>
-         <type>column</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <identifying/>
-         <inverse>cells</inverse>
-         <diagonal>
-            <join>
-               <component>
-                  <rel>..</rel>
-               </component>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </join>
-         </diagonal>
-         <riser>
-            <component>
-               <rel>..</rel>
-            </component>
-         </riser>
-      </reference>
+   <entity_type name="cell">
+      <identifying>
+         <context type="row"/>
+         <reference name="col" type="column">
+            <inverse>cells</inverse>
+            <diagonal path="../.."/>
+            <riser path=".."/>
+         </reference>
+      </identifying>
    </entity_type>
-   <group>
-      <name>reuseable</name>
-      <entity_type>
-         <name>cardinal</name>
-         <attribute>
-            <name>zno</name>
-            <type>
-               <nonNegativeInteger/>
-            </type>
-            <identifying/>
-         </attribute>
-         <composition>
-            <type>ordinal</type>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
-            <inverse>..</inverse>
-            <identifying/>
-         </composition>
+   <group name="reuseable">
+      <entity_type name="cardinal">
+         <identifying>
+            <attribute name="zno" type="nonNegativeInteger"/>
+         </identifying>
+         <composition type="ordinal*"/>
       </entity_type>
-      <entity_type>
-         <name>ordinal</name>
-         <dependency>
-            <name>..</name>
-            <type>cardinal</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </dependency>
-         <attribute>
-            <name>zno</name>
-            <type>
-               <nonNegativeInteger/>
-            </type>
-            <identifying/>
-         </attribute>
+      <entity_type name="ordinal">
+         <identifying>
+            <context type="cardinal"/>
+            <attribute name="zno" type="nonNegativeInteger"/>
+         </identifying>
       </entity_type>
    </group>
 </entity_model>
