@@ -154,11 +154,11 @@
                     "
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
        <id>
           <xsl:text>S</xsl:text>  <!-- S for structure -->
           <xsl:number count="composition" level="any" />
        </id>
-       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
     </xsl:copy>
 </xsl:template>
 
@@ -180,11 +180,11 @@
                      [not(id)]" 
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
-       <id>
+        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+        <id>
           <xsl:text>R</xsl:text>
           <xsl:number count="reference" level="any" />
        </id>
-       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
     </xsl:copy>
 </xsl:template>
 
@@ -192,11 +192,11 @@
                      [not(id)]" 
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
        <id>
           <xsl:text>A</xsl:text>
           <xsl:number count="attribute" level="any" />
        </id>
-       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
     </xsl:copy>
 </xsl:template>
 

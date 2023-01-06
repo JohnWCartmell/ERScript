@@ -52,6 +52,10 @@
    <!-- intentially left blank -->
 </xsl:template>  
 
+<xsl:template match="@inverse" mode="parse__main_pass">
+   <!-- intentially left blank -->
+</xsl:template>  
+
 <xsl:template  match="group" mode="parse__main_pass">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
@@ -120,8 +124,6 @@
             </xsl:element>
          </xsl:when>
       </xsl:choose>
-
-
       <xsl:apply-templates select="*" mode="parse__main_pass"/> <!-- now processing non-attributes -->
    </xsl:copy>
 </xsl:template>

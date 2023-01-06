@@ -133,6 +133,9 @@ Models that utilise the additional power of the new form will not be fully repre
          </xsl:variable>
          <xsl:attribute name="type" select="concat(type,$cardinality)"/>
       </xsl:if>
+      <xsl:if test="inverse">
+         <xsl:attribute name="inverse" select="inverse"/>
+      </xsl:if>
       <xsl:apply-templates select="@*|*" mode="newform"/> <!-- don't want copy text nodes -->
    </xsl:copy>
 </xsl:template>
@@ -157,6 +160,7 @@ Models that utilise the additional power of the new form will not be fully repre
                        | self::type
                        | self::cardinality
                        | self::identifying
+                       | self::inverse
                        | self::has_identifying_feature
                      ]" mode="newform">
    <!-- intentionally left blank -->

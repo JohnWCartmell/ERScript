@@ -82,6 +82,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:variable name="relidsOn"  as="xs:boolean" select="$relids='y'" />
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="ERmodelv1.6.parser.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
 <xsl:include href="ERmodel.consolidate.module.xslt"/>
 <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
@@ -184,27 +185,15 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:variable name="conrel_height" select="0.7"/>
 <xsl:variable name="conrel_width" select="3.0"/>
 
-<!--
-<xsl:variable name="diagramHeight">
-    <xsl:call-template name="getDiagramHeight"/>
-</xsl:variable>
--->
-
-<!-- This cannot be a global variable after modularisation change 
-     and so this no longer used previously used by absolute and elsewhere
-            <xsl:variable name="diagramWidth">   
-                <xsl:call-template name="getDiagramWidth"/>
-            </xsl:variable>
--->
-<!-- also the follwoing can no longer be global post modularisation 
-         etDefaultWidth
-         etDefaultySeparation
-         etDefaultyDeltaSeparation
--->
-
-
-
-
+<!-- ******************** -->
+<!-- ******************** -->
+    <xsl:template match="@*|node()" mode="copyme">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="copyme"/>
+      </xsl:copy>
+   </xsl:template>
+<!-- ******************** -->
+<!-- ******************** -->
 
 <xsl:template name="main" match="/">
 <xsl:message>
@@ -218,12 +207,21 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    ========================
 </xsl:message>
 
+    <!-- optional parsing of v1.6 -->
+    <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
+   <xsl:variable name="state">
+       <xsl:choose>
+         <xsl:when test="entity_model/@ERScriptVersion='1.6'">
 
-
-   <!-- an initial assembly (see ERmodel2.assembly.module.xslt)        -->
-    <xsl:variable name="state">
-      <xsl:apply-templates select="*" mode="assembly"/>
-    </xsl:variable>
+               <xsl:apply-templates select="." mode="parse__conditional"/>
+             <!-- cant get assembly to work here -->
+             <!-- therefore support newform on included files and on top level files but not both -->
+         </xsl:when>
+         <xsl:otherwise>
+               <xsl:apply-templates select="." mode="assembly"/>  
+          </xsl:otherwise>
+       </xsl:choose>
+   </xsl:variable>
 
    <xsl:variable name="state">
       <xsl:apply-templates select="$state" mode="consolidate"/>
@@ -1984,6 +1982,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="reference" match="reference|constructed_relationship">
+   <xsl:message>In reference template <xsl:value-of select="name"/></xsl:message>
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>

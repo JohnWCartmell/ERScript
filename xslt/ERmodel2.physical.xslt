@@ -132,6 +132,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     </xsl:copy>
   </xsl:template>
   
+  <xsl:include href="ERmodelv1.6.parser.module.xslt"/>
   <xsl:include href="ERmodel.assembly.module.xslt"/>
   <xsl:include href="ERmodel.consolidate.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
@@ -148,9 +149,25 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     <xsl:message>at doc root child nodes are <xsl:value-of select="*/name()"/></xsl:message>
     <xsl:message>debug <xsl:value-of select="$debug"/></xsl:message>
 
+    <!-- optional parsing of v1.6 -->
+    <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
+   <xsl:variable name="state">
+       <xsl:choose>
+         <xsl:when test="entity_model/@ERScriptVersion='1.6'">
+
+               <xsl:apply-templates select="." mode="parse__conditional"/>
+             <!-- cant get assembly to work here -->
+             <!-- therefore support newform on included files and on top level files but not both -->
+         </xsl:when>
+         <xsl:otherwise>
+               <xsl:apply-templates select="." mode="assembly"/>  
+          </xsl:otherwise>
+       </xsl:choose>
+   </xsl:variable>
+
     <!-- an initial assembly (see ERmodel2.assembly.xslt)        -->
     <xsl:variable name="state">
-      <xsl:apply-templates select="." mode="assembly"/>
+      <xsl:apply-templates select="$state" mode="assembly"/>
     </xsl:variable>
 
     <xsl:variable name="state">
