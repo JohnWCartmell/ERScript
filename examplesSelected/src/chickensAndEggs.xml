@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
+   <entity_type name="egg">
+      <presentation>
+         <x>0.1</x>
+         <y>0.4</y>
+         <h>1.0</h>
+      </presentation>
+      <reference name="is laid_by" type="chicken">
+         <inverse>lays</inverse>
+      </reference>
+      <reference name="hatches_into" type="chicken?">
+         <inverse>hatched_from</inverse>
+      </reference>
+   </entity_type>
+   <entity_type name="chicken">
+      <presentation>
+         <rightOf>egg</rightOf>
+         <x>2.3</x>
+         <h>1.0</h>
+      </presentation>
+      <reference name="hatched_from" type="egg">
+         <inverse>hatches_into</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference name="lays" type="egg*">
+         <inverse>is laid_by</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.6</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+</entity_model>
