@@ -1982,7 +1982,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="reference" match="reference|constructed_relationship">
-   <xsl:message>In reference template <xsl:value-of select="name"/></xsl:message>
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>

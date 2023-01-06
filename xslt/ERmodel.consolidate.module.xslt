@@ -42,7 +42,6 @@
 
 
    <xsl:template match="group" mode="consolidate">
-      <xsl:message>consolidating group</xsl:message>
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:apply-templates select="following::group[name=current()/name]
@@ -110,7 +109,6 @@
    <xsl:template match="dependency" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
-         <xsl:message>Copying following dependency</xsl:message>
          <xsl:copy-of select="following::dependency[name=current()/name and ../name = current()/../name]
                                                   /*[not(self::name|self::type)]"/> 
       </xsl:copy>
@@ -121,7 +119,6 @@
                                                       ]
                                  ]" 
                  mode="consolidate">
-                 <xsl:message>Pruning depdendency</xsl:message>
               <!-- this template is deliberately left blank -->
    </xsl:template>
 

@@ -266,7 +266,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                             "/>         <!-- CR-18469  and not (../name='ansolute') -->
    </xsl:for-each>
    </xsl:for-each>
-<xsl:message>Leaving <xsl:value-of select="$et_name"/> </xsl:message>
 </xsl:function>
 
 <!-- MAIN WORK DONE HERE -->
@@ -334,8 +333,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 				        era:et_is_implemented(root(),../dependency/type)
 				     )
 						">
-         
-         <xsl:message>Imp. R'<xsl:value-of select="name"/>'</xsl:message>
          
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
