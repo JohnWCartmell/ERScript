@@ -145,9 +145,17 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
           style should be either 'h' hierarchical or 'hs' hierarchical stylised or 'r' relational 
       </xsl:message>
     </xsl:if>
-
-    <xsl:message>at doc root child nodes are <xsl:value-of select="*/name()"/></xsl:message>
-    <xsl:message>debug <xsl:value-of select="$debug"/></xsl:message>
+    <xsl:message>===========================</xsl:message>
+    <xsl:message> ERmodel2.physical   </xsl:message>
+    <xsl:message> debug: '<xsl:value-of select="$debug"/>'</xsl:message>
+    <xsl:message> style: '<xsl:value-of select="$style"/>'</xsl:message>
+    <xsl:message>===========================</xsl:message>
+    <xsl:message>Information: style is one of 'h' hierarchical or 'hs' hierarchical stylised or 'r' relational </xsl:message>
+    <xsl:if test="not($style='h' or $style='hs' or $style='r')">
+      <xsl:message terminate="yes">
+          Error: style should be either 'h' hierarchical or 'hs' hierarchical stylised or 'r' relational 
+      </xsl:message>
+    </xsl:if>
 
     <!-- optional parsing of v1.6 -->
     <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->

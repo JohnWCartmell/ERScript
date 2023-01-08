@@ -121,6 +121,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 <xsl:template name="physical_enrichment">
    <xsl:param name="document"/>
+   <xsl:message>In ERmodel2.physical_enrichment.module.xslt</xsl:message>
    <!-- first pass creates seqNo attributes -->
    <xsl:variable name="state">
       <xsl:for-each select="$document">
@@ -170,7 +171,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
     <xsl:if test="not(attribute[name='seqNo'])">                             <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute-->
          <xsl:for-each select="key('IncomingCompositionRelationships',name)">
            <xsl:if test="sequence">
-            <xsl:message> Addding Sequence attribute </xsl:message>
+            <xsl:message> Adding Sequence attribute </xsl:message>
              <attribute>                                                        <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
                 <name>seqNo</name>
                 <type><integer/></type>                                         <!-- 16 August 2022 - UPGRADED to latest metamodel : <type>integer</type> >>> <type><integer/></type> -->
