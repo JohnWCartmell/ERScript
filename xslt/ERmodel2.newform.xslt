@@ -173,7 +173,8 @@ Models that utilise the additional power of the new form will not be fully repre
 <xsl:template  match="*[self::diagonal|self::riser]" 
                     mode="newform">
    <xsl:variable as="xs:string*" name="path">
-         <xsl:apply-templates select="@*|node()" mode="newform"/>
+         <xsl:apply-templates select="*" mode="newform"/> 
+               <!-- * to match any element node and therefore ignore comments --> 
    </xsl:variable>
    <xsl:copy>
       <!--normalize-space(-->

@@ -73,7 +73,76 @@
                     mode="parse__main_pass">
    <xsl:copy>  
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
+      <xsl:if test="not(context|identifying/context)">
+          <xsl:call-template name="create_dependency_from_scratch"/>
+      </xsl:if>
    </xsl:copy>
+</xsl:template>
+
+<xsl:template name="create_dependency_from_scratch" match="entity_type" mode="explicit">
+   <xsl:element name="dependency">
+      <xsl:call-template name="create_dependency_name_from_scratch"/>
+      <xsl:call-template name="create_dependency_cardinality_from_scratch"/>
+      <xsl:call-template name="create_dependency_type_from_scratch"/>
+      <xsl:call-template name="create_dependency_identifying_from_scratch"/>
+      <xsl:call-template name="create_dependency_inverse_of_from_scratch"/>
+   </xsl:element>
+</xsl:template>
+
+<xsl:template name="create_dependency_cardinality_from_scratch" match="entity_type|context" mode="explicit">
+      <xsl:element name="cardinality">
+            <xsl:element name="{if (count(//composition[type=current()/../name]) &gt; 1)
+                                  then 'ZeroOrOne'
+                                  else 'ExactlyOne'}
+                                    "/>
+      </xsl:element>
+</xsl:template>
+
+<xsl:template name="create_dependency_name_from_scratch" match="entity_type|context" mode="explicit">
+   <xsl:element name="name">
+      <xsl:choose>
+         <xsl:when test="//composition[type=current()/../name]/inverse">
+            <xsl:value-of select="//composition[type=current()/../name]/inverse"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>..</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:element>
+</xsl:template>
+
+<xsl:template name="create_dependency_type_from_scratch" match="entity_type|context" mode="explicit">     
+   <xsl:element name="type">
+         <xsl:value-of select="//composition[type=current()/../name]/../name"/>
+         <!-- this logic not quite right because might be multiple incoming compositions -->
+   </xsl:element>
+</xsl:template>
+
+<xsl:template name="create_dependency_identifying_from_scratch" match="entity_type|context" mode="explicit"> 
+   <xsl:if test="parent::identifying
+                  or //composition[type=current()/../name]/identifying">    
+                                             <!-- TBD probably need a bit more than this -->
+                                          <!-- Hmmmm ... not sure -->
+      <xsl:element name="identifying"/>   <!-- little bit odd because previously wouldn't have modelled 
+                                             depedencies as identifying -->
+
+   </xsl:if>
+</xsl:template>
+
+<xsl:template name="create_dependency_inverse_of_from_scratch" 
+              match="entity_type
+                     |context[parent::entity_type]
+                     |context[parent::identifying]" 
+              mode="explicit"> 
+   <!-- doesn't quite look correct though given match possibilities-->
+   <xsl:variable name="host_entity_type_name" as="xs:string?"
+                 select="ancestor-or-self::entity_type[1]/name"
+                 />
+   <xsl:if test="//composition[type=$host_entity_type_name]">
+      <xsl:element name="inverse_of">
+         <xsl:value-of select="//composition[type=$host_entity_type_name]/name"/>
+      </xsl:element>
+   </xsl:if>
 </xsl:template>
 
 <xsl:template  match="*[ self::reference
@@ -164,9 +233,9 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:element name="cardinality">
-                  <xsl:value-of select="if (count(//composition[type=current()/../name]) &gt; 1)
+                  <xsl:element name="{if (count(//composition[type=current()/../name]) &gt; 1)
                                         then 'ZeroOrOne'
-                                        else 'ExactlyOne'
+                                        else 'ExactlyOne'}
                                           "/>
             </xsl:element>
             <xsl:element name="type">
@@ -188,6 +257,7 @@
       <xsl:apply-templates select="*" mode="parse__main_pass"/> <!-- now processing non-attributes -->
    </xsl:element>
 </xsl:template>
+
 
 <xsl:template  match="attribute" 
                     mode="parse__main_pass">
