@@ -343,7 +343,7 @@
 <xsl:template match="theabsolute
                      [not(display_text)]
                      " 
-              priority="9"
+              priority="11"
               mode="documentation_enrichment_recursive">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>

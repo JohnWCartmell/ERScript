@@ -81,6 +81,11 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:variable name="scopesOn"  as="xs:boolean" select="$scopes='y'" />
 <xsl:variable name="relidsOn"  as="xs:boolean" select="$relids='y'" />
 
+<!-- Keep a global reference to the document node so that can be used from assembly.module
+     for a base URI for access to included models by filename. See document() function. 
+-->
+<xsl:variable name="docnode" select="/"/>
+
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodelv1.6.parser.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
@@ -197,30 +202,38 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
 <xsl:template name="main" match="/">
 <xsl:message>
-   ========================
+   ===================================
+   ENTER  ERmodel2.diagram.module.xslt
    --- bundle = <xsl:value-of select="$bundle"/>
    --- animate = <xsl:value-of select="$animate"/>
    --- debug = <xsl:value-of select="$debug"/>
    --- trace = <xsl:value-of select="$trace"/>
    --- scopes = <xsl:value-of select="$scopes"/>
    --- relids = <xsl:value-of select="$relids"/> 
-   ========================
+   ------------------------------------
 </xsl:message>
 
     <!-- optional parsing of v1.6 -->
-    <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
+    <!-- I found I had to structure it this way to avoid losing context in which included documents are found 
+         by saving $docnode. Surely I could keep the document context by keep copying the document node
+         all the way the various stages.
+      -->
+
    <xsl:variable name="state">
        <xsl:choose>
          <xsl:when test="entity_model/@ERScriptVersion='1.6'">
-
                <xsl:apply-templates select="." mode="parse__conditional"/>
              <!-- cant get assembly to work here -->
              <!-- therefore support newform on included files and on top level files but not both -->
          </xsl:when>
          <xsl:otherwise>
-               <xsl:apply-templates select="." mode="assembly"/>  
+               <xsl:copy-of select="."/> 
           </xsl:otherwise>
        </xsl:choose>
+   </xsl:variable>
+
+   <xsl:variable name="state">
+      <xsl:apply-templates select="$state" mode="assembly"/>
    </xsl:variable>
 
    <xsl:variable name="state">
@@ -228,7 +241,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:variable>
 
    <xsl:if test="$debugOn">
-      <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:message>putting out initial assemby state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="initial_assembly_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
@@ -242,6 +255,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:call-template>
    </xsl:variable>
 
+   <xsl:if test="$debugOn">
+      <xsl:message>putting out initial enrichment state <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:result-document href="initial_enrichment_for_svg_temp.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
+
    <!-- further enrichment (see ERmodel2.documentation_enrichment.module.xslt)        -->
    <xsl:variable name="state">
       <xsl:call-template name="documentation_enrichment">
@@ -250,7 +270,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:variable>
 
    <xsl:if test="$debugOn">
-      <xsl:message>putting out state <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:message>putting out documentation enrichment state <xsl:value-of select="$state/name()"/></xsl:message>
       <xsl:result-document href="documentation_enrichment_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
@@ -266,6 +286,11 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          </xsl:if>
       </xsl:for-each>
    </xsl:for-each>
+   <xsl:message>
+   ---------------------------------
+   EXIT ERmodel2.diagram.module.xslt 
+   =================================
+</xsl:message>
 <!--
    <xsl:if test="$fileextension='tex'">
       <xsl:result-document href="{concat('catalogue',$filestem,'.tex')}">

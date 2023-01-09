@@ -28,12 +28,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <?xml-stylesheet type="text/xsl" href="ERModel2HTML.xslt"?>
 
+<!-- save $docnode for use from assembly module 
+    but surely I could do better than this abd keep the context all way
+    through various stages.
+-->
+<xsl:variable name="docnode" select="/" />
+  
+<xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="ERmodelv1.6.parser.module.xslt"/>
 <xsl:include href="ERmodel.assembly.module.xslt"/>
 <xsl:include href="ERmodel.consolidate.module.xslt"/>
 
 <xsl:template match="/">
-  <xsl:message>In ERmodel2.html.xslt</xsl:message>
+
+<xsl:message>================================</xsl:message>
+<xsl:message>    ENTER ERmodel2.html.xslt    </xsl:message>
+<xsl:message>--------------------------------</xsl:message>
 
     <!-- optional parsing of v1.6 -->
     <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
@@ -56,7 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </xsl:variable>
 
   <xsl:apply-templates select="$state/entity_model" mode="html"/>
-
+  <xsl:message>================================</xsl:message>
+  <xsl:message>    EXIT ERmodel2.html.xslt    </xsl:message>
+  <xsl:message>--------------------------------</xsl:message>
 </xsl:template>
 
    

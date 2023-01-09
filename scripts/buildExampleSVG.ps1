@@ -68,7 +68,7 @@ if ($physicalType -ne '')
 
     #  generate xslt's
 
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.elaboration.xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.elaboration.xslt
 
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\ERmodelERmodel.referential_integrity.xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.referential_integrity.xslt
 }

@@ -69,12 +69,26 @@
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
 </xsl:template>
 
+
+<!-- logic below needs to get messy because need use @type fro scratch and sometime remove final character -->
+<!-- could do with a function which strips cardinalti final char. -->
+<!-- add a function to ERmodel.functions.module.xslt -->
+<!-- era:typeFromTypePlus  -->
+
 <xsl:template  match="entity_type" 
                     mode="parse__main_pass">
    <xsl:copy>  
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
-      <xsl:if test="not(context|identifying/context)">
-          <xsl:call-template name="create_dependency_from_scratch"/>
+      <xsl:if test="not(context) and not(identifying/context)">
+         <xsl:if test="@name='value_type'">
+         <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
+      </xsl:if>
+         <xsl:if test="//composition[era:typeFromExtendedType(@type)=current()/@name]">
+         <xsl:if test="@name='value_type'">
+            <xsl:message>Will plant dependency</xsl:message>
+         </xsl:if>
+            <xsl:call-template name="create_dependency_from_scratch"/>
+       </xsl:if>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -89,20 +103,20 @@
    </xsl:element>
 </xsl:template>
 
-<xsl:template name="create_dependency_cardinality_from_scratch" match="entity_type|context" mode="explicit">
+<xsl:template name="create_dependency_cardinality_from_scratch" match="entity_type" mode="explicit">
       <xsl:element name="cardinality">
-            <xsl:element name="{if (count(//composition[type=current()/../name]) &gt; 1)
+            <xsl:element name="{if (count(//composition[era:typeFromExtendedType(@type)=current()/@name]) &gt; 1)
                                   then 'ZeroOrOne'
                                   else 'ExactlyOne'}
                                     "/>
       </xsl:element>
 </xsl:template>
 
-<xsl:template name="create_dependency_name_from_scratch" match="entity_type|context" mode="explicit">
+<xsl:template name="create_dependency_name_from_scratch" match="entity_type" mode="explicit">
    <xsl:element name="name">
       <xsl:choose>
-         <xsl:when test="//composition[type=current()/../name]/inverse">
-            <xsl:value-of select="//composition[type=current()/../name]/inverse"/>
+         <xsl:when test="//composition[era:typeFromExtendedType(@type)=current()/@name]/inverse">
+            <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=current()/@name]/inverse"/>
          </xsl:when>
          <xsl:otherwise>
             <xsl:text>..</xsl:text>
@@ -111,16 +125,17 @@
    </xsl:element>
 </xsl:template>
 
-<xsl:template name="create_dependency_type_from_scratch" match="entity_type|context" mode="explicit">     
+<xsl:template name="create_dependency_type_from_scratch" match="entity_type" mode="explicit">     
    <xsl:element name="type">
-         <xsl:value-of select="//composition[type=current()/../name]/../name"/>
+         <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=current()/@name]/
+                                            ancestor::entity_type[1]/@name"/>
          <!-- this logic not quite right because might be multiple incoming compositions -->
    </xsl:element>
 </xsl:template>
 
-<xsl:template name="create_dependency_identifying_from_scratch" match="entity_type|context" mode="explicit"> 
+<xsl:template name="create_dependency_identifying_from_scratch" match="entity_type" mode="explicit"> 
    <xsl:if test="parent::identifying
-                  or //composition[type=current()/../name]/identifying">    
+                  or //composition[era:typeFromExtendedType(@type)=current()/@name]/identifying">    
                                              <!-- TBD probably need a bit more than this -->
                                           <!-- Hmmmm ... not sure -->
       <xsl:element name="identifying"/>   <!-- little bit odd because previously wouldn't have modelled 
@@ -138,9 +153,9 @@
    <xsl:variable name="host_entity_type_name" as="xs:string?"
                  select="ancestor-or-self::entity_type[1]/name"
                  />
-   <xsl:if test="//composition[type=$host_entity_type_name]">
+   <xsl:if test="//composition[era:typeFromExtendedType(@type)=$host_entity_type_name]">
       <xsl:element name="inverse_of">
-         <xsl:value-of select="//composition[type=$host_entity_type_name]/name"/>
+         <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=$host_entity_type_name]/name"/>
       </xsl:element>
    </xsl:if>
 </xsl:template>
@@ -162,13 +177,7 @@
                             }"/>
 
       </xsl:element>
-      <xsl:variable name="type"
-                        select="if ((substring(@type,string-length(@type))='?')
-                                 or (substring(@type,string-length(@type))='*')
-                                 or (substring(@type,string-length(@type))='+'))
-                                then substring(@type,1,string-length(@type)-1)
-                                else @type
-                               "/>
+      <xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
       <xsl:element name="type">
          <xsl:value-of select="$type"/>
       </xsl:element>
@@ -299,7 +308,7 @@
          <xsl:element name="identity"/>
       </xsl:when>
       <xsl:when test="$text='^'">
-         <xsl:element name="theaboslute"/>
+         <xsl:element name="theabsolute"/>
       </xsl:when>
       <xsl:when test="contains($text,'/')">
          <xsl:element name="join">

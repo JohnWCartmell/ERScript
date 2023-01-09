@@ -155,10 +155,17 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
             
 
-<xsl:template match="*" mode="first_physical_pass">
+<xsl:template match="@*|node()" mode="first_physical_pass">
   <xsl:copy>
-     <xsl:apply-templates mode="first_physical_pass"/>
+     <xsl:apply-templates select="@*|node()" mode="first_physical_pass"/>
  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="include_model" mode="first_physical_pass">
+    <xsl:copy>
+        <xsl:message>*************  first_physical_pass ***in include_model filename is '<xsl:value-of select="@filename"/>'</xsl:message>
+      <xsl:apply-templates select="@*|node()" mode="first_physical_pass"/>
+    </xsl:copy>
 </xsl:template>
 
 <xsl:template match="entity_type" mode="first_physical_pass">
@@ -212,9 +219,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:copy-of select="$result"/>
 </xsl:template>
 
-<xsl:template match="*" mode="recursive_physical_enrichment">
+<xsl:template match="@*|node()" mode="recursive_physical_enrichment">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_physical_enrichment"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="include_model" mode="recursive_physical_enrichment">
+    <xsl:copy>
+        <xsl:message>*************  recursive_physical_enrichment **** in include_model filename is '<xsl:value-of select="@filename"/>'</xsl:message>
+      <xsl:apply-templates select="@*|node()" mode="recursive_physical_enrichment"/>
     </xsl:copy>
 </xsl:template>
 

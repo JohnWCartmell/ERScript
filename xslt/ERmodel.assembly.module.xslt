@@ -20,7 +20,8 @@
       <xsl:message>In include_model ... filename '<xsl:value-of select="@filename"/>'</xsl:message>
       <xsl:variable name="included_entity_model" 
                      as="element(entity_model)"
-                     select="document(@filename)/entity_model"/>
+                     select="document(@filename,$docnode)/entity_model"/>
+                     <!-- also test using saxon doc function in place of document -->
       <xsl:variable name="included_entity_model_after_parsing_if_required"
                      as="element(entity_model)">
          <xsl:apply-templates select="$included_entity_model" mode="parse__conditional"/>

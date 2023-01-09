@@ -85,6 +85,16 @@ CR18720 JC  16-Nov-2016 Created
     <xsl:value-of select="era:packArray($prefixedelements)"/>
 </xsl:function>
 
+<!-- strip a name from a name optionally followed by one of the characters ?,+,* -->
+<xsl:function name="era:typeFromExtendedType">
+    <xsl:param name="type" as="xs:string"/>
+    <xsl:value-of select="if ((substring($type,string-length($type))='?')
+                                 or (substring($type,string-length($type))='*')
+                                 or (substring($type,string-length($type))='+'))
+                                then substring($type,1,string-length($type)-1)
+                                else $type"/>
+</xsl:function>
+
 </xsl:transform>
 
 <!-- end of file: ERmodel_v1.2/src/ERmodel.functions.module.xslt--> 

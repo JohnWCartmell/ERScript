@@ -70,9 +70,10 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
 
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
-  <xsl:include href="ERmodel.functions.module.xslt"/>
 
   <xsl:param name="style"/>   
+  <xsl:param name="debug" as="xs:string?"/>
+
   <!-- can be 'h' or 'hs' for hierarchical and 'r' for relational -->
   <!-- 'hs' is hierarchical stylised - at most one identifying 
               attribute per entity type, explicit diagonals, inheritance, 
@@ -121,10 +122,14 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
          use="era:packArray((../../name,rel))"/>
 
 
-  <xsl:param name="debug" as="xs:string?"/>
   <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
-
+  <!-- save $docnode for use from assembly module 
+      but surely I could do better than this abd keep the context all way
+      through various stages.
+  -->
+  <xsl:variable name="docnode" select="/" />   
+  
   <!-- Make copy template available as a default -->
   <xsl:template match="*" >
     <xsl:copy>
@@ -132,12 +137,15 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     </xsl:copy>
   </xsl:template>
   
+  <xsl:include href="ERmodel.functions.module.xslt"/>
   <xsl:include href="ERmodelv1.6.parser.module.xslt"/>
   <xsl:include href="ERmodel.assembly.module.xslt"/>
   <xsl:include href="ERmodel.consolidate.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.physical_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
+
+
 
   <xsl:template match="/">
     <xsl:if test="not($style='h' or $style='hs' or $style='r')">
@@ -146,10 +154,10 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:message>
     </xsl:if>
     <xsl:message>===========================</xsl:message>
-    <xsl:message> ERmodel2.physical   </xsl:message>
+    <xsl:message> ENTER ERmodel2.physical   </xsl:message>
     <xsl:message> debug: '<xsl:value-of select="$debug"/>'</xsl:message>
     <xsl:message> style: '<xsl:value-of select="$style"/>'</xsl:message>
-    <xsl:message>===========================</xsl:message>
+    <xsl:message>---------------------------</xsl:message>
     <xsl:message>Information: style is one of 'h' hierarchical or 'hs' hierarchical stylised or 'r' relational </xsl:message>
     <xsl:if test="not($style='h' or $style='hs' or $style='r')">
       <xsl:message terminate="yes">
@@ -158,31 +166,36 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
     </xsl:if>
 
     <!-- optional parsing of v1.6 -->
-    <!-- I found I had to structure it this way to avoid losing context in which included documents are found -->
+
    <xsl:variable name="state">
        <xsl:choose>
          <xsl:when test="entity_model/@ERScriptVersion='1.6'">
-
                <xsl:apply-templates select="." mode="parse__conditional"/>
              <!-- cant get assembly to work here -->
              <!-- therefore support newform on included files and on top level files but not both -->
          </xsl:when>
          <xsl:otherwise>
-               <xsl:apply-templates select="." mode="assembly"/>  
+               <xsl:copy-of select="."/> 
           </xsl:otherwise>
        </xsl:choose>
    </xsl:variable>
 
+   <xsl:variable name="state">
+      <xsl:apply-templates select="$state" mode="assembly"/>
+   </xsl:variable>
+
+   
     <xsl:variable name="state">
       <xsl:apply-templates select="$state" mode="consolidate"/>
     </xsl:variable>
 
     <xsl:if test="$debugon">
       <xsl:message>Debug is on </xsl:message>
-      <xsl:result-document href="initial_assembly_temp.xml" method="xml">
+      <xsl:result-document href="initial_consolidated assembly_temp.xml" method="xml">
         <xsl:sequence select="$state/entity_model"/>
       </xsl:result-document>
     </xsl:if>
+
     <!-- is followed by an initial enrichment (see ERmodel2.initial_enrichment.module.xslt)        -->
     <xsl:variable name="state">
       <xsl:call-template name="initial_enrichment">
@@ -219,6 +232,9 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:otherwise>
     </xsl:choose>    
   -->
+    <xsl:message>-------------------------</xsl:message>
+    <xsl:message> EXIT ERmodel2.physical   </xsl:message>
+    <xsl:message>=========================</xsl:message>
   </xsl:template>
 
 </xsl:transform>

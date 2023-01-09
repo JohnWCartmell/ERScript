@@ -182,6 +182,16 @@ Models that utilise the additional power of the new form will not be fully repre
    </xsl:copy>
 </xsl:template>
 
+<xsl:template  match="theabsolute" 
+                    mode="newform">
+   <xsl:text>^</xsl:text>
+</xsl:template>
+
+<xsl:template  match="identity" 
+                    mode="newform">
+   <xsl:text>.</xsl:text>
+</xsl:template>
+
 <xsl:template  match="component" 
                     mode="newform">
    <xsl:value-of select="rel"/>
@@ -192,6 +202,16 @@ Models that utilise the additional power of the new form will not be fully repre
    <xsl:for-each select="component">
       <xsl:if test="position()!=1">
          <xsl:text>/</xsl:text>
+      </xsl:if>
+      <xsl:apply-templates select="." mode="newform"/>
+   </xsl:for-each>
+</xsl:template>
+
+<xsl:template  match="aggregate" 
+                    mode="newform">
+   <xsl:for-each select="component">
+      <xsl:if test="position()!=1">
+         <xsl:text>|</xsl:text>
       </xsl:if>
       <xsl:apply-templates select="." mode="newform"/>
    </xsl:for-each>

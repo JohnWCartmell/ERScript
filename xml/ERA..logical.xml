@@ -1,752 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
-               xmlns:era="http://www.entitymodelling.org/ERmodel">
+               xmlns:era="http://www.entitymodelling.org/ERmodel"
+               ERScriptVersion="1.6">
    <absolute>
-      <name>entity_model</name>
-      <composition>
-         <type>entity_type_like</type>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-      </composition>
-      <composition>
-         <type>absolute</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>xml</type>
-      </composition>
+      <composition type="entity_type_like*"/>
+      <composition type="absolute"/>
+      <composition type="xml?"/>
    </absolute>
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
    </xml>
-   <entity_type>
-      <name>xml</name>
-      <attribute>
-         <name>namespace_uri</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <name>attributeDefault</name>
-         <type>xmlStyle(2)</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
+   <entity_type name="xml">
+      <composition name="attributeDefault" type="xmlStyle(2)?"/>
+      <attribute name="namespace_uri" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>ENTITY_TYPE</name>
-      <entity_type>
-         <name>absolute</name>
-      </entity_type>
-      <entity_type>
-         <name>entity_type_like</name>
+   <entity_type name="ENTITY_TYPE">
+      <identifying>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <entity_type name="absolute"/>
+      <entity_type name="entity_type_like">
          <dependency_group/>
-         <entity_type>
-            <name>entity_type</name>
-            <composition>
-               <name>xmlRepresentation</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>xmlStyle(1)</type>
-            </composition>
+         <entity_type name="entity_type">
+            <composition name="xmlRepresentation" type="xmlStyle(1)?"/>
          </entity_type>
-         <entity_type>
-            <name>group</name>
-            <attribute>
-               <name>annotation</name>
-               <type>
-                  <string/>
-               </type>
-               <optional/>
-            </attribute>
+         <entity_type name="group">
+            <attribute name="annotation" type="string"/>
          </entity_type>
-         <composition>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
-            <type>entity_type_like</type>
-         </composition>
+         <composition type="entity_type_like*"/>
       </entity_type>
-      <attribute>
-         <name>name</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>description</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>xpath</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>module_name</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>dependency_group</type>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>Relationship</type>
-         <identifying>
-            <inherited/>
-         </identifying>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>attribute</type>
-         <identifying>
-            <inherited/>
-         </identifying>
-         <inverse>..</inverse>
-      </composition>
+      <composition type="dependency_group*"/>
+      <composition type="Relationship*" inverse=".."/>
+      <composition type="attribute*" inverse=".."/>
+      <attribute name="description" type="string"/>
+      <attribute name="xpath" type="string"/>
+      <attribute name="module_name" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>attribute</name>
-      <dependency>
-         <name>..</name>
-         <type>ENTITY_TYPE</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>implementationOf</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <name>type</name>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <type>value_type</type>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>identifying(2)</type>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>optional</type>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>deprecated</type>
-      </composition>
-      <composition>
-         <name>xmlStyle</name>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>xmlStyle(2)</type>
-      </composition>
-      <attribute>
-         <name>name</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>description</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
+   <entity_type name="attribute">
+      <identifying>
+         <context type="ENTITY_TYPE"/>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <composition type="implementationOf?" inverse=".."/>
+      <composition name="type" type="value_type"/>
+      <composition type="identifying(2)?"/>
+      <composition type="optional?"/>
+      <composition type="deprecated?"/>
+      <composition name="xmlStyle" type="xmlStyle(2)?"/>
+      <attribute name="description" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>dependency_group</name>
-      <!--
+   <entity_type name="dependency_group"><!--
       <composition>
          <type>presentation</type>    
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
       </composition>
-   -->
-   </entity_type>
-   <entity_type>
-      <name>Relationship</name>
-      <dependency>
-         <name>..</name>
-         <type>ENTITY_TYPE</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
-      <entity_type>
-         <name>reference_or_dependency</name>
-         <entity_type>
-            <name>dependency</name>
-            <reference>
-               <name>inverse_of</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>composition</type>
-               <inverse>inverse</inverse>
+   --></entity_type>
+   <entity_type name="Relationship">
+      <identifying>
+         <context type="ENTITY_TYPE"/>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <entity_type name="reference_or_dependency">
+         <entity_type name="dependency">
+            <reference name="inverse_of" type="composition?" inverse="inverse"/>
+         </entity_type>
+         <entity_type name="reference">
+            <composition name="diagonal" type="navigation?"/>
+            <composition name="riser" type="navigation?"/>
+            <composition name="key" type="navigation?"/>
+            <composition type="projection?"/>
+            <attribute name="js" type="string"/>
+            <attribute name="xpath_evaluate" type="string"/>
+            <reference name="inverse" type="reference?" inverse="inverse">
+               <diagonal path="type"/>
+               <riser path=".."/>
             </reference>
          </entity_type>
-         <entity_type>
-            <name>reference</name>
-            <attribute>
-               <name>js</name>
-               <type>
-                  <string/>
-               </type>
-               <optional/>
-            </attribute>
-            <attribute>
-               <name>xpath_evaluate</name>
-               <type>
-                  <string/>
-               </type>
-               <optional/>
-               <!--
-               <description>An xpath expression which can be used to evaluate this reference using primary keys and foreign keys. 
-                           This attribute is generated by logical2physical unless it is hand coded in the logical.
-          </description>-->
-            </attribute>
-            <reference>
-               <name>inverse</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>reference</type>
-               <inverse>inverse</inverse>
-               <diagonal>
-                  <component>
-                     <rel>type</rel>
-                  </component>
-               </diagonal>
-               <riser>
-                  <component>
-                     <rel>..</rel>
-                  </component>
-               </riser>
-            </reference>
-            <composition>
-               <name>diagonal</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>navigation</type>
-            </composition>
-            <composition>
-               <name>riser</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>navigation</type>
-            </composition>
-            <composition>
-               <name>key</name>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>navigation</type>
-            </composition>
-            <composition>
-               <type>projection</type>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-            </composition>
-         </entity_type>
       </entity_type>
-      <entity_type>
-         <name>constructed_relationship</name>
-         <reference>
-            <name>inverse</name>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>constructed_relationship</type>
-            <inverse>inverse</inverse>
-         </reference>
-         <composition>
-            <type>navigation</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </composition>
+      <entity_type name="constructed_relationship">
+         <composition type="navigation"/>
+         <reference name="inverse" type="constructed_relationship?" inverse="inverse"/>
       </entity_type>
-      <entity_type>
-         <name>composition</name>
-         <reference>
-            <name>inverse</name>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>dependency</type>
-            <inverse>inverse_of</inverse>
-         </reference>
-         <composition>
-            <type>transient</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </composition>
-         <composition>
-            <type>initialiser</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <inverse>..</inverse>
-         </composition>
+      <entity_type name="composition">
+         <composition type="transient?"/>
+         <composition type="initialiser?" inverse=".."/>
+         <reference name="inverse" type="dependency?" inverse="inverse_of"/>
       </entity_type>
-      <reference>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <name>type</name>
-         <type>ENTITY_TYPE</type>
-      </reference>
-      <composition>
-         <type>sequence</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <type>identifying(1)</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <name>cardinality</name>
-         <type>cardinality</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </composition>
-      <attribute>
-         <name>name</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>description</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>id</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>scope</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>physical_prefix</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
+      <composition type="sequence?"/>
+      <composition type="identifying(1)?"/>
+      <composition name="cardinality" type="cardinality"/>
+      <reference name="type" type="ENTITY_TYPE"/>
+      <attribute name="description" type="string"/>
+      <attribute name="id" type="string"/>
+      <attribute name="scope" type="string"/>
+      <attribute name="physical_prefix" type="string"/>
    </entity_type>
-
-
-   <entity_type>
-      <name>sequence</name>
-   </entity_type>
-   <group>
-      <name>righthand_children</name>
-      <entity_type>
-         <name>projection</name>
+   <entity_type name="sequence"/>
+   <group name="righthand_children">
+      <entity_type name="projection"/>
+      <entity_type name="identifying(1)">
+         <composition type="inherited?"/>
       </entity_type>
-      <entity_type>
-         <name>identifying(1)</name>
-         <composition>
-            <type>inherited</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </composition>
-      </entity_type>
-      <entity_type>
-         <name>inherited</name>
-      </entity_type>
-      <entity_type>
-         <name>cardinality</name>
-         <entity_type>
-            <name>ZeroOrOne</name>
-         </entity_type>
-         <entity_type>
-            <name>ExactlyOne</name>
-         </entity_type>
-         <entity_type>
-            <name>ZeroOneOrMore</name>
-         </entity_type>
-         <entity_type>
-            <name>OneOrMore</name>
-         </entity_type>
+      <entity_type name="inherited"/>
+      <entity_type name="cardinality">
+         <entity_type name="ZeroOrOne"/>
+         <entity_type name="ExactlyOne"/>
+         <entity_type name="ZeroOneOrMore"/>
+         <entity_type name="OneOrMore"/>
       </entity_type>
    </group>
-   <group>
-      <name>composition_children</name>
-      <entity_type>
-         <name>transient</name>
-      </entity_type>
-      <entity_type>
-         <name>initialiser</name>
-         <dependency>
-            <name>..</name>
-            <type>composition</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </dependency>
-         <entity_type>
-            <name>pullback</name>
-            <reference>
-               <name>projection_rel</name>
-               <type>reference</type>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <diagonal>
-                  <join>
-                     <component>
-                        <rel>..</rel>
-                     </component>
-                     <component>
-                        <rel>type</rel>
-                     </component>
-                  </join>
-               </diagonal>
-               <riser>
-                  <component>
-                     <rel>..</rel>
-                  </component>
-               </riser>
+   <group name="composition_children">
+      <entity_type name="transient"/>
+      <entity_type name="initialiser">
+         <entity_type name="pullback">
+            <reference name="projection_rel" type="reference?">
+               <diagonal path="../type"/>
+               <riser path=".."/>
             </reference>
          </entity_type>
-         <entity_type>
-            <name>copy</name>
-            <composition>
-               <name>riser2</name>
-               <type>navigation</type>
-               <cardinality>
-                  <ExactlyOne/>
-               </cardinality>
-            </composition>
+         <entity_type name="copy">
+            <composition name="riser2" type="navigation"/>
          </entity_type>
-         <composition>
-            <name>along</name>
-            <type>navigation</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </composition>
-         <reference>
-            <name>type</name>
-            <type>ENTITY_TYPE</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </reference>
+         <composition name="along" type="navigation"/>
+         <reference name="type" type="ENTITY_TYPE"/>
       </entity_type>
    </group>
-   <entity_type>
-      <name>navigation</name>
+   <entity_type name="navigation">
       <dependency_group/>
-      <attribute>
-         <name>xpath_evaluate</name>
-         <optional/>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <entity_type>
-         <name>complex</name>
-         <composition>
-            <type>component</type>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
+      <entity_type name="complex">
+         <composition type="component*">
             <sequence/>
          </composition>
-         <entity_type>
-            <name>join</name>
-         </entity_type>
-         <entity_type>
-            <name>aggregate</name>
-         </entity_type>
+         <entity_type name="join"/>
+         <entity_type name="aggregate"/>
       </entity_type>
-      <entity_type>
-         <name>component</name>
-         <reference>
-            <name>rel</name>
-            <type>Relationship</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <component>
-                  <rel>src</rel>
-               </component>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+      <entity_type name="component">
+         <reference name="rel" type="Relationship">
+            <diagonal path="src"/>
+            <riser path=".."/>
          </reference>
       </entity_type>
-      <group>
-         <name>component children</name>
-         <entity_type>
-            <name>identity</name>
-            <!--
+      <group name="component children">
+         <entity_type name="identity"><!--
             <description>
                 The identity navigation.
         </description>
-     -->
-         </entity_type>
-         <entity_type>
-            <name>theabsolute</name>
-            <!--
+     --></entity_type>
+         <entity_type name="theabsolute"><!--
             <description>
                 A navigation to the ansolute.
         </description>
-     -->
-         </entity_type>
+     --></entity_type>
       </group>
-      <reference>
-         <name>src</name>
-         <type>ENTITY_TYPE</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>dest</name>
-         <type>ENTITY_TYPE</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <!--
-         <description>Introduced for potential use in better 
-                           scoping of 'rel' relationship for which require 'previous' navigation.
-                           Currently derived during enrichment.
-      </description>
-   -->
-      </reference>
+      <attribute name="xpath_evaluate" type="string"/>
+      <reference name="src" type="ENTITY_TYPE?"/>
+      <reference name="dest" type="ENTITY_TYPE?"/>
    </entity_type>
-
-   <group>
-      <name>attribute_children</name>
-      <entity_type>
-         <name>implementationOf</name>
-         <dependency>
-            <name>..</name>
-            <type>attribute</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </dependency>
-         <reference>
-            <name>destattr</name>
-            <type>attribute</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <join>
-                  <component>
-                     <rel>rel</rel>
-                  </component>
-                  <component>
-                     <src>Relationship</src>
-                     <rel>type</rel>
-                  </component>
-               </join>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+   <group name="attribute_children">
+      <entity_type name="implementationOf">
+         <reference name="destattr" type="attribute">
+            <diagonal path="rel/type"/>
+            <riser path=".."/>
          </reference>
-         <reference>
-            <name>attrOfOrigin</name>
-            <type>attribute</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <component>
-                  <rel>typeOfOrigin</rel>
-               </component>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+         <reference name="attrOfOrigin" type="attribute">
+            <diagonal path="typeOfOrigin"/>
+            <riser path=".."/>
          </reference>
-         <reference>
-            <name>typeOfOrigin</name>
-            <type>ENTITY_TYPE</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <theabsolute/>
-            </diagonal>
-            <riser>
-               <theabsolute/>
-            </riser>
+         <reference name="typeOfOrigin" type="ENTITY_TYPE">
+            <diagonal path="^"/>
+            <riser path="^"/>
          </reference>
-         <reference>
-            <name>rel</name>
-            <type>reference_or_dependency</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-            <diagonal>
-               <join>
-                  <component>
-                     <rel>..</rel>
-                  </component>
-                  <component>
-                     <src>attribute</src>
-                     <rel>..</rel>
-                  </component>
-               </join>
-            </diagonal>
-            <riser>
-               <component>
-                  <rel>..</rel>
-               </component>
-            </riser>
+         <reference name="rel" type="reference_or_dependency">
+            <diagonal path="../.."/>
+            <riser path=".."/>
          </reference>
       </entity_type>
-      <entity_type>
-         <name>value_type</name>
-         <entity_type>
-            <name>boolean</name>
-         </entity_type>
-         <entity_type>
-            <name>date</name>
-         </entity_type>
-         <entity_type>
-            <name>dateTime</name>
-         </entity_type>
-         <entity_type>
-            <name>integer</name>
-         </entity_type>
-         <entity_type>
-            <name>float</name>
-         </entity_type>
-         <entity_type>
-            <name>nonNegativeInteger</name>
-         </entity_type>
-         <entity_type>
-            <name>positiveInteger</name>
-         </entity_type>
-         <entity_type>
-            <name>string</name>
-         </entity_type>
-         <entity_type>
-            <name>time</name>
-         </entity_type>
+      <entity_type name="value_type">
+         <entity_type name="boolean"/>
+         <entity_type name="date"/>
+         <entity_type name="dateTime"/>
+         <entity_type name="integer"/>
+         <entity_type name="float"/>
+         <entity_type name="nonNegativeInteger"/>
+         <entity_type name="positiveInteger"/>
+         <entity_type name="string"/>
+         <entity_type name="time"/>
       </entity_type>
-      <entity_type>
-         <name>identifying(2)</name>
+      <entity_type name="identifying(2)"/>
+      <entity_type name="optional">
+         <attribute name="value" type="string"/>
       </entity_type>
-      <entity_type>
-         <name>optional</name>
-         <attribute>
-            <name>value</name>
-            <type>
-               <string/>
-            </type>
-            <optional/>
-         </attribute>
-      </entity_type>
-      <entity_type>
-         <name>deprecated</name>
-      </entity_type>
+      <entity_type name="deprecated"/>
    </group>
-   <entity_type>
-      <name>xmlStyle(2)</name>
+   <entity_type name="xmlStyle(2)">
       <dependency_group/>
-      <entity_type>
-         <name>Attribute</name>
-      </entity_type>
-      <entity_type>
-         <name>Element(2)</name>
-      </entity_type>
-      <entity_type>
-         <name>Anonymous(2)</name>
-      </entity_type>
+      <entity_type name="Attribute"/>
+      <entity_type name="Element(2)"/>
+      <entity_type name="Anonymous(2)"/>
    </entity_type>
-   <entity_type>
-      <name>xmlStyle(1)</name>
-      <entity_type>
-         <name>Element(1)</name>
-      </entity_type>
-      <entity_type>
-         <name>Anonymous(1)</name>
-      </entity_type>
+   <entity_type name="xmlStyle(1)">
+      <entity_type name="Element(1)"/>
+      <entity_type name="Anonymous(1)"/>
    </entity_type>
-
    <include_model filename="ERA..derived_attributes.xml"/>
 </entity_model>
