@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="flexDiagram..physical.xml"/>
+   <include_model filename="flexDiagram..descriptive_text.xml"/>
+   <include_model filename="flexDiagram..presentation.xml"/>
+</entity_model>

@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <absolute>
+      <name>diagram</name>
+      <description/>
+      <attribute>
+         <name>h</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>w</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>margin</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>depth</name>
+         <description>Depth of nesting - is zero for diagram itself.</description>
+      </attribute>
+      <composition>
+         <type>box</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>route</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>default</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>shape_style</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>endline_style</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>text_style</type>
+         <description>.</description>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>box</name>
+      <description>A generalisation of the types path, label(1), point_or_line and enclosure..</description>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>h</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>w</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>margin</name>
+         <description>separation of border from content</description>
+      </attribute>
+      <attribute>
+         <name>padding</name>
+         <description>size of clear area around shape or text</description>
+      </attribute>
+      <attribute>
+         <name>depth</name>
+         <description>Depth of nesting.</description>
+      </attribute>
+      <composition>
+         <type>x</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>y</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>default</type>
+         <description>.</description>
+      </composition>
+      <entity_type>
+         <name>path</name>
+         <description>An entity type..</description>
+         <composition>
+            <type>point_or_line</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>label(1)</name>
+         <description>An entity type..</description>
+         <attribute>
+            <name>text</name>
+            <description>An attribute of typestring.</description>
+         </attribute>
+         <attribute>
+            <name>offset2</name>
+            <description>
+					If a label is a label of an edge then the value of 
+					this attribute is the distance of the label along that edge. 
+					This attribute is used in calculation of outer dimensions
+					(wl,wr,ht,hb) of the enclosure whose edge it is. It is often required
+					to be calculated before even the local position of the enclosure may be determined.
+				</description>
+         </attribute>
+         <reference>
+            <name>text_style</name>
+            <type>text_style</type>
+            <description>.</description>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>point_or_line</name>
+         <description>A generalisation of the types point and cardinal..</description>
+         <entity_type>
+            <name>point</name>
+            <description>An entity type..</description>
+            <composition>
+               <type>path</type>
+               <description>.</description>
+            </composition>
+            <composition>
+               <type>label(1)</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <entity_type>
+            <name>cardinal</name>
+            <description>A generalisation of the types ns, ew and ramp..</description>
+            <entity_type>
+               <name>ns</name>
+               <description>An entity type..</description>
+               <attribute>
+                  <name>starty</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>midy</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>endy</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+            </entity_type>
+            <entity_type>
+               <name>ew</name>
+               <description>An entity type..</description>
+               <attribute>
+                  <name>startx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>midx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>endx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+            </entity_type>
+            <entity_type>
+               <name>ramp</name>
+               <description>An entity type..</description>
+               <attribute>
+                  <name>degrees</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>deltax</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>startx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>midx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>endx</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>deltay</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>starty</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>midy</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+               <attribute>
+                  <name>endy</name>
+                  <description>An attribute of typefloat.</description>
+               </attribute>
+            </entity_type>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>enclosure</name>
+         <description>An entity type..</description>
+         <attribute>
+            <name>ht</name>
+            <description>An attribute of typefloat.</description>
+         </attribute>
+         <attribute>
+            <name>hb</name>
+            <description>An attribute of typefloat.</description>
+         </attribute>
+         <attribute>
+            <name>wl</name>
+            <description>An attribute of typefloat.</description>
+         </attribute>
+         <attribute>
+            <name>wr</name>
+            <description>An attribute of typefloat.</description>
+         </attribute>
+         <attribute>
+            <name>debug-whitespace</name>
+            <description>An attribute of typeboolean.</description>
+         </attribute>
+         <reference>
+            <name>shape_style</name>
+            <type>shape_style</type>
+            <description>.</description>
+         </reference>
+         <composition>
+            <type>box</type>
+            <description>.</description>
+         </composition>
+         <composition>
+            <type>route</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>route</name>
+      <description>An entity type..</description>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>label</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <composition>
+         <type>scheme</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>source</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>destination</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>default</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>path</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>scheme</name>
+      <description>A generalisation of the types top_down and sideways..</description>
+      <entity_type>
+         <name>top_down</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>sideways</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>default</name>
+      <description>An entity type..</description>
+      <reference>
+         <name>text_style</name>
+         <type>text_style</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>shape_style</name>
+         <type>shape_style</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>line_style</name>
+         <type>shape_style</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>start_style</name>
+         <type>endline_style</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>end_style</name>
+         <type>endline_style</type>
+         <description>.</description>
+      </reference>
+      <attribute>
+         <name>hmin</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>wmin</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>margin</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>padding</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>packing</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>debug-whitespace</name>
+         <description>An attribute of typeboolean.</description>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>coordinate</name>
+      <description>A generalisation of the types x and y..</description>
+      <attribute>
+         <name>abs</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>local</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>delta</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <composition>
+         <name>relative</name>
+         <type>position</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>localpos</type>
+         <description>.</description>
+      </composition>
+      <entity_type>
+         <name>x</name>
+         <description>An entity type..</description>
+         <composition>
+            <type>at(1)</type>
+            <description>.</description>
+         </composition>
+         <composition>
+            <type>place(1)</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>y</name>
+         <description>An entity type..</description>
+         <composition>
+            <type>at(2)</type>
+            <description>.</description>
+         </composition>
+         <composition>
+            <type>place(2)</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>position</name>
+      <description>A generalisation of the types offset and tbd..</description>
+      <entity_type>
+         <name>offset</name>
+         <description>An entity type..</description>
+         <attribute>
+            <name>value</name>
+            <description>An attribute of typefloat.</description>
+         </attribute>
+      </entity_type>
+      <entity_type>
+         <name>tbd</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>localpos</name>
+      <description>A generalisation of the types clocal and rlocal..</description>
+      <attribute>
+         <name>value</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <entity_type>
+         <name>clocal</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>rlocal</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>SMART</name>
+      <description>A generalisation of the types AT and PLACE..</description>
+      <attribute>
+         <name>offset</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <composition>
+         <type>aspect</type>
+         <description>.</description>
+      </composition>
+      <entity_type>
+         <name>AT</name>
+         <description>A generalisation of the types at(1) and at(2)..</description>
+         <reference>
+            <name>of</name>
+            <type>box</type>
+            <description>.</description>
+         </reference>
+         <attribute>
+            <name>src_rise</name>
+            <description>An attribute of typepositiveInteger.</description>
+         </attribute>
+         <attribute>
+            <name>dest_rise</name>
+            <description>An attribute of typepositiveInteger.</description>
+         </attribute>
+         <entity_type>
+            <name>at(1)</name>
+            <description>An entity type..</description>
+            <composition>
+               <type>xanchor</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <entity_type>
+            <name>at(2)</name>
+            <description>An entity type..</description>
+            <composition>
+               <type>yanchor</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <composition>
+            <type>relative</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>PLACE</name>
+         <description>A generalisation of the types place(1) and place(2)..</description>
+         <entity_type>
+            <name>place(1)</name>
+            <description>An entity type..</description>
+            <composition>
+               <type>xanchor</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+         <entity_type>
+            <name>place(2)</name>
+            <description>An entity type..</description>
+            <composition>
+               <type>yanchor</type>
+               <description>.</description>
+            </composition>
+         </entity_type>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>relative</name>
+      <description>A generalisation of the types parent and predecessor..</description>
+      <entity_type>
+         <name>parent</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>predecessor</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>aspect</name>
+      <description>A generalisation of the types edge, outer and margin..</description>
+      <entity_type>
+         <name>edge</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>outer</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>margin</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>anchor</name>
+      <description>A generalisation of the types xanchor and yanchor..</description>
+      <attribute>
+         <name>effective_ratio</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <entity_type>
+         <name>xanchor</name>
+         <description>A generalisation of the types left, right, centre and x(3)..</description>
+         <entity_type>
+            <name>left</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>right</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>centre</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>x(3)</name>
+            <description>An entity type..</description>
+            <attribute>
+               <name>ratio</name>
+               <description>An attribute of typestring.</description>
+            </attribute>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>yanchor</name>
+         <description>A generalisation of the types top, bottom, middle and y(3)..</description>
+         <entity_type>
+            <name>top</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>bottom</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>middle</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>y(3)</name>
+            <description>An entity type..</description>
+            <attribute>
+               <name>ratio</name>
+               <description>An attribute of typestring.</description>
+            </attribute>
+         </entity_type>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>node(2)</name>
+      <description>A generalisation of the types source and destination..</description>
+      <entity_type>
+         <name>source</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>destination</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <reference>
+         <name>id</name>
+         <type>enclosure</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>escape</name>
+         <type>enclosure</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>linestyle</name>
+         <type>shape_style</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>endline_style</name>
+         <type>endline_style</type>
+         <description>.</description>
+      </reference>
+      <attribute>
+         <name>destRelPos</name>
+         <description>Relative position of other end in the axis of allocation when destinations having perverse position in the other axis are reflected.  NOT USED -- Replaced by 'angleToOtherEnd'.
+			</description>
+      </attribute>
+      <attribute>
+         <name>angleToOtherEnd</name>
+         <description>Angle to the other end wrt the edge from which this end is attached. Used to order 
+			  the endpoints attached to an edge as described by slotNo. Negative angle is anticlockwise.
+			</description>
+      </attribute>
+      <attribute>
+         <name>ratio</name>
+         <description>Temporary. Use deltax and deltay instead.
+			</description>
+      </attribute>
+      <attribute>
+         <name>slotNo</name>
+         <description>Typically an integer whose sign reflects the relative position of the destination.
+				If not provided is calculated from 
+			</description>
+      </attribute>
+      <attribute>
+         <name>annotation</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <composition>
+         <type>specific_edge</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>specific_edge</name>
+      <description>A generalisation of the types specific_level and specific_side..</description>
+      <entity_type>
+         <name>specific_level</name>
+         <description>A generalisation of the types top_edge and bottom_edge..</description>
+         <attribute>
+            <name>deltax</name>
+            <description>Distance along the edge that the connection is made.</description>
+         </attribute>
+         <entity_type>
+            <name>top_edge</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>bottom_edge</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <composition>
+            <type>annotate_leftright</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>specific_side</name>
+         <description>A generalisation of the types left_side and right_side..</description>
+         <attribute>
+            <name>deltay</name>
+            <description>Distance along the edge that the connection is made.</description>
+         </attribute>
+         <entity_type>
+            <name>left_side</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>right_side</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <composition>
+            <type>annotate_highlow</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>annotate_leftright</name>
+      <description>A generalisation of the types annotate_left and annotate_right..</description>
+      <entity_type>
+         <name>annotate_left</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>annotate_right</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>annotate_highlow</name>
+      <description>A generalisation of the types annotate_high and annotate_low..</description>
+      <entity_type>
+         <name>annotate_high</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>annotate_low</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>shape_style</name>
+      <description>An entity type..</description>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>fill</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>stroke</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>stroke-width</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>stroke-dasharray</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>fill-opacity</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>fill-rule</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>endline_style</name>
+      <description>An entity type..</description>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>stroke</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>stroke-width</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+      <attribute>
+         <name>stroke-dasharray</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>label_long_offset</name>
+         <description>How far along the line to start the label.</description>
+      </attribute>
+      <attribute>
+         <name>label_lateral_offset</name>
+         <description>How far away from the line to start the label.</description>
+      </attribute>
+      <attribute>
+         <name>lateral_extent</name>
+         <description>How far away from the line the endstyle extends.</description>
+      </attribute>
+      <attribute>
+         <name>long_extent</name>
+         <description>How far along the line the endstyle extends.</description>
+      </attribute>
+      <attribute>
+         <name>minarmlen</name>
+         <description>An attribute of typefloat.</description>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>text_style</name>
+      <description>An entity type..</description>
+      <attribute>
+         <name>id</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>fill</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <attribute>
+         <name>font-size</name>
+         <description>An attribute of typepositiveInteger.</description>
+      </attribute>
+      <attribute>
+         <name>font-family</name>
+         <description>An attribute of typestring.</description>
+      </attribute>
+      <composition>
+         <name>text-decoration</name>
+         <type>text_decoration</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>font-style</name>
+         <type>font_style</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>font-weight</name>
+         <type>font_weight</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <group>
+      <name>xxx</name>
+      <description>A generalisation of the types text_decoration, font_style and font_weight..</description>
+      <entity_type>
+         <name>text_decoration</name>
+         <description>A generalisation of the types underline, overline and line-through..</description>
+         <entity_type>
+            <name>underline</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>overline</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>line-through</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>font_style</name>
+         <description>A generalisation of the types normal(1), italic and oblique..</description>
+         <entity_type>
+            <name>normal(1)</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>italic</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>oblique</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
+      <entity_type>
+         <name>font_weight</name>
+         <description>A generalisation of the types normal(2), bold, bolder and ligher..</description>
+         <entity_type>
+            <name>normal(2)</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>bold</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>bolder</name>
+            <description>An entity type..</description>
+         </entity_type>
+         <entity_type>
+            <name>ligher</name>
+            <description>An entity type..</description>
+         </entity_type>
+      </entity_type>
+   </group>
+</entity_model>

@@ -43,8 +43,9 @@ echo ('diagram source is' + $diagramSource)
 #  LOGICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $animateOption = if($animate){'-animate '}{''}
+$debugswitchOption = if($debugswitch){'-debugswitch'}{''}
 
-powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ..\docs ' + "$animateOption")
+powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ..\docs ' + "$animateOption" + $debugswitchOption)
 
 java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..report.html
 
