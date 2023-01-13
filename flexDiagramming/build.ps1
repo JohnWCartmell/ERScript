@@ -1,4 +1,9 @@
-# 
+
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
+
+. ($commandFolder + '\..\buildscripts\setBuildtimePathVariables.ps1')
+
+echo ("*** building from  $SOURCE css folder")
 
 $SOURCEFLEXDIAGRAMMING = $SOURCE + '\flexDiagramming'
 
@@ -13,15 +18,15 @@ echo "."
 echo "."
 echo "================================================================= begin flexDiagram xslt ==================="
 echo "***"
-echo " & $SOURCEFLEXDIAGRAMMING\xslt\build.ps1        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"       
+& $SOURCEFLEXDIAGRAMMING\xslt\build.ps1  
 echo "***"
 echo "================================================================= end flexDiagram xslt ====================="
 echo "."
 
-echo "."
+echo "."b
 echo "================================================================= begin flexDiagram xslt template ==================="
 echo "***"
-echo " & $SOURCEFLEXDIAGRAMMING\xslt_templates\build.ps1     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+& $SOURCEFLEXDIAGRAMMING\xslt_templates\build.ps1
 echo "***"
-echo "================================================================= begin flexDiagram xslt template ====================="
+echo "================================================================= end flexDiagram xslt template ====================="
 echo "."

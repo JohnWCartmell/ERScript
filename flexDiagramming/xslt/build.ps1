@@ -1,8 +1,12 @@
-. ..\buildscripts\setBuildtimePathVariables.ps1
 
-echo ("*** building from  $SOURCE xslt folder")
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-$SOURCEXSLT = $SOURCE + '\xslt'
+. ($commandFolder +'\..\..\buildscripts\setBuildtimePathVariables.ps1')
+
+
+echo ("*** building from  $SOURCE flexDiagramming xslt folder")
+
+$SOURCEXSLT = $SOURCE + '\flexDiagramming\xslt'
 $TARGETXSLT = $TARGET + '\xslt'
 
 # CREATE target xslt folder if it doesn't already exist

@@ -1,4 +1,8 @@
-echo ("*** building from  source $SOURCE scripts folder")
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
+
+. ($commandFolder + '\..\buildscripts\setBuildtimePathVariables.ps1')
+
+echo ("*** building from   $SOURCE scripts folder")
 
 $SOURCEPOWERSHELLSCRIPTS = $SOURCE + '\scripts\powershell'
 $SOURCEBATSCRIPTS = $SOURCE + '\scripts\bat'

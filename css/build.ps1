@@ -1,4 +1,8 @@
-echo ("*** building from  source $SOURCE css folder")
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
+
+. ($commandFolder + '\..\buildscripts\setBuildtimePathVariables.ps1')
+
+echo ("*** building from  $SOURCE css folder")
 
 $SOURCECSS = $SOURCE + '\css'
 $TARGETCSS = $TARGET + '\css'

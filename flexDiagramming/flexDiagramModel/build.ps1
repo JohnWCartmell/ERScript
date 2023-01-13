@@ -1,9 +1,10 @@
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
+. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-
+$SOURCEFLEXDIAGRAMMING = $SOURCE + '\flexDiagramming'
 $SOURCEMODEL = $SOURCEFLEXDIAGRAMMING + '\flexDiagramModel'
 $TARGETXML = $TARGET + '\flexDiagramModel\xml'
-
 
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))

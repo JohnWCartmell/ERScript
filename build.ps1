@@ -2,7 +2,7 @@
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder +'\setBuildtimePathVariables.ps1')
+. ($commandFolder + '\buildscripts\setBuildtimePathVariables.ps1')
 
 echo ('SOURCE:' +  $SOURCE)
 echo ('TARGET:' +  $TARGET)
@@ -60,6 +60,14 @@ echo "***"
 & $SOURCE\xslt\build.ps1     
 echo "***"
 echo "================================================================= end xslt ====================="
+echo "."
+
+echo "."
+echo "================================================================= begin metaModel ==================="
+echo "***"
+& $SOURCE\metaModel\build.ps1     
+echo "***"
+echo "================================================================= end metaModel ====================="
 echo "."
 
 echo "."

@@ -1,3 +1,7 @@
+. ..\buildscripts\setBuildtimePathVariables.ps1
+
+echo ("*** building from  $SOURCE css folder")
+
 $SOURCEXML = $SOURCE + '\examplesSelected'
 $TARGETXML = $TARGET + '\examplesSelected\xml'
 
