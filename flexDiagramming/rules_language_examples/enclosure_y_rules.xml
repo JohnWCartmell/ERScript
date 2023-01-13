@@ -1,0 +1,44 @@
+<entity_type>
+	<name>y</name>
+	<composition>
+		<name>place</name>
+		<rule>
+			<xml_structure_definition><place><top/><outer/></place></xml_structure_definition>
+		</rule>
+	</composition>
+	<composition>
+		<name>at</name>
+		<rule>
+			<tactic>top_down_then_left_right</tactic>
+			<case>
+				<xpath_switch_upon>count(($$incoming_top_down_route))</xpath_switch_upon>
+				<when>
+					<eq>0</eq>
+					<conditional>
+						<if>
+							<xpath_condition>predecessor_sibling</xpath_condition>
+							<xml_structure_definition><at><left/><predecessor/></at></xml_structure_definition>
+						</if>
+						<else>
+							<xml_structure_definition><at><left/><parent/></at></xml_structure_definition>
+						</else>
+					</conditional>
+				</when>
+				<when>
+					<eq>1</eq>
+					<xml_structure_definition>
+						<at><left/><of><valueof>$$incoming_top_down_route/source/id</valueof></of></at>
+					</xml_structure_definition>
+				</when>
+				<when>
+					<gt>1</gt>
+					<xml_structure_definition>
+						<at><left/><of><valueof>$$most_southerly_source_of_incoming_top_down_route/source/id</valueof></of>
+						<offset>-10</offset>
+					</at>
+				</xml_structure_definition>
+			</when>
+		</case>
+	</rule>
+</composition>
+</entity_type>

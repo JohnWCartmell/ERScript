@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<extend xmlns="http://www.entitymodelling.org/ERmodel">
-  <content>
-         <include filename="core.xml"/>
-  </content>
-  <with> 
-     <include filename="detail.xml"/>
-  </with>
-</extend>

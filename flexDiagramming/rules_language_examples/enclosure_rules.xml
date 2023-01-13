@@ -1,0 +1,16 @@
+<entity_type>
+	<name>enclosure</name>
+	<attribute>
+		<name>largest_y_value_for_source_of_incoming_top_down_route</name>
+		<type>number</type>
+		<rule>
+			<xpath_readiness_test>every $route in $$incoming_top_down_route satisfies $route/y/abs</xpath_readiness_test>
+			<xpath_definition>max(($$incoming_top_down_route/source/$$id/y/abs))</xpath_definition>
+		</rule>
+	</attribute>
+    <constructed_relationship>
+    	<name>most_southerly_source_of_incoming_top_down_route</name>
+    	<xpath_readiness_test>largest_y_value_for_source_of_incoming_top_down_route</xpath_readiness_test>
+    	<xpath_definition>$$incoming_top_down_route[source/$$id/y/abs=$$largest_y_value_for_source_of_incoming_top_down_route]</xpath_definition>
+    </constructed_relationship>
+</entity_type>
