@@ -7,26 +7,19 @@ function ReplacexPwithxetc
                 -creplace 'wP',    'w'  `
                 -creplace 'wlP',   'wl'  `
                 -creplace 'wrP',   'wr' `
-                        -creplace 'wminP', 'wmin' `
-                        -creplace 'ewQ',   'ew' `
-                        -creplace 'nsP',   'ns' `
-                        -creplace 'startxP', 'startx' `
-                        -creplace 'midxP', 'midx' `
-                        -creplace 'deltaxP', 'deltax' `
-                        -creplace 'deltayP', 'deltay' `
-                        -creplace 'endxP',  'endx' `
-                        -creplace 'tanP', 'tan' `
+                -creplace 'wminP', 'wmin' `
+                -creplace 'ewQ',   'ew' `
+                -creplace 'nsP',   'ns' `
+                -creplace 'startxP', 'startx' `
+                -creplace 'midxP', 'midx' `
+                -creplace 'deltaxP', 'deltax' `
+                -creplace 'deltayP', 'deltay' `
+                -creplace 'endxP',  'endx' `
+                -creplace 'tanP', 'tan' `
                 -creplace 'rightP', 'right' `
                 -creplace 'centreP', 'centre' `
                 -creplace 'leftP', 'left' `
-                        -creplace 'stringwidthP', 'stringwidth' `
-                        -creplace 'x_lower_boundP', 'x_lower_bound' `
-                        -creplace 'x_upper_boundP', 'x_upper_bound' `
-                        -creplace 'left_sideP', 'left_side' `
-                        -creplace 'right_sideP', 'right_side' `
-                        -creplace 'annotate_rightQ', 'annotate_right' `
-                        -creplace 'annotate_leftQ', 'annotate_left' `
-                        -creplace 'deltayP', 'deltay' 
+                -0ace 'deltayP', 'deltay' 
 }
 
 function ReplacexPwithyetc
