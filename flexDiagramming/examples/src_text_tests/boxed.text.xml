@@ -1,0 +1,295 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0</margin>
+      <padding>0.1</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>false</debug-whitespace>
+   </default>
+
+<enclosure>
+   <id>title</id>
+   <x><at><left/></at></x>
+   <y><at><top/></at></y>
+   <label> 
+        <text>Boxed Text (This is a title in Bold Font 20 Arial)</text>
+        <text_style>title</text_style>
+    </label>
+</enclosure>
+
+<label>
+        <text>In this example default/margin is set to 0 and default/padding is set to 0.1.</text>
+        <x><at><right/><of>title</of></at></x>
+        <y><place><top/></place><at><top/><edge/><of>title</of></at></y>  <!-- seem to need all this for something simple !!-->
+		                                                                  <!-- defaults to placing bottom of text -unhelpfully in this case -->                                                    
+        <text_style>italic</text_style>
+</label>
+
+<enclosure>
+    <id>col_1</id>
+	<x><at><left/></at></x>
+    <y><at><bottom/><of>title</of></at></y>
+	<debug-whitespace>true</debug-whitespace>
+    <default>
+      <text_style>normal</text_style>
+	  <debug-whitespace>true</debug-whitespace>
+    </default>
+	<margin>0.3</margin>
+
+    <enclosure>
+	    <id>colheader</id>
+		<label>
+        <text>This column is in normal font Arial font-size 11.</text>
+		</label>
+		<x><at><left/></at></x>
+        <y><at><top/></at></y>
+    </enclosure>
+
+   <enclosure>
+       <x><at><left/></at></x>
+       <y><at><bottom/><of>colheader</of></at></y>
+       <label>
+          <text>alblcldlelflglhliljlklllmlnlolplqlrlsltlulvlwlxlylz</text>
+      </label>
+	  <debug-whitespace>true</debug-whitespace>
+    </enclosure>
+
+    <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>awbwcwdwewfwgwhwiwjwkwlwmwnwowpwqwrwswtwuwvwwwxwywz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>aibicidieifigihiiijikiliminioipiqirisitiuiviwixiyiz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a b c d e f g h i j k l m n o p q r s t u v w x y z</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ajbjcjdjejfjgjhjijjjkjljmjnjojpjqjrjsjtjujvjwjxjyjz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ambmcmdmemfmgmhmimjmkmlmmmnmompmqmrmsmtmumvmwmxmymz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+      <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>abcdefghknopqrstuvxyz</text>
+      </label>
+    </enclosure>
+
+  </enclosure>
+
+  <enclosure>
+    <id>col_2</id>
+    <x><at><right/><of>col_1</of></at></x>
+    <y><at><bottom/><of>title</of></at></y>
+    <default>
+      <text_style>italic</text_style>
+    </default>
+	<debug-whitespace>true</debug-whitespace>
+
+   <enclosure>
+	    <id>col2header</id>
+		<label>
+           <text>This column is in italic font Arial font-size 11.</text>
+		</label>
+		<x><at><left/></at></x>
+        <y><at><top/></at></y>
+    </enclosure>
+
+   <enclosure>
+       <x><at><left/></at></x>
+       <y><at><bottom/><of>col2header</of></at></y>
+       <label>
+          <text>alblcldlelflglhliljlklllmlnlolplqlrlsltlulvlwlxlylz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>awbwcwdwewfwgwhwiwjwkwlwmwnwowpwqwrwswtwuwvwwwxwywz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>aibicidieifigihiiijikiliminioipiqirisitiuiviwixiyiz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a b c d e f g h i j k l m n o p q r s t u v w x y z</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ajbjcjdjejfjgjhjijjjkjljmjnjojpjqjrjsjtjujvjwjxjyjz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ambmcmdmemfmgmhmimjmkmlmmmnmompmqmrmsmtmumvmwmxmymz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+      <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>abcdefghknopqrstuvxyz</text>
+      </label>
+    </enclosure>
+
+  </enclosure>
+
+   <enclosure>
+    <id>col_3</id>
+    <x><at><right/><of>col_2</of></at></x>
+    <y><at><bottom/><of>title</of></at></y>
+    <default>
+      <text_style>bold</text_style>
+    </default>
+	<debug-whitespace>true</debug-whitespace>
+
+   <enclosure>
+	    <id>col3header</id>
+		<label>
+        <text>This column is in bold font Arial font-size 11.</text>
+		</label>
+		<x><at><left/></at></x>
+        <y><at><top/></at></y>
+    </enclosure>
+
+   <enclosure>
+       <x><at><left/></at></x>
+       <y><at><bottom/><of>col3header</of></at></y>
+       <label>
+          <text>alblcldlelflglhliljlklllmlnlolplqlrlsltlulvlwlxlylz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>awbwcwdwewfwgwhwiwjwkwlwmwnwowpwqwrwswtwuwvwwwxwywz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	    <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>aibicidieifigihiiijikiliminioipiqirisitiuiviwixiyiz</text>
+      </label>
+    </enclosure>
+
+      <enclosure>
+	   <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>a b c d e f g h i j k l m n o p q r s t u v w x y z</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ajbjcjdjejfjgjhjijjjkjljmjnjojpjqjrjsjtjujvjwjxjyjz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+       <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>ambmcmdmemfmgmhmimjmkmlmmmnmompmqmrmsmtmumvmwmxmymz</text>
+      </label>
+    </enclosure>
+
+    <enclosure>
+	 <x><at><left/></at></x>
+      <y><at><bottom/><predecessor/></at></y>
+       <label>
+          <text>abcdefghknopqrstuvxyz</text>
+      </label>
+    </enclosure>
+
+  </enclosure>
+
+
+</diagram>

@@ -7,7 +7,7 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 echo ("*** building from  $SOURCE flexDiagramming xslt folder")
 
 $SOURCEXSLT = $SOURCE + '\flexDiagramming\xslt'
-$TARGETXSLT = $TARGET + '\xslt'
+$TARGETXSLT = $TARGET + '\flexDiagramming\xslt'
 
 # CREATE target xslt folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXSLT))

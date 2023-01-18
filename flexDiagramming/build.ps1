@@ -3,7 +3,7 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 . ($commandFolder + '\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE css folder")
+echo ("*** building from  $SOURCE flexDiagramming folder")
 
 $SOURCEFLEXDIAGRAMMING = $SOURCE + '\flexDiagramming'
 
@@ -16,17 +16,33 @@ echo "================================================================= end flex
 echo "."
 
 echo "."
-echo "================================================================= begin flexDiagram xslt ==================="
+echo "================================================================= begin flexDiagramming xslt ==================="
 echo "***"
 & $SOURCEFLEXDIAGRAMMING\xslt\build.ps1  
 echo "***"
-echo "================================================================= end flexDiagram xslt ====================="
+echo "================================================================= end flexDiagramming xslt ====================="
 echo "."
 
 echo "."b
-echo "================================================================= begin flexDiagram xslt template ==================="
+echo "================================================================= begin flexDiagramming xslt templates ==================="
 echo "***"
 & $SOURCEFLEXDIAGRAMMING\xslt_templates\build.ps1
 echo "***"
-echo "================================================================= end flexDiagram xslt template ====================="
+echo "================================================================= end flexDiagramming xslt templates ====================="
+echo "."
+
+echo "."b
+echo "================================================================= begin flexDiagramming scripts ==================="
+echo "***"
+& $SOURCEFLEXDIAGRAMMING\scripts\build.ps1
+echo "***"
+echo "================================================================= end flexDiagramming srcipts  ====================="
+echo "."
+
+echo "."b
+echo "================================================================= begin flexDiagrmming examples ==================="
+echo "***"
+& $SOURCEFLEXDIAGRAMMING\examples\build.ps1
+echo "***"
+echo "================================================================= end flexDiagramming examples  ====================="
 echo "."

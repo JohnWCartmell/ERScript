@@ -1,0 +1,240 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+   <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>
+      <padding>0.2</padding>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+  <h>35</h>
+	<margin>0.5</margin>
+	<label><text>xalignment.to_predecessor.xml</text></label>
+  <!-- A2 aligned beneath A1 -->
+
+  <label>
+    <id>example1</id>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>3.0</abs></y>
+    <text>Example 1: label A2 has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>3.3</abs></y>
+    <text><![CDATA[
+       <x><at><centre/><predecessor/></at></x>
+    ]]></text>
+  </label>
+    <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>3.6</abs></y>
+    <text>to align its centre x point at the centre x point of A1.</text>
+  </label>
+  <enclosure>
+    <id>A1</id>
+    <x><relative><offset>10.0</offset></relative></x>
+    <y><abs>3.0</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>3.5</abs></y>
+      <text>A1</text>
+    </label>
+  </enclosure>
+
+  <enclosure>
+    <id>A2</id>
+    <x><at><centre/><predecessor/></at></x>
+    <y><abs>5.5</abs></y>
+    <h>1</h>
+    <w>4</w>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>6.0</abs></y>
+      <text>A2</text>
+    </label>
+  </enclosure>
+
+  <!-- B2 spaced to the right of B1 -->
+  <label>
+    <id>example2</id>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>9.0</abs></y>
+    <text>Example 2: label B2 has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>9.3</abs></y>
+    <text><![CDATA[
+       <x><at><right/><predecessor/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>9.6</abs></y>
+    <text>to position its left outer extent at the right outer extent of B1.</text>
+  </label>
+
+  <enclosure>
+    <id>B1</id>
+    <x><relative><offset>10.0</offset></relative></x>
+    <y><abs>9</abs></y>
+    <h>1</h>
+        <label>
+      <x><at><centre/></at></x>
+      <y><abs>9.5</abs></y>
+      <text>B1</text>
+    </label>
+  </enclosure>
+  <enclosure>
+    <id>B2</id>
+    <x><at><right/><predecessor/></at></x>
+    <y><abs>11.5</abs></y>
+    <h>1</h>
+    <w>4</w>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>12.0</abs></y>
+      <text>B2</text>
+    </label>
+  </enclosure>
+
+  <!--C2 to the right of abutted to right of C1 -->
+  <label>
+    <id>example3</id>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>15.0</abs></y>
+    <text>Example 3: label C2 has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>15.3</abs></y>
+    <text><![CDATA[
+       <x><place><left/><edge/></place>
+       <at><right/><edge/><predecessor/></at><delta>1</delta></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>15.6</abs></y>
+    <text>to position its left edge 1cm to the right of the right edge of C1.</text>
+  </label>
+
+  <enclosure>
+    <id>C1</id>
+    <x><relative><offset>15.0</offset></relative></x>
+    <y><abs>15</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>15.5</abs></y>
+      <text>C1</text>
+    </label>
+  </enclosure>
+  <enclosure>
+    <id>C2</id>
+    <x><place><left/><edge/></place><at><right/><edge/><predecessor/></at><delta>1</delta></x>
+    <y><abs>17.5</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>18.0</abs></y>
+      <text>C2</text>
+    </label>
+  </enclosure>
+
+ <!-- D2  abutted to left of D1 --> 
+   <label>
+    <id>example4</id>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>21.0</abs></y>
+    <text>Example 4: label D2 has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>21.3</abs></y>
+    <text><![CDATA[
+       <x><place><right/><edge/></place><at><left/><edge/><predecessor/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>21.6</abs></y>
+    <text>to position right edge af D2 to left edge of D1 .</text>
+  </label>
+  <enclosure>
+    <id>D1</id>
+    <x><relative><offset>15.0</offset></relative></x>
+    <y><abs>21</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>21.5</abs></y>
+      <text>D1</text>
+    </label>
+  </enclosure>
+  <enclosure>
+    <id>D2</id>
+    <x><place><right/><edge/></place><at><left/><edge/><predecessor/></at></x>
+    <y><abs>23.5</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>24.0</abs></y>
+      <text>D2</text>
+    </label>
+  </enclosure>
+
+  <!-- E2 spaced to the left of E1 -->
+  <label>
+    <id>example5</id>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>27.0</abs></y>
+    <text>Example 5: label E2 has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>27.3</abs></y>
+    <text><![CDATA[
+       <x><place><right/><outer/></place><at><left/><outer/><predecessor/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><abs>27.6</abs></y>
+    <text>to space right edge af E2 to left edge of E1.</text>
+  </label>
+  <enclosure>
+    <id>E1</id>
+    <x><relative><offset>15.0</offset></relative></x>
+    <y><abs>27</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>27.5</abs></y>
+      <text>E1</text>
+    </label>
+  </enclosure>
+  <enclosure>
+    <id>E2</id>
+    <x><place><right/><outer/></place><at><left/><outer/><predecessor/></at></x>
+    <y><abs>29.5</abs></y>
+    <h>1</h>
+    <label>
+      <x><at><centre/></at></x>
+      <y><abs>30.0</abs></y>
+      <text>E2</text>
+    </label>
+  </enclosure>
+
+</diagram>

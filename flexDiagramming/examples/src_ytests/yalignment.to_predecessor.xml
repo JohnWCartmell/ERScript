@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<diagram xmlns="http://www.entitymodelling.org/diagram" xmlns:diagram="http://www.entitymodelling.org/diagram" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <include><filename>../src_xtests/shared/text_style_definitions.xml</filename></include>
+  <include><filename>../src_xtests/shared/shape_style_definitions.xml</filename></include>
+
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>
+      <padding>0.2</padding>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+  <!-- A2 aligned beneath A1 -->
+  <enclosure>
+       <x><local>0</local></x>
+	   <y><abs>2.0</abs></y>
+	   <h>5.0</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+	  <label>
+		<text>Example 1: Nested box A1 has x specified by:</text>
+	  </label>
+	  	  <label>
+		<text><![CDATA[
+		   <x><at><centre/></at></x>
+		]]></text>
+	  </label>
+	  	  <label>
+		<text>to align its centre x point at the centre x point of its parent.</text>
+	  </label>
+	  <label>
+		<text>Nested box A2 has x specified by:</text>
+	  </label>
+	  <label>
+		<text><![CDATA[
+		   <x><at><centre/><predecessor/></at></x>
+		]]></text>
+	  </label>
+	  <label>
+		<text>to align its centre x point at the centre x point of A1.</text>
+	  </label>
+	  <label>
+		<text>Both A1 and A2 have y unspecified.</text>
+	  </label>
+	  	  <label>
+		<text>A1 as the first nested box defaults to a y value</text>
+	  </label>
+      <label>
+	      <text>positioning its top outer on the top margin of the parent.</text>
+	  </label>
+	  <label>
+              <text>A2, which does have a predecessor, defaults to a y value positioning </text>
+	  </label>
+	  <label>
+		<text>its outer top at the lower outer of its predecessor.</text>
+	  </label>
+	  
+	  <enclosure>
+	      <id>A</id>
+		  <x><relative><offset>10.0</offset></relative></x>
+		  <w>6</w>
+		  <label/>
+		  <enclosure>
+			<id>A1</id>
+			<x><at><centre/></at></x>  <!-- problem when I set this to at centre and do not have width for containing box -->
+									   <!-- I think that should be able to fix this -->
+			<label/>
+		  </enclosure>
+		  <enclosure>
+			<id>A2</id>
+			<x><at><centre/><predecessor/></at></x>
+			<w>4</w>
+			<label/>
+		  </enclosure>
+	  </enclosure>
+  </enclosure>
+  
+  <enclosure>
+      <x><local>0</local></x>
+	  <h>5.0</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+	  <label>
+		<id>example2</id>
+		<x><relative><offset>1.0</offset></relative></x>
+		<!--<y><local>1.2</local></y> -->
+		<text>Example 2 Nested box B2 has x specified by:</text>
+	  </label>
+	  <label>
+		<text><![CDATA[
+		    <x><at><right/><predecessor/></at></x>
+		]]></text>
+	  </label>
+	  <label>
+		<text>to position its left outer extent at the right outer extent of B1.</text>
+	  </label>
+	  <label>
+		<text>For nested box B2, y is specified by</text>
+	  </label>
+	  <label>
+		<text><![CDATA[
+		    <y><place><top/></place><at><top/><predecessor/></at></y>
+		]]></text>
+	  </label>
+	  <label>
+		<text>which positions top edge at top edge of predecessor.</text>
+	  </label>
+	  <label>
+		<text>Rule is that top to top or bottom to bottom aligns edges,</text>
+	  </label>
+	  	  <label>
+		<text>                top to bottom or bottom to top aligns outers.</text>
+	  </label>
+	  
+	  <enclosure>
+	        <id>B</id>
+			<x><relative><offset>9.0</offset></relative></x>
+			<w>9</w>                                  <!-- doesn't work without w but I think it should be made to -->
+			<label/>
+		  <enclosure>
+			<id>B1</id>
+			<x><at><centre/></at></x>  
+			<ht>0.5</ht>
+			<label/>
+		  </enclosure>
+		  <enclosure>
+			<id>B2</id>
+			<x><at><right/><predecessor/></at></x>
+			<y><place><top/></place><at><top/><predecessor/></at></y>
+			<ht>0.3</ht>
+			<w>3</w>
+			<label/>
+		  </enclosure>
+	  </enclosure>
+  </enclosure>
+  
+
+  <!--C2 to the right of abutted to right of C1 -->
+  <enclosure>
+      <x><local>0</local></x>
+	  <h>5.0</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+	  <label>
+		<id>example3</id>
+		<text>Example 3: label C2 has x specified by:</text>
+	  </label>
+	  <label>
+		<text><![CDATA[
+		   <x><place><left/><edge/></place>
+		   <at><right/><edge/><predecessor/></at><delta>1</delta></x>
+		]]></text>
+	  </label>
+	  <label>
+		<text>to position its left edge 1cm to the right of the right edge of C1.</text>
+	  </label>
+	   
+	  <enclosure>
+		<id>C</id>
+		<x><relative><offset>14.0</offset></relative></x>
+		<label/>
+		<enclosure>
+		   <id>C1</id>
+		   <x><local>1.0</local></x>
+		   <label/>
+	     </enclosure>
+	     <enclosure>
+		   <id>C2</id>
+		   <x><place><left/><edge/></place><at><right/><edge/><predecessor/></at><delta>1</delta></x>
+		   <label/>
+	     </enclosure>
+	  </enclosure>
+  </enclosure>
+
+ <!-- D2  abutted to left of D1 --> 
+  <enclosure>
+     <x><local>0</local></x>
+	 <h>5.0</h>
+	 <shape_style>gradient</shape_style>
+	 <debug-whitespace>false</debug-whitespace>
+	 <margin>1.0</margin>
+	 <label>
+		<id>example4</id>
+		<text>Example 4: label D2 has x specified by:</text>
+	 </label>
+	  <label>
+		<text><![CDATA[
+		   <x><place><right/><edge/></place><at><left/><edge/><predecessor/></at></x>
+		]]></text>
+	  </label>
+	  <label>
+		<text>to position right edge af D2 to left edge of D1 .</text>
+	  </label>
+	  <enclosure>
+	  	  <id>D</id>
+		  <x><relative><offset>14.0</offset></relative></x>
+		  <label/>
+		  <enclosure>
+			<id>D1</id>
+			<x><local>3.0</local></x>
+			<label/>
+		  </enclosure>
+		  <enclosure>
+			<id>D2</id>
+			<x><place><right/><edge/></place><at><left/><edge/><predecessor/></at></x>
+			<label/>
+		  </enclosure>
+	  </enclosure>
+</enclosure>
+
+  <!-- E2 spaced to the left of E1 -->
+<enclosure>
+      <x><local>0</local></x>
+	  <h>5.0</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+  <label>
+    <id>example5</id>
+    <text>Example 5: label E2 has x specified by:</text>
+  </label>
+  <label>
+    <text><![CDATA[
+       <x><place><right/><outer/></place><at><left/><outer/><predecessor/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <text>to space right edge af E2 to left edge of E1.</text>
+  </label>
+  <enclosure>
+	  	  <id>E</id>
+		  <x><relative><offset>14.0</offset></relative></x>
+		  <label/>
+	  <enclosure>
+		<id>E1</id>
+		<x><local>2.5</local></x>
+		<label/>
+	  </enclosure>
+	  <enclosure>
+		<id>E2</id>
+		<x><place><right/><outer/></place><at><left/><outer/><predecessor/></at></x>
+		<label/>
+	  </enclosure>
+  </enclosure>
+</enclosure>
+
+</diagram>

@@ -43,13 +43,12 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
 <xsl:template match="*[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
                       [parent::enclosure|parent::point|parent::path|parent::side|parent::ground|parent::ceiling]
                       /xP[count(relative/(offset|tbd)) &lt; count(../ancestor::*[self::enclosure|self::point][1]/xP/relative/offset) + 1]
-                              /relative/offset[count(following-sibling::offset)=0]
-					  
+                              /relative/offset[count(following-sibling::offset)=0]				  
 					  [
 					      ..[self::relative]
 						  /..[self::xP]
 						  /..[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
-						  /(ancestor::enclosure|ancestor::point)[count(current()/preceding-sibling::*)+1]
+						  /ancestor::*[self::enclosure|self::point][count(current()/preceding-sibling::*)+1]
                                         /xP/relative/*[1][self::offset]
 					  ]
 					" 
@@ -59,16 +58,27 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
    </xsl:copy>
    <!-- offset[i+1] = offset[i] + ancestor::enclosure[i]/offset[1] -->
-   <offset trace="xP4">
-        <xsl:value-of select="number(.)
+   <xsl:message>number(.)<xsl:value-of select = "number(.)"/></xsl:message>
+   <xsl:variable name="secondoperanddash"  
+                          select =
+                                 "..[self::relative]
+                                 /..[self::xP]
+                                 /..[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
+                                 /(ancestor::enclosure|ancestor::point)
+                                                          [count(current()/preceding-sibling::*)+1]
+                                        /xP/relative/*[1]"/>
+   <xsl:message>second operand <xsl:value-of select="name($secondoperanddash)"/></xsl:message>
+   <xsl:variable name="offset" as="xs:double"
+                            select="number(.)
                                +  ..[self::relative]
-							     /..[self::xP]
-								 /..[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
-							     /ancestor::*[self::enclosure|self::point]
+                                 /..[self::xP]
+                                 /..[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
+                                 /ancestor::*[self::enclosure|self::point]
                                                           [count(current()/preceding-sibling::*)+1]
                                         /xP/relative/*[1][self::offset]
-                             "
-        />
+                             "/>
+   <offset trace="xP4">
+        <xsl:value-of select="$offset"/>
 		<!-- Alternatively replace first summand by ../../relative/offset[1]  and use simpler second summand-->
    </offset>
 </xsl:template>

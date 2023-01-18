@@ -1,0 +1,46 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+		xmlns:diagram="http://www.entitymodelling.org/diagram"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		>
+
+	<include><filename>shared/text_style_definitions.xml</filename></include>
+	<include><filename>shared/shape_style_definitions.xml</filename></include>
+
+	<default>
+		<hmin>1.0</hmin>
+		<wmin>1.0</wmin>
+		<margin>0.3</margin>
+		<padding>0</padding>
+		<packing>horizontal</packing>
+		<text_style>normal</text_style>
+		<shape_style>outline</shape_style>
+		<debug-whitespace>true</debug-whitespace>
+	</default>
+	<h>10</h>
+	<margin>0.5</margin>
+	<label><text>xabsolute.xml</text></label>
+	<enclosure>
+		<id>A</id>
+		<x><abs>0.1</abs></x>
+		<y><abs>2</abs></y>
+		<h>2.0</h>
+		<enclosure>
+			<id>A1</id>
+			<x><abs>0.6</abs></x>
+			<y><abs>2.4</abs></y>
+			<h>1</h>        
+		</enclosure>
+		<enclosure>
+			<id>A2</id>
+			<x><abs>2.8</abs></x>
+			<y><abs>2.4</abs></y>
+			<h>1</h>         
+		</enclosure>
+		<enclosure>
+			<id>A3</id>
+			<x><abs>5.0</abs></x>
+			<y><abs>2.4</abs></y>
+			<h>1</h>
+		</enclosure>
+	</enclosure>
+</diagram>

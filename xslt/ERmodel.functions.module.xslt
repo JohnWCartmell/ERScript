@@ -95,7 +95,8 @@ CR18720 JC  16-Nov-2016 Created
                                 else $type"/>
 </xsl:function>
 
+
 </xsl:transform>
 
-<!-- end of file: ERmodel_v1.2/src/ERmodel.functions.module.xslt--> 
+ 
 

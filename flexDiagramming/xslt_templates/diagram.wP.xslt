@@ -4,7 +4,6 @@
                xmlns="http://www.entitymodelling.org/diagram"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-               xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
@@ -45,7 +44,7 @@
                                      | $e/xP/clocal | $e/xP/rlocal )
                               ]
                               [every $e in enclosure 
-                               satisfies $e/ wrP  
+                               satisfies $e/wrP  
                               ]
                               [every $e in enclosure 
                                satisfies not($e/xP/clocal) or $e/ wlP  
@@ -64,19 +63,21 @@
 	  <!--
 	      Note that xP/clocal + wP = -xP/clocal so both 3rd line and 4th term then match each other
 	   -->
+      <xsl:variable name="wP" as="xs:double"
+            select="max((
+                         ancestor-or-self::*/default/wminP[1],
+                         enclosure/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
+                           enclosure/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
+                           enclosure/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
+                           enclosure/(-xP/rlocal +  wlP  + padding),
+                           *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
+                           *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
+                           *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
+                           route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
+                         )) + margin
+                     "/>
       <wP>
-         <xsl:value-of select="max((
-		                            ancestor-or-self::*/default/wminP[1],
-		                            enclosure/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
-                                    enclosure/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
-                                    enclosure/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
-                                    enclosure/(-xP/rlocal +  wlP  + padding),
-                                    *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
-                                    *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
-                                    *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
-                                    route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
-                                  )) + margin
-                               "/> 
+          <xsl:value-of select="$wP"/> 
       </wP>   <!-- replace +w +  wrP  for point of path to + wrP  for path -->
    </xsl:copy>
 </xsl:template>
@@ -137,22 +138,21 @@
               priority="42P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <wP>
-	  <!--
-	     <xsl:message>Calculating wP of <xsl:value-of select="text"/> using <xsl:value-of select="text_style"/></xsl:message>
-		 <xsl:message>Font-size is <xsl:value-of select="count(key('text_style',text_style))"/> </xsl:message>
-		 -->
-        <xsl:value-of select="diagram:stringwidthP(text, key('text_style',text_style)/font-size div 11) 
+      <!--
+      <xsl:message>Calculating wP of <xsl:value-of select="text"/> using <xsl:value-of select="text_style"/></xsl:message>
+       <xsl:message>Font-size is <xsl:value-of select="count(key('text_style',text_style))"/> </xsl:message>
+       -->
+      <xsl:variable name="wP" as="xs:double"
+                      select="diagram:stringwidthP(text, key('text_style',text_style)/font-size div 11) 
                                                         * (if (key('text_style',text_style)/font-weight/*[self::bold|self::bolder])
                                                            then 1.07
                                                             else 1 
                                                           )"/>
+      <wP>
+         <xsl:value-of select="$wP"/>
       </wP>
    </xsl:copy>
 </xsl:template>
-
-
-
 
 
 </xsl:transform>

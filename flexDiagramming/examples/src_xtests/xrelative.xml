@@ -1,0 +1,52 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0.1</margin>
+      <padding>0.1</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+   <h>10</h>
+	<margin>0.5</margin>
+	<label><text>xrelative.xml</text></label>
+   <enclosure>
+       <id>diagram</id>
+       <x><relative><offset>0.5</offset></relative></x>
+       <y><abs>2</abs></y>
+       <h>1.4</h>
+       <enclosure>
+           <id>A</id>
+           <x><relative><offset>0.5</offset></relative></x>
+           <y><abs>2.1</abs></y>
+           <h>1.2</h>
+           <enclosure>
+                <id>A1</id>
+                <x><relative><offset>0.3</offset></relative></x>
+                <y><abs>2.2</abs></y>
+                <h>1</h>
+           </enclosure>
+           <enclosure>
+                <id>A2</id>
+                <x><relative><offset>2.5</offset></relative></x>
+                <y><abs>2.2</abs></y>
+                <h>1</h>
+           </enclosure>
+           <enclosure>
+                <id>A3</id>
+                <x><relative><offset>4.7</offset></relative></x>
+                <y><abs>2.2</abs></y>
+                <h>1</h>
+           </enclosure>
+       </enclosure>
+   </enclosure>
+</diagram>

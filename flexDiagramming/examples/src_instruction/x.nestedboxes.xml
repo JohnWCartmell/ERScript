@@ -1,0 +1,257 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+     <default>
+      <hmin>1.0</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>  <!-- was 0.2 -->
+      <padding>0.1</padding> <!-- was 0.2-->
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+   <h>28</h>
+
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Nested Boxes .... or How many ways to nest a box?</text>
+    <text_style>title</text_style>
+  </label>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <debug-whitespace>false</debug-whitespace>
+    <shape_style>gradient</shape_style>
+    <margin>1</margin>
+    <padding>1</padding>
+
+   <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Example 1: The nested box has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.3</offset></relative></y>
+    <text><![CDATA[
+           <x><at><left/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.6</offset></relative></y>
+    <text>to position its left outer boundary at the left margin of the containing box.</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.2</offset></relative></y>
+    <text>The nested box has w=2, wl=1.2 and wr=0.4.</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.5</offset></relative></y>
+    <text>The outer box has resized width to the outer boundary of the content.</text>
+  </label>
+    
+  <enclosure>
+            <x><relative><offset>13.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<margin>0.2</margin>
+			<padding>0</padding>
+           <enclosure>
+                <x><at><left/></at></x>
+                <y><relative><offset>1.0</offset></relative></y>
+                <h>1.0</h>
+				<ht>0.2</ht>
+				<hb>0.2</hb>
+                <w>2</w>      <!-- was 3.0 -->
+                <wl>1.2</wl> <!-- was 1.2 -->
+                <wr>0.4</wr>  <!-- was 0.4 -->
+           </enclosure>
+  </enclosure>
+
+</enclosure>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>9.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <debug-whitespace>false</debug-whitespace>
+    <shape_style>gradient</shape_style>
+    <margin>0</margin>
+    <padding>1</padding>
+
+   <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Example 2: The nested box has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.3</offset></relative></y>
+    <text><![CDATA[
+           <x><at><centre/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.6</offset></relative></y>
+    <text>to align its centre x point to the centre of the outer box.</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.2</offset></relative></y>
+    <text>Because the nested box has wl set to 1.2 and wr set to 0.4</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.5</offset></relative></y>
+    <text>there is space to its left balanced by space to its right.</text>
+  </label>
+    
+  <enclosure>
+            <x><relative><offset>13.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<margin>0.2</margin>
+			<padding>0</padding>
+           <enclosure>
+                <x><at><centre/></at></x>
+                <y><relative><offset>1.0</offset></relative></y>
+                <h>1.0</h>
+				<ht>0.2</ht>
+				<hb>0.2</hb>
+                <w>3</w>
+                <wl>1.2</wl>
+                <wr>0.4</wr>
+           </enclosure>
+  </enclosure>
+
+</enclosure>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>16.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <debug-whitespace>false</debug-whitespace>
+    <shape_style>gradient</shape_style>
+    <margin>1</margin>
+    <padding>1</padding>
+
+   <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Example 3: The nested box has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.3</offset></relative></y>
+    <text><![CDATA[
+           <x><at><right/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.6</offset></relative></y>
+    <text>to align its right outer boundary to the right margin of the outer box.</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.2</offset></relative></y>
+    <text></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.5</offset></relative></y>
+    <text></text>
+  </label>
+    
+  <enclosure>
+            <x><relative><offset>13.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<margin>0.2</margin>
+			<padding>0</padding>
+           <enclosure>
+                <x><at><right/></at></x>
+                <y><relative><offset>1.0</offset></relative></y>
+                <h>1.0</h>
+				<ht>0.2</ht>
+				<hb>0.2</hb>
+                <w>3</w>
+                <wl>1.2</wl>
+                <wr>0.4</wr>
+           </enclosure>
+  </enclosure>
+
+</enclosure>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>23.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <debug-whitespace>false</debug-whitespace>
+    <shape_style>gradient</shape_style>
+    <margin>1</margin>
+    <padding>1</padding>
+
+   <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Example 4: The nested box has x specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.3</offset></relative></y>
+    <text><![CDATA[
+           <x><at><centre/></at></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.6</offset></relative></y>
+    <text>to align its centre x point to the centre of the outer box.</text>
+  </label>
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.2</offset></relative></y>
+    <text>The nested box has w set to 1.0 and  wl set to 0.4 and wr set to 1.2</text>
+  </label>
+    
+  <enclosure>
+            <x><relative><offset>13.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<margin>0.2</margin>
+			<padding>0</padding>
+           <enclosure>
+                <x><at><centre/></at></x>
+                <y><relative><offset>1.0</offset></relative></y>
+                <h>1.0</h>
+				<ht>0.2</ht>
+				<hb>0.2</hb>
+                <w>1.0</w>
+                <wl>0.4</wl>
+                <wr>1.2</wr>
+           </enclosure>
+  </enclosure>
+
+</enclosure>
+
+
+
+</diagram>

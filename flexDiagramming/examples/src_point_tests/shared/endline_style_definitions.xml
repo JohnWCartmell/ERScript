@@ -1,0 +1,13 @@
+<all xmlns="http://www.entitymodelling.org/diagram">
+      <endline_style>
+         <id>testline</id>
+		 <stroke>black</stroke> 
+         <stroke-width>1</stroke-width>
+         <stroke-dasharray>.025 .025</stroke-dasharray>
+		 <label_long_offset>0.1</label_long_offset>
+		 <label_lateral_offset>0.1</label_lateral_offset>
+		 <lateral_extent>0.1</lateral_extent>
+		 <long_extent>0.1</long_extent>
+		 <minarmlen>0.5</minarmlen>
+      </endline_style>
+</all>

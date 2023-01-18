@@ -4,6 +4,7 @@
                xmlns="http://www.entitymodelling.org/diagram"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
@@ -27,7 +28,7 @@
 <xsl:include href="diagram.addressing.xw.smarts.xslt"/> <!-- priority  179 - 183 -->
 <xsl:include href="diagram.addressing.yh.smarts.xslt"/> <!-- priority  169 - 173 -->
 
-<xsl:include href="diagram...route-+src_rise+dest_rise.xslt "/> <!-- priority  169 -->
+<xsl:include href="diagram...route-+src_rise+dest_rise.xslt"/> <!-- priority  169 -->
 
 <xsl:include href="diagram.depth.xslt"/>                <!-- priority  80  -->
 <xsl:include href="diagram.margin.xslt"/>               <!-- priority  76  -->
@@ -64,6 +65,7 @@
 <xsl:include href="diagram...route.node-+slotNo.xslt"/>            <!--priority 40 -->
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
+<xsl:include href="diagram...route-+path.xslt"/>                  <!-- priority  200  -->
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
 <xsl:include href="diagram...path.point-+x.xslt"/>        <!-- priority  55, 56  -->
 <xsl:include href="diagram...path.point-+y.xslt"/>        <!-- priority  55, 56  -->

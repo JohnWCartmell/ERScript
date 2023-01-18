@@ -1,0 +1,82 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0</margin>
+      <padding>0</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+   <h>10</h>
+
+   <label>
+      <x><abs>6</abs></x>
+      <y><abs>3</abs></y>
+      <text>path.points.xml</text>
+      <text_style>title</text_style>
+   </label>
+   <label>
+      <x><abs>6</abs></x>
+      <y><abs>4</abs></y>
+      <text>This is an elemntary example in which paths are coded explicitly as sequences of points using absolute adressing.</text>
+      <text_style>normal</text_style>
+   </label>
+
+   <!-- O -->
+   <path>
+      <point>
+         <x><abs>1.5</abs></x>
+         <y><abs>0.5</abs></y>
+      </point>
+      <point>
+         <x><abs>1.5</abs></x>
+         <y><abs>2.5</abs></y>
+      </point>
+      <point>
+         <x><abs>2.5</abs></x>
+         <y><abs>2.5</abs></y>
+      </point>
+      <point>
+         <x><abs>2.5</abs></x>
+         <y><abs>0.5</abs></y>
+      </point>
+      <point>
+         <x><abs>1.5</abs></x>
+         <y><abs>0.5</abs></y>
+      </point>
+   </path>
+   <!-- K -->
+   <path>
+      <point>
+         <x><abs>3.5</abs></x>
+         <y><abs>0.5</abs></y>
+      </point>
+      <point>
+         <x><abs>3.5</abs></x>
+         <y><abs>2.5</abs></y>
+      </point>
+   </path>
+   <path>
+      <point>
+         <x><abs>4.5</abs></x>
+         <y><abs>0.5</abs></y>
+      </point>
+      <point>
+         <x><abs>3.5</abs></x>
+         <y><abs>1.5</abs></y>
+      </point>
+      <point>
+         <x><abs>4.5</abs></x>
+         <y><abs>2.5</abs></y>
+      </point>
+   </path>
+</diagram>

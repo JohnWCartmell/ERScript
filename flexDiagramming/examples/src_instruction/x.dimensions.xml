@@ -1,0 +1,129 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+     <default>
+      <hmin>1.0</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>  
+      <padding>0.1</padding> 
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+   <h>28</h>
+
+
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Enclosure layouts</text>
+    <text_style>title</text_style>
+  </label>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <shape_style>gradient</shape_style>
+	<debug-whitespace>false</debug-whitespace>
+    <margin>0.3</margin>
+    <padding>0</padding>
+	
+	
+   <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Two enclosures are shown here as bolded boxes. Each contains a margin shown here in pink. </text>
+  </label>	
+    <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>1.3</offset></relative></y>
+    <text>Inner content is to be placed within the margins.</text>
+  </label>
+
+   <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>1.6</offset></relative></y>
+    <text>The nested enclosure has position specified by:</text>
+  </label>
+  <label>
+    <x><relative><offset>2.0</offset></relative></x>
+    <y><relative><offset>1.9</offset></relative></y>
+    <text><![CDATA[
+           <x><relative><offset>2.0</offset></relative></x>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>2.0</offset></relative></x>
+    <y><relative><offset>2.2</offset></relative></y>
+    <text><![CDATA[
+           <y><relative><offset>1.0</offset></relative></y>
+    ]]></text>
+  </label>
+  <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>2.5</offset></relative></y>
+    <text>to position it at offset 1 to the  containing enclosure and width w=2.</text>
+  </label>
+  <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>2.8</offset></relative></y>
+    <text>Enclosures also define an outer area to hold content like link attachments and their labels. </text>
+  </label>
+  <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>3.1</offset></relative></y>
+    <text>The outer area is defined by attributes wl wr ht and hb.</text>
+  </label>
+  <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>3.4</offset></relative></y>
+    <text>Outer content has padding shown here in yellow. </text>
+  </label>
+    <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>3.7</offset></relative></y>
+    <text>The nested enclosure here has padding=0.1, margin=0.2, wl=0.9, wr=0.9</text>
+  </label>
+      <label>
+    <x><relative><offset>0.5</offset></relative></x>
+    <y><relative><offset>4.0</offset></relative></y>
+    <text>Overall x extent of box = 2 * padding + wl + w + wr = 4</text>
+  </label>
+    
+  <enclosure>
+            <x><relative><offset>12.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<w>6</w>
+			<wl>0</wl>
+			<wr>0</wr>
+			<ht>0</ht>
+			<hb>0</hb>
+			<padding>0</padding>
+           <enclosure>
+                <x><relative><offset>2.0</offset></relative></x>
+                <y><relative><offset>1.0</offset></relative></y>
+                <h>1.0</h>
+                <w>2</w>
+                <wl>0.9</wl>
+                <wr>0.9</wr>
+				<ht>0.2</ht>
+				<hb>0.2</hb>
+           </enclosure>
+  </enclosure>
+
+</enclosure>
+
+
+
+
+
+</diagram>

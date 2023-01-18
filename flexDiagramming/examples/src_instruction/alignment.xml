@@ -1,0 +1,117 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" xmlns:diagram="http://www.entitymodelling.org/diagram" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <include>
+    <filename>shared/text_style_definitions.xml</filename>
+  </include>
+  <include>
+    <filename>shared/shape_style_definitions.xml</filename>
+  </include>
+  <default>
+    <hmin>1.0</hmin>
+    <wmin>1.0</wmin>
+    <margin>0.2</margin>
+    <padding>0.15</padding>
+    <packing>horizontal</packing>
+    <text_style>normal</text_style>
+    <shape_style>outline</shape_style>
+    <debug-whitespace>true</debug-whitespace>
+  </default>
+    <enclosure>
+       <x><local>0</local></x>
+	   <y><abs>2.0</abs></y>
+	   <h>6.5</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+	  <label>
+		<text>Example 1: Horizontal layout. </text>
+	  </label>
+	  <label>
+		<text>Nested boxes A2 has x unspecified and y position specified by:</text>
+	  </label>
+	  <label>
+		<text><![CDATA[
+		  <y><at><predecessor></at></y>
+		]]></text>
+	  </label>
+	  <label>
+		<text>A3 similar.</text>
+	  </label>	  
+	  <enclosure>
+		<id>A</id>
+		<x><local>11</local></x>
+		<label/>
+		<enclosure>
+		  <id>A1</id>
+		  <label/>
+		  <ht>0.4</ht>
+		  <x><local>1.0</local></x>
+		  <y><local>1.0</local></y>
+		</enclosure>
+		<enclosure>
+		  <id>A2</id>
+		  <y><at><predecessor/></at></y>
+		  <label/>
+		  <ht>0.2</ht>
+		</enclosure>
+		<enclosure>
+		  <id>A3</id>
+		  <ht>0.3</ht>
+		  <y><at><predecessor/></at></y>
+		  <label/>
+		</enclosure>
+	  </enclosure>
+  </enclosure>
+  
+  <enclosure>
+      <x><local>0</local></x>
+	  <h>6.5</h>
+	  <shape_style>gradient</shape_style>
+	  <debug-whitespace>false</debug-whitespace>
+	  <margin>1.0</margin>
+	  <label>
+		<id>example2</id>
+		<x><relative><offset>1.0</offset></relative></x>
+		<!--<y><local>1.2</local></y> -->
+		<text>Example 2 Vertical layout. </text>
+	  </label>
+	  <label>
+	     <text>B2 has position  specified by:</text>
+      </label>
+	  <label>
+		<text><![CDATA[<x><at><predecessor/></at></x>]]></text>
+      </label>
+	  <label>
+	     <text> y is unspecified.</text>
+      </label>
+	  <label>
+	      <text> B3 likewise </text>
+	  </label>
+	  <enclosure>
+		<id>B</id>
+		<x>
+		 <!-- <at><of>A</of></at> BUG if specified like this noted 19 July 2019 -->
+		 <local>11</local>
+		</x>
+		<label/>
+		<enclosure>
+		  <id>B1</id>
+		  <label/>
+		  <wl>0.4</wl>
+		  <x><local>1.0</local></x>
+		  <y><local>1.0</local></y>
+		</enclosure>
+		<enclosure>
+		  <id>B2</id>
+		  <x><at><predecessor/></at></x>
+		  <label/>
+		  <wl>0.3</wl>
+		</enclosure>
+		<enclosure>
+		  <id>B3</id>
+		  <x><at><predecessor/></at></x>
+		  <label/>
+		  <wl>0.2</wl>
+		</enclosure>
+	  </enclosure>
+    </enclosure>
+</diagram>

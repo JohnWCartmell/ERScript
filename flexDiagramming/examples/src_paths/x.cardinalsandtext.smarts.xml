@@ -1,0 +1,83 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+   <include><filename>shared/text_style_definitions.xml</filename></include>
+   <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0</margin>
+      <padding>0</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+   <h>10</h>
+
+  <label>
+    <text>x.cardinalsandtext.smarts</text>
+    <x><relative><offset>6.0</offset></relative></x>
+    <y><abs>0.4</abs></y>
+    <h>1</h>
+    <text_style>title</text_style>
+  </label>
+
+   <enclosure>
+       <id>outer</id>
+       <x><abs>6</abs></x>
+       <y><abs>1</abs></y>
+       <h>4.0</h>
+       <margin>1.0</margin>
+       <enclosure>
+            <id>inner</id>
+            <y><abs>2.0</abs></y>
+            <h>2</h>
+            <w>2</w>
+            <wl>0</wl>
+            <wr>0</wr>
+            <ht>0</ht>
+            <hb>0</hb>
+       </enclosure>      
+    <path>
+      <point>
+          <x><at><left/><edge/><of>inner</of></at></x>
+          <y><abs>3.0</abs></y>
+      </point>
+      <point>
+          <x><at><left/><edge/><of>outer</of></at></x>
+          <y><abs>3.0</abs></y>
+      </point>
+      </path>
+
+      <path>
+        <point>
+          <x><at><right/><edge/><of>inner</of></at></x>
+          <y><abs>3.0</abs></y>
+        </point>
+        <point>
+          <!-- no of in at is treated as being relative to parent -->
+          <x><at><right/><edge/><parent/></at></x>
+          <y><abs>3.0</abs></y>
+        </point>
+      </path>
+
+      <label>
+        <text>West</text>
+        <x><at><left/><edge/></at></x>
+        <y><abs>3.0</abs></y>
+      </label>
+
+     <label>
+        <text>East</text>
+        <x><at><right/><edge/><parent/></at></x>
+        <y><abs>3.0</abs></y>
+        <h>1</h>  
+      </label>
+
+   </enclosure>
+
+</diagram>

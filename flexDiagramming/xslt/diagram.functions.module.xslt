@@ -86,5 +86,19 @@
 	"/>
 </xsl:function>
 
+<!-- tan function given argument in degrees -->
+<xsl:function 
+     name="diagram:tan">
+    <xsl:param name="degrees" as="xs:float"/>
+    <xsl:value-of select="math:tan($degrees div 180 * math:pi())"/>
+</xsl:function>
+
+<!-- cotan function given argument in degrees -->
+<xsl:function 
+     name="diagram:cotan">
+    <xsl:param name="degrees" as="xs:float"/>
+    <xsl:value-of select="1 div math:tan($degrees div 180 * math:pi())"/>
+</xsl:function>
+
 </xsl:transform>
 

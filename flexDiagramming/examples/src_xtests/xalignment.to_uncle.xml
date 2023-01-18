@@ -1,0 +1,45 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+   <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0.1</margin>
+      <padding>0.1</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+   <h>10</h>
+	<margin>0.5</margin>
+	<label><text>xalignment.to_uncle.xml</text></label>
+	<label><text>in x dimension B is placed at centre of uncle A  -- in this case places centre of B at centre of A</text></label>
+     <label><text>B centre aligned to uncle A</text></label>
+   <enclosure>
+        <id>A</id>
+        <x><relative><offset>2.1</offset></relative></x>
+        <y><abs>2.1</abs></y>
+		<w>3.0</w>
+        <h>1</h>
+		<label/>
+   </enclosure>
+   <enclosure>
+        <id>BB</id>
+        <x><relative><offset>0.5</offset></relative></x>
+        <y><abs>3.2</abs></y>
+        <h>1.2</h>
+        <enclosure>
+             <id>B</id>
+			 <label/>
+             <x><at><centre/><of>A</of></at></x>
+             <y><abs>3.3</abs></y>
+             <h>1</h>
+        </enclosure>
+   </enclosure>
+</diagram>

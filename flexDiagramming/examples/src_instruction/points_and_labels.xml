@@ -1,0 +1,69 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include><filename>shared/text_style_definitions.xml</filename></include>
+  <include><filename>shared/shape_style_definitions.xml</filename></include>
+     <default>
+      <hmin>1.0</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>  
+      <padding>0.1</padding> 
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+  <label>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>1.0</offset></relative></y>
+    <text>Points and Labels</text>
+    <text_style>title</text_style>
+  </label>
+
+<enclosure>
+    <x><relative><offset>1.0</offset></relative></x>
+    <y><relative><offset>2.0</offset></relative></y>
+    <w>20</w>
+    <h>6</h>
+    <shape_style>gradient</shape_style>
+	<debug-whitespace>false</debug-whitespace>
+    <margin>0.3</margin>
+    <padding>0</padding>
+	
+	<label><text>Label P subordinate to a point and positioned local to that point.</text></label>
+	<label><text><![CDATA[<point>]]></text></label>
+	<label><text><![CDATA[<x><at><centre/><edge/><parent/></at></x>]]></text></label>
+	<label><text><![CDATA[<y><at><middle/><edge/><parent/></at></y>]]></text></label>
+	<label><text><![CDATA[<label>]]></text></label>
+	<label><text><![CDATA[<text>P</text>]]></text></label>
+    <label><text><![CDATA[<x><local>0.1</local></x>]]></text></label>
+	<label><text><![CDATA[<y><local>0.2</local></y>]]></text></label>
+	<label><text><![CDATA[</label>]]></text></label>
+	<label><text><![CDATA[</point>]]></text></label>
+  <enclosure>
+            <x><relative><offset>12.0</offset></relative></x>
+            <y><relative><offset>1.0</offset></relative></y>
+            <h>3</h>
+			<w>6</w>
+			<padding>0.1</padding>
+           <point>
+     		   <x><at><centre/><edge/><parent/></at></x>
+	           <y><at><middle/><edge/><parent/></at></y>
+			   <label>
+			        <text>P</text>
+					<x><local>0.1</local></x>
+					<y><local>0.2</local></y>
+				</label>
+		   </point>
+  </enclosure>
+
+</enclosure>
+
+
+
+
+
+</diagram>

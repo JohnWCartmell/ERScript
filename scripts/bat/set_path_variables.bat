@@ -1,3 +1,4 @@
+echo setting path variables
 SET ERHOME=%~dp0..
 SET ERHOMEFOLDERNAME=ERmodel_v1.6
 SET DISTRIBUTION=%ERHOME%\..
