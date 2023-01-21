@@ -15,8 +15,16 @@ DESCRIPTION
         xpath-default-namespace="http://www.entitymodelling.org/diagram" >
 
 	<xsl:param name="filestem"/>
-	<xsl:param name="debug"/>
-	<xsl:param name="noscopes"/>
+<xsl:param name="bundle"   as="xs:string?" select="y" />    <!-- inlines required scripts and css styling into the html file -->
+<xsl:param name="animate"  as="xs:string?" select="n"/>
+<xsl:param name="debug"    as="xs:string?" select="n"/>
+<xsl:param name="trace"    as="xs:string?" select="n"/>
+
+
+<xsl:variable name="bundleOn"  as="xs:boolean" select="$bundle='y'" />
+<xsl:variable name="animateOn" as="xs:boolean" select="$animate='y'" />
+<xsl:variable name="debugOn"   as="xs:boolean" select="$debug='y'" />
+<xsl:variable name="traceOn"   as="xs:boolean" select="$trace='y'" />
 
 	<!-- <xsl:include href="ERmodel.functions.module.xslt"/> -->
 
@@ -59,11 +67,7 @@ DESCRIPTION
 	</xsl:template>
 
 	<xsl:template name="enclosure" match="enclosure">
-		<xsl:call-template name="wrap_entity_type">
-			<xsl:with-param name="content">
-				<xsl:call-template name="entity_type_content"/>
-			</xsl:with-param>
-		</xsl:call-template>
+	    <xsl:call-template name="entity_type_content"/>
 	</xsl:template>
 
 	<xsl:template name="entity_type_content" match="enclosure">
@@ -71,20 +75,9 @@ DESCRIPTION
 		<xsl:for-each select="enclosure">
 			<xsl:call-template name="enclosure"/>	
 		</xsl:for-each>	
-		<!--<xsl:call-template name="enclosure_id"/>-->
 	</xsl:template>
 
-	<xsl:template name="enclosure_id">
-		<xsl:param name="xsign" />
-		<xsl:call-template name="ERtext">
-			<xsl:with-param name="x" select="abs/x + 0.1" />
-			<xsl:with-param name="y" select="abs/y + 0.1 "/>
-			<xsl:with-param name="xsign" select="1"/>
-			<xsl:with-param name="pText" select="id"/>
-			<xsl:with-param name="class" select="'etname'"/>
-		</xsl:call-template>
-	</xsl:template>
-
+	
 	<xsl:template name="line_content" match="diagram">
 		<xsl:for-each select="//path">
 			<xsl:call-template name="path">

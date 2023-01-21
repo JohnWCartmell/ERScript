@@ -18,22 +18,25 @@ CHANGE HISTORY
 
 <xsl:include href="diagram.render.module.xslt"/>
 
-<xsl:output method="xml" indent="yes" />
+<xsl:output method="xml" indent="yes"/>
 
 <xsl:variable name="fileextension">
    <xsl:value-of select="'svg.html'"/>
 </xsl:variable>
 
+<xsl:variable name="source">
+   <xsl:copy-of select="/"/>
+</xsl:variable>
+
 <!-- ************************ -->
 <!-- svg Specifics start here -->
 <!-- ************************ -->
-
+<!--
 <xsl:template name="wrap_diagram" >
   <xsl:param name="acting_filestem"/>
   <xsl:param name="content"/>
   <xsl:param name="diagramHeight"/>
   <xsl:param name="diagramWidth"/>
-  <!-- <xsl:result-document href="{concat($acting_filestem,'.svg')}"> -->
      <xsl:message>h<xsl:value-of select="$diagramHeight"/></xsl:message>
     <svg:svg>
          <xsl:attribute name="width"><xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
@@ -89,10 +92,7 @@ CHANGE HISTORY
     </svg:defs>
     <xsl:copy-of select="$content"/>
   </svg:svg>
-<!--
-  </xsl:result-document>
--->
-<!-- CR-????  -->
+
   <xsl:result-document href="{concat($acting_filestem,'.html')}"> 
      <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html4></xsl:text>
      <html>
@@ -134,21 +134,164 @@ CHANGE HISTORY
      </body>
      </html>
   </xsl:result-document>
-<!--          -->
 </xsl:template>
+-->
+
+<xsl:template name="wrap_diagram" match="entity_model">
+    <xsl:param name="acting_filestem"/>
+    <xsl:param name="content"/>
+    <xsl:param name="diagramHeight"/>
+    <xsl:param name="diagramWidth"/>
+    <svg:svg>
+      <xsl:attribute name="width">
+        <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
+      <xsl:attribute name="height">
+        <xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
+          <xsl:choose>
+              <xsl:when test="$bundleOn">
+                <svg:style>
+                    <xsl:value-of select="unparsed-text('../../css/flexdiagrammingsvg.css')" 
+                              disable-output-escaping="yes"/>
+                </svg:style>
+              </xsl:when>
+              <xsl:otherwise>
+                <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
+                       type="text/css"
+                       href="/css/flexdiagrammingsvg.css"/>
+              </xsl:otherwise>
+          </xsl:choose>
+
+      <svg:defs>
+        <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
+          <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
+          <svg:stop offset="100%" style="stop-color:white;stop-opacity:1" />
+        </svg:linearGradient>
+        <svg:filter x="0" y="0" width="1" height="1" id="surfaceattreven">
+          <svg:feFlood flood-color="white"/>
+          <svg:feComposite in="SourceGraphic" />
+        </svg:filter>
+        <svg:filter x="0" y="0" width="1" height="1" id="surfaceattrodd">
+          <svg:feFlood flood-color="#FFFFCC"/>
+          <svg:feComposite in="SourceGraphic" />
+        </svg:filter>
+      </svg:defs>
+      <xsl:copy-of select="$content"/>
+    </svg:svg>
+    <xsl:result-document href="{concat($acting_filestem,'.html')}" cdata-section-elements="sourcecode"> 
+      <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html4></xsl:text>
+      <html>
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+          <xsl:choose>
+              <xsl:when test="$bundleOn">
+                <style>
+                    <xsl:value-of select="unparsed-text('../../css/ersvgdiagramwrapper.css')" 
+                              disable-output-escaping="yes"/>
+                </style>
+              </xsl:when>
+              <xsl:otherwise>
+                <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
+              </xsl:otherwise>
+          </xsl:choose>
+          <xsl:call-template name="render_scripts"/> 
+        </head>
+        <body>
+
+          <div> 
+            <xsl:attribute name="class" select="'bigouter'"/>
+            <!--
+            <div>
+              <xsl:attribute name="class" select="'entityModelHeader'"/>
+              <xsl:text>Flex Diagram:</xsl:text>
+              <xsl:value-of select="absolute/name"/>
+            </div>
+            <div>
+                <xsl:attribute name="class" select="'entityModelDescription'"/>
+                <xsl:for-each select="absolute/description">
+                  <xsl:apply-templates/>
+                </xsl:for-each>
+            </div>
+            <hr>
+              <xsl:attribute name="class" select="'rule'"/>
+            </hr>
+         -->
+            <div> 
+              <xsl:attribute name="class" select="'bigbody'"/>
+              <div> 
+                <xsl:attribute name="class" select="'svganddivcontainer'"/>
+                <div> 
+                   <xsl:attribute name="id" select="'svgcontainer'"/>
+                  <object>
+                    <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
+                    </xsl:message>
+                    <xsl:attribute name="id" select="'svg-object'"/>
+                    <xsl:attribute name="data" select="concat($acting_filestem,'.svg')"/>
+                    <xsl:attribute name="type" select="'image/svg+xml'"/>
+                    <xsl:text>filler to stop contraction of this xml element</xsl:text>
+                  </object>
+                </div>
+                <xsl:call-template name="render_descriptive_text"/>                
+              </div>
+                 <sourcecode>
+                    <xsl:value-of select="serialize($source, map{'indent':true()})"/>
+                    fn:serialize($data, map{"method":"xml", "omit-xml-declaration":true()})
+                 </sourcecode>
+            </div>
+          </div>
+        </body>
+      </html>
+    </xsl:result-document>
+  </xsl:template>
+
+  <xsl:template match="*" mode="copy">
+      <xsl:copy>
+         <xsl:apply-templates mode="copy"/>
+      </xsl:copy>
+  </xsl:template>
+
+<xsl:template name="render_descriptive_text">
+</xsl:template>
+
+
+<xsl:template name="render_scripts">
+             <xsl:if test="$animateOn">
+          <script>
+            <xsl:choose>
+               <xsl:when test="$bundleOn">
+                  <xsl:value-of select="unparsed-text('../../js/ersvgdiagraminteraction.js')" 
+                              disable-output-escaping="yes"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:attribute name="src" select="'/js/ersvgdiagraminteraction.js'"/>
+            This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+              </xsl:otherwise>
+          </xsl:choose>
+          </script>
+          <script>
+            <xsl:choose>
+               <xsl:when test="$bundleOn">
+                  <xsl:value-of select="unparsed-text('../../js/draggable.js')" 
+                              disable-output-escaping="yes"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:attribute name="src" select="'/js/draggable.js'"/>
+            This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
+              </xsl:otherwise>
+          </xsl:choose>
+          </script>
+          <!--
+          <script>
+               <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
+          </script>
+       -->
+          </xsl:if>
+</xsl:template>
+
+
+
 
 <xsl:template name="renderenclosure" match="enclosure">
     <svg:rect>
-      <!--
-      <xsl:choose>
-         <xsl:when test="(depth mod 2) = 1">
-           <xsl:attribute name="class">eteven</xsl:attribute>
-         </xsl:when>
-         <xsl:otherwise>
-             <xsl:attribute name="class">etodd</xsl:attribute>
-         </xsl:otherwise>
-      </xsl:choose>
-    -->
       <xsl:attribute name="class"><xsl:value-of select="shape_style"/></xsl:attribute>
       <xsl:attribute name="x"><xsl:value-of select="x/abs"/>cm</xsl:attribute>
       <xsl:attribute name="y"><xsl:value-of select="y/abs"/>cm</xsl:attribute>
@@ -166,8 +309,8 @@ CHANGE HISTORY
 	   <xsl:for-each select="0 to xs:integer(floor(w*10))">
 	      <xsl:variable name="index" select="."/>
 	      <svg:line>
-	         <xsl:attribute name="class"><xsl:value-of select="'tickmarks'"/></xsl:attribute>
-	         <xsl:attribute name="x1"><xsl:value-of select="$xabs + $index div 10"/>cm</xsl:attribute>
+	        <xsl:attribute name="class"><xsl:value-of select="'tickmarks'"/></xsl:attribute>
+	        <xsl:attribute name="x1"><xsl:value-of select="$xabs + $index div 10"/>cm</xsl:attribute>
 		     <xsl:attribute name="x2"><xsl:value-of select="$xabs + $index div 10"/>cm</xsl:attribute>
      	     <xsl:attribute name="y1"><xsl:value-of select="$yabs"/>cm</xsl:attribute>
 		     <xsl:attribute name="y2"><xsl:value-of select="$yabs + $margin div 3"/>cm</xsl:attribute>   
@@ -211,7 +354,6 @@ CHANGE HISTORY
   </xsl:template>
 
   <xsl:template name="render_enclosure_margins" match="enclosure">
-
     <svg:path>
        <xsl:attribute name="class" select="'outlinedebug'"/>
        <xsl:attribute name="d">
@@ -222,7 +364,6 @@ CHANGE HISTORY
            <xsl:value-of select="concat(' L',x/abs ,   ',',y/abs    )"/>
       </xsl:attribute>
     </svg:path>
-
     <svg:path>
        <xsl:attribute name="class" select="'margin'"/>
        <xsl:attribute name="d">
@@ -238,25 +379,7 @@ CHANGE HISTORY
            <xsl:value-of select="concat(' L',x/abs + margin,      ',',y/abs + margin   )"/>
       </xsl:attribute>
     </svg:path>
-	
-	<!-- 18 June 2019 Removed generation of a margin that duplicated the above - only effect being on colour. -->
-    <!-- and remove inside padding 
-    <svg:path>
-       <xsl:attribute name="class" select="'padding'"/>
-       <xsl:attribute name="d">
-           <xsl:value-of select="concat( 'M',x/abs,    ',',y/abs    )"/>
-           <xsl:value-of select="concat(' L',x/abs + w,',',y/abs    )"/>
-           <xsl:value-of select="concat(' L',x/abs + w,',',y/abs + h)"/>
-           <xsl:value-of select="concat(' L',x/abs,    ',',y/abs + h)"/>
-           <xsl:value-of select="concat(' L',x/abs ,   ',',y/abs    )"/>
-           <xsl:value-of select="concat(' M',x/abs - padding,      ',',y/abs - padding   )"/>
-           <xsl:value-of select="concat(' L',x/abs + w + padding , ',',y/abs -padding   )"/>
-           <xsl:value-of select="concat(' L',x/abs + w + padding,  ',',y/abs + h + padding)"/>
-           <xsl:value-of select="concat(' L',x/abs - padding,      ',',y/abs + h + padding )"/>
-           <xsl:value-of select="concat(' L',x/abs - padding ,      ',',y/abs - padding   )"/>
-      </xsl:attribute>
-    </svg:path>
-	-->
+
     <!-- outside padding -->
 	<xsl:call-template name="render_padding"/>
   </xsl:template>
@@ -281,206 +404,13 @@ CHANGE HISTORY
   
   
   
-
-
 <xsl:template name="clearleft">
    <div>
       <xsl:attribute name="style" select="'clear:left'"/>
    </div>
 </xsl:template>
 
-<xsl:template name="entity_type_box" saxon:trace="yes" xmlns:saxon="http://icl.com/saxon">
-  <xsl:param name="isgroup"/>
-  <xsl:param name="iseven"/>
-  <xsl:param name="xcm"/>
-  <xsl:param name="ycm"/>
-  <xsl:param name="wcm"/>
-  <xsl:param name="hcm"/>
-  <xsl:param name="shape"/>
-  <xsl:variable name="cornerRadiuscm">
-    <xsl:choose>
-       <xsl:when test="$isgroup">
-           <xsl:value-of select="0"/>
-       </xsl:when>
-       <xsl:otherwise>
-           <xsl:value-of select="0"/>
-       </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-  <xsl:variable name="xAdjustment">
-    <xsl:choose>
-     <xsl:when test="$shape='Top'">
-        <xsl:value-of select="0"/>
-     </xsl:when>
-     <xsl:when test="$shape='TopLeft'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='MiddleLeft'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='BottomLeft'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='TopRight'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='MiddleRight'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='BottomRight'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='Bottom'">
-        <xsl:value-of select="0"/>
-     </xsl:when>
-     <xsl:otherwise>
-        <xsl:value-of select="0"/>
-     </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-  <xsl:variable name="yAdjustment">
-    <xsl:choose>
-     <xsl:when test="$shape='Top'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='TopLeft'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='MiddleLeft'">
-        <xsl:value-of select="0"/>
-     </xsl:when>
-     <xsl:when test="$shape='BottomLeft'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='TopRight'">
-        <xsl:value-of select="-0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='MiddleRight'">
-        <xsl:value-of select="0"/>
-     </xsl:when>
-     <xsl:when test="$shape='BottomRight'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:when test="$shape='Bottom'">
-        <xsl:value-of select="0.2"/>
-     </xsl:when>
-     <xsl:otherwise>
-        <xsl:value-of select="0"/>
-     </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
 
-
-<xsl:message>hcm is <xsl:value-of select="$hcm"/> </xsl:message>
-<xsl:message>id is <xsl:value-of select="id"/> </xsl:message>
-<xsl:message>node type is <xsl:value-of select="name()"/> </xsl:message>
-  <svg:svg>
-      <xsl:attribute name="x"><xsl:value-of select="$xcm - 0.1 - $xAdjustment"/>cm</xsl:attribute>
-      <xsl:attribute name="y"><xsl:value-of select="$ycm - 0.1 - $yAdjustment"/>cm</xsl:attribute>
-      <xsl:attribute name="width"><xsl:value-of select="$wcm + 0.2"/><xsl:text>cm</xsl:text></xsl:attribute>
-      <xsl:attribute name="height"><xsl:value-of select="$hcm + 0.2"/><xsl:text>cm</xsl:text></xsl:attribute>
-    <svg:rect>
-      <xsl:choose>
-         <xsl:when test="$isgroup">
-           <xsl:attribute name="class">group</xsl:attribute>
-         </xsl:when>
-		 <xsl:when test="not (string-length($shape)=0)">
-           <xsl:attribute name="class">etodd</xsl:attribute>
-         </xsl:when>
-         <xsl:when test="$iseven">
-           <xsl:attribute name="class">eteven</xsl:attribute>
-         </xsl:when>
-         <xsl:otherwise>
-             <xsl:attribute name="class">etodd</xsl:attribute>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:attribute name="onclick"><xsl:value-of select="concat('top.notify(''',name, '_text'')')"/></xsl:attribute>
-      <xsl:attribute name="x"><xsl:value-of select="0.1 + $xAdjustment"/>cm</xsl:attribute>
-      <xsl:attribute name="y"><xsl:value-of select="0.1 + $yAdjustment"/>cm</xsl:attribute>
-      <xsl:attribute name="rx"><xsl:value-of select="$cornerRadiuscm"/>cm</xsl:attribute>
-      <xsl:attribute name="ry"><xsl:value-of select="$cornerRadiuscm"/>cm</xsl:attribute>
-      <xsl:attribute name="width"><xsl:value-of select="$wcm"/><xsl:text>cm</xsl:text></xsl:attribute>
-      <xsl:attribute name="height"><xsl:value-of select="$hcm"/><xsl:text>cm</xsl:text></xsl:attribute>
-    </svg:rect>
-  </svg:svg>
-  
-</xsl:template>
-
-
-<xsl:template name="wrap_entity_type">
-  <xsl:param name="content"/>
-  <!--
-  <xsl:message>wrap entity type <xsl:value-of select="name"/> </xsl:message>
-  -->
-  <svg:g>
-    <xsl:attribute name="id">
-      <xsl:value-of select="replace(name,' ','_')"/>    <!--cannot reference groups if names have spaces-->
-    </xsl:attribute>
-    <xsl:copy-of select="$content"/>
-  </svg:g>
-</xsl:template>
-
-
-<xsl:template name="ERtext"> 
-  <xsl:param name="x"/>
-  <xsl:param name="y"/>
-  <xsl:param name="xsign"/>
-  <xsl:param name="pText"/>
-  <xsl:param name="class"/>
-  
-  <xsl:variable name= "modifiedText">
-    <xsl:choose>
-	   <xsl:when test="$class='scope'">
-     <xsl:value-of select = 
-	 "replace(
-	          replace(
-	                   replace($pText,
-		                       '=','&#x2272;'
-				              ),
-		               '\.\.','&#x2025;'
-		              ),
- 	          '~',' &#x021B7; '
-			 )
-	  "/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	     <xsl:value-of select="$pText"/>
-	  </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-  <xsl:variable name="text-anchor">
-      <xsl:choose>
-        <xsl:when test="$xsign = 1">
-          <xsl:text>start</xsl:text>
-        </xsl:when>
-        <xsl:when test="$xsign = 0">
-          <xsl:text>middle</xsl:text>
-        </xsl:when>
-        <xsl:when test="$xsign = -1">
-          <xsl:text>end</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:message>Unexpected xsign</xsl:message>
-        </xsl:otherwise>
-      </xsl:choose>
-  </xsl:variable>
-
-  <svg:text>
-     <xsl:attribute name="class" select="$class"/>
-     <xsl:choose>
-        <xsl:when test="$class='relname' or $class='scope'">
-           <xsl:attribute name="x" select="$x"/>
-           <xsl:attribute name="y" select="$y"/>
-        </xsl:when>
-        <xsl:otherwise>
-           <xsl:attribute name="x" select="concat($x,'cm')"/>
-           <xsl:attribute name="y" select="concat($y,'cm')"/>
-        </xsl:otherwise>
-     </xsl:choose>
-     <xsl:attribute name="text-anchor" select="$text-anchor"/>
-     <xsl:value-of select= "$modifiedText"/>
-  </svg:text>
-</xsl:template>
 
 <xsl:template name="wrap_relationships" match="diagram">   
   <xsl:param name="relationships"/>
@@ -502,7 +432,6 @@ CHANGE HISTORY
             <xsl:call-template name="render_padding"/>
           </xsl:if>
       </xsl:for-each>
-	  
        <xsl:copy-of select="$relationships"/>
     </svg:svg>
 </xsl:template>
@@ -529,6 +458,7 @@ CHANGE HISTORY
 
 <xsl:template name="text_element" match="label">
   <svg:text>
+
      <xsl:attribute name="class" select="text_style"/>
      <xsl:choose>
         <xsl:when test="false()">
