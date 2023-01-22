@@ -99,25 +99,27 @@
   </label>
     
   <enclosure>
-            <x><relative><offset>12.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
-            <h>3</h>
+      <id>O1</id>
+      <x><relative><offset>12.0</offset></relative></x>
+      <y><relative><offset>1.0</offset></relative></y>
+      <h>3</h>
 			<w>6</w>
 			<wl>0</wl>
 			<wr>0</wr>
 			<ht>0</ht>
 			<hb>0</hb>
 			<padding>0</padding>
-           <enclosure>
-                <x><relative><offset>2.0</offset></relative></x>
-                <y><relative><offset>1.0</offset></relative></y>
-                <h>1.0</h>
-                <w>2</w>
-                <wl>0.9</wl>
-                <wr>0.9</wr>
-				<ht>0.2</ht>
-				<hb>0.2</hb>
-           </enclosure>
+     <enclosure>
+          <id>I1</id>
+          <x><relative><offset>2.0</offset></relative></x>
+          <y><relative><offset>1.0</offset></relative></y>
+          <h>1.0</h>
+          <w>2</w>
+          <wl>0.9</wl>
+          <wr>0.9</wr>
+        	<ht>0.2</ht>
+        	<hb>0.2</hb>
+     </enclosure>
   </enclosure>
 
 </enclosure>
