@@ -31,111 +31,7 @@ CHANGE HISTORY
 <!-- ************************ -->
 <!-- svg Specifics start here -->
 <!-- ************************ -->
-<!--
-<xsl:template name="wrap_diagram" >
-  <xsl:param name="acting_filestem"/>
-  <xsl:param name="content"/>
-  <xsl:param name="diagramHeight"/>
-  <xsl:param name="diagramWidth"/>
-     <xsl:message>h<xsl:value-of select="$diagramHeight"/></xsl:message>
-    <svg:svg>
-         <xsl:attribute name="width"><xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
-         <xsl:attribute name="height"><xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
-     <svg:defs>
 
-      <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
-        <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
-        <svg:stop offset="100%" style="stop-color:white;stop-opacity:1" />
-      </svg:linearGradient>
-
-      <svg:style type="text/css">
-          <xsl:for-each select="text_style">
-              <xsl:text>&#xA;  .</xsl:text><xsl:value-of select="id"/><xsl:text>{</xsl:text>
-              <xsl:text>&#xA;    fill: </xsl:text><xsl:value-of select="fill"/>
-              <xsl:text>;&#xA;    font-size: </xsl:text><xsl:value-of select="font-size"/><xsl:text>px</xsl:text>
-              <xsl:for-each select="text-decoration/*">
-                 <xsl:text>;&#xA;    text-decoration: </xsl:text><xsl:value-of select="name()"/>
-              </xsl:for-each>
-              <xsl:for-each select="font-style/*">
-                 <xsl:text>;&#xA;    font-style: </xsl:text><xsl:value-of select="name()"/>
-              </xsl:for-each>
-              <xsl:for-each select="font-weight/*">
-                 <xsl:text>;&#xA;    font-weight: </xsl:text><xsl:value-of select="name()"/>
-              </xsl:for-each>
-
-              <xsl:text>&#xA;  }&#xA;</xsl:text>
-           </xsl:for-each>
-           <xsl:for-each select="shape_style">
-              <xsl:text>&#xA;  .</xsl:text><xsl:value-of select="id"/><xsl:text>{</xsl:text>
-              <xsl:if test="fill">
-                 <xsl:text>;&#xA;    fill: </xsl:text><xsl:value-of select="fill"/>
-              </xsl:if>
-               <xsl:if test="stroke">
-                 <xsl:text>;&#xA;    stroke: </xsl:text><xsl:value-of select="stroke"/>
-              </xsl:if>             
-              <xsl:if test="stroke-width">
-                 <xsl:text>;&#xA;    stroke-width: </xsl:text><xsl:value-of select="stroke-width"/>
-              </xsl:if>
-              <xsl:if test="stroke-dasharray">
-                 <xsl:text>;&#xA;    stroke-dasharray: </xsl:text><xsl:value-of select="stroke-dasharray"/>
-              </xsl:if>
-              <xsl:if test="fill-opacity">
-                 <xsl:text>;&#xA;    fill-opacity: </xsl:text><xsl:value-of select="fill-opacity"/>
-              </xsl:if>
-              <xsl:if test="fill-rule">
-                 <xsl:text>;&#xA;    fill-rule: </xsl:text><xsl:value-of select="fill-rule"/>
-              </xsl:if>
-
-              <xsl:text>&#xA;  }&#xA;</xsl:text>
-           </xsl:for-each>
-     </svg:style>
-    </svg:defs>
-    <xsl:copy-of select="$content"/>
-  </svg:svg>
-
-  <xsl:result-document href="{concat($acting_filestem,'.html')}"> 
-     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html4></xsl:text>
-     <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link rel="stylesheet" type="text/css" href="erstyle.css"/>
-
-		<script>
-                    function notify(id){
-		        var divElement = document.getElementById(id);
-			divElement.style.display = 'block';
-			divElement.style.visibility = 'visible';
-			divElement.style.opacity = 1;}
-		</script>
-
-	</head>
-     <body>
-        <div> 
-           <xsl:attribute name="class" select="'bigouter'"/>
-           <div>
-              <xsl:attribute name="class" select="'header'"/>
-              <xsl:value-of select="absolute/name"/>
-              <br/>
-           </div>
-           <xsl:call-template name="clearleft"/>
-           <hr/>
-           <xsl:call-template name="clearleft"/>
-           <div> 
-              <xsl:attribute name="class" select="'bigbody'"/>
-              <div> 
-                 <xsl:attribute name="class" select="'bigsvg'"/>
-                 <embed>
-                    <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/></xsl:message>
-                    <xsl:attribute name="src" select="concat($acting_filestem,'.svg')"/>
-                 </embed>
-              </div>
-           </div>
-        </div>
-     </body>
-     </html>
-  </xsl:result-document>
-</xsl:template>
--->
 
 <xsl:template name="wrap_diagram" match="entity_model">
     <xsl:param name="acting_filestem"/>
@@ -232,10 +128,6 @@ CHANGE HISTORY
                 </div>
                 <xsl:call-template name="render_descriptive_text"/>                
               </div>
-                 <sourcecode>
-                    <xsl:value-of select="serialize($source, map{'indent':true()})"/>
-                    fn:serialize($data, map{"method":"xml", "omit-xml-declaration":true()})
-                 </sourcecode>
             </div>
           </div>
         </body>
@@ -250,7 +142,63 @@ CHANGE HISTORY
   </xsl:template>
 
 <xsl:template name="render_descriptive_text">
+    <xsl:for-each select="//*[self::enclosure|self::route]">
+        <xsl:call-template name="infobox"/>
+    </xsl:for-each>
 </xsl:template>
+
+<xsl:template name="infobox" match="enclosure|route" 
+                                   mode="explicit">
+    <xsl:variable name="popUpxPos">
+      <xsl:value-of select="x/abs + w"/>
+    </xsl:variable>
+    <xsl:variable name="popUpyPos">
+           <xsl:value-of select="x/abs"/>
+    </xsl:variable>
+      <xsl:variable name="text_div_id" as="xs:string?">
+        <xsl:value-of select="concat(id,'_text')"/>
+      </xsl:variable>
+      <div>
+        <xsl:attribute name="id" select="$text_div_id"/>
+        <xsl:attribute name="class" select="'infobox'"/>       
+        <!--<xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>-->
+        <div>
+                <xsl:attribute name="class" select="'infoboxHeader'"/>
+          <div>
+            <xsl:attribute name="class" select="'metatype'"/>
+            <xsl:choose>
+              <xsl:when test="self::enclosure">
+                <b><xsl:text>Enclosure: </xsl:text></b>
+                <xsl:value-of select="id"/>
+              </xsl:when>
+              <xsl:when test="self::route">
+                <b><xsl:text>Route: </xsl:text></b>
+                <xsl:value-of select="id"/>
+              </xsl:when>
+            </xsl:choose>
+          </div> 
+          <div>
+            <xsl:attribute name="class" select="'closecontainer'"/>
+            <button>
+              <xsl:attribute name="class" select="'close'"/>
+              <xsl:attribute name="onClick" >
+                <xsl:text>closePopUp('</xsl:text>
+                <xsl:value-of select="id"/>       
+                <xsl:text>');</xsl:text>
+              </xsl:attribute>
+              <xsl:text>x</xsl:text>
+            </button> 
+          </div>
+          <!--<xsl:call-template name="clearleft"/>-->
+        </div> <!-- end of infoboxHeader -->
+        <div>
+            <xsl:attribute name="class" select="'infoboxBody'"/>
+            <pre>
+                <xsl:value-of select="sourcecode"/>
+            </pre>
+        </div>
+      </div>
+  </xsl:template>
 
 
 <xsl:template name="render_scripts">
@@ -258,11 +206,11 @@ CHANGE HISTORY
           <script>
             <xsl:choose>
                <xsl:when test="$bundleOn">
-                  <xsl:value-of select="unparsed-text('../../js/ersvgdiagraminteraction.js')" 
+                  <xsl:value-of select="unparsed-text('../../js/flexsvgdiagraminteraction.js')" 
                               disable-output-escaping="yes"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:attribute name="src" select="'/js/ersvgdiagraminteraction.js'"/>
+                  <xsl:attribute name="src" select="'/js/flexsvgdiagraminteraction.js'"/>
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
               </xsl:otherwise>
           </xsl:choose>
@@ -279,7 +227,7 @@ CHANGE HISTORY
               </xsl:otherwise>
           </xsl:choose>
           </script>
-          <!--
+          <!--  NOT REQUIRED AT ALL I THINK
           <script>
                <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
           </script>
@@ -293,6 +241,7 @@ CHANGE HISTORY
 <xsl:template name="renderenclosure" match="enclosure">
     <svg:rect>
       <xsl:attribute name="class"><xsl:value-of select="shape_style"/></xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="id"/></xsl:attribute>
       <xsl:attribute name="x"><xsl:value-of select="x/abs"/>cm</xsl:attribute>
       <xsl:attribute name="y"><xsl:value-of select="y/abs"/>cm</xsl:attribute>
       <xsl:attribute name="rx"><xsl:value-of select="rx"/>cm</xsl:attribute>
@@ -356,6 +305,7 @@ CHANGE HISTORY
   <xsl:template name="render_enclosure_margins" match="enclosure">
     <svg:path>
        <xsl:attribute name="class" select="'outlinedebug'"/>
+       <xsl:attribute name="id" select="id"/>
        <xsl:attribute name="d">
            <xsl:value-of select="concat( 'M',x/abs,    ',',y/abs    )"/>
            <xsl:value-of select="concat(' L',x/abs + w,',',y/abs    )"/>
@@ -366,6 +316,7 @@ CHANGE HISTORY
     </svg:path>
     <svg:path>
        <xsl:attribute name="class" select="'margin'"/>
+       <xsl:attribute name="id" select="id"/>
        <xsl:attribute name="d">
            <xsl:value-of select="concat('M',x/abs,    ',',y/abs    )"/>
            <xsl:value-of select="concat(' L',x/abs + w,',',y/abs    )"/>
@@ -387,6 +338,7 @@ CHANGE HISTORY
   <xsl:template name="render_padding" match="enclosure|point">
       <svg:path>
        <xsl:attribute name="class" select="'padding'"/>
+       <xsl:attribute name="id" select="id"/>
        <xsl:attribute name="d">
            <xsl:value-of select="concat(' M',x/abs - wl,      ',',y/abs - ht)"/>  
            <xsl:value-of select="concat(' L',x/abs + w + wr, ',',y/abs - ht)"/>
@@ -447,6 +399,9 @@ CHANGE HISTORY
   <!-- <xsl:variable name="y1cm"  select="point[2]/y/abs/offset"/>  -->
   <svg:path>
     <xsl:attribute name="class"><xsl:value-of select="'route'"/></xsl:attribute>
+    <xsl:if test="parent::route">
+      <xsl:attribute name="id"><xsl:value-of select="parent::route/id"/></xsl:attribute>
+    </xsl:if>
     <xsl:attribute name="d">
       <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
       <xsl:for-each select="point[count(preceding-sibling::point) &gt; 0]">

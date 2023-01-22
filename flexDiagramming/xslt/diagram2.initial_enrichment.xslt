@@ -12,7 +12,7 @@
 
  -->
 
-<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml"  indent="yes" cdata-section-elements="sourcecode"/>
 <xsl:param name="maxiter" />
 <xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
 
@@ -158,6 +158,26 @@
       </xsl:choose>
    </xsl:variable> 
    <xsl:copy-of select="$result"/>
+</xsl:template>
+
+<xsl:template match="*[self::enclosure|self::route][not(sourcecode)]" 
+              mode="recursive_diagram_enrichment"
+              priority="999999"> <!-- HIGHEST PRIORITY -->
+   <xsl:copy>
+      <!-- While I am here create and id for any enclosure of route which doesn't have one
+           this will be used for linking an svg object to its assocaited pop-up infobox.
+      -->
+      <xsl:if test="not(id)">
+         <xsl:element name="id">
+            <xsl:text>SVG</xsl:text><xsl:value-of select="name()"/><xsl:number level="any"/>
+         </xsl:element>
+      </xsl:if>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:element name="sourcecode">
+         <xsl:attribute namespace="xmlms" name="diagram" select="''"/>
+         <xsl:value-of select="serialize(., map{'indent':true()})"/>
+      </xsl:element>
+   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="*" mode="recursive_diagram_enrichment">
