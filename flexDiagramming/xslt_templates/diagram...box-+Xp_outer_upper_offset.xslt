@@ -44,9 +44,6 @@
               priority="50P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <xsl:message>name() <xsl:value-of select="name()"/></xsl:message>
-      <xsl:message>padding <xsl:value-of select="padding"/></xsl:message>
-      <xsl:message>wP <xsl:value-of select="wP"/></xsl:message>
       <xP_outer_upper_offset>
 	     <xsl:value-of select="wP + padding"/>
       </xP_outer_upper_offset>

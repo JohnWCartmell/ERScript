@@ -12,45 +12,14 @@
 
 	Remanants after restructure.
     
+
+    22/01/2022  What are these rules about - are they used ?
+
+    Not to be comfused with diagram...route-+path. Some rules moved from here into there.
+
  -->
 
 	<xsl:output method="xml" indent="yes"/>
-
-	<!-- ************************** -->
-	<!-- route  +path       -->
-	<!-- ************************** -->
-
-	<xsl:template match="route[top_down]
-						 [not(path)]
-						" 
-			mode="recursive_diagram_enrichment"
-			priority="40">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<path>
-				<ew><source_sweep/></ew>
-				<ramp/>
-				<ew><destination_sweep/></ew>
-			</path>
-		</xsl:copy>
-	</xsl:template>
-
-
-	<!-- ************************** -->
-	<!-- route  +path       -->
-	<!-- ************************** -->
-	<xsl:template match="route[sideways]
-						[not(path)]
-						" 
-			mode="recursive_diagram_enrichment"
-			priority="40">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<path>
-				<ramp/>
-			</path>
-		</xsl:copy>
-	</xsl:template>
 
 
 	<!-- ***************************** -->
@@ -65,7 +34,7 @@
 						[not(deltax)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="40">		  
+			priority="250">		  
 		<xsl:copy>
 			<deltax>
 				<xsl:value-of select="max((
@@ -89,7 +58,7 @@
 						[not(deltax)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="40">		  
+			priority="250">		  
 		<xsl:copy>
 			<deltax>
 				<xsl:value-of select="max((
@@ -115,7 +84,7 @@
 						[not(deltax)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="41">		  
+			priority="251">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>
@@ -139,7 +108,7 @@
 						[not(deltax)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="41">		  
+			priority="241">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>
@@ -164,7 +133,7 @@
 						[not(deltay)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="40">
+			priority="240">
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltay>
@@ -189,7 +158,7 @@
 						[not(deltay)]
 						" 
 			mode="recursive_diagram_enrichment"
-			priority="40">
+			priority="240">
 		<xsl:copy>
 			<deltay>
 				<xsl:value-of select="max((

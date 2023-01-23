@@ -58,7 +58,6 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
    </xsl:copy>
    <!-- offset[i+1] = offset[i] + ancestor::enclosure[i]/offset[1] -->
-   <xsl:message>number(.)<xsl:value-of select = "number(.)"/></xsl:message>
    <xsl:variable name="secondoperanddash"  
                           select =
                                  "..[self::relative]
@@ -67,7 +66,6 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
                                  /(ancestor::enclosure|ancestor::point)
                                                           [count(current()/preceding-sibling::*)+1]
                                         /xP/relative/*[1]"/>
-   <xsl:message>second operand <xsl:value-of select="name($secondoperanddash)"/></xsl:message>
    <xsl:variable name="offset" as="xs:double"
                             select="number(.)
                                +  ..[self::relative]

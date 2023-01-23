@@ -1,7 +1,6 @@
 <diagram xmlns="http://www.entitymodelling.org/diagram" 
-	xmlns:diagram="http://www.entitymodelling.org/diagram"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns="http://www.entitymodelling.org/diagram">
+		xmlns:diagram="http://www.entitymodelling.org/diagram"
+	    xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<include>
 		<filename>../src_xtests/shared/text_style_definitions.xml</filename>
 	</include>
@@ -51,21 +50,22 @@
 			<y><at><predecessor/></at><delta>1.0</delta></y>		  
 		</enclosure>
 		<route>
+			<sideways/>
 			<source>
-					<right_side>
-						<deltay>0.5</deltay>
-						<annotate_low/>
-					</right_side>
-					<id>A</id>
-					<annotation>link_to_b</annotation>
+				<right_side>
+					<deltay>0.5</deltay>
+					<annotate_low/>
+				</right_side> 
+				<id>A</id>
+				<annotation>link_to_b</annotation>
 			</source>
 			<destination>
-					<left_side>
+				<left_side>
 						<deltay>0.3</deltay>
 						<annotate_high/>
-				   </left_side> 
-					<id>B</id>
-					<annotation>back_to_a</annotation>
+				</left_side> 
+				<id>B</id>
+				<annotation>back_to_a</annotation>
 			</destination>
 		</route>	
 	</enclosure>

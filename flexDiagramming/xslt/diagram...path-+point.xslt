@@ -15,7 +15,9 @@
 	<xsl:output method="xml" indent="yes"/>
 
 
+
     <!-- cardinals (ns, ew, ramp) have points -->
+    <!-- for a ns or a ew these are a way of shoving an x or a y from one end to the other -->
 	<xsl:template match="path/ns[not(point)]
                       "
                                   mode="recursive_diagram_enrichment"
@@ -77,6 +79,7 @@
 		</xsl:copy>
 		<point/>
 	</xsl:template>
+
 	<!-- ********* -->
 	<!-- path/ramp  -->
 	<!-- ********* -->
@@ -88,8 +91,6 @@
 		</xsl:copy>
 		<point/>
 	</xsl:template>
-
-
 
 
 

@@ -61,12 +61,12 @@
 
 <!-- No longer reqd I think
 <xsl:include href="diagram...edge-+id.xslt"/>  -->           <!-- priority  40  -->
-<xsl:include href="diagram.route.path.xslt"/>             <!-- priority  40  -->
+<xsl:include href="diagram.route.path.xslt"/>             <!-- priority  240,250  -->   <!-- see also diagram..route-+path.xslt BELOW -->
 <xsl:include href="diagram...route.node-+specific_edge.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node-+slotNo.xslt"/>            <!--priority 40 -->
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
-<xsl:include href="diagram...route-+path.xslt"/>                  <!-- priority  200  -->
+<xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  200  -->         <!-- see also diagram.route.path.xslt ABOVE -->
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
 <xsl:include href="diagram...path.point-+x.xslt"/>        <!-- priority  55, 56  -->
 <xsl:include href="diagram...path.point-+y.xslt"/>        <!-- priority  55, 56  -->

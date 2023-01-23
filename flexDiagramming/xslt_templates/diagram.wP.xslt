@@ -65,7 +65,7 @@
 	   -->
       <xsl:variable name="wP" as="xs:double"
             select="max((
-                         ancestor-or-self::*/default/wminP[1],
+                         (ancestor-or-self::*/default/wminP)[last()],
                          enclosure/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
                            enclosure/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
                            enclosure/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
@@ -75,10 +75,12 @@
                            *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
                            route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
                          )) + margin
-                     "/>
+                     "/> 
+      <xsl:message> id <xsl:value-of select="id"/> wminP <xsl:value-of select="(ancestor-or-self::*/default/wminP)[last()]"/> </xsl:message>
       <wP>
           <xsl:value-of select="$wP"/> 
       </wP>   <!-- replace +w +  wrP  for point of path to + wrP  for path -->
+      <trace>wr2</trace> 
    </xsl:copy>
 </xsl:template>
 

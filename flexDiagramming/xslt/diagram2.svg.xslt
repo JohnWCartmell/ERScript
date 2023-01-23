@@ -389,12 +389,8 @@ CHANGE HISTORY
 </xsl:template>
 
 <xsl:template name="path">
-   <xsl:param name="x0cm"/>
-   <xsl:param name="y0cm"/>
-   <xsl:param name="x1cm"/>
-   <xsl:param name="y1cm"/>
-   <xsl:variable name="x0cm"  select="point[1]/x/abs"/>
-   <xsl:variable name="y0cm"  select="point[1]/y/abs"/>
+   <xsl:variable name="x0cm"  as="xs:double" select="point[1]/x/abs"/>
+   <xsl:variable name="y0cm"  as="xs:double" select="point[1]/y/abs"/>
   <!-- <xsl:variable name="p1cm"  select="point[2]/concat(x/abs/offset,',',y/abs/offset)"/> -->
   <!-- <xsl:variable name="y1cm"  select="point[2]/y/abs/offset"/>  -->
   <svg:path>
@@ -402,10 +398,15 @@ CHANGE HISTORY
     <xsl:if test="parent::route">
       <xsl:attribute name="id"><xsl:value-of select="parent::route/id"/></xsl:attribute>
     </xsl:if>
+    <xsl:message> path parent '<xsl:value-of select="parent::*/name()"/>'</xsl:message>
+    <xsl:message> path id '<xsl:value-of select="parent::route/id"/>'</xsl:message>
     <xsl:attribute name="d">
       <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
       <xsl:for-each select="point[count(preceding-sibling::point) &gt; 0]">
-           <xsl:value-of select="concat('L',concat(x/abs,',',y/abs))"/>
+          <xsl:message> point at x: '<xsl:value-of select="x/abs"/>', y: '<xsl:value-of select="y/abs"/>'</xsl:message>
+          <xsl:variable name="x"  as="xs:double" select="x/abs"/>
+          <xsl:variable name="y"  as="xs:double" select="y/abs"/>
+           <xsl:value-of select="concat('L',concat($x,',',$y))"/>
       </xsl:for-each>
     </xsl:attribute>
   </svg:path>
