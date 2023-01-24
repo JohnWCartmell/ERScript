@@ -19,15 +19,15 @@
    <h>28</h>
 
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.0</offset></relative></y>
-    <text>Nested Boxes .... or How many ways to nest a box?</text>
+    <x><local>1.0</local></x>
+    <y><local>1.0</local></y>
+    <text>Nested Enclosures... more positioning options -- x dimension.</text>
     <text_style>title</text_style>
   </label>
 
 <enclosure>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.0</local></y>
     <w>20</w>
     <h>6</h>
     <debug-whitespace>false</debug-whitespace>
@@ -36,42 +36,37 @@
     <padding>1</padding>
 
    <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.0</local></y>
     <text>Example 1: The nested box has x specified by:</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.3</offset></relative></y>
+    <x><local>2.0</local></x>
     <text><![CDATA[
            <x><at><left/></at></x>
     ]]></text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.6</offset></relative></y>
+    <x><local>1.0</local></x>
     <text>to position its left outer boundary at the left margin of the containing box.</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.2</offset></relative></y>
+    <y><local>2.2</local></y>
     <text>The nested box has w=2, wl=1.2 and wr=0.4.</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.5</offset></relative></y>
     <text>The outer box has resized width to the outer boundary of the content.</text>
   </label>
     
   <enclosure>
-            <x><relative><offset>13.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
+            <x><local>13.0</local></x>
+            <y><local>1.0</local></y>
             <h>3</h>
 			<margin>0.2</margin>
 			<padding>0</padding>
            <enclosure>
                 <x><at><left/></at></x>
-                <y><relative><offset>1.0</offset></relative></y>
+                <y><local>1.0</local></y>
                 <h>1.0</h>
 				<ht>0.2</ht>
 				<hb>0.2</hb>
@@ -84,8 +79,8 @@
 </enclosure>
 
 <enclosure>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>9.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>9.0</local></y>
     <w>20</w>
     <h>6</h>
     <debug-whitespace>false</debug-whitespace>
@@ -94,42 +89,42 @@
     <padding>1</padding>
 
    <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.0</local></y>
     <text>Example 2: The nested box has x specified by:</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.3</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.3</local></y>
     <text><![CDATA[
            <x><at><centre/></at></x>
     ]]></text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.6</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.6</local></y>
     <text>to align its centre x point to the centre of the outer box.</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.2</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.2</local></y>
     <text>Because the nested box has wl set to 1.2 and wr set to 0.4</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.5</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.5</local></y>
     <text>there is space to its left balanced by space to its right.</text>
   </label>
     
   <enclosure>
-            <x><relative><offset>13.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
+            <x><local>13.0</local></x>
+            <y><local>1.0</local></y>
             <h>3</h>
 			<margin>0.2</margin>
 			<padding>0</padding>
            <enclosure>
                 <x><at><centre/></at></x>
-                <y><relative><offset>1.0</offset></relative></y>
+                <y><local>1.0</local></y>
                 <h>1.0</h>
 				<ht>0.2</ht>
 				<hb>0.2</hb>
@@ -142,8 +137,8 @@
 </enclosure>
 
 <enclosure>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>16.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>16.0</local></y>
     <w>20</w>
     <h>6</h>
     <debug-whitespace>false</debug-whitespace>
@@ -152,42 +147,42 @@
     <padding>1</padding>
 
    <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.0</local></y>
     <text>Example 3: The nested box has x specified by:</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.3</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.3</local></y>
     <text><![CDATA[
            <x><at><right/></at></x>
     ]]></text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.6</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.6</local></y>
     <text>to align its right outer boundary to the right margin of the outer box.</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.2</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.2</local></y>
     <text></text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.5</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.5</local></y>
     <text></text>
   </label>
     
   <enclosure>
-            <x><relative><offset>13.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
+            <x><local>13.0</local></x>
+            <y><local>1.0</local></y>
             <h>3</h>
 			<margin>0.2</margin>
 			<padding>0</padding>
            <enclosure>
                 <x><at><right/></at></x>
-                <y><relative><offset>1.0</offset></relative></y>
+                <y><local>1.0</local></y>
                 <h>1.0</h>
 				<ht>0.2</ht>
 				<hb>0.2</hb>
@@ -200,8 +195,8 @@
 </enclosure>
 
 <enclosure>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>23.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>23.0</local></y>
     <w>20</w>
     <h>6</h>
     <debug-whitespace>false</debug-whitespace>
@@ -210,37 +205,37 @@
     <padding>1</padding>
 
    <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.0</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.0</local></y>
     <text>Example 4: The nested box has x specified by:</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.3</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.3</local></y>
     <text><![CDATA[
            <x><at><centre/></at></x>
     ]]></text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>1.6</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>1.6</local></y>
     <text>to align its centre x point to the centre of the outer box.</text>
   </label>
   <label>
-    <x><relative><offset>1.0</offset></relative></x>
-    <y><relative><offset>2.2</offset></relative></y>
+    <x><local>1.0</local></x>
+    <y><local>2.2</local></y>
     <text>The nested box has w set to 1.0 and  wl set to 0.4 and wr set to 1.2</text>
   </label>
     
   <enclosure>
-            <x><relative><offset>13.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
+            <x><local>13.0</local></x>
+            <y><local>1.0</local></y>
             <h>3</h>
 			<margin>0.2</margin>
 			<padding>0</padding>
            <enclosure>
                 <x><at><centre/></at></x>
-                <y><relative><offset>1.0</offset></relative></y>
+                <y><local>1.0</local></y>
                 <h>1.0</h>
 				<ht>0.2</ht>
 				<hb>0.2</hb>

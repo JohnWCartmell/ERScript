@@ -1,0 +1,296 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+   <include><filename>shared/text_style_definitions.xml</filename></include>
+   <include><filename>shared/shape_style_definitions.xml</filename></include>
+
+   <default>
+      <hmin>1.0</hmin>
+      <wmin>1.0</wmin>
+      <margin>0.2</margin>
+      <padding>0.1</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+  <label>
+    <y><local>1.0</local></y>
+    <text>Other Alignments</text>
+    <text_style>title</text_style>
+  </label>
+
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <y><local>1.0</local></y>
+          <text>In this example 'B1' x value is centred to its cousin 'A1'.</text>
+        </label> 
+       <enclosure>
+           <id>A</id>
+           <x><local>12</local></x>
+           <y><local>0.75</local></y>
+           <h>2.0</h>
+           <w>4.0</w>
+           <label/>    
+           <enclosure>
+               <id>A1</id>
+                <x><local>2.0</local></x>
+                <y><local>0.5</local></y>
+                <h>1</h>
+                <label/>
+           </enclosure>
+        </enclosure>
+       <enclosure>
+           <id>B</id>
+           <x><delta>0.5</delta><at><predecessor/></at></x>
+           <y><delta>0.5</delta><at><bottom/><predecessor/></at></y>
+           <h>2.0</h>
+           <w>4.0</w>
+           <label/>
+           <enclosure>
+                <id>B1</id>
+                <x><place><centre/></place><at><centre/><of>A1</of></at></x>
+                <y><local>0.5</local></y>
+                <h>1</h>
+                <label/>
+           </enclosure>
+       </enclosure>
+    </enclosure>
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <x><local>1.0</local></x>
+          <y><local>1.0</local></y>
+          <text>Here left edge of D1 is positioned at the right edge of cousin C1.</text>
+        </label> 
+        <enclosure>
+            <id>C</id>
+            <x><local>12</local></x> 
+            <y><local>1</local></y>
+            <h>1.5</h>
+            <enclosure>
+                  <id>C1</id>
+                  <label/>
+                  <x><local>0.5</local></x>
+                  <h>1</h>
+            </enclosure>
+        </enclosure>
+        <enclosure>
+            <id>D</id>
+            <x><delta>0.5</delta><at><predecessor/></at></x>
+            <h>1.5</h>
+            <enclosure>
+                  <id>D1</id>
+                  <label/>
+                  <x><place><left/><edge/></place>
+                    <at>
+                      <right/><edge/><of>C1</of>
+                    </at>
+                  </x>
+                  <h>1</h>
+            </enclosure>
+    </enclosure>
+</enclosure>
+
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <x><local>1.0</local></x>
+          <y><local>1.0</local></y>
+          <text>Here F1 has its centre aligned with the centre of its nephew A.</text>
+        </label> 
+        <enclosure>
+           <id>E</id>
+           <x><local>12</local></x>
+           <y><local>0.5</local></y>
+           <w>3.0</w>
+           <enclosure>
+                <id>E1</id>
+                <label/>
+                <x><local>1.0</local></x>
+                <h>1</h>
+           </enclosure>
+       </enclosure>
+       <enclosure>
+           <id>F</id>
+           <x><place><centre/></place> <at><centre/><of>E1</of></at></x>
+           <y><delta>0.5</delta><at><bottom/><predecessor/></at></y>
+           <label/>
+           <w>2</w>
+           <h>1</h>
+       </enclosure>
+    </enclosure>
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <x><local>1.0</local></x>
+          <y><local>1.0</local></y>
+          <text>Here G3 has its centre aligned with its sibling G1</text>
+        </label> 
+        <enclosure>
+           <id>G</id>
+           <x><local>12</local></x>
+           <y><local>0.5</local></y>
+           <label/>
+           <enclosure>
+                <id>G1</id>
+                <label/>
+                <y><at><predecessor/></at></y>
+                <w>1.5</w>
+                <h>1</h>
+           </enclosure>
+           <enclosure>
+                <id>G2</id>
+                <label/>
+                <x><at><parent/></at></x>
+                <y><at><bottom/><predecessor/></at></y>
+                <w>2.5</w>
+                <h>1</h>
+           </enclosure>
+           <enclosure>
+                <id>G3</id>
+                <label/>
+                <x><place><centre/></place><at><centre/><of>G1</of></at></x>
+                <y><at><bottom/><predecessor/></at></y>
+                 <w>1.5</w>
+                <h>1</h>
+           </enclosure>
+       </enclosure>
+    </enclosure>
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <x><local>1.0</local></x>
+          <y><local>1.0</local></y>
+          <text>Here I1 is centred to the centre of its uncle H.</text>
+        </label> 
+        <enclosure>
+            <id>H</id>
+            <x><at><left/><of>I</of></at></x>
+            <y><local>0.5</local></y>
+            <w>3.0</w>
+            <h>1</h>
+            <label/>
+        </enclosure>
+        <enclosure>
+            <id>I</id>
+            <x><local>12</local></x>
+            <y><at><bottom/><predecessor/></at></y>
+            <w>4.5</w>
+            <label/>
+            <enclosure>
+                 <id>I1</id>
+                 <label/>
+                 <x><at><centre/><of>H</of></at></x>
+                 <h>1</h>
+            </enclosure>
+        </enclosure>
+    </enclosure>
+    <enclosure>
+        <x><at><predecessor/></at></x>
+        <w>20</w>
+        <hb>0.2</hb>
+        <shape_style>gradient</shape_style>
+        <debug-whitespace>false</debug-whitespace>
+        <margin>1.0</margin>
+        <padding>0</padding>
+        <label>
+          <x><local>1.0</local></x>
+          <y><local>1.0</local></y>
+          <text>Here...</text>
+        </label> 
+        <label><text>K has no  position specified -- defaults to the lower right of the label "J"</text></label>
+        <label><text>L0 has no x position specified -- defaults to the right of the label "L"</text></label>
+        <label><text>L1 has x specified to place it at the centre of K1 -- by default this  places the centre of L1 at the centre of K1</text></label>
+        <label><text>L2 has x specified to place it to the right of L1  -- by default this places the left of L2 to the right of L1</text></label>
+        <enclosure>
+            <id>J</id>
+            <label/>
+            <x><local>12</local></x>
+            <enclosure>
+                <id>K</id>
+                <label/>
+                <enclosure>
+                    <id>K1</id>
+                    <x><local>3</local></x>
+                    <h>1</h>
+                    <w>2.3</w>
+                    <label/>
+                </enclosure>
+                <enclosure>
+                    <id>K2</id>
+                    <x><at><right/><of>K1</of></at></x>
+                    <y><at><top/><of>K1</of></at></y>
+                    <h>1</h>
+                    <label/>
+                </enclosure>
+            </enclosure> <!-- end K -->
+            <enclosure>
+                <id>L</id>
+                <x><at><left/><parent/></at></x>
+                <label/>
+                <enclosure>
+                    <id>L0</id>
+                    <h>1</h>
+                    <label/>
+                </enclosure>
+                <enclosure>
+                    <id>L1</id>
+                    <x><at><centre/><of>K1</of></at></x>
+                    <y><at><top/><of>L0</of></at></y>
+                    <h>1</h>
+                    <label/>
+                </enclosure>
+                <enclosure>
+                    <id>L2</id>
+                    <x><at><right/><of>L1</of></at></x>
+                    <y><at><top/><of>L1</of></at></y> 
+                    <h>1</h>
+                    <label/>
+                </enclosure> 
+            </enclosure> <!-- L -->
+        </enclosure> <!-- J -->
+    </enclosure>
+
+
+
+
+
+
+
+
+
+</diagram>

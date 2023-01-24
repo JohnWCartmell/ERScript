@@ -118,7 +118,7 @@
     <padding>0</padding>
      <label>
       <y><local>1.0</local></y>
-      <text>Here one enclosure encloses another. Each contains a margin shown here in pink. </text>
+      <text>Here one enclosure is nested within another. Each contains a margin shown here in pink. </text>
       </label> 
       <label>
          <text>The outer enclosure has no visible padding (padding=0). </text>
