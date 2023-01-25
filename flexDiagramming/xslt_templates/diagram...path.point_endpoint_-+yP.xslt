@@ -40,11 +40,11 @@
 	<!-- destination is right_sideP -->
 	<xsl:template match="route
                        [destination/right_sideP/deltayP] 
-					   /path/point[startpoint]
+					   /path/point[endpoint]
 					   [not(yP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="40">		                    <!-- changed from [startpoint] 25/01/2022 -->
 		<xsl:copy>
 				<yP> 
 					<at>
