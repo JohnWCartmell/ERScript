@@ -19,7 +19,6 @@ echo "."
 }
 buildFolder src_instruction
 buildFolder src_paths
-buildFolder src_point_tests
 buildFolder src_routes
 buildFolder src_text_tests
 buildFolder src_xtests

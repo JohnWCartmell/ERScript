@@ -19,64 +19,78 @@
    <h>10</h>
 
    <label>
-      <x><abs>6</abs></x>
-      <y><abs>3</abs></y>
-      <text>path.points.xml</text>
+      <x><local>6</local></x>
+      <y><local>3</local></y>
+      <text>Points and Paths</text>
       <text_style>title</text_style>
    </label>
-   <label>
-      <x><abs>6</abs></x>
-      <y><abs>4</abs></y>
-      <text>This is an elemntary example in which paths are coded explicitly as sequences of points using absolute adressing.</text>
-      <text_style>normal</text_style>
-   </label>
-
-   <!-- O -->
-   <path>
-      <point>
-         <x><abs>1.5</abs></x>
-         <y><abs>0.5</abs></y>
-      </point>
-      <point>
-         <x><abs>1.5</abs></x>
-         <y><abs>2.5</abs></y>
-      </point>
-      <point>
-         <x><abs>2.5</abs></x>
-         <y><abs>2.5</abs></y>
-      </point>
-      <point>
-         <x><abs>2.5</abs></x>
-         <y><abs>0.5</abs></y>
-      </point>
-      <point>
-         <x><abs>1.5</abs></x>
-         <y><abs>0.5</abs></y>
-      </point>
-   </path>
-   <!-- K -->
-   <path>
-      <point>
-         <x><abs>3.5</abs></x>
-         <y><abs>0.5</abs></y>
-      </point>
-      <point>
-         <x><abs>3.5</abs></x>
-         <y><abs>2.5</abs></y>
-      </point>
-   </path>
-   <path>
-      <point>
-         <x><abs>4.5</abs></x>
-         <y><abs>0.5</abs></y>
-      </point>
-      <point>
-         <x><abs>3.5</abs></x>
-         <y><abs>1.5</abs></y>
-      </point>
-      <point>
-         <x><abs>4.5</abs></x>
-         <y><abs>2.5</abs></y>
-      </point>
-   </path>
+   
+   <enclosure>
+      <x><at><predecessor/></at></x>
+      <w>20</w>
+      <hb>0.2</hb>
+      <shape_style>gradient</shape_style>
+      <debug-whitespace>false</debug-whitespace>
+      <margin>1.0</margin>
+      <padding>0</padding>
+      <label>
+         <x><local>0.5</local></x>
+         <y><local>0.5</local></y>
+         <text>This is an elemntary example in which paths are coded explicitly as sequences of points using local adressing.</text>
+      </label>
+      <enclosure>
+         <x><at><predecessor/></at></x>
+         <y><local>1.0</local></y>         
+         <shape_style>gradient</shape_style>
+         <h>3.0</h>
+         <w>6.0</w>  <!-- had to specify these since calculated width seems not to include points and paths -->
+         <path>
+            <point>
+               <x><local>1.5</local></x>
+               <y><local>0.5</local></y>
+            </point>
+            <point>
+               <x><local>1.5</local></x>
+               <y><local>2.5</local></y>
+            </point>
+            <point>
+               <x><local>2.5</local></x>
+               <y><local>2.5</local></y>
+            </point>
+            <point>
+               <x><local>2.5</local></x>
+               <y><local>0.5</local></y>
+            </point>
+            <point>
+               <x><local>1.5</local></x>
+               <y><local>0.5</local></y>
+            </point>
+         </path>
+         <!-- K -->
+         <path>
+            <point>
+               <x><local>3.5</local></x>
+               <y><local>0.5</local></y>
+            </point>
+            <point>
+               <x><local>3.5</local></x>
+               <y><local>2.5</local></y>
+            </point>
+         </path>
+         <path>
+            <point>
+               <x><local>4.5</local></x>
+               <y><local>0.5</local></y>
+            </point>
+            <point>
+               <x><local>3.5</local></x>
+               <y><local>1.5</local></y>
+            </point>
+            <point>
+               <x><local>4.5</local></x>
+               <y><local>2.5</local></y>
+            </point>
+         </path>
+      </enclosure>
+   </enclosure>
 </diagram>
