@@ -29,7 +29,7 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Example 1: Enclosure A has route specified:</text>
+			<text>Enclosure A has route specified from rhs of A to lhs of B.</text>
 		</label>
 		<!--
 	  <label>
@@ -66,6 +66,51 @@
 				</left_side> 
 				<id>B</id>
 				<annotation>back_to_a</annotation>
+			</destination>
+		</route>	
+	</enclosure>
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label>
+			<text>Enclosure A has route specified from rhs of C to rhs of D.</text>
+		</label>
+		<!--
+	  <label>
+		<text><![CDATA[
+		  yyy
+		]]></text>
+	  </label>
+	  -->
+		<enclosure>
+			<id>C</id>
+			<x><local>11</local></x>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>D</id>
+			<label/>	
+			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
+			<y><at><predecessor/></at><delta>1.0</delta></y>		  
+		</enclosure>
+		<route>
+			<source>
+					<right_side>
+						<deltay>0.25</deltay>
+						<annotate_high/>
+					</right_side>
+					<id>C</id>
+					<annotation>link_to_d</annotation>
+			</source>
+			<destination>
+					<right_side>
+						<deltay>0.75</deltay>
+						<annotate_low/>
+					</right_side>
+					<id>D</id>
+					<annotation>back_to_c</annotation>
 			</destination>
 		</route>	
 	</enclosure>

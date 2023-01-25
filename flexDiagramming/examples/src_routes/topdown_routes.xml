@@ -28,7 +28,7 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>0.5</margin>
 		<label>
-			<text> Route specified from A to B by</text>
+			<text> Route specified from A to B using a topdown directive as follows:</text>
 		</label>
 		<label><text><![CDATA[<route>]]></text></label>
 	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[<top_down/>]]></text></label>
@@ -106,6 +106,129 @@
 					<annotation>back_to_a</annotation>
 			</destination>
 			<path><ew/></path>
+		</route>
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label><text>Here there is a topdown route where source and destination are identical.</text></label>
+		<label><text>***TBD*** Observe that the sweep out ew don't take the ns out far enough.</text></label>
+		<enclosure>
+			<id>E</id>
+			<x><local>12</local></x>
+			<y><local>1.2</local></y>
+			<h>0.75</h>
+			<w>2.1</w>
+			<label/>
+		</enclosure>
+		<route>
+		    <top_down/>
+			<source>
+					<id>E</id>
+					<annotation>down_to_itself</annotation>
+			</source>
+			<destination>
+					<id>E</id>
+					<annotation>back_up_to_itself</annotation>
+			</destination>
+		</route>
+	</enclosure>
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label><text>Here multiple topdown routes to show how points of connection on shared edge arranged.</text></label>
+		<label>
+	        <y><delta>1.0</delta><at><bottom/><predecessor/></at></y>
+	        <text>Note Positive: (i) downgoing topdown correctly ordered.</text>
+	    </label>
+		<label><text>Note Negatives: (TBD). </text></label>
+		<label><text>(ii) outgoing upwards destined topdown in wrong place.</text></label>
+		<label><text>(iii) G width doesn't extend to labels. </text></label>
+		<label><text>(iv) G width doesn't extend to labels of children.</text></label>
+		<label><text>(v) labels on routes down from F overlap.</text></label>
+		<enclosure>
+			<id>F</id>
+			<x><local>10</local></x>
+			<y><local>2</local></y>
+			<w>4</w>
+			<label/>
+		</enclosure>
+		<enclosure>
+	        <id>G</id>
+	        <x><place><centre/></place><at><centre/><predecessor/></at></x>
+	        <y><delta>1.0</delta><at><bottom/><predecessor/></at></y>
+	        <label/>
+	        <enclosure>
+	          <id>G1</id>
+	          <label/>
+	          <ht>0.4</ht>
+	          <hb>0.2</hb>
+	          <x><local>1.0</local></x>
+	          <y><local>1.0</local></y>
+	        </enclosure>
+	        <enclosure>
+	          <id>G2</id>
+	          <y><at><predecessor/></at></y>
+	          <label/>
+	          <ht>0.2</ht>
+	          <hb>0.1</hb>
+	        </enclosure>
+	        <enclosure>
+	          <id>G3</id>
+	          <ht>0.3</ht>
+	          <hb>0.2</hb>
+	          <y><at><predecessor/></at></y>
+	          <label/>
+	        </enclosure>
+    	</enclosure>
+    	<route>
+		    <top_down/>
+			<source>
+				<id>F</id>
+				<annotation>down to F itself</annotation>
+			</source>
+			<destination>
+				<id>F</id>
+				<annotation>up to F itself</annotation>
+			</destination>
+		</route>
+		<route>
+		    <top_down/>
+			<source>
+				<id>F</id>
+				<annotation>down_to_G3</annotation>
+			</source>
+			<destination>
+				<id>G3</id>
+				<annotation>up_to_F</annotation>
+			</destination>
+		</route>		
+		<route>
+		    <top_down/>
+			<source>
+				<id>F</id>
+				<annotation>down_to_G1</annotation>
+			</source>
+			<destination>
+				<id>G1</id>
+				<annotation>up_to_F</annotation>
+			</destination>
+		</route>		
+		<route>
+		    <top_down/>
+			<source>
+				<id>F</id>
+				<annotation>down_to_G3</annotation>
+			</source>
+			<destination>
+				<id>G2</id>
+				<annotation>up_to_F</annotation>
+			</destination>
 		</route>
 	</enclosure>
 </diagram>

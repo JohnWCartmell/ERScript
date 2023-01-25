@@ -9,7 +9,7 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 . ($commandFolder + '\..\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-$EXAMPLEFOLDERNAME='src_instruction'
+$EXAMPLEFOLDERNAME='src_enclosures'
 
 $SOURCEXML = $SOURCE + '\flexDiagramming\examples\' +  $EXAMPLEFOLDERNAME
 

@@ -89,7 +89,6 @@
 						<annotation>a1</annotation>
 				</destination>
 			</route>			   
-			<!--  THIS FAILS 24/01/2022
 			<route>
 				<source>
 						<right_side>
@@ -108,7 +107,6 @@
 						<annotation>a1</annotation>
 				</destination>
 			</route>
-		-->
 		</enclosure>
 		<enclosure>
 			<id>B</id>
