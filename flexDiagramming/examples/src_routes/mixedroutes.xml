@@ -27,7 +27,7 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Example 1: Enclosure A has route specified:</text>
+			<text>Mixture of routes and uses of linestyle and endlinestyle.</text>
 		</label>
 		<label>
 			<text><![CDATA[
@@ -61,6 +61,8 @@
 						</right_side>
 						<id>A1</id>
 						<annotation>link_to_a2</annotation>
+						<linestyle>solidline</linestyle>
+						<endlinestyle>crowsfoot</endlinestyle>
 				</source>
 				<destination>
 						<left_side>
@@ -87,6 +89,7 @@
 						</left_side>
 						<id>A3</id>
 						<annotation>a1</annotation>
+						<endlinestyle>crowsfoot</endlinestyle>
 				</destination>
 			</route>			   
 			<route>
@@ -97,6 +100,7 @@
 						</right_side>
 						<id>A2</id>
 						<annotation>a3</annotation>
+						<endlinestyle>crowsfoot</endlinestyle>
 				</source>
 				<destination>
 						<right_side>
@@ -150,7 +154,7 @@
 						<annotate_right/>
 					</bottom_edge>
 					<id>A</id>
-					<annotation>c</annotation>
+					<annotation>d</annotation>
 			</source>
 			<destination>
 					<top_edge>
@@ -159,6 +163,8 @@
 					</top_edge>
 					<id>D</id>
 					<annotation>also_back_to_A</annotation>
+					<endlinestyle>crowsfoot</endlinestyle>
+					<linestyle>solidline</linestyle>
 			</destination>
 		</route>	  
 		<route>
@@ -182,11 +188,12 @@
 		<route>
 			<source>
 					<right_side>
-						<deltay>0.5</deltay>
+						<deltay>0.75</deltay>
 						<annotate_low/>
 					</right_side>
 					<id>A3</id>
 					<annotation>b</annotation>
+					<endlinestyle>crowsfoot</endlinestyle>
 			</source>
 			<destination>
 					<left_side>

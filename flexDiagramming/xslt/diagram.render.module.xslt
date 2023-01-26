@@ -79,9 +79,13 @@ DESCRIPTION
 
 	
 	<xsl:template name="line_content" match="diagram">
-		<xsl:for-each select="//path">
-			<xsl:call-template name="path">
+		<xsl:for-each select="//*[not(self::route)]/path">
+			<xsl:call-template name="render_path">
+			        <xsl:with-param name="classname" select="'standalonepath'"/>
 			</xsl:call-template>
+		</xsl:for-each>
+		<xsl:for-each select="//route">
+			<xsl:call-template name="render_route"/>
 		</xsl:for-each>
 	</xsl:template>
 

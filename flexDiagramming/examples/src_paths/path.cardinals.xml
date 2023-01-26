@@ -19,7 +19,7 @@
 	<label>
 		<x><local>2</local></x>
 		<y><local>0.5</local></y>
-		<text>path.cardinals.xml</text>
+		<text>source 'path.cardinals.xml'</text>
 		<text_style>title</text_style>
 	</label>
 	<label>

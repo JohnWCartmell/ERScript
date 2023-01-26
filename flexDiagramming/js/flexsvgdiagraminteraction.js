@@ -38,7 +38,7 @@ function initialiseSvgInteraction(){
    const svgObject = document.getElementById('svg-object');
    svgDoc = svgObject.contentDocument; 
 
-   const svgElements = svgDoc.querySelectorAll(".gradient, .outline, .outlinedebug, .margin, .padding, .route");
+   const svgElements = svgDoc.querySelectorAll(".gradient, .outline, .outlinedebug, .margin, .padding, .routehitarea");
    console.log("Number of infoable svgElements",svgElements.length)
    for (let i = 0; i < svgElements.length; i++) {
       svgElements[i].onclick=showInfoboxAtCursorFromSVG;

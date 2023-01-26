@@ -27,7 +27,7 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Example 1: Enclosure A has route specified:</text>
+			<text>Two orthogonal routes. I notice that one has ns which obstructs the label. (*** TBD ***)</text>
 		</label>
 		<label>
 			<text><![CDATA[
