@@ -16,3 +16,11 @@ If(!(test-path -PathType container $TARGETXSLT))
 attrib -R $TARGETXSLT\*.xslt
 copy-item -Path $SOURCEXSLT\*.xslt -Destination $TARGETXSLT
 attrib +R $TARGETXSLT\*.xslt
+
+echo "."
+echo "================================================================= begin flex ==================="
+echo "***"
+& $SOURCEXSLT\flex\build.ps1                
+echo "***"
+echo "================================================================= end flex ====================="
+echo "."
