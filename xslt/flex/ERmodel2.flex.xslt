@@ -20,6 +20,7 @@ CHANGE HISTORY
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
 		xmlns:xlink="http://www.w3.org/TR/xlink" 
 		xmlns:svg="http://www.w3.org/2000/svg" 
+		xmlns:era="http://www.entitymodelling.org/ERmodel"
 		xmlns:diagram="http://www.entitymodelling.org/diagram" 
 		xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
 		xmlns="http://www.entitymodelling.org/diagram"
@@ -31,11 +32,13 @@ CHANGE HISTORY
   <xsl:param name="debug" />
  <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
-	<xsl:include href="ERmodel.flex_passone.xslt"/>
+ <xsl:include href="../ERmodel.functions.module.xslt"/>
+
+	<xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
 
 	<xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
 
-	<xsl:include href="ERmodel.flex_passtwo.xslt"/>
+	<xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
 
 	<xsl:output method="xml" indent="yes" />
 
@@ -77,6 +80,13 @@ CHANGE HISTORY
 			</xsl:for-each>
 		</xsl:variable>	
 
+<!--
+			<xsl:for-each select="$state/*">
+				<xsl:copy-of select="."/>
+			</xsl:for-each>
+		-->
+
+  <xsl:if test="true()">
     <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
     <xsl:variable name="state">
       <xsl:call-template name="recursive_structure_enrichment">
@@ -93,6 +103,7 @@ CHANGE HISTORY
 				</xsl:copy>
 			</xsl:for-each>
 		</xsl:variable>	
+
 		<xsl:variable name="state">
 			<xsl:for-each select="$state/*">
 				<xsl:message>initiating passthree</xsl:message>
@@ -101,18 +112,22 @@ CHANGE HISTORY
 				</xsl:copy>
 			</xsl:for-each>
 		</xsl:variable>	
+
 		<xsl:for-each select="$state/*">
 			<xsl:copy>
 				<xsl:message>initiating passfour</xsl:message>
 				<xsl:apply-templates mode="passfour"/>
 			</xsl:copy>
 		</xsl:for-each>
+
+		</xsl:if>
 	</xsl:template>
+
 
 	<xsl:template match="absolute" mode="passzero">
 		<xsl:message>passzero</xsl:message>
 		<enclosure>
-			<id><xsl:value-of select="name"/></id>
+			<id><xsl:value-of select="@name"/></id>
 			<shape_style>entity_type_outline</shape_style>
 			<w>35</w> <!--temporary measures!!!!!!!!!!!!!!!!!***************>-->
 			<rx>0.25</rx>
@@ -123,7 +138,7 @@ CHANGE HISTORY
 
 	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
 		<enclosure>
-			<id><xsl:value-of select="name"/></id>
+			<id><xsl:value-of select="@name"/></id>
 			<shape_style>codedfor_entity_type_outline</shape_style>
 			<rx>0.25</rx>  <!-- cheap and cheerful -->
 			<ry>0.25</ry>
@@ -135,7 +150,7 @@ CHANGE HISTORY
 	
 	<xsl:template match="entity_type[not(diagram:enclosure)]" mode="passzero">
 		<enclosure>
-			<id><xsl:value-of select="name"/></id>
+			<id><xsl:value-of select="@name"/></id>
 			<shape_style>entity_type_outline</shape_style>
 			<rx>0.25</rx>  <!-- cheap and cheerful -->
 			<ry>0.25</ry>
@@ -147,7 +162,7 @@ CHANGE HISTORY
 
 	<xsl:template match="group[diagram:enclosure]" mode="passzero">
 		<enclosure>
-			<id><xsl:value-of select="name"/></id>
+			<id><xsl:value-of select="@name"/></id>
 			<shape_style>codedfor_group_outline</shape_style>
 			<!-- <label/>  -->
 			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
@@ -157,7 +172,7 @@ CHANGE HISTORY
 	
 		<xsl:template match="group[not(diagram:enclosure)]" mode="passzero">
 		<enclosure>
-			<id><xsl:value-of select="name"/></id>
+			<id><xsl:value-of select="@name"/></id>
 			<shape_style>group_outline</shape_style>
 			<!-- <label/>  -->
 			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
@@ -167,15 +182,16 @@ CHANGE HISTORY
 	
 
 	<xsl:template match="composition" mode="passzero">
+		<xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
 		<route>
 			<top_down/>
 			<source>
-				<id><xsl:value-of select="../name"/></id>
-				<annotation><xsl:value-of select="name"/></annotation>
+				<id><xsl:value-of select="../@name"/></id>
+				<annotation><xsl:value-of select="@name"/></annotation>
 			</source>
 			<destination>
-				<id><xsl:value-of select="type"/></id>
-				<annotation><xsl:value-of select="inverse"/></annotation>
+				<id><xsl:value-of select="$type"/></id>
+				<annotation><xsl:value-of select="@inverse"/></annotation>
 			</destination>			
 		</route>
 	</xsl:template>

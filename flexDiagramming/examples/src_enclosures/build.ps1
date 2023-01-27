@@ -1,5 +1,4 @@
 
-    <tr><td></td><td><a href="points_and_labels.html">Points and Labels</a></td></tr>
 Param(
    [Parameter(Mandatory=$False)]
        [string]$filename

@@ -108,11 +108,10 @@
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
                         [not(compositionalDepth)]
-                        [not(key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id))]
+                        [not(key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)])]
                         " 
                    mode="recursive_structure_enrichment">
-                   <!--
-                         -->
+                   <!-- added [not(id=current()/id)] 27/01/2023-->
       <xsl:copy>
          <compositionalDepth>
             <xsl:value-of select="0"/>
@@ -124,18 +123,21 @@
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
                         [not(compositionalDepth)]
-                        [key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)]
+                        [key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)]]
                         [every $e 
                            in key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)] 
                            satisfies $e/compositionalDepth 
                         ]
                         " 
                    mode="recursive_structure_enrichment">
+                   <!-- added [not(id=current()/id)] 27/01/2023-->
       <xsl:copy> 
+         <xsl:variable name="temp" as="xs:double"
+                       select="max((key('OutermostEnclosuresFromWhichIncomingTopDownRoute',
+                                                id)[not(id=current()/id)]/compositionalDepth))"/>
          <compositionalDepth>
             <xsl:value-of 
-               select="max((key('OutermostEnclosuresFromWhichIncomingTopDownRoute',
-                                                id)[not(id=current()/id)]/compositionalDepth))+1"/>
+               select="$temp + 1"/>
          </compositionalDepth>
          <xsl:apply-templates mode="recursive_structure_enrichment"/>
       </xsl:copy>
