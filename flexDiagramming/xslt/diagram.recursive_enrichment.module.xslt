@@ -16,8 +16,7 @@
 <xsl:param name="maxiter" />
 <xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
 
-<xsl:param name="debug" />
-<xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="diagram.functions.module.xslt"/>
@@ -110,7 +109,7 @@
 <!-- HMMM -->
 <xsl:key name="startpoint" match="point[startpoint]"   use="xP/at/of"/>
 
-<xsl:template match="/">
+<xsl:template match="/" mode="recursive_diagram_enrichment">
       <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
       <xsl:call-template name="recursive_diagram_enrichment">
          <xsl:with-param name="interim" select="."/>  
@@ -136,7 +135,7 @@
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
-   <xsl:if test="$debugon">
+   <xsl:if test="$debugOn">
       <xsl:result-document href="concat('class_enriched_temp',$depth,'.xml')" method="xml">
         <xsl:sequence select="$next/diagram"/>
       </xsl:result-document>

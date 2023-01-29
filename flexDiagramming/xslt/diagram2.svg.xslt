@@ -16,6 +16,9 @@ CHANGE HISTORY
         xmlns:svg="http://www.w3.org/2000/svg" 
         xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
+
+<xsl:include href="diagram.elaboration.module.xslt"/>
+<xsl:include href="diagram.recursive_enrichment.module.xslt"/>
 <xsl:include href="diagram.render.module.xslt"/>
 
 <xsl:output method="xml" indent="yes"/>
