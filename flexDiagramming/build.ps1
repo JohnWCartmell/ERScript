@@ -23,7 +23,15 @@ echo "***"
 echo "================================================================= end flexDiagramming xslt ====================="
 echo "."
 
-echo "."b
+echo "."
+echo "================================================================= begin flexDiagramming methods ==================="
+echo "***"
+& $SOURCEFLEXDIAGRAMMING\methods\build.ps1  
+echo "***"
+echo "================================================================= end flexDiagramming methods ====================="
+echo "."
+
+echo "."
 echo "================================================================= begin flexDiagramming xslt templates ==================="
 echo "***"
 & $SOURCEFLEXDIAGRAMMING\xslt_templates\build.ps1
@@ -31,7 +39,7 @@ echo "***"
 echo "================================================================= end flexDiagramming xslt templates ====================="
 echo "."
 
-echo "."b
+echo "."
 echo "================================================================= begin flexDiagramming scripts ==================="
 echo "***"
 & $SOURCEFLEXDIAGRAMMING\scripts\build.ps1
@@ -39,7 +47,7 @@ echo "***"
 echo "================================================================= end flexDiagramming srcipts  ====================="
 echo "."
 
-echo "."b
+echo "."
 echo "================================================================= begin flexDiagrmming examples ==================="
 echo "***"
 & $SOURCEFLEXDIAGRAMMING\examples\build.ps1
