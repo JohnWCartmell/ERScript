@@ -28,7 +28,6 @@ DESCRIPTION
 
 
 <xsl:template  match="/">
-
 	<xsl:variable name="state">
       <xsl:apply-templates select="." mode="elaborate"/>
    </xsl:variable>
