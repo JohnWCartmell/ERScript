@@ -30,4 +30,5 @@ If(!(test-path -PathType container $outputFolder))
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\flex\ERmodel2.flex.xslt `
                        -o:$outputFolder\$filenamebase.flex.xml `
+                        ERHOME=$ERHOME `
                         debug=$(If ($debugswitch){'y'}Else{'n'}) 

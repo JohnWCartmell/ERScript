@@ -1,10 +1,10 @@
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder + '\..\..\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE js folder")
+echo ("*** building from  $SOURCE methods era js folder")
 
-$SOURCEJS = $SOURCE + '\flexDiagramming\js'
+$SOURCEJS = $SOURCE + '\flexDiagramming\methods\era\js'
 $TARGETJS = $TARGET + '\js'
 
 echo ('SOURCEJS ' + $SOURCEJS)

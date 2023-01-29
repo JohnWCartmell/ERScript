@@ -1,10 +1,10 @@
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder + '\..\..\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
 echo ("*** building from  $SOURCE css folder")
 
-$SOURCECSS = $SOURCE + '\flexDiagramming\css'
+$SOURCECSS = $SOURCE + '\flexDiagramming\methods\era\css'
 $TARGETCSS = $TARGET + '\css'
 
 echo ('SOURCECSS ' + $SOURCECSS)

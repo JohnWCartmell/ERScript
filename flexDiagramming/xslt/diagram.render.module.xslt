@@ -26,9 +26,32 @@ DESCRIPTION
 <xsl:variable name="debugOn"   as="xs:boolean" select="$debug='y'" />
 <xsl:variable name="traceOn"   as="xs:boolean" select="$trace='y'" />
 
-	<!-- <xsl:include href="ERmodel.functions.module.xslt"/> -->
 
-	<xsl:template name="entity_model_diagram" match="/diagram">
+<xsl:template  match="/">
+
+	<xsl:variable name="state">
+      <xsl:apply-templates select="." mode="elaborate"/>
+   </xsl:variable>
+
+   <xsl:variable name="state">
+      	<xsl:apply-templates select="$state" mode="recursive_diagram_enrichment"/>>
+   </xsl:variable>
+
+   <xsl:if test="$debugOn">
+      <xsl:message>putting out recursive enrichment <xsl:value-of select="$state/name()"/></xsl:message>
+      <xsl:result-document href="recursive_diagram_enrichment.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
+
+    <xsl:copy>
+	   <xsl:for-each select="$state/diagram">
+			<xsl:call-template name="entity_model_diagram"/>
+		</xsl:for-each>
+	</xsl:copy>
+</xsl:template>
+
+	<xsl:template name="entity_model_diagram" match="/diagram" mode="explicit">
 		<xsl:message> entity_model_diagram </xsl:message>
 		<xsl:call-template name="wrap_diagram">
 			<xsl:with-param name="acting_filestem" select="$filestem"/>
