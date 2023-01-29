@@ -16,6 +16,7 @@ CHANGE HISTORY
 <xsl:transform version="2.0" 
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+		xmlns:file="http://expath.org/ns/file"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
 		xmlns:xlink="http://www.w3.org/TR/xlink" 
@@ -25,7 +26,7 @@ CHANGE HISTORY
 		xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
 		xmlns="http://www.entitymodelling.org/diagram"
 		>
-
+	<xsl:param name="ERHOME" as="xs:string" />
 	<xsl:param name="maxiter" />
   <xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
 
@@ -46,14 +47,26 @@ CHANGE HISTORY
 		<xsl:variable name="state">
 			<diagram:diagram>
 				<xsl:namespace name=""  select="'http://www.entitymodelling.org/diagram'"/>
+				<xsl:variable name="path" select="replace(concat($ERHOME,'/flexDiagramming/methods/era/xml')
+					                                         ,'\\'
+					                                         ,'/')"/>
 				<include>
-					<filename>shared/text_style_definitions.xml</filename>
+					<filename><xsl:text>file:///</xsl:text>
+						        <xsl:value-of select="$path"/>
+					          <xsl:text>/text_style_definitions.xml</xsl:text>
+				 </filename>
 				</include>
 				<include>
-					<filename>shared/shape_style_definitions.xml</filename>
+					<filename><xsl:text>file:///</xsl:text>
+						        <xsl:value-of select="$path"/>
+					          <xsl:text>/shape_style_definitions.xml</xsl:text>
+					</filename>
 				</include>
 				<include>
-					<filename>shared/endline_style_definitions.xml</filename>
+					<filename><xsl:text>file:///</xsl:text>
+						        <xsl:value-of select="$path"/>
+					          <xsl:text>/endline_style_definitions.xml</xsl:text>
+					</filename>
 				</include>
 				<default>
 					<hmin>0.5</hmin>
