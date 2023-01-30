@@ -20,3 +20,7 @@ If(!(test-path -PathType container $TARGETSCRIPTS))
 attrib -R $TARGETSCRIPTS\*.bat
 copy-item -Path $SOURCESCRIPTS\*.bat -Destination $TARGETSCRIPTS
 attrib +R $TARGETSCRIPTS\*.bat
+
+attrib -R $TARGETSCRIPTS\*.ps1
+copy-item -Path $SOURCESCRIPTS\*.ps1 -Destination $TARGETSCRIPTS
+attrib +R $TARGETSCRIPTS\*.ps1
