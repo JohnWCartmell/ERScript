@@ -30,6 +30,9 @@
 -->
 
 <xsl:template name="recursive_structure_enrichment">
+   <!-- a little different from the recursive logic I ususally employ in that
+     depth is passed through and on each such sweep encolosures of that depth marked
+-->
    <xsl:param name="interim"/>
    <xsl:param name="depth"/>
    <xsl:message> in recursive structure enrichment        - depth <xsl:value-of select="$depth"/> </xsl:message>
@@ -37,7 +40,9 @@
       <xsl:for-each select="$interim">
          <xsl:message>initiating recursive structure enrichment from <xsl:value-of select="name()"/></xsl:message>
          <xsl:copy>
-            <xsl:apply-templates mode="recursive_structure_enrichment"/>
+            <xsl:apply-templates mode="recursive_structure_enrichment">
+               <xsl:with-param name="depth" select="$depth/>"
+            </xsl:apply-templates>
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
@@ -67,79 +72,69 @@
 </xsl:template>
 
 <xsl:template match="*" mode="recursive_structure_enrichment">
+   <xsl:param name="depth"/>
    <xsl:copy>
-      <xsl:apply-templates mode="recursive_structure_enrichment"/>
+      <xsl:apply-templates mode="recursive_structure_enrichment">
+         <xsl:with-param name="depth" select="$depth/>"
+      </xsl:apply-templates>
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="enclosure
-                     [not(parent::enclosure)]
-                     [not(depthOfNesting)]
-                    " 
-              mode="recursive_structure_enrichment">
-   <xsl:copy>
-      <depthOfNesting>
-         <xsl:value-of select="0"/>
-      </depthOfNesting>
-      <xsl:apply-templates mode="recursive_structure_enrichment"/>
-   </xsl:copy>
-</xsl:template>
 
-<xsl:template match="enclosure
-                     [parent::enclosure/depthOfNesting]
-                     [not(depthOfNesting)]
-                    " 
-              mode="recursive_structure_enrichment">
-   <xsl:copy>
-      <depthOfNesting>
-         <xsl:value-of select="parent::enclosure/depthOfNesting + 1"/>
-      </depthOfNesting>
-      <xsl:apply-templates mode="recursive_structure_enrichment"/>
-   </xsl:copy>
-</xsl:template>
 
    <!-- compositionalDepth -->
    <!-- Calculate a compositional depth attribute for all outermost enclosures -->
    <!-- From an outermost enclosure index all other outermost enclosures that can be reached 
-        by ascending top down routes -->
-   <!-- This is therefore a derived relationship -->
-   <!-- watch out for recursive relationships  --> 
+        by ascending top down routes --> 
 
+<!-- a little tricky to decide on what the root is !! -->
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
                         [not(compositionalDepth)]
-                        [not(key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)])]
+                        [not(key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)
+                                         [not(id=current()/id)])
+                        ]
                         " 
                    mode="recursive_structure_enrichment">
-                   <!-- added [not(id=current()/id)] 27/01/2023-->
+<!-- there are standalone recursive systems of relationships such that the above test 
+     fails to tag any enclosures as compositionaldepth zero enclosures 
+       (though the [not(id=current()/id)] that you see above deals with the simplest
+       possible case of such - those tht are length 1 and on 'one the nose').
+     There are a number of possiblities for programming support these recursive structures but for now
+     let us make sure that we flag them up and terminate with an error in circumstances as 
+     the current algorithm fall short of establishing compositional depth.
+     One work around for the the gap that we currently leave open (rather than actually plugging it)
+     is to exlicitly tag one or more of the problematic enclosures in the incoming
+     source file as <compositionalDepth>0</compositionalDepth>.
+-->
+      <xsl:param name="depth"/>  
       <xsl:copy>
+         <xsl:assert test="$depth=0">I expected to be here at depth zero</xsl:assert>
          <compositionalDepth>
             <xsl:value-of select="0"/>
          </compositionalDepth>
-         <xsl:apply-templates mode="recursive_structure_enrichment"/>
+         <xsl:apply-templates mode="recursive_structure_enrichment">
+            <xsl:with-param name="depth" select="$depth/>"
+         </xsl:apply-templates>
       </xsl:copy>
    </xsl:template>
 
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
                         [not(compositionalDepth)]
-                        [key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)]]
-                        [every $e 
-                           in key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)[not(id=current()/id)] 
-                           satisfies $e/compositionalDepth 
-                        ]
                         " 
                    mode="recursive_structure_enrichment">
-                   <!-- added [not(id=current()/id)] 27/01/2023-->
+      <xsl:param name="depth"/>
       <xsl:copy> 
-         <xsl:variable name="temp" as="xs:double"
-                       select="max((key('OutermostEnclosuresFromWhichIncomingTopDownRoute',
-                                                id)[not(id=current()/id)]/compositionalDepth))"/>
-         <compositionalDepth>
-            <xsl:value-of 
-               select="$temp + 1"/>
-         </compositionalDepth>
-         <xsl:apply-templates mode="recursive_structure_enrichment"/>
+         <xsl:if test="some $cparent in key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)
+                        satisfies $cparent/compositionalDepth = ($depth-1)">
+            <compositionalDepth>
+               <xsl:value-of select="$depth"/>
+            </compositionalDepth>
+         </xsl:if>
+         <xsl:apply-templates mode="recursive_structure_enrichment">
+            <xsl:with-param name="depth" select="$depth/>"
+         </xsl:apply-templates>
       </xsl:copy>
    </xsl:template>
 
