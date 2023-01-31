@@ -55,6 +55,9 @@
 		</xsl:copy>
 	</xsl:template>
 
+
+<!-- I (wrongly) moved these from the recursive_structure pass
+Subsequenlty I dont think that depthOfNesting is required 
 	<xsl:template match="enclosure
                      [not(parent::enclosure)]
                      [not(depthOfNesting)]
@@ -80,6 +83,8 @@
       <xsl:apply-templates mode="passone"/>
    </xsl:copy>
 </xsl:template>
+
+-->
 
 
 </xsl:transform>
