@@ -890,24 +890,7 @@
          </diagram>
       </reference>
    </entity_type>
-   <entity_type>
-      <name>node(2)</name>
-      <reference>
-         <name>endline_style</name>
-         <diagram>
-            <path>
-               <srcsign>1</srcsign>
-               <srcattach>0.65</srcattach>
-               <hstep>
-                  <absdim>
-                     <src>4.4</src>
-                  </absdim>
-               </hstep>
-               <destattach>0.5</destattach>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
+
    <entity_type>
       <name>node(2)</name>
       <composition>
@@ -970,6 +953,34 @@
          <below>annotate_high</below>
       </presentation>
    </entity_type>
+
+   <entity_type>
+      <name>endline</name>
+      <presentation>
+         <rightOf>specific_edge</rightOf>
+      </presentation>
+   </entity_type>
+
+   <entity_type>
+      <name>endline</name>
+      <reference>
+         <name>style</name>
+         <diagram>
+            <path>
+               <srcsign>1</srcsign>
+               <!--<srcattach>0.5</srcattach>-->
+               <hstep>
+                  <absdim>
+                     <src>4.4</src>
+                  </absdim>
+               </hstep>
+               <destattach>0.5</destattach>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+
    <entity_type>
       <name>shape_style</name>
       <presentation>

@@ -1,1136 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel"><!-- 
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6"><!-- 
 17-Jun-2019 - This entity model has been ***part*** upgraded to  v1.4 schema.
                To complete the upgrade will need to recode enumeration_types as entity types.
 9 -Jan-2022 -  Enumeration types removed since not actually used.
  -->
    <absolute>
-      <name>diagram</name>
-      <attribute>
-         <name>h</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>w</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>margin</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>depth</name>
-         <type>
-            <integer/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>box</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>route</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <type>default</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>shape_style</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>endline_style</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>text_style</type>
-         <inverse>..</inverse>
-      </composition>
+      <attribute name="h" type="float"/>
+      <attribute name="w" type="float"/>
+      <attribute name="margin" type="float"/>
+      <attribute name="depth" type="integer"/>
+      <composition type="box*" inverse=".."/>
+      <composition type="route*" inverse=".."/>
+      <composition type="default" inverse=".."/>
+      <composition type="shape_style*" inverse=".."/>
+      <composition type="endline_style*" inverse=".."/>
+      <composition type="text_style*" inverse=".."/>
    </absolute>
-   <entity_type>
-      <name>box</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>h</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>w</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>margin</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>padding</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>depth</name>
-         <type>
-            <positiveInteger/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>x</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>y</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>default</type>
-         <inverse>..</inverse>
-      </composition>
-      <entity_type>
-         <name>path</name>
-         <composition>
-            <type>point_or_line</type>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
-         </composition>
+   <entity_type name="box">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <composition type="x?" inverse=".."/>
+      <composition type="y?" inverse=".."/>
+      <composition type="default?" inverse=".."/>
+      <entity_type name="path">
+         <composition type="point_or_line*"/>
       </entity_type>
-      <entity_type>
-         <name>label(1)</name>
-         <attribute>
-            <name>text</name>
-            <type>
-               <string/>
-            </type>
-         </attribute>
-         <attribute>
-            <name>offset2</name>
-            <type>
-               <float/>
-            </type>
-         </attribute>
-         <reference>
-            <name>text_style</name>
-            <type>text_style</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </reference>
+      <entity_type name="label(1)">
+         <attribute name="text" type="string"/>
+         <attribute name="offset2" type="float"/>
+         <reference name="text_style" type="text_style?"/>
       </entity_type>
-      <entity_type>
-         <name>point_or_line</name>
-         <entity_type>
-            <name>point</name>
-            <composition>
-               <type>path</type>
-               <cardinality>
-                  <ZeroOneOrMore/>
-               </cardinality>
-            </composition>
-            <composition>
-               <type>label(1)</type>
-               <cardinality>
-                  <ZeroOneOrMore/>
-               </cardinality>
-            </composition>
+      <entity_type name="point_or_line">
+         <entity_type name="point">
+            <composition type="path*"/>
+            <composition type="label(1)*"/>
          </entity_type>
-         <entity_type>
-            <name>cardinal</name>
-            <entity_type>
-               <name>ns</name>
-               <attribute>
-                  <name>starty</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>midy</name>
-                  <deprecated/>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>endy</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
+         <entity_type name="cardinal">
+            <entity_type name="ns">
+               <attribute name="starty" type="float"/>
+               <attribute name="midy" type="float"/>
+               <attribute name="endy" type="float"/>
             </entity_type>
-            <entity_type>
-               <name>ew</name>
-               <attribute>
-                  <name>startx</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>midx</name>
-                  <deprecated/>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>endx</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
+            <entity_type name="ew">
+               <attribute name="startx" type="float"/>
+               <attribute name="midx" type="float"/>
+               <attribute name="endx" type="float"/>
             </entity_type>
-            <entity_type>
-               <name>ramp</name>
-               <attribute>
-                  <name>degrees</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>deltax</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>startx</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>midx</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>endx</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>deltay</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>starty</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>midy</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
-               <attribute>
-                  <name>endy</name>
-                  <type>
-                     <float/>
-                  </type>
-                  <optional/>
-               </attribute>
+            <entity_type name="ramp">
+               <attribute name="degrees" type="float"/>
+               <attribute name="deltax" type="float"/>
+               <attribute name="startx" type="float"/>
+               <attribute name="midx" type="float"/>
+               <attribute name="endx" type="float"/>
+               <attribute name="deltay" type="float"/>
+               <attribute name="starty" type="float"/>
+               <attribute name="midy" type="float"/>
+               <attribute name="endy" type="float"/>
             </entity_type>
          </entity_type>
       </entity_type>
-      <entity_type>
-         <name>enclosure</name>
-         <attribute>
-            <name>ht</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <attribute>
-            <name>hb</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <attribute>
-            <name>wl</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <attribute>
-            <name>wr</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <attribute>
-            <name>debug-whitespace</name>
-            <type>
-               <boolean/>
-            </type>
-            <optional/>
-         </attribute>
+      <entity_type name="enclosure">
          <include>
             <filename>enclosure.rules.xml</filename>
          </include>
-         <reference>
-            <name>shape_style</name>
-            <type>shape_style</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </reference>
-         <composition>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
-            <type>box</type>
-            <inverse>..</inverse>
-         </composition>
-         <composition>
-            <cardinality>
-               <ZeroOneOrMore/>
-            </cardinality>
-            <type>route</type>
-            <inverse>..</inverse>
-         </composition>
+         <composition type="box*" inverse=".."/>
+         <composition type="route*" inverse=".."/>
+         <attribute name="ht" type="float"/>
+         <attribute name="hb" type="float"/>
+         <attribute name="wl" type="float"/>
+         <attribute name="wr" type="float"/>
+         <attribute name="debug-whitespace" type="boolean"/>
+         <reference name="shape_style" type="shape_style?"/>
       </entity_type>
+      <attribute name="h" type="float"/>
+      <attribute name="w" type="float"/>
+      <attribute name="margin" type="float"/>
+      <attribute name="padding" type="float"/>
+      <attribute name="depth" type="positiveInteger"/>
    </entity_type>
-   <entity_type>
-      <name>route</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>label</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <type>scheme</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <type>source</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <type>destination</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>default</type>
-         <inverse>..</inverse>
-      </composition>
-      <composition>
-         <type>path</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
+   <entity_type name="route">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <composition type="scheme"/>
+      <composition type="source"/>
+      <composition type="destination"/>
+      <composition type="default?" inverse=".."/>
+      <composition type="path?"/>
+      <attribute name="label" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>scheme</name>
-      <entity_type>
-         <name>top_down</name>
-      </entity_type>
-      <entity_type>
-         <name>sideways</name>
-      </entity_type>
+   <entity_type name="scheme">
+      <entity_type name="top_down"/>
+      <entity_type name="sideways"/>
    </entity_type>
-   <entity_type>
-      <name>default</name>
-      <!-- layoyut -->
-      <reference>
-         <name>text_style</name>
-         <type>text_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>shape_style</name>
-         <type>shape_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>line_style</name>
-         <type>shape_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>start_style</name>
-         <type>endline_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>end_style</name>
-         <type>endline_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <attribute>
-         <name>hmin</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>wmin</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>margin</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>padding</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>packing</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>debug-whitespace</name>
-         <type>
-            <boolean/>
-         </type>
-         <optional/>
-      </attribute>
+   <entity_type name="default"><!-- layoyut -->
+      <reference name="text_style" type="text_style?"/>
+      <reference name="shape_style" type="shape_style?"/>
+      <reference name="line_style" type="shape_style?"/>
+      <reference name="start_style" type="endline_style?"/>
+      <reference name="end_style" type="endline_style?"/>
+      <attribute name="hmin" type="float"/>
+      <attribute name="wmin" type="float"/>
+      <attribute name="margin" type="float"/>
+      <attribute name="padding" type="float"/>
+      <attribute name="packing" type="string"/>
+      <attribute name="debug-whitespace" type="boolean"/>
    </entity_type>
-   <entity_type>
-      <name>coordinate</name>
-      <attribute>
-         <name>abs</name>
-         <type>
-            <float/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>local</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>delta</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <name>relative</name>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <type>position</type>
-         <inverse>..</inverse>
+   <entity_type name="coordinate">
+      <composition name="relative" type="position*" inverse="..">
          <sequence/>
       </composition>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>localpos</type>
-         <inverse>..</inverse>
-      </composition>
-      <entity_type>
-         <name>x</name>
-         <composition>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>at(1)</type>
-            <inverse>..</inverse>
-         </composition>
-         <composition>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>place(1)</type>
-            <inverse>..</inverse>
-         </composition>
+      <composition type="localpos?" inverse=".."/>
+      <entity_type name="x">
+         <composition type="at(1)?" inverse=".."/>
+         <composition type="place(1)?" inverse=".."/>
       </entity_type>
-      <entity_type>
-         <name>y</name>
-         <composition>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>at(2)</type>
-            <inverse>..</inverse>
-         </composition>
-         <composition>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>place(2)</type>
-            <inverse>..</inverse>
-         </composition>
+      <entity_type name="y">
+         <composition type="at(2)?" inverse=".."/>
+         <composition type="place(2)?" inverse=".."/>
       </entity_type>
+      <attribute name="abs" type="float"/>
+      <attribute name="local" type="float"/>
+      <attribute name="delta" type="float"/>
    </entity_type>
-   <entity_type>
-      <name>position</name>
-      <entity_type>
-         <name>offset</name>
-         <attribute>
-            <name>value</name>
-            <type>
-               <float/>
-            </type>
-            <xmlRepresentation>
-               <Anonymous/>
-            </xmlRepresentation>
-         </attribute>
+   <entity_type name="position">
+      <entity_type name="offset">
+         <attribute name="value" type="float"/>
       </entity_type>
-      <entity_type>
-         <name>tbd</name>
-      </entity_type>
+      <entity_type name="tbd"/>
    </entity_type>
-   <entity_type>
-      <name>localpos</name>
-      <attribute>
-         <name>value</name>
-         <type>
-            <float/>
-         </type>
-         <xmlRepresentation>
-            <Anonymous/>
-         </xmlRepresentation>
-      </attribute>
-      <entity_type>
-         <name>clocal</name>
-      </entity_type>
-      <entity_type>
-         <name>rlocal</name>
-      </entity_type>
+   <entity_type name="localpos">
+      <entity_type name="clocal"/>
+      <entity_type name="rlocal"/>
+      <attribute name="value" type="float"/>
    </entity_type>
-   <entity_type>
-      <name>SMART</name>
-      <attribute>
-         <name>offset</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>aspect</type>
-      </composition>
-      <entity_type>
-         <name>AT</name>
-         <reference>
-            <name>of</name>
-            <type>box</type>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
-         </reference>
-         <attribute>
-            <name>src_rise</name>
-            <type>
-               <positiveInteger/>
-            </type>
-            <optional/>
-         </attribute>
-         <attribute>
-            <name>dest_rise</name>
-            <type>
-               <positiveInteger/>
-            </type>
-            <optional/>
-         </attribute>
-         <entity_type>
-            <name>at(1)</name>
-            <composition>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>xanchor</type>
-               <inverse>..</inverse>
-            </composition>
+   <entity_type name="SMART">
+      <composition type="aspect?"/>
+      <entity_type name="AT">
+         <entity_type name="at(1)">
+            <composition type="xanchor?" inverse=".."/>
          </entity_type>
-         <entity_type>
-            <name>at(2)</name>
-            <composition>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-               <type>yanchor</type>
-               <inverse>..</inverse>
-            </composition>
+         <entity_type name="at(2)">
+            <composition type="yanchor?" inverse=".."/>
          </entity_type>
-         <composition>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-            <type>relative</type>
-            <inverse>..</inverse>
-         </composition>
+         <composition type="relative?" inverse=".."/>
+         <reference name="of" type="box"/>
+         <attribute name="src_rise" type="positiveInteger"/>
+         <attribute name="dest_rise" type="positiveInteger"/>
       </entity_type>
-      <entity_type>
-         <name>PLACE</name>
-         <entity_type>
-            <name>place(1)</name>
-            <composition>
-               <type>xanchor</type>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-            </composition>
+      <entity_type name="PLACE">
+         <entity_type name="place(1)">
+            <composition type="xanchor?"/>
          </entity_type>
-         <entity_type>
-            <name>place(2)</name>
-            <composition>
-               <type>yanchor</type>
-               <cardinality>
-                  <ZeroOrOne/>
-               </cardinality>
-            </composition>
+         <entity_type name="place(2)">
+            <composition type="yanchor?"/>
          </entity_type>
       </entity_type>
+      <attribute name="offset" type="float"/>
    </entity_type>
-   <entity_type>
-      <name>relative</name>
-      <entity_type>
-         <name>parent</name>
-      </entity_type>
-      <entity_type>
-         <name>predecessor</name>
-      </entity_type>
+   <entity_type name="relative">
+      <entity_type name="parent"/>
+      <entity_type name="predecessor"/>
    </entity_type>
-   <entity_type>
-      <name>aspect</name>
-      <entity_type>
-         <name>edge</name>
-      </entity_type>
-      <entity_type>
-         <name>outer</name>
-      </entity_type>
-      <entity_type>
-         <name>margin</name>
-      </entity_type>
+   <entity_type name="aspect">
+      <entity_type name="edge"/>
+      <entity_type name="outer"/>
+      <entity_type name="margin"/>
    </entity_type>
-   <entity_type>
-      <name>anchor</name>
-      <attribute>
-         <name>effective_ratio</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <entity_type>
-         <name>xanchor</name>
-         <entity_type>
-            <name>left</name>
-         </entity_type>
-         <entity_type>
-            <name>right</name>
-         </entity_type>
-         <entity_type>
-            <name>centre</name>
-         </entity_type>
-         <entity_type>
-            <name>x(3)</name>
-            <attribute>
-               <name>ratio</name>
-               <type>
-                  <string/>
-               </type>
-               <optional/>
-            </attribute>
+   <entity_type name="anchor">
+      <entity_type name="xanchor">
+         <entity_type name="left"/>
+         <entity_type name="right"/>
+         <entity_type name="centre"/>
+         <entity_type name="x(3)">
+            <attribute name="ratio" type="string"/>
          </entity_type>
       </entity_type>
-      <entity_type>
-         <name>yanchor</name>
-         <entity_type>
-            <name>top</name>
-         </entity_type>
-         <entity_type>
-            <name>bottom</name>
-         </entity_type>
-         <entity_type>
-            <name>middle</name>
-         </entity_type>
-         <entity_type>
-            <name>y(3)</name>
-            <attribute>
-               <name>ratio</name>
-               <type>
-                  <string/>
-               </type>
-               <optional/>
-            </attribute>
+      <entity_type name="yanchor">
+         <entity_type name="top"/>
+         <entity_type name="bottom"/>
+         <entity_type name="middle"/>
+         <entity_type name="y(3)">
+            <attribute name="ratio" type="string"/>
          </entity_type>
       </entity_type>
+      <attribute name="effective_ratio" type="float"/>
    </entity_type>
-   <entity_type>
-      <name>node(2)</name>
-      <entity_type>
-         <name>source</name>
-      </entity_type>
-      <entity_type>
-         <name>destination</name>
-      </entity_type>
-      <reference>
-         <name>id</name>
-         <type>enclosure</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>escape</name>
-         <type>enclosure</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>linestyle</name>
-         <type>shape_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <reference>
-         <name>endline_style</name>
-         <type>endline_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </reference>
-      <attribute>
-         <name>destRelPos</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>angleToOtherEnd</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>ratio</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>slotNo</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>annotation</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <composition>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-         <type>specific_edge</type>
-         <inverse>..</inverse>
-      </composition>
+   <entity_type name="node(2)">
+      <entity_type name="source"/>
+      <entity_type name="destination"/>
+      <composition type="specific_edge?" inverse=".."/>
+      <composition type="endline*" inverse=".."/>
+      <reference name="id" type="enclosure"/>
+      <reference name="escape" type="enclosure?"/>
+      <reference name="linestyle" type="shape_style?"/>
+      <attribute name="destRelPos" type="float"/>
+      <attribute name="angleToOtherEnd" type="float"/>
+      <attribute name="ratio" type="float"/>
+      <attribute name="slotNo" type="float"/>
+      <attribute name="annotation" type="string"/>
    </entity_type>
    <!-- end of node(2) -->
-   <entity_type>
-      <name>specific_edge</name>
-      <entity_type>
-         <name>specific_level</name>
-         <attribute>
-            <name>deltax</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <entity_type>
-            <name>top_edge</name>
-         </entity_type>
-         <entity_type>
-            <name>bottom_edge</name>
-         </entity_type>
-         <composition>
-            <type>annotate_leftright</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </composition>
+   <entity_type name="specific_edge">
+      <entity_type name="specific_level">
+         <entity_type name="top_edge"/>
+         <entity_type name="bottom_edge"/>
+         <composition type="annotate_leftright?"/>
+         <attribute name="deltax" type="float"/>
       </entity_type>
-      <entity_type>
-         <name>specific_side</name>
-         <attribute>
-            <name>deltay</name>
-            <type>
-               <float/>
-            </type>
-            <optional/>
-         </attribute>
-         <entity_type>
-            <name>left_side</name>
-         </entity_type>
-         <entity_type>
-            <name>right_side</name>
-         </entity_type>
-         <composition>
-            <type>annotate_highlow</type>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
-         </composition>
+      <entity_type name="specific_side">
+         <entity_type name="left_side"/>
+         <entity_type name="right_side"/>
+         <composition type="annotate_highlow?"/>
+         <attribute name="deltay" type="float"/>
       </entity_type>
    </entity_type>
-   <entity_type>
-      <name>annotate_leftright</name>
-      <entity_type>
-         <name>annotate_left</name>
-      </entity_type>
-      <entity_type>
-         <name>annotate_right</name>
-      </entity_type>
+   <entity_type name="endline">
+      <reference name="style" type="endline_style"/>
    </entity_type>
-   <entity_type>
-      <name>annotate_highlow</name>
-      <entity_type>
-         <name>annotate_high</name>
-      </entity_type>
-      <entity_type>
-         <name>annotate_low</name>
-      </entity_type>
+   <entity_type name="annotate_leftright">
+      <entity_type name="annotate_left"/>
+      <entity_type name="annotate_right"/>
    </entity_type>
-   <entity_type>
-      <name>shape_style</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>fill</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>stroke</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>stroke-width</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>stroke-dasharray</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>fill-opacity</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>fill-rule</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
+   <entity_type name="annotate_highlow">
+      <entity_type name="annotate_high"/>
+      <entity_type name="annotate_low"/>
    </entity_type>
-   <entity_type>
-      <name>endline_style</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>stroke</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>stroke-width</name>
-         <type>
-            <float/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>stroke-dasharray</name>
-         <type>
-            <string/>
-         </type>
-         <optional/>
-      </attribute>
-      <attribute>
-         <name>label_long_offset</name>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>label_lateral_offset</name>
-         <type>
-            <float/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>lateral_extent</name>
-         <type>
-            <float/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>long_extent</name>
-         <type>
-            <float/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>minarmlen</name>
-         <type>
-            <float/>
-         </type>
-      </attribute>
+   <entity_type name="shape_style">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <attribute name="fill" type="string"/>
+      <attribute name="stroke" type="string"/>
+      <attribute name="stroke-width" type="float"/>
+      <attribute name="stroke-dasharray" type="string"/>
+      <attribute name="fill-opacity" type="string"/>
+      <attribute name="fill-rule" type="string"/>
    </entity_type>
-   <entity_type>
-      <name>text_style</name>
-      <attribute>
-         <name>id</name>
-         <type>
-            <string/>
-         </type>
-         <identifying/>
-      </attribute>
-      <attribute>
-         <name>fill</name>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>font-size</name>
-         <type>
-            <positiveInteger/>
-         </type>
-      </attribute>
-      <attribute>
-         <name>font-family</name>
-         <type>
-            <string/>
-         </type>
-      </attribute>
-      <composition>
-         <name>text-decoration</name>
-         <type>text_decoration</type>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-      </composition>
-      <composition>
-         <name>font-style</name>
-         <type>font_style</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
-      <composition>
-         <name>font-weight</name>
-         <type>font_weight</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
-      </composition>
+   <entity_type name="endline_style">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <attribute name="stroke" type="string"/>
+      <attribute name="stroke-width" type="float"/>
+      <attribute name="stroke-dasharray" type="string"/>
+      <attribute name="label_long_offset" type="string"/>
+      <attribute name="label_lateral_offset" type="float"/>
+      <attribute name="lateral_extent" type="float"/>
+      <attribute name="long_extent" type="float"/>
+      <attribute name="minarmlen" type="float"/>
    </entity_type>
-   <group>
-      <name>xxx</name>
-      <entity_type>
-         <name>text_decoration</name>
-         <entity_type>
-            <name>underline</name>
-         </entity_type>
-         <entity_type>
-            <name>overline</name>
-         </entity_type>
-         <entity_type>
-            <name>line-through</name>
-         </entity_type>
+   <entity_type name="text_style">
+      <identifying>
+         <attribute name="id" type="string"/>
+      </identifying>
+      <composition name="text-decoration" type="text_decoration*"/>
+      <composition name="font-style" type="font_style?"/>
+      <composition name="font-weight" type="font_weight?"/>
+      <attribute name="fill" type="string"/>
+      <attribute name="font-size" type="positiveInteger"/>
+      <attribute name="font-family" type="string"/>
+   </entity_type>
+   <group name="xxx">
+      <entity_type name="text_decoration">
+         <entity_type name="underline"/>
+         <entity_type name="overline"/>
+         <entity_type name="line-through"/>
       </entity_type>
-      <entity_type>
-         <name>font_style</name>
-         <entity_type>
-            <name>normal(1)</name>
-         </entity_type>
-         <entity_type>
-            <name>italic</name>
-         </entity_type>
-         <entity_type>
-            <name>oblique</name>
-         </entity_type>
+      <entity_type name="font_style">
+         <entity_type name="normal(1)"/>
+         <entity_type name="italic"/>
+         <entity_type name="oblique"/>
       </entity_type>
-      <entity_type>
-         <name>font_weight</name>
-         <entity_type>
-            <name>normal(2)</name>
-         </entity_type>
-         <entity_type>
-            <name>bold</name>
-         </entity_type>
-         <entity_type>
-            <name>bolder</name>
-         </entity_type>
-         <entity_type>
-            <name>ligher</name>
-         </entity_type>
+      <entity_type name="font_weight">
+         <entity_type name="normal(2)"/>
+         <entity_type name="bold"/>
+         <entity_type name="bolder"/>
+         <entity_type name="ligher"/>
       </entity_type>
    </group>
 </entity_model>
