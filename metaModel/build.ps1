@@ -17,6 +17,7 @@ If(!(test-path -PathType container $TARGETXML))
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
 attrib +R $TARGETXML\*.xml
+attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be overwritable
 
 pushd $TARGETXML
 
@@ -25,6 +26,9 @@ echo 'ERA'
 
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -animate -physicalType hs
+
+echo 'ERA Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate
 
 popd 
 

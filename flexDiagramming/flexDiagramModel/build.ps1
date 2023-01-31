@@ -17,7 +17,12 @@ If(!(test-path -PathType container $TARGETXML))
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEMODEL\*.xml -Destination $TARGETXML
 attrib +R $TARGETXML\*.xml
+attrib -R $TARGETXML\*..physical.xml  # these generated and therefore need be overwriteable 
 
 pushd $TARGETXML
 . $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -physicalType hs
+
+echo 'Brinton Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 flexDiagram..logical.xml -animate
+
 popd 

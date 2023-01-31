@@ -196,15 +196,33 @@ CHANGE HISTORY
 
 	<xsl:template match="composition" mode="passzero">
 		<xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
+<xsl:message>I ***AM**** HERE ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ </xsl:message>
 		<route>
 			<top_down/>
 			<source>
 				<id><xsl:value-of select="../@name"/></id>
 				<annotation><xsl:value-of select="@name"/></annotation>
+				<linestyle>
+					 <xsl:choose>
+					 	<xsl:when test="(substring(@type,string-length(@type))='*')
+					 		               or (substring(@type,string-length(@type))='?')">
+					 		<xsl:text>dashedline</xsl:text>
+					 	</xsl:when>
+					 	<xsl:otherwise>
+					 		<xsl:text>solidline</xsl:text>
+					 	</xsl:otherwise>
+					 </xsl:choose>
+				</linestyle>
 			</source>
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="@inverse"/></annotation>
+				<xsl:if test="(substring(@type,string-length(@type))='*')
+					 		               or (substring(@type,string-length(@type))='+')"> 		
+					<endlinestyle>
+						 		<xsl:text>crowsfoot</xsl:text>
+					</endlinestyle>
+        </xsl:if>
 			</destination>			
 		</route>
 	</xsl:template>
