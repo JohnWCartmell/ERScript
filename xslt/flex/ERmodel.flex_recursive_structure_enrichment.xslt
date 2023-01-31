@@ -41,11 +41,6 @@
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
-   <xsl:if test="$debugon">
-      <xsl:result-document href="concat('class_enriched_temp',$depth,'.xml')" method="xml">
-        <xsl:sequence select="$next/diagram"/>
-      </xsl:result-document>
-   </xsl:if>
    <xsl:variable name="result">
       <xsl:choose>
          <xsl:when test="not(deep-equal($interim,$next)) and $depth!=$maxdepth">

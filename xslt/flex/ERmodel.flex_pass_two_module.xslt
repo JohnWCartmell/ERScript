@@ -35,6 +35,7 @@
 
 			<xsl:apply-templates mode="passtwo"/>
 			<y> 
+				<passtwo/>
 				<place>
 					<top/>
 				</place>
@@ -140,6 +141,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <y>
+         	<passthree/>
 		    <place>
 			    <top/>
 				<edge/>
@@ -206,6 +208,8 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passfour"/>
 			<x> 
+				<xsl:attribute name="rule" select="'passfour'"/>
+				<passfour/>
 				<place>
 					<left/>
 				</place>
