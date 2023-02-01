@@ -82,6 +82,26 @@ CHANGE HISTORY
               orient="auto-start-reverse">
               <svg:path d="M 0,6 L 10,12 M 0,6 L 10,6 M 0,6 L 10,0" />
         </svg:marker>
+        <svg:marker id="identifying"
+                   markerWidth="17"
+                   markerHeight="16"
+                   refX="16"
+                   refY="6"
+                   stroke-width="1"
+                   stroke="black"
+                   orient="auto-start-reverse">
+            <svg:path d="M 1,1 L 1,11"/>
+        </svg:marker>
+      <svg:marker id="squiggle"
+                   markerWidth="10"
+                   markerHeight="22"
+                   refX="28"
+                   refY="11"
+                   stroke="black"
+                   fill="none"
+                   orient="auto-start-reverse">
+         <svg:path d="M 0,13 C 3,0 6,22 9,9"/>
+      </svg:marker>
       </svg:defs>
       <xsl:copy-of select="$content"/>
     </svg:svg>
@@ -438,10 +458,7 @@ CHANGE HISTORY
     <xsl:variable name="deststyle" as="xs:string"
                    select="if (destination/linestyle) then destination/linestyle else 'solidline'"/>
 
-    <xsl:variable name="sourcemarker"
-                   select="if (source/endlinestyle) then source/endlinestyle else 'none'"/>
-    <xsl:variable name="destmarker"
-                   select="if (destination/endlinestyle) then destination/endlinestyle else 'none'"/>
+
 
     <xsl:variable name="pointcount" select="count(path/point)"/>
     <xsl:message>Route id <xsl:value-of select="id"/> Number of points is <xsl:value-of select="$pointcount"/></xsl:message>
@@ -482,9 +499,9 @@ CHANGE HISTORY
       </xsl:choose>
     </xsl:variable>
 
-    <xsl:message> midpointxcm <xsl:value-of select="$midpointxcm"/></xsl:message>
-    <xsl:message> midpointycm <xsl:value-of select="$midpointycm"/></xsl:message>
-  <!-- source half of route -->       
+  <!-- source half of route -->  
+  <xsl:variable name="sourcemarker"
+                   select="if (source/endline/style) then source/endline/style else 'none'"/>
   <svg:path>
     <xsl:attribute name="class"><xsl:value-of select="$sourcestyle"/></xsl:attribute>
     <xsl:attribute name="d">
@@ -502,41 +519,46 @@ CHANGE HISTORY
       <xsl:attribute name="marker-start" select="concat('url(#',$sourcemarker,')')"/>
     </xsl:if>
   </svg:path>
+
   <!-- destination half of route -->
+  <!-- I draw the half route  path and then (since I cant add multiple markers to a path in svg (i think))
+       for every endline/style I draw the last line segment again and specify the endline style as a marker
+  -->
+
     <svg:path>
-    <xsl:attribute name="class"><xsl:value-of select="$deststyle"/></xsl:attribute>
-    <xsl:attribute name="d">
-      <xsl:value-of select="concat('M',$midpointxcm,',',$midpointycm)"/>
-      <xsl:for-each select="path/point[count(preceding-sibling::point) &gt; (($pointcount div 2)-1)]">
-          <xsl:variable name="x"  as="xs:double" select="x/abs"/>
-          <xsl:variable name="y"  as="xs:double" select="y/abs"/>
-           <xsl:value-of select="concat('L',concat($x,',',$y))"/>
-      </xsl:for-each>
-    </xsl:attribute>
-    <xsl:if test="$destmarker != 'none'">
-     <xsl:attribute name="marker-end" select="concat('url(#',$destmarker,')')"/>
-    </xsl:if>
-  </svg:path>
+      <xsl:attribute name="class"><xsl:value-of select="$deststyle"/></xsl:attribute>
+      <xsl:attribute name="d">
+        <xsl:value-of select="concat('M',$midpointxcm,',',$midpointycm)"/>
+        <xsl:for-each select="path/point[count(preceding-sibling::point) &gt; (($pointcount div 2)-1)]">
+            <xsl:variable name="x"  as="xs:double" select="x/abs"/>
+            <xsl:variable name="y"  as="xs:double" select="y/abs"/>
+             <xsl:value-of select="concat('L',concat($x,',',$y))"/>
+        </xsl:for-each>
+      </xsl:attribute>
+    </svg:path>
+    <xsl:variable name="xendcm" select="path/point[$pointcount]/x/abs"/>
+    <xsl:variable name="yendcm" select="path/point[$pointcount]/y/abs"/>
+    <xsl:variable name="xpenultimatecm" select="path/point[$pointcount - 1]/x/abs"/>
+    <xsl:variable name="ypenultimatecm" select="path/point[$pointcount - 1]/y/abs"/>
+
+    <xsl:for-each select="destination/endline">
+      <svg:path>
+        <xsl:attribute name="class"><xsl:value-of select="$deststyle"/></xsl:attribute>
+        <xsl:attribute name="d">
+          <xsl:value-of select="concat('M',$xpenultimatecm, ',', $ypenultimatecm,
+                                       'L',$xendcm,         ',', $yendcm)"/>
+        </xsl:attribute>
+        <xsl:attribute name="marker-end" select="concat('url(#', style, ')')"/>
+      </svg:path>
+    </xsl:for-each>
+
+  <!-- next i render the whole path again as a hitarea -->
   <xsl:for-each select="path">
     <xsl:call-template name="render_path">
         <xsl:with-param name="classname" select="'routehitarea'"/>
     </xsl:call-template>
   </xsl:for-each>
 </xsl:template>
-
-
-
-<!-- previous point of call 
-  <xsl:template name="line_content" match="diagram">
-    <xsl:for-each select="//route/path">
-      <xsl:call-template name="route">
-        <xsl:with-param name="classname" select="'route'"/>
-      </xsl:call-template>
-      <xsl:call-template name="path">
-        <xsl:with-param name="classname" select="'routehitarea'"/>
-      </xsl:call-template>
-    </xsl:for-each>
-  </xsl:template> -->
 
 
 <xsl:template name="text_element" match="label">

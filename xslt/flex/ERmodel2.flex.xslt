@@ -196,7 +196,6 @@ CHANGE HISTORY
 
 	<xsl:template match="composition" mode="passzero">
 		<xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
-<xsl:message>I ***AM**** HERE ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ </xsl:message>
 		<route>
 			<top_down/>
 			<source>
@@ -219,10 +218,26 @@ CHANGE HISTORY
 				<annotation><xsl:value-of select="@inverse"/></annotation>
 				<xsl:if test="(substring(@type,string-length(@type))='*')
 					 		               or (substring(@type,string-length(@type))='+')"> 		
-					<endlinestyle>
+					<endline>
+						<style>
 						 		<xsl:text>crowsfoot</xsl:text>
-					</endlinestyle>
+						 	</style>
+					</endline>
         </xsl:if>
+        <xsl:if test="//identifying/context/../../@name=$type">
+        	<endline>
+						<style>
+						 		<xsl:text>identifying</xsl:text>
+						 	</style>
+					</endline>
+				</xsl:if>
+				<xsl:if test="sequence">
+        	<endline>
+						<style>
+						 		<xsl:text>squiggle</xsl:text>
+						 	</style>
+					</endline>
+				</xsl:if>
 			</destination>			
 		</route>
 	</xsl:template>
