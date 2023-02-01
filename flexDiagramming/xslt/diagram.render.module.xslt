@@ -65,11 +65,6 @@ DESCRIPTION
 
 	<xsl:template name="diagram_content" match="diagram">
 		<xsl:for-each select="enclosure">
-			<xsl:if test="$debug!=''">
-				<xsl:text>\ertrace{</xsl:text>
-				<xsl:value-of select="trace(string(id),'enclosure')"/>   
-				<xsl:text>}</xsl:text>
-			</xsl:if>
 			<xsl:call-template name="enclosure"/>
 		</xsl:for-each>
 		<xsl:for-each select="//label">
