@@ -81,6 +81,7 @@ CHANGE HISTORY
 				</default>
 				<xsl:apply-templates select="absolute|entity_type|group" mode="passzero"/>
 				<xsl:apply-templates select="//composition" mode="passzero"/>
+				<xsl:apply-templates select="//reference" mode="passzero"/>
 			</diagram:diagram>	
 		</xsl:variable>
 
@@ -142,7 +143,7 @@ CHANGE HISTORY
 		<enclosure>
 			<id><xsl:value-of select="@name"/></id>
 			<shape_style>entity_type_outline</shape_style>
-			<w>35</w> <!--temporary measures!!!!!!!!!!!!!!!!!***************>-->
+			<w>15</w> <!--temporary measures!!!!!!!!!!!!!!!!!***************>-->
 			<rx>0.25</rx>
 			<ry>0.25</ry>
 			<label/>
@@ -224,6 +225,13 @@ CHANGE HISTORY
 						 	</style>
 					</endline>
         </xsl:if>
+        <xsl:if test="pullback">
+        	<endline>
+						<style>
+						 		<xsl:text>pullback</xsl:text>
+						 	</style>
+					</endline>
+				</xsl:if>
         <xsl:if test="//identifying/context/../../@name=$type">
         	<endline>
 						<style>
@@ -238,6 +246,62 @@ CHANGE HISTORY
 						 	</style>
 					</endline>
 				</xsl:if>
+
+			</destination>			
+		</route>
+	</xsl:template>
+
+
+	<xsl:template match="reference" mode="passzero">
+		<xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
+		<route>
+			<sideways/>
+			<source>
+
+      <!-- temporary measures -->
+      <right_side>
+         <deltay>0.5</deltay>
+         <annotate_low/>
+      </right_side>
+
+				<id><xsl:value-of select="../@name"/></id>
+				<annotation><xsl:value-of select="@name"/></annotation>
+				<linestyle>
+					 <xsl:choose>
+					 	<xsl:when test="(substring(@type,string-length(@type))='*')
+					 		               or (substring(@type,string-length(@type))='?')">
+					 		<xsl:text>dashedline</xsl:text>
+					 	</xsl:when>
+					 	<xsl:otherwise>
+					 		<xsl:text>solidline</xsl:text>
+					 	</xsl:otherwise>
+					 </xsl:choose>
+				</linestyle>
+				<xsl:if test="parent::identifying">
+        	<endline>
+						<style>
+						 		<xsl:text>identifying</xsl:text>
+						</style>
+				   </endline>
+			  </xsl:if>
+			  <xsl:if test="//composition/pullback[projection_rel=current()/id]"> <!-- type check needed also -->
+        	<endline>
+						<style>
+						 		<xsl:text>pullback</xsl:text>
+						 	</style>
+					</endline>
+				</xsl:if>
+			</source>
+			<destination>
+      <!-- temporary measures -->
+			<left_side>
+         <deltay>0.5</deltay>
+         <annotate_low/>
+      </left_side>
+
+
+				<id><xsl:value-of select="$type"/></id>
+				<annotation><xsl:value-of select="@inverse"/></annotation>
 			</destination>			
 		</route>
 	</xsl:template>
