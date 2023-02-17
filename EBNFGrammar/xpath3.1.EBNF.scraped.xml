@@ -1,0 +1,855 @@
+<scrap id="BNF-Grammar" role="non-terminal-structure-expand" headstyle="show">
+<head/>
+<prod num="1" id="prod-xpath30-XPath">
+<lhs>XPath</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Expr" xlink:type="simple">Expr</nt>
+</rhs>
+</prod>
+<prod num="2" id="prod-xpath30-ParamList">
+<lhs>ParamList</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Param" xlink:type="simple">Param</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Param" xlink:type="simple">Param</nt>
+)*
+</rhs>
+</prod>
+<prod num="3" id="prod-xpath30-Param">
+<lhs>Param</lhs>
+<rhs>
+"$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TypeDeclaration" xlink:type="simple">TypeDeclaration</nt>
+?
+</rhs>
+</prod>
+<prod num="4" id="prod-xpath30-FunctionBody">
+<lhs>FunctionBody</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EnclosedExpr" xlink:type="simple">EnclosedExpr</nt>
+</rhs>
+</prod>
+<prod num="5" id="prod-xpath30-EnclosedExpr">
+<lhs>EnclosedExpr</lhs>
+<rhs>
+"{"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Expr" xlink:type="simple">Expr</nt>
+"}"
+</rhs>
+</prod>
+<prod num="6" id="prod-xpath30-Expr">
+<lhs>Expr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+)*
+</rhs>
+</prod>
+<prod num="7" id="prod-xpath30-ExprSingle">
+<lhs>ExprSingle</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ForExpr" xlink:type="simple">ForExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-LetExpr" xlink:type="simple">LetExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-QuantifiedExpr" xlink:type="simple">QuantifiedExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-IfExpr" xlink:type="simple">IfExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-OrExpr" xlink:type="simple">OrExpr</nt>
+</rhs>
+</prod>
+<prod num="8" id="prod-xpath30-ForExpr">
+<lhs>ForExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleForClause" xlink:type="simple">SimpleForClause</nt>
+"return"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="9" id="prod-xpath30-SimpleForClause">
+<lhs>SimpleForClause</lhs>
+<rhs>
+"for"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleForBinding" xlink:type="simple">SimpleForBinding</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleForBinding" xlink:type="simple">SimpleForBinding</nt>
+)*
+</rhs>
+</prod>
+<prod num="10" id="prod-xpath30-SimpleForBinding">
+<lhs>SimpleForBinding</lhs>
+<rhs>
+"$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarName" xlink:type="simple">VarName</nt>
+"in"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="11" id="prod-xpath30-LetExpr">
+<lhs>LetExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleLetClause" xlink:type="simple">SimpleLetClause</nt>
+"return"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="12" id="prod-xpath30-SimpleLetClause">
+<lhs>SimpleLetClause</lhs>
+<rhs>
+"let"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleLetBinding" xlink:type="simple">SimpleLetBinding</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleLetBinding" xlink:type="simple">SimpleLetBinding</nt>
+)*
+</rhs>
+</prod>
+<prod num="13" id="prod-xpath30-SimpleLetBinding">
+<lhs>SimpleLetBinding</lhs>
+<rhs>
+"$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarName" xlink:type="simple">VarName</nt>
+":="
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="14" id="prod-xpath30-QuantifiedExpr">
+<lhs>QuantifiedExpr</lhs>
+<rhs>
+("some" | "every") "$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarName" xlink:type="simple">VarName</nt>
+"in"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+("," "$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarName" xlink:type="simple">VarName</nt>
+"in"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+)* "satisfies"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="15" id="prod-xpath30-IfExpr">
+<lhs>IfExpr</lhs>
+<rhs>
+"if" "("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Expr" xlink:type="simple">Expr</nt>
+")" "then"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+"else"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+</rhs>
+</prod>
+<prod num="16" id="prod-xpath30-OrExpr">
+<lhs>OrExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AndExpr" xlink:type="simple">AndExpr</nt>
+( "or"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AndExpr" xlink:type="simple">AndExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="17" id="prod-xpath30-AndExpr">
+<lhs>AndExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ComparisonExpr" xlink:type="simple">ComparisonExpr</nt>
+( "and"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ComparisonExpr" xlink:type="simple">ComparisonExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="18" id="prod-xpath30-ComparisonExpr">
+<lhs>ComparisonExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StringConcatExpr" xlink:type="simple">StringConcatExpr</nt>
+( (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ValueComp" xlink:type="simple">ValueComp</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-GeneralComp" xlink:type="simple">GeneralComp</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NodeComp" xlink:type="simple">NodeComp</nt>
+)
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StringConcatExpr" xlink:type="simple">StringConcatExpr</nt>
+)?
+</rhs>
+</prod>
+<prod num="19" id="prod-xpath30-StringConcatExpr">
+<lhs>StringConcatExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-RangeExpr" xlink:type="simple">RangeExpr</nt>
+( "||"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-RangeExpr" xlink:type="simple">RangeExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="20" id="prod-xpath30-RangeExpr">
+<lhs>RangeExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AdditiveExpr" xlink:type="simple">AdditiveExpr</nt>
+( "to"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AdditiveExpr" xlink:type="simple">AdditiveExpr</nt>
+)?
+</rhs>
+</prod>
+<prod num="21" id="prod-xpath30-AdditiveExpr">
+<lhs>AdditiveExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-MultiplicativeExpr" xlink:type="simple">MultiplicativeExpr</nt>
+( ("+" | "-")
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-MultiplicativeExpr" xlink:type="simple">MultiplicativeExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="22" id="prod-xpath30-MultiplicativeExpr">
+<lhs>MultiplicativeExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-UnionExpr" xlink:type="simple">UnionExpr</nt>
+( ("*" | "div" | "idiv" | "mod")
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-UnionExpr" xlink:type="simple">UnionExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="23" id="prod-xpath30-UnionExpr">
+<lhs>UnionExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-IntersectExceptExpr" xlink:type="simple">IntersectExceptExpr</nt>
+( ("union" | "|")
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-IntersectExceptExpr" xlink:type="simple">IntersectExceptExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="24" id="prod-xpath30-IntersectExceptExpr">
+<lhs>IntersectExceptExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-InstanceofExpr" xlink:type="simple">InstanceofExpr</nt>
+( ("intersect" | "except")
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-InstanceofExpr" xlink:type="simple">InstanceofExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="25" id="prod-xpath30-InstanceofExpr">
+<lhs>InstanceofExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TreatExpr" xlink:type="simple">TreatExpr</nt>
+( "instance" "of"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+)?
+</rhs>
+</prod>
+<prod num="26" id="prod-xpath30-TreatExpr">
+<lhs>TreatExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-CastableExpr" xlink:type="simple">CastableExpr</nt>
+( "treat" "as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+)?
+</rhs>
+</prod>
+<prod num="27" id="prod-xpath30-CastableExpr">
+<lhs>CastableExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-CastExpr" xlink:type="simple">CastExpr</nt>
+( "castable" "as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SingleType" xlink:type="simple">SingleType</nt>
+)?
+</rhs>
+</prod>
+<prod num="28" id="prod-xpath30-CastExpr">
+<lhs>CastExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-UnaryExpr" xlink:type="simple">UnaryExpr</nt>
+( "cast" "as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SingleType" xlink:type="simple">SingleType</nt>
+)?
+</rhs>
+</prod>
+<prod num="29" id="prod-xpath30-UnaryExpr">
+<lhs>UnaryExpr</lhs>
+<rhs>
+("-" | "+")*
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ValueExpr" xlink:type="simple">ValueExpr</nt>
+</rhs>
+</prod>
+<prod num="30" id="prod-xpath30-ValueExpr">
+<lhs>ValueExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleMapExpr" xlink:type="simple">SimpleMapExpr</nt>
+</rhs>
+</prod>
+<prod num="31" id="prod-xpath30-GeneralComp">
+<lhs>GeneralComp</lhs>
+<rhs>"=" | "!=" | "&lt;" | "&lt;=" | ">" | ">="</rhs>
+</prod>
+<prod num="32" id="prod-xpath30-ValueComp">
+<lhs>ValueComp</lhs>
+<rhs>"eq" | "ne" | "lt" | "le" | "gt" | "ge"</rhs>
+</prod>
+<prod num="33" id="prod-xpath30-NodeComp">
+<lhs>NodeComp</lhs>
+<rhs>"is" | "&lt;&lt;" | ">>"</rhs>
+</prod>
+<prod num="34" id="prod-xpath30-SimpleMapExpr">
+<lhs>SimpleMapExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PathExpr" xlink:type="simple">PathExpr</nt>
+("!"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PathExpr" xlink:type="simple">PathExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="35" id="prod-xpath30-PathExpr">
+<lhs>PathExpr</lhs>
+<rhs>
+("/"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-RelativePathExpr" xlink:type="simple">RelativePathExpr</nt>
+?)
+<br/>
+| ("//"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-RelativePathExpr" xlink:type="simple">RelativePathExpr</nt>
+)
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-RelativePathExpr" xlink:type="simple">RelativePathExpr</nt>
+</rhs>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#parse-note-leading-lone-slash" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">xgc: leading-lone-slash</loc>
+</com>
+</prod>
+<prod num="36" id="prod-xpath30-RelativePathExpr">
+<lhs>RelativePathExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StepExpr" xlink:type="simple">StepExpr</nt>
+(("/" | "//")
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StepExpr" xlink:type="simple">StepExpr</nt>
+)*
+</rhs>
+</prod>
+<prod num="37" id="prod-xpath30-StepExpr">
+<lhs>StepExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PostfixExpr" xlink:type="simple">PostfixExpr</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AxisStep" xlink:type="simple">AxisStep</nt>
+</rhs>
+</prod>
+<prod num="38" id="prod-xpath30-AxisStep">
+<lhs>AxisStep</lhs>
+<rhs>
+(
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ReverseStep" xlink:type="simple">ReverseStep</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ForwardStep" xlink:type="simple">ForwardStep</nt>
+)
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PredicateList" xlink:type="simple">PredicateList</nt>
+</rhs>
+</prod>
+<prod num="39" id="prod-xpath30-ForwardStep">
+<lhs>ForwardStep</lhs>
+<rhs>
+(
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ForwardAxis" xlink:type="simple">ForwardAxis</nt>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NodeTest" xlink:type="simple">NodeTest</nt>
+) |
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AbbrevForwardStep" xlink:type="simple">AbbrevForwardStep</nt>
+</rhs>
+</prod>
+<prod num="40" id="prod-xpath30-ForwardAxis">
+<lhs>ForwardAxis</lhs>
+<rhs>
+("child" "::")
+<br/>
+| ("descendant" "::")
+<br/>
+| ("attribute" "::")
+<br/>
+| ("self" "::")
+<br/>
+| ("descendant-or-self" "::")
+<br/>
+| ("following-sibling" "::")
+<br/>
+| ("following" "::")
+<br/>
+| ("namespace" "::")
+</rhs>
+</prod>
+<prod num="41" id="prod-xpath30-AbbrevForwardStep">
+<lhs>AbbrevForwardStep</lhs>
+<rhs>
+"@"?
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NodeTest" xlink:type="simple">NodeTest</nt>
+</rhs>
+</prod>
+<prod num="42" id="prod-xpath30-ReverseStep">
+<lhs>ReverseStep</lhs>
+<rhs>
+(
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ReverseAxis" xlink:type="simple">ReverseAxis</nt>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NodeTest" xlink:type="simple">NodeTest</nt>
+) |
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AbbrevReverseStep" xlink:type="simple">AbbrevReverseStep</nt>
+</rhs>
+</prod>
+<prod num="43" id="prod-xpath30-ReverseAxis">
+<lhs>ReverseAxis</lhs>
+<rhs>
+("parent" "::")
+<br/>
+| ("ancestor" "::")
+<br/>
+| ("preceding-sibling" "::")
+<br/>
+| ("preceding" "::")
+<br/>
+| ("ancestor-or-self" "::")
+</rhs>
+</prod>
+<prod num="44" id="prod-xpath30-AbbrevReverseStep">
+<lhs>AbbrevReverseStep</lhs>
+<rhs>".."</rhs>
+</prod>
+<prod num="45" id="prod-xpath30-NodeTest">
+<lhs>NodeTest</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-KindTest" xlink:type="simple">KindTest</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NameTest" xlink:type="simple">NameTest</nt>
+</rhs>
+</prod>
+<prod num="46" id="prod-xpath30-NameTest">
+<lhs>NameTest</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Wildcard" xlink:type="simple">Wildcard</nt>
+</rhs>
+</prod>
+<prod num="47" id="prod-xpath30-Wildcard">
+<lhs>Wildcard</lhs>
+<rhs>
+"*"
+<br/>
+| (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NCName" xlink:type="simple">NCName</nt>
+":" "*")
+<br/>
+| ("*" ":"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NCName" xlink:type="simple">NCName</nt>
+)
+<br/>
+| (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-BracedURILiteral" xlink:type="simple">BracedURILiteral</nt>
+"*")
+</rhs>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#ws-explicit" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">ws: explicit</loc>
+</com>
+</prod>
+<prod num="48" id="prod-xpath30-PostfixExpr">
+<lhs>PostfixExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PrimaryExpr" xlink:type="simple">PrimaryExpr</nt>
+(
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Predicate" xlink:type="simple">Predicate</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ArgumentList" xlink:type="simple">ArgumentList</nt>
+)*
+</rhs>
+</prod>
+<prod num="49" id="prod-xpath30-ArgumentList">
+<lhs>ArgumentList</lhs>
+<rhs>
+"(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Argument" xlink:type="simple">Argument</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Argument" xlink:type="simple">Argument</nt>
+)*)? ")"
+</rhs>
+</prod>
+<prod num="50" id="prod-xpath30-PredicateList">
+<lhs>PredicateList</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Predicate" xlink:type="simple">Predicate</nt>
+*
+</rhs>
+</prod>
+<prod num="51" id="prod-xpath30-Predicate">
+<lhs>Predicate</lhs>
+<rhs>
+"["
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Expr" xlink:type="simple">Expr</nt>
+"]"
+</rhs>
+</prod>
+<prod num="52" id="prod-xpath30-PrimaryExpr">
+<lhs>PrimaryExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Literal" xlink:type="simple">Literal</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarRef" xlink:type="simple">VarRef</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ParenthesizedExpr" xlink:type="simple">ParenthesizedExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ContextItemExpr" xlink:type="simple">ContextItemExpr</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-FunctionCall" xlink:type="simple">FunctionCall</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-FunctionItemExpr" xlink:type="simple">FunctionItemExpr</nt>
+</rhs>
+</prod>
+<prod num="53" id="prod-xpath30-Literal">
+<lhs>Literal</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NumericLiteral" xlink:type="simple">NumericLiteral</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StringLiteral" xlink:type="simple">StringLiteral</nt>
+</rhs>
+</prod>
+<prod num="54" id="prod-xpath30-NumericLiteral">
+<lhs>NumericLiteral</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-IntegerLiteral" xlink:type="simple">IntegerLiteral</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-DecimalLiteral" xlink:type="simple">DecimalLiteral</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-DoubleLiteral" xlink:type="simple">DoubleLiteral</nt>
+</rhs>
+</prod>
+<prod num="55" id="prod-xpath30-VarRef">
+<lhs>VarRef</lhs>
+<rhs>
+"$"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-VarName" xlink:type="simple">VarName</nt>
+</rhs>
+</prod>
+<prod num="56" id="prod-xpath30-VarName">
+<lhs>VarName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+</rhs>
+</prod>
+<prod num="57" id="prod-xpath30-ParenthesizedExpr">
+<lhs>ParenthesizedExpr</lhs>
+<rhs>
+"("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-Expr" xlink:type="simple">Expr</nt>
+? ")"
+</rhs>
+</prod>
+<prod num="58" id="prod-xpath30-ContextItemExpr">
+<lhs>ContextItemExpr</lhs>
+<rhs>"."</rhs>
+</prod>
+<prod num="59" id="prod-xpath30-FunctionCall">
+<lhs>FunctionCall</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ArgumentList" xlink:type="simple">ArgumentList</nt>
+</rhs>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#parse-note-reserved-function-names" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">xgc: reserved-function-names</loc>
+</com>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#parse-note-parens" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">gn: parens</loc>
+</com>
+</prod>
+<prod num="60" id="prod-xpath30-Argument">
+<lhs>Argument</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ExprSingle" xlink:type="simple">ExprSingle</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ArgumentPlaceholder" xlink:type="simple">ArgumentPlaceholder</nt>
+</rhs>
+</prod>
+<prod num="61" id="prod-xpath30-ArgumentPlaceholder">
+<lhs>ArgumentPlaceholder</lhs>
+<rhs>"?"</rhs>
+</prod>
+<prod num="62" id="prod-xpath30-FunctionItemExpr">
+<lhs>FunctionItemExpr</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NamedFunctionRef" xlink:type="simple">NamedFunctionRef</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-InlineFunctionExpr" xlink:type="simple">InlineFunctionExpr</nt>
+</rhs>
+</prod>
+<prod num="63" id="prod-xpath30-NamedFunctionRef">
+<lhs>NamedFunctionRef</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+"#"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-IntegerLiteral" xlink:type="simple">IntegerLiteral</nt>
+</rhs>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#parse-note-reserved-function-names" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">xgc: reserved-function-names</loc>
+</com>
+</prod>
+<prod num="64" id="prod-xpath30-InlineFunctionExpr">
+<lhs>InlineFunctionExpr</lhs>
+<rhs>
+"function" "("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ParamList" xlink:type="simple">ParamList</nt>
+? ")" ("as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+)?
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-FunctionBody" xlink:type="simple">FunctionBody</nt>
+</rhs>
+</prod>
+<prod num="65" id="prod-xpath30-SingleType">
+<lhs>SingleType</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SimpleTypeName" xlink:type="simple">SimpleTypeName</nt>
+"?"?
+</rhs>
+</prod>
+<prod num="66" id="prod-xpath30-TypeDeclaration">
+<lhs>TypeDeclaration</lhs>
+<rhs>
+"as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+</rhs>
+</prod>
+<prod num="67" id="prod-xpath30-SequenceType">
+<lhs>SequenceType</lhs>
+<rhs>
+("empty-sequence" "(" ")")
+<br/>
+| (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ItemType" xlink:type="simple">ItemType</nt>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-OccurrenceIndicator" xlink:type="simple">OccurrenceIndicator</nt>
+?)
+</rhs>
+</prod>
+<prod num="68" id="prod-xpath30-OccurrenceIndicator">
+<lhs>OccurrenceIndicator</lhs>
+<rhs>"?" | "*" | "+"</rhs>
+<com>
+<loc xmlns:xlink="http://www.w3.org/1999/xlink" href="#parse-note-occurrence-indicators" xlink:type="simple" xlink:show="replace" xlink:actuate="onRequest">xgc: occurrence-indicators</loc>
+</com>
+</prod>
+<prod num="69" id="prod-xpath30-ItemType">
+<lhs>ItemType</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-KindTest" xlink:type="simple">KindTest</nt>
+| ("item" "(" ")") |
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-FunctionTest" xlink:type="simple">FunctionTest</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AtomicOrUnionType" xlink:type="simple">AtomicOrUnionType</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ParenthesizedItemType" xlink:type="simple">ParenthesizedItemType</nt>
+</rhs>
+</prod>
+<prod num="70" id="prod-xpath30-AtomicOrUnionType">
+<lhs>AtomicOrUnionType</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+</rhs>
+</prod>
+<prod num="71" id="prod-xpath30-KindTest">
+<lhs>KindTest</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-DocumentTest" xlink:type="simple">DocumentTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementTest" xlink:type="simple">ElementTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AttributeTest" xlink:type="simple">AttributeTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SchemaElementTest" xlink:type="simple">SchemaElementTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SchemaAttributeTest" xlink:type="simple">SchemaAttributeTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-PITest" xlink:type="simple">PITest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-CommentTest" xlink:type="simple">CommentTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TextTest" xlink:type="simple">TextTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NamespaceNodeTest" xlink:type="simple">NamespaceNodeTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AnyKindTest" xlink:type="simple">AnyKindTest</nt>
+</rhs>
+</prod>
+<prod num="72" id="prod-xpath30-AnyKindTest">
+<lhs>AnyKindTest</lhs>
+<rhs>"node" "(" ")"</rhs>
+</prod>
+<prod num="73" id="prod-xpath30-DocumentTest">
+<lhs>DocumentTest</lhs>
+<rhs>
+"document-node" "(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementTest" xlink:type="simple">ElementTest</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SchemaElementTest" xlink:type="simple">SchemaElementTest</nt>
+)? ")"
+</rhs>
+</prod>
+<prod num="74" id="prod-xpath30-TextTest">
+<lhs>TextTest</lhs>
+<rhs>"text" "(" ")"</rhs>
+</prod>
+<prod num="75" id="prod-xpath30-CommentTest">
+<lhs>CommentTest</lhs>
+<rhs>"comment" "(" ")"</rhs>
+</prod>
+<prod num="76" id="prod-xpath30-NamespaceNodeTest">
+<lhs>NamespaceNodeTest</lhs>
+<rhs>"namespace-node" "(" ")"</rhs>
+</prod>
+<prod num="77" id="prod-xpath30-PITest">
+<lhs>PITest</lhs>
+<rhs>
+"processing-instruction" "(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-NCName" xlink:type="simple">NCName</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-StringLiteral" xlink:type="simple">StringLiteral</nt>
+)? ")"
+</rhs>
+</prod>
+<prod num="78" id="prod-xpath30-AttributeTest">
+<lhs>AttributeTest</lhs>
+<rhs>
+"attribute" "(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AttribNameOrWildcard" xlink:type="simple">AttribNameOrWildcard</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TypeName" xlink:type="simple">TypeName</nt>
+)?)? ")"
+</rhs>
+</prod>
+<prod num="79" id="prod-xpath30-AttribNameOrWildcard">
+<lhs>AttribNameOrWildcard</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AttributeName" xlink:type="simple">AttributeName</nt>
+| "*"
+</rhs>
+</prod>
+<prod num="80" id="prod-xpath30-SchemaAttributeTest">
+<lhs>SchemaAttributeTest</lhs>
+<rhs>
+"schema-attribute" "("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AttributeDeclaration" xlink:type="simple">AttributeDeclaration</nt>
+")"
+</rhs>
+</prod>
+<prod num="81" id="prod-xpath30-AttributeDeclaration">
+<lhs>AttributeDeclaration</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AttributeName" xlink:type="simple">AttributeName</nt>
+</rhs>
+</prod>
+<prod num="82" id="prod-xpath30-ElementTest">
+<lhs>ElementTest</lhs>
+<rhs>
+"element" "(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementNameOrWildcard" xlink:type="simple">ElementNameOrWildcard</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TypeName" xlink:type="simple">TypeName</nt>
+"?"?)?)? ")"
+</rhs>
+</prod>
+<prod num="83" id="prod-xpath30-ElementNameOrWildcard">
+<lhs>ElementNameOrWildcard</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementName" xlink:type="simple">ElementName</nt>
+| "*"
+</rhs>
+</prod>
+<prod num="84" id="prod-xpath30-SchemaElementTest">
+<lhs>SchemaElementTest</lhs>
+<rhs>
+"schema-element" "("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementDeclaration" xlink:type="simple">ElementDeclaration</nt>
+")"
+</rhs>
+</prod>
+<prod num="85" id="prod-xpath30-ElementDeclaration">
+<lhs>ElementDeclaration</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ElementName" xlink:type="simple">ElementName</nt>
+</rhs>
+</prod>
+<prod num="86" id="prod-xpath30-AttributeName">
+<lhs>AttributeName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+</rhs>
+</prod>
+<prod num="87" id="prod-xpath30-ElementName">
+<lhs>ElementName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+</rhs>
+</prod>
+<prod num="88" id="prod-xpath30-SimpleTypeName">
+<lhs>SimpleTypeName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TypeName" xlink:type="simple">TypeName</nt>
+</rhs>
+</prod>
+<prod num="89" id="prod-xpath30-TypeName">
+<lhs>TypeName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-EQName" xlink:type="simple">EQName</nt>
+</rhs>
+</prod>
+<prod num="90" id="prod-xpath30-FunctionTest">
+<lhs>FunctionTest</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-AnyFunctionTest" xlink:type="simple">AnyFunctionTest</nt>
+<br/>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-TypedFunctionTest" xlink:type="simple">TypedFunctionTest</nt>
+</rhs>
+</prod>
+<prod num="91" id="prod-xpath30-AnyFunctionTest">
+<lhs>AnyFunctionTest</lhs>
+<rhs>"function" "(" "*" ")"</rhs>
+</prod>
+<prod num="92" id="prod-xpath30-TypedFunctionTest">
+<lhs>TypedFunctionTest</lhs>
+<rhs>
+"function" "(" (
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+(","
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+)*)? ")" "as"
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-SequenceType" xlink:type="simple">SequenceType</nt>
+</rhs>
+</prod>
+<prod num="93" id="prod-xpath30-ParenthesizedItemType">
+<lhs>ParenthesizedItemType</lhs>
+<rhs>
+"("
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-ItemType" xlink:type="simple">ItemType</nt>
+")"
+</rhs>
+</prod>
+<prod num="94" id="prod-xpath30-EQName">
+<lhs>EQName</lhs>
+<rhs>
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-QName" xlink:type="simple">QName</nt>
+|
+<nt xmlns:xlink="http://www.w3.org/1999/xlink" def="prod-xpath30-URIQualifiedName" xlink:type="simple">URIQualifiedName</nt>
+</rhs>
+</prod>
+</scrap>
