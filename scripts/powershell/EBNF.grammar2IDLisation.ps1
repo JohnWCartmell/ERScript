@@ -29,5 +29,5 @@ If(!(test-path -PathType container $outputFolder))
 echo $SAXON_JAR
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
-                      -xsl:$ERHOME\xslt\EBNF.simplify.xslt `
-                       -o:$outputFolder\$filenamebase.simplified.xml
+                      -xsl:$ERHOME\xslt\EBNF.grammar2IDLisation.xslt `
+                       -o:$outputFolder\$filenamebase.IDLisation.xml
