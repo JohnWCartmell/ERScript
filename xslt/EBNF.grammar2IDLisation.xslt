@@ -49,13 +49,13 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="*[following-sibling::*[1][self::ZeroOneOrMore]]" mode="toIDL">
+<xsl:template match="*[following-sibling::*[1][self::ZeroOneOrMore|self::ZeroOrOne]]" mode="toIDL">
    <xsl:message>blank <xsl:value-of select="name()"/></xsl:message>
      <!--deliberately left blank -->
 </xsl:template>
 
 
-<xsl:template match="ZeroOneOrMore" mode="toIDL">
+<xsl:template match="ZeroOrOne|ZeroOneOrMore" mode="toIDL">
    <xsl:copy>
       <xsl:apply-templates  select="preceding-sibling::*[1]" mode="toIDLkeepme"/>
    </xsl:copy>
@@ -69,6 +69,12 @@
 
 <xsl:template match="unit" mode="toIDLkeepme">  
       <xsl:apply-templates  select="node()|@*" mode="toIDL"/>
+</xsl:template>
+
+<xsl:template match="*[self::rhs|self::unit][or]" mode="toIDL">
+   <xsl:element name="or">
+      <xsL:apply-templates/>
+   </xsl:element>
 </xsl:template>
 
 <xsl:template match="node()|@*" mode="toIDL">
