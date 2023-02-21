@@ -63,9 +63,21 @@
       <xsl:apply-templates select="$state" mode="restructureRHS"/>
    </xsl:variable>
 
+   <xsl:variable name="state" as="element(rhs)">
+      <xsl:apply-templates select="$state" mode="restructureRHS"/>
+   </xsl:variable>
+
+   <xsl:variable name="state" as="element(rhs)">
+      <xsl:apply-templates select="$state" mode="restructureRHS"/>
+   </xsl:variable>
+
+   <xsl:variable name="state" as="element(rhs)">
+      <xsl:apply-templates select="$state" mode="restructureRHS"/>
+   </xsl:variable>
+
    <xsl:apply-templates select="$state" mode="restructureRHS"/>
 
-   <!-- a bit crap this but we have called restructure five times .... might we need more ? -->
+   <!-- a bit crap this but we have called restructure EIGHT times .... might we need more ? -->
 </xsl:template>
 
 

@@ -1,0 +1,59 @@
+/* extracted from https://www.bottlecaps.de/rr/ui on Mon Feb 20, 2023, 10:51 (UTC)
+ */
+
+Grammar  ::= Production*  
+
+Production ::= NCName '::=' ( Choice | Link )
+
+NameStartChar      ::=     [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
+
+NameChar       ::=      NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
+
+Name       ::=      NameStartChar (NameChar)*
+
+
+/* neteffect is NCName as in [http://www.w3.org/TR/xml-names/#NT-NCName] */
+
+Choice   ::= SequenceOrDifference ( '|' SequenceOrDifference )*
+
+SequenceOrDifference ::= (Item ( '-' Item | Item* ))?
+
+Item     ::= Primary ( '?' | '*' | '+' )*
+
+Primary  ::= NCName | StringLiteral | CharCode | CharClass | '(' Choice ')'
+
+StringLiteral  ::= '"' [^"]* '"' | "'" [^']* "'"
+          /* ws: explicit */
+
+CharCode ::= '#x' [0-9a-fA-F]+
+          /* ws: explicit */
+
+CharClass
+         ::= '[' '^'? ( Char | CharCode | CharRange | CharCodeRange )+ ']'
+          /* ws: explicit */
+
+Char     ::=    #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+/* #x9 is TAB  */
+/* #xA is LF */
+/* #xD is CR */
+/* [http://www.w3.org/TR/xml#NT-Char] */
+
+CharRange
+         ::= Char '-' ( Char - ']' )
+          /* ws: explicit */
+
+CharCodeRange
+         ::= CharCode '-' CharCode
+          /* ws: explicit */
+
+Link     ::= '[' URL ']'
+
+URL      ::= [^#x5D:/?#]+ '://' [^#x5D#]+ ('#' NCName)?
+          /* ws: explicit */
+
+Whitespace ::= S | Comment
+
+S        ::= #x9 | #xA | #xD | #x20
+
+Comment  ::= '/*' ( [^*] | '*'+ [^*/] )* '*'* '*/'
+          /* ws: explicit */

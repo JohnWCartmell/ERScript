@@ -1,0 +1,65 @@
+<testdata>
+
+	<lexis>
+        <tokenAsRegexp name="lowercase_identifier" regexp="^[a-z]+"/>
+        <tokenAsRegexp name="NameStartChar"
+					regexp="^[A-Z]|^_|^[a-z]|^[&#xC0;-&#xD6;]|^[&#xD8;-&#xF6;]|^[&#xF8;-&#x2FF;]|^[&#x370;-&#x37D;]|^[&#x37F;-&#x1FFF;]|^[&#x200C;-&#x200D;]|^[&#x2070;-&#x218F;]|^[&#x2C00;-&#x2FEF;]|^[&#x3001;-&#xD7FF;]|^[&#xF900;-&#xFDCF;]|^[&#xFDF0;-&#xFFFD;]|^[&#x10000;-&#xEFFFF;]" 
+		/>
+		<tokenAsRegexp name="OtherNameChar"
+					regexp="^-|^\.|^[0-9]|^&#xB7;|^[&#x0300;-&#x036F;]|^[&#x203F;-&#x2040;]" 
+		/>
+		<tokenAsProduction name="Test">
+	       <rhs>  
+	       	  	<nt>NameStartChar</nt> 
+		       	<nt>NameStartChar</nt>
+		    </rhs>
+		</tokenAsProduction>
+
+		<tokenAsProduction name="Name">
+	       <rhs>  
+	       	  	<nt>NameStartChar</nt> 
+		       	<ZeroOneOrMore>
+		       	   <nt>NameChar</nt>
+		       	</ZeroOneOrMore>
+		    </rhs>
+		</tokenAsProduction>
+	</lexis>
+
+
+	<testtoken name="lowercase_identifier">
+		<testcase text="bc.def.ghi"/>
+		<testcase text="abcEFf_ghi"/>
+		<testcase text="x/y"/>
+		<testcase text="10 + 20"/>
+		<testcase text="Abc.def.ghi"/>
+	</testtoken>
+
+	<testtoken name="NameStartChar">
+		<testcase text="bc.def.ghi"/>
+		<testcase text="abcEFf_ghi"/>
+		<testcase text="x/y"/>
+		<testcase text="10 + 20"/>
+		<testcase text="Abc.def.ghi"/>
+		<testcase text="_x"/>
+	</testtoken>
+
+	<testtoken name="OtherNameChar">
+		<testcase text="bc.def.ghi"/>
+		<testcase text="abcEFf_ghi"/>
+		<testcase text="x/y"/>
+		<testcase text="10 - 20"/>
+		<testcase text="Abc.def.ghi"/>
+		<testcase text="-x"/>
+		<testcase text=".x"/>
+	</testtoken>
+
+	<testtoken name="Test">
+		<testcase text="bc.def.ghi"/>
+		<testcase text="abcEFf_ghi"/>
+		<testcase text="x/y"/>
+		<testcase text="10 + 20"/>
+		<testcase text="Abc.def.ghi"/>
+		<testcase text="_x"/>
+	</testtoken>
+
+</testdata>
