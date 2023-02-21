@@ -99,17 +99,98 @@
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
    <!-- call a recursive template to adavnce through each sequential part -->
-   <xsl:call-template name="advanceInputPosition"> 
+   <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
          <xsl:with-param name="input" select="$input" />
          <xsl:with-param name="partNo" select="1 cast as xs:positiveInteger" />
          <xsl:with-param name="inputPosition" select="$inputPosition" />
    </xsl:call-template>
 </xsl:template>
 
-<xsl:template name="advanceInputPosition" match="rhs|unit" mode="explicit">
+<xsl:template match="ZeroOneOrMore" mode="scan">   <!-- rhs|unit represents sequence -->
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <xsl:call-template name="recursiveZeroOneOrMore">
+         <xsl:with-param name="input" select="$input" />
+         <xsl:with-param name="inputPosition" select="$inputPosition" />
+   </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="or" mode="scan">   
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <!-- call a recursive template to try adavnce through each sequential part -->
+   <xsl:call-template name="processPartsOfOrAdvancingInputPosition"> 
+         <xsl:with-param name="input" select="$input" />
+         <xsl:with-param name="partNo" select="1 cast as xs:positiveInteger" />
+         <xsl:with-param name="inputPosition" select="$inputPosition" />
+   </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="processPartsOfOrAdvancingInputPosition" match="rhs|unit" mode="explicit">
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="partNo" as="xs:positiveInteger"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <xsl:message>Entering processPartsOfOrAdvancingInputPosition</xsl:message>
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+      <xsl:apply-templates select="*[$partNo]" mode="scan"> 
+            <xsl:with-param name="input" select="$input" />
+            <xsl:with-param name="partNo" select="$partNo" />
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+      </xsl:apply-templates>
+   </xsl:variable>
+   <xsl:choose>
+   <xsl:when test="$newInputPosition != $inputPosition">
+      <xsl:value-of select="$newInputPosition"/>
+   </xsl:when>
+   <xsl:when test="$partNo &lt; count(*)">
+      <xsl:message>Heading for next part</xsl:message>
+         <xsl:call-template name="processPartsOfOrAdvancingInputPosition"> 
+               <xsl:with-param name="input" select="$input" />
+               <xsl:with-param name="partNo" select="($partNo+1) cast as xs:positiveInteger" />
+               <xsl:with-param name="inputPosition" select="$inputPosition" />
+         </xsl:call-template>
+   </xsl:when>
+   <xsl:otherwise>
+      <xsl:value-of select="$inputPosition"/>
+   </xsl:otherwise>
+   </xsl:choose>
+</xsl:template>
+
+
+<xsl:template name="recursiveZeroOneOrMore">
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+      <!-- call a recursive template to adavnce through each sequential part -->
+      <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
+            <xsl:with-param name="input" select="$input" />
+            <xsl:with-param name="partNo" select="1 cast as xs:positiveInteger" />
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+      </xsl:call-template>
+   </xsl:variable>
+   <xsl:message> reczoormore new imput position <xsl:value-of select="$newInputPosition"/></xsl:message>
+   <xsl:choose>
+      <xsl:when test="($newInputPosition != $inputPosition)
+                      and
+                      ($newInputPosition &lt;= string-length($input))">
+            <xsl:call-template name="recursiveZeroOneOrMore">
+               <xsl:with-param name="input" select="$input" />
+               <xsl:with-param name="inputPosition" select="$newInputPosition" />
+            </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+         <xsl:value-of select="$newInputPosition"/>
+      </xsl:otherwise>
+   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="processPartsOfSequenceAdvancingInputPosition" match="rhs|unit" mode="explicit">
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="partNo" as="xs:positiveInteger"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <xsl:message>pPOSAIP part No <xsl:value-of select="$partNo"/></xsl:message>
+   <xsl:message>pPOSAIP inputPosition <xsl:value-of select="$inputPosition"/></xsl:message>
+   <xsl:message>pPOSAIP name() <xsl:value-of select="name()"/></xsl:message>
    <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
       <xsl:apply-templates select="*[$partNo]" mode="scan"> 
             <xsl:with-param name="input" select="$input" />
@@ -120,7 +201,7 @@
    <xsl:choose>
    <xsl:when test="$partNo &lt; count(*)">
       <xsl:if test="$newInputPosition &lt;= string-length($input)">
-         <xsl:call-template name="advanceInputPosition"> 
+         <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
                <xsl:with-param name="input" select="$input" />
                <xsl:with-param name="partNo" select="($partNo+1) cast as xs:positiveInteger" />
                <xsl:with-param name="inputPosition" select="$newInputPosition" />
