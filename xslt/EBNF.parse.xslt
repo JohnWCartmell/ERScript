@@ -15,49 +15,53 @@
    </xsl:copy>
 </xsl:template>
 
+
 <xsl:template match="node()|@*" mode="parse">
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="parse"/>
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="lexis" mode="parse">
+<xsl:template match="grammar" mode="parse">
    <!--deliberately left blank -->
 </xsl:template>
 
-<xsl:template match="testtoken" mode="parse">
-   <xsl:message>testing token <xsl:value-of select="@name"/></xsl:message>
+<!--
+<xsl:template match="testNonTerminal" mode="parse">
+   <xsl:message>testing non-terminal <xsl:value-of select="@name"/></xsl:message>
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="parse"/>
    </xsl:copy>
 </xsl:template>
+-->
 
 <xsl:template match="testcase" mode="parse">
    <xsl:message>testcase <xsl:value-of select="@text"/></xsl:message>
    <xsl:copy>
       <xsl:apply-templates select="@*" mode="parse" />
       <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
-         <xsl:call-template name="getTokenNewInputPosition">
-            <xsl:with-param name="tokenName" select="../@name"/>
+         <xsl:call-template name="getNonTerminalNewInputPosition">
+            <xsl:with-param name="nonTerminalName" select="../@name"/>
             <xsl:with-param name="input" select="@text"/>
          </xsl:call-template>
       </xsl:variable>
-      <xsl:message>new input position <xsl:value-of select="$newInputPosition"/></xsl:message>
-      <xsl:attribute name="found" select="$newInputPosition != 1"/>
-      <xsl:if test="$newInputPosition != 1">
-         <xsl:attribute name="token" select="substring(@text,1,$newInputPosition - 1)"/>
+      <!--<xsl:message>result of testcase new input position <xsl:value-of select="$newInputPosition"/></xsl:message>-->
+      <xsl:attribute name="found" select="exists($newInputPosition)"/>   
+      <xsl:if test="exists($newInputPosition)">  
+         <xsl:attribute name="consumes" select="substring(@text,1,$newInputPosition - 1)"/>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
 
-<xsl:template name="getTokenNewInputPosition"> <!-- as="xs:positiveInteger?"> -->
-   <xsl:param name="tokenName" as="xs:string"/>
+<xsl:template name="getNonTerminalNewInputPosition"> <!-- as="xs:positiveInteger?"> -->
+   <xsl:param name="nonTerminalName" as="xs:string"/>
    <xsl:param name="input" as="xs:string"/>
 
-   <xsl:variable name="tokenDefinition" 
-                 select="/testdata/lexis/*[self::tokenAsRegexp|self::tokenAsProduction][@name=$tokenName]"
+   <!--<xsl:message>Non Terminal name '<xsl:value-of select="$nonTerminalName"/>'</xsl:message>-->
+   <xsl:variable name="NonTerminalDefinition" 
+                 select="/ebnf/grammar/prod[lhs=$nonTerminalName]"
                  as="element()"/>
-   <xsl:apply-templates select="$tokenDefinition" mode="scan">
+   <xsl:apply-templates select="$NonTerminalDefinition/rhs" mode="scan">
       <xsl:with-param name="input" select="$input"/>
       <xsl:with-param name="inputPosition" select="1 cast as xs:positiveInteger" />
    </xsl:apply-templates>
@@ -66,7 +70,7 @@
 <xsl:template match="node()|@*" mode="scan"> 
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message> In generic scan rule <xsl:value-of select="name()"/></xsl:message>
+   <!--<xsl:message> In generic scan rule <xsl:value-of select="name()"/><xsl:value-of select="."/></xsl:message>-->
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="scan">
          <xsl:with-param name="input" select="$input"/>
@@ -78,41 +82,140 @@
 <xsl:template match="nt" mode="scan"><!-- as="xs:positiveInteger?"> -->
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>
-   <xsl:variable name="tokenDefinition" 
-                 select="/testdata/lexis/*[self::tokenAsRegexp|self::tokenAsProduction][@name=current()/.]"
+   <!--<xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>-->
+   <xsl:variable name="production" 
+                 select="/ebnf/grammar/prod[lhs=current()/.]"
                  as="element()"/>
-   <xsl:apply-templates select="$tokenDefinition" mode="scan">
+   <xsl:apply-templates select="$production/rhs" mode="scan">
       <xsl:with-param name="input" select="$input"/>
       <xsl:with-param name="inputPosition" select="$inputPosition" />
    </xsl:apply-templates>
 </xsl:template>
 
-<xsl:template match="tokenAsRegexp" mode="scan">   <!-- as="xs:positiveInteger?"> -->
+<xsl:variable name="leadingWhitespaceRegexp" select="'^\s+'"/>
+
+<xsl:template name="consumeWhiteSpace">
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:variable name="result" as="element()" select = "fn:analyze-string(substring($input,$inputPosition),@regexp)"/>
-   <xsl:value-of  select="$inputPosition + string-length($result/fn:match)"/>
+   <!--
+   <xsl:message> string length leadingWhitespaceRegexp is <xsl:value-of select="string-length($leadingWhitespaceRegexp)"/></xsl:message>
+   <xsl:message> WhitespaceRegexp is <xsl:value-of select="$leadingWhitespaceRegexp"/></xsl:message>
+   -->
+   <xsl:variable name="whiteSpaceScan" select="fn:analyze-string(substring($input,$inputPosition),$leadingWhitespaceRegexp)"/>
+   <!--<xsl:message>count of white space <xsl:value-of select="count($whiteSpaceScan/fn:match)"/></xsl:message>-->
+   <xsl:choose>
+      <xsl:when test="$whiteSpaceScan/fn:match">
+         <!--<xsl:message>whitespace found </xsl:message>-->
+         <xsl:sequence  select="($inputPosition + string-length($whiteSpaceScan/fn:match))
+                                 cast as xs:positiveInteger
+                                "/>   
+      </xsl:when>
+      <xsl:otherwise>
+         <xsl:sequence select="$inputPosition"/>                                                
+      </xsl:otherwise>
+   </xsl:choose>
+</xsl:template>
+
+<!-- as a performance improvement I could perhaps consume white space after a literal or a taken as well 
+this will help if followed by an OR which would then repreatedly remove whitespace in each branch or OR -->
+
+<xsl:template match="token" mode="scan">   <!-- as="xs:positiveInteger?"> -->
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <!--<xsl:message>Looking for token regexp <xsl:value-of select="@regexp"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger">
+      <xsl:choose >
+      <xsl:when test="(ancestor-or-self::rhs/@whitespace)='explicit'">
+         <!--<xsl:message>Explicit whitespace</xsl:message>-->
+         <xsl:sequence select="$inputPosition"/>
+      </xsl:when>
+      <xsl:otherwise>
+         <xsl:call-template name="consumeWhiteSpace"> 
+             <!--<xsl:message>Consuming whitespace</xsl:message>-->
+            <xsl:with-param name="input" select="$input" />
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+         </xsl:call-template>
+      </xsl:otherwise>
+      </xsl:choose>  
+   </xsl:variable>
+   <!--<xsl:message>after consuming whitespace newInputPosition is  <xsl:value-of select="$newInputPosition"/></xsl:message>-->
+   <xsl:variable name="result" as="element(fn:analyze-string-result)" select = "fn:analyze-string(substring($input,$newInputPosition),@regexp)"/>
+   <xsl:choose>
+      <xsl:when test="$result/fn:match">
+         <!--<xsl:message>Found - return newInputPosition <xsl:value-of  select="$newInputPosition + string-length($result/fn:match)"/></xsl:message>-->
+         <xsl:sequence  select="($newInputPosition + string-length($result/fn:match))
+                                 cast as xs:positiveInteger
+                                "/>   
+      </xsl:when>
+      <xsl:otherwise>
+         <!--<xsl:message>I didnt find it!!!!</xsl:message>-->
+         <xsl:sequence select="()"/>                                                
+      </xsl:otherwise>
+   </xsl:choose>
+</xsl:template>
+
+<xsl:template match="literal" mode="scan">   <!-- as="xs:positiveInteger?"> -->
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <xsl:variable name="literal" select="."/>
+   <!--<xsl:message>Look for literal <xsl:value-of select="$literal"/> 
+              of length <xsl:value-of select="string-length($literal)"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger">
+      <xsl:call-template name="consumeWhiteSpace"> 
+         <xsl:with-param name="input" select="$input" />
+         <xsl:with-param name="inputPosition" select="$inputPosition" />
+      </xsl:call-template>  
+   </xsl:variable>
+   <xsl:choose>
+      <xsl:when test="substring($input,$newInputPosition,string-length($literal))=$literal">
+           <!--<xsl:message>Found</xsl:message>-->
+           <xsl:sequence select="($newInputPosition + string-length($literal))
+                                 cast as xs:positiveInteger
+                                "/>      
+      </xsl:when>
+      <xsl:otherwise>
+      <!--<xsl:message>I didnt find it!!!!</xsl:message>-->
+         <xsl:sequence select="()"/>         
+      </xsl:otherwise>
+   </xsl:choose>
 </xsl:template>
 
 <xsl:template match="rhs|unit" mode="scan">   <!-- rhs|unit represents sequence -->
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+   <!--
+   <xsl:message>rhs|unit In <xsl:value-of select="name()"/> of '<xsl:value-of select="../lhs"/>'</xsl:message>
+   <xsl:message>rhs|unit   first part is <xsl:value-of select="*[1]/name()"/></xsl:message>
+   <xsl:message>rhs|unit   second  part will be <xsl:value-of select="*[2]/name()"/></xsl:message>
+-->
    <!-- call a recursive template to adavnce through each sequential part -->
-   <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
-         <xsl:with-param name="input" select="$input" />
-         <xsl:with-param name="partNo" select="1 cast as xs:positiveInteger" />
-         <xsl:with-param name="inputPosition" select="$inputPosition" />
-   </xsl:call-template>
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+      <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
+            <xsl:with-param name="input" select="$input" />
+            <xsl:with-param name="partNo" select="1 cast as xs:positiveInteger" />
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+      </xsl:call-template>   
+   </xsl:variable>
+    <!--  <xsl:message> rhs|unit Returning newInputPosition '<xsl:value-of select="$newInputPosition"/>'</xsl:message>-->
+   <xsl:sequence select="$newInputPosition"/>
 </xsl:template>
 
 <xsl:template match="ZeroOneOrMore" mode="scan">   <!-- rhs|unit represents sequence -->
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:call-template name="recursiveZeroOneOrMore">
-         <xsl:with-param name="input" select="$input" />
-         <xsl:with-param name="inputPosition" select="$inputPosition" />
-   </xsl:call-template>
+   <!--<xsl:message>Look for zeroOneOrMore <xsl:value-of select="*/name()"/></xsl:message>-->
+
+   <!--take action here to treat () as OK .... NO ... DONT HAVE TO -->   <!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+   <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+      <xsl:call-template name="recursiveZeroOneOrMore">
+            <xsl:with-param name="input" select="$input" />
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+      </xsl:call-template>
+   </xsl:variable>
+   <xsl:if test="not(exists($newInputPosition))">
+      <xsl:message terminate="yes"> ZeroOneOrMore should never fail to find what it is looking for</xsl:message>
+   </xsl:if>
+   <xsl:sequence select="$newInputPosition"/>
 </xsl:template>
 
 <xsl:template match="or" mode="scan">   
@@ -130,7 +233,7 @@
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="partNo" as="xs:positiveInteger"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message>Entering processPartsOfOrAdvancingInputPosition</xsl:message>
+   <!--<xsl:message>Entering processPartsOfOrAdvancingInputPosition</xsl:message>-->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
       <xsl:apply-templates select="*[$partNo]" mode="scan"> 
             <xsl:with-param name="input" select="$input" />
@@ -139,11 +242,11 @@
       </xsl:apply-templates>
    </xsl:variable>
    <xsl:choose>
-   <xsl:when test="$newInputPosition != $inputPosition">
-      <xsl:value-of select="$newInputPosition"/>
+   <xsl:when test="exists($newInputPosition)">       
+      <xsl:sequence select="$newInputPosition"/>     
    </xsl:when>
    <xsl:when test="$partNo &lt; count(*)">
-      <xsl:message>Heading for next part</xsl:message>
+      <!--<xsl:message>Heading for next 'or' part </xsl:message>-->
          <xsl:call-template name="processPartsOfOrAdvancingInputPosition"> 
                <xsl:with-param name="input" select="$input" />
                <xsl:with-param name="partNo" select="($partNo+1) cast as xs:positiveInteger" />
@@ -151,11 +254,10 @@
          </xsl:call-template>
    </xsl:when>
    <xsl:otherwise>
-      <xsl:value-of select="$inputPosition"/>
+         <xsl:sequence select="()"/>            
    </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
-
 
 <xsl:template name="recursiveZeroOneOrMore">
    <xsl:param name="input" as="xs:string"/>
@@ -168,18 +270,21 @@
             <xsl:with-param name="inputPosition" select="$inputPosition" />
       </xsl:call-template>
    </xsl:variable>
-   <xsl:message> reczoormore new imput position <xsl:value-of select="$newInputPosition"/></xsl:message>
-   <xsl:choose>
-      <xsl:when test="($newInputPosition != $inputPosition)
-                      and
-                      ($newInputPosition &lt;= string-length($input))">
+  <!-- <xsl:message> recursiveZeroOneOrMore new input position '<xsl:value-of select="$newInputPosition"/>'</xsl:message>-->
+   <xsl:choose>       <!-- FIRST branch below is new -->
+      <xsl:when test="not(exists($newInputPosition))">   
+           <!--<xsl:message>Exiting with input as output i.e. old input position <xsl:value-of select="$inputPosition"/></xsl:message> -->      
+           <xsl:sequence select="$inputPosition"/>    <!-- the zero case is OK -->
+      </xsl:when>
+      <xsl:when test="$newInputPosition &lt;= string-length($input)">
             <xsl:call-template name="recursiveZeroOneOrMore">
                <xsl:with-param name="input" select="$input" />
                <xsl:with-param name="inputPosition" select="$newInputPosition" />
             </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-         <xsl:value-of select="$newInputPosition"/>
+          <!-- <xsl:message>Exiting with newInputPosition </xsl:message>-->
+         <xsl:sequence select="$newInputPosition"/>    
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
@@ -188,9 +293,13 @@
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="partNo" as="xs:positiveInteger"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message>pPOSAIP part No <xsl:value-of select="$partNo"/></xsl:message>
+   <!--
+   <xsl:message>pPOSAIP sequence part No <xsl:value-of select="$partNo"/></xsl:message>
    <xsl:message>pPOSAIP inputPosition <xsl:value-of select="$inputPosition"/></xsl:message>
    <xsl:message>pPOSAIP name() <xsl:value-of select="name()"/></xsl:message>
+   <xsl:message>pPOSAIP first part is <xsl:value-of select="*[1]/name()"/></xsl:message>
+   <xsl:message>pPOSAIP second  part is <xsl:value-of select="*[2]/name()"/></xsl:message>
+-->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
       <xsl:apply-templates select="*[$partNo]" mode="scan"> 
             <xsl:with-param name="input" select="$input" />
@@ -199,17 +308,45 @@
       </xsl:apply-templates>
    </xsl:variable>
    <xsl:choose>
-   <xsl:when test="$partNo &lt; count(*)">
-      <xsl:if test="$newInputPosition &lt;= string-length($input)">
-         <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
-               <xsl:with-param name="input" select="$input" />
-               <xsl:with-param name="partNo" select="($partNo+1) cast as xs:positiveInteger" />
-               <xsl:with-param name="inputPosition" select="$newInputPosition" />
-         </xsl:call-template>
-      </xsl:if>
+   <xsl:when test="not(exists($newInputPosition))">
+      <xsl:sequence select="()"/>
    </xsl:when>
-   <xsl:otherwise>
-      <xsl:value-of select="$newInputPosition"/>
+   <xsl:when test="$partNo = count(*)">  <!-- that was the lest part to be matched -->
+      <xsl:sequence select="$newInputPosition"/>
+   </xsl:when>
+   <xsl:otherwise>   <!-- NEED FIND MORE PARTS -->
+      <!--
+      <xsl:choose>
+      <xsl:when test="$newInputPosition &lt;= string-length($input)">
+      -->
+         <xsl:variable name="nextNewInputPosition" as="xs:positiveInteger?">
+            <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
+                  <xsl:with-param name="input" select="$input" />
+                  <xsl:with-param name="partNo" select="($partNo+1) cast as xs:positiveInteger" />
+                  <xsl:with-param name="inputPosition" select="$newInputPosition" />
+            </xsl:call-template>
+         </xsl:variable>
+         <xsl:sequence select="$nextNewInputPosition"/>
+         <!--
+         <xsl:choose>
+            <xsl:when test="$nextNewInputPosition != $newInputPosition">
+               <xsl:message> THIS IS THE PROBLEM <xsl:value-of select="$nextNewInputPosition"/>
+               <xsl:value-of select="$nextNewInputPosition"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:message> THIS IS THE PROBLEM <xsl:value-of select="$nextNewInputPosition"/>
+               <xsl:message>     VERSUS <xsl:value-of select="$nextNewInputPosition"/>
+               <xsl:value-of select="$inputPosition"/>
+            </xsl:otherwise>
+         </xsl:choose>
+      -->
+         <!--
+      </xsl:when>
+      <xsl:otherwise>   RUN OUT OF ROAD before all parts found 
+         <xsl:sequence select="()"/>
+      </xsl:otherwise>
+      </xsl:choose>
+   -->
    </xsl:otherwise>
    </xsl:choose>
 </xsl:template>

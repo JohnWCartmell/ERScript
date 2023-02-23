@@ -1,4 +1,4 @@
-<testdata>
+<ebnf>
 
 	<lexis>
         <tokenAsRegexp name="lowercase_identifier" regexp="^[a-z]+"/>
@@ -76,4 +76,4 @@
         <testcase text="+"/>
 	</testtoken>
 
-</testdata>
+</ebnf>
