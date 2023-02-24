@@ -70,7 +70,7 @@
 <xsl:template match="node()|@*" mode="scan"> 
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <!--<xsl:message> In generic scan rule <xsl:value-of select="name()"/><xsl:value-of select="."/></xsl:message>-->
+   <xsl:message terminate="yes"> In generic scan rule <xsl:value-of select="name()"/><xsl:value-of select="."/></xsl:message>
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="scan">
          <xsl:with-param name="input" select="$input"/>
