@@ -39,12 +39,13 @@
    <xsl:message>testcase <xsl:value-of select="@text"/></xsl:message>
    <xsl:copy>
       <xsl:apply-templates select="@*" mode="parse" />
-      <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+      <xsl:variable name="newInputPosition" as="xs:positiveInteger?" >
          <xsl:call-template name="getNonTerminalNewInputPosition">
             <xsl:with-param name="nonTerminalName" select="../@name"/>
             <xsl:with-param name="input" select="@text"/>
          </xsl:call-template>
       </xsl:variable>
+      <xsl:message>Result <xsl:value-of select="$newInputPosition"/></xsl:message>
       <!--<xsl:message>result of testcase new input position <xsl:value-of select="$newInputPosition"/></xsl:message>-->
       <xsl:attribute name="found" select="exists($newInputPosition)"/>   
       <xsl:if test="exists($newInputPosition)">  
@@ -70,7 +71,7 @@
 <xsl:template match="node()|@*" mode="scan"> 
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message terminate="yes"> Unexpected element in grammar  <xsl:value-of select="name()"/><xsl:value-of select="."/></xsl:message>
+   <xsl:message terminate="yes"> Unexpected element in grammar  '<xsl:value-of select="name()"/>'content'<xsl:value-of select="."/>'</xsl:message>
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="scan">
          <xsl:with-param name="input" select="$input"/>
@@ -82,7 +83,7 @@
 <xsl:template match="nt" mode="scan">
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <!--<xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>-->
+   <xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>
    <xsl:variable name="production" 
                  select="/ebnf/grammar/prod[lhs=current()/.]"
                  as="element()"/>
@@ -102,16 +103,17 @@
    <xsl:message> WhitespaceRegexp is <xsl:value-of select="$leadingWhitespaceRegexp"/></xsl:message>
    -->
    <xsl:variable name="whiteSpaceScan" select="fn:analyze-string(substring($input,$inputPosition),$leadingWhitespaceRegexp)"/>
-   <!--<xsl:message>count of white space <xsl:value-of select="count($whiteSpaceScan/fn:match)"/></xsl:message>-->
+   <xsl:message>count of white space <xsl:value-of select="count($whiteSpaceScan/fn:match)"/></xsl:message>
    <xsl:choose>
       <xsl:when test="$whiteSpaceScan/fn:match">
-         <!--<xsl:message>whitespace found </xsl:message>-->
+         <xsl:message>whitespace found </xsl:message>
          <xsl:sequence  select="($inputPosition + string-length($whiteSpaceScan/fn:match))
                                  cast as xs:positiveInteger
                                 "/>   
       </xsl:when>
       <xsl:otherwise>
-         <xsl:sequence select="$inputPosition"/>                                                
+         <xsl:message>whitespace not found </xsl:message>
+         <xsl:sequence select="$inputPosition"/>                             
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
@@ -122,16 +124,16 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 <xsl:template match="token" mode="scan">   <!-- as="xs:positiveInteger?"> -->
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <!--<xsl:message>Looking for token regexp <xsl:value-of select="@regexp"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
+   <xsl:message>Looking for token regexp <xsl:value-of select="@regexp"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
-      <xsl:choose >
+      <xsl:choose>
       <xsl:when test="(ancestor-or-self::rhs/@whitespace)='explicit'">
-         <!--<xsl:message>Explicit whitespace</xsl:message>-->
+         <xsl:message>Explicit whitespace</xsl:message>
          <xsl:sequence select="$inputPosition"/>
       </xsl:when>
       <xsl:otherwise>
+         <xsl:message>Will consuming any whitespace</xsl:message>
          <xsl:call-template name="consumeWhiteSpace"> 
-             <!--<xsl:message>Consuming whitespace</xsl:message>-->
             <xsl:with-param name="input" select="$input" />
             <xsl:with-param name="inputPosition" select="$inputPosition" />
          </xsl:call-template>
@@ -142,14 +144,14 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:variable name="result" as="element(fn:analyze-string-result)" select = "fn:analyze-string(substring($input,$newInputPosition),@regexp)"/>
    <xsl:choose>
       <xsl:when test="$result/fn:match">
-         <!--<xsl:message>Found - return newInputPosition <xsl:value-of  select="$newInputPosition + string-length($result/fn:match)"/></xsl:message>-->
+         <xsl:message>Found token - return newInputPosition <xsl:value-of  select="$newInputPosition + string-length($result/fn:match)"/></xsl:message>
          <xsl:sequence  select="($newInputPosition + string-length($result/fn:match))
                                  cast as xs:positiveInteger
                                 "/>   
       </xsl:when>
       <xsl:otherwise>
-         <!--<xsl:message>I didnt find it!!!!</xsl:message>-->
-         <xsl:sequence select="()"/>                                                
+         <xsl:message>I didnt find such token!!!!</xsl:message>
+         <xsl:sequence select="()"/>                       
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
@@ -180,14 +182,25 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    </xsl:choose>
 </xsl:template>
 
-<xsl:template match="rhs|unit" mode="scan">   <!-- rhs|unit represents sequence -->
+<xsl:template match="rhs" mode="scan">   
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <!--
-   <xsl:message>rhs|unit In <xsl:value-of select="name()"/> of '<xsl:value-of select="../lhs"/>'</xsl:message>
-   <xsl:message>rhs|unit   first part is <xsl:value-of select="*[1]/name()"/></xsl:message>
-   <xsl:message>rhs|unit   second  part will be <xsl:value-of select="*[2]/name()"/></xsl:message>
--->
+      <xsl:message>Child is '<xsl:value-of select="*/name()"/>'</xsl:message>
+      <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
+         <xsl:apply-templates select="*" mode="scan">
+            <xsl:with-param name="input" select="$input"/>
+            <xsl:with-param name="inputPosition" select="$inputPosition" />
+         </xsl:apply-templates>
+      </xsl:variable>
+      <xsl:message>from rhs return '<xsl:value-of select="$newInputPosition"/>'</xsl:message>
+      <xsl:sequence select="$newInputPosition"/>
+</xsl:template>
+
+
+<xsl:template match="sequence" mode="scan">   
+   <xsl:param name="input" as="xs:string"/>
+   <xsl:param name="inputPosition" as="xs:positiveInteger"/>
+<xsl:message>In sequence </xsl:message>
    <!-- call a recursive template to adavnce through each sequential part -->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger?">
       <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
