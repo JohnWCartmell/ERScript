@@ -1,0 +1,3 @@
+{
+	"cmd": "powershell C:\\Users\\John\\Documents\\Cloudwork\\GitHub\\ERmodelSeries1\\buildscripts\\localBuild.ps1 -filename $file_name"
+}
