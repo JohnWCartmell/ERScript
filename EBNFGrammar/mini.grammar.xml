@@ -170,7 +170,6 @@
 		</prod>
 	</grammar>
 
-<!--
 	<testNonTerminal name="NonNegativeNumber">
 		<testcase text="bc.def.ghi"/>
 		<testcase text="1/2"/>
@@ -229,7 +228,6 @@
 		<testcase text="999"/>
 		<testcase text="999 ????"/>
 	</testNonTerminal>
--->
 
 
 	<testNonTerminal name="AdditivePart">
