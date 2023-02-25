@@ -174,6 +174,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
             <xsl:attribute name="endPosition"
                         select="$newInputPosition + string-length($literal)"/>
          </xsl:element>
+      </xsl:when>
       <xsl:otherwise>
       <!--<xsl:message>I didnt find it!!!!</xsl:message>-->
          <xsl:element name="notFound">
@@ -211,11 +212,11 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 
    <xsl:element name="sequence">
       <xsl:attribute name="startPosition"
-                     select="$inputPosition">
+                     select="$inputPosition"/>
       <xsl:attribute name="leadingWhitespaceLength"
-                     select="$result[1]/@leadingWhitespaceLength">
+                     select="$result[1]/@leadingWhitespaceLength"/>
       <xsl:attribute name="endPosition"
-                     select="$result[last()]/@endPosition">
+                     select="$result[last()]/@endPosition"/>
       <xsl:copy-of select="$result"/>
    </xsl:element>  
 </xsl:template>
@@ -224,7 +225,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
 
-   <xsl:variable name="result" as="xs:element()*?">
+   <xsl:variable name="result" as="element()*">
       <xsl:call-template name="recursiveZeroOneOrMore">
             <xsl:with-param name="input" select="$input" />
             <xsl:with-param name="inputPosition" select="$inputPosition" />
@@ -232,17 +233,17 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    </xsl:variable>
    <xsl:element name="sequence">
       <xsl:attribute name="startPosition"
-                     select="$inputPosition">
+                     select="$inputPosition"/>
       <xsl:attribute name="leadingWhitespaceLength"
                      select="if (count($result)=0) 
                              then 0
                              else $result[1]/@leadingWhitespaceLength
-                             ">
+                             "/>
       <xsl:attribute name="endPosition"
                      select="if (count($result)=0) 
                              then $inputPosition
                              else $result[last()]/@endPosition
-                             ">
+                             "/>
       <xsl:copy-of select="$result"/>
    </xsl:element>  
 </xsl:template>
@@ -271,7 +272,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
             <xsl:with-param name="inputPosition" select="$inputPosition" />
       </xsl:apply-templates>
    </xsl:variable>
-   XXXXXXXXXXXXXXXXXXXXXXXXX
+   XXXXXXXXXXXXXXXXXXXXXXXXX CARRY ON FROM HERE I GUESS
    <xsl:choose>
    <xsl:when test="not($result[self::notFound])">       
       <xsl:sequence select="$result"/>     <!-- found, in other words -->
@@ -285,7 +286,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
          </xsl:call-template>
    </xsl:when>
    <xsl:otherwise>         <!-- not found and nowhere else to look -->
-         <xsl:sequence select="()"/>            
+         <xsl:sequence select="()"/>   xxxxxxxxxxxxxxxx         
    </xsl:otherwise>  <!-- XXXXXXXXXXXXXXXXXXXXXXX  -->
    </xsl:choose>
 </xsl:template>
