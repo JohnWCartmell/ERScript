@@ -57,7 +57,7 @@
 		</prod>
 		<prod>
 			<lhs>Name</lhs>
-		    <rhs >
+		    <rhs mode="scan">
 		    	<sequence>
 		       	  	<nt>NameStartChar</nt> 
 			       	<ZeroOneOrMore>
@@ -179,7 +179,7 @@
 		</prod>
 		<prod>
 		    <lhs>Literal</lhs>  
-	      	<rhs>
+	      	<rhs mode="scan">
 				<nt>NonNegativeNumber</nt>
 	      	</rhs>
 		</prod>
@@ -236,6 +236,7 @@
 		<errorcase text="bc"/>
 		<errorcase text="$xyz"/>
 	</testNonTerminal>
+
 	<testNonTerminal name="PrimaryExpr">
 		<testcase text="$bc.def.ghi"/>
 		<testcase text=" $x  leading space"/>
