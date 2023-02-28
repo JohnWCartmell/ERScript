@@ -185,9 +185,126 @@
 		</prod>
 	</grammar>
 
-	<test>
-	    <rhs><nt>Expr</nt></rhs>
-		<testcase text="$x - $y - $z ??????????"/>
-	</test>
+	<testNonTerminal name="NonNegativeNumber">
+	    <testcase text="1"/>
+		<testcase text="1/2"/>
+		<testcase text="10 + 20"/>
+		<testcase text="0"/>
+		<testcase text=" 10 + 20 test kleading spaces"/>
+		<testcase text="          0 test kleading spaces"/>
+		<testcase text="          
+			10 + 20              test leading newline"/>
+		<testcase text="            
+			0                    test leading newline"/>
+		<testcase text="1x"/>
+		<errorcase text="bc.def.ghi"/>
+		<errorcase text="E"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="Literal">
+		<testcase text="1/2"/>
+		<testcase text="10 + 20"/>
+		<testcase text="0"/>
+		<testcase text="0xxx"/>
+		<testcase text="		0 test leadin tab characters"/>
+		<testcase text="		0xxx test leadin tab characters"/>
+		<errorcase text="bc.def.ghi"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="Name">
+		<testcase text="a"/>
+	    <testcase text="abc"/>
+	    <testcase text="a."/>
+	    <testcase text="ab ??????"/>
+	    <errorcase text="1xy"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="VarRef">
+		<testcase text="$x"/>
+		<testcase text=" $x leading space"/>
+		<testcase text="$xyz"/>
+		<testcase text="$xyz_5"/>
+		<errorcase text="a"/>
+		<errorcase text="a."/>
+		<errorcase text="$"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="AdditiveOperator">
+		<testcase text="+"/>
+		<testcase text="-$x ?"/>
+		<testcase text="-$xy ?"/>
+		<errorcase text="bc"/>
+		<errorcase text="$xyz"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="PrimaryExpr">
+		<testcase text="$bc.def.ghi"/>
+		<testcase text=" $x  leading space"/>
+		<testcase text="$xyz"/>
+		<testcase text="$xyz ?/"/>
+		<testcase text="0"/>
+		<testcase text="999 ?"/>
+		<errorcase text="$"/>
+		<errorcase text="bc.def.ghi"/>
+	</testNonTerminal>
+
+	<testNonTerminal name="AdditivePart">
+		<testcase text="+$x"/>
+		<testcase text="-$xx"/>
+		<testcase text="-0"/>
+		<testcase text="-0xxxxxx"/>
+		<testcase text="+$x"/>
+		<testcase text="-$x"/>
+		<testcase text="- $x    separating space"/>
+		<testcase text="	-$xx leading tab"/>
+		<testcase text="     -0   leading spaces"/>
+		<testcase text="
+			-0xxxxxx leading newline"/>
+		<errorcase text="+x"/>
+		<errorcase text="-x"/>
+		<errorcase text="bc.def.ghi35 - 856 "/>
+		<errorcase text="$xyz + 0"/>
+	</testNonTerminal>
+
+
+	<testNonTerminal name="AdditiveTail">
+		<testcase text="+1+2"/>
+		<testcase text="+$xx+$yy"/>
+		<testcase text="+ $xx + $yy"/>
+		<testcase text="+$xx-$yy"/>
+		<testcase text="+$xx -3"/>
+    </testNonTerminal>
+
+	<testNonTerminal name="IfPart">
+		<testcase text="if$x"/>
+		<testcase text="if0"/>
+		<testcase text="if$xx"/>
+		<testcase text="if $x"/>
+		<testcase text="if 0"/>
+		<testcase text="if $xx"/>
+		<testcase text=" if 0 leading space"/>
+		<errorcase text="if"/>
+		<errorcase text="bc.def.ghi35 - 856 "/>
+		<errorcase text="$xyz + 0"/>
+		<errorcase text="+x"/>
+		<errorcase text="-0 "/>
+	</testNonTerminal>
+
+	<testNonTerminal name="Expr">
+		<testcase text="0"/>
+		<testcase text="$xx"/>
+		<testcase text="$xyz + 0"/>
+		<testcase text="$x+$y-$z ??????????"/>
+		<testcase text="if 0 then 1 else 2 ????"/>
+		<testcase text="if$xx then$yy else$zx ??????????"/>
+		<testcase text="if $xx then $yy else $zx ??????????"/>
+		<testcase text="$xx +$yy -$zz ??????????"/>
+		<errorcase text="+x"/>
+		<errorcase text="-0 "/>
+		<errorcase text="if$xthen$yelse$z ??????????"/>
+		<errorcase text="if$xy"/>
+		<errorcase text="if"/>
+		<errorcase text="if"/>
+	</testNonTerminal>
 
 </ebnf>

@@ -13,7 +13,7 @@
 <xsl:template match="/">
    <xsl:message> In root entity going into test modet/></xsl:message>
    <xsl:copy>
-      <xsl:apply-templates  select="ebnf/*[self::testNonTerminal]" mode="test"/>
+      <xsl:apply-templates  select="ebnf/*[self::test]" mode="test"/>
    </xsl:copy>
 </xsl:template>
 
@@ -35,24 +35,23 @@
    <!--deliberately left blank -->
 </xsl:template>
 
-<xsl:template match="testNonTerminal" mode="test">
-   <xsl:message>***************** Testing non-terminal <xsl:value-of select="@name"/></xsl:message>
+<xsl:template match="test" mode="test">
+   <xsl:message>***************** Testing  <xsl:value-of select="rhs"/></xsl:message>
    <xsl:copy>
-      <xsl:apply-templates select="node()|@*" mode="test"/>
+      <xsl:apply-templates select="*[self::testcase|self::errorcase]" mode="test"/>
    </xsl:copy>
 </xsl:template>
 
 <xsl:template match="testcase|errorcase" mode="test">
    <xsl:message>test <xsl:value-of select="concat(name(),'---',@text)"/></xsl:message>
    <xsl:copy>   
-      <xsl:apply-templates select="@*" mode="test" />
-
+      <xsl:apply-templates select="@*" mode="test" /> <!-- copy attributes to identify test -->
 
       <xsl:variable name="parseResult" as="element()">
-            <xsl:call-template name="parseNonTerminal">
-               <xsl:with-param name="nonTerminalName" select="../@name"/>
-               <xsl:with-param name="input" select="@text"/>
-            </xsl:call-template>
+            <xsl:apply-templates select="../rhs" mode="parse">
+      <xsl:with-param name="input" select="@text"/>
+      <xsl:with-param name="inputPosition" select="1 cast as xs:positiveInteger" />
+   </xsl:apply-templates>
       </xsl:variable>
       <xsl:choose>
          <xsl:when test="self::errorcase">
@@ -82,10 +81,10 @@
 </xsl:template>
 
 
-<xsl:template name="parseNonTerminal"> <!-- as="xs:positiveInteger?"> -->
+<!-- no longer required
+<xsl:template name="parseNonTerminal"> 
    <xsl:param name="nonTerminalName" as="xs:string"/>
    <xsl:param name="input" as="xs:string"/>
-
    <xsl:variable name="NonTerminalDefinition" 
                  select="/ebnf/grammar/prod[lhs=$nonTerminalName]"
                  as="element()"/>
@@ -94,6 +93,7 @@
       <xsl:with-param name="inputPosition" select="1 cast as xs:positiveInteger" />
    </xsl:apply-templates>
 </xsl:template>
+-->
 
 <xsl:template match="node()|@*" mode="parse"> 
    <xsl:param name="input" as="xs:string"/>
@@ -476,9 +476,26 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 </xsl:template>
 
 <xsl:template match="literal" mode="createProductionInstanceTree">
+   <!-- deliberately left blank -->
+   <!-- THE GRAMMER HAS A PROPERTY THAT ALLOWS ME TO ELIMINATE  -->
+   <!-- <sequence>'s and <literal>'s                            -->
+   <!-- DEFINE THIS PROPERTY -->
+   <!-- MAYBE THIS PROPERTY CAN BE RECOGNISED INSTANCE BY INSTANCE 
+        AND THE ELIMINATION HEREWITHIN CAN BE DRIVEN BY THAT    -->
+   <!-- THIS IS PROBABLE THE CASE BUT I IMAGINE IN THE ABSENCE OF
+        SEMANTIC NAMES FOR CHOICES IN THE GRAMMAR WILL NEED IN SOME
+        CASES TO GENERATE NAMES (OR NUMBERS) FOR THE CHOICES OF LITERALS 
+   -->
+   <!-- was 
    <xsl:copy> 
       <xsl:value-of select="@text"/>
    </xsl:copy>
+   -->
+</xsl:template>
+
+<xsl:template match="sequence" mode="createProductionInstanceTree">
+   <!-- deliberately not copied -->
+   <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
 </xsl:template>
 
 
