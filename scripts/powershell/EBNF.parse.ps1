@@ -28,6 +28,6 @@ If(!(test-path -PathType container $outputFolder))
 
 echo $SAXON_JAR
 
-java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
+java -jar $SAXON_JAR -opt:0 -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\EBNF.parse.xslt `
                        -o:$outputFolder\$filenamebase.parseout.xml
