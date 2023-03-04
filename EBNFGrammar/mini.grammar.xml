@@ -116,55 +116,43 @@
 		    <lhs>AdditiveExpr</lhs>  
 	      	<rhs>
 	      		<sequence>
-					<nt>PrimaryExpr</nt>
-					<nt>AdditiveTail</nt>
+					<nt>MultiplicativeExpr</nt>
+					<ZeroOneOrMore OneOrMore="AdditiveTail" type="AdditiveTerm">
+						<or type="AdditiveOperator">
+			               <literal type="Add">+</literal>
+			               <literal type="Subtract">-</literal>
+				     	</or>
+						<nt>MultiplicativeExpr</nt>
+					</ZeroOneOrMore>
 				</sequence>
 	      	</rhs>
 		</prod>
-		<prod>
-		    <lhs>AdditiveTail</lhs>  
-	      	<rhs>
-	      		<ZeroOneOrMore>
-					<nt>AdditivePart</nt>
-				</ZeroOneOrMore>
-	      	</rhs>
-		</prod>
-		<prod>
-		    <lhs>AdditivePart</lhs>  
-	      	<rhs>
-	      		<sequence>
-					<nt>AdditiveOperator</nt>
-					<nt>PrimaryExpr</nt>
-				</sequence>
-	      	</rhs>
-		</prod>
-	    <prod>
-		    <lhs>AdditiveOperator</lhs>
-		    <rhs>
-		      	<or>
-		        	<nt>Add</nt>
-		        	<nt>Subtract</nt>
-		     	</or>
-	    	</rhs>
-	    </prod>
-	    <prod>
-		    <lhs>Add</lhs>  
-	      	<rhs>
-	      		<literal>+</literal>
-	      	</rhs>
-		</prod>
-	    <prod>
-		    <lhs>Subtract</lhs>  
-	      	<rhs>
-	      		<literal>-</literal>
-	      	</rhs>
-		</prod>
+
+	   <prod>
+	      <lhs>MultiplicativeExpr</lhs>
+	      <rhs>
+	      	<sequence>
+		         <nt>PrimaryExpr</nt>      	<!-- should/will be unionExpr in full syntax -->
+		         <ZeroOneOrMore OneOrMore="MultiplicativeTail" type="MultiplicativeTerm">
+		        	<or type="MultiplicativeOperator">
+		               <literal type="Multiply">*</literal>
+		               <literal type="Divide">div</literal>
+		               <literal type="IntegerDivide">idiv</literal>
+		               <literal type="Modulo">mod</literal>
+		            </or>
+		            <nt>PrimaryExpr</nt> 	<!-- should be UnionExpr -->
+		         </ZeroOneOrMore>
+		     </sequence>
+	      </rhs>
+	   </prod>
+
 	    <prod>
 		    <lhs>PrimaryExpr</lhs>
 		    <rhs>
 		      	<or>
 		        	<nt>VarRef</nt>
 		        	<nt>Literal</nt>
+         			<nt>ParenthesizedExpr</nt>
 		     	</or>
 	    	</rhs>
 	    </prod>
@@ -183,11 +171,23 @@
 				<nt>NonNegativeNumber</nt>
 	      	</rhs>
 		</prod>
+		<prod>
+	      <lhs>ParenthesizedExpr</lhs>
+	      <rhs>
+	         <literal>(</literal>
+	         <ZeroOrOne>
+	            <nt>VarRef</nt><!-- should be Expr -->
+	         </ZeroOrOne>
+	         <literal>)</literal>
+	      </rhs>
+	   </prod>
 	</grammar>
 
 	<test>
 	    <rhs><nt>Expr</nt></rhs>
-		<testcase text="$x - $y - $z ??????????"/>
+		<testcase text="$x * 100 - $y * 10  - $z - $a * $b * $c ??????????"/>
+		<!--<testcase text="(  ) * 30"/>  -->
+		<!--<testcase text="($x)"/>-->
 	</test>
 
 </ebnf>
