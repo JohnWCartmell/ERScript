@@ -174,20 +174,22 @@
 		<prod>
 	      <lhs>ParenthesizedExpr</lhs>
 	      <rhs>
-	         <literal>(</literal>
-	         <ZeroOrOne>
-	            <nt>VarRef</nt><!-- should be Expr -->
-	         </ZeroOrOne>
-	         <literal>)</literal>
+	      	<sequence>
+		         <literal>(</literal>
+		        <ZeroOrOne>
+		            <nt>Expr</nt>
+		        </ZeroOrOne>
+		        <literal>)</literal>
+	      	</sequence>
 	      </rhs>
 	   </prod>
 	</grammar>
 
 	<test>
 	    <rhs><nt>Expr</nt></rhs>
-		<testcase text="$x * 100 - $y * 10  - $z - $a * $b * $c ??????????"/>
-		<!--<testcase text="(  ) * 30"/>  -->
-		<!--<testcase text="($x)"/>-->
+		<!--<testcase text="$x * 100 - $y * 10  - $z - $a * $b * $c ??????????"/>-->
+		<testcase text="(  ) * 30"/>  
+		<!--<testcase text="if 1 then $x * ($y + $z) else 999"/>-->
 	</test>
 
 </ebnf>
