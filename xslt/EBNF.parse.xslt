@@ -94,19 +94,6 @@
 </xsl:template>
 
 
-<!-- no longer required
-<xsl:template name="parseNonTerminal"> 
-   <xsl:param name="nonTerminalName" as="xs:string"/>
-   <xsl:param name="input" as="xs:string"/>
-   <xsl:variable name="NonTerminalDefinition" 
-                 select="/ebnf/grammar/prod[lhs=$nonTerminalName]"
-                 as="element()"/>
-   <xsl:apply-templates select="$NonTerminalDefinition/rhs" mode="parse">
-      <xsl:with-param name="input" select="$input"/>
-      <xsl:with-param name="inputPosition" select="1 cast as xs:positiveInteger" />
-   </xsl:apply-templates>
-</xsl:template>
--->
 
 <xsl:template match="node()|@*" mode="parse"> 
    <xsl:param name="input" as="xs:string"/>
@@ -235,7 +222,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
       <xsl:when test="substring($input,$newInputPosition,string-length($literal))=$literal">
            <xsl:message>Found literal</xsl:message>
          <xsl:element name="literal">
-            <!-- <xsl:copy-of select="@*"/> XXXXXXXXXXXXXXX-->  <!-- to copy attributes from grammar-->
+            <xsl:copy-of select="@*"/>   <!-- to copy attributes from grammar-->
             <xsl:attribute name="text"
                            select="."/>
             <xsl:attribute name="startPosition"
@@ -456,6 +443,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
             <xsl:with-param name="inputPosition" select="$inputPosition" />
       </xsl:call-template>
    </xsl:variable>
+   <xsl:message>ZeroOrOne Count of result is <xsl:value-of select="count($result)"/></xsl:message>
    <xsl:element name="ZeroOrOne">
       <xsl:attribute name="startPosition"
                      select="$inputPosition"/>
@@ -477,7 +465,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
 
-   <xsl:message> scan zero or one of node type '<xsl:value-of select="name()"/>' number of child elements <xsl:value-of select="count(*)"/></xsl:message>
+   <xsl:message> scan zero or one of node type '<xsl:value-of select="*/name()"/>' number of child elements <xsl:value-of select="count(*)"/></xsl:message>
    <xsl:variable name="result" as="element()*">
       <!-- call a recursive template to adavnce through each sequential part -->
       <xsl:call-template name="processPartsOfSequenceAdvancingInputPosition"> 
@@ -510,6 +498,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:param name="partNo" as="xs:positiveInteger"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
 
+   <xsl:message>pPOSAIP input '<xsl:value-of select="$input"/>'</xsl:message>
    <xsl:message>pPOSAIP sequence part No <xsl:value-of select="$partNo"/></xsl:message>
    <xsl:message>pPOSAIP inputPosition <xsl:value-of select="$inputPosition"/></xsl:message>
    <xsl:message>pPOSAIP name() <xsl:value-of select="name()"/></xsl:message>
@@ -619,6 +608,11 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 </xsl:template>
 
 
+<xsl:template match="ZeroOrOne" mode="createProductionInstanceTree">
+     <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+</xsl:template>
+
+
 <!-- **********************  -->
 <!-- IntermediateCodeTree  -->
 <!-- **********************  -->
@@ -635,8 +629,8 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    </xsl:copy>
 </xsl:template>
                                   
-<xsl:template match="AdditiveExpr|MultiplicativeExpr" mode="createIntermediateCodeTree"> 
-
+<xsl:template match="*[self::AdditiveExpr|self::MultiplicativeExpr][count(*) &gt;= 2]" mode="createIntermediateCodeTree"> 
+   <xsl:message>AEor ME <xsl:copy-of select="."/></xsl:message>
    <xsl:variable name="firstOperand" as="element()">
       <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/>
    </xsl:variable>
@@ -648,6 +642,9 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <!-- </xsl:element> -->
 </xsl:template>
 
+<xsl:template match="PrimaryExpr|ParenthesizedExpr|Expr" mode="createIntermediateCodeTree"> 
+   <xsl:apply-templates mode="createIntermediateCodeTree"/>
+</xsl:template>
 
 
 <xsl:function name="myfn:infixTransform" as="element()">
