@@ -30,12 +30,26 @@
    <xsl:value-of select="."/>
 </xsl:template>
 
+
+<!-- rethink Mon evening 6 March
 <xsl:template match="literal[@type]" mode="createProductionInstanceTree">
       <xsl:element name="{@type}"/>
 </xsl:template>
 
+ 
 <xsl:template match="literal[not(@type)]" mode="createProductionInstanceTree">
-   <!-- deliberately left blank -->
+    deliberately left blank
+</xsl:template>
+-->
+
+<xsl:template match="literal[not(@signifier = 'true')]" mode="createProductionInstanceTree">
+    <!-- deliberately left blank -->
+</xsl:template>
+
+<xsl:template match="literal[@signifier = 'true']" mode="createProductionInstanceTree">
+   <xsl:copy>
+      <xsl:copy-of select="@text"/>
+   </xsl:copy>
 </xsl:template>
 
 

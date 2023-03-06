@@ -17,11 +17,11 @@
 <xsl:template match="nt" mode="parse">
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>
+   <!--<xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>-->
    <xsl:variable name="production" 
                  select="/ebnf/grammar/prod[lhs=current()/.]"
                  as="element()?"/>
-                 <xsl:message> production <xsl:copy-of select="$production"/></xsl:message>
+   <!--<xsl:message> production <xsl:copy-of select="$production"/></xsl:message>-->
    <xsl:if test="not(exists($production))">
       <xsl:message terminate="yes">No such production as '<xsl:value-of select="."/>'</xsl:message>
    </xsl:if>
@@ -125,7 +125,8 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 <xsl:template match="literal" mode="parse">  
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <xsl:variable name="literal" select="."/>
+   <xsl:variable name="signifier" select="parent::or and (position()=1)" />
+   <xsl:variable name="literal" select="." />
    <!--<xsl:message>Look for literal '<xsl:value-of select="$literal"/>'  of length <xsl:value-of select="string-length($literal)"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
       <xsl:call-template name="consumeWhiteSpace"> 
@@ -140,6 +141,8 @@ this will help if followed by an OR which would then repreatedly remove whitespa
             <xsl:copy-of select="@*"/>   <!-- to copy attributes from grammar-->
             <xsl:attribute name="text"
                            select="."/>
+            <xsl:attribute name="signifier"
+                           select="$signifier"/>
             <xsl:attribute name="startPosition"
                            select="$inputPosition"/>
             <xsl:attribute name="leadingWhitespaceLength"
@@ -447,7 +450,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 </xsl:template>
 
 <xsl:template match="token" mode="flatten">
-   <xsl:message>Flatten token '<xsl:value-of select="@text"/>'</xsl:message>
+   <!--<xsl:message>Flatten token '<xsl:value-of select="@text"/>'</xsl:message>-->
    <xsl:value-of select="@text"/>
 </xsl:template>
 

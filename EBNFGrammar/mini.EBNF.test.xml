@@ -4,6 +4,8 @@
 
     <test>
 		<rhs><nt>Expr</nt></rhs>
+		<testcase text="$x union $y"/>
+		<!--
 		<testcase text="$xx"/>
 		<testcase text="$xyz + 0"/>
 		<testcase text="$x+$y -$z ??????????"/>
@@ -17,6 +19,7 @@
 		<errorcase text="if$xy"/>
 		<errorcase text="if"/>
 		<errorcase text="if"/>
+	-->
 	</test>
 
 

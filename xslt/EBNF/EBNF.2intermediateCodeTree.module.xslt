@@ -24,8 +24,8 @@
    </xsl:copy>
 </xsl:template>
                                   
-<xsl:template match="*[self::AdditiveExpr|self::MultiplicativeExpr][count(*) &gt;= 2]" mode="createIntermediateCodeTree"> 
-   <xsl:message>AEor ME <xsl:copy-of select="."/></xsl:message>
+<xsl:template match="*[self::AdditiveExpr|self::MultiplicativeExpr|self::UnionExpr][count(*) &gt;= 2]" mode="createIntermediateCodeTree"> 
+   <!--<xsl:message>AEor ME <xsl:copy-of select="."/></xsl:message>-->
    <xsl:variable name="firstOperand" as="element()">
       <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/>
    </xsl:variable>
@@ -40,7 +40,6 @@
 <xsl:template match="PrimaryExpr|ParenthesizedExpr|Expr" mode="createIntermediateCodeTree"> 
    <xsl:apply-templates mode="createIntermediateCodeTree"/>
 </xsl:template>
-
 
 <xsl:function name="myfn:infixTransform" as="element()">
    <xsl:param name="firstOperand" as="element()"/>

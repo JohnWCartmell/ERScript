@@ -13,8 +13,8 @@
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
-<xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
-<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
+<xsl:variable name="outputParseTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 <xsl:template match="/">
@@ -25,7 +25,9 @@
       </xsl:copy>
    </xsl:variable>
    <xsl:message> Back from assembly.</xsl:message>
-   <xsl:message><xsl:copy-of select="$docstate"/></xsl:message>
+   <xsl:variable name="notrequired">
+      <xsl:apply-templates select="$docstate/ebnf/grammar" mode="validateGrammar"/>
+   </xsl:variable>
    <xsl:copy>
       <xsl:apply-templates  select="$docstate/ebnf/*[self::test]" mode="test"/>
    </xsl:copy>
@@ -102,6 +104,34 @@
       </xsl:choose>
    </xsl:copy>
 </xsl:template>
+
+<xsl:template match="/|node()|@*" mode="validateGrammar">
+   <xsl:copy>
+      <xsl:apply-templates select="node()|@*" mode="validateGrammar"/>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="rhs" mode="validateGrammar">
+   <xsl:if test="not(count(*)=1)">
+      <xsl:message terminate="yes">rhs of production ill-formed  production as '<xsl:copy-of select=".."/>'</xsl:message>
+   </xsl:if>
+   <xsl:apply-templates mode="validateGrammar"/>
+</xsl:template>
+
+<xsl:template match="nt" mode="validateGrammar">
+   <!--<xsl:message>non terminal: <xsl:value-of select="."/></xsl:message>-->
+   <xsl:variable name="production" 
+                 select="/ebnf/grammar/prod[lhs=current()/.]"
+                 as="element()?"/>
+              <!--   <xsl:message> production <xsl:copy-of select="$production"/></xsl:message>-->
+   <xsl:if test="not(exists($production))">
+      <xsl:message terminate="yes">No such production as '<xsl:value-of select="."/>'</xsl:message>
+   </xsl:if>
+   <xsl:copy>
+      <xsl:apply-templates mode="validateGrammar"/>
+   </xsl:copy>
+</xsl:template>
+
 
 
 </xsl:transform>

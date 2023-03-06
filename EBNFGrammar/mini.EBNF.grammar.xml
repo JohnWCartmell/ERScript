@@ -67,7 +67,7 @@
 	      <lhs>MultiplicativeExpr</lhs>
 	      <rhs>
 	      	<sequence>
-		         <nt>PrimaryExpr</nt>      	<!-- should/will be unionExpr in full syntax -->
+		         <nt>UnionExpr</nt>      	<!-- should/will be unionExpr in full syntax -->
 		         <ZeroOneOrMore OneOrMore="MultiplicativeTail" type="MultiplicativeTerm">
 		        	<or type="MultiplicativeOperator">
 		               <literal type="Multiply">*</literal>
@@ -75,7 +75,7 @@
 		               <literal type="IntegerDivide">idiv</literal>
 		               <literal type="Modulo">mod</literal>
 		            </or>
-		            <nt>PrimaryExpr</nt> 	<!-- should be UnionExpr -->
+		            <nt>UnionExpr</nt> 	<!-- should be UnionExpr -->
 		         </ZeroOneOrMore>
 		     </sequence>
 	      </rhs>
@@ -122,27 +122,29 @@
    <prod >
       <lhs>UnionExpr</lhs>
       <rhs>
-         <nt>IntersectExceptExpr</nt>
-         <ZeroOneOrMore>
-            <or>
-               <literal>union</literal>
-               <literal>|</literal>
-            </or>
-            <nt>IntersectExceptExpr</nt>
-         </ZeroOneOrMore>
+      	<sequence>
+	         <nt>IntersectExceptExpr</nt>
+	         <ZeroOneOrMore>
+	            <or>
+	               <literal>union</literal>
+	               <literal>|</literal>
+	            </or>
+	            <nt>IntersectExceptExpr</nt>
+	         </ZeroOneOrMore>
+	      </sequence>
       </rhs>
    </prod>
    <prod>
       <lhs>IntersectExceptExpr</lhs>
       <rhs>
       	<sequence>
-	         <nt>InstanceofExpr</nt>
+	         <nt>PrimaryExpr</nt>
 	         <ZeroOneOrMore>
 	            <or>
 	               <literal>intersect</literal>
 	               <literal>except</literal>
 	            </or>
-	            <nt>InstanceofExpr</nt>  <!-- should be InstanceofExpr -->
+	            <nt>PrimaryExpr</nt>  <!-- should be InstanceofExpr -->
 	         </ZeroOneOrMore>
      	</sequence>
       </rhs>

@@ -7,14 +7,14 @@
    <xsl:strip-space elements="*"/>
 
    <xsl:template match="/|@*|node()" mode="EBNF.assembly">
-      <xsl:message>In assembly generic node name() '<xsl:value-of select="name()"/>'</xsl:message>
+      <!--<xsl:message>In assembly generic node name() '<xsl:value-of select="name()"/>'</xsl:message>-->
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="EBNF.assembly"/>
       </xsl:copy>
    </xsl:template>
 
    <xsl:template match="testcase" mode="EBNF.assembly">
-      <xsl:message>In testcase</xsl:message>
+      <!--<xsl:message>In testcase</xsl:message>-->
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="EBNF.assembly"/>
       </xsl:copy>
