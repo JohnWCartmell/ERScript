@@ -1,0 +1,23 @@
+<ebnf>
+
+	<include_grammar filename="mini.EBNF.grammar.xml"/>
+
+    <test>
+		<rhs><nt>Expr</nt></rhs>
+		<testcase text="$xx"/>
+		<testcase text="$xyz + 0"/>
+		<testcase text="$x+$y -$z ??????????"/>
+		<testcase text="if 0 then 1 else 2 ????"/>
+		<testcase text="if$xx then$yy else$zx ??????????"/>
+		<testcase text="if $xx then $yy else $zx ??????????"/>
+		<testcase text="$xx +$yy -$zz ??????????"/>
+		<errorcase text="+x"/>
+		<errorcase text="-0 "/>
+		<errorcase text="if$xthen$yelse$z ??????????"/>
+		<errorcase text="if$xy"/>
+		<errorcase text="if"/>
+		<errorcase text="if"/>
+	</test>
+
+
+</ebnf>

@@ -1,0 +1,70 @@
+<ebnf>
+	<grammar>
+		<prod>
+		    <lhs>lowercase_identifier</lhs>
+		    <rhs>
+		    	<token regexp="^[a-z]+"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>NameStartChar</lhs>
+		    <rhs whitespace="explicit">
+		    	<token regexp="^[A-Z]|^_|^[a-z]|^[&#xC0;-&#xD6;]|^[&#xD8;-&#xF6;]|^[&#xF8;-&#x2FF;]|^[&#x370;-&#x37D;]|^[&#x37F;-&#x1FFF;]|^[&#x200C;-&#x200D;]|^[&#x2070;-&#x218F;]|^[&#x2C00;-&#x2FEF;]|^[&#x3001;-&#xD7FF;]|^[&#xF900;-&#xFDCF;]|^[&#xFDF0;-&#xFFFD;]|^[&#x10000;-&#xEFFFF;]" />
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>AdditionalNameChar</lhs>
+		    <rhs whitespace="explicit">
+		    	<token regexp="^-|^\.|^[0-9]|^&#xB7;|^[&#x0300;-&#x036F;]|^[&#x203F;-&#x2040;]"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>Char</lhs>
+		    <rhs>
+		    	<token regexp="^&#x9;|^&#xA;|^&#xD;|^[&#x20;-&#xD7FF;]|^[&#xE000;-&#xFFFD;]|^[&#x10000;-&#x10FFFF;]"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>CharCode</lhs>
+		    <rhs>
+		    	<token regexp="^#x[0-9a-fA-F]+"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>S</lhs>
+		    <rhs>
+		    	<token regexp="^&#x9;|^&#xA;|^&#xD;|^&#x20;" />
+		    	        /* #x9 is TAB    */
+				        /* #xA is LF     */
+				        /* #xD is CR     */
+				        /* #x20 is SPACE */
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>NonNegativeNumber</lhs>
+		    <rhs>
+		    	<token regexp="^[0-9]+"/>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>OtherNameChar</lhs>
+		    <rhs>  
+	       	    <or>
+	       	  	<nt>NameStartChar</nt> 
+		       	<nt>AdditionalNameChar</nt>
+		       </or>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>Name</lhs>
+		    <rhs mode="scan">
+		    	<sequence>
+		       	  	<nt>NameStartChar</nt> 
+			       	<ZeroOneOrMore>
+			       	   <nt>OtherNameChar</nt>  
+			       	</ZeroOneOrMore>
+		       </sequence>
+		    </rhs>
+		</prod>
+	</grammar>
+</ebnf>

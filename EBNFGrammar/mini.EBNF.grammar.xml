@@ -1,0 +1,160 @@
+<ebnf>
+	<include_grammar filename="mini.EBNF.lexis.xml"/>
+	<grammar>
+	    <prod>
+		    <lhs>Expr</lhs>
+		    <rhs>
+		      	<or>
+		        	<nt>IfExpr</nt>
+		        	<nt>AdditiveExpr</nt>
+		     	</or>
+	    	</rhs>
+	    </prod>
+      	<prod>
+		    <lhs>IfExpr</lhs>  
+	      	<rhs>
+	      		<sequence>
+					<nt>IfPart</nt>
+					<nt>ThenPart</nt>
+					<nt>ElsePart</nt>
+				</sequence>
+	      	</rhs>
+		</prod>
+		<prod>
+		    <lhs>IfPart</lhs>  
+	      	<rhs>
+	      		<sequence>
+		      		<literal>if</literal>
+					<nt>Expr</nt>
+				</sequence>
+	      	</rhs>
+		</prod>
+		<prod>
+		    <lhs>ThenPart</lhs>  
+	      	<rhs>
+	      		<sequence>
+		      		<literal>then</literal>
+					<nt>Expr</nt>
+				</sequence>
+	      	</rhs>
+		</prod>
+		<prod>
+		    <lhs>ElsePart</lhs>  
+	      	<rhs>
+	      		<sequence>
+		      		<literal>else</literal>
+					<nt>Expr</nt>
+				</sequence>
+	      	</rhs>
+		</prod>
+		<prod>
+		    <lhs>AdditiveExpr</lhs>  
+	      	<rhs>
+	      		<sequence>
+					<nt>MultiplicativeExpr</nt>
+					<ZeroOneOrMore OneOrMore="AdditiveTail" type="AdditiveTerm">
+						<or type="AdditiveOperator">
+			               <literal type="Add">+</literal>
+			               <literal type="Subtract">-</literal>
+				     	</or>
+						<nt>MultiplicativeExpr</nt>
+					</ZeroOneOrMore>
+				</sequence>
+	      	</rhs>
+		</prod>
+
+	   <prod>
+	      <lhs>MultiplicativeExpr</lhs>
+	      <rhs>
+	      	<sequence>
+		         <nt>PrimaryExpr</nt>      	<!-- should/will be unionExpr in full syntax -->
+		         <ZeroOneOrMore OneOrMore="MultiplicativeTail" type="MultiplicativeTerm">
+		        	<or type="MultiplicativeOperator">
+		               <literal type="Multiply">*</literal>
+		               <literal type="Divide">div</literal>
+		               <literal type="IntegerDivide">idiv</literal>
+		               <literal type="Modulo">mod</literal>
+		            </or>
+		            <nt>PrimaryExpr</nt> 	<!-- should be UnionExpr -->
+		         </ZeroOneOrMore>
+		     </sequence>
+	      </rhs>
+	   </prod>
+
+	    <prod>
+		    <lhs>PrimaryExpr</lhs>
+		    <rhs>
+		      	<or>
+		        	<nt>VarRef</nt>
+		        	<nt>Literal</nt>
+         			<nt>ParenthesizedExpr</nt>
+		     	</or>
+	    	</rhs>
+	    </prod>
+		<prod>
+		    <lhs>VarRef</lhs>  
+	      	<rhs>
+	      		<sequence>
+		      		<literal>$</literal>
+					<nt>Name</nt>
+				</sequence>
+	      	</rhs>
+		</prod>
+		<prod>
+		    <lhs>Literal</lhs>  
+	      	<rhs mode="scan">
+				<nt>NonNegativeNumber</nt>
+	      	</rhs>
+		</prod>
+		<prod>
+	      <lhs>ParenthesizedExpr</lhs>
+	      <rhs>
+	      	<sequence>
+		         <literal>(</literal>
+		        <ZeroOrOne>
+		            <nt>Expr</nt>
+		        </ZeroOrOne>
+		        <literal>)</literal>
+	      	</sequence>
+	      </rhs>
+	   </prod>
+
+   <prod >
+      <lhs>UnionExpr</lhs>
+      <rhs>
+         <nt>IntersectExceptExpr</nt>
+         <ZeroOneOrMore>
+            <or>
+               <literal>union</literal>
+               <literal>|</literal>
+            </or>
+            <nt>IntersectExceptExpr</nt>
+         </ZeroOneOrMore>
+      </rhs>
+   </prod>
+   <prod>
+      <lhs>IntersectExceptExpr</lhs>
+      <rhs>
+      	<sequence>
+	         <nt>InstanceofExpr</nt>
+	         <ZeroOneOrMore>
+	            <or>
+	               <literal>intersect</literal>
+	               <literal>except</literal>
+	            </or>
+	            <nt>InstanceofExpr</nt>  <!-- should be InstanceofExpr -->
+	         </ZeroOneOrMore>
+     	</sequence>
+      </rhs>
+   </prod>
+
+	</grammar>
+
+	<test>
+	    <rhs><nt>Expr</nt></rhs>
+		<!--<testcase text="$x * 100 - $y * 10  - $z - $a * $b * $c ??????????"/>-->
+		<!--<testcase text="(  ) * 30"  This example shows a problem with expression '()' currently. Need decide how seq of expr processed. 5 March 2023--> /> 
+		<testcase text="if 1 then $x * ($y + $z) else 999"/>
+	</test>
+
+</ebnf>

@@ -8,7 +8,7 @@
                xmlns="">
 <xsl:output method="xml" indent="yes"/>
 
-
+<xsl:include href="EBNF.assembly.module.xslt"/>
 <xsl:include href="EBNF.parse.module.xslt"/>
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
@@ -18,9 +18,16 @@
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 <xsl:template match="/">
-   <xsl:message> In root entity going into test mode./></xsl:message>
+   <xsl:message> In root entity of test going into assembly mode.</xsl:message>
+   <xsl:variable    name="docstate" as="document-node()">
+      <xsl:copy>
+         <xsl:apply-templates mode="EBNF.assembly"/>
+      </xsl:copy>
+   </xsl:variable>
+   <xsl:message> Back from assembly.</xsl:message>
+   <xsl:message><xsl:copy-of select="$docstate"/></xsl:message>
    <xsl:copy>
-      <xsl:apply-templates  select="ebnf/*[self::test]" mode="test"/>
+      <xsl:apply-templates  select="$docstate/ebnf/*[self::test]" mode="test"/>
    </xsl:copy>
 </xsl:template>
 
