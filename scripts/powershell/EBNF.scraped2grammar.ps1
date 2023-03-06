@@ -29,5 +29,5 @@ If(!(test-path -PathType container $outputFolder))
 echo $SAXON_JAR
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
-                      -xsl:$ERHOME\xslt\EBNF.scraped2grammar.xslt `
+                      -xsl:$ERHOME\xslt\EBNF\EBNF.scraped2grammar.xslt `
                        -o:$outputFolder\$filenamebase.grammar.xml
