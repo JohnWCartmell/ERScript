@@ -183,13 +183,43 @@
 	      	</sequence>
 	      </rhs>
 	   </prod>
+
+   <prod >
+      <lhs>UnionExpr</lhs>
+      <rhs>
+         <nt>IntersectExceptExpr</nt>
+         <ZeroOneOrMore>
+            <or>
+               <literal>union</literal>
+               <literal>|</literal>
+            </or>
+            <nt>IntersectExceptExpr</nt>
+         </ZeroOneOrMore>
+      </rhs>
+   </prod>
+   <prod>
+      <lhs>IntersectExceptExpr</lhs>
+      <rhs>
+      	<sequence>
+	         <nt>InstanceofExpr</nt>
+	         <ZeroOneOrMore>
+	            <or>
+	               <literal>intersect</literal>
+	               <literal>except</literal>
+	            </or>
+	            <nt>InstanceofExpr</nt>  <!-- should be InstanceofExpr -->
+	         </ZeroOneOrMore>
+     	</sequence>
+      </rhs>
+   </prod>
+
 	</grammar>
 
 	<test>
 	    <rhs><nt>Expr</nt></rhs>
 		<!--<testcase text="$x * 100 - $y * 10  - $z - $a * $b * $c ??????????"/>-->
-		<testcase text="(  ) * 30"/>  
-		<!--<testcase text="if 1 then $x * ($y + $z) else 999"/>-->
+		<!--<testcase text="(  ) * 30"  This example shows a problem with expression '()' currently. Need decide how seq of expr processed. 5 March 2023--> /> 
+		<testcase text="if 1 then $x * ($y + $z) else 999"/>
 	</test>
 
 </ebnf>

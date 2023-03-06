@@ -8,9 +8,9 @@
                xmlns="">
 <xsl:output method="xml" indent="yes"/>
 
-<xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
+<xsl:variable name="outputParseTree" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
-<xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="false()"/>
 
 <xsl:template match="/">
    <xsl:message> In root entity going into test mode./></xsl:message>
@@ -108,9 +108,11 @@
    <xsl:variable name="production" 
                  select="/ebnf/grammar/prod[lhs=current()/.]"
                  as="element()?"/>
+                 <xsl:message> production <xsl:copy-of select="$production"/></xsl:message>
    <xsl:if test="not(exists($production))">
       <xsl:message terminate="yes">No such production as '<xsl:value-of select="."/>'</xsl:message>
    </xsl:if>
+
    <xsl:variable name="result" as="element()">
       <xsl:apply-templates select="$production/rhs" mode="parse">
          <xsl:with-param name="input" select="$input"/>
