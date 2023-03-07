@@ -1,0 +1,20 @@
+<ebnf>
+	<mapping>
+		<literalMapping>
+		   <literal>+</literal>
+		   <mapping>Add</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>-</literal>
+		   <mapping>Subtract</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>*</literal>
+		   <mapping>Multiply</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>|</literal>
+		   <mapping>Union2</mapping>
+		</literalMapping>
+	</mapping>
+</ebnf>

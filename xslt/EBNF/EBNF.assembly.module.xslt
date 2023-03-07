@@ -30,8 +30,20 @@
                      as="element(ebnf)">
          <xsl:apply-templates select="$included_ebnf" mode="EBNF.assembly"/>
       </xsl:variable>
-
       <xsl:copy-of select="$assembled_ebnf/grammar"/>
+   </xsl:template>
+
+   <xsl:template match="include_mapping" mode="EBNF.assembly">
+      <!-- Note that this implementation supports recursive includes -->
+      <xsl:message>In include_mapping ... filename '<xsl:value-of select="@filename"/>'</xsl:message>
+      <xsl:variable name="included_ebnf" 
+                     as="element(ebnf)"
+                     select="document(@filename)/ebnf"/>
+      <xsl:variable name="assembled_ebnf" 
+                     as="element(ebnf)">
+         <xsl:apply-templates select="$included_ebnf" mode="EBNF.assembly"/>
+      </xsl:variable>
+      <xsl:copy-of select="$included_ebnf/mapping"/>
    </xsl:template>
 
 </xsl:transform>

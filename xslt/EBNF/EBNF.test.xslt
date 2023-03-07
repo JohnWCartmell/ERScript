@@ -9,11 +9,12 @@
 <xsl:output method="xml" indent="yes"/>
 
 <xsl:include href="EBNF.assembly.module.xslt"/>
+<xsl:include href="EBNF.annotate.module.xslt"/>
 <xsl:include href="EBNF.parse.module.xslt"/>
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
-<xsl:variable name="outputParseTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
@@ -28,6 +29,18 @@
    <xsl:variable name="notrequired">
       <xsl:apply-templates select="$docstate/ebnf/grammar" mode="validateGrammar"/>
    </xsl:variable>
+   <xsl:message>Grammar validated.</xsl:message>
+
+   <xsl:variable name="docstate" as="document-node()">
+      <xsl:apply-templates select="$docstate" mode="annotate_grammar"/>
+   </xsl:variable>
+
+   <xsl:copy-of select="$docstate/ebnf/grammar"/>
+   <xsl:copy-of select="$docstate/ebnf/mapping"/>
+   <!-- next check that all non-alpha literals that reequire names have names supplied in a mapping -->
+   <!-- if they dont create a skeleton of the mapping      (see annotate.module.xslt)               -->
+   <xsl:apply-templates select="$docstate/ebnf/grammar" mode="createMappingSkeleton"/>
+
    <xsl:copy>
       <xsl:apply-templates  select="$docstate/ebnf/*[self::test]" mode="test"/>
    </xsl:copy>
@@ -87,12 +100,15 @@
             <xsl:if test="$outputParseTree">
               <xsl:copy-of select="$parseResult"/>
             </xsl:if>
+
+            <!-- create the production Instace Tree -->
             <xsl:if test="$outputProductionInstanceTree or $outputIntermediateCodeTree">
                <xsl:variable name="productionInstanceTree" as="element()">
                   <xsl:element name="productionInstanceTree">
                      <xsl:apply-templates select="$parseResult" mode="createProductionInstanceTree"/>
                   </xsl:element>
                </xsl:variable>
+
                <xsl:if test="$outputProductionInstanceTree">
                   <xsl:copy-of select="$productionInstanceTree"/>
                </xsl:if>

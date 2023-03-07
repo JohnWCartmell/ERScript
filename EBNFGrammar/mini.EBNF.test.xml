@@ -1,10 +1,11 @@
 <ebnf>
 
 	<include_grammar filename="mini.EBNF.grammar.xml"/>
+	<include_mapping filename="mini.EBNF.mapping.xml"/>
 
     <test>
 		<rhs><nt>Expr</nt></rhs>
-		<testcase text="$x union $y"/>
+		<testcase text="$w | $x + $y div $z"/>
 		<!--
 		<testcase text="$xx"/>
 		<testcase text="$xyz + 0"/>
