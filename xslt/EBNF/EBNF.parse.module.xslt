@@ -84,7 +84,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 <xsl:template match="token" mode="parse">   <!-- as="xs:positiveInteger?"> -->
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
-   <!--<xsl:message>Look for token <xsl:value-of select="lhs"/></xsl:message>-->
+   <xsl:message>Look for token <xsl:value-of select="lhs"/> at position <xsl:value-of select="$inputPosition"/></xsl:message>
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
       <xsl:choose>
       <xsl:when test="(ancestor-or-self::rhs/@whitespace)='explicit'">
@@ -452,6 +452,10 @@ this will help if followed by an OR which would then repreatedly remove whitespa
 <xsl:template match="token" mode="flatten">
    <!--<xsl:message>Flatten token '<xsl:value-of select="@text"/>'</xsl:message>-->
    <xsl:value-of select="@text"/>
+</xsl:template>
+
+<xsl:template match="scan" mode="flatten">
+   <xsl:value-of select="."/>
 </xsl:template>
 
 <xsl:template match="non-terminal|sequence|ZeroOneOrMore|OneOfZeroOneOrMore" mode="flatten">

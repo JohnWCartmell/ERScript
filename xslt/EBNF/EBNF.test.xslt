@@ -18,7 +18,25 @@
 <xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
+
+<xsl:variable name="annotatedGrammar">
+   <xsl:message> In global variable going into assembly mode.</xsl:message>
+   <xsl:variable    name="docstate" as="document-node()">
+      <xsl:copy>
+         <xsl:apply-templates mode="EBNF.assembly"/>
+      </xsl:copy>
+   </xsl:variable>
+   <xsl:message> Back from assembly.</xsl:message>
+   <xsl:variable name="notrequired">
+      <xsl:apply-templates select="$docstate/ebnf/grammar" mode="validateGrammar"/>
+   </xsl:variable>
+   <xsl:message>Grammar validated.</xsl:message>
+
+   <xsl:apply-templates select="$docstate" mode="annotate_grammar"/>
+</xsl:variable>
+
 <xsl:template match="/">
+   <!--
    <xsl:message> In root entity of test going into assembly mode.</xsl:message>
    <xsl:variable    name="docstate" as="document-node()">
       <xsl:copy>
@@ -34,6 +52,9 @@
    <xsl:variable name="docstate" as="document-node()">
       <xsl:apply-templates select="$docstate" mode="annotate_grammar"/>
    </xsl:variable>
+-->
+
+   <xsl:variable name="docstate" as="document-node()" select="$annotatedGrammar"/>
 
    <xsl:copy-of select="$docstate/ebnf/grammar"/>
    <xsl:copy-of select="$docstate/ebnf/mapping"/>
@@ -141,7 +162,7 @@
                  as="element()?"/>
               <!--   <xsl:message> production <xsl:copy-of select="$production"/></xsl:message>-->
    <xsl:if test="not(exists($production))">
-      <xsl:message terminate="yes">No such production as '<xsl:value-of select="."/>'</xsl:message>
+      <xsl:message terminate="no">No such production as '<xsl:value-of select="."/>'</xsl:message>
    </xsl:if>
    <xsl:copy>
       <xsl:apply-templates mode="validateGrammar"/>

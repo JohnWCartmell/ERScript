@@ -1,5 +1,11 @@
 <ebnf>
 	<mapping>
+		<transform>
+			<non-terminal name="AdditiveExpr"><infixTransform/></non-terminal>
+			<non-terminal name="MultiplicativeExpr"><infixTransform/></non-terminal>
+			<non-terminal name="UnionExpr"><infixTransform/></non-terminal>
+			<non-terminal name="IntersectExceptExpr"><infixTransform/></non-terminal>
+		</transform>
 		<literalMapping>
 		   <literal>+</literal>
 		   <mapping>Add</mapping>

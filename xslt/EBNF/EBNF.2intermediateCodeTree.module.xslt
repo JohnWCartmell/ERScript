@@ -22,20 +22,28 @@
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="createIntermediateCodeTree"/>
    </xsl:copy>
-</xsl:template>
-                                  
+</xsl:template> 
+<!--                            
 <xsl:template match="*[self::AdditiveExpr|self::MultiplicativeExpr|self::UnionExpr][count(*) &gt;= 2]" mode="createIntermediateCodeTree"> 
-   <!--<xsl:message>AEor ME <xsl:copy-of select="."/></xsl:message>-->
+-->
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='infixTransform'])][count(*) &gt;= 2]" mode="createIntermediateCodeTree">
+   <xsl:message>made into infix transform!!!!!!!!!!</xsl:message>
    <xsl:variable name="firstOperand" as="element()">
       <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/>
    </xsl:variable>
    <xsl:variable name="termSequence" as="element()*">
       <xsl:apply-templates select="*[2]/*" mode="createIntermediateCodeTree"/>
    </xsl:variable>
-  <!-- <xsl:element name="{name()}"> -->
-        <xsl:copy-of select="myfn:infixTransform($firstOperand,$termSequence)"/>
-   <!-- </xsl:element> -->
+   <xsl:copy-of select="myfn:infixTransform($firstOperand,$termSequence)"/>
 </xsl:template>
+
+<xsl:template match="*[exists(ancestor-or-self::ebnf/grammar)]" mode="createIntermediateCodeTree">
+<xsl:message>Found grammar</xsl:message> 
+   <xsl:copy>
+      <xsl:apply-templates select="node()|@*" mode="createIntermediateCodeTree"/>
+   </xsl:copy>
+</xsl:template> 
+
 
 <xsl:template match="PrimaryExpr|ParenthesizedExpr|Expr" mode="createIntermediateCodeTree"> 
    <xsl:apply-templates mode="createIntermediateCodeTree"/>

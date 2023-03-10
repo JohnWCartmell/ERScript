@@ -1,0 +1,25 @@
+<ebnf>
+    <include_grammar filename="xpath-3.1.EBNF.lexis.xml"/>
+	<include_grammar filename="xpath-3.1.EBNF.grammar.IDL.xml"/>
+	<include_mapping filename="xpath-3.1.EBNF.mapping.xml"/>
+
+    <test>
+		<rhs><nt>ExprSingle</nt></rhs>
+		<testcase text="$w | $x + $y div $z"/>
+		<!--
+		<testcase text="$xx"/>
+		<testcase text="$xyz + 0"/>
+		<testcase text="$x+$y -$z ??????????"/>
+		<testcase text="if 0 then 1 else 2 ????"/>
+		<testcase text="if$xx then$yy else$zx ??????????"/>
+		<testcase text="if $xx then $yy else $zx ??????????"/>
+		<testcase text="$xx +$yy -$zz ??????????"/>
+		<errorcase text="+x"/>
+		<errorcase text="-0 "/>
+		<errorcase text="if$xthen$yelse$z ??????????"/>
+		<errorcase text="if$xy"/>
+		<errorcase text="if"/>
+		<errorcase text="if"/>
+	-->
+	</test>
+</ebnf>

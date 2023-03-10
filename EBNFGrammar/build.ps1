@@ -1,27 +1,26 @@
-. ..\buildscripts\setBuildtimePathVariables.ps1
 
-echo ("*** building from  $SOURCE EBNF folder")
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-$SOURCEXML = $SOURCE + '\EBNFGrammar'
-$TARGETXML = $TARGET + '\EBNFGrammar\xml'
+. ($commandFolder + '\..\buildscripts\setBuildtimePathVariables.ps1')
 
+echo ("*** building from  $SOURCE EBNFGrammar folder")
 
-# CREATE target folder if it doesn't already exist
-If(!(test-path -PathType container $TARGETXML))
-{
-      echo ('CREATING target folder ' + $TARGETXML)
-      New-Item -ItemType Directory -Path $TARGETXML
-}
-
-# COPY xml files
-attrib -R $TARGETXML\*.xml
-copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
-attrib +R $TARGETXML\*.xml
-attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
-
-pushd $TARGETXML
-
-popd 
+$SOURCEFLEXDIAGRAMMING = $SOURCE + '\EBNFGrammar'
 
 
+echo "."
+echo "================================================================= begin mini-grammar ==================="
+echo "***"
+& $SOURCEFLEXDIAGRAMMING\mini-grammar\build.ps1  
+echo "***"
+echo "================================================================= end mini-grammar ====================="
+echo "."
+
+echo "."
+echo "================================================================= begin xpath-3.1 ==================="
+echo "***"
+& $SOURCEFLEXDIAGRAMMING\xpath-3.1\build.ps1  
+echo "***"
+echo "================================================================= end xpath-3.1 ====================="
+echo "."
 

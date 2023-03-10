@@ -33,6 +33,14 @@
    </xsl:copy>
 </xsl:template>
 
+<xsl:template match="prod[exists(ancestor-or-self::ebnf/mapping/transform/non-terminal[@name=current()/../lhs])]/rhs" mode="annotate_grammar">
+   <xsl:copy>
+      <xsl:attribute name="transform" select="ancestor-or-self::ebnf/mapping/transform/non-terminal[@name=current()/../lhs]/*/name()"/>
+      <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
+   </xsl:copy>
+</xsl:template>
+
+
 <xsl:function name= "myfn:convertLiteralToText" as="xs:string">
    <xsl:param name="input"/>
    <xsl:value-of select="

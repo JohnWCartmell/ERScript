@@ -176,11 +176,11 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="(rhs|unit)[open]" mode="restructureRHS">
+<xsl:template match="(rhs|sequence)[open]" mode="restructureRHS">
    <xsl:variable name="firstopenid" select="*[self::open][1]/@id"/>
    <xsl:copy>
       <xsl:apply-templates  select="*[not(preceding-sibling::open)][not(self::open)]" mode="copyRHS"/>
-      <xsl:element name="unit">
+      <xsl:element name="sequence">
          <xsl:apply-templates  select="*
                                        [preceding-sibling::open[not(preceding-sibling::open)]]
                                        [following-sibling::close[@matchingopenid=$firstopenid]]

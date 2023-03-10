@@ -1,0 +1,291 @@
+<ebnf>
+	<grammar>
+		<prod>
+		    <lhs>lowercase_identifier</lhs>
+		    <rhs>
+		    	<token regexp="^[a-z]+"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>NameStartChar</lhs>
+		    <rhs whitespace="explicit">
+		    	<token regexp="^[A-Z]|^_|^[a-z]|^[&#xC0;-&#xD6;]|^[&#xD8;-&#xF6;]|^[&#xF8;-&#x2FF;]|^[&#x370;-&#x37D;]|^[&#x37F;-&#x1FFF;]|^[&#x200C;-&#x200D;]|^[&#x2070;-&#x218F;]|^[&#x2C00;-&#x2FEF;]|^[&#x3001;-&#xD7FF;]|^[&#xF900;-&#xFDCF;]|^[&#xFDF0;-&#xFFFD;]|^[&#x10000;-&#xEFFFF;]" />
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>AdditionalNameChar</lhs>
+		    <rhs whitespace="explicit">
+		    	<token regexp="^-|^\.|^[0-9]|^&#xB7;|^[&#x0300;-&#x036F;]|^[&#x203F;-&#x2040;]"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>Char</lhs>
+		    <rhs>
+		    	<token regexp="^&#x9;|^&#xA;|^&#xD;|^[&#x20;-&#xD7FF;]|^[&#xE000;-&#xFFFD;]|^[&#x10000;-&#x10FFFF;]"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>CharCode</lhs>
+		    <rhs>
+		    	<token regexp="^#x[0-9a-fA-F]+"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>S</lhs>
+		    <rhs>
+		    	<token regexp="^&#x9;|^&#xA;|^&#xD;|^&#x20;" />
+		    	        /* #x9 is TAB    */
+				        /* #xA is LF     */
+				        /* #xD is CR     */
+				        /* #x20 is SPACE */
+		    </rhs>
+		</prod>
+
+		<prod>
+			<lhs>OtherNameChar</lhs>
+		    <rhs>  
+	       	    <or>
+	       	  	<nt>NameStartChar</nt> 
+		       	<nt>AdditionalNameChar</nt>
+		       </or>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>Name</lhs>
+		    <rhs mode="scan">
+		    	<sequence>
+		       	  	<nt>NameStartChar</nt> 
+			       	<ZeroOneOrMore>
+			       	   <nt>OtherNameChar</nt>  
+			       	</ZeroOneOrMore>
+		       </sequence>
+		    </rhs>
+		</prod>
+
+		<prod>
+			<lhs>QName</lhs>
+		    <rhs mode="scan">
+		    	<or>
+		    		<nt>PrefixedName</nt>
+		    		<nt>UnprefixedName</nt>
+		    	</or>
+		    </rhs>
+		</prod>
+
+		<prod>
+			<lhs>PrefixedName</lhs>
+			<rhs>
+				<sequence>
+					<nt>Prefix</nt>
+					<literal>:</literal>
+					<nt>LocalPart</nt>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>UnprefixedName</lhs>
+			<rhs>
+				<nt>LocalPart</nt>
+			</rhs>
+		</prod>
+
+		<prod>
+			<lhs>Prefix</lhs>
+			<rhs>
+				<nt>NCName</nt>
+			</rhs>
+		</prod>
+
+		<prod>
+			<lhs>LocalPart</lhs>
+			<rhs>
+				<nt>NCName</nt>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>NCName</lhs> <!-- This is same as Name but I think perhaps Name should include ":" also which NCName should not -->
+			<rhs mode="scan">
+		    	<sequence>
+		       	  	<nt>NameStartChar</nt> 
+			       	<ZeroOneOrMore>
+			       	   <nt>OtherNameChar</nt>  
+			       	</ZeroOneOrMore>
+		       </sequence>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>StringLiteral</lhs>
+			<rhs>
+				<or>
+					<nt>DoubleQuotedString</nt>
+					<nt>SingleQuotedString</nt>
+				</or>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>DoubleQuotedString</lhs>
+			<rhs>
+				<sequence>
+					<literal>"</literal>
+					<ZeroOneOrMore>
+						<or>
+							<nt>EscapeQuot</nt>
+						  	<nt>DoubleQuotedStringCharacter</nt>
+						</or>
+					</ZeroOneOrMore>
+					<literal>"</literal>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>EscapeQuot</lhs>
+			<rhs>
+				<literal>""</literal>
+			</rhs>
+		</prod>
+
+		<prod>
+		    <lhs>DoubleQuotedStringCharacter</lhs>
+		    <rhs>
+		    	<token regexp='^[^"]'/>
+		    </rhs>
+		</prod>
+
+		<prod>
+			<lhs>SingleQuotedString</lhs>
+			<rhs>
+				<sequence>
+					<literal>'</literal>
+					<ZeroOneOrMore>
+						<or>
+							<nt>EscapeApos</nt>
+							<nt>SingleQuotedStringCharacter</nt>
+						</or>
+					</ZeroOneOrMore>
+					<literal>'</literal>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>EscapeApos</lhs>
+			<rhs>
+				<literal>''</literal>
+			</rhs>
+		</prod>
+
+		<prod>
+		    <lhs>SingleQuotedStringCharacter</lhs>
+		    <rhs>
+		    	<token regexp="^[^']"/>
+		    </rhs>
+		</prod>
+
+
+		<prod>
+			<lhs>IntegerLiteral</lhs>
+			<rhs>
+				<nt>Digits</nt>
+			</rhs>
+		</prod>
+
+		<prod>
+		    <lhs>Digits</lhs>
+		    <rhs>
+		    	<token regexp="^[0-9]+"/>
+		    </rhs>
+		</prod>
+
+		<prod>
+			<lhs>DecimalLiteral</lhs>
+			<rhs>
+				<or>
+					<sequence>
+						<literal>.</literal>
+						<nt>Digits</nt>
+					</sequence>
+					<sequence>
+						<nt>Digits</nt>
+						<literal>.</literal>
+						<nt>OptionalDigits</nt>
+					</sequence>
+				</or>
+			</rhs>
+		</prod>
+		<prod>
+		    <lhs>OptionalDigits</lhs>
+		    <rhs>
+		    	<token regexp="^[0-9]*"/>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>DoubleLiteral</lhs>
+			<rhs>
+				<sequence>
+					<or>
+						<sequence>
+							<literal>.</literal>
+							<nt>Digits</nt>
+						</sequence>
+						<sequence>
+							<nt>Digits</nt>
+							<ZeroOrOne>
+								<sequence>
+									<literal>.</literal>
+									<nt>OptionalDigits</nt>
+								</sequence>
+							</ZeroOrOne>
+						</sequence>
+					</or>
+					<nt>Exponent</nt>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>Exponent</lhs>
+			<rhs>
+				<sequence>
+					<nt>ExponentSymbol</nt>
+					<nt>OptionalSign</nt>
+					<nt>Digits</nt>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+		    <lhs>ExponentSymbol</lhs>
+		    <rhs>
+		    	<token regexp="^[eE]"/>
+		    </rhs>
+		</prod>
+		<prod>
+		    <lhs>OptionalSign</lhs>
+		    <rhs>
+		    	<token regexp="^[+-]?"/>
+		    </rhs>
+		</prod>
+		<prod>
+			<lhs>URIQualifiedName</lhs>
+			<rhs>
+				<sequence>
+					<nt>BracedURILiteral</nt> 
+					<nt>NCName</nt>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>BracedURILiteral</lhs>
+			<rhs>
+				<sequence>
+					<literal>Q{</literal>
+					<nt>OptionalNonBraceCharacters</nt> 
+					<literal>}</literal>
+				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+		    <lhs>OptionalNonBraceCharacters</lhs>
+		    <rhs>
+		    	<token regexp="^[^{}]*"/>
+		    </rhs>
+		</prod>
+	</grammar>
+</ebnf>

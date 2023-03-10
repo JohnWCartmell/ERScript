@@ -30,4 +30,4 @@ echo $SAXON_JAR
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\EBNF\EBNF.grammar2IDLisation.xslt `
-                       -o:$outputFolder\$filenamebase.IDLisation.xml
+                       -o:$outputFolder\$filenamebase.IDL.xml

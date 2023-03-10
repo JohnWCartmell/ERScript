@@ -26,7 +26,9 @@
    <xsl:variable name="state" as="document-node()">
       <xsl:apply-templates select="$state" mode="sequenceIntroduction"/>
    </xsl:variable>
-   <xsl:apply-templates select="$state" mode="tagIntroduction"/>
+   <xsl:element name="ebnf">
+      <xsl:apply-templates select="$state" mode="tagIntroduction"/>
+   </xsl:element>
 </xsl:template>
 
 <xsl:template match="grammar" mode="toIDL">
@@ -79,7 +81,7 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="unit" mode="toIDLkeepme">  
+<xsl:template match="sequence" mode="toIDLkeepme">  
       <xsl:apply-templates  select="node()|@*" mode="toIDL"/>
 </xsl:template>
 
@@ -92,30 +94,37 @@
 
 
 <!-- INFIX <or/> elimination -->
-<!-- the following replaces infix or with or operator with sequence of children-->
-<!-- we are assuming a nicely structured rhs or unit in which the <or>s interleave with other elements -->
+<!-- the following template replace infix or with or operator with sequence of children-->
+<!-- we are assuming a nicely structured rhs or sequence in which the <or>s interleave with other elements -->
 <!-- and therefore check that this is the case -->
-<xsl:template match="*[self::rhs|self::unit|self::ZeroOrOne|self::ZeroOneOrMore][or]" mode="infixorelimination">
+<xsl:template match="*[self::rhs|self::sequence|self::ZeroOrOne|self::ZeroOneOrMore][or]" 
+              mode="infixorelimination">
    <xsl:variable name="orcount" select="count(*[self::or])"/>
    <xsl:variable name="notorcount" select="count(*[not(self::or)])"/>
    <xsl:if test="not($notorcount=$orcount+1)">
       <xsl:message terminate="yes"> or's not nicely structured </xsl:message>
    </xsl:if>
-   <xsl:copy>
+   <xsl:choose>
+   <xsl:when test="self::sequence">
       <xsl:element name="or">
          <xsl:apply-templates select="*[not(self::or)]" mode="infixorelimination"/>
       </xsl:element>
-   </xsl:copy>
+   </xsl:when>
+   <xsl:otherwise>
+      <xsl:copy>
+         <xsl:element name="or">
+            <xsl:apply-templates select="*[not(self::or)]" mode="infixorelimination"/>
+         </xsl:element>
+      </xsl:copy>
+   </xsl:otherwise>
+   </xsl:choose>
 </xsl:template>
-
-
 
 <xsl:template match="node()|@*" mode="infixorelimination">
    <xsl:copy>
       <xsl:apply-templates select="node()|@*" mode="infixorelimination"/>
    </xsl:copy>
 </xsl:template>
-
 
 <!-- markupseparators -->
 <xsl:template match="ZeroOneOrMore[count(*)=2]" mode="markupseparators">

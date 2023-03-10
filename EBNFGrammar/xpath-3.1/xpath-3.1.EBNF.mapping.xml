@@ -1,0 +1,26 @@
+<ebnf>
+	<mapping>
+		<transform>
+			<non-terminal name="AdditiveExpr"><infixTransform/></non-terminal>
+			<non-terminal name="MultiplicativeExpr"><infixTransform/></non-terminal>
+			<non-terminal name="UnionExpr"><infixTransform/></non-terminal>
+			<non-terminal name="IntersectExceptExpr"><infixTransform/></non-terminal>
+		</transform>
+		<literalMapping>
+		   <literal>+</literal>
+		   <mapping>Add</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>-</literal>
+		   <mapping>Subtract</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>*</literal>
+		   <mapping>Multiply</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <literal>|</literal>
+		   <mapping>Union2</mapping>
+		</literalMapping>
+	</mapping>
+</ebnf>
