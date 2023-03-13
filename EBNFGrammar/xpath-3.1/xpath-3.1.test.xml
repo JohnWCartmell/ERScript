@@ -4,9 +4,11 @@
 	<include_mapping filename="xpath-3.1.EBNF.mapping.xml"/>
 
     <test>
-		<rhs><nt>ExprSingle</nt></rhs>
-		<testcase text="$w | $x + $y div $z"/>
-		<!--
+		<rhs><nt>AdditiveExpr</nt></rhs>
+		<testcase text="x + y"/>
+	<!--
+		<testcase text="'this is a single quoted literal here is an escaped single quote ''. Like many literals this literal includes spaces'"/>
+		<testcase text='"this is a double quoted literal here is an escaped double quote "". Like many literals this literal includes spaces."'/>
 		<testcase text="$xx"/>
 		<testcase text="$xyz + 0"/>
 		<testcase text="$x+$y -$z ??????????"/>

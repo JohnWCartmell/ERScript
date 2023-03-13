@@ -23,12 +23,16 @@
       </xsl:copy>
    </xsl:variable>
    <!--<xsl:apply-templates select="$state" mode="markupseparators"/>-->
-   <xsl:variable name="state" as="document-node()">
+   <!--<xsl:variable name="state" as="document-node()">-->
+   <xsl:element name="ebnf">
       <xsl:apply-templates select="$state" mode="sequenceIntroduction"/>
-   </xsl:variable>
+   </xsl:element>
+   <!--</xsl:variable>
+   
    <xsl:element name="ebnf">
       <xsl:apply-templates select="$state" mode="tagIntroduction"/>
    </xsl:element>
+-->
 </xsl:template>
 
 <xsl:template match="grammar" mode="toIDL">

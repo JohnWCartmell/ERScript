@@ -40,7 +40,7 @@
    </xsl:copy>
 </xsl:template>
 
-
+<!--
 <xsl:function name= "myfn:convertLiteralToText" as="xs:string">
    <xsl:param name="input"/>
    <xsl:value-of select="
@@ -68,6 +68,7 @@
       else myfn:leadingUpper($input)
       "/>
 </xsl:function>
+-->
 
 
 <xsl:function name="myfn:leadingUpper" as="xs:string">
@@ -82,39 +83,25 @@
 
 
 <xsl:template match="literal[@signifier='true'][@type='unmappedNonAlphaLiteral']" mode="createMappingSkeleton">
-   <xsl:message>craete mapping skeleton  !!!!!!!!!!!  </xsl:message>
+   <xsl:message>create mapping skeleton  !!!!!!!!!!!  </xsl:message>
       <xsl:element name="literalMapping">
+         <xsl:element name="production">
+            <xsl:value-of select="ancestor-or-self::prod/lhs"/>
+         </xsl:element>
          <xsl:element name="literal">
             <xsl:value-of select="."/>
          </xsl:element>
-         <xsl:element name="mapping">
-         ...
-         </xsl:element>
+         <xsl:element name="mapping"> ... </xsl:element>
       </xsl:element>
 </xsl:template>
 
 
-<!--
-<xsl:template name="get_literal" match="literal" mode="explicit">
-      <xsl:variable name="translated_literal"
-                    as="xs:string?">
-      <xsl:call-template name="translate_literal"/>
-   </xsl:variable>
-   <xsl:choose>
-   <xsl:when test="exists($translated_literal)">
-      <xsl:value-of select="$translated_literal"/>
-   </xsl:when>
-   <xsl:otherwise>
-      <xsl:value-of select="'unmappedNonAlphaLiteral'"/>
-   </xsl:otherwise>
-   </xsl:choose>
-</xsl:template>
-
--->
 
 <xsl:template name="get_literal" match="literal" mode="explicit">
+   <xsl:variable name="parentProductionName" as="xs:string" 
+                 select="ancestor-or-self::prod/lhs/."/>
    <xsl:variable name="literalmapping" as="element(literalMapping)?"
-                 select="ancestor-or-self::ebnf/mapping/literalMapping[literal=current()/.]"/>
+                 select="ancestor-or-self::ebnf/mapping/literalMapping[production=$parentProductionName and literal=current()/.]"/>
    <xsl:choose>
    <xsl:when test="exists($literalmapping)">
       <xsl:value-of select="$literalmapping/mapping"/>

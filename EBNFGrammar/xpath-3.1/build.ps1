@@ -16,13 +16,18 @@ If(!(test-path -PathType container $TARGETXML))
 # COPY xml files
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
-attrib +R $TARGETXML\*.xml
+
 
 pushd $TARGETXML
+echo 'Run EBNF.scraped2grammar.xslt'
 . $TARGET\scripts\EBNF.scraped2grammar.ps1 xpath-3.1.EBNF.xml
 
+echo 'Run EBNF.grammar2IDLisation.xslt'
 . $TARGET\scripts\EBNF.grammar2IDLisation.ps1 xpath-3.1.EBNF.grammar.xml
 
+echo 'Run EBNF.test.xslt'
 . $TARGET\scripts\EBNF.test.ps1 xpath-3.1.test.xml -outputFolder docs
 popd 
+
+attrib +R $TARGETXML\*.xml
 

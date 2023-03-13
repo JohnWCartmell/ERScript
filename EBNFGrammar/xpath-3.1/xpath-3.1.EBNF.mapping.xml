@@ -7,20 +7,114 @@
 			<non-terminal name="IntersectExceptExpr"><infixTransform/></non-terminal>
 		</transform>
 		<literalMapping>
+		   <production>AdditiveExpr</production>
 		   <literal>+</literal>
-		   <mapping>Add</mapping>
+		   <mapping>BinaryAdd</mapping>
 		</literalMapping>
 		<literalMapping>
+		   <production>AdditiveExpr</production>
 		   <literal>-</literal>
-		   <mapping>Subtract</mapping>
+		   <mapping>BinarySubtract</mapping>
 		</literalMapping>
 		<literalMapping>
+		   <production>MultiplicativeExpr</production>
 		   <literal>*</literal>
-		   <mapping>Multiply</mapping>
+		   <mapping>BinaryMultiply</mapping>
 		</literalMapping>
 		<literalMapping>
+		   <production>UnionExpr</production>
 		   <literal>|</literal>
-		   <mapping>Union2</mapping>
+		   <mapping>BinaryUnion</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>UnaryExpr</production>
+		   <literal>-</literal>
+		   <mapping>UnaryMinus</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>UnaryExpr</production>
+		   <literal>+</literal>
+		   <mapping>UnaryPlus</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>=</literal>
+		   <mapping>GeneralEquals</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>!=</literal>
+		   <mapping>GenerallyNotEquals</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>&lt;</literal>
+		   <mapping>GenerallyLessThan</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>&lt;=</literal>
+		   <mapping>GenerallyLessThanOrEquals</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>&gt;</literal>
+		   <mapping>GenerallyGreaterThan</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>GeneralComp</production>
+		   <literal>&gt;=</literal>
+		   <mapping>GenerallyGreaterThanOrEquals</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>NodeComp</production>
+		   <literal>&lt;&lt;</literal>
+		   <mapping>BinaryPrecedes</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>NodeComp</production>
+		   <literal>&gt;&gt;</literal>
+		   <mapping>BinaryIsPrecededBy</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>RelativePathExpr</production>
+		   <literal>/</literal>
+		   <mapping>BinaryCompose</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>RelativePathExpr</production>
+		   <literal>//</literal>
+		   <mapping>DoubleStepRevise</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>Wildcard</production>
+		   <literal>*</literal>
+		   <mapping>WidlcardReview</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>OccurrenceIndicator</production>
+		   <literal>?</literal>
+		   <mapping>OccursZeroOrOne</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>OccurrenceIndicator</production>
+		   <literal>*</literal>
+		   <mapping>OccursZeroONeOrMore</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>OccurrenceIndicator</production>
+		   <literal>+</literal>
+		   <mapping>OccursOneOrMore</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>AttribNameOrWildcard</production>
+		   <literal>*</literal>
+		   <mapping>WildcardTwoReview</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>ElementNameOrWildcard</production>
+		   <literal>*</literal>
+		   <mapping>WildcardThreeReview</mapping>
 		</literalMapping>
 	</mapping>
 </ebnf>

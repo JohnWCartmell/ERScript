@@ -14,8 +14,8 @@
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
-<xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
-<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputParseTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 
@@ -56,10 +56,10 @@
 
    <xsl:variable name="docstate" as="document-node()" select="$annotatedGrammar"/>
 
-   <xsl:copy-of select="$docstate/ebnf/grammar"/>
-   <xsl:copy-of select="$docstate/ebnf/mapping"/>
-   <!-- next check that all non-alpha literals that reequire names have names supplied in a mapping -->
-   <!-- if they dont create a skeleton of the mapping      (see annotate.module.xslt)               -->
+   <!--<xsl:copy-of select="$docstate/ebnf/grammar"/>-->                  <!-- uncomment this to debug -->
+   <!-- <xsl:copy-of select="$docstate/ebnf/mapping"/> --> 
+   <!-- next check that all non-alpha literals that require names have them supplied in a mapping -->
+   <!-- if they don't create a skeleton of the mapping      (see annotate.module.xslt)               -->
    <xsl:apply-templates select="$docstate/ebnf/grammar" mode="createMappingSkeleton"/>
 
    <xsl:copy>

@@ -8,7 +8,7 @@
 		</prod>
 		<prod>
 		    <lhs>NameStartChar</lhs>
-		    <rhs whitespace="explicit">
+		    <rhs> <!-- whitespace="explicit">-->
 		    	<token regexp="^[A-Z]|^_|^[a-z]|^[&#xC0;-&#xD6;]|^[&#xD8;-&#xF6;]|^[&#xF8;-&#x2FF;]|^[&#x370;-&#x37D;]|^[&#x37F;-&#x1FFF;]|^[&#x200C;-&#x200D;]|^[&#x2070;-&#x218F;]|^[&#x2C00;-&#x2FEF;]|^[&#x3001;-&#xD7FF;]|^[&#xF900;-&#xFDCF;]|^[&#xFDF0;-&#xFFFD;]|^[&#x10000;-&#xEFFFF;]" />
 		    </rhs>
 		</prod>
@@ -124,59 +124,76 @@
 		</prod>
 		<prod>
 			<lhs>DoubleQuotedString</lhs>
-			<rhs>
+			<rhs>                
 				<sequence>
 					<literal>"</literal>
-					<ZeroOneOrMore>
-						<or>
-							<nt>EscapeQuot</nt>
-						  	<nt>DoubleQuotedStringCharacter</nt>
-						</or>
-					</ZeroOneOrMore>
+					<nt>DoubleQuotedStringContent</nt>
 					<literal>"</literal>
 				</sequence>
 			</rhs>
 		</prod>
+
+		<prod>
+			<lhs>DoubleQuotedStringContent</lhs>
+			<rhs mode="scan">   
+					<ZeroOneOrMore>
+						<!--
+						<or>
+							<nt>EscapeQuot</nt>
+						-->
+						  	<nt>DoubleQuotedStringCharacter</nt>
+						<!--</or >-->
+					</ZeroOneOrMore>
+			</rhs>
+		</prod>
+<!--
 		<prod>
 			<lhs>EscapeQuot</lhs>
-			<rhs>
+			<rhs whitespace="explicit">
 				<literal>""</literal>
 			</rhs>
 		</prod>
-
+-->
 		<prod>
-		    <lhs>DoubleQuotedStringCharacter</lhs>
-		    <rhs>
-		    	<token regexp='^[^"]'/>
+		    <lhs>DoubleQuotedStringCharacter</lhs> <!-- might want to move this inside enclosing quotes --> <!-- for this I will need to factor out content-->
+		    <rhs mode="scan" whitespace="explicit">
+		    	<token regexp='^[^"]|^""'/>
 		    </rhs>
 		</prod>
-
 		<prod>
 			<lhs>SingleQuotedString</lhs>
 			<rhs>
 				<sequence>
 					<literal>'</literal>
-					<ZeroOneOrMore>
-						<or>
-							<nt>EscapeApos</nt>
-							<nt>SingleQuotedStringCharacter</nt>
-						</or>
-					</ZeroOneOrMore>
+							<nt>SingleQuotedStringContent</nt>
 					<literal>'</literal>
 				</sequence>
 			</rhs>
 		</prod>
 		<prod>
+			<lhs>SingleQuotedStringContent</lhs>
+			<rhs mode="scan" >
+					<ZeroOneOrMore>
+						<!--
+						<or>
+							<nt>EscapeApos</nt>
+						-->
+							<nt>SingleQuotedStringCharacter</nt>
+					<!--	</or> -->
+					</ZeroOneOrMore>
+			</rhs>
+		</prod>
+		<prod>
 			<lhs>EscapeApos</lhs>
-			<rhs>
-				<literal>''</literal>
+			<rhs whitespace="explicit">
+				<token regexp="^''"/>
 			</rhs>
 		</prod>
 
 		<prod>
 		    <lhs>SingleQuotedStringCharacter</lhs>
-		    <rhs>
-		    	<token regexp="^[^']"/>
+		    <rhs whitespace="explicit">
+		    	<token regexp="^[^']|^''"/>
 		    </rhs>
 		</prod>
 
