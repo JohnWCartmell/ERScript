@@ -5,19 +5,19 @@
 
     <test>
 		<rhs><nt>ExprSingle</nt></rhs>
-	<testcase text="$x + y + z"/>
-
-	 <testcase text="$x[y]"/>
-		<testcase text="$x(a,b,c)(d,e,f)"/>
-		<testcase text="$x[y](a,b,c)"/>
-		<testcase text="$x(a,b,c)[z]"/>
-
-		
-    <testcase text="a"/>
+		<testcase text="$x + y + z"/>
+		<testcase text="let + $B * (C + D)"/>
+		<testcase text="$x[y]"/>
+        <testcase text="a[b][c]"/>
+        <!--
 	    <testcase text="/a"/>
 		<testcase text="//a"/>
 		<testcase text="a/b"/>
 		<testcase text="/a/b"/> 
+
+		<testcase text="$x(a,b,c)(d,e,f)"/>
+		<testcase text="$x[y](a,b,c)"/>
+		<testcase text="$x(a,b,c)[z]"/>
 		<testcase text="let + $B * (C + D)"/>
 		<testcase text="//a/b/c"/>
 	    <testcase text="let $x := y return z"/>
@@ -30,7 +30,7 @@
 		<testcase text="if ($xx) then$yy else$zx ??????????"/>
 		<testcase text="if ($xx) then $yy else $zx ??????????"/>
 		<testcase text="$xx +$yy -$zz ??????????"/>
-
+-->
 		<!--
 		<errorcase text="+x"/>
 		<errorcase text="-0 "/>

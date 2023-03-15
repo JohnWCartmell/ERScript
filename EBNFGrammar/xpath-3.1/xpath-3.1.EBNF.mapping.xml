@@ -31,6 +31,27 @@
 			</by>
 		</replace>
 
+		<replace production="AxisStep">
+			<by> <!-- so as to be similar enough to AdditiveExpr  as enable infixTransform to apply -->
+			      <prod>
+			         <lhs>AxisStep</lhs>
+			         <rhs>
+			            <sequence>
+			               <or>
+			                  <nt>ReverseStep</nt>
+			                  <nt>ForwardStep</nt>
+			               </or>
+			               <ZeroOneOrMore>
+				               <literal>[</literal>
+				               <nt>Expr</nt>
+				               <literal>]</literal>
+				            </ZeroOneOrMore>
+			            </sequence>
+			         </rhs>
+			      </prod>
+			</by>
+		</replace>
+
 		<non-terminals>
 			<non-terminal name="OrExpr"              transform="infixTransform" abstract="when_singular"/>
 			<non-terminal name="AndExpr"             transform="infixTransform" abstract="when_singular"/>
@@ -42,6 +63,7 @@
 			<non-terminal name="StringConcatExpr"    transform="infixTransform" abstract="when_singular"/>
 			<non-terminal name="RelativePathExpr"    transform="infixTransform" abstract="when_singular"/>
 			<non-terminal name="PostfixExpr"    	 transform="infixTransform" abstract="when_singular"/>
+		    <non-terminal name="AxisStep"    	     transform="infixTransform" abstract="when_singular"/>
             <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
 			<non-terminal name="UnaryExpr"           transform="multiPrefixTransform"  abstract="when_singular"/>
 			<non-terminal name="InstanceofExpr"                                 abstract="when_singular"/>
@@ -205,6 +227,11 @@
 		   <production>Predicate</production>
 		   <literal>[</literal>
 		   <mapping>ApplyPredicate</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>AxisStep</production>
+		   <literal>[</literal>
+		   <mapping>ApplyPredicateToStep</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>ArgumentList</production>

@@ -15,7 +15,7 @@
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
 <xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
-<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
+<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 
