@@ -4,18 +4,34 @@
 	<include_mapping filename="xpath-3.1.EBNF.mapping.xml"/>
 
     <test>
-		<rhs><nt>AdditiveExpr</nt></rhs>
-		<testcase text="x + y"/>
-	<!--
+		<rhs><nt>ExprSingle</nt></rhs>
+	<testcase text="$x + y + z"/>
+
+	 <testcase text="$x[y]"/>
+		<testcase text="$x(a,b,c)(d,e,f)"/>
+		<testcase text="$x[y](a,b,c)"/>
+		<testcase text="$x(a,b,c)[z]"/>
+
+		
+    <testcase text="a"/>
+	    <testcase text="/a"/>
+		<testcase text="//a"/>
+		<testcase text="a/b"/>
+		<testcase text="/a/b"/> 
+		<testcase text="let + $B * (C + D)"/>
+		<testcase text="//a/b/c"/>
+	    <testcase text="let $x := y return z"/>
 		<testcase text="'this is a single quoted literal here is an escaped single quote ''. Like many literals this literal includes spaces'"/>
 		<testcase text='"this is a double quoted literal here is an escaped double quote "". Like many literals this literal includes spaces."'/>
 		<testcase text="$xx"/>
 		<testcase text="$xyz + 0"/>
 		<testcase text="$x+$y -$z ??????????"/>
-		<testcase text="if 0 then 1 else 2 ????"/>
-		<testcase text="if$xx then$yy else$zx ??????????"/>
-		<testcase text="if $xx then $yy else $zx ??????????"/>
+		<testcase text="if (0) then 1 else 2 ????"/>
+		<testcase text="if ($xx) then$yy else$zx ??????????"/>
+		<testcase text="if ($xx) then $yy else $zx ??????????"/>
 		<testcase text="$xx +$yy -$zz ??????????"/>
+
+		<!--
 		<errorcase text="+x"/>
 		<errorcase text="-0 "/>
 		<errorcase text="if$xthen$yelse$z ??????????"/>

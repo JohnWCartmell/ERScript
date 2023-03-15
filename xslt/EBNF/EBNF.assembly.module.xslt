@@ -6,12 +6,37 @@
                version="2.0">
    <xsl:strip-space elements="*"/>
 
-   <xsl:template match="/|@*|node()" mode="EBNF.assembly">
+   <xsl:template match="/" mode="EBNF.assembly">
+      <xsl:message>In assembly at doc root</xsl:message>
+      <xsl:variable name="assembled_document" as="document-node()">
+         <xsl:copy>
+            <xsl:apply-templates select="@*|node()" mode="EBNF.assembly"/>
+         </xsl:copy>
+      </xsl:variable>
+      <xsl:copy>
+         <xsl:apply-templates select="$assembled_document" mode="EBNF.patch"/>
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="@*|node()" mode="EBNF.patch">
+      <!--<xsl:message>In assembly generic node name() '<xsl:value-of select="name()"/>'</xsl:message>-->
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="EBNF.patch"/>
+      </xsl:copy>
+   </xsl:template>
+
+   <xsl:template match="prod[exists(//ebnf/mapping/replace[@production=current()/lhs/.])]" mode="EBNF.patch">
+      <xsl:copy-of select="//ebnf/mapping/replace[@production=current()/lhs/.]/by/*"/>
+   </xsl:template>
+
+
+   <xsl:template match="@*|node()" mode="EBNF.assembly">
       <!--<xsl:message>In assembly generic node name() '<xsl:value-of select="name()"/>'</xsl:message>-->
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="EBNF.assembly"/>
       </xsl:copy>
    </xsl:template>
+
 
    <xsl:template match="testcase" mode="EBNF.assembly">
       <!--<xsl:message>In testcase</xsl:message>-->

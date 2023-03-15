@@ -14,19 +14,18 @@
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
-<xsl:variable name="outputParseTree" as="xs:boolean" select="true()"/>
-<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
+<xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
+<xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 
 <xsl:variable name="annotatedGrammar">
    <xsl:message> In global variable going into assembly mode.</xsl:message>
    <xsl:variable    name="docstate" as="document-node()">
-      <xsl:copy>
-         <xsl:apply-templates mode="EBNF.assembly"/>
-      </xsl:copy>
+         <xsl:apply-templates select="." mode="EBNF.assembly"/>
    </xsl:variable>
    <xsl:message> Back from assembly.</xsl:message>
+
    <xsl:variable name="notrequired">
       <xsl:apply-templates select="$docstate/ebnf/grammar" mode="validateGrammar"/>
    </xsl:variable>
@@ -36,27 +35,10 @@
 </xsl:variable>
 
 <xsl:template match="/">
-   <!--
-   <xsl:message> In root entity of test going into assembly mode.</xsl:message>
-   <xsl:variable    name="docstate" as="document-node()">
-      <xsl:copy>
-         <xsl:apply-templates mode="EBNF.assembly"/>
-      </xsl:copy>
-   </xsl:variable>
-   <xsl:message> Back from assembly.</xsl:message>
-   <xsl:variable name="notrequired">
-      <xsl:apply-templates select="$docstate/ebnf/grammar" mode="validateGrammar"/>
-   </xsl:variable>
-   <xsl:message>Grammar validated.</xsl:message>
-
-   <xsl:variable name="docstate" as="document-node()">
-      <xsl:apply-templates select="$docstate" mode="annotate_grammar"/>
-   </xsl:variable>
--->
 
    <xsl:variable name="docstate" as="document-node()" select="$annotatedGrammar"/>
 
-   <!--<xsl:copy-of select="$docstate/ebnf/grammar"/>-->                  <!-- uncomment this to debug -->
+   <!--<xsl:copy-of select="$docstate/ebnf/grammar"/> -->             <!-- uncomment this to assist debug -->
    <!-- <xsl:copy-of select="$docstate/ebnf/mapping"/> --> 
    <!-- next check that all non-alpha literals that require names have them supplied in a mapping -->
    <!-- if they don't create a skeleton of the mapping      (see annotate.module.xslt)               -->

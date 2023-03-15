@@ -20,8 +20,20 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="or/literal" mode="annotate_grammar">
-   <xsl:message>annotate significant literal  '<xsl:value-of select="."/>' </xsl:message>
+<xsl:template match="ZeroOneOrMore" mode="annotate_grammar">
+   <xsl:copy>
+      <xsl:attribute name="id" select="generate-id()"/>
+      <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
+   </xsl:copy>
+</xsl:template>
+
+<!--<xsl:template match="or/literal" mode="annotate_grammar">-->
+<xsl:template match="literal[parent::or
+                             or 
+                             ancestor-or-self::ebnf/mapping/literalMapping[production=current()/ancestor-or-self::prod/lhs/. and literal=current()/.]
+                             ]" 
+             mode="annotate_grammar">
+   <!--<xsl:message>annotate significant literal  '<xsl:value-of select="."/>' </xsl:message>-->
    <xsl:variable name="name_representing_literal"
                  as="xs:string">
       <xsl:call-template name="get_literal"/>
@@ -33,54 +45,22 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="prod[exists(ancestor-or-self::ebnf/mapping/transform/non-terminal[@name=current()/../lhs])]/rhs" mode="annotate_grammar">
+<xsl:template match="prod[exists(ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs])]/rhs" mode="annotate_grammar">
    <xsl:copy>
-      <xsl:attribute name="transform" select="ancestor-or-self::ebnf/mapping/transform/non-terminal[@name=current()/../lhs]/*/name()"/>
+      <xsl:attribute name="transform" select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@transform"/>
+      <xsl:attribute name="abstract"  select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@abstract"/>
       <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
    </xsl:copy>
 </xsl:template>
-
-<!--
-<xsl:function name= "myfn:convertLiteralToText" as="xs:string">
-   <xsl:param name="input"/>
-   <xsl:value-of select="
-      if ($input='+')             then 'Add'
-      else if ($input='-')        then 'Substract'
-      else if ($input='*')        then 'Multiply'
-      else if ($input='|')        then 'Union'
-      else if ($input='=')        then 'GeneralEquals'
-      else if ($input='!=')       then 'GeneralNotEqual'
-      else if ($input='&lt;')     then 'GeneralLessThan'
-      else if ($input='&lt;=')    then 'GeneralLessThanOrEqual'
-      else if ($input='&gt;')     then 'GeneralGreaterThan'
-      else if ($input='&gt;=')    then 'GeneralGreaterThanOrEqual'
-      else if ($input='eq')       then 'ValueEquals'
-      else if ($input='ne')       then 'ValueNotEqual'
-      else if ($input='lt')       then 'ValueLessThan'
-      else if ($input='le')       then 'ValueLessThanOrEqual'
-      else if ($input='gt')        then 'ValueGreaterThan'
-      else if ($input='ge')       then 'ValueGreaterThanOrEqual'
-      else if ($input='&lt;&lt;') then 'Precedes'
-      else if ($input='&gt;&gt;') then 'IsPrecededBy'
-      else if ($input='/')        then 'Step'
-      else if ($input='//')       then 'ZeroOneOrMoreStep'
-      else if ($input='@')        then 'Attribute'
-      else myfn:leadingUpper($input)
-      "/>
-</xsl:function>
--->
-
 
 <xsl:function name="myfn:leadingUpper" as="xs:string">
    <xsl:param name="input"/>
    <xsl:value-of select="concat(upper-case(substring($input,1,1)), substring($input,2,string-length($input)-1) )"/>
 </xsl:function>
 
-
 <xsl:template match="/|node()|@*" mode="createMappingSkeleton">
       <xsl:apply-templates select="node()|@*" mode="createMappingSkeleton"/>
 </xsl:template>
-
 
 <xsl:template match="literal[@signifier='true'][@type='unmappedNonAlphaLiteral']" mode="createMappingSkeleton">
    <xsl:message>create mapping skeleton  !!!!!!!!!!!  </xsl:message>
@@ -94,8 +74,6 @@
          <xsl:element name="mapping"> ... </xsl:element>
       </xsl:element>
 </xsl:template>
-
-
 
 <xsl:template name="get_literal" match="literal" mode="explicit">
    <xsl:variable name="parentProductionName" as="xs:string" 

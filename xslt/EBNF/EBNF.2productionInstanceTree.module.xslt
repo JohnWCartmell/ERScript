@@ -18,7 +18,7 @@
 </xsl:template> 
 
 <xsl:template match="node()|@*" mode="createProductionInstanceTree"> 
-   <xsl:message> generic creating production instance tree'<xsl:value-of select="name()"/>'content'<xsl:value-of select="."/>'</xsl:message>
+   <!--<xsl:message> generic creating production instance tree'<xsl:value-of select="name()"/>'content'<xsl:value-of select="."/>'</xsl:message>-->
    <xsl:copy>
       <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
    </xsl:copy>
@@ -34,18 +34,6 @@
    <xsl:value-of select="."/>
 </xsl:template>
 
-
-<!-- rethink Mon evening 6 March
-<xsl:template match="literal[@type]" mode="createProductionInstanceTree">
-      <xsl:element name="{@type}"/>
-</xsl:template>
-
- 
-<xsl:template match="literal[not(@type)]" mode="createProductionInstanceTree">
-    deliberately left blank
-</xsl:template>
--->
-
 <xsl:template match="literal[not(@signifier = 'true')]" mode="createProductionInstanceTree">
     <!-- deliberately left blank -->
 </xsl:template>
@@ -54,33 +42,28 @@
     <xsl:element name="{@type}"/>
 </xsl:template>
 
-
 <xsl:template match="sequence[not(@type)]" mode="createProductionInstanceTree">
    <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
 </xsl:template>
 
 
-<xsl:template match="ZeroOneOrMore[@type]/OneOfZeroOneOrMore" mode="createProductionInstanceTree">
-      <xsl:element name="{../@type}">
-         <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
-      </xsl:element>
-</xsl:template>
-
-<xsl:template match="ZeroOneOrMore[@OneOrMore][exists(element())]" mode="createProductionInstanceTree">
-      <xsl:element name="{@OneOrMore}">
-         <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
-      </xsl:element>
-</xsl:template>
-
-<xsl:template match="ZeroOneOrMore[@OneOrMore][not(exists(element()))]" mode="createProductionInstanceTree">
-     <!-- deliberately left blank -->
-</xsl:template>
 
 <xsl:template match="ZeroOrOne" mode="createProductionInstanceTree">
      <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
 </xsl:template>
 
 
-   
+<!-- GOING TO HAVE TO prune I THINK -->
+<xsl:template match="node()|@*" mode="pruneProductionInstanceTree"> 
+   <xsl:copy>
+      <xsl:apply-templates select="*" mode="pruneProductionInstanceTree"/>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="ZeroOneOrMore/OneOfZeroOneOrMore[count(*)=1]" mode="pruneProductionInstanceTree">
+      <xsl:apply-templates select="*" mode="pruneProductionInstanceTree"/>
+</xsl:template>
+
+
 
 </xsl:transform>
