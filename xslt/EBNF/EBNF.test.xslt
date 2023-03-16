@@ -18,7 +18,6 @@
 <xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
-
 <xsl:variable name="annotatedGrammar">
    <xsl:message> In global variable going into assembly mode.</xsl:message>
    <xsl:variable    name="docstate" as="document-node()">

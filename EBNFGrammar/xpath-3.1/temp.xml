@@ -1,0 +1,40 @@
+            <non-terminal name="AdditiveExpr"        transform="associativeInfixTransform" abstract="when_singular"/>
+			<non-terminal name="AndExpr"             transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="Argument"                                       abstract="unconditional"/>
+            <non-terminal name="ArgumentList"         transform="separatedListTransform"                /> 
+            <non-terminal name="ArrayConstructor"                               abstract="unconditional"/>    
+            <non-terminal name="ArrowExpr"                                      abstract="when_singular"/>  
+            <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/>
+            <non-terminal name="AxisStep"            transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="CastExpr"                                       abstract="when_singular"/>
+            <non-terminal name="CastableExpr"                                   abstract="when_singular"/>
+            <non-terminal name="ContextualisedRelativePathExpr" transform="prefixTransform" abstract="when_singular"/>
+			<non-terminal name="ComparisonExpr"      transform="infixTransform"            abstract="when_singular"/>
+            <non-terminal name="EQName"                                         abstract="unconditional"/>
+            <non-terminal name="ExprSingle"                                     abstract="unconditional"/>
+            <non-terminal name="FunctionItemExpr"                               abstract="unconditional"/>
+            <non-terminal name="GeneralComp"                                    abstract="unconditional"/> 
+            <non-terminal name="InstanceofExpr"                                 abstract="when_singular"/>
+			<non-terminal name="IntersectExceptExpr" transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="Literal"                                        abstract="unconditional"/>
+            <non-terminal name="MultiplicativeExpr"  transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="NodeComp"                                       abstract="unconditional"/>  
+            <non-terminal name="NodeTest"                                       abstract="unconditional"/>
+            <non-terminal name="NumericLiteral"                                 abstract="unconditional"/>
+            <non-terminal name="OrExpr"              transform="associativeInfixTransform" abstract="when_singular"/>        
+            <non-terminal name="ParenthesizedExpr"                              abstract="unconditional"/>
+            <non-terminal name="PathExpr"                                     	abstract="unconditional"/>
+            <non-terminal name="PostfixExpr"         transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="Predicate"                                      abstract="unconditional"/>
+            <non-terminal name="PrimaryExpr"                                    abstract="unconditional"/>
+            <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
+            <non-terminal name="RelativePathExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="StepExpr"                                       abstract="unconditional"/>
+            <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform"  abstract="when_singular"/>
+            <non-terminal name="StringConcatExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="TreatExpr"                                      abstract="when_singular"/>
+            <non-terminal name="UnaryExpr"           transform="multiPrefixTransform"  abstract="when_singular"/>
+            <non-terminal name="UnionExpr"           transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="VarName"                                        abstract="unconditional"/>
+            <non-terminal name="ValueComp"                                      abstract="unconditional"/>
+            <non-terminal name="ValueExpr"                                      abstract="unconditional"/>

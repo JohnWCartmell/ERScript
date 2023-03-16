@@ -200,7 +200,7 @@
 
 		<prod>
 			<lhs>IntegerLiteral</lhs>
-			<rhs>
+			<rhs mode="scan">
 				<nt>Digits</nt>
 			</rhs>
 		</prod>
@@ -228,7 +228,7 @@
 				</or>
 			</rhs>
 		</prod>
-		<!--
+		<!-- was
 		<prod>
 		    <lhs>OptionalDigits</lhs>
 		    <rhs>
