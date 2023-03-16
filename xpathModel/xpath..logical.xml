@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
+   </description>
+   <absolute>
+      <composition type="Expr"/>
+   </absolute>
+   <entity_type name="Argument">
+      <entity_type name="ArgumentPlaceholder"/>
+      <entity_type name="Expr">
+         <composition type="ExprSingle*"/>
+      </entity_type>
+   </entity_type>
+   
+
+   <entity_type name="ExprSingle">
+      <entity_type name="BinaryOperation">
+         <entity_type name="Or"/>
+         <entity_type name="And"/>
+         <entity_type name="Add"/>
+         <entity_type name="Subtract"/>
+         <entity_type name="Mult"/>
+         <entity_type name="Divide"/>
+         <entity_type name="IntegerDivide"/>
+         <entity_type name="Modulo"/>
+         <entity_type name="Union"/>
+         <entity_type name="Intersect"/>
+         <entity_type name="Except"/>
+         <composition name="arg1" type="ExprSingle"/>
+         <composition name="arg2" type="ExprSingle"/>
+      </entity_type>
+      <entity_type name="PrimaryExpr">
+         <entity_type name="Literal"/>
+         <entity_type name="VarRef"/>
+         <entity_type name="ParenthesizedExpr">        
+            <composition  type="Expr?"/>
+         </entity_type>
+         <entity_type name="ContextItemExpr"/>
+         <entity_type name="FunctionCall">
+            <attribute name="EQName"/>
+            <composition name="args" type="Argument*"/>
+         </entity_type>
+         <entity_type name="FunctionItemExpr"/>
+         <entity_type name="MapConstructor"/>
+         <entity_type name="ArrayConstructor"/>
+         <entity_type name="UnaryLookup"/>
+      </entity_type>
+      <entity_type name="ForExpr"/>
+      <entity_type name="LetExpr"/>
+      <entity_type name="QuantifiedExpr"/>
+      <entity_type name="IfExpr">
+         <composition name="cond" type="Expr"/>
+         <composition name="then" type="ExprSingle"/>
+         <composition name="else" type="ExprSingle"/>
+      </entity_type>
+   </entity_type>
+
+</entity_model>
