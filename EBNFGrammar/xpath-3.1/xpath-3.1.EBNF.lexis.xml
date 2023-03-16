@@ -223,17 +223,19 @@
 					<sequence>
 						<nt>Digits</nt>
 						<literal>.</literal>
-						<nt>OptionalDigits</nt>
+						<ZeroOrOne><nt>Digits</nt></ZeroOrOne> <!-- was OptionalDigits -->
 					</sequence>
 				</or>
 			</rhs>
 		</prod>
+		<!--
 		<prod>
 		    <lhs>OptionalDigits</lhs>
 		    <rhs>
 		    	<token regexp="^[0-9]*"/>
 		    </rhs>
 		</prod>
+	-->
 		<prod>
 			<lhs>DoubleLiteral</lhs>
 			<rhs>
@@ -248,7 +250,7 @@
 							<ZeroOrOne>
 								<sequence>
 									<literal>.</literal>
-									<nt>OptionalDigits</nt>
+									<ZeroOrOne><nt>Digits</nt></ZeroOrOne> <!-- was OptionalDigits -->
 								</sequence>
 							</ZeroOrOne>
 						</sequence>
@@ -262,7 +264,7 @@
 			<rhs>
 				<sequence>
 					<nt>ExponentSymbol</nt>
-					<nt>OptionalSign</nt>
+					<ZeroOrOne><nt>Sign</nt></ZeroOrOne>							<!-- was <nt>OptionalSign</nt> -->
 					<nt>Digits</nt>
 				</sequence>
 			</rhs>
@@ -273,10 +275,18 @@
 		    	<token regexp="^[eE]"/>
 		    </rhs>
 		</prod>
+		<!-- was 
 		<prod>
 		    <lhs>OptionalSign</lhs>
 		    <rhs>
 		    	<token regexp="^[+-]?"/>
+		    </rhs>
+		</prod>
+	-->
+		<prod>
+		    <lhs>Sign</lhs>
+		    <rhs>
+		    	<token regexp="^[+-]"/>
 		    </rhs>
 		</prod>
 		<prod>

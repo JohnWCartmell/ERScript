@@ -5,11 +5,15 @@
 
     <test>
 		<rhs><nt>ExprSingle</nt></rhs>
-		<testcase text="$x + y + z"/>
+		<!--<testcase text="$x + self::y + child::z"/>
 		<testcase text="let + $B * (C + D)"/>
 		<testcase text="$x[y]"/>
-        <testcase text="a[b][c]"/>
-        <!--
+        <testcase text="a[b][c]"/> -->
+        <testcase text="0.95"/>
+        <testcase text="1.2E3"/>
+                <!--
+        <testcase text="child::para[position() = 1]"/>
+
 	    <testcase text="/a"/>
 		<testcase text="//a"/>
 		<testcase text="a/b"/>

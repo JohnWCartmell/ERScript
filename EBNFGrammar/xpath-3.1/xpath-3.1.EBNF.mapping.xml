@@ -51,6 +51,20 @@
 			      </prod>
 			</by>
 		</replace>
+        <replace production="NumericLiteral">
+        	<by>
+		      <prod>
+		         <lhs>NumericLiteral</lhs>
+		         <rhs>
+		            <or>
+		            	<nt>DoubleLiteral</nt>
+		            	<nt>DecimalLiteral</nt>
+		            	<nt>IntegerLiteral</nt>
+		            </or>
+		         </rhs>
+		      </prod>
+		  </by>
+		</replace>
 
 		<non-terminals>
 			<non-terminal name="OrExpr"              transform="infixTransform" abstract="when_singular"/>
@@ -79,10 +93,9 @@
             <non-terminal name="ValueComp"                                      abstract="unconditional"/>
             <non-terminal name="NodeComp"                                       abstract="unconditional"/>
             <non-terminal name="StepExpr"                                       abstract="unconditional"/>
-            <non-terminal name="ForwardStep"                                    abstract="unconditional"/>
-            <non-terminal name="ReverseStep"                                    abstract="unconditional"/>
+         <!--<non-terminal name="ForwardStep"                                    abstract="unconditional"/>-->
+         <!--<non-terminal name="ReverseStep"                                    abstract="unconditional"/>-->
             <non-terminal name="NodeTest"                                       abstract="unconditional"/>
-            <non-terminal name="NameTest"                                       abstract="unconditional"/>
             <non-terminal name="Predicate"                                      abstract="unconditional"/>
             <non-terminal name="ArgumentList"                                   abstract="unconditional"/>
             <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/>
@@ -95,7 +108,7 @@
             <non-terminal name="ParenthesizedExpr"                              abstract="unconditional"/>
             <non-terminal name="ValueExpr"                                      abstract="unconditional"/>
             <non-terminal name="ArrayConstructor"                               abstract="unconditional"/>
-            <non-terminal name="KindTest"                                       abstract="unconditional"/>
+        <!--    <non-terminal name="KindTest"                                       abstract="unconditional"/>-->
             <non-terminal name="EQName"                                         abstract="unconditional"/>
        </non-terminals>
 		<literalMapping>
@@ -237,6 +250,21 @@
 		   <production>ArgumentList</production>
 		   <literal>(</literal>
 		   <mapping>DynamicFunctionCall</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>DecimalLiteral</production>
+		   <literal>.</literal>
+		   <mapping>DecimalSeparator</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>DoubleLiteral</production>
+		   <literal>.</literal>
+		   <mapping>DecimalSeparator</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>Wildcard</production>
+		   <literal>:</literal>
+		   <mapping>PrefixesReview</mapping>
 		</literalMapping>
 	</mapping>
 </ebnf>

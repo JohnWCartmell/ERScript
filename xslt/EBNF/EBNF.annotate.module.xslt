@@ -29,6 +29,8 @@
 
 <!--<xsl:template match="or/literal" mode="annotate_grammar">-->
 <xsl:template match="literal[parent::or
+                             or
+                             ((parent::sequence[parent::or]) and (not(exists(preceding-sibling::literal))))
                              or 
                              ancestor-or-self::ebnf/mapping/literalMapping[production=current()/ancestor-or-self::prod/lhs/. and literal=current()/.]
                              ]" 

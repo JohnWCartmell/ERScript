@@ -88,7 +88,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:param name="input" as="xs:string"/>
    <xsl:param name="inputPosition" as="xs:positiveInteger"/>
    <xsl:param name="whitespace" as="xs:string?"/>
-   <!--<xsl:message>Look for token <xsl:value-of select="../../lhs"/> at position <xsl:value-of select="$inputPosition"/></xsl:message>-->
+   <xsl:message>Look for token <xsl:value-of select="../../lhs"/> at position <xsl:value-of select="$inputPosition"/></xsl:message>
    <!--<xsl:message>....................................whitespace is '<xsl:value-of select="$whitespace"/>'</xsl:message>-->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
       <xsl:choose>
