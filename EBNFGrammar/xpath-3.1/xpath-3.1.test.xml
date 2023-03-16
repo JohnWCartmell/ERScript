@@ -5,6 +5,14 @@
 
     <test>
 		<rhs><nt>ExprSingle</nt></rhs>
+		<testcase text="function($a as xs:double, $b as xs:double) as xs:double { $a * $b }"/>
+		<testcase text="5 instance of xs:integer"/>
+		<testcase text="(5, 6) instance of xs:integer+"/>
+		<testcase text="'999' cast as xs:integer"/>
+		<testcase text="'xxx' castable as xs:boolean"/>
+		<testcase text="x instance of element(para)?"/>
+		<testcase text="x instance of element(*)"/>
+		<testcase text="x instance of document-node()*"/>
 		<testcase text="$x + self::y + child::z"/>
 		<testcase text="let + $B * (C + D)"/> 
 		<testcase text="$x[y]"/> 
@@ -33,7 +41,7 @@
 		<testcase text="if ($xx) then$yy else$zx ??????????"/>
 		<testcase text="if ($xx) then $yy else $zx ??????????"/>
 		<testcase text="$xx +$yy -$zz ??????????"/>
-
+         
 		<!--
 		<errorcase text="+x"/>
 		<errorcase text="-0 "/>

@@ -64,7 +64,7 @@
 
 		<prod>
 			<lhs>QName</lhs>
-		    <rhs mode="scan">
+		    <rhs >
 		    	<or>
 		    		<nt>PrefixedName</nt>
 		    		<nt>UnprefixedName</nt>
@@ -84,13 +84,13 @@
 		</prod>
 		<prod>
 			<lhs>UnprefixedName</lhs>
-			<rhs>
+			<rhs mode="scan">
 				<nt>LocalPart</nt>
 			</rhs>
 		</prod>
 
 		<prod>
-			<lhs>Prefix</lhs>
+			<lhs mode="scan">Prefix</lhs>
 			<rhs>
 				<nt>NCName</nt>
 			</rhs>
@@ -98,7 +98,7 @@
 
 		<prod>
 			<lhs>LocalPart</lhs>
-			<rhs>
+			<rhs mode="scan">
 				<nt>NCName</nt>
 			</rhs>
 		</prod>
