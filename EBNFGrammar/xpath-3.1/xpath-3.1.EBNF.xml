@@ -1,4 +1,8 @@
 <scrap id="BNF-Grammar" role="non-terminal-structure-expand" headstyle="show">
+
+	<!-- This XML is cut from xml found by following a link to https://www.w3.org/TR/2017/REC-xpath-31-20170321/xpath-31.xml
+			from https://www.w3.org/TR/xpath-31. Downloaded 20/03/2023
+	-->
 <head/>
 <prod num="1" id="prod-xpath31-XPath">
 <lhs>XPath</lhs>
