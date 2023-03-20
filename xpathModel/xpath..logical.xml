@@ -29,30 +29,171 @@
          <composition name="arg1" type="ExprSingle"/>
          <composition name="arg2" type="ExprSingle"/>
       </entity_type>
-      <entity_type name="PrimaryExpr">
-         <entity_type name="Literal"/>
-         <entity_type name="VarRef"/>
-         <entity_type name="ParenthesizedExpr">        
-            <composition  type="Expr?"/>
+
+      <entity_type name="PathExpr">
+         <entity_type name="ContextualisedRelativePathExpr">
+            <entity_type name="Root"/>
+            <entity_type name="RootReach"/>
          </entity_type>
-         <entity_type name="ContextItemExpr"/>
-         <entity_type name="FunctionCall">
-            <attribute name="EQName"/>
-            <composition name="args" type="Argument*"/>
+         <entity_type name="RelativePathExpr">
+            <entity_type name="BinaryCompose">
+               <composition  type="StepExpr"/>
+               <composition  type="StepExpr"/>
+            </entity_type>
+            <entity_type name="StepExpr">
+               <entity_type name="PostfixExpr">
+                  <entity_type name="DynamicFunctionCall">
+                     <composition name="args" type="Argument*"/>
+                  </entity_type>
+                  <entity_type name="PredicatedExpr">
+                     <composition name="predicate" type="Expr"/>
+                  </entity_type>
+                  <composition  type="PrimaryExpr"/>
+                  <entity_type name="PrimaryExpr">
+                     <entity_type name="Literal"/>
+                     <entity_type name="VarRef"/>
+                     <entity_type name="ParenthesizedExpr">        
+                        <composition  type="Expr?"/>
+                     </entity_type>
+                     <entity_type name="ContextItemExpr"/>
+                     <entity_type name="FunctionCall">
+                        <attribute name="EQName"/>
+                        <composition name="args" type="Argument*"/>
+                     </entity_type>
+                     <entity_type name="FunctionItemExpr"/>
+                     <entity_type name="MapConstructor">
+                        <composition type="MapConstructorEntry+"/>
+                     </entity_type>
+                     <entity_type name="ArrayConstructor"/>
+                     <entity_type name="UnaryLookup"/>
+                  </entity_type>
+               </entity_type>
+               <entity_type name="AxisStep">
+                  <entity_type name="PredicatedStep">
+                     <composition name="predicate" type="Expr"/>
+                     <composition type="AxisStep"/>
+                  </entity_type>
+                  <entity_type name="Step">
+                     <entity_type name="ReverseStep">
+                        <composition  type="ReverseAxis"/>
+                     </entity_type>
+                     <entity_type name="ForwardStep">
+                        <composition  type="ForwardAxis"/>
+                     </entity_type>
+                     <composition  type="NodeTest"/>
+                  </entity_type>
+               </entity_type>
+               </entity_type>
          </entity_type>
-         <entity_type name="FunctionItemExpr"/>
-         <entity_type name="MapConstructor"/>
-         <entity_type name="ArrayConstructor"/>
-         <entity_type name="UnaryLookup"/>
       </entity_type>
-      <entity_type name="ForExpr"/>
-      <entity_type name="LetExpr"/>
-      <entity_type name="QuantifiedExpr"/>
+      <entity_type name="LetOrForOrQuantifiedExprExpr">
+         <entity_type name="LetExpr">
+            <composition type="SimpleLetBinding+"/>
+         </entity_type>
+         <entity_type name="ForOrQuantifiedExpr">
+            <composition type="SimpleForBinding+"/>
+            <entity_type name="ForExpr"/>
+            <entity_type name="QuantifiedExpr">
+               <entity_type name="SomeExpr"/>
+               <entity_type name="EveryExpr"/>
+            </entity_type>
+         </entity_type>
+         <composition name="return_or_satisfies" type="ExprSingle"/>
+         <!-- Need model the above in a bit more detail. -->
+         <!-- makes me think about tunnelling -->
+      </entity_type>
       <entity_type name="IfExpr">
          <composition name="cond" type="Expr"/>
          <composition name="then" type="ExprSingle"/>
          <composition name="else" type="ExprSingle"/>
       </entity_type>
+
+   </entity_type> <!-- end of ExprSingle -->
+
+   <entity_type name="MapConstructorEntry">
+      <composition name="key" type="ExprSingle"/>
+      <composition name="value" type="ExprSingle"/>
    </entity_type>
 
+
+   <entity_type name="Binding">
+      <attribute name="Varname"/>
+      <entity_type name="SimpleForBinding">
+         <composition name="in" type="ExprSingle"/>
+      </entity_type>
+      <entity_type name="SimpleLetBinding">
+         <composition name="becomes" type="ExprSingle"/>
+      </entity_type>
+   </entity_type>
+   <entity_type name="ReverseAxis">
+      <entity_type name="parent"/>
+      <entity_type name="ancestor"/>
+      <entity_type name="preceding-sibling"/>
+      <entity_type name="preceding"/>
+      <entity_type name="ancestor-or-self"/>
+   </entity_type>
+   <entity_type name="ForwardAxis">
+      <entity_type name="child"/>
+      <entity_type name="descendant"/>
+      <entity_type name="attribute"/>
+      <entity_type name="self"/>
+      <entity_type name="descendant-or-self"/>
+      <entity_type name="following-sibling"/>
+      <entity_type name="following"/>
+      <entity_type name="namespace"/>
+   </entity_type>
+
+   <entity_type name="NodeTest">
+      <entity_type name="NameTest">
+         <entity_type name="QCName">
+            <entity_type name="QName"/>
+            <entity_type name="URIQualifiedName"/>
+         </entity_type>
+         <entity_type name="Wildcard">
+            <entity_type name="Wildcard1"/>
+            <entity_type name="Wildcard2"/>
+            <entity_type name="Wildcard3"/>
+            <entity_type name="Wildcard4"/>
+         </entity_type>
+      </entity_type>
+      <entity_type name="KindTest">
+         <entity_type name="DocumentTest">
+            <composition type="ElementTestOrSchemaElementTest?"/>
+         </entity_type>
+         <entity_type name="ElementTestOrSchemaElementTest">
+            <entity_type name="ElementTest">
+               <composition type="ElementNameOrWildcard?"/> 
+            </entity_type>
+            <entity_type name="SchemaElementTest"><!--TBD--></entity_type>
+      </entity_type>
+         <entity_type name="AttributeTest">
+            <composition type="AttribNameOrWildcard?"/>
+         </entity_type>
+         <entity_type name="SchemaAttributeTest"/>
+         <entity_type name="PITest">
+            <attribute name="NCName" type="string?"/>
+            <attribute name="StringLiteral" type="string?"> <!-- for backward ompatibility with xpath 1.0--></attribute>  
+         </entity_type>
+         <entity_type name="CommentTest"/>
+         <entity_type name="TextTest"/>
+         <entity_type name="NamespaceNodeTest"/>
+         <entity_type name="AnyKindTest"/>
+      </entity_type>
+   </entity_type>
+
+   <entity_type name="ElementNameOrWildcard">
+         <entity_type name="ElementName"/>
+         <entity_type name="Wildcard_for_ElementName_in_ElementNameOrWildcard"/>
+         <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
+         <attribute name="optional" type="void?"> <!-- there is a possible "?"  in syntax  --> </attribute>
+   </entity_type>
+
+   <entity_type name="AttribNameOrWildcard">
+         <entity_type name="AttributeName"/>
+         <entity_type name="Wildcard_for_AttributeName_in_AttribNameOrWildcard"/>
+         <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
+   </entity_type>
+
+
+   <!-- Might need to pull QCName out here and compose it from NameTest -->
 </entity_model>
