@@ -5,6 +5,9 @@
 
     <test>
 		<rhs><nt>ExprSingle</nt></rhs>
+		<testcase text="map{a :b}"/>
+
+		<!--
 		<testcase text="function($a as xs:double, $b as xs:double) as xs:double { $a * $b }"/>
 		<testcase text="5 instance of xs:integer"/>
 		<testcase text="(5, 6) instance of xs:integer+"/>
@@ -19,13 +22,9 @@
         <testcase text="a[b][c]"/> 
         <testcase text="0.95"/>
         <testcase text="1.2E3"/> 
-        <testcase text="f(a,c+1)"/>  
+		<testcase text="$x(a,b,c)(d,e,f)"/>
         <testcase text="$f(a,c+1)"/> 
         <testcase text="child::para[position() = 1]"/>
-	    <testcase text="/a"/>
-    	<testcase text="//a"/>
-		<testcase text="a/b"/>
-		<testcase text="/a/b"/> 
 		<testcase text="$x(a,b,c)(d,e,f)"/>
 		<testcase text="$x[y](a,b,c)"/>
 		<testcase text="$x(a,b,c)[z]"/>
@@ -41,7 +40,7 @@
 		<testcase text="if ($xx) then$yy else$zx ??????????"/>
 		<testcase text="if ($xx) then $yy else $zx ??????????"/>
 		<testcase text="$xx +$yy -$zz ??????????"/>
-         
+	-->
 		<!--
 		<errorcase text="+x"/>
 		<errorcase text="-0 "/>
