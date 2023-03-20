@@ -43,7 +43,7 @@
       <xsl:apply-templates select="*[2]" mode="createIntermediateCodeTree"/>
    </xsl:variable>
    <xsl:variable name="secondOperand" as="element()*">
-      <xsl:apply-templates select="*[3]" mode="createIntermediateCodeTree"/>
+      <xsl:apply-templates select="*[3]" mode="createIntermediateCodeTree"/>  
    </xsl:variable>
    <xsl:copy-of select="myfn:infixTransform($firstOperand,$operator,$secondOperand)"/>
 </xsl:template>
@@ -81,8 +81,8 @@
    <xsl:variable name="operator" as="element()*">
       <xsl:copy-of select="*[1]" />
    </xsl:variable>
-   <xsl:variable name="operand" as="element()">
-      <xsl:apply-templates select="*[2]" mode="createIntermediateCodeTree"/>
+   <xsl:variable name="operand" as="element()*">                       <!-- changed to sequence because of case of xpath quantified expressions-->
+      <xsl:apply-templates select="tail(*)" mode="createIntermediateCodeTree"/>   <!-- was *[2] -->
    </xsl:variable>
    <xsl:copy-of select="myfn:prefixTransform($operator,$operand)"/>
 </xsl:template>
@@ -215,7 +215,7 @@
 
 <xsl:function name="myfn:prefixTransform" as="element()">
    <xsl:param name="operator" as="element()"/>
-   <xsl:param name="operand" as="element()"/>
+   <xsl:param name="operand" as="element()+"/>                <!--changed to be a sequence because of case of xpath quantified expressions -->
 
    <xsl:message>prefixTransform called with operator <xsl:value-of select="$operator"/></xsl:message>
          <xsl:element name="{$operator/name()}">                   <!-- the operation -->
