@@ -34,6 +34,8 @@
 </xsl:variable>
 
 <xsl:template match="/">
+   
+   <xsl:message>  TESTING 7 <xsl:copy-of select="$annotatedGrammar/(ebnf)/mapping/non-terminals/((non-terminal)[1])"/></xsl:message>
 
    <xsl:variable name="docstate" as="document-node()" select="$annotatedGrammar"/>
 

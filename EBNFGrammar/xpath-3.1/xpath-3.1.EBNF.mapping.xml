@@ -65,10 +65,44 @@
 		      </prod>
 		  </by>
 		</replace>
+		<replace production="QuantifiedExpr">
+			<by>
+				<prod>
+			         <lhs>QuantifiedExpr</lhs>
+			         <rhs>
+			            <sequence>
+			               <or>
+			                  <literal>some</literal>
+			                  <literal>every</literal>
+			               </or>
+			               <nt>QuantifiedExprBinding</nt>
+			               <literal>satisfies</literal>
+			               <nt>ExprSingle</nt>
+			           </sequence>
+			       </rhs>
+			   </prod>
+		     	<prod>
+		     		<lhs>QuantifiedExprBinding</lhs>
+		     		<rhs>
+		     			<sequence>
+		     				<nt>SimpleForBinding</nt>
+			               <ZeroOneOrMore>
+			                  <literal>,</literal>
+			                  <nt>SimpleForBinding</nt>
+			               </ZeroOneOrMore>
+			           </sequence>
+		     		</rhs>
+		     	</prod>
+		 	</by>
+		</replace>
+		<non-terminals>
+			<non-terminal name="fred"/>
+		</non-terminals>
 
 		<non-terminals>
 			<non-terminal name="AdditiveExpr"        transform="associativeInfixTransform" abstract="when_singular"/>
 			<non-terminal name="AndExpr"             transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="Argument"                                       abstract="unconditional"/>    
             <non-terminal name="ArgumentList"         nameWhenAnonymousOperator="DynamicFunctionCall" transform="separatedListTransform"/> 
             <non-terminal name="ArrayConstructor"                               abstract="unconditional"/>    
             <non-terminal name="ArrowExpr"                                      abstract="when_singular"/>  
@@ -94,15 +128,19 @@
             <non-terminal name="NodeTest"                                       abstract="unconditional"/>
             <non-terminal name="NumericLiteral"                                 abstract="unconditional"/>
             <non-terminal name="OrExpr"              transform="associativeInfixTransform" abstract="when_singular"/> 
-            <non-terminal name="ParamList"           transform="separatedListTransform" />       
+            <non-terminal name="ParamList"           transform="separatedListTransform"                 />       
             <non-terminal name="ParenthesizedExpr"                              abstract="unconditional"/>
             <non-terminal name="PathExpr"                                     	abstract="unconditional"/>
             <non-terminal name="PostfixExpr"         transform="associativeAnonymousInfixTransform" abstract="when_singular"/>
-            <non-terminal name="Predicate"           nameWhenAnonymousOperator="ApplyPredicate" />      
+            <non-terminal name="Predicate"           nameWhenAnonymousOperator="PredicativeExpr"         />      
             <non-terminal name="PrimaryExpr"                                    abstract="unconditional"/>
+            <non-terminal name="QuantifiedExpr"      transform="prefixTransform"                        />
+            <non-terminal name="QuantifiedExprBinding" transform="separatedListTransform"               /> 
             <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
             <non-terminal name="RelativePathExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="StepExpr"                                       abstract="unconditional"/>
+            <non-terminal name="SimpleForClause"     transform="separatedListTransform"                 /> 
+            <non-terminal name="SimpleLetClause"     transform="separatedListTransform"                 /> 
             <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform"  abstract="when_singular"/>
             <non-terminal name="StringConcatExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="TreatExpr"                                      abstract="when_singular"/>
@@ -230,12 +268,12 @@
 		<literalMapping>
 		   <production>AttribNameOrWildcard</production>
 		   <literal>*</literal>
-		   <mapping>Wildcard_2</mapping>
+		   <mapping>Wildcard_for_AttributeName_in_AttribNameOrWildcard</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>ElementNameOrWildcard</production>
 		   <literal>*</literal>
-		   <mapping>Wildcard_3</mapping>
+		   <mapping>Wildcard_for_ElementName_in_ElementNameOrWildcard</mapping>
 		</literalMapping>
 		<!--
 		<literalMapping>
@@ -247,7 +285,7 @@
 		<literalMapping>
 		   <production>AxisStep</production>
 		   <literal>[</literal>
-		   <mapping>ApplyPredicateToStep</mapping>
+		   <mapping>PredicatedStep</mapping>
 		</literalMapping>
 		<!--
 		<literalMapping>
