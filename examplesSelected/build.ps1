@@ -31,7 +31,7 @@ echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs
 
 echo 'Criket Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate 
 
 echo 'grid Example'
 . $TARGET\scripts\buildExampleSVG.ps1 grids -animate -physicalType hs
@@ -43,7 +43,7 @@ echo 'Relational Meta Model Example'
 . $TARGET\scripts\buildExampleSVG.ps1 relationalMetaModel3 -animate -physicalType r 
 
 echo 'Relational Meta Model Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 relationalMetaModel3..logical.xml -animate
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 relationalMetaModel3..logical.xml -animate -debugswitch
 
 popd 
 

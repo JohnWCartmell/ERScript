@@ -462,7 +462,10 @@ CHANGE HISTORY
 
     <xsl:variable name="pointcount" select="count(path/point)"/>
     <xsl:message>Route id <xsl:value-of select="id"/> Number of points is <xsl:value-of select="$pointcount"/></xsl:message>
-
+    <!--<xsl:message>route/source in question is <xsl:copy-of select="source"/></xsl:message>  
+    <xsl:message>route/destination in question is <xsl:copy-of select="destination"/></xsl:message>  
+    <xsl:message>route/path in question is <xsl:copy-of select="path"/></xsl:message>  
+  -->
     <xsl:variable name="midpointxcm" as="xs:double">
       <xsl:choose>
         <xsl:when test="$pointcount mod 2 = 1">
@@ -472,7 +475,10 @@ CHANGE HISTORY
         <xsl:otherwise>   
           <xsl:variable name="mid_segment_startx" 
                     as="xs:double"
-                    select="path/point[$pointcount div 2]/x/abs"/>       
+                    select="path/point[$pointcount div 2]/x/abs"/>  
+                    <!--<xsl:message>midpoint x in question is <xsl:copy-of select="path/point[($pointcount div 2)+1]/x"/></xsl:message>  --> 
+
+                      
           <xsl:variable name="mid_segment_endx" 
                     as="xs:double"
                     select="path/point[($pointcount div 2)+1]/x/abs"/>    

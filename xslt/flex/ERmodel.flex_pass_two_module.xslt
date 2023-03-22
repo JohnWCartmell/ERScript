@@ -35,7 +35,7 @@
 
 			<xsl:apply-templates mode="passtwo"/>
 			<y> 
-				<passtwo/>
+				<passtwoA/>
 				<place>
 					<top/>
 				</place>
@@ -68,6 +68,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passtwo"/>
 			<x> 
+				<passtwoB/>
 				<at>
 					<left/>
 					<predecessor/>
@@ -83,13 +84,13 @@
 	</xsl:template>
 	
 	
-	<!-- next three templates - a non-outermost enclosure with a top down route to it is placed at the top of its parent enclosure. --> 
+	<!-- next three templates - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure. --> 
 	
 	<!-- if it is the first enclosure  within its parent enclosure and is preceeded by a label 
 	   it is placed beneath the predecessor label to the left of the containing enclosure-->	              
 
 	<xsl:template match="enclosure/enclosure
-						 [key('TerminatingIncomingTopdownRoute',id)]
+						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]
 						 [preceding-sibling::label]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]
@@ -97,9 +98,11 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <x> 
-		    <at><left/><parent/></at>
+         	<passthreeA/>
+		    	<at><left/><parent/></at>
 		 </x>
          <y>
+         <passthreeA/>
 		    <place><top/><edge/></place>
             <at>
                <bottom/>
@@ -109,10 +112,10 @@
 		</xsl:copy>
 	</xsl:template>
 	
-    <!-- if it is the first enclosure  within its parent enclosure and but is not preceeded by a label 
+    <!-- if it has a non local incoming top down route if it is the first enclosure  within its parent enclosure and but is not preceeded by a label 
 	          then it is placed at the top of its parent enclosure    -->
 	<xsl:template match="enclosure/enclosure
-						 [key('TerminatingIncomingTopdownRoute',id)]	
+						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]	
 						 [not(preceding-sibling::label)]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]		 
@@ -120,6 +123,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <y>
+         	<passthreeB/>
 		    <place>
 			    <top/>
 				<edge/>
@@ -132,16 +136,16 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	    <!-- if it is the not the first enclosure  within its parent enclosure  it is laid to the right of its predecessor -->	              
+	    <!-- if it has a non local incoming top down route if it is the not the first enclosure  within its parent enclosure  it is laid to the right of its predecessor -->	              
 	<xsl:template match="enclosure/enclosure
-						 [key('TerminatingIncomingTopdownRoute',id)]				 
+						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]				 
 						 [preceding-sibling::enclosure]
 						 [not(y)]
 	                    " mode="passthree">
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <y>
-         	<passthree/>
+         	<passthreeC/>
 		    <place>
 			    <top/>
 				<edge/>
@@ -155,10 +159,10 @@
 	</xsl:template>
 	
 	
-	<!-- first enclosure within a containing enclosure and preceded by a label -->
+	<!-- no incoming non local topdown route, first enclosure within a containing enclosure and preceded by a label -->
 	
 	<xsl:template match="enclosure/enclosure
-						 [not(key('TerminatingIncomingTopdownRoute',id))]
+						 [not(key('TerminatingNonLocalIncomingTopdownRoute',id))]
 						 [preceding-sibling::label]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]
@@ -166,9 +170,12 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <x> 
+         	<passthreeD/>
 		    <at><left/><parent/></at>
 		 </x>
          <y>
+         	
+         	<passthreeD/>
 		    <place><top/><edge/></place>
             <at>
                <bottom/>

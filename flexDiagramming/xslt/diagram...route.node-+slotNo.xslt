@@ -63,6 +63,7 @@
 		       <!-- sequentially numbering of the routes with destination arriving at top_edge 
 			        of an enclosure. 
 			    -->
+			    <!-- one problem is that  relationships with identical source and dest drawn on top of one another! -->
 		       <xsl:value-of select="count(
 											//destination[top_edge][id = current()/id]
 													[number(angleToOtherEnd) &lt; number(current()/angleToOtherEnd) ]

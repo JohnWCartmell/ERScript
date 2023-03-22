@@ -83,7 +83,7 @@
 		                select="../source/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
 		  <xsl:variable name="ydiff" as="xs:double" 
 		                select="../source/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
-		  <!-- in this case I want the angle to be to the negatice of the y-axid i.e. to the verical. -->
+		  <!-- in this case I want the angle to be to the negative of the y-axid i.e. to the verical. -->
 		  <!-- I want angles in the right half of the plave to be positive and angles in the left half to be negative -->
 		  <angleToOtherEnd><xsl:value-of select="diagram:angleToNegativeYaxis($xdiff,$ydiff)"/></angleToOtherEnd>
        </xsl:copy>

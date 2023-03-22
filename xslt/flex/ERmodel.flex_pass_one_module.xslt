@@ -24,6 +24,17 @@
 	<!-- enclosure => set of route  .. routes down to the enclosure --> 
 	<xsl:key name="TerminatingIncomingTopdownRoute" match="route[top_down]" use="destination/id"/>
 
+		<!-- enclosure => set of route  .. routes down to the enclosure for which the source is external to the parent enclosure--> 
+	<xsl:key name="TerminatingNonLocalIncomingTopdownRoute" match="route[top_down]
+		                                                            [let $destination := key('Enclosure',destination/id),
+		                                                                 $source := key('Enclosure',source/id)
+		                                                             return  $destination treat as element(enclosure)
+		                                                                        and $source treat  as element(enclosure)
+		                                                                        and not($source/ancestor-or-self::enclosure = $destination/parent::enclosure)
+		                                                            ] 
+		                                                            "
+		                                                            use="destination/id"/>
+
 	<!-- enclosure => set of enclosure ... enclosures from which or from within which there is a route down to or into this outermost enclosure -->
 	<xsl:key name="OutermostEnclosuresFromWhichIncomingTopDownRoute"
 		      match="enclosure"

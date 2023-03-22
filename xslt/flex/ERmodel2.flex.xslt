@@ -153,11 +153,11 @@ CHANGE HISTORY
 	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
-			<shape_style>codedfor_entity_type_outline</shape_style>
+			<shape_style>entity_type_outline</shape_style>
 			<rx>0.25</rx>  <!-- cheap and cheerful -->
 			<ry>0.25</ry>
 			<label/>
-			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template>
@@ -169,7 +169,7 @@ CHANGE HISTORY
 			<rx>0.25</rx>  <!-- cheap and cheerful -->
 			<ry>0.25</ry>
 			<label/>
-			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template>
@@ -193,8 +193,18 @@ CHANGE HISTORY
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template>
-	
 
+  <xsl:template match="attribute" mode="passzero">
+			<label>
+        	<text><xsl:text>-</xsl:text>
+        	      <xsl:value-of select="@name"/>
+        	      <xsl:if test="substring(@type,string-length(@type))='?'">   <!--optional attribute -->
+        	      	<xsl:text>?</xsl:text>
+        	      </xsl:if>
+        	</text>
+      </label>
+  </xsl:template>
+	
 	<xsl:template match="composition" mode="passzero">
 		<xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
 		<route>
@@ -298,7 +308,6 @@ CHANGE HISTORY
          <deltay>0.5</deltay>
          <annotate_low/>
       </left_side>
-
 
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="@inverse"/></annotation>
