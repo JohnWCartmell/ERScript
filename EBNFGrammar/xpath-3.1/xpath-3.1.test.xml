@@ -5,15 +5,27 @@
 
     <test>
 		<rhs><nt>ExprSingle</nt></rhs>
-		<testcase text="map{a :b}"/>
 
-		<!--
-		<testcase text="function($a as xs:double, $b as xs:double) as xs:double { $a * $b }"/>
-		<testcase text="5 instance of xs:integer"/>
-		<testcase text="(5, 6) instance of xs:integer+"/>
+		<testcase text="x instance of element(para)?"/>
+		<testcase text=" 'xxx' treat as xs:boolean"/>
 		<testcase text="'999' cast as xs:integer"/>
 		<testcase text="'xxx' castable as xs:boolean"/>
-		<testcase text="x instance of element(para)?"/>
+
+		<!--
+		<testcase text="$string => upper-case() => normalize-unicode() => tokenize('\s+')"/>
+        <testcase text="$values!(.*.)"/>
+         <testcase text="a ! b ! c"/>
+		<testcase text="map {
+			'ArrayConstructor' : [1,2,3] ,
+			'DecimalLiteral' : 1.13 ,
+			'InlineFunction' : function($a as xs:double, $b as xs:double) as xs:double { $a * $b },
+			'IntegerLiteral' : 2,
+			'StringLiteral'  : 'this is a string'
+		 					}"/>
+
+		<testcase text="5 instance of xs:integer"/>
+		<testcase text="(5, 6) instance of xs:integer+"/>
+
 		<testcase text="x instance of element(*)"/>
 		<testcase text="x instance of document-node()*"/>
 		<testcase text="$x + self::y + child::z"/>

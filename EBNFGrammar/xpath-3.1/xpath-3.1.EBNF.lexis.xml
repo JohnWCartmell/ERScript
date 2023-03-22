@@ -74,12 +74,19 @@
 
 		<prod>
 			<lhs>PrefixedName</lhs>
-			<rhs>
-				<sequence>
+			<rhs whitespace="explicit">
+				<sequence> 
+					<nt>Whitespace</nt>
 					<nt>Prefix</nt>
 					<literal>:</literal>
 					<nt>LocalPart</nt>
 				</sequence>
+			</rhs>
+		</prod>
+		<prod>
+			<lhs>Whitespace</lhs>
+			<rhs>
+				<literal/>   <!-- the idea is just to consume whitespace --> 
 			</rhs>
 		</prod>
 		<prod>

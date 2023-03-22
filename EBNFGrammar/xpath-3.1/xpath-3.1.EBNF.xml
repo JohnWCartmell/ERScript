@@ -299,7 +299,7 @@
 </prod>
 <prod num="32" id="prod-xpath31-GeneralComp">
 <lhs>GeneralComp</lhs>
-<rhs>"=" | "!=" | "<" | "<=" | ">" | ">="</rhs>
+<rhs>"=" | "!=" | "&lt;" | "&lt;=" | ">" | ">="</rhs>
 </prod>
 <prod num="33" id="prod-xpath31-ValueComp">
 <lhs>ValueComp</lhs>
@@ -307,7 +307,7 @@
 </prod>
 <prod num="34" id="prod-xpath31-NodeComp">
 <lhs>NodeComp</lhs>
-<rhs>"is" | "<<" | ">>"</rhs>
+<rhs>"is" | "&lt;&lt;" | ">>"</rhs>
 </prod>
 <prod num="35" id="prod-xpath31-SimpleMapExpr">
 <lhs>SimpleMapExpr</lhs>
