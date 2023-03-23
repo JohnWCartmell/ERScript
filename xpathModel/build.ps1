@@ -21,7 +21,7 @@ attrib +R $TARGETXML\*.xml
 
 pushd $TARGETXML
 
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
 
 popd 
 

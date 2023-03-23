@@ -50,7 +50,19 @@
 		                select="../destination/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
 		  <xsl:variable name="ydiff" as="xs:double" 
 		                select="../destination/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
-		  <angleToOtherEnd><xsl:value-of select="diagram:angleToYaxis($xdiff,$ydiff)"/></angleToOtherEnd>
+
+		  <!-- I am going to add a small amount to the angle so that routes that would otherwsie have identical angles no longer do -->
+        <!-- if i don't do this (or have a morerefined algorithm) then routes with identical source and destination overlap -->
+        <xsl:variable name="jiggleno" 
+        	             as="xs:integer"
+        	             select="parent::route/count(preceding-sibling::route)" /> 
+		  <xsl:variable name="jiggleFactor" 
+		  	             select="$jiggleno * 0.0001" 
+		  	             as="xs:float"/>
+		  <angleToOtherEnd>
+		  		<xsl:value-of select="diagram:angleToYaxis($xdiff,$ydiff) 
+		  			                  + $jiggleFactor"/>  <!-- jiggle factor added -->
+		  </angleToOtherEnd>
        </xsl:copy>
   </xsl:template>
   
@@ -85,7 +97,19 @@
 		                select="../source/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
 		  <!-- in this case I want the angle to be to the negative of the y-axid i.e. to the verical. -->
 		  <!-- I want angles in the right half of the plave to be positive and angles in the left half to be negative -->
-		  <angleToOtherEnd><xsl:value-of select="diagram:angleToNegativeYaxis($xdiff,$ydiff)"/></angleToOtherEnd>
+
+        <!-- I am going to add a small amount to the angle so that routes that would otherwsie have identical angles no longer do -->
+        <!-- if i don't do this (or have a morerefined algorithm) then routes with identical source and destination overlap -->
+        <xsl:variable name="jiggleno" 
+        	             as="xs:integer"
+        	             select="parent::route/count(preceding-sibling::route)" /> 
+		  <xsl:variable name="jiggleFactor" 
+		  	             select="$jiggleno * 0.0001" 
+		  	             as="xs:float"/>
+		  <angleToOtherEnd>
+		  	        <xsl:value-of select="diagram:angleToNegativeYaxis($xdiff,$ydiff)
+		  	        	                              + $jiggleFactor"/>    <!-- jiggle factor added -->
+		  </angleToOtherEnd>
        </xsl:copy>
   </xsl:template>
   

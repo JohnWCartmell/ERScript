@@ -20,6 +20,7 @@
 <!-- ************************ -->
 
    <xsl:template match="source
+   	                  [bottom_edge]
                         [not(slotNo)]
 						[angleToOtherEnd]
 						[every $s in //source[bottom_edge][id = current()/id]
@@ -48,6 +49,7 @@
 <!-- ************************ -->
 
    <xsl:template match="destination
+   							[top_edge]
                         [not(slotNo)]
 						[angleToOtherEnd]
 						[every $s in //destination[top_edge][id = current()/id]
@@ -64,6 +66,8 @@
 			        of an enclosure. 
 			    -->
 			    <!-- one problem is that  relationships with identical source and dest drawn on top of one another! -->
+			    <!-- try fix this problem by adding a jiggle factor into the calculation angleToOtherEnd -->
+			    <!-- see diagram...route.node-+angleToOtherEnd.xslt -->
 		       <xsl:value-of select="count(
 											//destination[top_edge][id = current()/id]
 													[number(angleToOtherEnd) &lt; number(current()/angleToOtherEnd) ]
