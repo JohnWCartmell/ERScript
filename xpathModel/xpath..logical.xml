@@ -92,6 +92,10 @@
                   </entity_type>
                   <composition  type="PrimaryExpr"/>
                   <entity_type name="PrimaryExpr">
+                     <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                        <x><at><right/><of>DynamicFunctionCall</of></at></x>
+                        <y><at><top/><of>DynamicFunctionCall</of></at></y>
+                     </diagram:enclosure>
                      <entity_type name="Literal"/>
                      <entity_type name="VarRef"/>
                      <entity_type name="ParenthesizedExpr">        
@@ -110,7 +114,11 @@
                      <entity_type name="UnaryLookup"/>
                   </entity_type>
                </entity_type>
-               <entity_type name="AxisStep">
+               <entity_type name="AxisStep">  
+                     <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                        <x><at><right/><of>PrimaryExpr</of></at></x>
+                        <y><at><top/><of>PrimaryExpr</of></at></y>
+                     </diagram:enclosure>
                   <entity_type name="PredicatedStep">
                      <composition name="predicate" type="Expr"/>
                      <composition type="AxisStep"/>
@@ -155,6 +163,7 @@
          <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                <x><at><right/><of>LetOrForOrQuantifiedExpr</of></at><delta>1</delta></x>
                <y><at><top/><of>LetOrForOrQuantifiedExpr</of></at></y>
+               <w>3.5</w>
          </diagram:enclosure>
          <composition name="cond" type="Expr"/>
          <composition name="then" type="ExprSingle"/>
