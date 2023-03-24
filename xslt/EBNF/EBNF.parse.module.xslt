@@ -47,6 +47,7 @@
    <xsl:element name="non-terminal">
       <xsl:attribute name="name"
                      select="."/>
+      <xsl:copy-of select="$production/rhs/@mapTo"/>
       <xsl:attribute name="startPosition"
                      select="$result/@startPosition"/>
       <xsl:attribute name="leadingWhitespaceLength"
@@ -187,6 +188,7 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:choose>
       <xsl:when test="(@mode='scan') and not($parseResult[self::notFound])">
          <xsl:element name="scan">
+            <xsl:attribute name="productionName" select="../lhs"/>  <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
             <xsl:attribute name="startPosition"
                            select="$parseResult/@startPosition"/>
             <xsl:attribute name="leadingWhitespaceLength"
@@ -493,7 +495,11 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:value-of select="."/>
 </xsl:template>
 
-<xsl:template match="non-terminal|sequence|ZeroOneOrMore|OneOfZeroOneOrMore" mode="flatten">
+<xsl:template match="literal" mode="flatten">
+   <xsl:value-of select="@text"/>
+</xsl:template>
+
+<xsl:template match="non-terminal|sequence|ZeroOrOne|ZeroOneOrMore|OneOfZeroOneOrMore" mode="flatten">
    <xsl:apply-templates select="*" mode="flatten"/>
 </xsl:template>
 </xsl:transform>

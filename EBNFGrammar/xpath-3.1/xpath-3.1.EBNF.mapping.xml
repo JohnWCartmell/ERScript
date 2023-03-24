@@ -212,7 +212,7 @@
             <non-terminal name="Argument"                                       abstract="unconditional"/>    
             <non-terminal name="ArgumentList"         nameWhenAnonymousOperator="DynamicFunctionCall" transform="separatedListTransform"/> 
             <non-terminal name="ArrayConstructor"                               abstract="unconditional"/>    
-            <non-terminal name="ArrowExpr"            transform="separatedListTransform"  abstract="when_singular"/>  
+            <non-terminal name="ArrowExpr"            transform="separatedListTransform_and_abstract_when_singular"/>  
             <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/>
             <non-terminal name="AxisStep"            transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="CastExpr"                                       abstract="when_singular"/>
@@ -221,8 +221,11 @@
 			<non-terminal name="ComparisonExpr"      transform="infixTransform"            abstract="when_singular"/>
             <non-terminal name="EQName"                                         abstract="unconditional"/>
             <non-terminal name="ElementNameOrWildcard"                                         abstract="unconditional"/>
+            <non-terminal name="EnclosedExpr"                                   abstract="unconditional"/>
             <non-terminal name="Expr"                transform="separatedListTransform" />
             <non-terminal name="ExprSingle"                                     abstract="unconditional"/>
+            <non-terminal name="ForwardAxis"                                    abstract="unconditional"/>
+            <non-terminal name="ForwardStep"         transform="prefixTransform"                        />
             <non-terminal name="FunctionItemExpr"                               abstract="unconditional"/>
             <non-terminal name="GeneralComp"                                    abstract="unconditional"/> 
             <non-terminal name="InstanceofExpr"                                 abstract="when_singular"/>
@@ -232,6 +235,7 @@
             <non-terminal name="Literal"                                        abstract="unconditional"/>
             <non-terminal name="MapConstructor"                transform="separatedListTransform" />
             <non-terminal name="MultiplicativeExpr"  transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="NameTest"                                       abstract="unconditional"/>  
             <non-terminal name="NodeComp"                                       abstract="unconditional"/>  
             <non-terminal name="NodeTest"                                       abstract="unconditional"/>
             <non-terminal name="NumericLiteral"                                 abstract="unconditional"/>
@@ -241,7 +245,8 @@
             <non-terminal name="PathExpr"                                     	abstract="unconditional"/>
             <non-terminal name="PostfixExpr"         transform="associativeAnonymousInfixTransform" abstract="when_singular"/>
             <non-terminal name="Predicate"           nameWhenAnonymousOperator="PredicativeExpr"         />      
-            <non-terminal name="PrimaryExpr"                                    abstract="unconditional"/>
+            <non-terminal name="PrimaryExpr"                                    abstract="unconditional"/>   
+            <non-terminal name="QName"               transform="makeLeafNodeTransform"                  />
             <non-terminal name="QuantifiedExpr"      transform="prefixTransform"                        />
             <non-terminal name="QuantifiedExprBinding" transform="separatedListTransform"               /> 
             <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
@@ -249,10 +254,12 @@
             <non-terminal name="StepExpr"                                       abstract="unconditional"/>
             <non-terminal name="SimpleForClause"     transform="separatedListTransform"                 /> 
             <non-terminal name="SimpleLetClause"     transform="separatedListTransform"                 /> 
-            <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform"  abstract="when_singular"/>
+            <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="StringConcatExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="TreatExpr"                                      abstract="when_singular"/>
-            <non-terminal name="UnaryExpr"           transform="multiPrefixTransform"  abstract="when_singular"/>
+            <non-terminal name="StringLiteral"                                  abstract="unconditional"/>
+            <non-terminal name="SquareArrayConstructor" transform="separatedListTransform"                         /> 
+            <non-terminal name="TreatExpr"                                      abstract="when_singular"           />
+            <non-terminal name="UnaryExpr"           transform="multiPrefixTransform"  abstract="when_singular"    />
             <non-terminal name="UnionExpr"           transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="VarName"                                        abstract="unconditional"/>
             <non-terminal name="ValueComp"                                      abstract="unconditional"/>
@@ -261,22 +268,22 @@
 		<literalMapping>
 		   <production>AdditiveExpr</production>
 		   <literal>+</literal>
-		   <mapping>BinaryAdd</mapping>
+		   <mapping>Add</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>AdditiveExpr</production>
 		   <literal>-</literal>
-		   <mapping>BinarySubtract</mapping>
+		   <mapping>Subtract</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>MultiplicativeExpr</production>
 		   <literal>*</literal>
-		   <mapping>BinaryMultiply</mapping>
+		   <mapping>Multiply</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>UnionExpr</production>
 		   <literal>|</literal>
-		   <mapping>BinaryUnion</mapping>
+		   <mapping>Union</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>UnaryExpr</production>
@@ -321,12 +328,12 @@
 		<literalMapping>
 		   <production>NodeComp</production>
 		   <literal>&lt;&lt;</literal>
-		   <mapping>BinaryPrecedes</mapping>
+		   <mapping>Precedes</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>NodeComp</production>
 		   <literal>&gt;&gt;</literal>
-		   <mapping>BinaryIsPrecededBy</mapping>
+		   <mapping>IsPrecededBy</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>SimpleMapExpr</production>
@@ -336,12 +343,12 @@
 		<literalMapping>
 		   <production>RelativePathExpr</production>
 		   <literal>/</literal>
-		   <mapping>BinaryCompose</mapping>
+		   <mapping>Compose</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>RelativePathExpr</production>
 		   <literal>//</literal>
-		   <mapping>BinaryReachAndCompose</mapping>
+		   <mapping>ReachAndCompose</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>ContextualisedRelativePathExpr</production>
@@ -383,27 +390,13 @@
 		   <literal>*</literal>
 		   <mapping>Wildcard_for_ElementName_in_ElementNameOrWildcard</mapping>
 		</literalMapping>
-		<!--
-		<literalMapping>
-		   <production>Predicate</production>
-		   <literal>[</literal>
-		   <mapping>ApplyPredicate</mapping>
-		</literalMapping>
-	-->
 		<literalMapping>
 		   <production>AxisStep</production>
 		   <literal>[</literal>
 		   <mapping>PredicatedStep</mapping>
 		</literalMapping>
-		<!--
 		<literalMapping>
-		   <production>ArgumentList</production>
-		   <literal>(</literal>
-		   <mapping>DynamicFunctionCall</mapping>
-		</literalMapping>
-	-->
-		<literalMapping>
-		   <production>DecimalLiteral</production>
+		   <production>DecimalDigits</production>
 		   <literal>.</literal>
 		   <mapping>DecimalSeparator</mapping>
 		</literalMapping>
@@ -413,9 +406,29 @@
 		   <mapping>DecimalSeparator</mapping>
 		</literalMapping>
 		<literalMapping>
+		   <production>Mantissa</production>
+		   <literal>.</literal>
+		   <mapping>DecimalSeparator</mapping>
+		</literalMapping>
+		<literalMapping>
 		   <production>Wildcard</production>
 		   <literal>:</literal>
 		   <mapping>PrefixesReview</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>Wildcard</production>
+		   <literal>:*</literal>
+		   <mapping>Star2</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>Wildcard</production>
+		   <literal>*:</literal>
+		   <mapping>Star1</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>KeySpecifier</production>
+		   <literal>*</literal>
+		   <mapping>Star</mapping>
 		</literalMapping>
 	</mapping>
 </ebnf>

@@ -24,14 +24,28 @@
    </xsl:copy>
 </xsl:template>
 
+
+<xsl:template match="non-terminal[@mapTo='attribute']" mode="createProductionInstanceTree">
+   <xsl:message> mapppinf to attribute</xsl:message>
+   <xsl:attribute name="{@name}">
+      <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+   </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="non-terminal" mode="createProductionInstanceTree">
    <xsl:element name="{@name}">
       <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
    </xsl:element>
 </xsl:template>
 
+<xsl:template match="non-terminal[@name='Whitespace']" mode="createProductionInstanceTree">
+      <!-- deliberately left blank -->
+</xsl:template>
+
+<!-- could create element or attr here OR later in creation of intermedioate code --> 
+
 <xsl:template match="scan" mode="createProductionInstanceTree"> 
-   <xsl:value-of select="."/>
+      <xsl:value-of select="."/>
 </xsl:template>
 
 <xsl:template match="literal[not(@signifier = 'true')]" mode="createProductionInstanceTree">

@@ -91,27 +91,28 @@
 		</prod>
 		<prod>
 			<lhs>UnprefixedName</lhs>
-			<rhs mode="scan">
+			<rhs>
 				<nt>LocalPart</nt>
 			</rhs>
 		</prod>
 
 		<prod>
-			<lhs mode="scan">Prefix</lhs>
-			<rhs>
+			<lhs>Prefix</lhs>
+			<rhs mode="scan" mapTo="attribute">
+			<!--<rhs mode="scan">-->
 				<nt>NCName</nt>
 			</rhs>
 		</prod>
 
 		<prod>
 			<lhs>LocalPart</lhs>
-			<rhs mode="scan">
+			<rhs>
 				<nt>NCName</nt>
 			</rhs>
 		</prod>
 		<prod>
-			<lhs>NCName</lhs> <!-- This is same as Name but I think perhaps Name should include ":" also which NCName should not -->
-			<rhs mode="scan">
+			<lhs>NCName</lhs> <!-- This is currently same as Name but I think perhaps Name should include ":" also which NCName should not -->
+			<rhs mode="scan" mapTo="attribute">
 		    	<sequence>
 		       	  	<nt>NameStartChar</nt> 
 			       	<ZeroOneOrMore>
@@ -142,28 +143,16 @@
 
 		<prod>
 			<lhs>DoubleQuotedStringContent</lhs>
-			<rhs mode="scan">   
+			<rhs mode="scan" mapTo="attribute">   
 					<ZeroOneOrMore>
-						<!--
-						<or>
-							<nt>EscapeQuot</nt>
-						-->
 						  	<nt>DoubleQuotedStringCharacter</nt>
-						<!--</or >-->
 					</ZeroOneOrMore>
 			</rhs>
 		</prod>
-<!--
-		<prod>
-			<lhs>EscapeQuot</lhs>
-			<rhs whitespace="explicit">
-				<literal>""</literal>
-			</rhs>
-		</prod>
--->
+
 		<prod>
 		    <lhs>DoubleQuotedStringCharacter</lhs> <!-- might want to move this inside enclosing quotes --> <!-- for this I will need to factor out content-->
-		    <rhs mode="scan" whitespace="explicit">
+		    <rhs mode="scan" whitespace="explicit" >
 		    	<token regexp='^[^"]|^""'/>
 		    </rhs>
 		</prod>
@@ -179,14 +168,9 @@
 		</prod>
 		<prod>
 			<lhs>SingleQuotedStringContent</lhs>
-			<rhs mode="scan" >
+			<rhs mode="scan" mapTo="attribute">
 					<ZeroOneOrMore>
-						<!--
-						<or>
-							<nt>EscapeApos</nt>
-						-->
 							<nt>SingleQuotedStringCharacter</nt>
-					<!--	</or> -->
 					</ZeroOneOrMore>
 			</rhs>
 		</prod>
@@ -207,14 +191,14 @@
 
 		<prod>
 			<lhs>IntegerLiteral</lhs>
-			<rhs mode="scan">
+			<rhs>
 				<nt>Digits</nt>
 			</rhs>
 		</prod>
 
 		<prod>
 		    <lhs>Digits</lhs>
-		    <rhs>
+		    <rhs mode="scan" mapTo="attribute">
 		    	<token regexp="^[0-9]+"/>
 		    </rhs>
 		</prod>
@@ -222,6 +206,13 @@
 		<prod>
 			<lhs>DecimalLiteral</lhs>
 			<rhs>
+				<nt>DecimalDigits</nt>
+			</rhs>
+		</prod>
+
+		<prod>
+			<lhs>DecimalDigits</lhs>
+			<rhs mode="scan" mapTo="attribute">
 				<or>
 					<sequence>
 						<literal>.</literal>
@@ -235,18 +226,21 @@
 				</or>
 			</rhs>
 		</prod>
-		<!-- was
-		<prod>
-		    <lhs>OptionalDigits</lhs>
-		    <rhs>
-		    	<token regexp="^[0-9]*"/>
-		    </rhs>
-		</prod>
-	-->
+
 		<prod>
 			<lhs>DoubleLiteral</lhs>
 			<rhs>
 				<sequence>
+					<nt>Mantissa</nt>
+					<nt>ExponentSymbol</nt>
+					<nt>Exponent</nt>
+				</sequence>
+			</rhs>
+		</prod>
+
+		<prod>
+			<lhs>Mantissa</lhs>
+			<rhs mode="scan" mapTo="attribute">
 					<or>
 						<sequence>
 							<literal>.</literal>
@@ -262,23 +256,21 @@
 							</ZeroOrOne>
 						</sequence>
 					</or>
-					<nt>Exponent</nt>
-				</sequence>
 			</rhs>
 		</prod>
+
 		<prod>
 			<lhs>Exponent</lhs>
-			<rhs>
+			<rhs mode="scan" mapTo="attribute">
 				<sequence>
-					<nt>ExponentSymbol</nt>
-					<ZeroOrOne><nt>Sign</nt></ZeroOrOne>							<!-- was <nt>OptionalSign</nt> -->
+					<ZeroOrOne><nt>Sign</nt></ZeroOrOne>
 					<nt>Digits</nt>
 				</sequence>
 			</rhs>
 		</prod>
 		<prod>
 		    <lhs>ExponentSymbol</lhs>
-		    <rhs>
+		    <rhs mode="scan" mapTo="attribute">
 		    	<token regexp="^[eE]"/>
 		    </rhs>
 		</prod>

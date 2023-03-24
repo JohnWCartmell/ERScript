@@ -33,6 +33,24 @@
    </xsl:copy>
 </xsl:template>
 
+<!-- separatedListTransform_and_abstract_when_singular -->
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod
+                                    [lhs eq current()/name()][rhs/@transform='separatedListTransform_and_abstract_when_singular'])]
+                                    [exists(ZeroOneOrMore/child::*)]" 
+             mode="createIntermediateCodeTree">
+   <xsl:copy>
+      <xsl:apply-templates select="*[not(self::ZeroOneOrMore)][not(preceding-sibling::ZeroOneOrMore)]" mode="createIntermediateCodeTree"/>
+      <xsl:apply-templates select="ZeroOneOrMore/OneOfZeroOneOrMore/*" mode="createIntermediateCodeTree"/>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod
+                                    [lhs eq current()/name()][rhs/@transform='separatedListTransform_and_abstract_when_singular'])]
+                                    [not(exists(ZeroOneOrMore/child::*))]" 
+             mode="createIntermediateCodeTree"> 
+      <xsl:apply-templates select="*[not(self::ZeroOneOrMore)]" mode="createIntermediateCodeTree"/>
+</xsl:template>
+
 <!-- infixTransform -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='infixTransform'])][count(*) = 3]" 
              mode="createIntermediateCodeTree">
@@ -79,9 +97,10 @@
                mode="createIntermediateCodeTree">
    <!--<xsl:message>made it into prefixTransform!!!!!!!!!!</xsl:message>-->
    <xsl:variable name="operator" as="element()*">
-      <xsl:copy-of select="*[1]" />
+      <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/> <!-- was *[1] but I might need abstract to prune this tree-->
    </xsl:variable>
    <xsl:variable name="operand" as="element()*">                       <!-- changed to sequence because of case of xpath quantified expressions-->
+      <xsl:copy-of select="$operator/*"/>                                <!-- bit weird but required for AbreviatedForwardStep -->
       <xsl:apply-templates select="tail(*)" mode="createIntermediateCodeTree"/>   <!-- was *[2] -->
    </xsl:variable>
    <xsl:copy-of select="myfn:prefixTransform($operator,$operand)"/>
@@ -98,6 +117,18 @@
       <xsl:apply-templates select="*[2]" mode="createIntermediateCodeTree"/>
    </xsl:variable>
    <xsl:copy-of select="myfn:multiPrefixTransform($operatorSequence,$operand)"/>
+</xsl:template>
+
+<!-- makeLeafNodeTransform -->
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='makeLeafNodeTransform'])]" 
+               mode="createIntermediateCodeTree">
+   <!--<xsl:message>made it into makeLeafNodeTransform!!!!!!!!!!</xsl:message>-->
+   <xsl:variable name="content" as="element()*">
+      <xsl:apply-templates select="*" mode="createIntermediateCodeTree"/>
+   </xsl:variable>
+   <xsl:copy>
+      <xsl:copy-of select="$content//@*"/>
+   </xsl:copy>
 </xsl:template>
 
 
@@ -123,7 +154,6 @@
    <xsl:param name="firstOperand" as="element()"/>
    <xsl:param name="operator" as="element()"/>
    <xsl:param name="secondOperand" as="element()"/>
-
    <!--<xsl:message>infixTransform called with operator <xsl:copy-of select="$operator"/></xsl:message>-->
    <xsl:element name="{$operator/name()}">  
       <xsl:copy-of select="$firstOperand"/>   
