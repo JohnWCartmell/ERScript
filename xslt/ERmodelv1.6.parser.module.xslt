@@ -278,10 +278,13 @@
       </xsl:if>
       <xsl:if test="@type">
          <xsl:element name="type">
-            <xsl:value-of select="if (substring(type,string-length(@type))='?')
-                                  then substring(type,1,string-length(@type)-1)
-                                  else @type
-                                  "/>
+            <!-- 23-MAR-2023 modified to plant element (not text node)  -->
+            <xsl:variable name="typename"
+                          as="xs:string"
+                          select="if (substring(@type,string-length(@type))='?')
+                                  then substring(@type,1,string-length(@type)-1)
+                                  else @type"/>
+            <xsl:element name="{$typename}"/>
          </xsl:element>
       </xsl:if>
             <xsl:if test="parent::identifying">    <!-- TBD probably need a bit more than this -->

@@ -13,6 +13,7 @@ If(!(test-path -PathType container $TARGETXML))
       New-Item -ItemType Directory -Path $TARGETXML
 }
 
+
 # COPY xml files
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
@@ -20,6 +21,8 @@ attrib +R $TARGETXML\*.xml
 #attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
+
+. $TARGET\scripts\er2.rng.ps1 xpath  -outputFolder ..\bin
 
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
 

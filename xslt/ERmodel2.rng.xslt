@@ -1,24 +1,6 @@
 <!-- 
 ****************************************************************
-ERmodel_v1.2/src/ERmodel2.rng.xslt 
-****************************************************************
-
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ERmodel2.rng.xslt 
 ****************************************************************
 -->
 
@@ -28,15 +10,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <!--  MAINTENANCE BOX
 
-CR-17916 JC 29-Jul-16 Modify not to generate an element for each reference relationship. 
-CR-19099 JC 06-Jan-17 Add support for include directive - generate a description of include into the grammar.
-CR-20100 JC 17-May-17 Support backward compatibility with ER models that 
-                      predate logical2Physical including reference_compound_rules, 
-                      task_configuration,jobsheets,MerckExperimentalXML.
-                      Use 'name' attribute as a fallback from 'identifier'
-                      or 'elementName'
+23-Mar-2023 Upgrade to support v1.6 modelling langauge.
 
 -->
+
+<xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="ERmodelv1.6.parser.module.xslt"/>
 
 <xsl:key name="Enumeration" match="enumeration_type" use="name"/>
 <xsl:key name="EntityTypes" 
@@ -59,6 +38,24 @@ CR-20100 JC 17-May-17 Support backward compatibility with ER models that
      </xsl:otherwise>
   </xsl:choose>
 </xsl:variable>
+
+<xsl:template match="/">
+   <xsl:variable name="state" as="document-node()">
+       <xsl:choose>
+         <xsl:when test="entity_model/@ERScriptVersion='1.6'">
+            <xsl:copy>
+               <xsl:apply-templates select="." mode="parse__conditional"/>
+            </xsl:copy>
+         </xsl:when>
+         <xsl:otherwise>
+               <xsl:copy-of select="."/> 
+          </xsl:otherwise>
+       </xsl:choose>
+   </xsl:variable>
+   <!-- debug <xsl:copy-of select="$state"/> -->
+   <xsl:apply-templates select="$state/entity_model"/>
+ </xsl:template>
+
 
 <xsl:template match="/entity_model">
   <grammar>

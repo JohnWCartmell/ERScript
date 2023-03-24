@@ -4,7 +4,10 @@
               ERScriptVersion="1.6">
    <description>xpath 3.1
    </description>
+   <xml><attributeDefault>Attribute</attributeDefault></xml>
+
    <absolute>
+      <name>xpath-31</name>
       <composition type="Expr"/>
    </absolute>
    <entity_type name="Argument">
@@ -91,28 +94,55 @@
                      <composition name="predicate" type="Expr"/>
                   </entity_type>
                   <composition  type="PrimaryExpr"/>
-                  <entity_type name="PrimaryExpr">
-                     <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                        <x><at><right/><of>DynamicFunctionCall</of></at></x>
-                        <y><at><top/><of>DynamicFunctionCall</of></at></y>
-                     </diagram:enclosure>
-                     <entity_type name="Literal"/>
-                     <entity_type name="VarRef"/>
-                     <entity_type name="ParenthesizedExpr">        
-                        <composition  type="Expr?"/>
-                     </entity_type>
-                     <entity_type name="ContextItemExpr"/>
-                     <entity_type name="FunctionCall">
-                        <composition type="EQName"/>
-                        <composition name="args" type="Argument*"/>
-                     </entity_type>
-                     <entity_type name="FunctionItemExpr"/>
-                     <entity_type name="MapConstructor">
-                        <composition type="MapConstructorEntry+"/>
-                     </entity_type>
-                     <entity_type name="ArrayConstructor"/>
-                     <entity_type name="UnaryLookup"/>
+               </entity_type>
+               <entity_type name="PrimaryExpr">
+                  <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                     <x><at><right/><of>DynamicFunctionCall</of></at></x>
+                     <y><at><top/><of>DynamicFunctionCall</of></at></y>
+                  </diagram:enclosure>
+                  <entity_type name="Literal">
+                       <entity_type name="IntegerLiteral">
+                              <attribute name="Digits" type="string"/>
+                        </entity_type>
+                       <entity_type name="DecimalLiteral">
+                              <attribute name="DecimalDigits" type="string"/>
+                        </entity_type>
+                       <entity_type name="DoubleLiteral">
+                              <attribute name="Mantissa" type="string"/>
+                              <attribute name="ExponentSymbol" type="string"/>
+                              <attribute name="Exponent" type="string"/>
+                        </entity_type>
+                        <entity_type name="StringLiteral">
+                           <entity_type name="DoubleQuotedString">
+                              <attribute name="DoubleQuotedStringContent" type="string"/>
+                           </entity_type>
+                           <entity_type name="SingleQuotedString">
+                              <attribute name="SingleQuotedStringContent" type="string"/>
+                           </entity_type>
+                        </entity_type>
                   </entity_type>
+                  <entity_type name="VarRef">
+                     <composition type="EQName"/>
+                  </entity_type>
+                  <entity_type name="ParenthesizedExpr">        
+                     <composition  type="Expr?"/>
+                  </entity_type>
+                  <entity_type name="ContextItemExpr"/>
+                  <entity_type name="FunctionCall">
+                     <composition type="EQName"/>
+                     <composition name="args" type="Argument*"/>
+                  </entity_type>
+                  <entity_type name="FunctionItemExpr"/>
+                  <entity_type name="MapConstructor">
+                     <composition type="MapConstructorEntry+"/>
+                  </entity_type>
+                  <entity_type name="CurlyArrayConstructor">
+                     <composition type="Expr?"/>
+                  </entity_type>
+                  <entity_type name="SquareArrayConstructor">
+                     <composition type="ExprSingle*"/>
+                  </entity_type>
+                  <entity_type name="UnaryLookup"/>
                </entity_type>
                <entity_type name="AxisStep">  
                      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
@@ -125,10 +155,24 @@
                   </entity_type>
                   <entity_type name="Step">
                      <entity_type name="ReverseStep">
-                        <composition  type="ReverseAxis"/>
+                        <!--<composition  type="ReverseAxis"/>-->
+                        <entity_type name="Parent"/>
+                        <entity_type name="Ancestor"/>
+                        <entity_type name="Preceding-sibling"/>
+                        <entity_type name="Preceding"/>
+                        <entity_type name="Ancestor-or-self"/>
                      </entity_type>
                      <entity_type name="ForwardStep">
-                        <composition  type="ForwardAxis"/>
+                        <!--<composition  type="ForwardAxis"/>-->
+                        <entity_type name="AbbrevForwardStep"/>
+                        <entity_type name="Child"/>
+                        <entity_type name="Descendant"/>
+                        <entity_type name="Attribute"/>
+                        <entity_type name="Self"/>
+                        <entity_type name="Descendant-or-self"/>
+                        <entity_type name="Following-sibling"/>
+                        <entity_type name="Following"/>
+                        <entity_type name="Namespace"/>
                      </entity_type>
                      <composition  type="NodeTest"/>
                   </entity_type>
@@ -137,7 +181,6 @@
          </entity_type>
       </entity_type>
 
- 
 
       <entity_type name="LetOrForOrQuantifiedExpr">
          <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
@@ -181,7 +224,8 @@
             <composition name="SingleType" type="EQName"/>
          </entity_type>
       </entity_type>
-   </entity_type> <!-- end of ExprSingle -->
+   </entity_type>
+ <!-- end of ExprSingle -->
 
    <entity_type name="ArrowStep">
       <entity_type name="StaticArrowStep">
@@ -202,7 +246,7 @@
    </entity_type>
 
    <entity_type name="Binding">
-      <attribute name="Varname"/>
+      <attribute name="Varname" type="string"/>
       <entity_type name="SimpleForBinding">
          <composition name="in" type="ExprSingle"/>
       </entity_type>
@@ -210,6 +254,7 @@
          <composition name="becomes" type="ExprSingle"/>
       </entity_type>
    </entity_type>
+   <!--
    <entity_type name="ReverseAxis">
       <entity_type name="parent"/>
       <entity_type name="ancestor"/>
@@ -227,11 +272,12 @@
       <entity_type name="following"/>
       <entity_type name="namespace"/>
    </entity_type>
+-->
 
    <entity_type name="NodeTest">
       <entity_type name="NameTest">
          <entity_type name="EQName">
-            <attribute name="LocalName" type="string"/>
+            <attribute name="NCName" type="string" />
             <entity_type name="QName">
                <attribute name="Prefix" type="string?"/>
             </entity_type>
@@ -255,7 +301,7 @@
          <entity_type name="ElementName"/>
          <entity_type name="Wildcard_for_ElementName_in_ElementNameOrWildcard"/>
          <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
-         <attribute name="optional" type="void?"> <!-- there is a possible "?"  in syntax  --> </attribute>
+         <attribute name="optional" type="boolean"> <!-- there is a possible "?"  in syntax  --> </attribute>
    </entity_type>
 
    <entity_type name="AttribNameOrWildcard">
