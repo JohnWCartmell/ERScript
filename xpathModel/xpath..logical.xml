@@ -4,280 +4,305 @@
               ERScriptVersion="1.6">
    <description>xpath 3.1
    </description>
+
+<!-- 28-Mar-2023 The directive <xmlRepresentation>Anonymous</xmlRepresentation></composition> given to an already anonymous compsotion relationships is a signal to the 2rng transform (as at today) that positioning is significant and therefore not to interleave.
+-->
+
+
+
    <xml><attributeDefault>Attribute</attributeDefault></xml>
 
    <absolute>
       <name>xpath-31</name>
       <composition type="Expr"/>
    </absolute>
+
+   <entity_type name="Expr">
+      <composition type="ExprSingle*"/>
+   </entity_type>
+
    <entity_type name="Argument">
       <entity_type name="ArgumentPlaceholder"/>
-      <entity_type name="Expr">
-         <composition type="ExprSingle*"/>
-      </entity_type>
-   </entity_type>
-   
+      <entity_type name="ExprSingle">
 
-   <entity_type name="ExprSingle">
-      <entity_type name="BinaryOperation">
-         <entity_type name="Or"/>
-         <entity_type name="And"/>
-         <entity_type name="Add"/>
-         <entity_type name="Subtract"/>
-         <entity_type name="Mult"/>
-         <entity_type name="Divide"/>
-         <entity_type name="IntegerDivide"/>
-         <entity_type name="Modulo"/>
-         <entity_type name="Union"/>
-         <entity_type name="Intersect"/>
-         <entity_type name="Except"/>
-         <entity_type name="SimpleMap"/>
-         <entity_type name="ComparisonExpr">
-            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-               <x><at><right/><of>Or</of></at><delta>1</delta></x>
-               <y><at><top/><of>Or</of></at></y>
-            </diagram:enclosure>
-            <entity_type name="ValueComp">
-               <entity_type name="eq"/>
-               <entity_type name="ne"/>
-               <entity_type name="lt"/>
-               <entity_type name="le"/>
-               <entity_type name="gt"/>
-               <entity_type name="ge"/>
-            </entity_type>
-            <entity_type name="GeneralComp">
+         <entity_type name="UnaryExpr">
+            <entity_type name="UnaryMinus"/>
+            <entity_type name="UnaryPlus"/>
+            <composition type="ExprSingle"/>
+         </entity_type>
+         <entity_type name="BinaryOperation">
+            <entity_type name="Or"/>
+            <entity_type name="And"/>
+            <entity_type name="Add"/>
+            <entity_type name="Subtract"/>
+            <entity_type name="Multiply"/>
+            <entity_type name="Div"/>
+            <entity_type name="IntegerDivide"/>
+            <entity_type name="Modulo"/>
+            <entity_type name="Union"/>
+            <entity_type name="Intersect"/>
+            <entity_type name="Except"/>
+            <entity_type name="SimpleMap"/>
+            <entity_type name="RangeExpr"/>
+            <entity_type name="ComparisonExpr">
                <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                  <x><at><right/><of>ValueComp</of></at><delta>1</delta></x>
-                  <y><at><top/><of>ValueComp</of></at></y>
+                  <x><at><right/><of>Or</of></at><delta>1</delta></x>
+                  <y><at><top/><of>Or</of></at></y>
                </diagram:enclosure>
-               <entity_type name="somewhat_eq"/>
-               <entity_type name="Somewhat_ne"/>
-               <entity_type name="Somewhat_lt"/>
-               <entity_type name="Somewhat_le"/>
-               <entity_type name="Somewhat_gt"/>
-               <entity_type name="Somewhat_ge"/>
-            </entity_type>
-            <entity_type name="NodeComp">
-               <entity_type name="BinaryPrecedes"/>
-               <entity_type name="BinaryIsPrecededBy"/>
-            </entity_type>
-         </entity_type>
-         <composition name="arg1" type="ExprSingle"/>
-         <composition name="arg2" type="ExprSingle"/>
-      </entity_type> <!-- end of BinaryOperation -->
-
-      <entity_type name="ArrowExpr">
-         <composition type="ExprSingle"/>
-         <composition type="ArrowStep+"/>
-      </entity_type>
-
-      <entity_type name="PathExpr">
-         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-               <x><at><right/><of>BinaryOperation</of></at><delta>1</delta></x>
-               <y><at><top/><of>BinaryOperation</of></at></y>
-         </diagram:enclosure>
-         <entity_type name="ContextualisedRelativePathExpr">
-            <entity_type name="Root"/>
-            <entity_type name="RootReach"/>
-         </entity_type>
-         <entity_type name="RelativePathExpr">
-            <entity_type name="BinaryCompose">
-               <composition  type="StepExpr"/>
-               <composition  type="StepExpr"/>
-            </entity_type>
-            <entity_type name="StepExpr">
-               <entity_type name="PostfixExpr">
-                  <entity_type name="DynamicFunctionCall">
-                     <composition name="args" type="Argument*"/>
-                  </entity_type>
-                  <entity_type name="PredicatedExpr">
-                     <composition name="predicate" type="Expr"/>
-                  </entity_type>
-                  <composition  type="PrimaryExpr"/>
+               <entity_type name="ValueComp">
+                  <entity_type name="Eq"/>
+                  <entity_type name="Ne"/>
+                  <entity_type name="Lt"/>
+                  <entity_type name="Le"/>
+                  <entity_type name="Gt"/>
+                  <entity_type name="Ge"/>
                </entity_type>
-               <entity_type name="PrimaryExpr">
+               <entity_type name="GeneralComp">
                   <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                     <x><at><right/><of>DynamicFunctionCall</of></at></x>
-                     <y><at><top/><of>DynamicFunctionCall</of></at></y>
+                     <x><at><right/><of>ValueComp</of></at><delta>1</delta></x>
+                     <y><at><top/><of>ValueComp</of></at></y>
                   </diagram:enclosure>
-                  <entity_type name="Literal">
-                       <entity_type name="IntegerLiteral">
-                              <attribute name="Digits" type="string"/>
-                        </entity_type>
-                       <entity_type name="DecimalLiteral">
-                              <attribute name="DecimalDigits" type="string"/>
-                        </entity_type>
-                       <entity_type name="DoubleLiteral">
-                              <attribute name="Mantissa" type="string"/>
-                              <attribute name="ExponentSymbol" type="string"/>
-                              <attribute name="Exponent" type="string"/>
-                        </entity_type>
-                        <entity_type name="StringLiteral">
-                           <entity_type name="DoubleQuotedString">
-                              <attribute name="DoubleQuotedStringContent" type="string"/>
-                           </entity_type>
-                           <entity_type name="SingleQuotedString">
-                              <attribute name="SingleQuotedStringContent" type="string"/>
-                           </entity_type>
-                        </entity_type>
-                  </entity_type>
-                  <entity_type name="VarRef">
-                     <composition type="EQName"/>
-                  </entity_type>
-                  <entity_type name="ParenthesizedExpr">        
-                     <composition  type="Expr?"/>
-                  </entity_type>
-                  <entity_type name="ContextItemExpr"/>
-                  <entity_type name="FunctionCall">
-                     <composition type="EQName"/>
-                     <composition name="args" type="Argument*"/>
-                  </entity_type>
-                  <entity_type name="FunctionItemExpr"/>
-                  <entity_type name="MapConstructor">
-                     <composition type="MapConstructorEntry+"/>
-                  </entity_type>
-                  <entity_type name="CurlyArrayConstructor">
-                     <composition type="Expr?"/>
-                  </entity_type>
-                  <entity_type name="SquareArrayConstructor">
-                     <composition type="ExprSingle*"/>
-                  </entity_type>
-                  <entity_type name="UnaryLookup"/>
+                  <entity_type name="somewhat_eq"/>
+                  <entity_type name="Somewhat_ne"/>
+                  <entity_type name="Somewhat_lt"/>
+                  <entity_type name="Somewhat_le"/>
+                  <entity_type name="Somewhat_gt"/>
+                  <entity_type name="Somewhat_ge"/>
                </entity_type>
-               <entity_type name="AxisStep">  
+               <entity_type name="NodeComp">
+                  <entity_type name="Is"/>
+                  <entity_type name="Precedes"/>
+                  <entity_type name="IsPrecededBy"/>
+               </entity_type>
+            </entity_type>
+            <composition name="arg1" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+            <composition name="arg2" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+         </entity_type> <!-- end of BinaryOperation -->
+
+         <entity_type name="ArrowExpr">
+            <composition type="ExprSingle"/>
+            <composition type="ArrowTransform+"/>
+         </entity_type>
+
+         <entity_type name="PathExpr">
+            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                  <x><at><right/><of>BinaryOperation</of></at><delta>1</delta></x>
+                  <y><at><top/><of>BinaryOperation</of></at></y>
+            </diagram:enclosure>
+            <entity_type name="ContextualisedRelativePathExpr">
+               <entity_type name="Root">
+                    <composition  type="RelativePathExpr?"/>
+                 </entity_type>
+               <entity_type name="RootAndReach">
+                    <composition  type="RelativePathExpr"/>
+               </entity_type>
+            </entity_type>
+            <entity_type name="RelativePathExpr">
+               <entity_type name="BinaryComposition">
+                  <entity_type name="Compose"/>
+                  <entity_type name="ReachingCompose"/>
+                  <composition  name="path" type="RelativePathExpr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                  <composition  name="step" type="StepExpr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+               </entity_type>
+               <entity_type name="StepExpr">
+                  <entity_type name="PostfixExpr">
+                     <entity_type name="DynamicFunctionCall">
+                        <composition  type="ExprSingle"/> <!-- this previously inherited from PostfixExpr -->
+                        <composition name="args" type="Argument*"/>
+                     </entity_type>
+                     <entity_type name="PredicatedExpr">
+                        <composition  type="ExprSingle"/> <!-- this previously inherited from PostfixExpr -->
+                                                          <!-- I had to change it so that I could get control of the ordering
+                                                                which I teat as significant since next predicate compositin
+                                                                is anonymous consider having it named instead --> 
+                        <composition name="predicate" type="Expr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                     </entity_type>
+
+                     <entity_type name="Lookup">
+                        <composition type="ExprSingle?">
+                           <!-- if this ExprSingle is absent then this is UnaryLookup 
+                                   otherwise, if present, what we have is as described in the grammar as a postfix lookup -->
+                        </composition>
+                        <entity_type name="MapLookup">
+                           <attribute name="NCName" type="string"/>
+                        </entity_type>
+                        <entity_type name="ArrayLookup">
+                           <composition type="IntegerLiteral"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                        </entity_type>
+                        <entity_type name="MapOrArrayFilter">
+                           <composition type="ParenthesizedExpr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                        </entity_type>
+                        <entity_type name="AllMapOrArrayData"/>
+                     </entity_type>
+                     
+                  </entity_type>
+                  <entity_type name="PrimaryExpr">
                      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                        <x><at><right/><of>PrimaryExpr</of></at></x>
-                        <y><at><top/><of>PrimaryExpr</of></at></y>
+                        <x><at><right/><of>DynamicFunctionCall</of></at></x>
+                        <y><at><top/><of>DynamicFunctionCall</of></at></y>
                      </diagram:enclosure>
-                  <entity_type name="PredicatedStep">
-                     <composition name="predicate" type="Expr"/>
-                     <composition type="AxisStep"/>
-                  </entity_type>
-                  <entity_type name="Step">
-                     <entity_type name="ReverseStep">
-                        <!--<composition  type="ReverseAxis"/>-->
-                        <entity_type name="Parent"/>
-                        <entity_type name="Ancestor"/>
-                        <entity_type name="Preceding-sibling"/>
-                        <entity_type name="Preceding"/>
-                        <entity_type name="Ancestor-or-self"/>
+                     <entity_type name="Literal">
+                          <entity_type name="IntegerLiteral">
+                                 <attribute name="Digits" type="string"/>
+                           </entity_type>
+                          <entity_type name="DecimalLiteral">
+                                 <attribute name="DecimalDigits" type="string"/>
+                           </entity_type>
+                          <entity_type name="DoubleLiteral">
+                                 <attribute name="Mantissa" type="string"/>
+                                 <attribute name="ExponentSymbol" type="string"/>
+                                 <attribute name="Exponent" type="string"/>
+                           </entity_type>
+                           <entity_type name="StringLiteral">
+                              <entity_type name="DoubleQuotedString">
+                                 <attribute name="DoubleQuotedStringContent" type="string"/>
+                              </entity_type>
+                              <entity_type name="SingleQuotedString">
+                                 <attribute name="SingleQuotedStringContent" type="string"/>
+                              </entity_type>
+                           </entity_type>
                      </entity_type>
-                     <entity_type name="ForwardStep">
-                        <!--<composition  type="ForwardAxis"/>-->
-                        <entity_type name="AbbrevForwardStep"/>
-                        <entity_type name="Child"/>
-                        <entity_type name="Descendant"/>
-                        <entity_type name="Attribute"/>
-                        <entity_type name="Self"/>
-                        <entity_type name="Descendant-or-self"/>
-                        <entity_type name="Following-sibling"/>
-                        <entity_type name="Following"/>
-                        <entity_type name="Namespace"/>
+                     <entity_type name="VarRef">
+                        <composition type="EQName"/>
                      </entity_type>
-                     <composition  type="NodeTest"/>
+                     <entity_type name="ParenthesizedExpr">        
+                        <composition  type="Expr?"/>
+                     </entity_type>
+                     <entity_type name="ContextItemExpr"/>
+                     <entity_type name="FunctionCall">
+                        <composition type="EQName"/>
+                        <composition name="args" type="Argument*"/>
+                     </entity_type>
+                     <entity_type name="FunctionItemExpr">
+                        <entity_type name="NamedFunctionRef"/>
+                        <entity_type name="InlineFunctionExpr">
+                           <composition name="params" type="Param*"/>
+                           <composition type="SequenceType?"/>
+                           <composition name="body" type="Expr?"><xmlRepresentation>Anonymous</xmlRepresentation>
+                           <!-- code generation will need be first by child type and then subsequently by position if type is not definitive -->
+                           </composition>
+                        </entity_type>
+                     </entity_type>
+                     <entity_type name="MapConstructor">
+                        <composition type="MapConstructorEntry+"/>
+                     </entity_type>
+                     <entity_type name="CurlyArrayConstructor">
+                        <composition type="Expr?"/>
+                     </entity_type>
+                     <entity_type name="SquareArrayConstructor">
+                        <composition type="ExprSingle*"/>
+                     </entity_type>
+
                   </entity_type>
-               </entity_type>
-               </entity_type>
-         </entity_type>
-      </entity_type>
-
-
-      <entity_type name="LetOrForOrQuantifiedExpr">
-         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-               <x><at><right/><of>PathExpr</of></at><delta>1</delta></x>
-               <y><at><top/><of>PathExpr</of></at></y>
-         </diagram:enclosure>
-         <entity_type name="LetExpr">
-            <composition type="SimpleLetBinding+"/>
-         </entity_type>
-         <entity_type name="ForOrQuantifiedExpr">
-            <composition type="SimpleForBinding+"/>
-            <entity_type name="ForExpr"/>
-            <entity_type name="QuantifiedExpr">
-               <entity_type name="SomeExpr"/>
-               <entity_type name="EveryExpr"/>
+                  <entity_type name="AxisStep">  
+                        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                           <x><at><right/><of>PrimaryExpr</of></at></x>
+                           <y><at><top/><of>PrimaryExpr</of></at></y>
+                        </diagram:enclosure>
+                     <entity_type name="PredicatedStep">
+                        <composition type="AxisStep"/>
+                        <composition name="predicate" type="Expr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                     </entity_type>
+                     <entity_type name="Step">
+                        <entity_type name="ReverseStep">
+                           <!--<composition  type="ReverseAxis"/>-->
+                           <entity_type name="Parent"/>
+                           <entity_type name="Ancestor"/>
+                           <entity_type name="Preceding-sibling"/>
+                           <entity_type name="Preceding"/>
+                           <entity_type name="Ancestor-or-self"/>
+                        </entity_type>
+                        <entity_type name="ForwardStep">
+                           <!--<composition  type="ForwardAxis"/>-->
+                           <entity_type name="AbbrevForwardStep"/>
+                           <entity_type name="Child"/>
+                           <entity_type name="Descendant"/>
+                           <entity_type name="Attribute"/>
+                           <entity_type name="Self"/>
+                           <entity_type name="Descendant-or-self"/>
+                           <entity_type name="Following-sibling"/>
+                           <entity_type name="Following"/>
+                           <entity_type name="Namespace"/>
+                        </entity_type>
+                        <composition  type="NodeTest"/>
+                     </entity_type>
+                  </entity_type>
+                  </entity_type>
             </entity_type>
          </entity_type>
-         <composition name="return_or_satisfies" type="ExprSingle"/>
-         <!-- Need model the above in a bit more detail. -->
-         <!-- makes me think about tunnelling -->
-      </entity_type>
-      <entity_type name="IfExpr">
-         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-               <x><at><right/><of>LetOrForOrQuantifiedExpr</of></at><delta>1</delta></x>
-               <y><at><top/><of>LetOrForOrQuantifiedExpr</of></at></y>
-               <w>3.5</w>
-         </diagram:enclosure>
-         <composition name="cond" type="Expr"/>
-         <composition name="then" type="ExprSingle"/>
-         <composition name="else" type="ExprSingle"/>
-      </entity_type>
-      <entity_type name="ExprTypingExpr">
-         <entity_type name="ExprSequenceTypingExpr">
-            <entity_type name="InstanceOfExpr"/>
-            <entity_type name="TreatExpr"/>
-            <composition type="SequenceType"/>
+         <entity_type name="LetOrForOrQuantifiedExpr">
+            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                  <x><at><right/><of>PathExpr</of></at><delta>1</delta></x>
+                  <y><at><top/><of>PathExpr</of></at></y>
+            </diagram:enclosure>
+            <entity_type name="LetExpr">
+               <composition name="binding" type="SimpleLetBinding+"/>
+            </entity_type>
+            <entity_type name="ForOrQuantifiedExpr">
+               <composition name="binding" type="SimpleForBinding+"/>
+               <entity_type name="ForExpr"/>
+               <entity_type name="QuantifiedExpr">
+                  <entity_type name="Some"/>
+                  <entity_type name="Every"/>
+               </entity_type>
+            </entity_type>
+            <composition name="return_or_satisfies" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+            <!-- Need model the above in a bit more detail. -->
+            <!-- makes me think about tunnelling -->
          </entity_type>
-         <entity_type name="ExprSingleTypingExpr">
-            <entity_type name="CatableExpr"/>
-            <entity_type name="CastExpr"/>
-            <composition name="SingleType" type="EQName"/>
+         <entity_type name="IfExpr">
+            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                  <x><at><right/><of>LetOrForOrQuantifiedExpr</of></at><delta>1</delta></x>
+                  <y><at><top/><of>LetOrForOrQuantifiedExpr</of></at></y>
+                  <w>3.5</w>
+            </diagram:enclosure>
+            <composition name="condition" type="Expr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+            <composition name="then" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+            <composition name="else" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
          </entity_type>
-      </entity_type>
-   </entity_type>
- <!-- end of ExprSingle -->
-
-   <entity_type name="ArrowStep">
-      <entity_type name="StaticArrowStep">
+         <entity_type name="ExprTypingExpr">
+            <entity_type name="ExprSequenceTypingExpr">
+               <entity_type name="InstanceofExpr"/>
+               <entity_type name="TreatExpr"/>
+               <composition type="SequenceType"/>
+            </entity_type>
+            <entity_type name="ExprSingleTypingExpr">
+               <entity_type name="CastableExpr"/>
+               <entity_type name="CastExpr"/>
+               <composition name="TypeName" type="EQName"/>
+               <composition type="Optional?"/>
+            </entity_type>
+            <composition type="ExprSingle"/>
+         </entity_type>
+      </entity_type> <!-- end of ExprSingle -->
+   </entity_type> <!-- end of Argument -->
+   <entity_type name="ArrowTransform">
+      <entity_type name="StaticArrowTransform">
          <composition type="EQName"/>
       </entity_type>
-      <entity_type name="VariableArrowStep">
-         <composition type="EQName"/>
+      <entity_type name="DynamicArrowTransform">
+         <composition type="ExprSingle"/>
       </entity_type>
-      <entity_type name="CalculatedArrowStep">
-         <composition type="ParenthesizedExpr"/>
-         <composition type="Argument*"/>
-      </entity_type>
+      <composition name="args" type="Argument+"/>
    </entity_type>
-
+   <entity_type name="Param">
+      <composition type="EQName"/>
+      <composition type="SequenceType"/>
+   </entity_type>
    <entity_type name="MapConstructorEntry">
-      <composition name="key" type="ExprSingle"/>
-      <composition name="value" type="ExprSingle"/>
+      <composition name="key" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+      <composition name="value" type="ExprSingle"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
    </entity_type>
-
    <entity_type name="Binding">
-      <attribute name="Varname" type="string"/>
-      <entity_type name="SimpleForBinding">
-         <composition name="in" type="ExprSingle"/>
-      </entity_type>
-      <entity_type name="SimpleLetBinding">
-         <composition name="becomes" type="ExprSingle"/>
-      </entity_type>
+      <entity_type name="SimpleForBinding"/>
+      <entity_type name="SimpleLetBinding"/>
+         <composition type="EQName"/>
+         <composition  type="ExprSingle"/>
    </entity_type>
-   <!--
-   <entity_type name="ReverseAxis">
-      <entity_type name="parent"/>
-      <entity_type name="ancestor"/>
-      <entity_type name="preceding-sibling"/>
-      <entity_type name="preceding"/>
-      <entity_type name="ancestor-or-self"/>
-   </entity_type>
-   <entity_type name="ForwardAxis">
-      <entity_type name="child"/>
-      <entity_type name="descendant"/>
-      <entity_type name="attribute"/>
-      <entity_type name="self"/>
-      <entity_type name="descendant-or-self"/>
-      <entity_type name="following-sibling"/>
-      <entity_type name="following"/>
-      <entity_type name="namespace"/>
-   </entity_type>
--->
-
    <entity_type name="NodeTest">
       <entity_type name="NameTest">
          <entity_type name="EQName">
-            <attribute name="NCName" type="string" />
+            <attribute name="LocalName" type="string" />
             <entity_type name="QName">
                <attribute name="Prefix" type="string?"/>
             </entity_type>
@@ -285,11 +310,18 @@
                <attribute name="URI" type="string"/>
             </entity_type>
          </entity_type>
-         <entity_type name="Wildcard">
-            <entity_type name="Wildcard1"/>
-            <entity_type name="Wildcard2"/>
-            <entity_type name="Wildcard3"/>
-            <entity_type name="Wildcard4"/>
+
+         <entity_type name="WildcardLike">
+            <entity_type name="AnyPrincipalNode"/>
+            <entity_type name="AnyLocalName">
+               <attribute name="Prefix" type="string" />
+            </entity_type> 
+            <entity_type name="AnyOrNoNamespace">
+               <attribute name="LocalName" type="string" />
+            </entity_type>
+            <entity_type name="AnyURIQualifiedNode">
+               <attribute name="URI" type="string" />
+            </entity_type>
          </entity_type>
       </entity_type>
       <entity_type name="KindTest(1)">
@@ -298,61 +330,69 @@
    </entity_type>
 
    <entity_type name="ElementNameOrWildcard">
-         <entity_type name="ElementName"/>
-         <entity_type name="Wildcard_for_ElementName_in_ElementNameOrWildcard"/>
+         <entity_type name="ElementName">
+            <composition type="EQName"/>
+         </entity_type>
+         <entity_type name="ElementNameWildcard"/>
          <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
          <attribute name="optional" type="boolean"> <!-- there is a possible "?"  in syntax  --> </attribute>
    </entity_type>
 
    <entity_type name="AttribNameOrWildcard">
-         <entity_type name="AttributeName"/>
-         <entity_type name="Wildcard_for_AttributeName_in_AttribNameOrWildcard"/>
+         <entity_type name="AttributeName">
+            <composition type="EQName"/>
+         </entity_type>
+         <entity_type name="AttributeNameWildcard"/>
          <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
    </entity_type>
 
+
+
+
    <entity_type name="SequenceType">
       <entity_type name="EmptySequence"/>
-      <entity_type name="SequenceOfItems">
-         <composition type="ItemType"/>
-         <composition type="OccurrenceIndicator?"/>
+      <entity_type name="SuchandSuchAManyItemType">
+         <entity_type name="OccurrenceIndicator">
+            <entity_type name="OccursZeroOrOne"/>
+            <entity_type name="OccursZeroOneOrMore"/>
+            <entity_type name="OccursOneOrMore"/>
+            <composition type="ItemType"/>
+         </entity_type>
+         <entity_type name="ItemType">
+            <entity_type name="KindTest(2)">
+               <xmlRepresentation>Anonymous</xmlRepresentation>
+               <composition type="KindTest"/>
+            </entity_type>
+            <entity_type name="ItemTest"/>
+            <entity_type name="FunctionTest">
+               <entity_type name="AnyFunctionTest"/>
+               <entity_type name="TypedFunctionTest">
+                  <composition type="SequenceType?"/>
+               </entity_type>
+            </entity_type>
+            <entity_type name="MapTest">
+               <entity_type name="AnyMapTest"/>
+               <entity_type name="TypedMapTest">
+                  <composition name="keytype" type="SequenceType?"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+                  <composition name="valuetype" type="AtomicOrUnionType"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
+               </entity_type>
+            </entity_type>
+            <entity_type name="AtomicOrUnionType">
+               <composition type="EQName"/>
+            </entity_type>
+            <entity_type name="ArrayTest">
+               <entity_type name="AnyArrayTest"/>
+               <entity_type name="TypedArrayTest"> 
+                  <composition type="SequenceType"/>
+               </entity_type>
+            </entity_type>
+            <entity_type name="ParenthesizedItemType">
+               <composition type="ItemType"/>
+            </entity_type>
+         </entity_type> <!-- end ItemType -->
       </entity_type>
    </entity_type>
 
-   <entity_type name="OccurrenceIndicator">
-      <entity_type name="OccursZeroOrOne"/>
-      <entity_type name="OccursZeroOneOrMore"/>
-      <entity_type name="OccursOneOrMore"/>
-   </entity_type>
-
-   <entity_type name="ItemType">
-      <entity_type name="KindTest(2)">
-         <composition type="KindTest"/>
-      </entity_type>
-      <entity_type name="ItemTest"/>
-      <entity_type name="FunctionTest">
-         <entity_type name="AnyFunctionTest"/>
-         <entity_type name="TypedFunctionTest">
-            <composition type="SequenceType?"/>
-         </entity_type>
-      </entity_type>
-      <entity_type name="MapTest">
-         <entity_type name="AnyMapTest"/>
-         <entity_type name="TypedMapTest">
-            <composition type="SequenceType?"/>
-            <composition type="AtomicOrUnionType"/> 
-         </entity_type>
-      </entity_type>
-      <entity_type name="AtomicOrUnionType"/>
-      <entity_type name="ArrayTest">
-         <entity_type name="AnyArrayTest"/>
-         <entity_type name="TypedArrayTest"> 
-            <composition type="SequenceType"/>
-         </entity_type>
-      </entity_type>
-      <entity_type name="ParenthesizedItemType">
-         <composition type="ItemType"/>
-      </entity_type>
-   </entity_type> <!-- end ItemType -->
    <entity_type name="KindTest">
       <entity_type name="DocumentTest">
          <composition type="ElementTestOrSchemaElementTest?"/>
@@ -376,5 +416,7 @@
       <entity_type name="NamespaceNodeTest"/>
       <entity_type name="AnyKindTest"/>
    </entity_type>  <!-- end KindTest -->
+
+   <entity_type name="Optional"/>
 
 </entity_model>

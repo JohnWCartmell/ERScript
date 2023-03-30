@@ -3,6 +3,7 @@
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:fn="http://www.w3.org/2005/xpath-functions"
                xmlns:myfn="http://www.testing123/functions"
+               xmlns:map="http://www.w3.org/2005/xpath-functions/map"
                version="2.0"
                xpath-default-namespace=""
                xmlns="">
@@ -36,6 +37,8 @@
 </xsl:variable>
 
 <xsl:template match="/">
+
+    <xsl:message>  Testing <xsl:value-of select="map:keys(map{'a':1,'b':2}[?b=2])"/></xsl:message>
    
    <xsl:message>  Generating xml </xsl:message>
 

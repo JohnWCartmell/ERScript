@@ -6,62 +6,64 @@
 
     <test>
     	<rhs><nt>Expr</nt></rhs>
-		<xpath>1 + 2</xpath>
-	</test>
-
-<!--
-
-	<xpath>a[b]</xpath>  COME BAC TO THIS
-    <test>
-    	<rhs><nt>Expr</nt></rhs>
-		<xpath>1</xpath>
-	</test>
-
--->
-
-<!--
-    <test>
-    	<rhs><nt>Expr</nt></rhs>
-		<xpath>
-			map {
-		
-		'DecimalLiteral'    : 1.13 ,
-		'ForwardStep'       : child::a,
-		'AbbrevForwardStep' : a,
-
-		'InlineFunction' : function($a as xs:double, $b as xs:double) as xs:double { $a * $b },
-		'IntegerLiteral' : 2,
-		'SquareArrayConstructor'  : [1,2,3] ,
-		'SingleQuotedStringLiteral'  : 'this is a string',
-		'InstanceOfExp' : x instance of element(para)?,
-		'TreatExpr' : 'xxx' treat as xs:boolean,
-		'CastExpr' : '999' cast as xs:integer,
-		'CastableExpr' : 'xxx' castable as xs:boolean,
-		'ArrowExpr' : $string => upper-case() => normalize-unicode() => tokenize('\s+'),
-        'SimpleMapExpr' : $values!(.*.),
-        'SimpleMapExpr' : a ! b ! c,
-		'InstanceofExpr' : 5 instance of xs:integer,
-		'InstanceofExpr' : (5, 6) instance of xs:integer+,
-		'InstanceofExpr' : x instance of element(*),
-		'InstanceofExpr' : x instance of document-node()*,
-		'AddExpr' : $x + self::y + child::z,
-		'AddExpr' : let + $B * (C + D), 
-		'VarREfExpr' : $x[y], 
-        'PredicatedExpr' : a[b][c], 
-        'DecimalLiteral' : 0.95,
-        'DoubleLiteral' : 1.2E3, 
-		'DynamicFunctionCall' : $x(a,b,c)(d,e,f),
-        'DynamicFunctionCall' : $f(a,c+1), 
-        'PredicatedStep' : child::para[position() = 1],
-		'PostfixExpr' : $x[y](a,b,c),
-		'PostfixExpr' : $x(a,b,c)[z],
-		'RootedReachPathExpr' : //a/b/c,
-	    'LetExpr' : let $x := y return z,
-		'StringLiteral' : 'this is a single quoted literal here is an escaped single quote ''. Like many literals this literal includes spaces'
-		 					}
+		<xpath>(/*, /*:b, /b:*, /Q{URI}*) 
 		</xpath>
 	</test>
 
+
+<!--
+	
+(/*,/*:b,/b:*,/Q{URI}*) 
+
+//*[@id="tsf"]/div[2]/div[3]/center/input[1]
+    <test>
+    	<rhs><nt>Expr</nt></rhs>
+		<xpath>
+			map {			
+		'AbbrevForwardStep' 	: (x, prfx:x, Q{uri}x, Q{}x )
+		'AddExpr' 				: $x + self::y + child::z,	
+		'AndExpr'				: x and y,
+		'ArrowExpr' 			: $string => upper-case() => normalize-unicode() => tokenize('\s+'),
+		'CastExpr' 				: '999' cast as xs:integer?,
+		'CastableExpr'			: 'xxx' castable as xs:boolean,
+		'DecimalLiteral'    	: 1.13,
+        'DoubleLiteral' 		: 1.2E3,
+        'DoubleQuotedString' 	: "This is a double quoted literal here is an escaped double quote "". This literal includes spaces.",
+        'DynamicFunctionCall' 	: $x(a,b,c)(d,e,f),
+		'EveryExpr' 			: every $x in $xset satisfies some $y in $yset satisfies  $x and $y,
+        'ForExpr' 				: for $x in $xset, $y in $yset return $x + $y, 		
+		'ForwardStep'       	: child::a,
+		'GeneralComp'			: (1 &lt; 2, 1 = 2, 1 &gt; 2, 1 != 2),
+        'IfExpr'         	 	: if ($C) then $E1 else $E2,
+		'InlineFunctionExpr' 	: function($a as xs:double, $b as xs:double) as xs:double { $a * $b },
+		'InstanceofExpr' 		: (w instance of element(), x instance of empty-sequence(), y instance of element(para), (5,6) instance of element(*)),
+		'IntegerLiteral'		: 2,	
+		'IntersectExpr' 		: x intersect y,
+	    'LetExpr' 				: let $x := y return z,
+	    'NodeComp'				: ($x &lt;&lt; $y, $x is $y, $x &gt;&gt; $y),
+	    'OrExpr'				: x or y or w and z,
+		'PostfixExpr' 			: $x[y](a,b,c)[z],
+		'PostfixLookup' 		: ($map?xyz, $array?1, $array?(1,2), $mapOrArray?*),
+		'PredicatedExpr'        : $a[b][c],
+        'PredicatedStep' 		: child::para[position() = 1],
+        'ReachingCompose' 		: a//b,
+        'Root' 					: /,
+        'RootedPathExpr' 		: /a/b/c,
+        'RootedReachPathExpr' 	: //a/b/c,
+		'SingleQuotedString' 	: 'This is a single quoted literal here is an escaped single quote ''. This literal includes spaces.',
+		'SimpleMapExpr' 		: $values!(.*.),
+        'SquareArrayConstructor': [1,2,3],
+		'TreatExpr' 			: 'xxx' treat as xs:boolean?,
+		'UnaryExpr'     		: (-4, - - $x, - + $y),
+		'UnaryLookup' : (?a,?1,?(1,2),?*),
+		'UnionExpr' 			: x union y | z,
+		'ValueComp'				: (1 eq 2, 1 ne 2),
+		'exampleusingArgumentPlaceholder' : let $sum-of-squares := fn:fold-right(?, 0, function($a, $b) { $a*$a + $b }) return $sum-of-squares(1 to 3),
+		'examplefromtheweb' : //*[@id="tsf"]/div[2]/div[3]/center/input[1]
+		 }
+		</xpath>
+	</test>
 -->
+
 </ebnf>
 

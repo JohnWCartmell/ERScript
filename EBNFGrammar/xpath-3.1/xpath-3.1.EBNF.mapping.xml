@@ -31,6 +31,26 @@
 			</by>
 		</replace>
 
+		<replace production="RelativePathExpr">
+			<by>
+				<prod>
+			        <lhs>RelativePathExpr</lhs>
+			        <rhs>
+			            <sequence>
+			               <nt>StepExpr</nt>
+			               <ZeroOneOrMore>
+			                  <or>
+			                     <literal>//</literal>
+			                     <literal>/</literal>
+			                  </or>
+			                  <nt>StepExpr</nt>
+			               </ZeroOneOrMore>
+			            </sequence>
+			        </rhs>
+		      </prod>
+		     </by>
+		</replace>
+
 		<replace production="AxisStep">
 			<by> <!-- so as to be similar enough to AdditiveExpr  as enable associativeInfixTransform to apply -->
 			      <prod>
@@ -94,31 +114,53 @@
 		     		</rhs>
 		     	</prod>
 		 	</by>
-		</replace>
+		</replace>     
 		<replace production="Wildcard">
 			<by>
 		      <prod>
 		         <lhs>Wildcard</lhs>
 		         <rhs whitespace="explicit">   <!-- This line is changed by addition of whitespace="explicit"> -->
 		            <or>
-		               <literal>*</literal>
-		               <sequence>
-		                  <nt>NCName</nt>
-		                  <literal>:*</literal>
-		               </sequence>
-		               <sequence>
-		                  <literal>*:</literal>
-		                  <nt>NCName</nt>
-		               </sequence>
-		               <sequence>
-		                  <nt>BracedURILiteral</nt>
-		                  <literal>*</literal>
-		               </sequence>
+		                <nt>AnyLocalName</nt>
+		                <nt>AnyOrNoNamespace</nt>
+		               	<nt>AnyURIQualifiedNode</nt>
+		               <literal>*</literal>      <!-- this pushed to end so that doesn't misparse the *: case-->       
 		            </or>
 		         </rhs>
 		         <com>
 		            <loc xmlns:xlink="http://www.w3.org/1999/xlink">ws: explicit</loc>
 		         </com>
+		      </prod>
+
+		      <prod> 
+		      	<lhs>AnyOrNoNamespace</lhs>
+		      	<rhs>
+		      		<sequence>
+		                <literal>*:</literal>
+		      			<nt>LocalName</nt>
+		      		</sequence>
+		        </rhs>
+		      </prod>
+
+		      <prod> 
+		      	<lhs>AnyLocalName</lhs>
+		      	<rhs>
+		      		<sequence>
+		      			<nt>Prefix</nt>
+		                <literal>:*</literal>
+		            </sequence>
+		        </rhs>
+		      </prod>
+
+
+		      <prod> 
+		      	<lhs>AnyURIQualifiedNode</lhs>
+		      	<rhs>
+		      		<sequence>
+		                  <nt>BracedURILiteral</nt>
+		                  <literal>*</literal>
+		      		</sequence>
+		        </rhs>
 		      </prod>
 		  </by>
 	</replace>
@@ -150,17 +192,30 @@
 		            <sequence>
 		               <nt>UnaryExpr</nt>
 		               <ZeroOneOrMore>
-		                  <nt>ArrowStep</nt>
+		               		<or>
+		               			<nt>StaticArrowTransform</nt>
+		               			<nt>DynamicArrowTransform</nt>
+		               		</or>
 		               </ZeroOneOrMore>
 		            </sequence>
 		         </rhs>
 		    </prod>
 		    <prod>
-		         <lhs>ArrowStep</lhs>
+		         <lhs>StaticArrowTransform</lhs>
 		         <rhs>
 		            <sequence>
 		                  <literal>=&gt;</literal>
-		                  <nt>ArrowFunctionSpecifier</nt>
+		                  <nt>StaticArrowFunctionSpecifier</nt>
+		                  <nt>ArgumentList</nt>
+		            </sequence>
+		         </rhs>
+		    </prod>
+		    <prod>
+		         <lhs>DynamicArrowTransform</lhs>
+		         <rhs>
+		            <sequence>
+		                  <literal>=&gt;</literal>
+		                  <nt>DynamicArrowFunctionSpecifier</nt>
 		                  <nt>ArgumentList</nt>
 		            </sequence>
 		         </rhs>
@@ -171,37 +226,175 @@
 	<replace production="ArrowFunctionSpecifier">
 		<by>
 	      <prod>
-	         <lhs>ArrowFunctionSpecifier</lhs>
-	         <rhs>
-	            <or>
-	               <nt>StaticArrowStep</nt>
-	               <nt>VariableArrowStep</nt>
-	               <nt>CalculatedArrowStep</nt>
-	            </or>
-	         </rhs>
-	      </prod>
-	      <prod>
-		        <lhs>StaticArrowStep</lhs>
+		        <lhs>StaticArrowFunctionSpecifier</lhs>
 		        <rhs>   
 		        	<nt>EQName</nt>
 		        </rhs>
 	      </prod>
 	      <prod>
-		        <lhs>VariableArrowStep</lhs>
+		        <lhs>DynamicArrowFunctionSpecifier</lhs>
 		        <rhs> 
-		        	<nt>VarRef</nt>
-		        </rhs>
-	      </prod>
-	      <prod>
-		        <lhs>CalculatedArrowStep</lhs>
-		        <rhs>	        	
-               		<nt>ParenthesizedExpr</nt>
+		        	<or>
+		        		<nt>VarRef</nt>
+	               		<nt>ParenthesizedExpr</nt>
+	               	</or>
 		        </rhs>
 	      </prod>
 	  </by>
 	</replace>
+    <replace production="SequenceType">
+    	<by>
+	      <prod>
+	         <lhs>SequenceType</lhs>
+	         <rhs>
+	            <or>
+	            	<nt>EmptySequence</nt>
+                    <nt>SequenceOfItems</nt>
+	            </or>
+	         </rhs>
+	      </prod>
+	      <prod>
+	      	<lhs>EmptySequence</lhs>
+	      	<rhs>
+	      		<sequence>
+                  <literal>empty-sequence</literal>
+                  <literal>(</literal>
+                  <literal>)</literal>
+               </sequence>
+	      	</rhs>
+	      </prod>
+	      <prod>
+	      	<lhs>SequenceOfItems</lhs>
+	      	<rhs>	               
+	      		<sequence>
+                  <nt>ItemType</nt>
+                  <ZeroOrOne>
+                     <nt>OccurrenceIndicator</nt>
+                  </ZeroOrOne>
+               </sequence>
+	           </rhs>
+	      </prod>
+		</by>
+	</replace>
+    <replace production="ComparisonExpr">
+    	<by>
+			  <prod>
+		         <lhs>ComparisonExpr</lhs>
+		         <rhs>
+		            <sequence>
+		               <nt>StringConcatExpr</nt>
+		               <ZeroOrOne>
+		                  <or>
+
+		                     <nt>NodeComp</nt>
+		                     <nt>ValueComp</nt>
+		                     <nt>GeneralComp</nt>
+		                  </or>
+		                  <nt>StringConcatExpr</nt>
+		               </ZeroOrOne>
+		            </sequence>
+		         </rhs>
+		      </prod>
+		  </by>
+	</replace>
 
 
+    <replace production="UnaryLookup">
+    	<by>
+    		<prod>
+		         <lhs>UnaryLookup</lhs>
+		         <rhs>
+		         	<sequence>
+               			<literal>?</literal>
+			            <or>
+			               <nt>MapLookup</nt>
+			               <nt>ArrayLookup</nt>
+			               <nt>MapOrArrayFilter</nt>
+			               <literal>*</literal>
+			            </or>
+			        </sequence>
+		         </rhs>
+    		</prod>
+    		<prod>
+		        <lhs>MapLookup</lhs>
+		        <rhs>
+		            <nt>NCName</nt>
+		        </rhs>
+		    </prod>
+		    <prod>
+		        <lhs>ArrayLookup</lhs>
+		        <rhs>
+		            <nt>IntegerLiteral</nt>
+		        </rhs>
+		    </prod>
+		    <prod>
+		        <lhs>MapOrArrayFilter</lhs>
+		        <rhs>
+		            <nt>ParenthesizedExpr</nt>
+		        </rhs>
+		    </prod>
+		</by>
+	</replace>
+
+	<replace production="Lookup">
+    	<by>
+    		<prod>
+		         <lhs>Lookup</lhs>
+		         <rhs>
+		         	<sequence>
+               			<literal>?</literal>
+			            <or>
+			               <nt>MapLookup</nt>
+			               <nt>ArrayLookup</nt>
+			               <nt>MapOrArrayFilter</nt>
+			               <literal>*</literal>		               
+			            </or>
+			        </sequence>
+		         </rhs>
+    		</prod>
+    		<prod>
+    			 <!-- unused but required so that mapping to intermediate code can find its way !! -->
+    			<lhs>PostfixAllMapOrArrayData</lhs>
+    			<rhs><sequence></sequence></rhs> 
+    		</prod>
+    	</by>
+    </replace>
+
+	<replace production="NameTest">
+    	<by>
+	     <prod>
+	         <lhs>NameTest</lhs>
+	         <rhs>
+	            <or>
+	               <nt>Wildcard</nt>
+	               <nt>EQName</nt>
+	            </or>
+	         </rhs>
+	      </prod>
+    	</by>
+    </replace>
+
+	<replace production="EQName">
+    	<by>
+          <prod>
+	         <lhs>EQName</lhs>
+	         <rhs>
+	            <or>
+	               <nt>URIQualifiedName</nt>
+	               <nt>QName</nt>
+	            </or>
+	         </rhs>
+	      </prod>
+    	</by>
+    </replace>
+
+
+    <replace production="KeySpecifier">
+    	<by>
+    		<!--deliberately left empty -->
+		</by>
+	</replace>
+ 
 		<non-terminals>
 			<non-terminal name="fred"/>
 		</non-terminals>
@@ -209,61 +402,87 @@
 		<non-terminals>
 			<non-terminal name="AdditiveExpr"        transform="associativeInfixTransform" abstract="when_singular"/>
 			<non-terminal name="AndExpr"             transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="Argument"                                       abstract="unconditional"/>    
-            <non-terminal name="ArgumentList"         nameWhenAnonymousOperator="DynamicFunctionCall" transform="separatedListTransform"/> 
-            <non-terminal name="ArrayConstructor"                               abstract="unconditional"/>    
+			<non-terminal name="AnyURIQualifiedNode" transform="makeLeafNodeTransform"                             />
+            <non-terminal name="Argument"                                                  abstract="unconditional"/>    
+            <non-terminal name="ArgumentList" nameWhenAnonymousOperator="DynamicFunctionCall" transform="separatedListTransform" nameAfterTransform="args"/>  
+            <non-terminal name="args"           nameWhenAnonymousOperator="DynamicFunctionCall"><!-- this not used !!--> </non-terminal>
+            <non-terminal name="ArrayConstructor"                               abstract="unconditional"/> 
+            <non-terminal name="ArrayLookup" nameWhenAnonymousOperator="ArrayLookup" abstract="afterwards"  />   
             <non-terminal name="ArrowExpr"            transform="separatedListTransform_and_abstract_when_singular"/>  
-            <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/>
+            <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/> 
+            <non-terminal name="ArrowStep"                         				abstract="unconditional"/>
             <non-terminal name="AxisStep"            transform="associativeInfixTransform" abstract="when_singular"/>
             <non-terminal name="CastExpr"                                       abstract="when_singular"/>
             <non-terminal name="CastableExpr"                                   abstract="when_singular"/>
-            <non-terminal name="ContextualisedRelativePathExpr" transform="prefixTransform" abstract="when_singular"/>
+            <non-terminal name="ContextualisedRelativePathExpr" transform="prefixTransform" abstract="when_singular"/> 
+                                                                                         <!-- the abstract when singular
+                                                                                               because Root may be nullary (doc root)
+                                                                                                as well as unary (contextualising a path) -->
 			<non-terminal name="ComparisonExpr"      transform="infixTransform"            abstract="when_singular"/>
+            <non-terminal name="DynamicArrowFunctionSpecifier"                  abstract="unconditional"/>
             <non-terminal name="EQName"                                         abstract="unconditional"/>
-            <non-terminal name="ElementNameOrWildcard"                                         abstract="unconditional"/>
+            <non-terminal name="ElementNameOrWildcard"                          abstract="unconditional"/>
             <non-terminal name="EnclosedExpr"                                   abstract="unconditional"/>
             <non-terminal name="Expr"                transform="separatedListTransform" />
             <non-terminal name="ExprSingle"                                     abstract="unconditional"/>
             <non-terminal name="ForwardAxis"                                    abstract="unconditional"/>
-            <non-terminal name="ForwardStep"         transform="prefixTransform"                        />
-            <non-terminal name="FunctionItemExpr"                               abstract="unconditional"/>
-            <non-terminal name="GeneralComp"                                    abstract="unconditional"/> 
-            <non-terminal name="InstanceofExpr"                                 abstract="when_singular"/>
+            <non-terminal name="ForwardStep"         transform="prefixTransform" abstract="when_singular"/>
+            <non-terminal name="FunctionBody"                                    abstract="unconditional"/>
+            <non-terminal name="FunctionItemExpr"                                abstract="unconditional"/>
+            <non-terminal name="GeneralComp"                                     abstract="unconditional"/> 
+            <non-terminal name="InstanceofExpr"                                  abstract="when_singular"/>
 			<non-terminal name="IntersectExceptExpr" transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="ItemType"                                       abstract="unconditional"/>
-            <non-terminal name="KindTest"                                       abstract="unconditional"/>
-            <non-terminal name="Literal"                                        abstract="unconditional"/>
+            <non-terminal name="ItemType"                                        abstract="unconditional"/>
+            <non-terminal name="UnaryLookup"                                     abstract="unconditional"/>
+            <non-terminal name="KindTest"                                        abstract="unconditional"/>
+            <non-terminal name="Literal"                                         abstract="unconditional"/>
+            <non-terminal name="Lookup"                                          abstract="unconditional" />
             <non-terminal name="MapConstructor"                transform="separatedListTransform" />
+            <non-terminal name="MapKeyExpr"                                      abstract="unconditional"/> 
+            <non-terminal name="MapLookup" nameWhenAnonymousOperator="MapLookup" abstract="afterwards"  /> 
+            <non-terminal name="MapOrArrayFilter" nameWhenAnonymousOperator="MapOrArrayFilter" abstract="afterwards"  /> 
+            <non-terminal name="MapValueExpr"                                    abstract="unconditional"/>  
             <non-terminal name="MultiplicativeExpr"  transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="NameTest"                                       abstract="unconditional"/>  
-            <non-terminal name="NodeComp"                                       abstract="unconditional"/>  
-            <non-terminal name="NodeTest"                                       abstract="unconditional"/>
-            <non-terminal name="NumericLiteral"                                 abstract="unconditional"/>
+            <non-terminal name="NameTest"                                        abstract="unconditional"/>  
+            <!--<non-terminal name="NCNameIndirection"                               abstract="unconditional"/>-->
+            <non-terminal name="NodeComp"                                        abstract="unconditional"/>  
+            <non-terminal name="NodeTest"                                        abstract="unconditional"/>
+            <non-terminal name="NumericLiteral"                                  abstract="unconditional"/>
+            <non-terminal name="OccurrenceIndicator"                             abstract="unconditional"/>
             <non-terminal name="OrExpr"              transform="associativeInfixTransform" abstract="when_singular"/> 
-            <non-terminal name="ParamList"           transform="separatedListTransform"                 />       
-            <non-terminal name="ParenthesizedExpr"                              abstract="unconditional"/>
-            <non-terminal name="PathExpr"                                     	abstract="unconditional"/>
+            <non-terminal name="ParamList"           transform="separatedListTransform" nameAfterTransform="params"/> 
+            <non-terminal name="PathExpr"                                     	 abstract="unconditional"/>
+            <non-terminal name="PostfixAllMapOrArrayData" nameWhenAnonymousOperator="AllMapOrArrayData" abstract="afterwards" />        
             <non-terminal name="PostfixExpr"         transform="associativeAnonymousInfixTransform" abstract="when_singular"/>
-            <non-terminal name="Predicate"           nameWhenAnonymousOperator="PredicativeExpr"         />      
-            <non-terminal name="PrimaryExpr"                                    abstract="unconditional"/>   
+            <non-terminal name="Predicate"           nameWhenAnonymousOperator="PredicatedExpr" abstract="afterwards"        />      
+            <non-terminal name="PrimaryExpr"                                      abstract="unconditional"/>   
             <non-terminal name="QName"               transform="makeLeafNodeTransform"                  />
             <non-terminal name="QuantifiedExpr"      transform="prefixTransform"                        />
-            <non-terminal name="QuantifiedExprBinding" transform="separatedListTransform"               /> 
+            <non-terminal name="QuantifiedExprBinding" transform="separatedListTransform" nameAfterTransform="binding"  /> 
             <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
             <non-terminal name="RelativePathExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="SequenceOfItems"     transform="postfixTransform" abstract="when_singular"/>
+            <non-terminal name="SequenceType"                                   abstract="unconditional"/>
+            <non-terminal name="StaticArrowFunctionSpecifier"                   abstract="unconditional"/>
             <non-terminal name="StepExpr"                                       abstract="unconditional"/>
-            <non-terminal name="SimpleForClause"     transform="separatedListTransform"                 /> 
-            <non-terminal name="SimpleLetClause"     transform="separatedListTransform"                 /> 
-            <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="StringConcatExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
-            <non-terminal name="StringLiteral"                                  abstract="unconditional"/>
+            <non-terminal name="SimpleForClause"     transform="separatedListTransform"  nameAfterTransform="binding" />  
+            <non-terminal name="SimpleLetClause"     transform="separatedListTransform"  nameAfterTransform="binding" /> 
+            <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform" abstract="when_singular"   />
+            <non-terminal name="SimpleTypeName"                                 abstract="unconditional"              />
+            <non-terminal name="SingleType"                                      abstract="unconditional"             />
+            <non-terminal name="StringConcatExpr"    transform="associativeInfixTransform" abstract="when_singular"   />
+            <non-terminal name="StringLiteral"                                  abstract="unconditional"              />
             <non-terminal name="SquareArrayConstructor" transform="separatedListTransform"                         /> 
             <non-terminal name="TreatExpr"                                      abstract="when_singular"           />
+            <non-terminal name="TypeDeclaration"                                abstract="unconditional"             />
             <non-terminal name="UnaryExpr"           transform="multiPrefixTransform"  abstract="when_singular"    />
             <non-terminal name="UnionExpr"           transform="associativeInfixTransform" abstract="when_singular"/>
+            <non-terminal name="URIQualifiedName"    transform="makeLeafNodeTransform"                  />
             <non-terminal name="VarName"                                        abstract="unconditional"/>
             <non-terminal name="ValueComp"                                      abstract="unconditional"/>
             <non-terminal name="ValueExpr"                                      abstract="unconditional"/>
+            <non-terminal name="Wildcard"                                      	abstract="unconditional"/>
+          
        </non-terminals>
 		<literalMapping>
 		   <production>AdditiveExpr</production>
@@ -285,6 +504,17 @@
 		   <literal>|</literal>
 		   <mapping>Union</mapping>
 		</literalMapping>
+		<literalMapping>
+		   <production>OrExpr</production>
+		   <literal>or</literal>
+		   <mapping>Or</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>AndExpr</production>
+		   <literal>and</literal>
+		   <mapping>And</mapping>
+		</literalMapping>
+
 		<literalMapping>
 		   <production>UnaryExpr</production>
 		   <literal>-</literal>
@@ -348,7 +578,7 @@
 		<literalMapping>
 		   <production>RelativePathExpr</production>
 		   <literal>//</literal>
-		   <mapping>ReachAndCompose</mapping>
+		   <mapping>ReachingCompose</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>ContextualisedRelativePathExpr</production>
@@ -358,17 +588,18 @@
 		<literalMapping>
 		   <production>ContextualisedRelativePathExpr</production>
 		   <literal>//</literal>
-		   <mapping>RootReach</mapping>
+		   <mapping>RootAndReach</mapping>
 		</literalMapping>
-		<literalMapping>
-		   <production>Wildcard</production>
-		   <literal>*</literal>
-		   <mapping>Wildcard_1</mapping>
-		</literalMapping>
+
 		<literalMapping>
 		   <production>OccurrenceIndicator</production>
 		   <literal>?</literal>
 		   <mapping>OccursZeroOrOne</mapping>
+		</literalMapping>
+		<literalMapping>
+		   <production>SingleType</production>
+		   <literal>?</literal>
+		   <mapping>Optional</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>OccurrenceIndicator</production>
@@ -383,12 +614,12 @@
 		<literalMapping>
 		   <production>AttribNameOrWildcard</production>
 		   <literal>*</literal>
-		   <mapping>Wildcard_for_AttributeName_in_AttribNameOrWildcard</mapping>
+		   <mapping>AttributeNameWildcard</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>ElementNameOrWildcard</production>
 		   <literal>*</literal>
-		   <mapping>Wildcard_for_ElementName_in_ElementNameOrWildcard</mapping>
+		   <mapping>ElementNameWildcard</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>AxisStep</production>
@@ -412,23 +643,30 @@
 		</literalMapping>
 		<literalMapping>
 		   <production>Wildcard</production>
-		   <literal>:</literal>
-		   <mapping>PrefixesReview</mapping>
+		   <literal>*</literal>
+		   <mapping>AnyPrincipalNode</mapping>
 		</literalMapping>
+		<!--
 		<literalMapping>
 		   <production>Wildcard</production>
 		   <literal>:*</literal>
-		   <mapping>Star2</mapping>
+		   <mapping>WildCardLocalName</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>Wildcard</production>
 		   <literal>*:</literal>
-		   <mapping>Star1</mapping>
+		   <mapping>WildcardPrefix</mapping>
+		</literalMapping>
+-->
+		<literalMapping>
+		   <production>UnaryLookup</production>
+		   <literal>*</literal>
+		   <mapping>AllMapOrArrayData</mapping>
 		</literalMapping>
 		<literalMapping>
-		   <production>KeySpecifier</production>
+		   <production>Lookup</production>
 		   <literal>*</literal>
-		   <mapping>Star</mapping>
+		   <mapping>PostfixAllMapOrArrayData</mapping>
 		</literalMapping>
 	</mapping>
 </ebnf>

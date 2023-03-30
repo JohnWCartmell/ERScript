@@ -79,7 +79,7 @@
 					<nt>Whitespace</nt>
 					<nt>Prefix</nt>
 					<literal>:</literal>
-					<nt>LocalPart</nt>
+					<nt>LocalName</nt>
 				</sequence>
 			</rhs>
 		</prod>
@@ -92,7 +92,7 @@
 		<prod>
 			<lhs>UnprefixedName</lhs>
 			<rhs>
-				<nt>LocalPart</nt>
+				<nt>LocalName</nt>
 			</rhs>
 		</prod>
 
@@ -105,8 +105,8 @@
 		</prod>
 
 		<prod>
-			<lhs>LocalPart</lhs>
-			<rhs>
+			<lhs>LocalName</lhs>
+			<rhs mode="scan" mapTo="attribute">
 				<nt>NCName</nt>
 			</rhs>
 		</prod>
@@ -293,7 +293,7 @@
 			<rhs>
 				<sequence>
 					<nt>BracedURILiteral</nt> 
-					<nt>NCName</nt>
+					<nt>LocalName</nt>
 				</sequence>
 			</rhs>
 		</prod>
@@ -302,15 +302,15 @@
 			<rhs>
 				<sequence>
 					<literal>Q{</literal>
-					<nt>OptionalNonBraceCharacters</nt> 
+					<ZeroOrOne><nt>URI</nt></ZeroOrOne> 
 					<literal>}</literal>
 				</sequence>
 			</rhs>
 		</prod>
 		<prod>
-		    <lhs>OptionalNonBraceCharacters</lhs>
-		    <rhs>
-		    	<token regexp="^[^{}]*"/>
+		    <lhs>URI</lhs>
+		    <rhs mode="scan" mapTo="attribute">
+		    	<token regexp="^[^{}]+"/>
 		    </rhs>
 		</prod>
 	</grammar>

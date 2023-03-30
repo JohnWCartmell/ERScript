@@ -49,8 +49,11 @@
 
 <xsl:template match="prod[exists(ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs])]/rhs" mode="annotate_grammar">
    <xsl:copy>
+      <!--
       <xsl:attribute name="transform" select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@transform"/>
       <xsl:attribute name="abstract"  select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@abstract"/>
+   -->
+      <xsl:copy-of select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@*"/>
       <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
    </xsl:copy>
 </xsl:template>

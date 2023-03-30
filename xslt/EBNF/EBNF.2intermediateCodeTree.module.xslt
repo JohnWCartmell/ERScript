@@ -27,11 +27,26 @@
 <!-- separatedListTransform -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='separatedListTransform'])]" 
              mode="createIntermediateCodeTree">
-   <xsl:copy>
+   <xsl:variable name="rhs" 
+                       as="element(rhs)"
+                       select="$annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()]/rhs"/> 
+   <xsl:variable name="requirednodename" 
+                 as="xs:string"
+                 select="if($rhs/@nameAfterTransform)then $rhs/@nameAfterTransform else name()"/>
+   <xsl:message>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<xsl:value-of select="$requirednodename"/></xsl:message>
+   <xsl:element name="{$requirednodename}">
       <xsl:apply-templates select="*[not(self::ZeroOneOrMore)][not(preceding-sibling::ZeroOneOrMore)]" mode="createIntermediateCodeTree"/>
       <xsl:apply-templates select="ZeroOneOrMore/OneOfZeroOneOrMore/*" mode="createIntermediateCodeTree"/>
-   </xsl:copy>
+   </xsl:element>
 </xsl:template>
+
+<!-- separatedListTransform_and_abstract_unconditional -->  <!-- PROBABLY NOT USED -->
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='eparatedListTransform_and_abstract_unconditional'])]" 
+             mode="createIntermediateCodeTree">
+   <xsl:apply-templates select="*[not(self::ZeroOneOrMore)][not(preceding-sibling::ZeroOneOrMore)]" mode="createIntermediateCodeTree"/>
+   <xsl:apply-templates select="ZeroOneOrMore/OneOfZeroOneOrMore/*" mode="createIntermediateCodeTree"/>
+</xsl:template>
+
 
 <!-- separatedListTransform_and_abstract_when_singular -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod
@@ -66,6 +81,20 @@
    <xsl:copy-of select="myfn:infixTransform($firstOperand,$operator,$secondOperand)"/>
 </xsl:template>
 
+<!-- postfixTransform -->
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='postfixTransform'])][count(*) = 2]" 
+             mode="createIntermediateCodeTree">
+   <xsl:variable name="operand" as="element()">
+      <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/>
+   </xsl:variable>
+   <xsl:variable name="operator" as="element()">
+      <xsl:apply-templates select="*[2]" mode="createIntermediateCodeTree"/>
+   </xsl:variable>
+     <xsl:element name="{$operator/name()}">  
+      <xsl:copy-of select="$operand"/>                             
+   </xsl:element> 
+</xsl:template>
+
 <!-- associativeInfixTransform -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='associativeInfixTransform'])][count(*) &gt;= 2]" 
               mode="createIntermediateCodeTree">
@@ -77,6 +106,8 @@
    </xsl:variable>
    <xsl:copy-of select="myfn:associativeInfixTransform($firstOperand,$termSequence)"/>
 </xsl:template>
+
+
 
 <!-- associativeAnonymousInfixTransform -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='associativeAnonymousInfixTransform'])][count(*) &gt;= 2]" 
@@ -93,9 +124,13 @@
 
 
 <!-- prefixTransform -->
-<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='prefixTransform'])]" 
+<xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@transform='prefixTransform'])]
+                     [count(*) &gt;= 2]" 
                mode="createIntermediateCodeTree">
-   <!--<xsl:message>made it into prefixTransform!!!!!!!!!!</xsl:message>-->
+
+   <!-- If count is 1 then maybe the prefix op is optionally a constant so that it is nullary or unary 
+         Hence of count gt 2 above -->            
+   <!--<xsl:message>made it into prefixTransform <xsl:copy-of select="."/></xsl:message>-->
    <xsl:variable name="operator" as="element()*">
       <xsl:apply-templates select="*[1]" mode="createIntermediateCodeTree"/> <!-- was *[1] but I might need abstract to prune this tree-->
    </xsl:variable>
@@ -127,6 +162,7 @@
       <xsl:apply-templates select="*" mode="createIntermediateCodeTree"/>
    </xsl:variable>
    <xsl:copy>
+      <xsl:copy-of select="@*"/>
       <xsl:copy-of select="$content//@*"/>
    </xsl:copy>
 </xsl:template>
@@ -139,7 +175,7 @@
    </xsl:copy>
 </xsl:template> 
 
-
+<!-- abstract="unconditional" -->
 <xsl:template match="*[exists($annotatedGrammar/ebnf/grammar/prod[lhs eq current()/name()][rhs/@abstract='unconditional'])]" mode="createIntermediateCodeTree">
    <!--<xsl:message>Culling unconditionally <xsl:value-of select="name()"/></xsl:message>-->
    <xsl:apply-templates mode="createIntermediateCodeTree"/>
@@ -193,13 +229,15 @@
 <xsl:function name="myfn:associativeAnonymousInfixTransform" as="element()">
    <xsl:param name="firstOperand" as="element()"/>
    <xsl:param name="termSequence" as="element()*"/>
+   
    <!--
    <xsl:message>associativeAnonymousInfixTransform called with termSequence of length <xsl:value-of select="count($termSequence)"/></xsl:message>
    <xsl:message>associativeAnonymousInfixTransform firstOperand <xsl:copy-of select="$firstOperand"/></xsl:message>
    <xsl:if test="count($termSequence) &gt; 0">
       <xsl:message>associativeAnonymousInfixTransform termSequence <xsl:copy-of select="$termSequence"/></xsl:message>
    </xsl:if>
-   -->
+-->
+   
    <xsl:choose>
       <xsl:when test="empty($termSequence)">
          <xsl:sequence select="$firstOperand"/>
@@ -207,14 +245,28 @@
       <xsl:otherwise>
          <!--<xsl:message> count of children of head of term sequence is <xsl:value-of select="count(head($termSequence)/*)"/></xsl:message>-->
          <xsl:variable name="operandTypeName" select="head($termSequence)/*[1]/name()"/>
-         <!--<xsl:message>operand type name is <xsl:value-of select="$operandTypeName"/></xsl:message>-->
+         <xsl:message>operand type name is <xsl:value-of select="$operandTypeName"/></xsl:message>
+         <xsl:variable name="rhs" 
+                       as="element(rhs)"
+                       select="$annotatedGrammar/ebnf/grammar/prod
+                                      [lhs eq $operandTypeName
+                                          or rhs/@nameAfterTransform eq $operandTypeName
+                                      ]/rhs
+                       "/> 
          <xsl:variable name="operatorName" as="xs:string"
-                       select="$annotatedGrammar/ebnf/mapping/non-terminals/non-terminal[@name eq $operandTypeName]/@nameWhenAnonymousOperator"/>
-
+                       select="$rhs/@nameWhenAnonymousOperator"/>
+                     <xsl:message>operator name is <xsl:value-of select="$operatorName"/></xsl:message>             
+         <xsl:variable name="decapitateHeadOfTermSequence" 
+                        as="xs:boolean"  
+                        select="$rhs/@abstract='afterwards'"/>
+                        <xsl:message>decapitate is <xsl:value-of select="$decapitateHeadOfTermSequence"/></xsl:message>                                
          <xsl:variable name="headBinary" as="element()">
             <xsl:element name="{$operatorName}">                    <!-- the operation    (derived from second operand)  --> 
+               <xsl:if test="$decapitateHeadOfTermSequence">
+                  <xsl:copy-of select="head($termSequence)/*[1]/@*"/> <!-- as sometimes its an attribute that has content not substructure-->
+               </xsl:if>
                <xsl:copy-of select="$firstOperand"/>                <!-- the first operand  -->
-               <xsl:copy-of select="head($termSequence)/*[1]"/>       <!-- the second operand -->
+               <xsl:copy-of select="if ($decapitateHeadOfTermSequence)then head($termSequence)/*[1]/* else  head($termSequence)/*[1]"/>       <!-- the second operand -->
             </xsl:element>
          </xsl:variable>
          <xsl:sequence select="myfn:associativeAnonymousInfixTransform($headBinary,tail($termSequence))"/>

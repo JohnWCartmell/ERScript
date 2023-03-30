@@ -20,13 +20,14 @@
 <xsl:template match="node()|@*" mode="createProductionInstanceTree"> 
    <!--<xsl:message> generic creating production instance tree'<xsl:value-of select="name()"/>'content'<xsl:value-of select="."/>'</xsl:message>-->
    <xsl:copy>
-      <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[@mapTo='attribute']" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[not(@mapTo='attribute')]" mode="createProductionInstanceTree"/>
    </xsl:copy>
 </xsl:template>
 
 
 <xsl:template match="non-terminal[@mapTo='attribute']" mode="createProductionInstanceTree">
-   <xsl:message> mapppinf to attribute</xsl:message>
+   <xsl:message> mappping to attribute</xsl:message>
    <xsl:attribute name="{@name}">
       <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
    </xsl:attribute>
@@ -34,7 +35,8 @@
 
 <xsl:template match="non-terminal" mode="createProductionInstanceTree">
    <xsl:element name="{@name}">
-      <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[@mapTo='attribute']" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[not(@mapTo='attribute')]" mode="createProductionInstanceTree"/>
    </xsl:element>
 </xsl:template>
 
@@ -57,12 +59,14 @@
 </xsl:template>
 
 <xsl:template match="sequence[not(@type)]" mode="createProductionInstanceTree">
-   <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[@mapTo='attribute']" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[not(@mapTo='attribute')]" mode="createProductionInstanceTree"/>
 </xsl:template>
 
 
 <xsl:template match="ZeroOrOne" mode="createProductionInstanceTree">
-     <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[@mapTo='attribute']" mode="createProductionInstanceTree"/>
+      <xsl:apply-templates select="*[not(@mapTo='attribute')]" mode="createProductionInstanceTree"/>
 </xsl:template>
 
 
