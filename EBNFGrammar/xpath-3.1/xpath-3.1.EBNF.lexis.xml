@@ -1,12 +1,6 @@
 <ebnf>
 	<grammar>
 		<prod>
-		    <lhs>lowercase_identifier</lhs>
-		    <rhs>
-		    	<token regexp="^[a-z]+"/>
-		    </rhs>
-		</prod>
-		<prod>
 		    <lhs>NameStartChar</lhs>
 		    <rhs>
 		    	<token regexp="^[A-Z]|^_|^[a-z]|^[&#xC0;-&#xD6;]|^[&#xD8;-&#xF6;]|^[&#xF8;-&#x2FF;]|^[&#x370;-&#x37D;]|^[&#x37F;-&#x1FFF;]|^[&#x200C;-&#x200D;]|^[&#x2070;-&#x218F;]|^[&#x2C00;-&#x2FEF;]|^[&#x3001;-&#xD7FF;]|^[&#xF900;-&#xFDCF;]|^[&#xFDF0;-&#xFFFD;]|^[&#x10000;-&#xEFFFF;]" />
@@ -18,6 +12,7 @@
 		    	<token regexp="^-|^\.|^[0-9]|^&#xB7;|^[&#x0300;-&#x036F;]|^[&#x203F;-&#x2040;]"/>
 		    </rhs>
 		</prod>
+		<!-- 
 		<prod>
 		    <lhs>Char</lhs>
 		    <rhs>
@@ -30,6 +25,8 @@
 		    	<token regexp="^#x[0-9a-fA-F]+"/>
 		    </rhs>
 		</prod>
+	-->
+	<!--
 		<prod>
 		    <lhs>S</lhs>
 		    <rhs>
@@ -40,10 +37,11 @@
 				        /* #x20 is SPACE */
 		    </rhs>
 		</prod>
+	-->
 
 		<prod>
 			<lhs>OtherNameChar</lhs>
-		    <rhs whitespace="explicit">  
+		    <rhs mode='scan' whitespace="explicit">  
 	       	    <or>
 	       	  	<nt>NameStartChar</nt> 
 		       	<nt>AdditionalNameChar</nt>
@@ -99,7 +97,6 @@
 		<prod>
 			<lhs>Prefix</lhs>
 			<rhs mode="scan" mapTo="attribute">
-			<!--<rhs mode="scan">-->
 				<nt>NCName</nt>
 			</rhs>
 		</prod>
@@ -151,7 +148,7 @@
 		</prod>
 
 		<prod>
-		    <lhs>DoubleQuotedStringCharacter</lhs> <!-- might want to move this inside enclosing quotes --> <!-- for this I will need to factor out content-->
+		    <lhs>DoubleQuotedStringCharacter</lhs> 
 		    <rhs mode="scan" whitespace="explicit" >
 		    	<token regexp='^[^"]|^""'/>
 		    </rhs>
@@ -174,12 +171,14 @@
 					</ZeroOneOrMore>
 			</rhs>
 		</prod>
+		<!--
 		<prod>
 			<lhs>EscapeApos</lhs>
 			<rhs whitespace="explicit">
 				<token regexp="^''"/>
 			</rhs>
 		</prod>
+	-->
 
 		<prod>
 		    <lhs>SingleQuotedStringCharacter</lhs>

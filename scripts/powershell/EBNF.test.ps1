@@ -38,6 +38,7 @@ echo $SAXON_JAR
      I am unsure what the stack size is by default -- I suppose I have increased the stack size but I have no way of knowing
      as the command java -XX:+PrintFlagsFinal -version outputs a stackthread size of 0. 
     #>  
-java -Xss2m -jar $SAXON_JAR -opt:0 -s:$pathToSourceXMLfile `
+
+java -Xss2m -jar $SAXON_JAR -opt:0  -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\EBNF\EBNF.test.xslt `
                        -o:$outputFolder\$filenamebase.parseout.xml

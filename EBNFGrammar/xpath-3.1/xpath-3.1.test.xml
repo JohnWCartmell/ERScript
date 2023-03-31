@@ -6,56 +6,161 @@
 
     <test>
     	<rhs><nt>Expr</nt></rhs>
-		<xpath>(/*, /*:b, /b:*, /Q{URI}*) 
-		</xpath>
-	</test>
-
-
-<!--
-	
-(/*,/*:b,/b:*,/Q{URI}*) 
-
-//*[@id="tsf"]/div[2]/div[3]/center/input[1]
-    <test>
-    	<rhs><nt>Expr</nt></rhs>
-		<xpath>
-			map {			
-		'AbbrevForwardStep' 	: (x, prfx:x, Q{uri}x, Q{}x )
+		<xpath>	
+		map {
+		'AbbrevForwardStep' 	: ((x, prfx:x, Q{uri}x, Q{}x) ,(/*, /*:b, /b:*, /Q{URI}*)),
 		'AddExpr' 				: $x + self::y + child::z,	
 		'AndExpr'				: x and y,
-		'ArrowExpr' 			: $string => upper-case() => normalize-unicode() => tokenize('\s+'),
+		'AnyArrayTest'			: $x instance of array(*),
+		'AnyFunctionTest'		: $x instance of function(*),
+		'AnyMapTest'			: $x instance of map(*),
+		'ArrowExpr' 			: ($string => upper-case() => normalize-unicode() => tokenize('\s+'), 
+		                              $string => $myfunc(),
+		                              (f(x))(y)
+		                           ),
 		'CastExpr' 				: '999' cast as xs:integer?,
 		'CastableExpr'			: 'xxx' castable as xs:boolean,
+		'CurlyArrayConstructor' : array{1,2,3,$y,f()},
 		'DecimalLiteral'    	: 1.13,
         'DoubleLiteral' 		: 1.2E3,
         'DoubleQuotedString' 	: "This is a double quoted literal here is an escaped double quote "". This literal includes spaces.",
         'DynamicFunctionCall' 	: $x(a,b,c)(d,e,f),
-		'EveryExpr' 			: every $x in $xset satisfies some $y in $yset satisfies  $x and $y,
+		'EveryExpr' 			: every $x in $xset satisfies some $y in $yset, $z in $zset satisfies  $x and $y,
         'ForExpr' 				: for $x in $xset, $y in $yset return $x + $y, 		
-		'ForwardStep'       	: child::a,
+		'ForwardStep'       	    : child::a,
+		'ForwardStep/AnyKindTest' 	: child::node(),	
+		'ForwardStep/AttributeTest' : (child::attribute(fred), child::attribute(*)),
+		'ForwardStep/CommentTest'   : child::comment(),
+		'ForwardStep/NamespaceNodeTest' : child::namespace-node(),
+		'ForwardStep/PITest'        : (child::processing-instruction() , child::processing-instruction(fred) , child::processing-instruction('fred')),
+		'ForwardStep/TextTest'   	: child::text(),
 		'GeneralComp'			: (1 &lt; 2, 1 = 2, 1 &gt; 2, 1 != 2),
         'IfExpr'         	 	: if ($C) then $E1 else $E2,
 		'InlineFunctionExpr' 	: function($a as xs:double, $b as xs:double) as xs:double { $a * $b },
-		'InstanceofExpr' 		: (w instance of element(), x instance of empty-sequence(), y instance of element(para), (5,6) instance of element(*)),
+         'InstanceofExpr' 		:  (x instance of empty-sequence(),
+                  							a instance of element(),
+                  							b instance of element(para),
+                  							c instance of element(para,paragraph),
+                  							d instance of attribute(),
+                  							r instance of attribute(attrname, attrtypename),
+                  							x instance of schema-element(para),
+                  							y instance of schema-attribute(para),
+                                            (5,6) instance of element(*)
+                                     ),
 		'IntegerLiteral'		: 2,	
 		'IntersectExpr' 		: x intersect y,
-	    'LetExpr' 				: let $x := y return z,
+	    'LetExpr' 				: let $x := y  return let $a :=1, $b :=1 return $x div $a mod $a + $b,
+	    'NamedFunctionRef'		: fn:abs#1 ,
 	    'NodeComp'				: ($x &lt;&lt; $y, $x is $y, $x &gt;&gt; $y),
 	    'OrExpr'				: x or y or w and z,
+		'ParenthesizedItemType' : $z instance of (function(xs:anyAtomicType) as item()*)?,
 		'PostfixExpr' 			: $x[y](a,b,c)[z],
 		'PostfixLookup' 		: ($map?xyz, $array?1, $array?(1,2), $mapOrArray?*),
 		'PredicatedExpr'        : $a[b][c],
         'PredicatedStep' 		: child::para[position() = 1],
         'ReachingCompose' 		: a//b,
+        'ReverseStep/DocumentTest' 	: (parent::document-node(),
+                                       parent::document-node(element(para)),
+                                       parent::document-node(schema-element(mypara))
+        							  ),
         'Root' 					: /,
         'RootedPathExpr' 		: /a/b/c,
         'RootedReachPathExpr' 	: //a/b/c,
 		'SingleQuotedString' 	: 'This is a single quoted literal here is an escaped single quote ''. This literal includes spaces.',
 		'SimpleMapExpr' 		: $values!(.*.),
         'SquareArrayConstructor': [1,2,3],
+        'StringConcatExpr'      : 'xyx' || 'cde',
 		'TreatExpr' 			: 'xxx' treat as xs:boolean?,
+		'TypedArrayTest'		: $y instance of array(map(*)),
+		'TypedFunctionTest'		: ($y instance of function(xs:anyAtomicType) as item()*,
+		                           $z instance of function(xs:anyAtomicType,xs:integer) as item()*
+		                           ),
+		'TypedMapTest'			: $y instance of map(x:y,xs:integer),
 		'UnaryExpr'     		: (-4, - - $x, - + $y),
-		'UnaryLookup' : (?a,?1,?(1,2),?*),
+		'UnaryLookup' 			: (?a,?1,?(1,2),?*),
+		'UnionExpr' 			: x union y | z,
+		'ValueComp'				: (1 eq 2, 1 ne 2),
+		'exampleusingArgumentPlaceholder' : let $sum-of-squares := fn:fold-right(?, 0, function($a, $b) { $a*$a + $b }) return $sum-of-squares(1 to 3),
+		'examplefromtheweb' : //*[@id="tsf"]/div[2]/div[3]/center/input[1]
+		 }
+		</xpath>
+	</test>
+
+		
+
+<!--
+'ParenthesizedItemType' , $z instance of (function(xs:anyAtomicType) as item()*)?
+		     
+    <test>
+    	<rhs><nt>Expr</nt></rhs>
+		<xpath>	
+		map {
+		'AbbrevForwardStep' 	: ((x, prfx:x, Q{uri}x, Q{}x) ,(/*, /*:b, /b:*, /Q{URI}*)),
+		'AddExpr' 				: $x + self::y + child::z,	
+		'AndExpr'				: x and y,
+		'AnyArrayTest'			: $x instance of array(*),
+		'AnyFunctionTest'		: $x instance of function(*),
+		'AnyMapTest'			: $x instance of map(*),
+		'ArrowExpr' 			: ($string => upper-case() => normalize-unicode() => tokenize('\s+'), 
+		                              $string => $myfunc(),
+		                              (f(x))(y)
+		                           ),
+		'CastExpr' 				: '999' cast as xs:integer?,
+		'CastableExpr'			: 'xxx' castable as xs:boolean,
+		'CurlyArrayConstructor' : array{1,2,3,$y,f()},
+		'DecimalLiteral'    	: 1.13,
+        'DoubleLiteral' 		: 1.2E3,
+        'DoubleQuotedString' 	: "This is a double quoted literal here is an escaped double quote "". This literal includes spaces.",
+        'DynamicFunctionCall' 	: $x(a,b,c)(d,e,f),
+		'EveryExpr' 			: every $x in $xset satisfies some $y in $yset, $z in $zset satisfies  $x and $y,
+        'ForExpr' 				: for $x in $xset, $y in $yset return $x + $y, 		
+		'ForwardStep'       	    : child::a,
+		'ForwardStep/AnyKindTest' 	: child::node(),	
+		'ForwardStep/AttributeTest' : (child::attribute(fred), child::attribute(*)),
+		'ForwardStep/CommentTest'   : child::comment(),
+		'ForwardStep/NamespaceNodeTest' : child::namespace-node(),
+		'ForwardStep/PITest'        : (child::processing-instruction() , child::processing-instruction(fred) , child::processing-instruction('fred')),
+		'ForwardStep/TextTest'   	: child::text(),
+		'GeneralComp'			: (1 &lt; 2, 1 = 2, 1 &gt; 2, 1 != 2),
+        'IfExpr'         	 	: if ($C) then $E1 else $E2,
+		'InlineFunctionExpr' 	: function($a as xs:double, $b as xs:double) as xs:double { $a * $b },
+         'InstanceofExpr' 		:  (x instance of empty-sequence(),
+                  							a instance of element(),
+                  							b instance of element(para),
+                  							c instance of element(para,paragraph),
+                  							d instance of attribute(),
+                  							r instance of attribute(attrname, attrtypename),
+                  							x instance of schema-element(para),
+                  							y instance of schema-attribute(para),
+                                            (5,6) instance of element(*))
+		'IntegerLiteral'		: 2,	
+		'IntersectExpr' 		: x intersect y,
+	    'LetExpr' 				: let $x := y  return let $a :=1, $b :=1 return $x div $a mod $a + $b,
+	    'NamedFunctionRef'		: fn:abs#1 ,
+	    'NodeComp'				: ($x &lt;&lt; $y, $x is $y, $x &gt;&gt; $y),
+	    'OrExpr'				: x or y or w and z,
+		'ParenthesizedItemType' : $z instance of (function(xs:anyAtomicType) as item()*)?,
+		'PostfixExpr' 			: $x[y](a,b,c)[z],
+		'PostfixLookup' 		: ($map?xyz, $array?1, $array?(1,2), $mapOrArray?*),
+		'PredicatedExpr'        : $a[b][c],
+        'PredicatedStep' 		: child::para[position() = 1],
+        'ReachingCompose' 		: a//b,
+        'ReverseStep/DocumentTest' 	: (parent::document-node(),parent::document-node(element(para))),
+        'Root' 					: /,
+        'RootedPathExpr' 		: /a/b/c,
+        'RootedReachPathExpr' 	: //a/b/c,
+		'SingleQuotedString' 	: 'This is a single quoted literal here is an escaped single quote ''. This literal includes spaces.',
+		'SimpleMapExpr' 		: $values!(.*.),
+        'SquareArrayConstructor': [1,2,3],
+        'StringConcatExpr'      : 'xyx' || 'cde',
+		'TreatExpr' 			: 'xxx' treat as xs:boolean?,
+		'TypedArrayTest'		: $y instance of array(map(*)),
+		'TypedFunctionTest'		: ($y instance of function(xs:anyAtomicType) as item()*,
+		                           $z instance of function(xs:anyAtomicType,xs:integer) as item()*
+		                           ),
+		'TypedMapTest'			: $y instance of map(x:y,xs:integer),
+		'UnaryExpr'     		: (-4, - - $x, - + $y),
+		'UnaryLookup' 			: (?a,?1,?(1,2),?*),
 		'UnionExpr' 			: x union y | z,
 		'ValueComp'				: (1 eq 2, 1 ne 2),
 		'exampleusingArgumentPlaceholder' : let $sum-of-squares := fn:fold-right(?, 0, function($a, $b) { $a*$a + $b }) return $sum-of-squares(1 to 3),

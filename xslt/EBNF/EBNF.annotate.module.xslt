@@ -20,7 +20,9 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="ZeroOneOrMore" mode="annotate_grammar">
+
+
+<xsl:template match="ZeroOneOrMore|nt" mode="annotate_grammar">
    <xsl:copy>
       <xsl:attribute name="id" select="generate-id()"/>
       <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
@@ -47,12 +49,26 @@
    </xsl:copy>
 </xsl:template>
 
+
+<xsl:template match="prod" mode="annotate_grammar">
+   <xsl:copy>
+      <xsl:variable name="useCount" select="count(//nt[.=current()/lhs])"/>
+      <xsl:if test="$useCount eq 0">
+         <xsl:message> ************************* Warning: production '<xsl:value-of select="lhs"/>' is not used</xsl:message>
+      </xsl:if>
+      <xsl:variable name="scanUseCount" select="count(//nt[.=current()/lhs][ancestor::rhs/@mode='scan'])"/>
+      <xsl:attribute name="useCount" select="$useCount"/>
+      <xsl:if test="$scanUseCount &gt; 0 and $scanUseCount ne $useCount">
+         <xsl:message> ************************* Warning: on basis of limited anaysis production '<xsl:value-of select="lhs"/>' showing as mixed mode i.e. sometime scan mode sometimes not.</xsl:message>
+      </xsl:if>
+
+      <xsl:attribute name="scanUseCount" select="$scanUseCount"/>
+      <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
+   </xsl:copy>
+</xsl:template>
+
 <xsl:template match="prod[exists(ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs])]/rhs" mode="annotate_grammar">
    <xsl:copy>
-      <!--
-      <xsl:attribute name="transform" select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@transform"/>
-      <xsl:attribute name="abstract"  select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@abstract"/>
-   -->
       <xsl:copy-of select="ancestor-or-self::ebnf/mapping/non-terminals/non-terminal[@name=current()/../lhs]/@*"/>
       <xsl:apply-templates select="node()|@*" mode="annotate_grammar"/>
    </xsl:copy>

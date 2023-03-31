@@ -15,10 +15,13 @@
 <xsl:include href="EBNF.annotate.module.xslt"/>
 <xsl:include href="EBNF.parse.module.xslt"/>
 <xsl:include href="EBNF.2productionInstanceTree.module.xslt"/>
+<xsl:include href="EBNF.testCoverageAnalysis.module.xslt"/>
 <xsl:include href="EBNF.2intermediateCodeTree.module.xslt"/>
 
+<xsl:variable name="outputAnotatedGrammar" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputParseTree" as="xs:boolean" select="false()"/>
 <xsl:variable name="outputProductionInstanceTree" as="xs:boolean" select="false()"/>
+<xsl:variable name="testCoverageAnalysis" as="xs:boolean" select="true()"/>
 <xsl:variable name="outputIntermediateCodeTree" as="xs:boolean" select="true()"/>
 
 <xsl:variable name="annotatedGrammar">
@@ -38,13 +41,16 @@
 
 <xsl:template match="/">
 
-    <xsl:message>  Testing <xsl:value-of select="map:keys(map{'a':1,'b':2}[?b=2])"/></xsl:message>
+    <xsl:message>  Testing </xsl:message>
    
    <xsl:message>  Generating xml </xsl:message>
 
    <xsl:variable name="docstate" as="document-node()" select="$annotatedGrammar"/>
 
-   <!--<xsl:copy-of select="$docstate/ebnf/grammar"/> -->             <!-- uncomment this to assist debug -->
+   <xsl:if test="$outputAnotatedGrammar">
+      <xsl:message>Outputing Annotated Grammar</xsl:message>
+      <xsl:copy-of select="$docstate/ebnf/grammar"/>
+   </xsl:if>
    <!-- <xsl:copy-of select="$docstate/ebnf/mapping"/> --> 
    <!-- next check that all non-alpha literals that require names have them supplied in a mapping -->
    <!-- if they don't create a skeleton of the mapping      (see annotate.module.xslt)               -->
@@ -94,6 +100,15 @@
               <xsl:copy-of select="$parseResult"/>
             </xsl:if>
 
+            <!-- Test Coverage Analysis -->
+            <xsl:if test="$testCoverageAnalysis">
+               <xsl:element name="testCoverageAnalysis">
+                  <xsl:apply-templates select="$annotatedGrammar/ebnf/grammar" mode="testCoverageAnalysis">
+                     <xsl:with-param name="parseTree" select="$parseResult"/>
+                  </xsl:apply-templates>
+               </xsl:element>
+             </xsl:if>
+
             <!-- create the production Instance Tree -->
             <xsl:if test="$outputProductionInstanceTree or $outputIntermediateCodeTree">
                <xsl:variable name="productionInstanceTree" as="element()">
@@ -105,6 +120,7 @@
                <xsl:if test="$outputProductionInstanceTree">
                   <xsl:copy-of select="$productionInstanceTree"/>
                </xsl:if>
+
                <xsl:if test="$outputIntermediateCodeTree">
                   <xsl:element name="xpath-31">
                      <xsl:apply-templates select="$productionInstanceTree/Expr" mode="createIntermediateCodeTree"/>

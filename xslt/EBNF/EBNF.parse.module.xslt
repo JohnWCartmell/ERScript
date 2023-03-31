@@ -45,6 +45,7 @@
       </xsl:when>
       <xsl:otherwise>
    <xsl:element name="non-terminal">
+      <xsl:copy-of select="@id"/>
       <xsl:attribute name="name"
                      select="."/>
       <xsl:copy-of select="$production/rhs/@mapTo"/>
