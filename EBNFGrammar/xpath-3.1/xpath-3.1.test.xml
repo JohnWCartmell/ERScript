@@ -9,6 +9,7 @@
 		<xpath>	
 		map {
 		'AbbrevForwardStep' 	: ((x, prfx:x, Q{uri}x, Q{}x) ,(/*, /*:b, /b:*, /Q{URI}*)),
+		'AbbrevReverseStep' : ..,
 		'AddExpr' 				: $x + self::y + child::z,	
 		'AndExpr'				: x and y,
 		'AnyArrayTest'			: $x instance of array(*),
