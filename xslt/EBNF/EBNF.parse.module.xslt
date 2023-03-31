@@ -135,6 +135,10 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <xsl:param name="whitespace" as="xs:string?"/>
    <!--<xsl:variable name="signifier" select="parent::or and (position()=1)" />                      MONDAY -->
    <xsl:variable name="literal" select="." />
+
+   <xsl:if test="@not">
+      <xsl:message> Looking for literal but not '<xsl:value-of select="@not"/>'</xsl:message>
+   </xsl:if>
    <!--<xsl:message>Look for literal '<xsl:value-of select="$literal"/>'  of length <xsl:value-of select="string-length($literal)"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
       <xsl:call-template name="consumeWhiteSpace"> 
@@ -142,8 +146,13 @@ this will help if followed by an OR which would then repreatedly remove whitespa
          <xsl:with-param name="inputPosition" select="$inputPosition" />
       </xsl:call-template>  
    </xsl:variable>
+   <!-- I have added an attribute called not to the literal in the grammar as a work around that avoids me having to wtite a tokeniser -->
    <xsl:choose>
-      <xsl:when test="substring($input,$newInputPosition,string-length($literal))=$literal">
+      <xsl:when test="substring($input,$newInputPosition,string-length($literal))=$literal
+                      and (not(@not) 
+                            or not(substring($input,$newInputPosition,string-length(@not))=@not) 
+                          ) 
+                     ">
            <!--<xsl:message>Found literal</xsl:message>-->
          <xsl:element name="literal">
             <xsl:copy-of select="@*"/>   <!-- to copy attributes from grammar-->

@@ -387,7 +387,16 @@
 	      </prod>
     	</by>
     </replace>
-
+	<replace production="ContextItemExpr">
+    	<by>
+         <prod>
+	         <lhs>ContextItemExpr</lhs>
+	         <rhs>
+	            <literal not="..">.</literal>   <!-- a hack this, I am afraid, to avoid having to write a tokeniser -->
+	         </rhs>
+	      </prod>
+		</by>
+	</replace>
     <replace production="KeySpecifier">
     	<by>
     		<!--deliberately left empty -->
