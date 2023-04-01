@@ -27,7 +27,7 @@
 
 
 <xsl:template match="non-terminal[@mapTo='attribute']" mode="createProductionInstanceTree">
-   <xsl:message> mappping to attribute</xsl:message>
+   <!-- <xsl:message> mappping to attribute</xsl:message> -->
    <xsl:attribute name="{@name}">
       <xsl:apply-templates select="*" mode="createProductionInstanceTree"/>
    </xsl:attribute>

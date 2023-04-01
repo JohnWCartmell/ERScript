@@ -33,7 +33,7 @@
    <xsl:variable name="requirednodename" 
                  as="xs:string"
                  select="if($rhs/@nameAfterTransform)then $rhs/@nameAfterTransform else name()"/>
-   <xsl:message>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<xsl:value-of select="$requirednodename"/></xsl:message>
+   <!--<xsl:message>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<xsl:value-of select="$requirednodename"/></xsl:message>-->
    <xsl:element name="{$requirednodename}">
       <xsl:apply-templates select="*[not(self::ZeroOneOrMore)][not(preceding-sibling::ZeroOneOrMore)]" mode="createIntermediateCodeTree"/>
       <xsl:apply-templates select="ZeroOneOrMore/OneOfZeroOneOrMore/*" mode="createIntermediateCodeTree"/>
@@ -245,7 +245,7 @@
       <xsl:otherwise>
          <!--<xsl:message> count of children of head of term sequence is <xsl:value-of select="count(head($termSequence)/*)"/></xsl:message>-->
          <xsl:variable name="operandTypeName" select="head($termSequence)/*[1]/name()"/>
-         <xsl:message>operand type name is <xsl:value-of select="$operandTypeName"/></xsl:message>
+         <!--<xsl:message>operand type name is <xsl:value-of select="$operandTypeName"/></xsl:message>-->
          <xsl:variable name="rhs" 
                        as="element(rhs)"
                        select="$annotatedGrammar/ebnf/grammar/prod
@@ -255,11 +255,11 @@
                        "/> 
          <xsl:variable name="operatorName" as="xs:string"
                        select="$rhs/@nameWhenAnonymousOperator"/>
-                     <xsl:message>operator name is <xsl:value-of select="$operatorName"/></xsl:message>             
+                     <!--<xsl:message>operator name is <xsl:value-of select="$operatorName"/></xsl:message>    -->         
          <xsl:variable name="decapitateHeadOfTermSequence" 
                         as="xs:boolean"  
                         select="$rhs/@abstract='afterwards'"/>
-                        <xsl:message>decapitate is <xsl:value-of select="$decapitateHeadOfTermSequence"/></xsl:message>                                
+                        <!-- <xsl:message>decapitate is <xsl:value-of select="$decapitateHeadOfTermSequence"/></xsl:message> -->
          <xsl:variable name="headBinary" as="element()">
             <xsl:element name="{$operatorName}">                    <!-- the operation    (derived from second operand)  --> 
                <xsl:if test="$decapitateHeadOfTermSequence">
@@ -299,10 +299,10 @@
    <xsl:param name="operator" as="element()"/>
    <xsl:param name="operand" as="element()+"/>                <!--changed to be a sequence because of case of xpath quantified expressions -->
 
-   <xsl:message>prefixTransform called with operator <xsl:value-of select="$operator"/></xsl:message>
-         <xsl:element name="{$operator/name()}">                   <!-- the operation -->
-            <xsl:copy-of select="$operand"/>                       <!-- the operand   -->
-         </xsl:element> 
+   <!-- <xsl:message>prefixTransform called with operator <xsl:value-of select="$operator"/></xsl:message> -->
+      <xsl:element name="{$operator/name()}">                   <!-- the operation -->
+         <xsl:copy-of select="$operand"/>                       <!-- the operand   -->
+      </xsl:element> 
 </xsl:function>
 
 

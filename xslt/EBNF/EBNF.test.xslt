@@ -41,7 +41,7 @@
 
 <xsl:template match="/">
 
-    <xsl:message>  Testing </xsl:message>
+    <xsl:message> Testing </xsl:message>
    
    <xsl:message>  Generating xml </xsl:message>
 
@@ -80,7 +80,7 @@
 </xsl:template>
 
 <xsl:template match="test" mode="test">
-   <xsl:message>***************** Testing <xsl:value-of select="rhs"/></xsl:message>
+   <xsl:message>***************** Parsing '<xsl:value-of select="rhs"/>'</xsl:message>
 
       <xsl:variable name="parseResult" as="element()">
          <xsl:apply-templates select="rhs" mode="parse">
@@ -102,6 +102,7 @@
 
             <!-- Test Coverage Analysis -->
             <xsl:if test="$testCoverageAnalysis">
+               <xsl:message>Creating TestCoverageAnalysis</xsl:message>
                <xsl:element name="testCoverageAnalysis">
                   <xsl:apply-templates select="$annotatedGrammar/ebnf/grammar" mode="testCoverageAnalysis">
                      <xsl:with-param name="parseTree" select="$parseResult"/>
@@ -111,6 +112,8 @@
 
             <!-- create the production Instance Tree -->
             <xsl:if test="$outputProductionInstanceTree or $outputIntermediateCodeTree">
+
+               <xsl:message>Creating ProductionInstanceTree</xsl:message>
                <xsl:variable name="productionInstanceTree" as="element()">
                   <xsl:element name="productionInstanceTree">
                      <xsl:apply-templates select="$parseResult" mode="createProductionInstanceTree"/>
@@ -122,6 +125,7 @@
                </xsl:if>
 
                <xsl:if test="$outputIntermediateCodeTree">
+               <xsl:message>Creating IntermediateCodeTree</xsl:message>
                   <xsl:element name="xpath-31">
                      <xsl:apply-templates select="$productionInstanceTree/Expr" mode="createIntermediateCodeTree"/>
                   </xsl:element>
