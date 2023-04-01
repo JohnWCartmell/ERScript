@@ -38,12 +38,13 @@
             <entity_type name="Multiply"/>
             <entity_type name="Div"/>
             <entity_type name="IntegerDivide"/>
-            <entity_type name="Modulo"/>
+            <entity_type name="Mod"/>
             <entity_type name="Union"/>
             <entity_type name="Intersect"/>
             <entity_type name="Except"/>
             <entity_type name="SimpleMap"/>
             <entity_type name="RangeExpr"/>
+            <entity_type name="StringConcat"/>
             <entity_type name="ComparisonExpr">
                <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                   <x><at><right/><of>Or</of></at><delta>1</delta></x>
@@ -174,7 +175,10 @@
                         <composition name="args" type="Argument*"/>
                      </entity_type>
                      <entity_type name="FunctionItemExpr">
-                        <entity_type name="NamedFunctionRef"/>
+                        <entity_type name="NamedFunctionRef">
+                           <composition type="EQName"/>
+                           <composition type="IntegerLiteral"/>
+                        </entity_type>
                         <entity_type name="InlineFunctionExpr">
                            <composition name="params" type="Param*"/>
                            <composition type="SequenceType?"/>
@@ -204,6 +208,9 @@
                         <composition name="predicate" type="Expr"><xmlRepresentation>Anonymous</xmlRepresentation></composition>
                      </entity_type>
                      <entity_type name="Step">
+                        <entity_type name="AbbrevReverseStep">
+                           <entity_type name="ParentNode"/>
+                        </entity_type>
                         <entity_type name="ReverseStep">
                            <!--<composition  type="ReverseAxis"/>-->
                            <entity_type name="Parent"/>
@@ -325,8 +332,9 @@
          </entity_type>
       </entity_type>
       <entity_type name="KindTest(1)">
-         <composition type="KindTest"/>
-      </entity_type>
+               <xmlRepresentation>Anonymous</xmlRepresentation>
+               <composition type="KindTest"/>
+            </entity_type>
    </entity_type>
 
    <entity_type name="ElementNameOrWildcard">
@@ -336,6 +344,11 @@
          <entity_type name="ElementNameWildcard"/>
          <attribute name="typename" type="string?"> <!-- reference to schema type outwith pure xpath --> </attribute>
          <attribute name="optional" type="boolean"> <!-- there is a possible "?"  in syntax  --> </attribute>
+   </entity_type>
+
+ 
+   <entity_type name="TypeName">
+      <composition type="EQName"/>
    </entity_type>
 
    <entity_type name="AttribNameOrWildcard">
@@ -363,11 +376,12 @@
                <xmlRepresentation>Anonymous</xmlRepresentation>
                <composition type="KindTest"/>
             </entity_type>
-            <entity_type name="ItemTest"/>
+            <entity_type name="Item"/>
             <entity_type name="FunctionTest">
                <entity_type name="AnyFunctionTest"/>
                <entity_type name="TypedFunctionTest">
-                  <composition type="SequenceType?"/>
+                  <composition name="argTypes" type="SequenceType+"/>
+                  <composition name="returnType" type="SequenceType"/>
                </entity_type>
             </entity_type>
             <entity_type name="MapTest">
@@ -400,16 +414,20 @@
       <entity_type name="ElementTestOrSchemaElementTest">
          <entity_type name="ElementTest">
             <composition type="ElementNameOrWildcard?"/> 
+            <composition type="TypeName?"/> 
          </entity_type>
-         <entity_type name="SchemaElementTest"><!--TBD--></entity_type>
+         <entity_type name="SchemaElementTest"><composition type="ElementName"/></entity_type>
       </entity_type>
       <entity_type name="AttributeTest">
          <composition type="AttribNameOrWildcard?"/>
+         <composition type="TypeName?"/> 
       </entity_type>
-      <entity_type name="SchemaAttributeTest"/>
+      <entity_type name="SchemaAttributeTest">
+         <composition type="AttributeName"/>
+      </entity_type>
       <entity_type name="PITest">
-         <attribute name="NCName" type="string?"/>
-         <attribute name="StringLiteral" type="string?"> <!-- for backward ompatibility with xpath 1.0--></attribute>  
+         <attribute name="NCName" type="string?">       <!-- optional so as to be backward compatible with xpath 1.0 --></attribute>
+         <composition type="StringLiteral?">             <!-- for backward ompatibility with xpath 1.0--></composition>  
       </entity_type>
       <entity_type name="CommentTest"/>
       <entity_type name="TextTest"/>

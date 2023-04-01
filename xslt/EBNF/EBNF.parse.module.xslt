@@ -136,10 +136,12 @@ this will help if followed by an OR which would then repreatedly remove whitespa
    <!--<xsl:variable name="signifier" select="parent::or and (position()=1)" />                      MONDAY -->
    <xsl:variable name="literal" select="." />
 
-   <xsl:if test="@not">
-      <xsl:message> Looking for literal but not '<xsl:value-of select="@not"/>'</xsl:message>
-   </xsl:if>
-   <!--<xsl:message>Look for literal '<xsl:value-of select="$literal"/>'  of length <xsl:value-of select="string-length($literal)"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>-->
+   <!--
+      <xsl:if test="@not">
+         <xsl:message> Looking for literal but not '<xsl:value-of select="@not"/>'</xsl:message>
+      </xsl:if>
+      <xsl:message>Look for literal '<xsl:value-of select="$literal"/>'  of length <xsl:value-of select="string-length($literal)"/> at input position <xsl:value-of select="$inputPosition"/></xsl:message>
+   -->
    <xsl:variable name="newInputPosition" as="xs:positiveInteger">
       <xsl:call-template name="consumeWhiteSpace"> 
          <xsl:with-param name="input" select="$input" />

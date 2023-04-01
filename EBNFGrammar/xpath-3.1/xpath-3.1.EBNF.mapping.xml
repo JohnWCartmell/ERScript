@@ -397,6 +397,51 @@
 	      </prod>
 		</by>
 	</replace>
+
+	
+    <replace production="TypedFunctionTest">
+    	<by>
+	    	<prod>
+	         <lhs>TypedFunctionTest</lhs>
+	         <rhs>
+	            <sequence>
+	               <literal>function</literal>
+	               <literal>(</literal>
+	               <nt>SequenceTypeList</nt>
+	               <literal>)</literal>
+	               <nt>returnType</nt>
+	            </sequence>
+	         </rhs>
+	      </prod>
+
+	      <prod>
+	      	<lhs>SequenceTypeList</lhs>
+	      	<rhs>
+	      		<sequence>
+	                  <nt>SequenceType</nt>
+	                  <ZeroOneOrMore>
+	                     <literal>,</literal>
+	                     <nt>SequenceType</nt>
+	                  </ZeroOneOrMore>
+	      		</sequence>
+	      	</rhs>
+	      </prod>
+
+	      <prod>
+	      	<lhs>returnType</lhs>
+	      	<rhs>
+	      		<sequence>
+	               <literal>as</literal>
+	               <nt>SequenceType</nt>
+	      		</sequence>
+	      	</rhs>
+	      </prod>
+
+
+		</by>
+	</replace>
+
+
     <replace production="KeySpecifier">
     	<by>
     		<!--deliberately left empty -->
@@ -408,17 +453,21 @@
 		</non-terminals>
 
 		<non-terminals>
+			<non-terminal name="AbbrevReverseStep"                                         abstract="unconditional"/>
 			<non-terminal name="AdditiveExpr"        transform="associativeInfixTransform" abstract="when_singular"/>
 			<non-terminal name="AndExpr"             transform="associativeInfixTransform" abstract="when_singular"/>
 			<non-terminal name="AnyURIQualifiedNode" transform="makeLeafNodeTransform"                             />
          <non-terminal name="Argument"                                                  abstract="unconditional"/>    
          <non-terminal name="ArgumentList" nameWhenAnonymousOperator="DynamicFunctionCall" transform="separatedListTransform" nameAfterTransform="args"/>  
+         <non-terminal name="ArrayTest"                                                  abstract="unconditional"/> 
          <non-terminal name="args"           nameWhenAnonymousOperator="DynamicFunctionCall"><!-- this not used !!--> </non-terminal>
          <non-terminal name="ArrayConstructor"                               abstract="unconditional"/> 
          <non-terminal name="ArrayLookup" nameWhenAnonymousOperator="ArrayLookup" abstract="afterwards"  />   
          <non-terminal name="ArrowExpr"            transform="separatedListTransform_and_abstract_when_singular"/>  
          <non-terminal name="ArrowFunctionSpecifier"                         abstract="unconditional"/> 
-         <non-terminal name="ArrowStep"                         				abstract="unconditional"/>
+         <non-terminal name="ArrowStep"                         				  abstract="unconditional"/>
+         <non-terminal name="AttributeDeclaration"                           abstract="unconditional"/>
+         <non-terminal name="AttribNameOrWildcard"                			  abstract="unconditional"/>
          <non-terminal name="AxisStep"            transform="associativeInfixTransform" abstract="when_singular"/>
          <non-terminal name="CastExpr"                                       abstract="when_singular"/>
          <non-terminal name="CastableExpr"                                   abstract="when_singular"/>
@@ -429,6 +478,7 @@
 			<non-terminal name="ComparisonExpr"      transform="infixTransform"            abstract="when_singular"/>
          <non-terminal name="DynamicArrowFunctionSpecifier"                  abstract="unconditional"/>
          <non-terminal name="EQName"                                         abstract="unconditional"/>
+         <non-terminal name="ElementDeclaration"                             abstract="unconditional"/>
          <non-terminal name="ElementNameOrWildcard"                          abstract="unconditional"/>
          <non-terminal name="EnclosedExpr"                                   abstract="unconditional"/>
          <non-terminal name="Expr"                transform="separatedListTransform" />
@@ -436,6 +486,7 @@
          <non-terminal name="ForwardAxis"                                    abstract="unconditional"/>
          <non-terminal name="ForwardStep"         transform="prefixTransform" abstract="when_singular"/>
          <non-terminal name="FunctionBody"                                    abstract="unconditional"/>
+         <non-terminal name="FunctionTest"                                                  abstract="unconditional"/> 
          <non-terminal name="FunctionItemExpr"                                abstract="unconditional"/>
          <non-terminal name="GeneralComp"                                     abstract="unconditional"/> 
          <non-terminal name="InstanceofExpr"                                  abstract="when_singular"/>
@@ -449,10 +500,10 @@
          <non-terminal name="MapKeyExpr"                                      abstract="unconditional"/> 
          <non-terminal name="MapLookup" nameWhenAnonymousOperator="MapLookup" abstract="afterwards"  /> 
          <non-terminal name="MapOrArrayFilter" nameWhenAnonymousOperator="MapOrArrayFilter" abstract="afterwards"  /> 
+         <non-terminal name="MapTest"                                                  abstract="unconditional"/> 
          <non-terminal name="MapValueExpr"                                    abstract="unconditional"/>  
          <non-terminal name="MultiplicativeExpr"  transform="associativeInfixTransform" abstract="when_singular"/>
-         <non-terminal name="NameTest"                                        abstract="unconditional"/>  
-         <!--<non-terminal name="NCNameIndirection"                               abstract="unconditional"/>-->
+         <non-terminal name="NameTest"                                        abstract="unconditional"/> 
          <non-terminal name="NodeComp"                                        abstract="unconditional"/>  
          <non-terminal name="NodeTest"                                        abstract="unconditional"/>
          <non-terminal name="NumericLiteral"                                  abstract="unconditional"/>
@@ -468,11 +519,14 @@
          <non-terminal name="QuantifiedExpr"      transform="prefixTransform"                        />
          <non-terminal name="QuantifiedExprBinding" transform="separatedListTransform" nameAfterTransform="binding"  /> 
          <non-terminal name="RangeExpr"                                      abstract="when_singular"/>
-         <non-terminal name="RelativePathExpr"    transform="associativeInfixTransform" abstract="when_singular"/>
+         <non-terminal name="RelativePathExpr"    transform="associativeInfixTransform" abstract="when_singular"/>  
+      	<non-terminal name="ReverseAxis"                                      abstract="unconditional"/>
+         <non-terminal name="ReverseStep"         transform="prefixTransform"  abstract="when_singular"/>
          <non-terminal name="SequenceOfItems"     transform="postfixTransform" abstract="when_singular"/>
-         <non-terminal name="SequenceType"                                   abstract="unconditional"/>
-         <non-terminal name="StaticArrowFunctionSpecifier"                   abstract="unconditional"/>
-         <non-terminal name="StepExpr"                                       abstract="unconditional"/>
+         <non-terminal name="SequenceType"                                     abstract="unconditional"/>
+         <non-terminal name="SequenceTypeList"    transform="separatedListTransform"   nameAfterTransform="argTypes" />
+         <non-terminal name="StaticArrowFunctionSpecifier"                     abstract="unconditional"/>
+         <non-terminal name="StepExpr"                                         abstract="unconditional"/>
          <non-terminal name="SimpleForClause"     transform="separatedListTransform"  nameAfterTransform="binding" />  
          <non-terminal name="SimpleLetClause"     transform="separatedListTransform"  nameAfterTransform="binding" /> 
          <non-terminal name="SimpleMapExpr"       transform="associativeInfixTransform" abstract="when_singular"   />
@@ -527,7 +581,11 @@
 		   <literal>and</literal>
 		   <mapping>And</mapping>
 		</literalMapping>
-
+		<literalMapping>
+		   <production>StringConcatExpr</production>
+         <literal>||</literal>
+		   <mapping>StringConcat</mapping>
+		</literalMapping>
 		<literalMapping>
 		   <production>UnaryExpr</production>
 		   <literal>-</literal>
@@ -617,7 +675,7 @@
 		<literalMapping>
 		   <production>OccurrenceIndicator</production>
 		   <literal>*</literal>
-		   <mapping>OccursZeroONeOrMore</mapping>
+		   <mapping>OccursZeroOneOrMore</mapping>
 		</literalMapping>
 		<literalMapping>
 		   <production>OccurrenceIndicator</production>

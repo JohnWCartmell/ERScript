@@ -12,20 +12,7 @@
 		    	<token regexp="^-|^\.|^[0-9]|^&#xB7;|^[&#x0300;-&#x036F;]|^[&#x203F;-&#x2040;]"/>
 		    </rhs>
 		</prod>
-		<!-- 
-		<prod>
-		    <lhs>Char</lhs>
-		    <rhs>
-		    	<token regexp="^&#x9;|^&#xA;|^&#xD;|^[&#x20;-&#xD7FF;]|^[&#xE000;-&#xFFFD;]|^[&#x10000;-&#x10FFFF;]"/>
-		    </rhs>
-		</prod>
-		<prod>
-		    <lhs>CharCode</lhs>
-		    <rhs>
-		    	<token regexp="^#x[0-9a-fA-F]+"/>
-		    </rhs>
-		</prod>
-	-->
+
 	<!--
 		<prod>
 		    <lhs>S</lhs>
