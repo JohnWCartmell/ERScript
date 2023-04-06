@@ -46,7 +46,9 @@
       <composition type="identifying(2)?"/>
       <composition type="optional?"/>
       <composition type="deprecated?"/>
-      <composition name="xmlStyle" type="xmlStyle(2)?"/><!-- this is coded all over as xmlRepresentation I think-->
+      <composition name="xmlRepresentation" type="xmlStyle(2)?">
+              <!-- 6th April 2023 ... the name changed to reflect how coded in numerous places (name was xmlStyle) -->
+      </composition>
       <attribute name="description" type="string"/>
    </entity_type>
    <entity_type name="dependency_group"><!--
