@@ -46,7 +46,7 @@
       <composition type="identifying(2)?"/>
       <composition type="optional?"/>
       <composition type="deprecated?"/>
-      <composition name="xmlStyle" type="xmlStyle(2)?"/>
+      <composition name="xmlStyle" type="xmlStyle(2)?"><xmlRepresentation><Anonymous/></xmlRepresentation>
       <attribute name="description" type="string"/>
    </entity_type>
    <entity_type name="dependency_group"><!--
