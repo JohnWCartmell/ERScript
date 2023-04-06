@@ -1,0 +1,1171 @@
+<root>
+    <schema filename="../../../xpathModel/xml/xpath..logical.xml"/>
+
+    <instance name="coverage_test_instance">
+<xpath-31>
+   <Expr>
+      <MapConstructor>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AbbrevForwardStep"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <ParenthesizedExpr>
+                     <Expr>
+                        <AbbrevForwardStep>
+                           <QName LocalName="x"/>
+                        </AbbrevForwardStep>
+                        <AbbrevForwardStep>
+                           <QName Prefix="prfx" LocalName="x"/>
+                        </AbbrevForwardStep>
+                        <AbbrevForwardStep>
+                           <URIQualifiedName LocalName="x" URI="uri"/>
+                        </AbbrevForwardStep>
+                        <AbbrevForwardStep>
+                           <URIQualifiedName LocalName="x"/>
+                        </AbbrevForwardStep>
+                     </Expr>
+                  </ParenthesizedExpr>
+                  <ParenthesizedExpr>
+                     <Expr>
+                        <Root>
+                           <AbbrevForwardStep>
+                              <AnyPrincipalNode/>
+                           </AbbrevForwardStep>
+                        </Root>
+                        <Root>
+                           <AbbrevForwardStep>
+                              <AnyOrNoNamespace LocalName="b"/>
+                           </AbbrevForwardStep>
+                        </Root>
+                        <Root>
+                           <AbbrevForwardStep>
+                              <AnyLocalName Prefix="b"/>
+                           </AbbrevForwardStep>
+                        </Root>
+                        <Root>
+                           <AbbrevForwardStep>
+                              <AnyURIQualifiedNode URI="URI"/>
+                           </AbbrevForwardStep>
+                        </Root>
+                     </Expr>
+                  </ParenthesizedExpr>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AbbrevReverseStep"/>
+            <ParentNode/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AddExpr"/>
+            <Add>
+               <Add>
+                  <VarRef>
+                     <QName LocalName="x"/>
+                  </VarRef>
+                  <Self>
+                     <QName LocalName="y"/>
+                  </Self>
+               </Add>
+               <Child>
+                  <QName LocalName="z"/>
+               </Child>
+            </Add>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AndExpr"/>
+            <And>
+               <AbbrevForwardStep>
+                  <QName LocalName="x"/>
+               </AbbrevForwardStep>
+               <AbbrevForwardStep>
+                  <QName LocalName="y"/>
+               </AbbrevForwardStep>
+            </And>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AnyArrayTest"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="x"/>
+               </VarRef>
+               <AnyArrayTest/>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AnyFunctionTest"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="x"/>
+               </VarRef>
+               <AnyFunctionTest/>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="AnyMapTest"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="x"/>
+               </VarRef>
+               <AnyMapTest/>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ArrowExpr"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <ArrowExpr>
+                     <VarRef>
+                        <QName LocalName="string"/>
+                     </VarRef>
+                     <StaticArrowTransform>
+                        <QName LocalName="upper-case"/>
+                        <args/>
+                     </StaticArrowTransform>
+                     <StaticArrowTransform>
+                        <QName LocalName="normalize-unicode"/>
+                        <args/>
+                     </StaticArrowTransform>
+                     <StaticArrowTransform>
+                        <QName LocalName="tokenize"/>
+                        <args>
+                           <SingleQuotedString SingleQuotedStringContent="\s+"/>
+                        </args>
+                     </StaticArrowTransform>
+                  </ArrowExpr>
+                  <ArrowExpr>
+                     <VarRef>
+                        <QName LocalName="string"/>
+                     </VarRef>
+                     <DynamicArrowTransform>
+                        <VarRef>
+                           <QName LocalName="myfunc"/>
+                        </VarRef>
+                        <args/>
+                     </DynamicArrowTransform>
+                  </ArrowExpr>
+                  <DynamicFunctionCall>
+                     <ParenthesizedExpr>
+                        <Expr>
+                           <FunctionCall>
+                              <QName LocalName="f"/>
+                              <args>
+                                 <AbbrevForwardStep>
+                                    <QName LocalName="x"/>
+                                 </AbbrevForwardStep>
+                              </args>
+                           </FunctionCall>
+                        </Expr>
+                     </ParenthesizedExpr>
+                     <args>
+                        <AbbrevForwardStep>
+                           <QName LocalName="y"/>
+                        </AbbrevForwardStep>
+                     </args>
+                  </DynamicFunctionCall>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="CastExpr"/>
+            <CastExpr>
+               <SingleQuotedString SingleQuotedStringContent="999"/>
+               <TypeName>
+                  <QName Prefix="xs" LocalName="integer"/>
+               </TypeName>
+               <Optional/>
+            </CastExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="CastableExpr"/>
+            <CastableExpr>
+               <SingleQuotedString SingleQuotedStringContent="xxx"/>
+               <TypeName>
+                  <QName Prefix="xs" LocalName="boolean"/>
+               </TypeName>
+            </CastableExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="CurlyArrayConstructor"/>
+            <CurlyArrayConstructor>
+               <Expr>
+                  <IntegerLiteral Digits="1"/>
+                  <IntegerLiteral Digits="2"/>
+                  <IntegerLiteral Digits="3"/>
+                  <VarRef>
+                     <QName LocalName="y"/>
+                  </VarRef>
+                  <FunctionCall>
+                     <QName LocalName="f"/>
+                     <args/>
+                  </FunctionCall>
+               </Expr>
+            </CurlyArrayConstructor>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="DecimalLiteral"/>
+            <DecimalLiteral DecimalDigits="1.13"/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="DoubleLiteral"/>
+            <DoubleLiteral Mantissa="1.2" ExponentSymbol="E" Exponent="3"/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="DoubleQuotedString"/>
+            <DoubleQuotedString DoubleQuotedStringContent="This is a double quoted literal here is an escaped double quote &#34;&#34;. This literal includes spaces."/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="DynamicFunctionCall"/>
+            <DynamicFunctionCall>
+               <DynamicFunctionCall>
+                  <VarRef>
+                     <QName LocalName="x"/>
+                  </VarRef>
+                  <args>
+                     <AbbrevForwardStep>
+                        <QName LocalName="a"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="c"/>
+                     </AbbrevForwardStep>
+                  </args>
+               </DynamicFunctionCall>
+               <args>
+                  <AbbrevForwardStep>
+                     <QName LocalName="d"/>
+                  </AbbrevForwardStep>
+                  <AbbrevForwardStep>
+                     <QName LocalName="e"/>
+                  </AbbrevForwardStep>
+                  <AbbrevForwardStep>
+                     <QName LocalName="f"/>
+                  </AbbrevForwardStep>
+               </args>
+            </DynamicFunctionCall>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="EveryExpr"/>
+            <Every>
+               <binding>
+                  <SimpleForBinding>
+                     <QName LocalName="x"/>
+                     <VarRef>
+                        <QName LocalName="xset"/>
+                     </VarRef>
+                  </SimpleForBinding>
+               </binding>
+               <Some>
+                  <binding>
+                     <SimpleForBinding>
+                        <QName LocalName="y"/>
+                        <VarRef>
+                           <QName LocalName="yset"/>
+                        </VarRef>
+                     </SimpleForBinding>
+                     <SimpleForBinding>
+                        <QName LocalName="z"/>
+                        <VarRef>
+                           <QName LocalName="zset"/>
+                        </VarRef>
+                     </SimpleForBinding>
+                  </binding>
+                  <And>
+                     <VarRef>
+                        <QName LocalName="x"/>
+                     </VarRef>
+                     <VarRef>
+                        <QName LocalName="y"/>
+                     </VarRef>
+                  </And>
+               </Some>
+            </Every>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForExpr"/>
+            <ForExpr>
+               <binding>
+                  <SimpleForBinding>
+                     <QName LocalName="x"/>
+                     <VarRef>
+                        <QName LocalName="xset"/>
+                     </VarRef>
+                  </SimpleForBinding>
+                  <SimpleForBinding>
+                     <QName LocalName="y"/>
+                     <VarRef>
+                        <QName LocalName="yset"/>
+                     </VarRef>
+                  </SimpleForBinding>
+               </binding>
+               <Add>
+                  <VarRef>
+                     <QName LocalName="x"/>
+                  </VarRef>
+                  <VarRef>
+                     <QName LocalName="y"/>
+                  </VarRef>
+               </Add>
+            </ForExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep"/>
+            <Child>
+               <QName LocalName="a"/>
+            </Child>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/AnyKindTest"/>
+            <Child>
+               <AnyKindTest/>
+            </Child>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/AttributeTest"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Child>
+                     <AttributeTest>
+                        <AttributeName>
+                           <QName LocalName="fred"/>
+                        </AttributeName>
+                     </AttributeTest>
+                  </Child>
+                  <Child>
+                     <AttributeTest>
+                        <AttributeNameWildcard/>
+                     </AttributeTest>
+                  </Child>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/CommentTest"/>
+            <Child>
+               <CommentTest/>
+            </Child>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/NamespaceNodeTest"/>
+            <Child>
+               <NamespaceNodeTest/>
+            </Child>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/PITest"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Child>
+                     <PITest/>
+                  </Child>
+                  <Child>
+                     <PITest NCName="fred"/>
+                  </Child>
+                  <Child>
+                     <PITest>
+                        <SingleQuotedString SingleQuotedStringContent="fred"/>
+                     </PITest>
+                  </Child>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ForwardStep/TextTest"/>
+            <Child>
+               <TextTest/>
+            </Child>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="GeneralComp"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Somewhat_lt>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </Somewhat_lt>
+                  <somewhat_eq>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </somewhat_eq>
+                  <Somewhat_gt>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </Somewhat_gt>
+                  <Somewhat_ne>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </Somewhat_ne>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="IfExpr"/>
+            <IfExpr>
+               <Expr>
+                  <VarRef>
+                     <QName LocalName="C"/>
+                  </VarRef>
+               </Expr>
+               <VarRef>
+                  <QName LocalName="E1"/>
+               </VarRef>
+               <VarRef>
+                  <QName LocalName="E2"/>
+               </VarRef>
+            </IfExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="InlineFunctionExpr"/>
+            <InlineFunctionExpr>
+               <params>
+                  <Param>
+                     <QName LocalName="a"/>
+                     <AtomicOrUnionType>
+                        <QName Prefix="xs" LocalName="double"/>
+                     </AtomicOrUnionType>
+                  </Param>
+                  <Param>
+                     <QName LocalName="b"/>
+                     <AtomicOrUnionType>
+                        <QName Prefix="xs" LocalName="double"/>
+                     </AtomicOrUnionType>
+                  </Param>
+               </params>
+               <AtomicOrUnionType>
+                  <QName Prefix="xs" LocalName="double"/>
+               </AtomicOrUnionType>
+               <Expr>
+                  <Multiply>
+                     <VarRef>
+                        <QName LocalName="a"/>
+                     </VarRef>
+                     <VarRef>
+                        <QName LocalName="b"/>
+                     </VarRef>
+                  </Multiply>
+               </Expr>
+            </InlineFunctionExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="InstanceofExpr"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="x"/>
+                     </AbbrevForwardStep>
+                     <EmptySequence/>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="a"/>
+                     </AbbrevForwardStep>
+                     <ElementTest/>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                     <ElementTest>
+                        <ElementName>
+                           <QName LocalName="para"/>
+                        </ElementName>
+                     </ElementTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="c"/>
+                     </AbbrevForwardStep>
+                     <ElementTest>
+                        <ElementName>
+                           <QName LocalName="para"/>
+                        </ElementName>
+                        <TypeName>
+                           <QName LocalName="paragraph"/>
+                        </TypeName>
+                     </ElementTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="d"/>
+                     </AbbrevForwardStep>
+                     <AttributeTest/>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="r"/>
+                     </AbbrevForwardStep>
+                     <AttributeTest>
+                        <AttributeName>
+                           <QName LocalName="attrname"/>
+                        </AttributeName>
+                        <TypeName>
+                           <QName LocalName="attrtypename"/>
+                        </TypeName>
+                     </AttributeTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="x"/>
+                     </AbbrevForwardStep>
+                     <SchemaElementTest>
+                        <ElementName>
+                           <QName LocalName="para"/>
+                        </ElementName>
+                     </SchemaElementTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="y"/>
+                     </AbbrevForwardStep>
+                     <SchemaAttributeTest>
+                        <AttributeName>
+                           <QName LocalName="para"/>
+                        </AttributeName>
+                     </SchemaAttributeTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <ParenthesizedExpr>
+                        <Expr>
+                           <IntegerLiteral Digits="5"/>
+                           <IntegerLiteral Digits="6"/>
+                        </Expr>
+                     </ParenthesizedExpr>
+                     <ElementTest>
+                        <ElementNameWildcard/>
+                     </ElementTest>
+                  </InstanceofExpr>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="IntegerLiteral"/>
+            <IntegerLiteral Digits="2"/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="IntersectExpr"/>
+            <Intersect>
+               <AbbrevForwardStep>
+                  <QName LocalName="x"/>
+               </AbbrevForwardStep>
+               <AbbrevForwardStep>
+                  <QName LocalName="y"/>
+               </AbbrevForwardStep>
+            </Intersect>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="LetExpr"/>
+            <LetExpr>
+               <binding>
+                  <SimpleLetBinding>
+                     <QName LocalName="x"/>
+                     <AbbrevForwardStep>
+                        <QName LocalName="y"/>
+                     </AbbrevForwardStep>
+                  </SimpleLetBinding>
+               </binding>
+               <LetExpr>
+                  <binding>
+                     <SimpleLetBinding>
+                        <QName LocalName="a"/>
+                        <IntegerLiteral Digits="1"/>
+                     </SimpleLetBinding>
+                     <SimpleLetBinding>
+                        <QName LocalName="b"/>
+                        <IntegerLiteral Digits="1"/>
+                     </SimpleLetBinding>
+                  </binding>
+                  <Add>
+                     <Mod>
+                        <Div>
+                           <VarRef>
+                              <QName LocalName="x"/>
+                           </VarRef>
+                           <VarRef>
+                              <QName LocalName="a"/>
+                           </VarRef>
+                        </Div>
+                        <VarRef>
+                           <QName LocalName="a"/>
+                        </VarRef>
+                     </Mod>
+                     <VarRef>
+                        <QName LocalName="b"/>
+                     </VarRef>
+                  </Add>
+               </LetExpr>
+            </LetExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="NamedFunctionRef"/>
+            <NamedFunctionRef>
+               <QName Prefix="fn" LocalName="abs"/>
+               <IntegerLiteral Digits="1"/>
+            </NamedFunctionRef>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="NodeComp"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Precedes>
+                     <VarRef>
+                        <QName LocalName="x"/>
+                     </VarRef>
+                     <VarRef>
+                        <QName LocalName="y"/>
+                     </VarRef>
+                  </Precedes>
+                  <Is>
+                     <VarRef>
+                        <QName LocalName="x"/>
+                     </VarRef>
+                     <VarRef>
+                        <QName LocalName="y"/>
+                     </VarRef>
+                  </Is>
+                  <IsPrecededBy>
+                     <VarRef>
+                        <QName LocalName="x"/>
+                     </VarRef>
+                     <VarRef>
+                        <QName LocalName="y"/>
+                     </VarRef>
+                  </IsPrecededBy>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="OrExpr"/>
+            <Or>
+               <Or>
+                  <AbbrevForwardStep>
+                     <QName LocalName="x"/>
+                  </AbbrevForwardStep>
+                  <AbbrevForwardStep>
+                     <QName LocalName="y"/>
+                  </AbbrevForwardStep>
+               </Or>
+               <And>
+                  <AbbrevForwardStep>
+                     <QName LocalName="w"/>
+                  </AbbrevForwardStep>
+                  <AbbrevForwardStep>
+                     <QName LocalName="z"/>
+                  </AbbrevForwardStep>
+               </And>
+            </Or>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ParenthesizedItemType"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="z"/>
+               </VarRef>
+               <OccursZeroOrOne>
+                  <ParenthesizedItemType>
+                     <TypedFunctionTest>
+                        <argTypes>
+                           <AtomicOrUnionType>
+                              <QName Prefix="xs" LocalName="anyAtomicType"/>
+                           </AtomicOrUnionType>
+                        </argTypes>
+                        <returnType>
+                           <OccursZeroOneOrMore>
+                              <Item/>
+                           </OccursZeroOneOrMore>
+                        </returnType>
+                     </TypedFunctionTest>
+                  </ParenthesizedItemType>
+               </OccursZeroOrOne>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="PostfixExpr"/>
+            <PredicatedExpr>
+               <DynamicFunctionCall>
+                  <PredicatedExpr>
+                     <VarRef>
+                        <QName LocalName="x"/>
+                     </VarRef>
+                     <Expr>
+                        <AbbrevForwardStep>
+                           <QName LocalName="y"/>
+                        </AbbrevForwardStep>
+                     </Expr>
+                  </PredicatedExpr>
+                  <args>
+                     <AbbrevForwardStep>
+                        <QName LocalName="a"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="c"/>
+                     </AbbrevForwardStep>
+                  </args>
+               </DynamicFunctionCall>
+               <Expr>
+                  <AbbrevForwardStep>
+                     <QName LocalName="z"/>
+                  </AbbrevForwardStep>
+               </Expr>
+            </PredicatedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="PostfixLookup"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <MapLookup NCName="xyz">
+                     <VarRef>
+                        <QName LocalName="map"/>
+                     </VarRef>
+                  </MapLookup>
+                  <ArrayLookup>
+                     <VarRef>
+                        <QName LocalName="array"/>
+                     </VarRef>
+                     <IntegerLiteral Digits="1"/>
+                  </ArrayLookup>
+                  <MapOrArrayFilter>
+                     <VarRef>
+                        <QName LocalName="array"/>
+                     </VarRef>
+                     <ParenthesizedExpr>
+                        <Expr>
+                           <IntegerLiteral Digits="1"/>
+                           <IntegerLiteral Digits="2"/>
+                        </Expr>
+                     </ParenthesizedExpr>
+                  </MapOrArrayFilter>
+                  <AllMapOrArrayData>
+                     <VarRef>
+                        <QName LocalName="mapOrArray"/>
+                     </VarRef>
+                  </AllMapOrArrayData>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="PredicatedExpr"/>
+            <PredicatedExpr>
+               <PredicatedExpr>
+                  <VarRef>
+                     <QName LocalName="a"/>
+                  </VarRef>
+                  <Expr>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                  </Expr>
+               </PredicatedExpr>
+               <Expr>
+                  <AbbrevForwardStep>
+                     <QName LocalName="c"/>
+                  </AbbrevForwardStep>
+               </Expr>
+            </PredicatedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="PredicatedStep"/>
+            <PredicatedStep>
+               <Child>
+                  <QName LocalName="para"/>
+               </Child>
+               <Expr>
+                  <somewhat_eq>
+                     <FunctionCall>
+                        <QName LocalName="position"/>
+                        <args/>
+                     </FunctionCall>
+                     <IntegerLiteral Digits="1"/>
+                  </somewhat_eq>
+               </Expr>
+            </PredicatedStep>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ReachingCompose"/>
+            <ReachingCompose>
+               <AbbrevForwardStep>
+                  <QName LocalName="a"/>
+               </AbbrevForwardStep>
+               <AbbrevForwardStep>
+                  <QName LocalName="b"/>
+               </AbbrevForwardStep>
+            </ReachingCompose>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ReverseStep/DocumentTest"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Parent>
+                     <DocumentTest/>
+                  </Parent>
+                  <Parent>
+                     <DocumentTest>
+                        <ElementTest>
+                           <ElementName>
+                              <QName LocalName="para"/>
+                           </ElementName>
+                        </ElementTest>
+                     </DocumentTest>
+                  </Parent>
+                  <Parent>
+                     <DocumentTest>
+                        <SchemaElementTest>
+                           <ElementName>
+                              <QName LocalName="mypara"/>
+                           </ElementName>
+                        </SchemaElementTest>
+                     </DocumentTest>
+                  </Parent>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="Root"/>
+            <Root/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="RootedPathExpr"/>
+            <Root>
+               <Compose>
+                  <Compose>
+                     <AbbrevForwardStep>
+                        <QName LocalName="a"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                  </Compose>
+                  <AbbrevForwardStep>
+                     <QName LocalName="c"/>
+                  </AbbrevForwardStep>
+               </Compose>
+            </Root>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="RootedReachPathExpr"/>
+            <RootAndReach>
+               <Compose>
+                  <Compose>
+                     <AbbrevForwardStep>
+                        <QName LocalName="a"/>
+                     </AbbrevForwardStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="b"/>
+                     </AbbrevForwardStep>
+                  </Compose>
+                  <AbbrevForwardStep>
+                     <QName LocalName="c"/>
+                  </AbbrevForwardStep>
+               </Compose>
+            </RootAndReach>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="SingleQuotedString"/>
+            <SingleQuotedString SingleQuotedStringContent="This is a single quoted literal here is an escaped single quote ''. This literal includes spaces."/>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="SimpleMapExpr"/>
+            <SimpleMap>
+               <VarRef>
+                  <QName LocalName="values"/>
+               </VarRef>
+               <ParenthesizedExpr>
+                  <Expr>
+                     <Multiply>
+                        <ContextItemExpr/>
+                        <ContextItemExpr/>
+                     </Multiply>
+                  </Expr>
+               </ParenthesizedExpr>
+            </SimpleMap>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="SquareArrayConstructor"/>
+            <SquareArrayConstructor>
+               <IntegerLiteral Digits="1"/>
+               <IntegerLiteral Digits="2"/>
+               <IntegerLiteral Digits="3"/>
+            </SquareArrayConstructor>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="StringConcatExpr"/>
+            <StringConcat>
+               <SingleQuotedString SingleQuotedStringContent="xyx"/>
+               <SingleQuotedString SingleQuotedStringContent="cde"/>
+            </StringConcat>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="TreatExpr"/>
+            <TreatExpr>
+               <SingleQuotedString SingleQuotedStringContent="xxx"/>
+               <OccursZeroOrOne>
+                  <AtomicOrUnionType>
+                     <QName Prefix="xs" LocalName="boolean"/>
+                  </AtomicOrUnionType>
+               </OccursZeroOrOne>
+            </TreatExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="TypedArrayTest"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="y"/>
+               </VarRef>
+               <TypedArrayTest>
+                  <AnyMapTest/>
+               </TypedArrayTest>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="TypedFunctionTest"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <InstanceofExpr>
+                     <VarRef>
+                        <QName LocalName="y"/>
+                     </VarRef>
+                     <TypedFunctionTest>
+                        <argTypes>
+                           <AtomicOrUnionType>
+                              <QName Prefix="xs" LocalName="anyAtomicType"/>
+                           </AtomicOrUnionType>
+                        </argTypes>
+                        <returnType>
+                           <OccursZeroOneOrMore>
+                              <Item/>
+                           </OccursZeroOneOrMore>
+                        </returnType>
+                     </TypedFunctionTest>
+                  </InstanceofExpr>
+                  <InstanceofExpr>
+                     <VarRef>
+                        <QName LocalName="z"/>
+                     </VarRef>
+                     <TypedFunctionTest>
+                        <argTypes>
+                           <AtomicOrUnionType>
+                              <QName Prefix="xs" LocalName="anyAtomicType"/>
+                           </AtomicOrUnionType>
+                           <AtomicOrUnionType>
+                              <QName Prefix="xs" LocalName="integer"/>
+                           </AtomicOrUnionType>
+                        </argTypes>
+                        <returnType>
+                           <OccursZeroOneOrMore>
+                              <Item/>
+                           </OccursZeroOneOrMore>
+                        </returnType>
+                     </TypedFunctionTest>
+                  </InstanceofExpr>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="TypedMapTest"/>
+            <InstanceofExpr>
+               <VarRef>
+                  <QName LocalName="y"/>
+               </VarRef>
+               <TypedMapTest>
+                  <AtomicOrUnionType>
+                     <QName Prefix="x" LocalName="y"/>
+                  </AtomicOrUnionType>
+                  <AtomicOrUnionType>
+                     <QName Prefix="xs" LocalName="integer"/>
+                  </AtomicOrUnionType>
+               </TypedMapTest>
+            </InstanceofExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="UnaryExpr"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <UnaryMinus>
+                     <IntegerLiteral Digits="4"/>
+                  </UnaryMinus>
+                  <UnaryMinus>
+                     <UnaryMinus>
+                        <VarRef>
+                           <QName LocalName="x"/>
+                        </VarRef>
+                     </UnaryMinus>
+                  </UnaryMinus>
+                  <UnaryMinus>
+                     <UnaryPlus>
+                        <VarRef>
+                           <QName LocalName="y"/>
+                        </VarRef>
+                     </UnaryPlus>
+                  </UnaryMinus>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="UnaryLookup"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <MapLookup NCName="a"/>
+                  <ArrayLookup>
+                     <IntegerLiteral Digits="1"/>
+                  </ArrayLookup>
+                  <MapOrArrayFilter>
+                     <ParenthesizedExpr>
+                        <Expr>
+                           <IntegerLiteral Digits="1"/>
+                           <IntegerLiteral Digits="2"/>
+                        </Expr>
+                     </ParenthesizedExpr>
+                  </MapOrArrayFilter>
+                  <AllMapOrArrayData/>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="UnionExpr"/>
+            <Union>
+               <Union>
+                  <AbbrevForwardStep>
+                     <QName LocalName="x"/>
+                  </AbbrevForwardStep>
+                  <AbbrevForwardStep>
+                     <QName LocalName="y"/>
+                  </AbbrevForwardStep>
+               </Union>
+               <AbbrevForwardStep>
+                  <QName LocalName="z"/>
+               </AbbrevForwardStep>
+            </Union>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="ValueComp"/>
+            <ParenthesizedExpr>
+               <Expr>
+                  <Eq>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </Eq>
+                  <Ne>
+                     <IntegerLiteral Digits="1"/>
+                     <IntegerLiteral Digits="2"/>
+                  </Ne>
+               </Expr>
+            </ParenthesizedExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="exampleusingArgumentPlaceholder"/>
+            <LetExpr>
+               <binding>
+                  <SimpleLetBinding>
+                     <QName LocalName="sum-of-squares"/>
+                     <FunctionCall>
+                        <QName Prefix="fn" LocalName="fold-right"/>
+                        <args>
+                           <ArgumentPlaceholder/>
+                           <IntegerLiteral Digits="0"/>
+                           <InlineFunctionExpr>
+                              <params>
+                                 <Param>
+                                    <QName LocalName="a"/>
+                                 </Param>
+                                 <Param>
+                                    <QName LocalName="b"/>
+                                 </Param>
+                              </params>
+                              <Expr>
+                                 <Add>
+                                    <Multiply>
+                                       <VarRef>
+                                          <QName LocalName="a"/>
+                                       </VarRef>
+                                       <VarRef>
+                                          <QName LocalName="a"/>
+                                       </VarRef>
+                                    </Multiply>
+                                    <VarRef>
+                                       <QName LocalName="b"/>
+                                    </VarRef>
+                                 </Add>
+                              </Expr>
+                           </InlineFunctionExpr>
+                        </args>
+                     </FunctionCall>
+                  </SimpleLetBinding>
+               </binding>
+               <DynamicFunctionCall>
+                  <VarRef>
+                     <QName LocalName="sum-of-squares"/>
+                  </VarRef>
+                  <args>
+                     <RangeExpr>
+                        <IntegerLiteral Digits="1"/>
+                        <IntegerLiteral Digits="3"/>
+                     </RangeExpr>
+                  </args>
+               </DynamicFunctionCall>
+            </LetExpr>
+         </MapConstructorEntry>
+         <MapConstructorEntry>
+            <SingleQuotedString SingleQuotedStringContent="examplefromtheweb"/>
+            <RootAndReach>
+               <Compose>
+                  <Compose>
+                     <Compose>
+                        <Compose>
+                           <PredicatedStep>
+                              <AbbrevForwardStep>
+                                 <AnyPrincipalNode/>
+                              </AbbrevForwardStep>
+                              <Expr>
+                                 <somewhat_eq>
+                                    <AbbrevForwardStep>
+                                       <QName LocalName="id"/>
+                                    </AbbrevForwardStep>
+                                    <DoubleQuotedString DoubleQuotedStringContent="tsf"/>
+                                 </somewhat_eq>
+                              </Expr>
+                           </PredicatedStep>
+                           <PredicatedStep>
+                              <AbbrevForwardStep>
+                                 <QName LocalName="div"/>
+                              </AbbrevForwardStep>
+                              <Expr>
+                                 <IntegerLiteral Digits="2"/>
+                              </Expr>
+                           </PredicatedStep>
+                        </Compose>
+                        <PredicatedStep>
+                           <AbbrevForwardStep>
+                              <QName LocalName="div"/>
+                           </AbbrevForwardStep>
+                           <Expr>
+                              <IntegerLiteral Digits="3"/>
+                           </Expr>
+                        </PredicatedStep>
+                     </Compose>
+                     <AbbrevForwardStep>
+                        <QName LocalName="center"/>
+                     </AbbrevForwardStep>
+                  </Compose>
+                  <PredicatedStep>
+                     <AbbrevForwardStep>
+                        <QName LocalName="input"/>
+                     </AbbrevForwardStep>
+                     <Expr>
+                        <IntegerLiteral Digits="1"/>
+                     </Expr>
+                  </PredicatedStep>
+               </Compose>
+            </RootAndReach>
+         </MapConstructorEntry>
+      </MapConstructor>
+   </Expr>
+</xpath-31>
+</instance>
+
+</root>
+

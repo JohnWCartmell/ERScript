@@ -18,3 +18,9 @@ If(!(test-path -PathType container $TARGETXSLT))
 attrib -R $TARGETXSLT\*.xslt
 copy-item -Path $SOURCEXSLT\*.xslt -Destination $TARGETXSLT
 attrib +R $TARGETXSLT\*.xslt
+
+
+# COPY xpath files
+attrib -R $TARGETXSLT\*.xpath
+copy-item -Path $SOURCEXSLT\*.xpath -Destination $TARGETXSLT
+attrib +R $TARGETXSLT\*.xpath
