@@ -8,12 +8,6 @@
 <xsl:output method="xml" indent="yes"/>
 
 
-<xsl:template match="@*|node()" mode="parse__conditional">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="parse__conditional"/>
-   </xsl:copy>
-</xsl:template>
-
 <xsl:template match="entity_model" mode="parse__conditional">
    <xsl:message>parse conditional entity model</xsl:message>
    <xsl:choose>
@@ -40,7 +34,6 @@
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/>
    </xsl:copy>
 </xsl:template>
-
 
 <xsl:template match="@name" mode="parse__main_pass">
    <xsl:element name="name"> 
@@ -268,7 +261,7 @@
 </xsl:template>
 
 
-<xsl:template  match="attribute" 
+<xsl:template match="attribute" 
                     mode="parse__main_pass">
    <xsl:copy>
       <xsl:if test="@name">
@@ -287,7 +280,11 @@
             <xsl:element name="{$typename}"/>
          </xsl:element>
       </xsl:if>
-            <xsl:if test="parent::identifying">    <!-- TBD probably need a bit more than this -->
+      <xsl:if test="substring(@type,string-length(@type))='?'">
+         <xsl:element name="optional"/>
+      </xsl:if>
+
+      <xsl:if test="parent::identifying">    <!-- TBD probably need a bit more than this -->
                                              <!-- Hmmmm ... not sure -->
          <xsl:element name="identifying"/>
       </xsl:if>
@@ -350,8 +347,5 @@
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
-
-
-
 
 </xsl:transform>
