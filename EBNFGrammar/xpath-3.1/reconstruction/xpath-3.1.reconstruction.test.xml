@@ -1,5 +1,5 @@
 <root>
-    <schema filename="../../../xpathModel/xml/xpath..logical.xml"/>
+    <schema filename="../../../xpathModel/bin/xpath..physical.xml"/> 
 
     <instance name="coverage_test_instance">
 <xpath-31>
