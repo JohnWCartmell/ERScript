@@ -37,14 +37,23 @@ $entity_type_like-from-instance
 },
 
 $value-of-attribute
-:= function ($instance as element(), $attr as element(er:attribute))  as xs:anyAtomicType
+:= function ($instance as element(), $attr as element(er:attribute))  as xs:anyAtomicType?
 {
-   if ($attr/er:xmlRepresentation/er:Anonymous or (not($attr/er:xmlRepresentation) and $model/er:attributeDefault/er:Anonymous)) 
-   then $instance/text()
-   else if ($attr/er:xmlRepresentation/er:Attribute or (not($attr/er:xmlRepresentation) and $model/er:xml/er:attributeDefault/er:Attribute) ) 
-   then   $instance/attribute::*[name()=$attr/er:name]         
-   else (: in all other cases must be represented as an Element :)                
-          $instance/child::*[name()=$attr/er:name]           
+   let $value :=
+      if ($attr/er:xmlRepresentation/er:Anonymous or (not($attr/er:xmlRepresentation) and $model/er:attributeDefault/er:Anonymous)) 
+      then $instance/text()
+      else if ($attr/er:xmlRepresentation/er:Attribute or (not($attr/er:xmlRepresentation) and $model/er:xml/er:attributeDefault/er:Attribute) ) 
+      then   $instance/attribute::*[name()=$attr/er:name]         
+      else (: in all other cases must be represented as an Element :)                
+             $instance/child::*[name()=$attr/er:name]  
+   return  if ($value or $attr/er:optional ) 
+           then $value
+           else let $message := 'mandatory attribute '|| $attr/er:name ||' of instance of type '|| $instance/name() || ' is lacking a value'
+                return fn:error(  
+                          fn:QName('http://www.entitymodelling.org', 'er:missingvalue'),
+                          $message,
+                          ($instance,$attr) 
+                        )        
 }  (: could probably rewrite the above using a higher order function :),
 
 $destination-type     
@@ -117,16 +126,13 @@ return map {
                                                                <!-- meta derived  rel 'allContent', say  -->
       <xsl:choose>               <!-- ?? instead use apply-templates ?? -->
          <xsl:when test="self::er:attribute">
-            <xsl:message>In attribute  name'<xsl:value-of select="er:name"/>'</xsl:message>
-            <xsl:message>Instance '<xsl:copy-of select="$instance"/>'</xsl:message>
-
             <xsl:variable name="valueofattribute" 
                            as="xs:anyAtomicType?"
                            select="$erlib?value-of-attribute($instance,.)"/>
-            <xsl:message>Value of attr '<xsl:value-of select="name"/>' is '<xsl:value-of select="$valueofattribute"/>'</xsl:message>  
+            <xsl:message>Value of attr '<xsl:value-of select="er:name"/>' = '<xsl:value-of select="$valueofattribute"/>'</xsl:message>  
          </xsl:when>
          <xsl:when test="self::er:composition">
-            <xsl:message>Composition hosted at '<xsl:value-of select="$etlDefn/er:name"/>' named '<xsl:value-of select="er:name"/>' destination type  '<xsl:value-of select="er:type"/>' </xsl:message>
+            <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
             <xsl:variable name="container" 
                           as="element()"
                           select="if (er:xmlRepresentation/er:Anonymous or not(er:name)) 
@@ -134,10 +140,8 @@ return map {
                                  else $instance/child::*[name()=current()/er:name]" >
                                  <!-- encapsulate this in erlib ... ?name change from 'container' to 'site' ??-->
             </xsl:variable>
-            <xsl:message> container <xsl:copy-of select="$container"/></xsl:message>
             <xsl:for-each select="$container/*[$erlib?type-check-relationship-instance(current(),.)]">
                <!-- There is more to it than this if I want support positional which i do (binary operations)-->
-               <xsl:message>In for each</xsl:message>
                <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
                   <xsl:with-param name="model" select="$model"/>
                   <xsl:with-param name="instance" select="."/>
