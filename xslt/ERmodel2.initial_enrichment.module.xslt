@@ -70,29 +70,17 @@ Description
         dest : string,          # the name of the destination entity type
 
 
+      composition/xmlRepresentation/Anonymous =>
+               overlap_group_id : string,
+               overlap_group_member_number : positiveInteger
 
-            
-
-    
-CHANGE HISTORY
-CR-18553 JC  19-Oct-2016 Created
-CR-18123 JC  25-Oct-2016 Generalise the 'dest' enrichment to entity
-                        type navigation. Remove mangleName attribute.
-                        Add identifier attribute.
-CR-18657 JC  7-Nov-2016 Add scope_display_text and display_text attributes
-                        and guard first_pass attributes to make 
-                        this enrichment idempotent.
-CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xslt
-CR18708 JC  18-Nov-2016 Add projection entity for a reference relationship
-                        that is specified as a projection_rel for a pullback.
-                        This was previously implemented in ERmodel2.ts.xslt.
-CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical entrichment pass.
 -->
 
 <xsl:transform version="2.0" 
         xmlns="http://www.entitymodelling.org/ERmodel"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+        xmlns:map="http://www.w3.org/2005/xpath-functions/map"
         xmlns:era="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
@@ -310,10 +298,6 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
     <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
   </xsl:copy>
 </xsl:template>
-
-
-
-
 
 
 
@@ -635,6 +619,88 @@ CR-19407 JC 20-Feb-2017 Creation of seqNo attributews moved out into physical en
         -->
    </xsl:copy>
 </xsl:template>
+
+<xsl:function name="construct_overlap_map"
+                as="map(xs:string,xs:string)">
+    <xsl:param name="all_composition_relationships"
+               as="element(composition)*"/>
+    <xsl:param name="overlap_map_so_far"
+           as="map(xs:string,xs:string)
+                   (: maps ids of composition relationships 
+                      to ids of first composition in a group of overlapping compostions:) 
+              "/>
+    <xsl:variable name="position_of_next_composition"
+                  as="positiveInteger"
+                  select="map:size($overlap_map_so_far) + 1"/>
+    <xsl:choose>
+        <xsl:when test="map:size($overlap_map_so_far) 
+                         eq count($all_composition_relationships)">
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:variable name="next_composition"
+                  as="element(composition)"
+                  select="$all_composition_relationships
+                             [map:size($overlap_map_so_far) + 1]"/>
+            <xsl:variable name="preceeding_composition_relationships"
+                          as="element(composition)+"
+                          select="$all_composition_relationships
+                                    [position() &lt;= map:size($overlap_map_so_far)]"/>
+            <xsl:variable name="types_comparable"
+                          as="function(element(entity_type),
+                                       element(entity_type)) as xs:boolean"
+                          select="function(et1:element(entity_type),
+                                           et1:element(entity_type))
+                                  {
+                                    ($et1/ancestor-or-self is $et2)
+                                    or
+                                    ($et2/ancestor-or-self is $et1)
+                                  }
+                           "
+                          />
+            <xsl:variable name="preceding_overlapping_composition_relationship"
+                    as="element(composition)?"
+                select="let $destinations_overlap 
+                              := function($arg1 as element(composition),
+                                            $arg2 as element(composition))
+                                                   as xs:boolean
+                                    {
+                                        $types_comparable($arg1/type,$arg2/type)
+                                    },
+                            $overlaping_relationships
+
+                              := $preceeding_or_self_composition_relationships
+                                         [$destinations_overlap(.,$next_composition)]
+                            return fn:head(fn:reverse($overlaping_relationships))
+                            ))
+                        "/>
+            <xsl:variable name="$required_mapping"
+                          as="xs:string"
+                  select="if ($preceding_overlapping_composition_relationship)
+                          then $overlap_map_so_far
+                                 ($preceding_overlapping_composition_relationship)
+                          else $next_composition/generate_id() 
+                          "/>
+            <xsl:variable name="$mapping_of_next_composition_relationship"
+                          as="map(string,string)"
+                  select="map{$next_composition/generate_id() 
+                                           : $required_mapping}
+                         "/>
+
+            <xsl:variable name="extended_overlap_map"
+                          as="map(string,string)"
+                  select="map:merge($overlap_map_so_far,
+                                    $mapping_of_next_composition_relationship)
+                         "/>
+            <xsl:call-function name="construct_overlap_map">
+                <xsl:with-param name="all_composition_relationships"
+                                select="$all_composition_relationships"/>
+                <xsl:with-param name="overlap_map_so_far"
+                                select="$extended_overlap_map"/>
+            </xsl:call-function>
+        </xsl:otherwise>
+    </xsl:choose>
+</xslt:function> 
+
 
 
 
