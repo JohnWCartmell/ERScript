@@ -146,7 +146,6 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
   <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
 
 
-
   <xsl:template match="/">
     <xsl:if test="not($style='h' or $style='hs' or $style='r')">
       <xsl:message terminate="yes">
