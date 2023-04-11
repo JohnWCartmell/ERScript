@@ -312,7 +312,7 @@
                <attribute name="Prefix" type="string?"/>
             </entity_type>
             <entity_type name="URIQualifiedName">         
-               <attribute name="URI" type="string"/>
+               <attribute name="URI" type="string?"/>
             </entity_type>
          </entity_type>
 
