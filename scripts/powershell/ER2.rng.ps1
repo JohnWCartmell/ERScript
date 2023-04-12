@@ -4,7 +4,9 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$filenamePrefix,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName)
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName),
+   [Parameter(Mandatory=$False)]
+       [switch]$debugswitch
 )
 
 
@@ -26,7 +28,8 @@ echo ('SAXON_JAR' + $SAXON_JAR)
 java -jar $SAXON_JAR -s:$logicalSource `
                        -xsl:$TARGET\xslt\ERmodel2.physical.xslt `
                        -o:$outputFolder\$physicalFilename `
-                       style='hs' 
+                       style='hs' `
+                       debug=$(If ($debugswitch){'y'}Else{'n'})
 
 java -jar $SAXON_JAR -opt:0 -s:$outputFolder\$physicalFilename `
                       -xsl:$ERHOME\xslt\ERmodel2.rng.xslt `

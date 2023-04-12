@@ -22,9 +22,9 @@ attrib +R $TARGETXML\*.xml
 
 pushd $TARGETXML
 
-. $TARGET\scripts\er2.rng.ps1 xpath  -outputFolder ..\bin
+. $TARGET\scripts\er2.rng.ps1 xpath  -outputFolder ..\bin -debugSwitch
 
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
+# . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
 
 popd 
 

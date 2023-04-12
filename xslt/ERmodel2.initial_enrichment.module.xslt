@@ -79,6 +79,7 @@ Description
         xmlns="http://www.entitymodelling.org/ERmodel"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:map="http://www.w3.org/2005/xpath-functions/map"
         xmlns:era="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
@@ -87,6 +88,7 @@ Description
 <xsl:template name="initial_enrichment">
    <xsl:param name="document"/>
    <!-- REINSTATED FOR NEW PURPOSE: -->
+   <xsl:message>Initial entichment</xsl:message>
    <xsl:variable name="current_state">
       <xsl:for-each select="$document">
          <xsl:copy>
@@ -94,7 +96,6 @@ Description
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
-
    <xsl:call-template name="initial_enrichment_recursive">
     <xsl:with-param name="interim" select="$current_state"/>
     <!-- <xsl:with-param name="interim" select="$document"/> -->
@@ -119,13 +120,14 @@ Description
 <xsl:template match="entity_type[composition/xmlRepresentation/Anonymous]
                     "
               mode="initial_enrichment_first_pass"> 
+
+  <xsl:message>entity type initial enrichment first pass</xsl:message>
   <!-- if we get ehre then we know that no super types have compositions which are Anonymous -->
-  <xsl:variable name="group_mapping">
-    <xsl:call-function name="group_overlapping_relationships">
-      <xsl:with-param name="composition_relationships"
-                      select="descendant-or-self::entity_type/composition[xmlRepresentation/Anonymous]"/>
-    </xsl:call-function>
-  </xsl:variable>
+  <xsl:variable name="group_mapping" 
+              select="era:group_overlapping_relationships
+                         (
+                          descendant-or-self::entity_type/composition[xmlRepresentation/Anonymous]
+                          )"/>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()" mode="initial_enrichment_sub_pass">
       <xsl:with-param name="group_mapping" select="$group_mapping"/>
@@ -137,6 +139,7 @@ Description
               mode="initial_enrichment_sub_pass"> 
   <xsl:param name="group_mapping"
              as="map(xs:string,xs:string)"/>
+             <xsl:message>generic sub pass</xsl:message>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()" mode="initial_enrichment_sub_pass">
       <xsl:with-param name="group_mapping"
@@ -145,19 +148,33 @@ Description
   </xsl:copy>
 </xsl:template>
 
+
+<!-- for diagnostics -->
+<xsl:template match="composition"
+              mode="initial_enrichment_sub_pass"> 
+  <xsl:param name="group_mapping"
+             as="map(xs:string,xs:string)"/>
+             <xsl:message>generic sub pass</xsl:message>
+  <xsl:copy>
+    <xsl:attribute name="myid" select="generate-id()" />
+    <xsl:apply-templates select="@*|node()" mode="initial_enrichment_sub_pass">
+      <xsl:with-param name="group_mapping"
+                      select="$group_mapping"/>
+      </xsl:apply-templates>
+  </xsl:copy>
+</xsl:template>
+
+
 <xsl:template match="composition/xmlRepresentation/Anonymous"
               mode="initial_enrichment_sub_pass"> 
   <xsl:param name="group_mapping"
              as="map(xs:string,xs:string)"/>
+              <xsl:message>anonymous sub pass</xsl:message>
   <xsl:copy>
     <xsl:attribute name="overlap_group_id"
                    select="$group_mapping(../../generate-id())"/>
   </xsl:copy>
 </xsl:template>
-
-
-
-
 
 
 
@@ -684,27 +701,28 @@ Description
 <xsl:variable name="are_comparable"
               as="function(element(entity_type),
                            element(entity_type)) as xs:boolean"
-              select="function(et1:element(entity_type),
-                               et1:element(entity_type))
+              select="function($et1 as element(entity_type),
+                               $et2 as element(entity_type))
                       {
-                        ($et1/ancestor-or-self is $et2)
+                        ( some $parent in $et1/ancestor-or-self::entity_type satisfies $parent is $et2)
                         or
-                        ($et2/ancestor-or-self is $et1)
+                        (some $parent in $et2/ancestor-or-self::entity_type satisfies $parent is $et1)
                       }
                       "/>
 
 <xsl:variable name="are_overlapping"
-              as="function(element(entity_type),
-                           element(entity_type)) as xs:boolean"
+              as="function(element(composition),
+                           element(composition)) as xs:boolean"
               select="function($arg1 as element(composition),
                                $arg2 as element(composition))
                                              as xs:boolean
-                      {
-                          $are_comparable($arg1/type,$arg2/type)
+                      {   let $entity_model := $arg1/ancestor-or-self::entity_model
+                          return $are_comparable($entity_model//entity_type[name=$arg1/type],
+                                                 $entity_model//entity_type[name=$arg2/type])
                       }
                     "/>
 
-<xsl:function name="group_overlapping_relationships"
+<xsl:function name="era:group_overlapping_relationships"
               as="map(xs:string, xs:string)">
     <xsl:param name="composition_relationships"
                as="element(composition)*"/>
@@ -716,15 +734,12 @@ Description
     <!-- This function is implemented recursively (building up the map ... entry by entry). 
          In this implementation the id of the first relationship in a group
           is used as the group id -->
-   <xsl:call-function name="construct_overlap_map">
-      <xsl:with-param name="composition_relationships"
-                      select="$composition_relationships"/>
-      <xsl:with-param name="overlap_map_so_far"
-                      select="map{}"/>
-    </xsl:call-function>
+          <xsl:message>group overlapping </xsl:message>
+   <xsl:sequence select="era:construct_overlap_map
+                ($composition_relationships,map{})"/>
 </xsl:function>
 
-<xsl:function name="construct_overlap_map"
+<xsl:function name="era:construct_overlap_map"
                 as="map(xs:string,xs:string)">
     <xsl:param name="composition_relationships"
                as="element(composition)*"/>
@@ -734,6 +749,13 @@ Description
                       to the ids of first composition in a 
                       group of are_overlapping compostions:) 
               "/>
+
+    <xsl:message>construct overlapping 
+                  <xsl:value-of select="map:size($overlap_map_so_far), 
+                                        'eq ? ', 
+                                        count($composition_relationships) 
+                                       "/>
+    </xsl:message>
     <xsl:choose>
         <xsl:when test="map:size($overlap_map_so_far) 
                          eq count($composition_relationships)">
@@ -747,47 +769,49 @@ Description
                   <!-- next relationship for which map will be established -->
             </xsl:variable>
             <xsl:variable name="preceeding_composition_relationships"
-                          as="element(composition)+"
+                          as="element(composition)*"
                   select="$composition_relationships
-                            [1 to map:size($overlap_map_so_far)]"/>
+                            [fn:position() = 1 to map:size($overlap_map_so_far)]"/>
 
-            <xsl:variable name="preceding_are_overlapping_composition_relationship"
+            <xsl:variable name="preceding_overlapping_composition_relationship"
                     as="element(composition)?"
                 select="let $overlaping_relationships
-                              := $preceeding_or_self_composition_relationships
+                              := $preceeding_composition_relationships
                                          [$are_overlapping(.,$Rnext)]
                             return fn:head(fn:reverse($overlaping_relationships))
-                            ))
                         "/>
-            <xsl:variable name="$required_mapping"
+                  <xsl:message>Overlap keys <xsl:copy-of select="map:keys($overlap_map_so_far)"/></xsl:message>
+                  <xsl:message>preceeding comp id <xsl:value-of select="$preceding_overlapping_composition_relationship/generate-id()"/></xsl:message>
+            <xsl:variable name="required_mapping"
                           as="xs:string"
-                  select="if ($preceding_are_overlapping_composition_relationship)
+                  select="if ($preceding_overlapping_composition_relationship)
                           then $overlap_map_so_far
-                                 ($preceding_are_overlapping_composition_relationship)
-                          else $Rnext/generate_id() 
+                                 ($preceding_overlapping_composition_relationship/generate-id())
+                          else $Rnext/generate-id() 
                           "/>
-            <xsl:variable name="$mapping_of_Rnext_relationship"
-                          as="map(string,string)"
-                  select="map{$Rnext/generate_id() : $required_mapping}
+                           <xsl:message>required_mapping <xsl:copy-of select="$required_mapping"/></xsl:message>
+            <xsl:variable name="mapping_of_Rnext_relationship"
+                          as="map(xs:string,xs:string)"
+                  select="map{$Rnext/generate-id() : $required_mapping}
                          ">
                   <!-- Note that a Rnext maps to itself if it has no overlap 
                        with preceding relationships in the given sequence -->
             </xsl:variable>
+            <xsl:message>mapping_of_Rnext_relationship </xsl:message>
             <xsl:variable name="extended_overlap_map"
-                          as="map(string,string)"
-                  select="map:merge($overlap_map_so_far,
-                                    $mapping_of_Rnext_relationship)
+                          as="map(xs:string,xs:string)"
+                  select="map:merge(($overlap_map_so_far,
+                                    $mapping_of_Rnext_relationship))
                          "/>
+
+            <xsl:message>extended_overlap_map </xsl:message>             
             <!-- call recursivley to complete the job -->
-            <xsl:call-function name="construct_overlap_map">
-                <xsl:with-param name="composition_relationships"
-                                select="$composition_relationships"/>
-                <xsl:with-param name="overlap_map_so_far"
-                                select="$extended_overlap_map"/>
-            </xsl:call-function>
+            <xsl:sequence select="era:construct_overlap_map
+                                    ($composition_relationships,$extended_overlap_map)
+                                 "/>
         </xsl:otherwise>
     </xsl:choose>
-</xslt:function> 
+</xsl:function> 
 
 
 
