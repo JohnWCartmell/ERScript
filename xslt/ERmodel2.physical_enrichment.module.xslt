@@ -121,7 +121,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 <xsl:template name="physical_enrichment">
    <xsl:param name="document"/>
-   <xsl:message>In ERmodel2.physical_enrichment.module.xslt</xsl:message>
+   <xsl:message>In ERmodel2.physical_enrichment.module.xslt </xsl:message>
    <!-- first pass creates seqNo attributes -->
    <xsl:variable name="state">
       <xsl:for-each select="$document">
@@ -132,15 +132,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    </xsl:variable>
    <!--followed by the main recursive algorithm -->
    <xsl:variable name="state">
-      <xsl:for-each select="$state">
          <xsl:call-template name="recursive_physical_pass">
-            <xsl:with-param name="interim">
-               <xsl:copy>
-                  <xsl:apply-templates/>
-               </xsl:copy>
-            </xsl:with-param>
+            <xsl:with-param name="interim" select="$state"/>
          </xsl:call-template>
-      </xsl:for-each>
    </xsl:variable>
    <!-- followed by a single pass that
         applies templates with mode of "final_physical_pass"
@@ -156,6 +150,12 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             
 
 <xsl:template match="@*|node()" mode="first_physical_pass">
+    <xsl:if test="self::Anonymous">
+        <xsl:message>Copy Anon first physical pass <xsl:value-of select="@*"/></xsl:message>
+    </xsl:if>
+    <xsl:if test="self::attribute()">
+        <xsl:message>Copy attribute in  first physical pass name <xsl:value-of select="name()"/></xsl:message>
+    </xsl:if>
   <xsl:copy>
      <xsl:apply-templates select="@*|node()" mode="first_physical_pass"/>
  </xsl:copy>
@@ -170,7 +170,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 <xsl:template match="entity_type" mode="first_physical_pass">
   <xsl:copy>
-     <xsl:apply-templates mode="first_physical_pass"/>
+     <xsl:apply-templates select="@*|node()" mode="first_physical_pass"/>
      <xsl:variable name="has_identifiers" as="xs:boolean">
        <xsl:value-of select="boolean((reference|attribute)/identifying)" />  <!-- 16 August 2022 - UPGRADED to latest metamodel : value|choice >>>  attribute -->
      </xsl:variable>
@@ -220,8 +220,14 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 </xsl:template>
 
 <xsl:template match="@*|node()" mode="recursive_physical_enrichment">
+ <xsl:if test="self::Anonymous">
+        <xsl:message>Copy Anon recursive_physical_enrichment<xsl:value-of select="@*"/></xsl:message>
+    </xsl:if>
+    <xsl:if test=".[self::attribute()]">
+        <xsl:message>Copy attribute in  recursive_physical_enrichment<xsl:value-of select="name()"/></xsl:message>
+    </xsl:if>
     <xsl:copy>
-      <xsl:apply-templates mode="recursive_physical_enrichment"/>
+      <xsl:apply-templates select="@*|node()" mode="recursive_physical_enrichment"/>
     </xsl:copy>
 </xsl:template>
 
@@ -769,10 +775,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 -->
 
 
-<xsl:template match="*[ not(self::attribute) ]" 
+<xsl:template match="@*|*[ not(self::attribute) ]" 
               mode="final_physical_pass">                                        <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
   <xsl:copy>
-    <xsl:apply-templates mode="final_physical_pass"/>
+    <xsl:apply-templates select="@*|node()" mode="final_physical_pass"/>
   </xsl:copy>
 </xsl:template>
 
@@ -782,7 +788,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                  or implementationOf
                 ">    <!-- fixed this test in CR-18469 -->
      <xsl:copy>
-       <xsl:apply-templates mode="final_physical_pass"/>
+       <xsl:apply-templates select="@*|node()" mode="final_physical_pass"/>
      </xsl:copy>
    </xsl:if>
 </xsl:template>

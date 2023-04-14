@@ -140,6 +140,28 @@ return map {
                                  else $instance/child::*[name()=current()/er:name]" >
                                  <!-- encapsulate this in erlib ... ?name change from 'container' to 'site' ??-->
             </xsl:variable>
+
+             <xsl:variable name="all_concrete_destination_types_in_this_group"
+                           as="xs:string+"
+                           select="blah blah"
+                           /> 
+             <xsl:variable name="position_within_group"
+                           as="xs:positiveInteger"
+                           select="blah de blah"/>
+            <!-- 
+
+              
+            <xsl:for-each select="$container/*[
+                                 count(preceding-sibling ::*[name() = $all_concrete_destination_types_in_this_group
+                                 (: xpath is odd in that this is how you test whether name on the left member of the sequence (on the right):)])
+                                 = $position_within_group
+                                              ]>
+                   <xsl:if test=" (not ($erlib?type-check-relationship-instance(current(),.))""
+                   then errr message instance does not match schema
+                   /xsl:if
+
+            -->
+
             <xsl:for-each select="$container/*[$erlib?type-check-relationship-instance(current(),.)]">
                <!-- There is more to it than this if I want support positional which i do (binary operations)-->
                <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
