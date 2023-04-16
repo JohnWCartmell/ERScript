@@ -59,8 +59,6 @@
    }
 "/> <!-- end of xpathPrettyPrint -->
 
-
-
 <xsl:template match="/">
    <xsl:message> Schema is <xsl:value-of select="$er-entity_model/er:absolute/er:name"/> </xsl:message>
    <!--
@@ -83,105 +81,7 @@
       <xsl:with-param name="endComposition"   select="$xpathPrettyPrint?endComposition"/>
       <xsl:with-param name="endInstance"      select="$xpathPrettyPrint?endInstance"/>
    </xsl:call-template>
-
 </xsl:template>
-
-<xsl:variable name="readNonAnonymousCompositionRelationship"
-              as="function(element(), element(er:composition)) as element()*"
-              select="
-function($instance as element(),
-         $compRelDefn as element(er:composition)
-         ) as element()*
-{
-let $container := if (not($compRelDefn/er:name)) 
-                  then $instance 
-                  else $instance/child::*[name()=$compRelDefn/er:name]
-return $container/*[$erlib?type-check-relationship-instance($compRelDefn,.)]
-}
-"                          />
-
-<!--
-<xsl:variable name="all_overlapping_composition_relationships"
-            as="function(element(er:composition)) as element(er:composition)+"
-            select="
-function($compRelDefn as element(er:composition)) 
-      as element(er:composition)+
-{
-$er-entity_model//er:composition
-         [ er:xmlRepresentation/er:Anonymous/@overlap_group_id
-           eq
-           $compRelDefn/er:xmlRepresentation/er:Anonymous/@overlap_group_id
-         ]
-}
-"
-/>
-
-<xsl:variable name="position_within_overlap_group"
-            as="function(element(er:composition))  as xs:positiveInteger"
-            select="
-function($compRelDefn as element(er:composition))
-         as xs:positiveInteger
-{
-(count ($all_overlapping_composition_relationships($compRelDefn) 
-           [ . &lt;&lt; $compRelDefn]
-         ) + 1)
-        cast as xs:positiveInteger
-}
- "/> 
--->
-
-<xsl:variable name="readAnonymousCompositionRelationship"
-              as="function(element(), element(er:composition)) as element()*"
-              select="
-let $all_overlapping_composition_relationships
-:= function($compRelDefn as element(er:composition)) 
-      as element(er:composition)+
-{
-$er-entity_model//er:composition
-         [ er:xmlRepresentation/er:Anonymous/@overlap_group_id
-           eq
-           $compRelDefn/er:xmlRepresentation/er:Anonymous/@overlap_group_id
-         ]
-},
-$position_within_overlap_group
-:= function($compRelDefn as element(er:composition))
-         as xs:positiveInteger
-{
-         (count ($all_overlapping_composition_relationships($compRelDefn) 
-           [ . &lt;&lt; $compRelDefn]
-         ) + 1)
-        cast as xs:positiveInteger
-}
-return 
-function($instance as element(),
-         $compRelDefn as element(er:composition)
-         ) as element()*
-{
-$instance/*[count(preceding-sibling ::*
-                    [$erlib?type-check-relationshipset-instance(
-                             $all_overlapping_composition_relationships($compRelDefn),.
-                                                               )
-                    ]
-                 )
-                 = ($position_within_overlap_group($compRelDefn) - 1)
-           ] 
-           [$erlib?type-check-relationship-instance($compRelDefn,.)]    
-}
- "/>
-
-<xsl:variable name="readCompositionRelationship"
-              as="function(element(), element(er:composition)) as element()*"
-              select="
-function($instance as element(),
-         $compRelDefn as element(er:composition)
-         ) as element()*
-{
-if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
-then $readAnonymousCompositionRelationship($instance, $compRelDefn)
-else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
-}
-"/>
-      
 
 <!-- ?? make the following generic with callback functions passed as parameters ?? -->
 <xsl:template name="walk_an_instance_subtree__guided_by_schema">
@@ -222,7 +122,7 @@ else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
          </xsl:when>
          <xsl:when test="self::er:composition ">
             <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
-            <xsl:for-each select="$readCompositionRelationship($instance,self::er:composition)">
+            <xsl:for-each select="$erlib?readCompositionRelationship($instance,self::er:composition)">
                <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
                   <xsl:with-param name="instance" select="."/>
                   <xsl:with-param name="startInstance"    select="$startInstance"/>

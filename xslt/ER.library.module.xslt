@@ -84,15 +84,75 @@ $type-check-relationshipset-instance
 := function( $rset as element((:er:Relationship:))+, $instance as element() ) as xs:boolean
 {  some $r in $rset 
    satisfies $type-check-relationship-instance($r,$instance)
-}    
+},    
+
+$readNonAnonymousCompositionRelationship  (: private for now at least :)
+:= function($instance as element(),
+         $compRelDefn as element(er:composition)
+         ) as element()*
+{
+let $container := if (not($compRelDefn/er:name)) 
+                  then $instance 
+                  else $instance/child::*[name()=$compRelDefn/er:name]
+return $container/*[$type-check-relationship-instance($compRelDefn,.)]
+},
+
+$readAnonymousCompositionRelationship  (: private for now at least :)
+:=
+let $all_overlapping_composition_relationships
+:= function($compRelDefn as element(er:composition)) 
+      as element(er:composition)+
+{
+$er-entity_model//er:composition
+         [ er:xmlRepresentation/er:Anonymous/@overlap_group_id
+           eq
+           $compRelDefn/er:xmlRepresentation/er:Anonymous/@overlap_group_id
+         ]
+},
+$position_within_overlap_group
+:= function($compRelDefn as element(er:composition))
+         as xs:positiveInteger
+{
+         (count ($all_overlapping_composition_relationships($compRelDefn) 
+           [ . &lt;&lt; $compRelDefn]
+         ) + 1)
+        cast as xs:positiveInteger
+}
+return 
+function($instance as element(),
+         $compRelDefn as element(er:composition)
+         ) as element()*
+{
+$instance/*[count(preceding-sibling ::*
+                    [$type-check-relationshipset-instance(
+                             $all_overlapping_composition_relationships($compRelDefn),.
+                                                               )
+                    ]
+                 )
+                 = ($position_within_overlap_group($compRelDefn) - 1)
+           ] 
+           [$type-check-relationship-instance($compRelDefn,.)]    
+},
+
+$readCompositionRelationship
+:=
+function($instance as element(),
+         $compRelDefn as element(er:composition)
+         ) as element()*
+{
+if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
+then $readAnonymousCompositionRelationship($instance, $compRelDefn)
+else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
+}
 
 return map {
   'entity_type_like-from-instance'  : $entity_type_like-from-instance,
   'value-of-attribute'              : $value-of-attribute,
   'destination-type'                : $destination-type,
-  'concrete-destination-type-sequence' : $concrete-destination-type-sequence,
-  'type-check-relationship-instance' : $type-check-relationship-instance ,
-  'type-check-relationshipset-instance' : $type-check-relationshipset-instance 
+  'concrete-destination-type-sequence'  : $concrete-destination-type-sequence,
+  'type-check-relationship-instance'    : $type-check-relationship-instance ,
+  'type-check-relationshipset-instance' : $type-check-relationshipset-instance,
+  'readCompositionRelationship'         : $readCompositionRelationship
   }
 "/>
 </xsl:variable>
