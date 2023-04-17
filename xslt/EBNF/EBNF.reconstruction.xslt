@@ -60,18 +60,67 @@
 "/> <!-- end of xpathPrettyPrint -->
 
 <xsl:template match="/">
+   <xsl:copy>
+      <xsl:apply-templates mode="generate_xpath"/>
+   </xsl:copy> 
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="generate_xpath">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="generate_xpath"/>
+   </xsl:copy> 
+</xsl:template>
+
+<xsl:template match="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'BinaryOperation')]" mode="generate_xpath" priority="1">
+   <xsl:message> In Binary Operation </xsl:message>
+     <xsl:text>(</xsl:text>
+     <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'arg1')" mode="generate_xpath"/>
+     <xsl:text>)</xsl:text>
+     <xsl:apply-templates select="." mode="xpath_deferred"/>
+     <xsl:text>(</xsl:text>
+     <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'arg1')" mode="generate_xpath"/>
+     <xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="Or"            mode="xpath_deferred"> <xsl:text> or </xsl:text></xsl:template>
+<xsl:template match="And"           mode="xpath_deferred"> <xsl:text> and </xsl:text></xsl:template>
+<xsl:template match="Add"           mode="xpath_deferred"> <xsl:text>+</xsl:text></xsl:template>
+<xsl:template match="Subtract"      mode="xpath_deferred"> <xsl:text>-</xsl:text></xsl:template>
+<xsl:template match="Multiply"      mode="xpath_deferred"> <xsl:text>*</xsl:text></xsl:template>
+<xsl:template match="Div"           mode="xpath_deferred"> <xsl:text> div </xsl:text></xsl:template>
+<xsl:template match="IntegerDivide" mode="xpath_deferred"> <xsl:text> idiv </xsl:text></xsl:template>
+<xsl:template match="Mod"           mode="xpath_deferred"> <xsl:text> imod </xsl:text> </xsl:template>
+<xsl:template match="Union"         mode="xpath_deferred"> <xsl:text>|</xsl:text></xsl:template>
+<xsl:template match="Intersect"     mode="xpath_deferred"> <xsl:text> intersect </xsl:text></xsl:template>
+<xsl:template match="Except"        mode="xpath_deferred"> <xsl:text> except </xsl:text></xsl:template>
+<xsl:template match="SimpleMap"     mode="xpath_deferred"> <xsl:text>!</xsl:text></xsl:template>
+<xsl:template match="RangeExpr"     mode="xpath_deferred"> <xsl:text> to </xsl:text></xsl:template>
+<xsl:template match="StringConcat"  mode="xpath_deferred"> <xsl:text>||</xsl:text></xsl:template>
+<xsl:template match="Eq"            mode="xpath_deferred"> <xsl:text>eq</xsl:text></xsl:template>
+<xsl:template match="Ne"            mode="xpath_deferred"> <xsl:text>ne</xsl:text></xsl:template>
+<xsl:template match="Lt"            mode="xpath_deferred"> <xsl:text>lt</xsl:text></xsl:template>
+<xsl:template match="Le"            mode="xpath_deferred"> <xsl:text>le</xsl:text></xsl:template>
+<xsl:template match="Gt"            mode="xpath_deferred"> <xsl:text>gt</xsl:text></xsl:template>
+<xsl:template match="Ge"            mode="xpath_deferred"> <xsl:text>ge</xsl:text></xsl:template>
+<xsl:template match="somewhat_eq"   mode="xpath_deferred"> <xsl:text>=</xsl:text></xsl:template>
+<xsl:template match="Somewhat_ne"   mode="xpath_deferred"> <xsl:text>!=</xsl:text></xsl:template>
+<xsl:template match="Somewhat_lt"   mode="xpath_deferred"> <xsl:text>&lt;</xsl:text></xsl:template>
+<xsl:template match="Somewhat_le"   mode="xpath_deferred"> <xsl:text>&lt;=</xsl:text></xsl:template>
+<xsl:template match="Somewhat_gt"   mode="xpath_deferred"> <xsl:text>&gt;</xsl:text></xsl:template>
+<xsl:template match="Somewhat_ge"   mode="xpath_deferred"> <xsl:text>&gt;=</xsl:text></xsl:template>
+<xsl:template match="Is"            mode="xpath_deferred"> <xsl:text> is </xsl:text></xsl:template>
+<xsl:template match="Precedes"      mode="xpath_deferred"> <xsl:text>&lt;&lt;</xsl:text></xsl:template>
+<xsl:template match="IsPrecededBy"  mode="xpath_deferred"> <xsl:text>&gt;&gt;</xsl:text></xsl:template>
+
+
+
+
+
+<!-- generic walk with callback functions passed as parameters ?? 
+
+<xsl:template match="/">
    <xsl:message> Schema is <xsl:value-of select="$er-entity_model/er:absolute/er:name"/> </xsl:message>
-   <!--
-    <xsl:variable name="ifdef" as="element(er:entity_type)" select="$er-entity_model//er:entity_type[er:name = 'IfExpr']"/> 
-    <xsl:variable name="condef" as="element(er:composition)" select="$ifdef/er:composition[er:name='condition']"/>
-    <xsl:variable name="expr" as="element(er:entity_type)" select="$er-entity_model//er:entity_type[er:name eq $condef/er:type]"/> 
-    <xsl:message>condef type is '<xsl:value-of select="$condef/er:type"/>'</xsl:message>
-    <xsl:message> Now list off candidate entity types for condition<xsl:copy-of select="$erlib?concrete-destination-type-sequence($condef)"/></xsl:message>
-   <xsl:variable name="thendef" as="element(er:composition)" select="$ifdef/er:composition[er:name='then']"/>
-   <xsl:message>And show I can reach the thendef  <xsl:copy-of select="$thendef"/></xsl:message>
-   -->
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-      <!--<xsl:with-param name="model" select="$er-entity_model"/>-->
       <xsl:with-param name="instance" select="root/instance/xpath-31/Expr"/>
       <xsl:with-param name="startInstance"    select="$xpathPrettyPrint?startInstance"/>
       <xsl:with-param name="attributeValue"   select="$xpathPrettyPrint?attributeValue"/>
@@ -83,9 +132,7 @@
    </xsl:call-template>
 </xsl:template>
 
-<!-- ?? make the following generic with callback functions passed as parameters ?? -->
 <xsl:template name="walk_an_instance_subtree__guided_by_schema">
-   <!--<xsl:param name="model" as="element(er:entity_model)"/>-->
    <xsl:param name="instance" as="element()"/>
    <xsl:param name="startInstance" as="function(element()) as xs:string?"/>
    <xsl:param name="attributeValue" as="function(element(er:attribute),xs:anyAtomicType) as xs:string?"/>
@@ -94,20 +141,17 @@
    <xsl:param name="endMember"   as="function(element(er:composition),xs:positiveInteger) as xs:string?"/>
    <xsl:param name="endComposition" as="function(element(er:composition)) as xs:string?"/>
    <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
-  <!-- <xsl:param name="errorList" as="array(xs:string)"/>-->
    <xsl:variable name="etlDefn" 
       as="element()?"
       select="$erlib?entity_type_like-from-instance($instance)
-             "/> <!-- use the name to remember that what we have is entity_type_like and therefore includes the absolute -->
-
+             "/> 
    <xsl:if test="not($etlDefn)">
       <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
    </xsl:if>
    <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
    <xsl:value-of select="$startInstance($instance)"/>
-   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition)">
-                                                               <!-- meta derived  rel 'allContent', say  -->
-      <xsl:choose>               <!-- ?? instead use apply-templates ?? -->
+   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition)">                                                           
+      <xsl:choose>             
          <xsl:when test="self::er:attribute">
             <xsl:variable name="valueofattribute" 
                            as="xs:anyAtomicType?"
@@ -139,6 +183,6 @@
    </xsl:for-each>
    <xsl:value-of select="$endInstance($instance)"/>
 </xsl:template>
-
+-->
 
 </xsl:transform>

@@ -8,12 +8,66 @@
                version="2.0"
                xpath-default-namespace=""
                xmlns="">
-<!--<xsl:output method="xml" indent="yes"/>-->
 
 <xsl:variable name="er-entity_model" as="element(er:entity_model)">
-   <xsl:message> In 'ERSchema' loading schema  '<xsl:value-of select="root/schema/@filename"/>'</xsl:message>
+   <xsl:message> In 'ER.library.module' loading schema  '<xsl:value-of select="root/schema/@filename"/>'</xsl:message>
    <xsl:copy-of select="document(root/schema/@filename)/er:entity_model"/>
 </xsl:variable>
+
+<xsl:variable name="erSchema" as="map(xs:string,function(*))">
+    <xsl:variable name="model" as="element(er:entity_model)" select="$er-entity_model"/>
+    <xsl:sequence select="
+let 
+$entityType 
+:= function ($name as xs:string ) as element(er:entity_type)  
+{
+  $model//er:entity_type[er:name=$name] 
+},
+
+$attributeNamed 
+:= function($etDefn as element(er:entity_type),
+            $name as xs:string
+           ) 
+            as element((:er:Relationship:))
+{
+    $etDefn/ancestor-or-self::er:entity_type
+            /child::er:attribute
+            [er:name eq $name]
+},
+
+$relationshipNamed 
+:= function($etDefn as element(er:entity_type),
+            $name as xs:string?,
+            $type as xs:string?
+           ) 
+            as element((:er:Relationship:))
+{
+    if (not ($name or $type))
+    then fn:error(fn:QName('www.entitymodelling.org','relationshipNamedError'),
+                  'function ''relationshipNamed'' called with neither name nor type parameter'
+                  )
+    else
+        $etDefn/ancestor-or-self::er:entity_type
+            /*[self::er:composition|self::er:reference|self::er:dependency|self::er:constructed_relationship]
+            [if ($name) then er:name eq $name else true()][if ($type) then er:type eq $type else true()]
+},
+
+$destinationTypeOfRelationship     
+(: navigate the model from an er:Relationship to an er:entity_type                         :)
+(: ultimately this could be following the 'type' reference relationship of the meta-schema :)
+:= function ($r as element() ) as element(er:entity_type)     (: as element( (:er:Relationship:) ) :)
+{
+  $entityType($r/er:type) 
+}
+return map {
+  'entityType' : $entityType,
+  'attributeNamed' : $attributeNamed,
+  'relationshipNamed' : $relationshipNamed,
+  'destinationTypeOfRelationship' : $destinationTypeOfRelationship
+  }
+"/>
+</xsl:variable>
+
 
 <xsl:variable name="erlib" as="map(xs:string,function(*))">
 <!-- the following didn't work
@@ -27,17 +81,47 @@
 <xsl:sequence select="
 let 
 
-$entity_type_like-from-instance
+$getDefinitionOfInstance
 (: find  er:entity_type_like from its name :)
 (: where er:entity_type_like ::= er:entity_type | er:absolute:)
-:= function ($instance as element()) as element((:entity_type_like:))?
+:= function (
+             $instance as element()
+            )
+            as element((:entity_type_like:))?
 {
    $model//(self::er:absolute|self::er:entity_type)
-                       [er:elementName=$instance/name()]              
+                       [er:name eq $instance/name()]              (:  XXXX elementName XXXX :)           
 },
 
-$value-of-attribute
-:= function ($instance as element(), $attr as element(er:attribute))  as xs:anyAtomicType?
+$instanceClassifiedByEntityType
+:= function($instance as element(),
+            $etDefn as element(entity_type)
+           )
+           as xs:boolean
+{ 
+  let $etDefnOfInstance := $getDefinitionOfInstance($instance)
+  return if ($etDefnOfInstance)
+         then exists($etDefnOfInstance/ancestor-or-self::er:entity_type[. is $etDefn])
+         else false()
+},
+           
+$instanceClassifiedByEntityTypeNamed
+:= function($instance as element(),
+            $name as xs:string
+           )
+           as xs:boolean
+{  
+  let $etDefnOfInstance := $getDefinitionOfInstance($instance)
+  return if ($etDefnOfInstance)
+         then exists($etDefnOfInstance/ancestor-or-self::er:entity_type[er:name eq $name])   (:  XXXX elementName XXXX :) 
+         else false()
+},
+
+
+$readAttribute
+:= function ($instance as element(), 
+             $attr as element(er:attribute)
+            )  as xs:anyAtomicType?
 {
    let $value :=
       if ($attr/er:xmlRepresentation/er:Anonymous or (not($attr/er:xmlRepresentation) and $model/er:attributeDefault/er:Anonymous)) 
@@ -56,6 +140,15 @@ $value-of-attribute
                         )        
 }  (: could probably rewrite the above using a higher order function :),
 
+$readAttributeNamed
+:= function ($instance as element(), 
+             $name as xs:string
+            )  as xs:anyAtomicType?
+{
+   let $attrDefn := $erSchema?attributeNamed($instance, $name)
+   return  $readAttribute($instance,$attrDefn)        
+},
+
 $destination-type     
 (: navigate the model from an er:Relationship to an er:entity_type                         :)
 (: ultimately this could be following the 'type' reference relationship of the meta-schema :)
@@ -69,12 +162,12 @@ $concrete-destination-type-sequence
 (:                       er:entity_type which are valid types of destination entitites  :)
 := function( $r as element((:er:Relationship:))) as element(er:entity_type)*
 { 
-  $destination-type($r)/descendant-or-self::er:entity_type[not(child::er:entity_type)]
+  $erSchema?destinationTypeOfRelationship($r)/descendant-or-self::er:entity_type[not(child::er:entity_type)]
 },
 
 $type-check-relationship-instance
 := function( $r as element((:er:Relationship:)), $instance as element() ) as xs:boolean
-{  let $instance_etlDefn := $entity_type_like-from-instance($instance),
+{  let $instance_etlDefn := $getDefinitionOfInstance($instance),
        $relDestination_erlDefn := $destination-type($r)
    return some $et in $relDestination_erlDefn/descendant-or-self::er:entity_type 
               satisfies $et is $instance_etlDefn
@@ -143,18 +236,29 @@ function($instance as element(),
 if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
 then $readAnonymousCompositionRelationship($instance, $compRelDefn)
 else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
+},
+
+$readCompositionRelationshipNamed
+:=
+function($instance as element(),
+         $name as xs:string
+         ) as element()*
+{
+let $compRelDefn := $erSchema?relationshipNamed($instance,$name,())
+return $readCompositionRelationship($instance,$compRelDefn)
 }
 
 return map {
-  'entity_type_like-from-instance'  : $entity_type_like-from-instance,
-  'value-of-attribute'              : $value-of-attribute,
-  'destination-type'                : $destination-type,
-  'concrete-destination-type-sequence'  : $concrete-destination-type-sequence,
-  'type-check-relationship-instance'    : $type-check-relationship-instance ,
-  'type-check-relationshipset-instance' : $type-check-relationshipset-instance,
-  'readCompositionRelationship'         : $readCompositionRelationship
+  'getDefinitionOfInstance'             : $getDefinitionOfInstance,
+  'instanceClassifiedByEntityType'      : $instanceClassifiedByEntityType,
+  'instanceClassifiedByEntityTypeNamed' : $instanceClassifiedByEntityTypeNamed,
+  'readAttribute'                       : $readAttribute,
+  'readAttributeNamed'                  : $readAttributeNamed,
+  'readCompositionRelationship'         : $readCompositionRelationship,
+  'readCompositionRelationshipNamed'    : $readCompositionRelationshipNamed
   }
 "/>
+
 </xsl:variable>
 
 </xsl:transform>
