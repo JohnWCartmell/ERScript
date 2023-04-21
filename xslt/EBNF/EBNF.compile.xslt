@@ -41,7 +41,6 @@
 
 <xsl:template match="/">
 
-    <xsl:message> Testing </xsl:message>
    
    <xsl:message>  Generating xml </xsl:message>
 

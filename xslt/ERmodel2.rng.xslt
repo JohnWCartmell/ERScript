@@ -19,7 +19,7 @@ ERmodel2.rng.xslt
             to the physical model and to the generated rng. If I manually reinsert the missing compsotion
             relationships then the generated rng is invaid because all substructure currently specified embedded withuin interleave.
             I have added a bit of logic to spot and compsotion relationship with an xmlRepresentation of anonymous
-            and in thsi case to plant the defintion anonymised (even though comp rel is named) and to group substructure so
+            and in this case to plant the defintion anonymised (even though comp rel is named) and to group substructure so
             that not interleaved. This doesn't feel like the end of this story but I will see how i progress from here.
             I am probably going to have conflicts between order of composition rels and attributes arriving from inheritance and the
             order produced in the intermediate tree from the parser (and the language syntax). Maybe the answer will
@@ -63,7 +63,7 @@ ERmodel2.rng.xslt
 <xsl:variable name="defaultAttributeRepresentation">
   <xsl:choose>
      <xsl:when test="/entity_model/xml/attributeDefault">
-        <xsl:value-of select="/entity_model/xml/attributeDefault"/>
+        <xsl:value-of select="/entity_model/xml/attributeDefault/*/name()"/>
      </xsl:when>
      <xsl:otherwise>
         <xsl:value-of select="'Element'"/>
@@ -240,12 +240,12 @@ ERmodel2.rng.xslt
 </xsl:template>
 
 <xsl:template name="attrs_and_rels_of_entity_type" match="entity_type|absolute">
-    <interleave>
       <xsl:if test="not(xmlRepresentation='Anonymous' or child::Anonymous)">
         <ref name="optionalIncludes"/>
       </xsl:if>
+    <interleave>
       <xsl:choose>
-        <xsl:when test="exists(ancestor-or-self::entity_type/composition[xmlRepresentation='Anonymous'])">
+        <xsl:when test="exists(ancestor-or-self::entity_type/composition[xmlRepresentation/Anonymous])">
           <group>
             <xsl:call-template name="attrs_and_rels_of_entity_type_core_definitions"/>
           </group>

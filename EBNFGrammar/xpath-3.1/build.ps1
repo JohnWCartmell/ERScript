@@ -25,8 +25,8 @@ echo 'Run EBNF.scraped2grammar.xslt'
 echo 'Run EBNF.grammar2IDLisation.xslt'
 . $TARGET\scripts\EBNF.grammar2IDLisation.ps1 xpath-3.1.EBNF.grammar.xml
 
-echo 'Run EBNF.test.xslt'
-. $TARGET\scripts\EBNF.test.ps1 xpath-3.1.test.xml -outputFolder docs
+echo 'Run EBNF.compile.xslt'
+. $TARGET\scripts\EBNF.compile.ps1 xpath-3.1.test.xml -outputFolder docs
 
 java -jar $JING_PATH\jing.jar -f $TARGET\xpathModel\bin\xpath..physical.rng docs/xpath-3.1.test.parseout.xml
 
