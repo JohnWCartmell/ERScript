@@ -292,7 +292,7 @@
    </entity_type>
    <entity_type name="Param">
       <composition type="EQName"/>
-      <composition type="SequenceType"/>
+      <composition type="SequenceType?"/>
    </entity_type>
    <entity_type name="MapConstructorEntry">
       <composition name="key" type="ExprSingle"><xmlRepresentation><Anonymous/></xmlRepresentation></composition>

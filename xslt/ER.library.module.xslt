@@ -244,7 +244,9 @@ function($instance as element(),
          $name as xs:string
          ) as element()*
 {
-let $compRelDefn := $erSchema?relationshipNamed($instance,$name,())
+let 
+    $etDefnOfInstance := $getDefinitionOfInstance($instance),
+    $compRelDefn := $erSchema?relationshipNamed($etDefnOfInstance, $name,())
 return $readCompositionRelationship($instance,$compRelDefn)
 }
 
