@@ -79,11 +79,11 @@
 </xsl:template>
 
 <xsl:template match="test" mode="test">
-   <xsl:message>***************** Parsing '<xsl:value-of select="rhs"/>'</xsl:message>
+   <xsl:message>***************** Parsing '<xsl:value-of select="rhs"/>' **************</xsl:message>
 
       <xsl:variable name="parseResult" as="element()">
          <xsl:apply-templates select="rhs" mode="parse">
-            <xsl:with-param name="input" select="xpath"/>
+            <xsl:with-param name="input" select="input"/>
             <xsl:with-param name="inputPosition" select="1 cast as xs:positiveInteger" />
          </xsl:apply-templates>
       </xsl:variable>

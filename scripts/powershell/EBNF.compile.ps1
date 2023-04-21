@@ -40,5 +40,5 @@ echo $SAXON_JAR
     #>  
 
 java -Xss2m -jar $SAXON_JAR -opt:0  -s:$pathToSourceXMLfile `
-                      -xsl:$ERHOME\xslt\EBNF\EBNF.test.xslt `
+                      -xsl:$ERHOME\xslt\EBNF\EBNF.compile.xslt `
                        -o:$outputFolder\$filenamebase.parseout.xml

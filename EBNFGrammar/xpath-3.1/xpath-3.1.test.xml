@@ -6,7 +6,7 @@
 
     <test>
     	<rhs><nt>Expr</nt></rhs>
-		<xpath>	
+		<input>	
 		map {
 		'AbbrevForwardStep' 	: ((x, prfx:x, Q{uri}x, Q{}x) ,(/*, /*:b, /b:*, /Q{URI}*)),
 		'AbbrevReverseStep' : ..,
@@ -84,7 +84,7 @@
 		'exampleusingArgumentPlaceholder' : let $sum-of-squares := fn:fold-right(?, 0, function($a, $b) { $a*$a + $b }) return $sum-of-squares(1 to 3),
 		'examplefromtheweb' : //*[@id="tsf"]/div[2]/div[3]/center/input[1]
 		 }
-		</xpath>
+		</input>
 	</test>
 
 		
