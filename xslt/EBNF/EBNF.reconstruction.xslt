@@ -12,7 +12,6 @@
 
 <xsl:include href="../ER.library.module.xslt"/>
 
-
 <xsl:variable name="xpathPrettyPrint"
               as="map(xs:string,function(*))"
               select="let
@@ -101,10 +100,26 @@
    <xsl:text>?*</xsl:text>
 </xsl:template>
 
+<xsl:template match="AnyArrayTest" mode="generate_xpath">
+     <xsl:text>array(*)</xsl:text>
+</xsl:template>
+
+<xsl:template match="AnyFunctionTest" mode="generate_xpath">
+     <xsl:text>function(*)</xsl:text>
+</xsl:template>
+
+<xsl:template match="AnyMapTest" mode="generate_xpath">
+     <xsl:text>map(*)</xsl:text>
+</xsl:template>
+
 <xsl:template match="AnyURIQualifiedNode" mode="generate_xpath">
    <xsl:text>Q{</xsl:text>
    <xsl:value-of select="@URI"/>
    <xsl:text>}*</xsl:text>
+</xsl:template>
+
+<xsl:template match="ArgumentPlaceholder" mode="generate_xpath">
+     <xsl:text>?</xsl:text>
 </xsl:template>
 
 <xsl:template match="ArrayLookup|MapOrArrayFilter" mode="generate_xpath">
@@ -113,6 +128,14 @@
    <xsl:apply-templates select="child::element()[2]" mode="generate_xpath"/>
 </xsl:template>
 
+
+<xsl:template match="ArrowExpr" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
+   <xsl:for-each select="child::element()[position() &gt; 1]">
+      <xsl:text>=> </xsl:text>
+      <xsl:apply-templates select="." mode="generate_xpath"/>
+   </xsl:for-each>
+</xsl:template>
 
 
 
@@ -160,8 +183,6 @@
    </xsl:if>
 </xsl:template>
 
-
-
 <xsl:template match="CommentTest" mode="generate_xpath">
    <xsl:text>comment()</xsl:text>
 </xsl:template>
@@ -170,6 +191,10 @@
    <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'path')" mode="generate_xpath"/>
       <xsl:text>/</xsl:text>
    <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'step')" mode="generate_xpath"/>
+</xsl:template>
+
+<xsl:template match="ContextItemExpr" mode="generate_xpath">
+   <xsl:text>.</xsl:text>
 </xsl:template>
 
 <xsl:template match="CurlyArrayConstructor" mode="generate_xpath">
@@ -240,6 +265,10 @@
    <xsl:text>{</xsl:text>
    <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
    <xsl:text>}</xsl:text>
+</xsl:template>
+
+<xsl:template match="EmptySequence" mode="generate_xpath">
+   <xsl:text>empty-sequence()</xsl:text>
 </xsl:template>
 
 <xsl:template match="Expr" mode="generate_xpath">
@@ -314,13 +343,16 @@
 
 <xsl:template match="InstanceofExpr" mode="generate_xpath">
    <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
-   <xsl:text> instance as </xsl:text>
+   <xsl:text> instance of </xsl:text>
    <xsl:apply-templates select="child::element()[2]" mode="generate_xpath"/>
 </xsl:template>
 
-
 <xsl:template match="IntegerLiteral" mode="generate_xpath">
    <xsl:value-of select="@Digits"/>
+</xsl:template>
+
+<xsl:template match="Item" mode="generate_xpath">
+   <xsl:text>item()</xsl:text>
 </xsl:template>
 
 <xsl:template match="LetExpr" mode="generate_xpath">
@@ -334,12 +366,31 @@
    <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
 </xsl:template>
 
+<xsl:template match="NamedFunctionRef" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
+   <xsl:text>#</xsl:text>
+   <xsl:apply-templates select="child::element()[2]" mode="generate_xpath"/>
+</xsl:template>
+
+<xsl:template match="NamespaceNodeTest" mode="generate_xpath">
+   <xsl:text>namespace-node()</xsl:text>
+</xsl:template>
+
 <xsl:template match="MapConstructorEntry" mode="generate_xpath">
-   <xsl:copy>  <!-- temporary -->
    <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'key')" mode="generate_xpath"/>
-      <xsl:text>:</xsl:text>
+      <xsl:text> : </xsl:text>
    <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'value')" mode="generate_xpath"/>
-</xsl:copy>
+</xsl:template>
+
+
+<xsl:template match="MapConstructor" mode="generate_xpath">
+   <xsl:text>map(</xsl:text>
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
+   <xsl:for-each select="child::element()[position() &gt; 1]">
+      <xsl:text>, </xsl:text>
+      <xsl:apply-templates select="." mode="generate_xpath"/>
+   </xsl:for-each>
+   <xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="MapLookup" mode="generate_xpath">
@@ -348,8 +399,19 @@
    <xsl:value-of select="@NCName"/>
 </xsl:template>
 
-<xsl:template match="NamespaceNodeTest" mode="generate_xpath">
-   <xsl:text>namespace-node()</xsl:text>
+<xsl:template match="OccursZeroOneOrMore" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
+   <xsl:text>*</xsl:text>
+</xsl:template>
+
+<xsl:template match="OccursZeroOrOne" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
+   <xsl:text>?</xsl:text>
+</xsl:template>
+
+<xsl:template match="OccursOneOrMore" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
+   <xsl:text>+</xsl:text>
 </xsl:template>
 
 <xsl:template match="Param" mode="generate_xpath">
@@ -360,7 +422,7 @@
    </xsl:if>
 </xsl:template>
 
-<xsl:template match="ParenthesizedExpr" mode="generate_xpath">
+<xsl:template match="ParenthesizedExpr | ParenthesizedItemType" mode="generate_xpath">
    <xsl:text>(</xsl:text>
    <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
    <xsl:text>)</xsl:text>
@@ -372,7 +434,6 @@
    <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
    <xsl:text>)</xsl:text>
 </xsl:template>
-
 
 <xsl:template match="PredicatedExpr | PredicatedStep" mode="generate_xpath">
    <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
@@ -456,6 +517,17 @@
    <xsl:text>]</xsl:text>
 </xsl:template>
 
+<xsl:template match="StaticArrowTransform|DynamicArrowTransform" mode="generate_xpath">
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
+   <xsl:text>(</xsl:text>
+   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'args')[1]" mode="generate_xpath"/>
+   <xsl:for-each select="$erlib?readCompositionRelationshipNamed(.,'args')[position() &gt; 1]">
+      <xsl:text>, </xsl:text>
+      <xsl:apply-templates select="." mode="generate_xpath"/>
+   </xsl:for-each>
+   <xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="TextTest" mode="generate_xpath">
    <xsl:text>text()</xsl:text>
 </xsl:template>
@@ -466,8 +538,43 @@
    <xsl:apply-templates select="child::element()[2]" mode="generate_xpath"/>
 </xsl:template>
 
+<xsl:template match="TypedArrayTest" mode="generate_xpath">
+   <xsl:text>array(</xsl:text>
+   <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
+   <xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="TypedMapTest" mode="generate_xpath">
+   <xsl:text>map(</xsl:text>
+   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'keytype')" mode="generate_xpath"/>
+   <xsl:text>, </xsl:text>
+   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'valuetype')" mode="generate_xpath"/>
+   <xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="TypeName" mode="generate_xpath">
    <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
+</xsl:template>
+
+<xsl:template match="TypedFunctionTest" mode="generate_xpath">
+   <xsl:text> function (</xsl:text>
+   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'argTypes')[1]" mode="generate_xpath"/>
+   <xsl:for-each select="$erlib?readCompositionRelationshipNamed(.,'argTypes')[position() &gt; 1]">
+      <xsl:text>, </xsl:text>
+      <xsl:apply-templates select="." mode="generate_xpath"/>
+   </xsl:for-each>
+   <xsl:text>) as </xsl:text>
+   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'returnType')[1]" mode="generate_xpath"/>
+</xsl:template>
+
+<xsl:template match="UnaryMinus" mode="generate_xpath">
+   <xsl:text>- </xsl:text>
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
+</xsl:template>
+
+<xsl:template match="UnaryPlus" mode="generate_xpath">
+   <xsl:text>+ </xsl:text>
+   <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="URIQualifiedName" mode="generate_xpath">
