@@ -12,52 +12,6 @@
 
 <xsl:include href="../ER.library.module.xslt"/>
 
-<xsl:variable name="xpathPrettyPrint"
-              as="map(xs:string,function(*))"
-              select="let
-   $startInstance    := function($instance as element())
-   {
-     '[' || $instance/name()
-
-   },
-   $attributeValue   := function($attr as element(er:attribute),
-                                 $value as xs:anyAtomicType)
-   {
-      $value cast as xs:string 
-   },
-   $startComposition := function($comprel as element(er:composition))
-   {
-
-   },
-   $startMember      := function($comprel as  element(er:composition),
-                                 $position as xs:positiveInteger)
-   {
-
-   },
-   $endMember        := function($comprel as element(er:composition),
-                                 $position as xs:positiveInteger)
-   {
-
-   },
-   $endComposition   := function($comprel as element(er:composition))
-   {
-
-   },
-   $endInstance      := function($instance as element())
-   {
-     ']'
-   }
-   return map{
-   'startInstance'   : $startInstance,
-   'attributeValue'  : $attributeValue,
-   'startComposition': $startComposition,
-   'startMember'     : $startMember,
-   'endMember'       : $endMember,
-   'endComposition'  : $endComposition,
-   'endInstance'     : $endInstance
-   }
-"/> <!-- end of xpathPrettyPrint -->
-
 <xsl:template match="/">
    <xsl:copy>
       <xsl:apply-templates mode="generate_xpath"/>
@@ -188,9 +142,9 @@
 </xsl:template>
 
 <xsl:template match="Compose" mode="generate_xpath">
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'path')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'path')" mode="generate_xpath"/>
       <xsl:text>/</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'step')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'step')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="ContextItemExpr" mode="generate_xpath">
@@ -226,7 +180,7 @@
 </xsl:template>
 
 <xsl:template match="DynamicFunctionCall" mode="generate_xpath">
-   <xsl:apply-templates select="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'ExprSingle')]" mode="generate_xpath"/>
+   <xsl:apply-templates select="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'ExprSingle')]" mode="generate_xpath"/>
    <xsl:text>(</xsl:text>
    <xsl:apply-templates select="args/*[1]" mode="generate_xpath"/>
    <xsl:for-each select="args/*[position() &gt; 1]">
@@ -287,7 +241,7 @@
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text> satisfies </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="ForExpr" mode="generate_xpath">
@@ -298,11 +252,11 @@
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text> return </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="FunctionCall" mode="generate_xpath">
-   <xsl:apply-templates select="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'EQName')]" mode="generate_xpath"/>
+   <xsl:apply-templates select="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'EQName')]" mode="generate_xpath"/>
    <xsl:text>(</xsl:text>
    <xsl:apply-templates select="args/*[1]" mode="generate_xpath"/>
    <xsl:for-each select="args/*[position() &gt; 1]">
@@ -314,30 +268,30 @@
 
 <xsl:template match="IfExpr" mode="generate_xpath">
    <xsl:text>if (</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'condition')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'condition')" mode="generate_xpath"/>
    <xsl:text>) then </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'then')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'then')" mode="generate_xpath"/>
    <xsl:text> else </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'else')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'else')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="InlineFunctionExpr" mode="generate_xpath">
    <xsl:text>function (</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'params')[1]" mode="generate_xpath"/>
-   <xsl:for-each select="$erlib?readCompositionRelationshipNamed(.,'params')[position() &gt; 1]">
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'params')[1]" mode="generate_xpath"/>
+   <xsl:for-each select="$erDataLib?readCompositionRelationshipNamed(.,'params')[position() &gt; 1]">
       <xsl:text>, </xsl:text>
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text>)</xsl:text>
-   <xsl:if test="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'SequenceType')]">
+   <xsl:if test="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'SequenceType')]">
          <xsl:text>as </xsl:text>
-         <xsl:apply-templates select="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'SequenceType')]"
+         <xsl:apply-templates select="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'SequenceType')]"
                                                                mode="generate_xpath"/>
                              <!-- should maybe do this differently either name this comp relationship 
                                    or give more prominence to truly anonymous comp rels -->
    </xsl:if>
    <xsl:text>{</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'body')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'body')" mode="generate_xpath"/>
    <xsl:text>}</xsl:text>
 </xsl:template>
 
@@ -363,7 +317,7 @@
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text> return </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="NamedFunctionRef" mode="generate_xpath">
@@ -377,9 +331,9 @@
 </xsl:template>
 
 <xsl:template match="MapConstructorEntry" mode="generate_xpath">
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'key')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'key')" mode="generate_xpath"/>
       <xsl:text> : </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'value')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'value')" mode="generate_xpath"/>
 </xsl:template>
 
 
@@ -451,9 +405,9 @@
 </xsl:template>
 
 <xsl:template match="ReachingCompose" mode="generate_xpath">
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'path')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'path')" mode="generate_xpath"/>
       <xsl:text>//</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'step')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'step')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="Root" mode="generate_xpath">
@@ -504,7 +458,7 @@
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text> satisfies </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'return_or_satisfies')" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="SquareArrayConstructor" mode="generate_xpath">
@@ -520,8 +474,8 @@
 <xsl:template match="StaticArrowTransform|DynamicArrowTransform" mode="generate_xpath">
    <xsl:apply-templates select="child::element()[1]" mode="generate_xpath"/>
    <xsl:text>(</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'args')[1]" mode="generate_xpath"/>
-   <xsl:for-each select="$erlib?readCompositionRelationshipNamed(.,'args')[position() &gt; 1]">
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'args')[1]" mode="generate_xpath"/>
+   <xsl:for-each select="$erDataLib?readCompositionRelationshipNamed(.,'args')[position() &gt; 1]">
       <xsl:text>, </xsl:text>
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
@@ -546,9 +500,9 @@
 
 <xsl:template match="TypedMapTest" mode="generate_xpath">
    <xsl:text>map(</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'keytype')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'keytype')" mode="generate_xpath"/>
    <xsl:text>, </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'valuetype')" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'valuetype')" mode="generate_xpath"/>
    <xsl:text>)</xsl:text>
 </xsl:template>
 
@@ -558,13 +512,13 @@
 
 <xsl:template match="TypedFunctionTest" mode="generate_xpath">
    <xsl:text> function (</xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'argTypes')[1]" mode="generate_xpath"/>
-   <xsl:for-each select="$erlib?readCompositionRelationshipNamed(.,'argTypes')[position() &gt; 1]">
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'argTypes')[1]" mode="generate_xpath"/>
+   <xsl:for-each select="$erDataLib?readCompositionRelationshipNamed(.,'argTypes')[position() &gt; 1]">
       <xsl:text>, </xsl:text>
       <xsl:apply-templates select="." mode="generate_xpath"/>
    </xsl:for-each>
    <xsl:text>) as </xsl:text>
-   <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'returnType')[1]" mode="generate_xpath"/>
+   <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'returnType')[1]" mode="generate_xpath"/>
 </xsl:template>
 
 <xsl:template match="UnaryMinus" mode="generate_xpath">
@@ -589,13 +543,13 @@
       <xsl:apply-templates select="child::element()" mode="generate_xpath"/>
 </xsl:template>
 
-<xsl:template match="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'BinaryOperation')]" mode="generate_xpath" priority="1">
+<xsl:template match="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'BinaryOperation')]" mode="generate_xpath" priority="1">
      <xsl:text>(</xsl:text>
-     <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'arg1')" mode="generate_xpath"/>
+     <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'arg1')" mode="generate_xpath"/>
      <xsl:text>)</xsl:text>
      <xsl:apply-templates select="." mode="xpath_deferred"/>
      <xsl:text>(</xsl:text>
-     <xsl:apply-templates select="$erlib?readCompositionRelationshipNamed(.,'arg2')" mode="generate_xpath"/>
+     <xsl:apply-templates select="$erDataLib?readCompositionRelationshipNamed(.,'arg2')" mode="generate_xpath"/>
      <xsl:text>)</xsl:text>
 </xsl:template>
 
@@ -629,9 +583,9 @@
 <xsl:template match="Precedes"      mode="xpath_deferred"> <xsl:text>&lt;&lt;</xsl:text></xsl:template>
 <xsl:template match="IsPrecededBy"  mode="xpath_deferred"> <xsl:text>&gt;&gt;</xsl:text></xsl:template>
 
-<xsl:template match="*[$erlib?instanceClassifiedByEntityTypeNamed(.,'ReverseStep')
+<xsl:template match="*[$erDataLib?instanceClassifiedByEntityTypeNamed(.,'ReverseStep')
                         or
-                       $erlib?instanceClassifiedByEntityTypeNamed(.,'ForwardStep')
+                       $erDataLib?instanceClassifiedByEntityTypeNamed(.,'ForwardStep')
                        and not(self::AbbrevForwardStep)
                       ]" mode="generate_xpath" priority="1">
    <xsl:apply-templates select="." mode="xpath_deferred"/>
@@ -653,77 +607,5 @@
 <xsl:template match="Following"  mode="xpath_deferred"> <xsl:text>following</xsl:text></xsl:template>
 <xsl:template match="Namespace"  mode="xpath_deferred"> <xsl:text>namespace</xsl:text></xsl:template>
 
-
-
-
-
-<!-- generic walk with callback functions passed as parameters ?? 
-
-<xsl:template match="/">
-   <xsl:message> Schema is <xsl:value-of select="$er-entity_model/er:absolute/er:name"/> </xsl:message>
-   <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-      <xsl:with-param name="instance" select="root/instance/xpath-31/Expr"/>
-      <xsl:with-param name="startInstance"    select="$xpathPrettyPrint?startInstance"/>
-      <xsl:with-param name="attributeValue"   select="$xpathPrettyPrint?attributeValue"/>
-      <xsl:with-param name="startComposition" select="$xpathPrettyPrint?startComposition"/>
-      <xsl:with-param name="startMember"      select="$xpathPrettyPrint?startMember"/>
-      <xsl:with-param name="endMember"        select="$xpathPrettyPrint?endMember"/>
-      <xsl:with-param name="endComposition"   select="$xpathPrettyPrint?endComposition"/>
-      <xsl:with-param name="endInstance"      select="$xpathPrettyPrint?endInstance"/>
-   </xsl:call-template>
-</xsl:template>
-
-<xsl:template name="walk_an_instance_subtree__guided_by_schema">
-   <xsl:param name="instance" as="element()"/>
-   <xsl:param name="startInstance" as="function(element()) as xs:string?"/>
-   <xsl:param name="attributeValue" as="function(element(er:attribute),xs:anyAtomicType) as xs:string?"/>
-   <xsl:param name="startComposition" as="function(element(er:composition)) as xs:string?"/>
-   <xsl:param name="startMember" as="function(element(er:composition),xs:positiveInteger) as xs:string?"/>
-   <xsl:param name="endMember"   as="function(element(er:composition),xs:positiveInteger) as xs:string?"/>
-   <xsl:param name="endComposition" as="function(element(er:composition)) as xs:string?"/>
-   <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
-   <xsl:variable name="etlDefn" 
-      as="element()?"
-      select="$erlib?entity_type_like-from-instance($instance)
-             "/> 
-   <xsl:if test="not($etlDefn)">
-      <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
-   </xsl:if>
-   <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
-   <xsl:value-of select="$startInstance($instance)"/>
-   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition)">                                                           
-      <xsl:choose>             
-         <xsl:when test="self::er:attribute">
-            <xsl:variable name="valueofattribute" 
-                           as="xs:anyAtomicType?"
-                           select="$erlib?value-of-attribute($instance,.)"/>
-            <xsl:message>Value of attr '<xsl:value-of select="er:name"/>' = '<xsl:value-of select="$valueofattribute"/>'</xsl:message>
-            <xsl:if test="not(self::er:attribute/er:optional) and not($valueofattribute)">
-               <xsl:message terminate="yes">*********** Mandatory attribute has no value</xsl:message>
-            </xsl:if> 
-            <xsl:if test="$valueofattribute">
-               <xsl:value-of select="$attributeValue(self::er:attribute, $valueofattribute)"/>
-            </xsl:if> 
-         </xsl:when>
-         <xsl:when test="self::er:composition ">
-            <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
-            <xsl:for-each select="$erlib?readCompositionRelationship($instance,self::er:composition)">
-               <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-                  <xsl:with-param name="instance" select="."/>
-                  <xsl:with-param name="startInstance"    select="$startInstance"/>
-                  <xsl:with-param name="attributeValue"   select="$attributeValue"/>
-                  <xsl:with-param name="startComposition" select="$startComposition"/>
-                  <xsl:with-param name="startMember"      select="$startMember"/>
-                  <xsl:with-param name="endMember"        select="$endMember"/>
-                  <xsl:with-param name="endComposition"   select="$endComposition"/>
-                  <xsl:with-param name="endInstance"      select="$endInstance"/>
-               </xsl:call-template>
-            </xsl:for-each>
-         </xsl:when>
-      </xsl:choose>
-   </xsl:for-each>
-   <xsl:value-of select="$endInstance($instance)"/>
-</xsl:template>
--->
 
 </xsl:transform>
