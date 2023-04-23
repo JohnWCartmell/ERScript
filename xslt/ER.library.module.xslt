@@ -9,13 +9,65 @@
                xpath-default-namespace=""
                xmlns="">
 
-<xsl:variable name="er-entity_model" as="element(er:entity_model)">
+<xsl:variable name="erMetaModelData" as="element(er:entity_model)">
    <xsl:message> In 'ER.library.module' loading schema  '<xsl:value-of select="root/schema/@filename"/>'</xsl:message>
    <xsl:copy-of select="document(root/schema/@filename)/er:entity_model"/>
 </xsl:variable>
 
-<xsl:variable name="erSchema" as="map(xs:string,function(*))">
-    <xsl:variable name="model" as="element(er:entity_model)" select="$er-entity_model"/>
+<xsl:variable name="reference_relationship_evaluation_lib" as="map(xs:string, function() as element(*)?)">
+    <xsl:call-template name="register_reference_relationship_evalulation_functions"/>
+</xsl:variable>
+
+<xsl:variable name="derived_relationship_evaluation_lib" as="map(xs:string, function() as element(*)?)">
+    <xsl:call-template name="register_derived_relationship_evalulation_functions"/>
+</xsl:variable>
+
+<xsl:variable name="relationship_read_header_text"
+              select="'function() as element(*)?'"/>
+
+<xsl:template name="register_reference_relationship_evalulation_functions">
+    <xsl:variable name="mapset" as="map(xs:string, function() as element(*)?)">     <!-- be more specific -->
+        <xsl:for-each select="$erMetaModelData//reference_relationship">
+            <xsl:variable name="eval_function_defn" as="xs:string>"
+                          select="$relationship_read_header_text || '{' || ./xpath_evaluate || '}' ">
+            </xsl:variable>
+            <xsl:variable name="read_function" as="function() as element(*)? ">
+                <xsl:evaluate xpath="$eval_function_defn"/>
+            </xsl:variable>
+            <xsl:sequence select="
+                 let $id =  $erMetaModelHelper?relationshipId(self::reference_relationship) 
+                 return map($id : $read_function)
+                 "/>
+        </xsl:for-each>
+    </xsl:variable>
+    <xsl:sequence select="map:merge(mapset)"/>
+</xsl:template>
+
+<xsl:template name="register_derived_relationship_evalulation_functions">
+    <!--TBD -->
+</xsl:template>
+
+
+<!-- perhaps use the term 'MetaData' in place of 'Schema' ? -->
+<xsl:variable name="erMetaModelHelper" as="map(xs:string,function(*))">
+    <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
+    <xsl:sequence select="
+let 
+$relationshipId 
+:= function ( $relationship as element(er:reference_relationship | er:derived_relationship | er:dependency) ) as xs:string  
+{
+  $relationship/(parent::entity_type/name || '::' || name || '::' || type)
+},
+
+return map {
+  'relationshipId' : $relationshipId
+  }
+"/>
+</xsl:variable>
+
+
+<xsl:variable name="erMetaModelLib" as="map(xs:string,function(*))">
+    <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
     <xsl:sequence select="
 let 
 $entityType 
@@ -69,15 +121,15 @@ return map {
 </xsl:variable>
 
 
-<xsl:variable name="erlib" as="map(xs:string,function(*))">
+<xsl:variable name="erDataLib" as="map(xs:string,function(*))">
 <!-- the following didn't work
     <xsl:evaluate xpath="unparsed-text('ER..model.xpath')">
-      <xsl:with-param name="model" as="element(er:entity_model)" select="$er-entity_model"/>
+      <xsl:with-param name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
    </xsl:evaluate>
    Didn't work in Saxon 11.5. I strongly suspect a bug in Saxon. On one occasion trying variations on the theme I got a bale out from Java. Array violation. 
 -->
 <!-- so this instead -->
-<xsl:variable name="model" as="element(er:entity_model)" select="$er-entity_model"/>
+<xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
 <xsl:sequence select="
 let 
 
@@ -145,7 +197,7 @@ $readAttributeNamed
              $name as xs:string
             )  as xs:anyAtomicType?
 {
-   let $attrDefn := $erSchema?attributeNamed($instance, $name)
+   let $attrDefn := $erMetaModelLib?attributeNamed($instance, $name)
    return  $readAttribute($instance,$attrDefn)        
 },
 
@@ -162,7 +214,7 @@ $concrete-destination-type-sequence
 (:                       er:entity_type which are valid types of destination entitites  :)
 := function( $r as element((:er:Relationship:))) as element(er:entity_type)*
 { 
-  $erSchema?destinationTypeOfRelationship($r)/descendant-or-self::er:entity_type[not(child::er:entity_type)]
+  $erMetaModelLib?destinationTypeOfRelationship($r)/descendant-or-self::er:entity_type[not(child::er:entity_type)]
 },
 
 $type-check-relationship-instance
@@ -196,7 +248,7 @@ let $all_overlapping_composition_relationships
 := function($compRelDefn as element(er:composition)) 
       as element(er:composition)+
 {
-$er-entity_model//er:composition
+$erMetaModelData//er:composition
          [ er:xmlRepresentation/er:Anonymous/@overlap_group_id
            eq
            $compRelDefn/er:xmlRepresentation/er:Anonymous/@overlap_group_id
@@ -246,7 +298,7 @@ function($instance as element(),
 {
 let 
     $etDefnOfInstance := $getDefinitionOfInstance($instance),
-    $compRelDefn := $erSchema?relationshipNamed($etDefnOfInstance, $name,())
+    $compRelDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
 return $readCompositionRelationship($instance,$compRelDefn)
 }
 
