@@ -82,7 +82,8 @@ Description
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:map="http://www.w3.org/2005/xpath-functions/map"
         xmlns:era="http://www.entitymodelling.org/ERmodel"
-        xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
+        xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
+        exclude-result-prefixes="xs fn era map">
 
 
 <xsl:template name="initial_enrichment">

@@ -200,6 +200,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         xmlns:era="http://www.entitymodelling.org/ERmodel"
+        exclude-result-prefixes="xs era"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
@@ -214,7 +215,42 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 <xsl:key name="AllRelationshipBySrcTypeAndName"
          match="reference|composition|dependency|constructed_relationship"
          use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
-
+  <xsl:key name="EntityTypes" 
+         match="absolute|entity_type|group" 
+         use="if(string-length(name)=0 and self::absolute) then 'EMPTYVALUEREPLACED' else name"/>
+  <!--CR19229 added absolute -->
+  <xsl:key name="IncomingCompositionRelationships" 
+         match="composition" 
+         use="type"/>
+  <!-- CR-18032 -->
+  <xsl:key name="AllIncomingCompositionRelationships" 
+         match="composition" 
+         use="key('EntityTypes',type)/descendant-or-self::entity_type/name"/>    
+  <!-- was "descendant-or-self::entity_type/type" until 23-Aug-2016 and therefore primary key for "reference" in meta-model wrong-->
+  <!-- end CR-18032 -->
+  <xsl:key name="AllMasterEntityTypes" 
+         match="entity_type" 
+         use="composition/key('EntityTypes',type)/descendant-or-self::entity_type/name"/>
+  <xsl:key name="CompRelsByDestTypeAndInverseName" 
+         match="composition" 
+         use="era:packArray((type,inverse))"/>
+  <xsl:key name="ConstructedRelationshipsByQualifiedName" 
+         match="constructed_relationship" 
+         use="era:packArray((../name,name))"/>
+  <xsl:key name="CoreRelationshipsByQualifiedName" 
+         match="reference|composition|dependency" 
+         use="era:packArray((../name,name))"/>
+  <xsl:key name="RelationshipBySrcTypeAndName" 
+         match="reference|composition|dependency|constructed_relationship" 
+         use="era:packArray((../name,name))"/>
+  <!-- CR-18032 -->
+  <xsl:key name="AllRelationshipBySrcTypeAndName"
+         match="reference|composition|dependency|constructed_relationship"
+         use ="../descendant-or-self::entity_type/era:packArray((name,current()/name))" />
+  <!-- end CR-18032 -->
+  <xsl:key name="whereImplemented" 
+         match="implementationOf"
+         use="era:packArray((../../name,rel))"/>
 
 <!-- MOVED FROM initial_enrichment -->
        <!-- Two templates for
@@ -310,10 +346,11 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 </xsl:template>
 
 <xsl:template match="*" mode="recursive_xpath_enrichment">
-  <xsl:copy>
+  <xsl:copy inherit-namespaces="no">
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
   </xsl:copy>
 </xsl:template>
+
 
 <xsl:template match="absolute" mode="recursive_xpath_enrichment">
   <xsl:copy>
@@ -583,7 +620,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
       <xpath_is_defined>
         <xsl:value-of select="string-join(key('inverse_implementationOf',concat(../name,':',name))/../name,' and ')"/>
         <!-- NOTE: This will be empty (which is not correct) when a reference has a key constraint (c.f. CR_18159) but no foreign_keys  -->
-        <!-- for now change ERmodel2.referential_integrity.xslt not to plant a ref intgirty check for a reference with a key constraint -->
+        <!-- for now change ERmodel2.referential_integrity.xslt not to plant a ref integrity check for a reference with a key constraint -->
       </xpath_is_defined>
     </xsl:if>
 
@@ -627,6 +664,26 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
           </xsl:otherwise>
         </xsl:choose>
       </xpath_local_key>
+          <!-- xpath_local_key_defined  -->
+      <xpath_local_key_defined>
+        <xsl:choose>
+          <xsl:when test="key">   <!-- added 30-Aug-2016 CR-18159 created 5-Sept-2016 -->
+            <xsl:value-of select="
+                 'exists($instance/'
+              || key/*/xpath_evaluate
+              || ')'
+              "/>  
+          </xsl:when>
+          <xsl:otherwise>  
+            <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
+              <xsl:if test="position() &gt; 1">
+                <xsl:text> and </xsl:text>
+              </xsl:if>
+              <xsl:value-of select="'exists($instance/' || ../name || ')'"/>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xpath_local_key_defined>
     </xsl:if>
 
     <!-- xpath_foreign_key -->
@@ -669,21 +726,24 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="diagonal/*/xpath_evaluate and riser/*/identification_status"> 
+            <xsl:variable name="topscoping" as="xs:string" select="
+              if (riser/*/identification_status='NotIdentifying')
+              then '[ancestor-or-self::* is ' || diagonal/*/xpath_evaluate || ']'
+              else ''
+              "/>
             <xpath_evaluate>
-              <xsl:text>key('</xsl:text>
-              <xsl:value-of select="key('EntityTypes',type)/identifier"/>
-              <xsl:text>', </xsl:text>
-              <xsl:value-of select="xpath_foreign_key"/>
-              <xsl:if test="riser/*/identification_status='NotIdentifying'"> 
-                <!-- if the riser is not all idenitfying then we pass the diagonal as a third parameter to the key lookup.
-                             This is simply to ensure that the evaluation is only successful if the scope constraint is satisfied.
-                             This check would have to be done differently if the scope constraint model were ever to be made more general.
-                        -->
-                <xsl:text>, </xsl:text>
-                <xsl:value-of select="concat('(',diagonal/*/xpath_evaluate,',.)[1]')"/>      
-                <!-- protected by dot as additional possible context to ensure that no run-time error when diagonal undefined -->
-              </xsl:if>
-              <xsl:text>)</xsl:text>
+                 <xsl:value-of select="
+                    '($instance/ancestor-or-self::document-node()//'
+                  ||  key('EntityTypes',type)/elementName
+                  ||  '['
+                  ||   key('EntityTypes',type)/xpath_primary_key
+                   
+                  ||  ' eq $instance/' 
+                  ||  xpath_foreign_key
+                  ||  ']'  
+                  ||  $topscoping
+                  ||  ')'
+                  "/>
             </xpath_evaluate>
           </xsl:if>
         </xsl:otherwise>
@@ -915,12 +975,15 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 </xsl:template>
 
 <xsl:template name="component" match="component" mode="explicit">
-
   <!-- xpath_evaluate -->
   <xsl:if test="not(xpath_evaluate)"> 
-    <xsl:if test="key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate">  <!-- CR-18032 -->
+    <xsl:if test="key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate">
       <xpath_evaluate>
-        <xsl:value-of select="key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate"/>  <!-- CR-18032 -->
+        <xsl:value-of select="
+          '(let $instance := . return '
+          || key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate
+          || ')'
+          "/>
       </xpath_evaluate>
     </xsl:if>
   </xsl:if>

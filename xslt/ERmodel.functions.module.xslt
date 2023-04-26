@@ -44,7 +44,8 @@ CR18720 JC  16-Nov-2016 Created
 
 <!-- Construct a composite key value from individual key values -->
 <xsl:function 
-     name="era:packArray">
+     name="era:packArray"
+    visibility="public">
     <xsl:param name="parts" as="xs:string*"/>
     <xsl:value-of select="string-join($parts,':')"/>
 </xsl:function>

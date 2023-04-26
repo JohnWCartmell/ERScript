@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <schema filename="../MetaModel/xml/ERA..physical.xml"/> 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
    <absolute>
-      <name>cricket</name>
       <composition type="match*"/>
+      <name>CricketMatch</name>
    </absolute>
    <entity_type name="match">
       <identifying>
@@ -66,3 +68,4 @@
       </reference>
    </entity_type>
 </entity_model>
+</root>
