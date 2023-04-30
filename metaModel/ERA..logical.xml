@@ -3,6 +3,7 @@
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
    <absolute>
+      <name>entity_model</name>
       <composition type="entity_type_like*"/>
       <composition type="absolute"/>
       <composition type="xml?"/>
@@ -25,16 +26,16 @@
             <composition name="xmlRepresentation" type="xmlStyle(1)?"/>
          </entity_type>
          <entity_type name="group">
-            <attribute name="annotation" type="string"/>
+            <attribute name="annotation" type="string?"/>
          </entity_type>
          <composition type="entity_type_like*"/>
       </entity_type>
       <composition type="dependency_group*"/>
       <composition type="Relationship*" inverse=".."/>
       <composition type="attribute*" inverse=".."/>
-      <attribute name="description" type="string"/>
-      <attribute name="xpath" type="string"/>
-      <attribute name="module_name" type="string"/>
+      <attribute name="description" type="string?"/>
+      <attribute name="xpath" type="string?"/>
+      <attribute name="module_name" type="string?"/>
    </entity_type>
    <entity_type name="attribute">
       <identifying>
@@ -49,7 +50,7 @@
       <composition name="xmlRepresentation" type="xmlStyle(2)?">
               <!-- 6th April 2023 ... the name changed to reflect how coded in numerous places (name was xmlStyle) -->
       </composition>
-      <attribute name="description" type="string"/>
+      <attribute name="description" type="string?"/>
    </entity_type>
    <entity_type name="dependency_group"><!--
       <composition>
@@ -62,7 +63,7 @@
    <entity_type name="Relationship">
       <identifying>
          <context type="ENTITY_TYPE"/>
-         <attribute name="name" type="string"/>
+         <attribute name="name" type="string?"/>
       </identifying>
       <entity_type name="reference_or_dependency">
          <entity_type name="dependency">
@@ -73,8 +74,8 @@
             <composition name="riser" type="navigation?"/>
             <composition name="key" type="navigation?"/>
             <composition type="projection?"/>
-            <attribute name="js" type="string"/>
-            <attribute name="xpath_evaluate" type="string"/>
+            <attribute name="js" type="string?"/>
+            <attribute name="xpath_evaluate" type="string?"/>
             <reference name="inverse" type="reference?" inverse="inverse">
                <diagonal path="type"/>
                <riser path=".."/>
@@ -83,21 +84,27 @@
       </entity_type>
       <entity_type name="constructed_relationship">
          <composition type="navigation"/>
-         <reference name="inverse" type="constructed_relationship?" inverse="inverse"/>
+         <reference name="inverse" type="constructed_relationship?" inverse="inverse">
+               <diagonal path="type"/>
+               <riser path=".."/>
+         </reference>
       </entity_type>
       <entity_type name="composition">
          <composition type="transient?"/>
          <composition type="initialiser?" inverse=".."/>
-         <reference name="inverse" type="dependency?" inverse="inverse_of"/>
+         <reference name="inverse" type="dependency?" inverse="inverse_of">
+            <diagonal path="type"/>
+            <riser path=".."/> 
+         </reference>
       </entity_type>
       <composition type="sequence?"/>
       <composition type="identifying(1)?"/>
       <composition name="cardinality" type="cardinality"/>
       <reference name="type" type="ENTITY_TYPE"/>
-      <attribute name="description" type="string"/>
-      <attribute name="id" type="string"/>
-      <attribute name="scope" type="string"/>
-      <attribute name="physical_prefix" type="string"/>
+      <attribute name="description" type="string?"/>
+      <attribute name="id" type="string?"/>
+      <attribute name="scope" type="string?"/>
+      <attribute name="physical_prefix" type="string?"/>
    </entity_type>
    <entity_type name="sequence"/>
    <group name="righthand_children">
@@ -156,7 +163,7 @@
         </description>
      --></entity_type>
       </group>
-      <attribute name="xpath_evaluate" type="string"/>
+      <attribute name="xpath_evaluate" type="string?"/>
       <reference name="src" type="ENTITY_TYPE?"/>
       <reference name="dest" type="ENTITY_TYPE?"/>
    </entity_type>
@@ -192,7 +199,7 @@
       </entity_type>
       <entity_type name="identifying(2)"/>
       <entity_type name="optional">
-         <attribute name="value" type="string"/>
+         <attribute name="value" type="string?"/>
       </entity_type>
       <entity_type name="deprecated"/>
    </group>

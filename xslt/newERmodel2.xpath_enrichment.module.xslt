@@ -202,8 +202,31 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         xmlns:era="http://www.entitymodelling.org/ERmodel"
         exclude-result-prefixes="xs era"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
-
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+
+
+
+
+<xsl:function name="era:brace">
+  <xsl:param name="elementName" as="xs:string"/>
+  <xsl:value-of select="
+      'Q{'
+    || $namespace_uri
+    ||  '}'
+    ||  $elementName
+    "/>
+</xsl:function>
+
+<xsl:function name="era:braceIfDefined">
+  <xsl:param name="elementName" as="xs:string?"/>
+  <xsl:value-of select="
+      if ($elementName)
+      then era:brace($elementName)
+      else () 
+
+    "/>
+</xsl:function>
+
 
 <xsl:key name="entity_type" 
        match="entity_type|group" 
@@ -437,11 +460,11 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
       <xpath_local_key>
         <xsl:choose>
           <xsl:when test="count(ancestor-or-self::entity_type/attribute[identifying]/name)=1">
-            <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name"/>
+            <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name => era:brace()"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>era:packArray((</xsl:text>
-            <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name,',')"/>
+            <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name => era:braceIfDefined(),',')"/>
             <xsl:text>))</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
@@ -469,9 +492,10 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                 <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
                   <xsl:text>,':',current()/</xsl:text>
-                  <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name"/>
+                  <xsl:value-of select="era:brace(ancestor-or-self::entity_type/attribute[identifying]/name)"/>
                   <!-- what if many of these - a bug in the above I think JC 16-Nov-2016  -->
                   <!-- this bourne out by AX1X2BCD entity type C primary key              -->
+                  <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX BUG ABOVE XXXXXXXXXXXXXXXXXXXXXXXXXXX-->
                   <xsl:text>)</xsl:text>
                 </xsl:if>
               </xsl:when>
@@ -505,7 +529,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         <xsl:when test="not(entity_type)">  <!-- is a concrete type -->
           <xsl:if test="elementName">
             <xpath_typecheck>
-              <xsl:value-of select="concat('self::',elementName)"/>
+              <xsl:value-of select="concat('self::',era:brace(elementName))"/>
             </xpath_typecheck>
           </xsl:if>
         </xsl:when>  
@@ -614,6 +638,42 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                           else boolean(riser)
                          )
                    "/>
+    <xsl:variable name="inverse_relationship"
+                  as="element(reference)?"
+                  select="let $host_entity_type_name := parent::entity_type/name,
+                              $myname := name
+                              return //reference[type=$host_entity_type_name and inverse=$myname]
+                          "    />
+
+
+    <xsl:variable name="can_be_implemented_as_inverse_of_relationship"
+                  as="xs:boolean"
+                  select="if (inverse)
+                          then $inverse_relationship/(
+                             (cardinality/ZeroOrOne or cardinality/ExactlyOne)
+                             and  (if (not(inverse)) 
+                                   then true()
+                                   else boolean(riser)
+                                  )
+                                                    )
+                          else false()"/>
+    <xsl:if test="not($is_implemented_by_fk) and $can_be_implemented_as_inverse_of_relationship">
+      <xsl:if test="not(xpath_evaluate)
+                    and key('EntityTypes',type)/xpath_typecheck
+                    and $inverse_relationship/xpath_evaluate">
+        <xpath_evaluate>
+           <xsl:value-of select="
+           let $dest_type_check := key('EntityTypes',type)/xpath_typecheck
+           return     '$instance/ancestor-or-self::document-node()//*['
+                  ||  $dest_type_check
+                  ||  '][(let $instance := . return '
+                  ||  $inverse_relationship/xpath_evaluate
+                  || ') is $instance]'
+           "/>
+        </xpath_evaluate>
+      </xsl:if>
+    </xsl:if>
+
 
     <!-- xpath_is_defined -->  
     <xsl:if test="not(xpath_is_defined) and $is_implemented_by_fk">
@@ -656,7 +716,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
               <xsl:if test="position() &gt; 1">
                 <xsl:text>,':',</xsl:text>
               </xsl:if>
-              <xsl:value-of select="../name"/>
+              <xsl:value-of select="era:brace(../name)"/>
             </xsl:for-each>
             <xsl:if test="count(key('inverse_implementationOf',concat(../name,':',name))) &gt; 1">
               <xsl:text>)</xsl:text>
@@ -679,7 +739,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
               <xsl:if test="position() &gt; 1">
                 <xsl:text> and </xsl:text>
               </xsl:if>
-              <xsl:value-of select="'exists($instance/' || ../name || ')'"/>
+              <xsl:value-of select="'exists($instance/' ||  era:brace(../name) || ')'"/>
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -714,30 +774,27 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 
     <!-- xpath_evaluate -->
     <xsl:if test="not(xpath_evaluate) and $is_implemented_by_fk and xpath_foreign_key">
-      <xsl:choose>
-        <xsl:when test="not(diagonal) or diagonal/theabsolute">
-          <xpath_evaluate>
-            <xsl:text>key('</xsl:text>
-            <xsl:value-of select="key('EntityTypes',type)/identifier"/>
-            <xsl:text>', </xsl:text>
-            <xsl:value-of select="xpath_foreign_key"/>
-            <xsl:text>)</xsl:text>
-          </xpath_evaluate>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:if test="diagonal/*/xpath_evaluate and riser/*/identification_status"> 
-            <xsl:variable name="topscoping" as="xs:string" select="
-              if (riser/*/identification_status='NotIdentifying')
-              then '[ancestor-or-self::* is ' || diagonal/*/xpath_evaluate || ']'
-              else ''
-              "/>
+        <xsl:if test="(not(diagonal)
+                        or diagonal/theabsolute
+                        or diagonal/*/xpath_evaluate and riser/*/identification_status
+                      )
+                       and key('EntityTypes',type)/xpath_typecheck">
+
+                        <!-- and something or other for type check -->
+
+            <xsl:variable name="topscoping" 
+                          as="xs:string"
+                          select="
+                              if (riser/*/identification_status='NotIdentifying')
+                              then '[ancestor-or-self::* is ' || diagonal/*/xpath_evaluate || ']'
+                              else ''
+                                  "/>
             <xpath_evaluate>
                  <xsl:value-of select="
-                    '($instance/ancestor-or-self::document-node()//'
-                  ||  key('EntityTypes',type)/elementName
-                  ||  '['
+                    '($instance/ancestor-or-self::document-node()//*['
+                  ||  key('EntityTypes',type)/xpath_typecheck
+                  ||  ']['
                   ||   key('EntityTypes',type)/xpath_primary_key
-                   
                   ||  ' eq $instance/' 
                   ||  xpath_foreign_key
                   ||  ']'  
@@ -745,9 +802,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                   ||  ')'
                   "/>
             </xpath_evaluate>
-          </xsl:if>
-        </xsl:otherwise>
-      </xsl:choose>
+        </xsl:if>
     </xsl:if>
 
     <!-- pbe_passno -->
@@ -977,6 +1032,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 <xsl:template name="component" match="component" mode="explicit">
   <!-- xpath_evaluate -->
   <xsl:if test="not(xpath_evaluate)"> 
+    <!--
     <xsl:if test="key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate">
       <xpath_evaluate>
         <xsl:value-of select="
@@ -986,6 +1042,21 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
           "/>
       </xpath_evaluate>
     </xsl:if>
+    -->
+    <!--
+    <xsl:variable name="subject" as="xs:string"
+                  select="if ((not(preceding-sibling::component)) and (parent::join)) then '$instance' else '.'"/>
+                -->
+    <xsl:variable name="subject" as="xs:string" select="'.'"/>
+    <xpath_evaluate>
+      <xsl:value-of select="    '$dataLib?readReferenceRelationshipNamed($dataLib,'
+                             || $subject
+                             || ','''
+                             || rel
+                             || ''')'
+                            "/>
+    </xpath_evaluate>
+  
   </xsl:if>
 
   <!-- xpath_evaluate_inverse -->

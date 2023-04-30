@@ -74,14 +74,14 @@
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
       <xsl:if test="not(context) and not(identifying/context)">
          <xsl:if test="@name='value_type'">
-         <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
-      </xsl:if>
-         <xsl:if test="//composition[era:typeFromExtendedType(@type)=current()/@name]">
-         <xsl:if test="@name='value_type'">
-            <xsl:message>Will plant dependency</xsl:message>
+            <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
          </xsl:if>
+         <xsl:if test="//composition[era:typeFromExtendedType(@type)=current()/@name]">
+            <xsl:if test="@name='value_type'">
+               <xsl:message>Will plant dependency</xsl:message>
+            </xsl:if>
             <xsl:call-template name="create_dependency_from_scratch"/>
-       </xsl:if>
+          </xsl:if>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -224,24 +224,22 @@
 
             </xsl:element>
             <xsl:element name="type">
-               <xsl:value-of select="if ((substring(@type,string-length(@type))='?')
-                                       or (substring(@type,string-length(@type))='*')
-                                       or (substring(@type,string-length(@type))='+'))
-                                      then substring(@type,1,string-length(@type)-1)
-                                      else @type
+               <xsl:value-of select="era:typeFromExtendedType(@type)
                                      "/>
-
             </xsl:element>
          </xsl:when>
          <xsl:otherwise>
+            <xsl:variable name="incoming_composition" 
+                          as="element(composition)*"
+                          select="//composition[@type=current()/../@name]"/>
             <xsl:element name="cardinality">
-                  <xsl:element name="{if (count(//composition[type=current()/../name]) &gt; 1)
+                  <xsl:element name="{if (count($incoming_composition) &gt; 1)
                                         then 'ZeroOrOne'
                                         else 'ExactlyOne'}
                                           "/>
             </xsl:element>
             <xsl:element name="type">
-                  <xsl:value-of select="//composition[type=current()/../name]/../name"/>
+                  <xsl:value-of select="$incoming_composition/../@name"/>
                   <!-- this logic not quite right because might be multiple incoming compositions -->
             </xsl:element>
          </xsl:otherwise>

@@ -20,8 +20,6 @@
               select="let
    $startInstance    := function($instance as element())
    {
-     '[' || $instance/name()
-
    },
    $attribute   := function($instance as element(*),
                             $attr as element(er:attribute)
@@ -59,19 +57,18 @@
                           $refrel as element(er:reference)
                           ) as xs:string
    {
-      let $precondition:= $erDataLib?getReferenceRelationshipPrecondition($instance, $refrel),
-          $destination := $erDataLib?readReferenceRelationship($instance, $refrel),
+      let $precondition:= $erDataLib?getReferenceRelationshipPrecondition($erDataLib,$instance, $refrel),
+          $destination := $erDataLib?readReferenceRelationship($erDataLib,$instance, $refrel),
           $relationship_is_mandatory := $refrel/cardinality/ExactlyOne
       return
          if ($precondition and not(exists($destination)))
-         then 'relationship foreign key doesnot reference'
+         then 'relationship foreign key does not reference'
          else if ($relationship_is_mandatory and not($destination))
          then 'mandatory relationship is not defined'
          else '' 
    },
    $endInstance      := function($instance as element())
    {
-     ']'
    }
    return map{
    'startInstance'   : $startInstance,
@@ -85,15 +82,18 @@
    }
 "/> <!-- end of instanceValidationLib -->
 
-
 <!-- generic walk with callback functions passed as parameters -->
 <xsl:template match="/">
    <xsl:copy-of select="$erMetaModelData"/>
    <xsl:message><xsl:value-of select="map:keys($reference_relationship_evaluation_lib)"/></xsl:message>
    <xsl:message> Schema is described as '<xsl:value-of select="$erMetaModelData/er:description"/>'</xsl:message>
    <xsl:message> Schema (absolute) is named '<xsl:value-of select="$erMetaModelData/er:absolute/er:name"/>'</xsl:message>
+   <xsl:message> Root instance element name '<xsl:value-of select="child::element()/name()"/>'</xsl:message>
+   <xsl:if test="child::element()/name() ne $erMetaModelData/er:absolute/er:name">
+      <xsl:message terminate="yes">Error ********** Root of instance is an element whose name does not match the absolute name specified in the meta data </xsl:message>
+   </xsl:if>
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-      <xsl:with-param name="instance" select="cricket"/>              
+      <xsl:with-param name="instance"         select="child::element()"/>              
       <xsl:with-param name="startInstance"    select="$instanceValidationLib?startInstance"/>
       <xsl:with-param name="attribute"        select="$instanceValidationLib?attribute"/>
       <xsl:with-param name="startComposition" select="$instanceValidationLib?startComposition"/>
@@ -125,8 +125,14 @@
       <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
    </xsl:if>
    <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
-   <xsl:value-of select="$startInstance($instance)"/>
-   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">                                                           
+
+   <!--<xsl:value-of select="$startInstance($instance)"/>-->
+   <xsl:element name="{$instance/name()}">
+       <xsl:for-each select="$etlDefn/ancestor-or-self::er:entity_type/er:attribute[er:identifying]">
+         <xsl:attribute name="{self::er:attribute/er:name}" select="$erDataLib?readAttribute($instance,self::er:attribute)"/>
+       </xsl:for-each> 
+
+   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">               
       <xsl:choose>             
          <xsl:when test="self::er:attribute">
                <xsl:value-of select="
@@ -153,15 +159,26 @@
             </xsl:for-each>
          </xsl:when>
          <xsl:when test="self::er:reference">
-               <xsl:value-of select="
-                        '>' 
+            <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
+                  calculated from <xsl:copy-of select="$instance/er:name"/> of <xsl:copy-of select="$instance/../er:name"/></xsl:message>
+            <xsl:value-of select="
+                        '#' 
                      || self::er:reference/er:name
-                     || ' '
-                     || $reference($instance,self::er:reference)
-                      "/>
+                     "/>
+            <xsl:variable name="refcheckerror" 
+                          as="xs:string?"
+                          select="$reference($instance,self::er:reference)"/>
+            <xsl:if test="$refcheckerror">
+               <xsl:element name="refcheckerror">
+                  <xsl:attribute name="relname" select="self::er:reference/er:name"/>
+                  <xsl:value-of select="$refcheckerror"/>
+               </xsl:element>
+            </xsl:if>
+
          </xsl:when>
       </xsl:choose>
    </xsl:for-each>
+</xsl:element>
    <xsl:value-of select="$endInstance($instance)"/>
 </xsl:template>
 
