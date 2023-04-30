@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cricket>
+<code> 
+	<relationship name="fieldingSide" 
+		          xpath_read="
+		function($instance as element(innings)) as element(side)
+		{
+			$instance/ancestor-or-self::document-node()//side
+		                     [name=$instance/fieldingSide]
+		}"/>
+	<relationship name="bowler" xpath_read="
+		function($instance as element(over)) as element(player)
+		{
+		$lib?readRel($instance, 'fieldingSide')
+		          /player[number=$instance/bowler]
+		}"/>
+</code>
+<match>
+	<id>"firstTest"</id>
+	<side>
+		<name>lancashire</name>
+		<player>
+			<number>1</number>
+			<name>horton</name>
+		</player>
+		<player>
+			<number>2</number>
+			<name>reece</name>
+		</player>
+	</side>
+	<side>
+		<name>yorkshire</name>
+		<player>
+			<number>1</number>
+			<name>lythe</name>
+		</player>
+		<player>
+			<number>2</number>
+			<name>lees</name>
+		</player>
+    </side>
+	<innings>
+		<number>1</number>
+		<battingSide>yorkshire</battingSide>
+		<fieldingSide>lancashire</fieldingSide>
+		<over>
+			<bowler>1</bowler>
+		</over>
+	</innings>
+	
+</match>
+</cricket>
