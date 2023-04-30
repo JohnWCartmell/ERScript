@@ -385,12 +385,10 @@ return map {
 <xsl:template name="register_reference_relationship_evalulation_functions">
     <xsl:message>Registering ref rel read functions</xsl:message>
     <xsl:variable name="mapset" as="map(xs:string, function( map(*), element(*)) as item()?)*">  
-        <xsl:for-each select="$erMetaModelData//er:reference">
-            <xsl:if test="not(er:xpath_evaluate)">
-                <xsl:message terminate="yes">Reference relationship '<xsl:copy-of select="self::er:reference"/>' has no xpath_evaluate </xsl:message>
-            </xsl:if>
+        <xsl:for-each select="/cricket/code">
+
             <xsl:variable name="eval_function_defn" as="xs:string"
-                          select="$relationship_read_header_text || '{' || ./er:xpath_evaluate || '}' ">
+                          select="">
             </xsl:variable>
             <xsl:variable name="read_function" as="function(   map(*), element(*)) as element(*)?">
                       <xsl:evaluate  xpath="$eval_function_defn" >
