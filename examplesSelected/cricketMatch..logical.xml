@@ -2,8 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
-   <absolute>
-      <name>cricket</name>
+   <absolute name="cricket">
       <composition type="match*"/>
    </absolute>
    <entity_type name="match">

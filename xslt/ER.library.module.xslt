@@ -390,7 +390,7 @@ return map {
             </xsl:if>
             <xsl:message>Relationship '<xsl:copy-of select="."/>' </xsl:message>
             <xsl:variable name="eval_function_defn" as="xs:string"
-                          select="$relationship_read_header_text || '{' || ./er:xpath_evaluate || '}' ">
+                          select="$relationship_read_header_text || '{$instance/(' || ./er:xpath_evaluate || ')}' ">
             </xsl:variable>
             <xsl:variable name="read_function" 
                              as="function( element(*)) as element(*)?">
@@ -406,7 +406,7 @@ return map {
                      "/>
             <xsl:if test="self::er:reference">
                 <xsl:variable name="precondition_function_defn" as="xs:string"
-                              select="$relationship_precondition_header_text || '{' || ./er:xpath_local_key_defined || '}' ">
+                              select="$relationship_precondition_header_text || '{$instance/(' || ./er:xpath_local_key_defined || ')}' ">
                 </xsl:variable>
                 <xsl:message>precondition fn text <xsl:value-of select="$precondition_function_defn"/></xsl:message>
                 <xsl:variable name="precondition_function" 

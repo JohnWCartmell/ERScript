@@ -100,11 +100,11 @@
       <!--<xsl:message>Creating from <xsl:value-of select="@name"/></xsl:message>-->
       <xsl:element name="dependency">
             <xsl:element name="name">
-               <xsl:value-of select="if (@inverse) then @inverse else concat(@name,'^') (:was '..' :)"/>
+               <xsl:value-of select="if (@inverse) then @inverse else if (@name) then concat(@name,'^') else '..'"/>
             </xsl:element>
          <xsl:copy-of select="$cardinality"/>
          <xsl:element name="type">
-            <xsl:value-of select="ancestor::entity_type[1]/@name"/>
+            <xsl:value-of select="ancestor::*[self::entity_type|self::absolute][1]/@name"/>
          </xsl:element>
          <xsl:if test="identifying">    <!-- was a parent::identifying from host entity type too ... why?-->
                                              <!-- TBD probably need a bit more than this -->
@@ -119,20 +119,6 @@
    </xsl:for-each>
 </xsl:template>
 
-
-<xsl:template name="create_dependency_inverse_of_from_scratch" 
-              match="entity_type
-                     |context[parent::entity_type]
-                     |context[parent::identifying]" 
-              mode="explicit"> 
-   <!-- doesn't quite look correct though given match possibilities-->
-   <xsl:variable name="host_entity_type_name" as="xs:string?"
-                 select="ancestor-or-self::entity_type[1]/name"
-                 />
-   <xsl:if test="//composition[era:typeFromExtendedType(@type)=$host_entity_type_name]">
-
-   </xsl:if>
-</xsl:template>
 
 <xsl:template  match="*[ self::reference
                         |self::composition
@@ -171,7 +157,8 @@
                                      then //context[../name=$type]/@name
                                      else if(//identifying/context[../../name=$type][@name])
                                      then //identifying/context[../../name=$type]/@name
-                                     else concat(@name,'^') (: was '..':)
+                                     else if (@name) then concat(@name,'^')
+                                     else '..'
                                      "/>
             </xsl:element>
          </xsl:when>

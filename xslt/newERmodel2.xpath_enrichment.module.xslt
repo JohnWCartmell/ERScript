@@ -321,7 +321,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
    </xsl:copy>
 </xsl:template>
 
-<!-- host_type is REALLY a derived relationship whih we are caching-->
+<!-- host_type is REALLY a derived relationship whih we are cacheing-->
 <xsl:template match="reference/projection
                      [not(host_type)]"
               mode="recursive_xpath_enrichment"
@@ -460,16 +460,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
     </xsl:if>
     <xsl:if test="not(xpath_local_key)">
       <xpath_local_key>
-        <xsl:choose>
-          <xsl:when test="count(ancestor-or-self::entity_type/attribute[identifying]/name)=1">
-            <xsl:value-of select="ancestor-or-self::entity_type/attribute[identifying]/name => era:brace()"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>era:packArray((</xsl:text>
             <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name => era:braceIfDefined(),',')"/>
-            <xsl:text>))</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
       </xpath_local_key>
     </xsl:if>
     <xsl:if test="not(xpath_primary_key) and xpath_local_key and xpath_parent_entity">
@@ -488,12 +479,13 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                 <xsl:value-of select="concat(xpath_parent_entity,'/')"/>
                 <xsl:text>descendant-or-self::entity_type/</xsl:text>    <!-- CHANGE THIS MAKE MORE GENERIC -->
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
-                  <xsl:text>concat(</xsl:text>
+                  <!-- <xsl:text>concat(</xsl:text> -->
+                  <xsl:text>(</xsl:text>
                 </xsl:if>
                 <!-- parent primary key -->
                 <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
-                  <xsl:text>,':',current()/</xsl:text>
+                  <xsl:text>,current()/</xsl:text>
                   <xsl:value-of select="era:brace(ancestor-or-self::entity_type/attribute[identifying]/name)"/>
                   <!-- what if many of these - a bug in the above I think JC 16-Nov-2016  -->
                   <!-- this bourne out by AX1X2BCD entity type C primary key              -->
@@ -502,22 +494,25 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                 </xsl:if>
               </xsl:when>
               <xsl:otherwise>
+                <xsl:variable name="parent_primary_key" as="xs:string"
+                              select="let $pk := key('AllIncomingCompositionRelationships',name)/../xpath_primary_key
+                                           return if (contains($pk,',')) then '(' || $pk || ')' else $pk"/>
                 <xsl:choose>
                   <xsl:when test="xpath_local_key=''">
                     <xsl:value-of select="xpath_parent_entity"/>
                     <xsl:text>/</xsl:text>
                     <!-- parent primary key -->
-                    <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
+                    <xsl:value-of select="$parent_primary_key"/>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:text>era:packArray((</xsl:text>
+                    <!--<xsl:text>(</xsl:text>-->
                     <xsl:value-of select="xpath_parent_entity"/>
                     <xsl:text>/</xsl:text>
                     <!-- parent primary key -->
-                    <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
+                    <xsl:value-of select="$parent_primary_key"/>
                     <xsl:text>,</xsl:text>
                     <xsl:value-of select="xpath_local_key"/>
-                    <xsl:text>))</xsl:text>
+                    <!--<xsl:text>)</xsl:text>-->
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:otherwise>
@@ -664,13 +659,13 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                     and key('EntityTypes',type)/xpath_typecheck
                     and $inverse_relationship/xpath_evaluate">
         <xpath_evaluate>
-           <xsl:value-of select="
+        <xsl:value-of select="
            let $dest_type_check := key('EntityTypes',type)/xpath_typecheck
-           return     '$instance/ancestor-or-self::document-node()//*['
+           return     ' let $this := . return ancestor-or-self::document-node()//*['
                   ||  $dest_type_check
-                  ||  '][(let $instance := . return '
+                  ||  '][('
                   ||  $inverse_relationship/xpath_evaluate
-                  || ') is $instance]'
+                  || ') is $this]'
            "/>
         </xpath_evaluate>
       </xsl:if>
@@ -707,41 +702,36 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         <xsl:choose>
           <xsl:when test="key">   <!-- added 30-Aug-2016 CR-18159 created 5-Sept-2016 -->
             <xsl:value-of select="key/*/xpath_evaluate"/>  
-            <xsl:text>/</xsl:text>
+            <xsl:text>/(</xsl:text>
             <xsl:value-of select="key('EntityTypes',key/*/dest)/xpath_primary_key"/>    <!-- this uses CR-18123: generalise 'dest' relationship -->
+            <xsl:text>)</xsl:text>
           </xsl:when>
           <xsl:otherwise>  <!-- the usual case! --> <!-- simplifying assumption that key and local identifying attribute are exclusive -->
-            <xsl:if test="count(key('inverse_implementationOf',concat(../name,':',name))) &gt; 1">
-              <xsl:text>concat(</xsl:text>
-            </xsl:if>
             <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
               <xsl:if test="position() &gt; 1">
-                <xsl:text>,':',</xsl:text>
+                <xsl:text>,</xsl:text>
               </xsl:if>
               <xsl:value-of select="era:brace(../name)"/>
             </xsl:for-each>
-            <xsl:if test="count(key('inverse_implementationOf',concat(../name,':',name))) &gt; 1">
-              <xsl:text>)</xsl:text>
-            </xsl:if>
           </xsl:otherwise>
         </xsl:choose>
       </xpath_local_key>
           <!-- xpath_local_key_defined  -->
       <xpath_local_key_defined>
         <xsl:choose>
-          <xsl:when test="key">   <!-- added 30-Aug-2016 CR-18159 created 5-Sept-2016 -->
+          <xsl:when test="key">   
             <xsl:value-of select="
-                 'exists($instance/'
+                 'exists('
               || key/*/xpath_evaluate
               || ')'
-              "/>  
+              "/> 
           </xsl:when>
           <xsl:otherwise>  
             <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
               <xsl:if test="position() &gt; 1">
                 <xsl:text> and </xsl:text>
               </xsl:if>
-              <xsl:value-of select="'exists($instance/' ||  era:brace(../name) || ')'"/>
+              <xsl:value-of select="'exists(' ||  era:brace(../name) || ')'"/>
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -761,13 +751,11 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         <xsl:otherwise>
           <xsl:if test="diagonal/*/xpath_evaluate and riser/*/dest and key('entity_type',riser/*/dest)/xpath_primary_key">    
             <xpath_foreign_key>
-              <xsl:text>concat(</xsl:text>
               <xsl:value-of select="diagonal/*/xpath_evaluate"/>  
-              <xsl:text>/</xsl:text>
+              <xsl:text>/(</xsl:text>
               <xsl:value-of select="key('EntityTypes',riser/*/dest)/xpath_primary_key"/>
-              <xsl:text>,':',</xsl:text>
+              <xsl:text>),</xsl:text>
               <xsl:value-of select="xpath_local_key"/>
-              <xsl:text>)</xsl:text>
             </xpath_foreign_key>
           </xsl:if>
         </xsl:otherwise>
@@ -792,14 +780,14 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                               else ''
                                   "/>
             <xpath_evaluate>
-                 <xsl:value-of select="
-                    '($instance/ancestor-or-self::document-node()//*['
+                <xsl:value-of select="
+                    'let $fk := data(('
+                  || xpath_foreign_key
+                  || ')) return (ancestor-or-self::document-node()//*['
                   ||  key('EntityTypes',type)/xpath_typecheck
-                  ||  ']['
+                  ||  '][fn:deep-equal(data(('
                   ||   key('EntityTypes',type)/xpath_primary_key
-                  ||  ' eq $instance/' 
-                  ||  xpath_foreign_key
-                  ||  ']'  
+                  ||  ')), $fk)]'  
                   ||  $topscoping
                   ||  ')'
                   "/>
@@ -887,10 +875,10 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
       <xpath_evaluate>
         <xsl:choose>
           <xsl:when test="key('IncomingCompositionRelationships',../name)/name">
-            <xsl:text>$instance/../..</xsl:text>
+            <xsl:text>../..</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>$instance/..</xsl:text>
+            <xsl:text>..</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xpath_evaluate>
@@ -1034,21 +1022,6 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 <xsl:template name="component" match="component" mode="explicit">
   <!-- xpath_evaluate -->
   <xsl:if test="not(xpath_evaluate)"> 
-    <!--
-    <xsl:if test="key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate">
-      <xpath_evaluate>
-        <xsl:value-of select="
-          '(let $instance := . return '
-          || key('AllRelationshipBySrcTypeAndName',era:packArray((src,rel)))/xpath_evaluate
-          || ')'
-          "/>
-      </xpath_evaluate>
-    </xsl:if>
-    -->
-    <!--
-    <xsl:variable name="subject" as="xs:string"
-                  select="if ((not(preceding-sibling::component)) and (parent::join)) then '$instance' else '.'"/>
-                -->
     <xsl:variable name="subject" as="xs:string" select="'.'"/>
     <xpath_evaluate>
       <xsl:value-of select="    '$erDataLib?readRelationshipNamed('
@@ -1152,5 +1125,5 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 
 
 </xsl:transform>
-<!-- end of file: ERmodel_v1.2/src/ERmodel2.xpath_enrichment.module.xslt--> 
+<!-- end of file: ERmodel_v1.2/src/newERmodel2.xpath_enrichment.module.xslt--> 
 

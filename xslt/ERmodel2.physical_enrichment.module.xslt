@@ -488,7 +488,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:copy>
             <xsl:apply-templates/>
             <xsl:if test="name()='dependency'">
-               <!--<xsl:message>Found dependency <xsl:value-of select="concat(  ../name ,':',$navigationHeadRelName)"/></xsl:message>-->
                <xsl:if test="not(key('CompRelsByDestTypeAndInverseName',
                                      era:packArray((  ../name ,$navigationHeadRelName)))
                             )">
@@ -497,11 +496,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                  ERROR: no inverse found for dependency relationship named 
                    '<xsl:value-of select="$navigationHeadRelName"/>' 
                    from entity type 
-                   '<xsl:value-of select="name"/>'
+                   '<xsl:value-of select="../name"/>'
                  ***********************************************
                      </xsl:message>
-               </xsl:if>
-                   
+               </xsl:if>              
                <!-- 25 October 2016 get rid of this as part of CR-18159 -->
                <xsl:copy-of select="key('CompRelsByDestTypeAndInverseName',
                      era:packArray((  ../name ,$navigationHeadRelName)))/identifying"/>
