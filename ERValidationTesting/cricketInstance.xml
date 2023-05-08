@@ -116,7 +116,6 @@
 				<number>3</number>
 				<facingBatter>2</facingBatter>
 			</delivery>
-			<!--
 			<delivery>
 				<number>4</number>
 				<facingBatter>2</facingBatter>
@@ -129,7 +128,6 @@
 				<number>6</number>
 				<facingBatter>1</facingBatter>
 			</delivery>
-		-->
 		</over>
 	</innings>
 	<!--

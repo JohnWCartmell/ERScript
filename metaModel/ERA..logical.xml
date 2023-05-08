@@ -64,7 +64,10 @@
       <identifying>
          <context type="ENTITY_TYPE"/>
          <attribute name="name" type="string?"/>
+       <!--  <reference name="type" type="ENTITY_TYPE"/> --> <!-- changed to be identifying 7th May 2023 --> 
+                                                             <!-- but then need change the scope of relationship inverse -->  
       </identifying>
+      <reference name="type" type="ENTITY_TYPE"/>
       <entity_type name="reference_or_dependency">
          <entity_type name="dependency">
             <reference name="inverse_of" type="composition?" inverse="inverse"/>
@@ -100,7 +103,6 @@
       <composition type="sequence?"/>
       <composition type="identifying(1)?"/>
       <composition name="cardinality" type="cardinality"/>
-      <reference name="type" type="ENTITY_TYPE"/>
       <attribute name="description" type="string?"/>
       <attribute name="id" type="string?"/>
       <attribute name="scope" type="string?"/>

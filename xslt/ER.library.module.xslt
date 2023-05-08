@@ -12,7 +12,7 @@
 
 
 <xsl:variable name="namespace_uri" 
-              as="xs:string"
+              as="xs:string?"
               select="document(child::element()/@metaDataFilename)/er:entity_model/er:xml/er:namespace_uri"/> 
 
 <xsl:variable name="erMetaModelData" as="element(er:entity_model)">
@@ -289,7 +289,36 @@ then $readAnonymousCompositionRelationship($instance, $compRelDefn)
 else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
 },
 
-$readCompositionRelationshipNamed
+
+
+$getReferenceRelationshipPrecondition
+:=
+function((: $dataLib as map(*), :)
+         $instance as element(),
+         $refRelDefn as element(er:reference)
+         ) as xs:boolean
+{
+  let 
+      $refrelpreconfunid := $erMetaModelHelper?relationshipPreconditionId($refRelDefn),
+      $preconFn := $reference_stroke_dependency_evaluation_lib($refrelpreconfunid)
+  return $preconFn((: $dataLib, :) $instance)
+},
+
+$readReferenceOrDependencyRelationship
+:=
+function(
+         $instance as element(),
+         $relDefn as element()
+         ) as element()*
+{
+  let 
+      $relid := $erMetaModelHelper?relationshipReadId($relDefn),
+      $readFn := $reference_stroke_dependency_evaluation_lib($relid)
+                      treat as function(element()) as element()*
+  return $readFn($instance)
+},
+
+$readRelationshipNamed
 :=
 function($instance as element(),
          $name as xs:string
@@ -297,47 +326,11 @@ function($instance as element(),
 {
 let 
     $etDefnOfInstance := $getDefinitionOfInstance($instance),
-    $compRelDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
-return $readCompositionRelationship($instance,$compRelDefn)
-},
-
-$getReferenceRelationshipPrecondition
-:=
-function($dataLib as map(*),
-         $instance as element(),
-         $refRelDefn as element(er:reference)
-         ) as xs:boolean
-{
-  let 
-      $refrelpreconfunid := $erMetaModelHelper?relationshipPreconditionId($refRelDefn),
-      $preconFn := $reference_relationship_evaluation_lib($refrelpreconfunid)
-  return $preconFn($dataLib, $instance)
-},
-
-$readReferenceRelationship
-:=
-function($dataLib as map(*),
-         $instance as element(),
-         $refRelDefn as element(er:reference)
-         ) as element()*
-{
-  let 
-      $refrelid := $erMetaModelHelper?relationshipReadId($refRelDefn),
-      $readFn := $reference_relationship_evaluation_lib($refrelid)
-  return $readFn($dataLib, $instance)
-},
-
-$readReferenceRelationshipNamed
-:=
-function($dataLib as map(*),
-         $instance as element(),
-         $name as xs:string
-         ) as element()*
-{
-let 
-    $etDefnOfInstance := $getDefinitionOfInstance($instance),
-    $refRelDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
-return $readReferenceRelationship($dataLib,$instance,$refRelDefn)
+    $relDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
+    return 
+    if ($relDefn/self::er:composition)
+    then $readCompositionRelationship($instance,$relDefn)
+    else $readReferenceOrDependencyRelationship ($instance, $relDefn)
 }
 
 return map {
@@ -347,10 +340,9 @@ return map {
   'readAttribute'                        : $readAttribute,
   'readAttributeNamed'                   : $readAttributeNamed,
   'readCompositionRelationship'          : $readCompositionRelationship,
-  'readCompositionRelationshipNamed'     : $readCompositionRelationshipNamed,
   'getReferenceRelationshipPrecondition' : $getReferenceRelationshipPrecondition,
-  'readReferenceRelationship'            : $readReferenceRelationship,
-  'readReferenceRelationshipNamed'       : $readReferenceRelationshipNamed
+  'readReferenceOrDependencyRelationship': $readReferenceOrDependencyRelationship,
+  'readRelationshipNamed'                : $readRelationshipNamed
   }
 "/>
 </xsl:variable>  <!-- end of erDataLib -->
@@ -362,10 +354,10 @@ return map {
   select="map{fn:QName('','readReferenceRelationshipNamed'): $erDataLib?readReferenceRelationshipNamed}"/>
   -->  
 
-<xsl:variable name="reference_relationship_evaluation_lib" 
-                as="map(xs:string, function(map(*), element(*)) as item()?)">
-    <xsl:message>About to registef ref rel read functions</xsl:message>
-    <xsl:call-template name="register_reference_relationship_evalulation_functions"/>
+<xsl:variable name="reference_stroke_dependency_evaluation_lib" 
+                as="map(xs:string, function((: map(*), :) element(*)) as item()?)">
+    <xsl:message>About to register reference rel read functions</xsl:message>
+    <xsl:call-template name="register_reference_stroke_dependency_relationship_evalulation_functions"/>
 </xsl:variable>
 
 <xsl:variable name="derived_relationship_evaluation_lib" 
@@ -373,42 +365,62 @@ return map {
     <xsl:call-template name="register_derived_relationship_evalulation_functions"/>
 </xsl:variable>
 
+<!-- work around saxon issue 6003 -->
+<xsl:variable name="workaround" 
+              select="'let $erDataLib := $erDataLib return '"
+              />
+
 <xsl:variable name="relationship_read_header_text"
-              select="'function(
-              $dataLib as map(*), 
-              $instance as element(*)) as element(*)?'"/>
+              select="
+               $workaround ||
+                'function(
+                $instance as element(*)) as element(*)?'"/>
 <xsl:variable name="relationship_precondition_header_text"
-              select="'function(
-              $dataLib as map(*), 
+              select="
+              $workaround ||
+              'function(
               $instance as element(*)) as xs:boolean'"/>
 
-<xsl:template name="register_reference_relationship_evalulation_functions">
-    <xsl:message>Registering ref rel read functions</xsl:message>
-    <xsl:variable name="mapset" as="map(xs:string, function( map(*), element(*)) as item()?)*">  
-        <xsl:for-each select="/cricket/code">
-
+<xsl:template name="register_reference_stroke_dependency_relationship_evalulation_functions">
+    <xsl:message>Registering ref rel and dependency  read functions</xsl:message>
+    <xsl:variable name="mapset" as="map(xs:string, function(  element(*)) as item()?)*">  
+        <xsl:for-each select="$erMetaModelData//*[self::er:reference | self::er:dependency] ">
+            <xsl:if test="not(er:xpath_evaluate)">
+                <xsl:message terminate="yes">Relationship '<xsl:copy-of select="."/>' has no xpath_evaluate </xsl:message>
+            </xsl:if>
+            <xsl:message>Relationship '<xsl:copy-of select="."/>' </xsl:message>
             <xsl:variable name="eval_function_defn" as="xs:string"
-                          select="">
+                          select="$relationship_read_header_text || '{' || ./er:xpath_evaluate || '}' ">
             </xsl:variable>
-            <xsl:variable name="read_function" as="function(   map(*), element(*)) as element(*)?">
+            <xsl:variable name="read_function" 
+                             as="function( element(*)) as element(*)?">
                       <xsl:evaluate  xpath="$eval_function_defn" >
                              <!--  with-params="$erDataLibTwo"/> -->
-                           <!--<xsl:with-param name="ERDataLib" select="$erDataLib"/>-->
+                           <xsl:with-param name="erDataLib" select="$erDataLib"/>
                        </xsl:evaluate>
             </xsl:variable>
-            <xsl:variable name="precondition_function_defn" as="xs:string"
-                          select="$relationship_precondition_header_text || '{' || ./er:xpath_local_key_defined || '}' ">
-            </xsl:variable>
-            <xsl:message>precondition fn text <xsl:value-of select="$precondition_function_defn"/></xsl:message>
-            <xsl:variable name="precondition_function" as="function(map(*), element(*)) as xs:boolean">
-                <xsl:evaluate  xpath="$precondition_function_defn"/>
-            </xsl:variable>
             <xsl:sequence select="
-                map{
-                     $erMetaModelHelper?relationshipReadId(self::er:reference) : $read_function,
-                     $erMetaModelHelper?relationshipPreconditionId(self::er:reference) : $precondition_function
-                   }
-                 "/>
+                    map{
+                         $erMetaModelHelper?relationshipReadId(.) : $read_function
+                       }
+                     "/>
+            <xsl:if test="self::er:reference">
+                <xsl:variable name="precondition_function_defn" as="xs:string"
+                              select="$relationship_precondition_header_text || '{' || ./er:xpath_local_key_defined || '}' ">
+                </xsl:variable>
+                <xsl:message>precondition fn text <xsl:value-of select="$precondition_function_defn"/></xsl:message>
+                <xsl:variable name="precondition_function" 
+                                 as="function( (: map(*), :) element(*)) as xs:boolean">
+                    <xsl:evaluate  xpath="$precondition_function_defn">
+                               <xsl:with-param name="erDataLib" select="$erDataLib"/>
+                    </xsl:evaluate>
+                </xsl:variable>
+                <xsl:sequence select="
+                    map{
+                         $erMetaModelHelper?relationshipPreconditionId(.) : $precondition_function
+                       }
+                     "/>
+             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
     <xsl:sequence select="map:merge($mapset)"/>

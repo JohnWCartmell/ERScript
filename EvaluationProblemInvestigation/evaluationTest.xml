@@ -9,9 +9,11 @@
 		                     [name=$instance/fieldingSide]
 		}"/>
 	<relationship name="bowler" xpath_read="
+	    let $lib2 := $lib
+	    return
 		function($instance as element(over)) as element(player)
 		{
-		$lib?readRel($instance, 'fieldingSide')
+		$lib2?readRel($instance/.., 'fieldingSide')
 		          /player[number=$instance/bowler]
 		}"/>
 </code>

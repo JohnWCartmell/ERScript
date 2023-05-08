@@ -74,19 +74,9 @@ return map {
 <xsl:template match="over">
        <xsl:copy>
          <xsl:apply-templates/>
-
          <!-- next copy the bowler into this innings -->
          <xsl:apply-templates select="$lib?readRel(.,'bowler')"/>
-         <!--
-            ***************************************** 
-            If the above apply-templates line is 
-            commented out or removed then this xslt 
-            runs to completion when
-            evaluated using SaxonHE11-4J.
-            ******************************************
-         -->
       </xsl:copy>
 </xsl:template>
-
 
 </xsl:transform>

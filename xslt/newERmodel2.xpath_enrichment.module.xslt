@@ -205,15 +205,17 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
 
-
-
 <xsl:function name="era:brace">
   <xsl:param name="elementName" as="xs:string"/>
+ 
   <xsl:value-of select="
-      'Q{'
-    || $namespace_uri
-    ||  '}'
-    ||  $elementName
+    if ($namespace_uri)
+    then
+          'Q{'
+        || $namespace_uri
+        ||  '}'
+        ||  $elementName
+    else $elementName
     "/>
 </xsl:function>
 
@@ -885,10 +887,10 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
       <xpath_evaluate>
         <xsl:choose>
           <xsl:when test="key('IncomingCompositionRelationships',../name)/name">
-            <xsl:text>../..</xsl:text>
+            <xsl:text>$instance/../..</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>..</xsl:text>
+            <xsl:text>$instance/..</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xpath_evaluate>
@@ -1049,7 +1051,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                 -->
     <xsl:variable name="subject" as="xs:string" select="'.'"/>
     <xpath_evaluate>
-      <xsl:value-of select="    '$dataLib?readReferenceRelationshipNamed($dataLib,'
+      <xsl:value-of select="    '$erDataLib?readRelationshipNamed('
                              || $subject
                              || ','''
                              || rel

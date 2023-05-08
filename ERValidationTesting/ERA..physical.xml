@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
-              metaDataFilename="../MetaModel/xml/ERA..physical.xml">
+               metaDataFilename="../MetaModel/xml/ERA..physical.xml">
+
    <absolute>
       <identifier>entity_model</identifier>
       <elementName>entity_model</elementName>
@@ -56,6 +57,7 @@
             <ExactlyOne/>
          </cardinality>
          <type/>
+         <inverse_of/>
       </dependency>
    </entity_type>
    <entity_type>
@@ -81,6 +83,7 @@
                <ExactlyOne/>
             </cardinality>
             <type/>
+            <inverse_of/>
          </dependency>
          <attribute>
             <name>identifier</name>
@@ -179,7 +182,16 @@
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
+            <type/>
+            <inverse_of/>
+         </dependency>
+         <dependency>
+            <name>..</name>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
             <type>entity_type_like</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <composition>
@@ -311,6 +323,7 @@
             <ExactlyOne/>
          </cardinality>
          <type>ENTITY_TYPE</type>
+         <inverse_of/>
       </dependency>
    </entity_type>
    <entity_type>
@@ -697,6 +710,7 @@
             <ExactlyOne/>
          </cardinality>
          <type>Relationship</type>
+         <inverse_of/>
       </dependency>
    </entity_type>
    <group>
@@ -712,6 +726,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>reference</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -732,6 +747,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>Relationship</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -745,6 +761,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>identifying(1)</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -782,6 +799,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>Relationship</type>
+            <inverse_of>cardinality</inverse_of>
          </dependency>
       </entity_type>
    </group>
@@ -798,6 +816,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>composition</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -919,10 +938,10 @@
                <ExactlyOne/>
             </cardinality>
             <type>composition</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
    </group>
-   
    <entity_type>
       <name>navigation</name>
       <attribute>
@@ -1054,6 +1073,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>complex</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <group>
@@ -1097,7 +1117,40 @@
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
-         <type>reference constructed_relationship initialiser copy</type>
+         <type>reference</type>
+         <inverse_of>diagonal</inverse_of>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <inverse_of>riser</inverse_of>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <inverse_of>key</inverse_of>
+      </dependency>
+      <dependency>
+         <name>..</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>constructed_relationship</type>
+         <inverse_of/>
+      </dependency>
+      <dependency>
+         <name>..</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>copy</type>
+         <inverse_of>riser2</inverse_of>
+      </dependency>
+      <dependency>
+         <name>..</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>initialiser</type>
+         <inverse_of>along</inverse_of>
       </dependency>
    </entity_type>
    <group>
@@ -1303,6 +1356,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>attribute</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -1370,6 +1424,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>attribute</type>
+            <inverse_of>type</inverse_of>
          </dependency>
       </entity_type>
       <entity_type>
@@ -1383,6 +1438,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>attribute</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -1395,6 +1451,7 @@
             <type>
                <string/>
             </type>
+            <optional/>
          </attribute>
          <dependency>
             <name>..</name>
@@ -1402,6 +1459,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>attribute</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
       <entity_type>
@@ -1415,6 +1473,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>attribute</type>
+            <inverse_of/>
          </dependency>
       </entity_type>
    </group>
@@ -1447,7 +1506,16 @@
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
-         <type>xml attribute</type>
+         <type>xml</type>
+         <inverse_of>attributeDefault</inverse_of>
+      </dependency>
+      <dependency>
+         <name>..</name>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <type>attribute</type>
+         <inverse_of>xmlRepresentation</inverse_of>
       </dependency>
    </entity_type>
    <entity_type>
@@ -1473,6 +1541,7 @@
             <ExactlyOne/>
          </cardinality>
          <type>entity_type</type>
+         <inverse_of>xmlRepresentation</inverse_of>
       </dependency>
    </entity_type>
 </entity_model>

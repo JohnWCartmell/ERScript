@@ -20,8 +20,8 @@ copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
 pushd $TARGETXML
 echo 'Run ER.instanceValidation.xslt'
 #. $TARGET\scripts\ER.instanceValidation.ps1 cricketInstance.xml
-. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml
-#. $TARGET\scripts\ER.instanceValidation.ps1 ERA..physical.xml
+#. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml
+. $TARGET\scripts\ER.instanceValidation.ps1 ERA..physical.xml
 
 popd 
 

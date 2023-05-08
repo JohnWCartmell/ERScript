@@ -22,7 +22,7 @@ attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be ov
 pushd $TARGETXML
 
 echo 'ERA'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs
+. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs 
 
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -animate -physicalType hs

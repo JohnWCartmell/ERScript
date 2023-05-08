@@ -87,55 +87,38 @@
 </xsl:template>
 
 <xsl:template name="create_dependency_from_scratch" match="entity_type" mode="explicit">
-   <xsl:element name="dependency">
-      <xsl:call-template name="create_dependency_name_from_scratch"/>
-      <xsl:call-template name="create_dependency_cardinality_from_scratch"/>
-      <xsl:call-template name="create_dependency_type_from_scratch"/>
-      <xsl:call-template name="create_dependency_identifying_from_scratch"/>
-      <xsl:call-template name="create_dependency_inverse_of_from_scratch"/>
-   </xsl:element>
-</xsl:template>
-
-<xsl:template name="create_dependency_cardinality_from_scratch" match="entity_type" mode="explicit">
+   <!--<xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message>-->
+   <xsl:variable name="cardinality" as="element(cardinality)">
       <xsl:element name="cardinality">
             <xsl:element name="{if (count(//composition[era:typeFromExtendedType(@type)=current()/@name]) &gt; 1)
                                   then 'ZeroOrOne'
                                   else 'ExactlyOne'}
                                     "/>
       </xsl:element>
-</xsl:template>
-
-<xsl:template name="create_dependency_name_from_scratch" match="entity_type" mode="explicit">
-   <xsl:element name="name">
-      <xsl:choose>
-         <xsl:when test="//composition[era:typeFromExtendedType(@type)=current()/@name]/inverse">
-            <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=current()/@name]/inverse"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>..</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:element>
-</xsl:template>
-
-<xsl:template name="create_dependency_type_from_scratch" match="entity_type" mode="explicit">     
-   <xsl:element name="type">
-         <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=current()/@name]/
-                                            ancestor::entity_type[1]/@name"/>
-         <!-- this logic not quite right because might be multiple incoming compositions -->
-   </xsl:element>
-</xsl:template>
-
-<xsl:template name="create_dependency_identifying_from_scratch" match="entity_type" mode="explicit"> 
-   <xsl:if test="parent::identifying
-                  or //composition[era:typeFromExtendedType(@type)=current()/@name]/identifying">    
+   </xsl:variable>
+   <xsl:for-each select="//composition[era:typeFromExtendedType(@type)=current()/@name]">
+      <!--<xsl:message>Creating from <xsl:value-of select="@name"/></xsl:message>-->
+      <xsl:element name="dependency">
+            <xsl:element name="name">
+               <xsl:value-of select="if (@inverse) then @inverse else concat(@name,'^') (:was '..' :)"/>
+            </xsl:element>
+         <xsl:copy-of select="$cardinality"/>
+         <xsl:element name="type">
+            <xsl:value-of select="ancestor::entity_type[1]/@name"/>
+         </xsl:element>
+         <xsl:if test="identifying">    <!-- was a parent::identifying from host entity type too ... why?-->
                                              <!-- TBD probably need a bit more than this -->
                                           <!-- Hmmmm ... not sure -->
-      <xsl:element name="identifying"/>   <!-- little bit odd because previously wouldn't have modelled 
+               <xsl:element name="identifying"/>   <!-- little bit odd because previously wouldn't have modelled 
                                              depedencies as identifying -->
-
-   </xsl:if>
+         </xsl:if>
+         <xsl:element name="inverse_of">
+            <xsl:value-of select="@name"/>
+         </xsl:element>
+      </xsl:element>
+   </xsl:for-each>
 </xsl:template>
+
 
 <xsl:template name="create_dependency_inverse_of_from_scratch" 
               match="entity_type
@@ -147,9 +130,7 @@
                  select="ancestor-or-self::entity_type[1]/name"
                  />
    <xsl:if test="//composition[era:typeFromExtendedType(@type)=$host_entity_type_name]">
-      <xsl:element name="inverse_of">
-         <xsl:value-of select="//composition[era:typeFromExtendedType(@type)=$host_entity_type_name]/name"/>
-      </xsl:element>
+
    </xsl:if>
 </xsl:template>
 
@@ -190,7 +171,7 @@
                                      then //context[../name=$type]/@name
                                      else if(//identifying/context[../../name=$type][@name])
                                      then //identifying/context[../../name=$type]/@name
-                                     else '..'
+                                     else concat(@name,'^') (: was '..':)
                                      "/>
             </xsl:element>
          </xsl:when>
@@ -300,7 +281,7 @@
 
 <xsl:template match="@path" mode="parse_navigation">
    <xsl:variable name="text" as="xs:string" select="."/>
-   <xsl:message>text of navigation is <xsl:value-of select="$text"/></xsl:message>
+   <!--<xsl:message>text of navigation is <xsl:value-of select="$text"/></xsl:message>-->
    <xsl:choose>
       <xsl:when test="$text='.'">
          <xsl:element name="identity"/>

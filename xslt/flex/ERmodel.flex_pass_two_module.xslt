@@ -29,9 +29,11 @@
 	                     [not(y)]" 
 						 mode="passtwo">
 		<xsl:copy>
+			<!--
 			<xsl:message>HERE I AM </xsl:message>
 			<xsl:message> compositionDepth '<xsl:value-of select="exists(compositionalDepth)"/>'</xsl:message>
 			<xsl:message> compositionDepth '<xsl:value-of select="compositionalDepth"/>'</xsl:message>
+		-->
 
 			<xsl:apply-templates mode="passtwo"/>
 			<y> 
@@ -51,7 +53,7 @@
 				<delta>1</delta>   <!-- make room for incoming top down route -->
 			</y>
 		</xsl:copy>
-		<xsl:message>GOING NOW</xsl:message>
+		<!--<xsl:message>GOING NOW</xsl:message>-->
 	</xsl:template>
 	
 	<!-- x position of an enclosure which is neither the outermost enclosure into which arrives a top down route 

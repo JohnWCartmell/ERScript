@@ -109,12 +109,16 @@
    <xsl:template match="dependency" mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
-         <xsl:copy-of select="following::dependency[name=current()/name and ../name = current()/../name]
+         <xsl:copy-of select="following::dependency[name=current()/name
+                                                    and type=current()/type  (: added 6/05/23 :) 
+                                                    and ../name = current()/../name
+                                                    ]
                                                   /*[not(self::name|self::type)]"/> 
       </xsl:copy>
    </xsl:template>
 
    <xsl:template match="dependency[preceding::dependency[../name = current()/../name
+                                                            and type=current()/type  (: added 6/05/23 :) 
                                                             and name=current()/name 
                                                       ]
                                  ]" 

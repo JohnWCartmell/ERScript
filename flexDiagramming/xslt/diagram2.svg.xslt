@@ -461,7 +461,7 @@ CHANGE HISTORY
 
 
     <xsl:variable name="pointcount" select="count(path/point)"/>
-    <xsl:message>Route id <xsl:value-of select="id"/> Number of points is <xsl:value-of select="$pointcount"/></xsl:message>
+    <!--<xsl:message>Route id <xsl:value-of select="id"/> Number of points is <xsl:value-of select="$pointcount"/></xsl:message>-->
     <!--<xsl:message>route/source in question is <xsl:copy-of select="source"/></xsl:message>  
     <xsl:message>route/destination in question is <xsl:copy-of select="destination"/></xsl:message>  
     <xsl:message>route/path in question is <xsl:copy-of select="path"/></xsl:message>  

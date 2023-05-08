@@ -143,7 +143,7 @@
          <description>If defined then the attribute is deprecated i.e. only  used in historic data and is not to be used in future.</description>
       </composition>
       <composition>
-         <name>xmlStyle</name>
+         <name>xmlRepresentation</name>
          <type>xmlStyle(2)</type>
          <description>How the attribute is to be represented in xml.
          </description>

@@ -1518,14 +1518,17 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
-<!--
+  <!--
    <xsl:message> composition relationship 
-	  <xsl:value-of select="../name"/> .
-	  <xsl:value-of select="name"/> 
-	 type  <xsl:value-of select="type"/> 
+	  et '<xsl:value-of select="../name"/>' 
+	  name '<xsl:value-of select="name"/>'
+	 type  '<xsl:value-of select="type"/>' 
    </xsl:message>
 -->
 
+  <xsl:if test="not(type)">
+    <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'compositionn rel mising type'), name)"/>
+  </xsl:if>
   <xsl:if test="not(key('EntityTypes',type))">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'missing-entity-type'), type)"/>
   </xsl:if>

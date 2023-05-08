@@ -57,8 +57,8 @@
                           $refrel as element(er:reference)
                           ) as xs:string
    {
-      let $precondition:= $erDataLib?getReferenceRelationshipPrecondition($erDataLib,$instance, $refrel),
-          $destination := $erDataLib?readReferenceRelationship($erDataLib,$instance, $refrel),
+      let $precondition:= $erDataLib?getReferenceRelationshipPrecondition($instance, $refrel),
+          $destination := $erDataLib?readReferenceOrDependencyRelationship($instance, $refrel),
           $relationship_is_mandatory := $refrel/cardinality/ExactlyOne
       return
          if ($precondition and not(exists($destination)))
@@ -85,7 +85,7 @@
 <!-- generic walk with callback functions passed as parameters -->
 <xsl:template match="/">
    <xsl:copy-of select="$erMetaModelData"/>
-   <xsl:message><xsl:value-of select="map:keys($reference_relationship_evaluation_lib)"/></xsl:message>
+   <xsl:message><xsl:value-of select="map:keys($reference_stroke_dependency_evaluation_lib)"/></xsl:message>
    <xsl:message> Schema is described as '<xsl:value-of select="$erMetaModelData/er:description"/>'</xsl:message>
    <xsl:message> Schema (absolute) is named '<xsl:value-of select="$erMetaModelData/er:absolute/er:name"/>'</xsl:message>
    <xsl:message> Root instance element name '<xsl:value-of select="child::element()/name()"/>'</xsl:message>

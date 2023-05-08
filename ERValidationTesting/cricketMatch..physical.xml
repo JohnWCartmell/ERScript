@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
-              metaDataFilename="../MetaModel/xml/ERA..physical.xml">
+<entity_model  xmlns="http://www.entitymodelling.org/ERmodel"
+               xmlns:era="http://www.entitymodelling.org/ERmodel"
+               metaDataFilename="../MetaModel/xml/ERA..physical.xml">
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
    <absolute>

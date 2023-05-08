@@ -76,7 +76,9 @@
                            route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
                          )) + margin
                      "/> 
+      <!--
       <xsl:message> id <xsl:value-of select="id"/> wminP <xsl:value-of select="(ancestor-or-self::*/default/wminP)[last()]"/> </xsl:message>
+   -->
       <wP>
           <xsl:value-of select="$wP"/> 
       </wP>   <!-- replace +w +  wrP  for point of path to + wrP  for path -->
