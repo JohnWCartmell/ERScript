@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
-               xmlns:era="http://www.entitymodelling.org/ERmodel"
-               metaDataFilename="../MetaModel/xml/ERA..physical.xml">
-
+               xmlns:era="http://www.entitymodelling.org/ERmodel">
    <absolute>
       <identifier>entity_model</identifier>
       <elementName>entity_model</elementName>
@@ -12,21 +10,21 @@
             <ZeroOneOrMore/>
          </cardinality>
          <type>entity_type_like</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
          <type>absolute</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>xml</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
    </absolute>
    <xml>
@@ -43,7 +41,7 @@
             <ZeroOrOne/>
          </cardinality>
          <type>xmlStyle(2)</type>
-         <inverse>..</inverse>
+         <inverse>attributeDefault^</inverse>
       </composition>
       <attribute>
          <name>namespace_uri</name>
@@ -52,7 +50,7 @@
          </type>
       </attribute>
       <dependency>
-         <name>..</name>
+         <name>^</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
@@ -78,7 +76,7 @@
          <elementName>absolute</elementName>
          <parentType>entity_model</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -124,7 +122,7 @@
                   <ZeroOrOne/>
                </cardinality>
                <type>xmlStyle(1)</type>
-               <inverse>..</inverse>
+               <inverse>xmlRepresentation^</inverse>
             </composition>
             <attribute>
                <name>identifier</name>
@@ -175,10 +173,10 @@
                <ZeroOneOrMore/>
             </cardinality>
             <type>entity_type_like</type>
-            <inverse>..</inverse>
+            <inverse>^</inverse>
          </composition>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
@@ -186,7 +184,7 @@
             <inverse_of/>
          </dependency>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
@@ -199,7 +197,7 @@
             <ZeroOneOrMore/>
          </cardinality>
          <type>dependency_group</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
@@ -273,28 +271,28 @@
             <ExactlyOne/>
          </cardinality>
          <type>value_type</type>
-         <inverse>..</inverse>
+         <inverse>type^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>identifying(2)</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>optional</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>deprecated</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <name>xmlRepresentation</name>
@@ -302,7 +300,7 @@
             <ZeroOrOne/>
          </cardinality>
          <type>xmlStyle(2)</type>
-         <inverse>..</inverse>
+         <inverse>xmlRepresentation^</inverse>
       </composition>
       <attribute>
          <name>description</name>
@@ -318,7 +316,7 @@
       <elementName>dependency_group</elementName>
       <parentType>ENTITY_TYPE</parentType>
       <dependency>
-         <name>..</name>
+         <name>^</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
@@ -367,6 +365,13 @@
          <identifying/>
          <inverse_of/>
       </dependency>
+      <reference>
+         <name>type</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>ENTITY_TYPE</type>
+      </reference>
       <entity_type>
          <name>reference_or_dependency</name>
          <identifier>reference_or_dependency</identifier>
@@ -437,7 +442,7 @@
                   <ZeroOrOne/>
                </cardinality>
                <type>navigation</type>
-               <inverse>..</inverse>
+               <inverse>diagonal^</inverse>
             </composition>
             <composition>
                <name>riser</name>
@@ -445,7 +450,7 @@
                   <ZeroOrOne/>
                </cardinality>
                <type>navigation</type>
-               <inverse>..</inverse>
+               <inverse>riser^</inverse>
             </composition>
             <composition>
                <name>key</name>
@@ -453,14 +458,14 @@
                   <ZeroOrOne/>
                </cardinality>
                <type>navigation</type>
-               <inverse>..</inverse>
+               <inverse>key^</inverse>
             </composition>
             <composition>
                <cardinality>
                   <ZeroOrOne/>
                </cardinality>
                <type>projection</type>
-               <inverse>..</inverse>
+               <inverse>^</inverse>
             </composition>
             <attribute>
                <name>js</name>
@@ -538,7 +543,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>navigation</type>
-            <inverse>..</inverse>
+            <inverse>^</inverse>
          </composition>
          <reference>
             <name>inverse</name>
@@ -601,7 +606,7 @@
                <ZeroOrOne/>
             </cardinality>
             <type>transient</type>
-            <inverse>..</inverse>
+            <inverse>^</inverse>
          </composition>
          <composition>
             <cardinality>
@@ -646,14 +651,14 @@
             <ZeroOrOne/>
          </cardinality>
          <type>sequence</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>identifying(1)</type>
-         <inverse>..</inverse>
+         <inverse>^</inverse>
       </composition>
       <composition>
          <name>cardinality</name>
@@ -661,15 +666,8 @@
             <ExactlyOne/>
          </cardinality>
          <type>cardinality</type>
-         <inverse>..</inverse>
+         <inverse>cardinality^</inverse>
       </composition>
-      <reference>
-         <name>type</name>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <type>ENTITY_TYPE</type>
-      </reference>
       <attribute>
          <name>description</name>
          <type>
@@ -705,7 +703,7 @@
       <elementName>sequence</elementName>
       <parentType>Relationship</parentType>
       <dependency>
-         <name>..</name>
+         <name>^</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
@@ -721,7 +719,7 @@
          <elementName>projection</elementName>
          <parentType>reference</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -739,10 +737,10 @@
                <ZeroOrOne/>
             </cardinality>
             <type>inherited</type>
-            <inverse>..</inverse>
+            <inverse>^</inverse>
          </composition>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -756,7 +754,7 @@
          <elementName>inherited</elementName>
          <parentType>identifying(1)</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -794,7 +792,7 @@
             <parentType>Relationship</parentType>
          </entity_type>
          <dependency>
-            <name>..</name>
+            <name>cardinality^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -811,7 +809,7 @@
          <elementName>transient</elementName>
          <parentType>composition</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -914,7 +912,7 @@
                   <ExactlyOne/>
                </cardinality>
                <type>navigation</type>
-               <inverse>..</inverse>
+               <inverse>riser2^</inverse>
             </composition>
          </entity_type>
          <composition>
@@ -923,7 +921,7 @@
                <ExactlyOne/>
             </cardinality>
             <type>navigation</type>
-            <inverse>..</inverse>
+            <inverse>along^</inverse>
          </composition>
          <reference>
             <name>type</name>
@@ -998,7 +996,7 @@
                <ZeroOneOrMore/>
             </cardinality>
             <type>component</type>
-            <inverse>..</inverse>
+            <inverse>^</inverse>
             <sequence/>
          </composition>
          <entity_type>
@@ -1068,7 +1066,7 @@
             </riser>
          </reference>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -1113,23 +1111,31 @@
          <type>ENTITY_TYPE</type>
       </reference>
       <dependency>
-         <name>..</name>
+         <name>diagonal^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
          <type>reference</type>
          <inverse_of>diagonal</inverse_of>
+      </dependency>
+      <dependency>
+         <name>riser^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
+         <type>reference</type>
          <inverse_of>riser</inverse_of>
+      </dependency>
+      <dependency>
+         <name>key^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
+         <type>reference</type>
          <inverse_of>key</inverse_of>
       </dependency>
       <dependency>
-         <name>..</name>
+         <name>^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -1137,7 +1143,7 @@
          <inverse_of/>
       </dependency>
       <dependency>
-         <name>..</name>
+         <name>riser2^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -1145,7 +1151,7 @@
          <inverse_of>riser2</inverse_of>
       </dependency>
       <dependency>
-         <name>..</name>
+         <name>along^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -1419,7 +1425,7 @@
             <parentType>attribute</parentType>
          </entity_type>
          <dependency>
-            <name>..</name>
+            <name>type^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -1433,7 +1439,7 @@
          <elementName>identifying</elementName>
          <parentType>attribute</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -1454,7 +1460,7 @@
             <optional/>
          </attribute>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -1468,7 +1474,7 @@
          <elementName>deprecated</elementName>
          <parentType>attribute</parentType>
          <dependency>
-            <name>..</name>
+            <name>^</name>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -1502,7 +1508,7 @@
          <parentType>xml | attribute</parentType>
       </entity_type>
       <dependency>
-         <name>..</name>
+         <name>attributeDefault^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -1510,7 +1516,7 @@
          <inverse_of>attributeDefault</inverse_of>
       </dependency>
       <dependency>
-         <name>..</name>
+         <name>xmlRepresentation^</name>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -1536,7 +1542,7 @@
          <parentType>entity_type</parentType>
       </entity_type>
       <dependency>
-         <name>..</name>
+         <name>xmlRepresentation^</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>

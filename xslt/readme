@@ -1,5 +1,11 @@
 This folder contains the meta data transforms and code generators applicable to Series1 entity models expressed in xml.
 
+
+09/05/2023
+Added Support for referential integrity checking using dynamic xpath.
+Entity models should now reference the file ERA..physical.xml in a metaDataFilename attribute. 
+This file is used from ERinstancevalidation.xslt and from ER.library.module.xslt to check that a model has referential integrity.
+
 29/09/2022 Shortcoming no script to run ERmodelERmodel.referental_integrity.xslt
 Need checkERmodelReferentialIntegrity.bat
 set filename=%1

@@ -17,6 +17,11 @@ attrib -R $TARGETXSLT\*.xslt
 copy-item -Path $SOURCEXSLT\*.xslt -Destination $TARGETXSLT
 attrib +R $TARGETXSLT\*.xslt
 
+# COPY the meta model 
+attrib -R $TARGETXSLT\ERA..physical.xml
+copy-item -Path $SOURCEXSLT\ERA..physical.xml -Destination $TARGETXSLT
+attrib +R $TARGETXSLT\ERA..physical.xml
+
 echo "."
 echo "================================================================= begin flex ==================="
 echo "***"

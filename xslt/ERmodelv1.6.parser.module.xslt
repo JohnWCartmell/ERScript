@@ -14,6 +14,7 @@
       <xsl:when test="@ERScriptVersion='1.6'">
          <xsl:message>parse conditional actual entity model</xsl:message>
          <xsl:copy>
+            <xsl:attribute name="metaDataFilename" select="'ERA..physical.xml'"/>
             <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/>
          </xsl:copy>
       </xsl:when>
