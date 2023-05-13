@@ -8,6 +8,9 @@
 <xsl:output method="xml" indent="yes"/>
 
 
+<!-- Enhancement request.  Create a matching composition relationship if a context cannot be matched to any incoming composition. -->
+
+
 <xsl:template match="entity_model" mode="parse__conditional">
    <xsl:message>parse conditional entity model</xsl:message>
    <xsl:choose>
@@ -120,7 +123,6 @@
    </xsl:for-each>
 </xsl:template>
 
-
 <xsl:template  match="*[ self::reference
                         |self::composition
                        ]" 
@@ -169,17 +171,14 @@
 </xsl:template>
 
 <xsl:template  match="context" mode="parse__main_pass">
+   <xsl:message>Context has type <xsl:value-of select="@type"/></xsl:message>
    <xsl:element name="dependency">
       <xsl:if test="not(@name)">
+         <xsl:variable name="comp" 
+                       as="element(composition)"
+                       select="//composition[era:typeFromExtendedType(@type)=current()/ancestor-or-self::entity_type[1]/@name]"/>
          <xsl:element name="name">
-            <xsl:choose>
-               <xsl:when test="//composition[type=current()/../name]/inverse">
-                  <xsl:value-of select="//composition[type=current()/../name]/inverse"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:text>..</xsl:text>
-               </xsl:otherwise>
-            </xsl:choose>
+               <xsl:value-of select="if ($comp/@inverse) then $comp/@inverse else if ($comp/@name) then concat($comp/@name,'^') else '..'"/>
          </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="@*" mode="parse__main_pass"/> <!-- process attributes first -->

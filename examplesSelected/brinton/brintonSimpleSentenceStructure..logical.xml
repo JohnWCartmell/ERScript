@@ -32,13 +32,11 @@
    <entity_type name="NP|AP|PP">
       <dependency_group/>
       <entity_type name="NP|PP">
-         <description/>
          <entity_type name="noun phrase">
-            <description/>
             <entity_type name="proper_name">
-               <description/>
             </entity_type>
-            <entity_type name="pronoun">
+            <entity_type name="pronoun"/>
+            <entity_type name="N-bar-bar">
                <composition type="determiner?"/>
                <composition type="N-bar"/>
             </entity_type>
@@ -64,10 +62,6 @@
          <composition type="prepositional phrase?"/>
       </entity_type>
       <entity_type name="noun">
-         <description>
-    Examples: athelete, house, race, record, stream, water.
-
-			</description>
       </entity_type>
    </entity_type>
    <entity_type name="prepositional_specifier"/>
