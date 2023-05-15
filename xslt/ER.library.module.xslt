@@ -10,19 +10,33 @@
                xpath-default-namespace=""
                xmlns="">
 
+<xsl:variable name="metaDataFilePathWrtERHome"
+                  as="xs:string?"
+                  select="child::element()/@metaDataFilePathWrtERHome"/>
+
+<xsl:variable name="metaDataFilePathWrtThisInstanceDocument"
+                  as="xs:string?"
+                  select="child::element()/@metaDataFilePathWrtThisInstanceDocument"/>
+
+<xsl:variable name="metaDataFile"
+              as="document-node()"
+              select="if (child::element()/@metaDataFilePathWrtThisInstanceDocument)
+                      then document (child::element()/@metaDataFilePathWrtThisInstanceDocument)
+                      else document((child::element()/@metaDataFilePathWrtERHome) cast as xs:string)
+                     "/>
 
 <xsl:variable name="namespace_uri" 
               as="xs:string?"
-              select="document(child::element()/@metaDataFilename)/er:entity_model/er:xml/er:namespace_uri"/> 
+              select="$metaDataFile/er:entity_model/er:xml/er:namespace_uri"/> 
 
 <xsl:variable name="erMetaModelData" as="element(er:entity_model)">
-   <xsl:message> In 'ER.library.module' 
-    root element is '<xsl:value-of select="child::element()/name()"/>'
-    loading schema  '<xsl:value-of select="child::element()/@metaDataFilename"/>'
-   </xsl:message>
+    <xsl:message> In 'ER.library.module' 
+                    root element is '<xsl:value-of select="child::element()/name()"/>'
+    </xsl:message> 
+
    <xsl:variable name="state" 
                  as="element(er:entity_model)" 
-                 select="document(child::element()/@metaDataFilename)/er:entity_model"/>
+                 select="$metaDataFile/er:entity_model"/>
    <xsl:variable name="enrichment" as="document-node()">
         <xsl:call-template name="recursive_xpath_enrichment">
           <xsl:with-param name="interim" select="$state"/>
@@ -388,7 +402,7 @@ return map {
             <xsl:if test="not(er:xpath_evaluate)">
                 <xsl:message terminate="yes">Relationship '<xsl:copy-of select="."/>' has no xpath_evaluate </xsl:message>
             </xsl:if>
-            <xsl:message>Relationship '<xsl:copy-of select="."/>' </xsl:message>
+            <!--<xsl:message>Relationship '<xsl:copy-of select="."/>' </xsl:message>-->
             <xsl:variable name="eval_function_defn" as="xs:string"
                           select="$relationship_read_header_text || '{$instance/(' || ./er:xpath_evaluate || ')}' ">
             </xsl:variable>

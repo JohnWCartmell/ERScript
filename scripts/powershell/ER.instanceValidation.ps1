@@ -26,6 +26,7 @@ If(!(test-path -PathType container $outputFolder))
 
 echo $SAXON_JAR
 
+
 java -Xss2m -jar $SAXON_JAR -opt:0  -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\ER.instanceValidation.xslt `
                        -o:$outputFolder\$filenamebase.validationReport.xml

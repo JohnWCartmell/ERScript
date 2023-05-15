@@ -144,6 +144,7 @@
          <x>0.5</x>
          <y>1.0</y>
          <deltaw>0.5</deltaw>
+         <deltah>1.0</deltah>
       </presentation>
    </entity_type>
    <entity_type>
@@ -251,8 +252,7 @@
    <entity_type>
       <name>constructed_relationship</name>
       <presentation>
-         <rightOf>possible_identifying_feature</rightOf>
-         <y>0.5</y>
+         <rightOf>attribute</rightOf>
          <w>2.0</w>
          <name>
             <Split/>
@@ -338,7 +338,7 @@
                </label>
                <hstep>
                   <absdim>
-                     <src>10.6</src>
+                     <src>12.6</src>
                   </absdim>
                </hstep>
             </path>
@@ -364,6 +364,8 @@
       <name>xmlStyle(2)</name>
       <presentation>
          <rightOf>deprecated</rightOf>
+         <x>3.8</x>
+         <y>0.4</y>
       </presentation>
    </entity_type>
    <entity_type>

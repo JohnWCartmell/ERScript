@@ -2,6 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
+
    <absolute>
       <name>entity_model</name>
       <composition type="entity_type_like*"/>
@@ -10,6 +11,7 @@
    </absolute>
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
+      <attributeDefault><Attribute/></attributeDefault>
    </xml>
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>
@@ -40,7 +42,12 @@
    </entity_type>
    <entity_type name="Feature">
       <identifying>
-         <context type="ENTITY_TYPE"/>
+         <constructed_relationship name="source_entity_type"
+                                   type="ENTITY_TYPE" 
+                                   xpath_evaluate="parent::identifying/parent::entity_type 
+                                                     union 
+                                                   parent::entity_type
+                                                   "/>
          <attribute name="name" type="string?"/>
       </identifying>
       <attribute name="type" type="string"/>
@@ -65,11 +72,11 @@
             <!--<attribute name="type" type="string"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>-->
             <!--<attribute name="description" type="string?"/>-->
          </entity_type>
-      </entity_type>
+         <entity_type name="constructed_relationship">
+            <attribute name="navigationtbd" type="string"/>
+            <attribute name="inverse" type="string?"/>
+         </entity_type>
 
-      <entity_type name="constructed_relationship">
-         <attribute name="navigationtbd" type="string"/>
-         <attribute name="inverse" type="string?"/>
       </entity_type>
       <entity_type name="composition">
          <composition type="transient?"/>  
