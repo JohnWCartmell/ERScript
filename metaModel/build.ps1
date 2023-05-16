@@ -24,8 +24,7 @@ pushd $TARGETXML
 echo 'ERA.surface'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -animate -physicalType hs
 
-if ($false)
-{
+
 echo 'ERA'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs 
 
@@ -34,7 +33,7 @@ echo 'ERA Diagrammed'
 
 echo 'ERA Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate
-}
+
 
 popd 
 

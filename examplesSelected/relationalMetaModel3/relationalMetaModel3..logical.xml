@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+              ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
    <description>
       This is a model of relational database structure. It is an interesting example because 
       only one of the four reference relationships (that from foreign key to_table) is of global scope.

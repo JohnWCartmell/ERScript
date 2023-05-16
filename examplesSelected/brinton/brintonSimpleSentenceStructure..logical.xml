@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
               ERScriptVersion="1.6"
-              metaDataFilePathWrtERHome="../MetaModel/xml/ERA.surface..physical.xml">
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
    <entity_type name="sentence">
       <composition name="subject" type="noun phrase"/>
       <composition name="predicate" type="verb phrase"/>

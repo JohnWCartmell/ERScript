@@ -22,21 +22,16 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
-if ($false)
-{
 echo 'Cricket Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..logical.xml -outputFolder ..\docs
 
 echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs
-}
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs
 
-if ($false)
-{
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validCricketInstance.xml -outputFolder ..\docs
 
@@ -45,7 +40,7 @@ echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 
 echo 'Criket Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate 
-}
+
 popd 
 
 
