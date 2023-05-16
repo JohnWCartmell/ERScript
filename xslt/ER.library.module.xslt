@@ -20,9 +20,12 @@
 
 <xsl:variable name="metaDataFile"
               as="document-node()"
-              select="if (child::element()/@metaDataFilePathWrtThisInstanceDocument)
-                      then document (child::element()/@metaDataFilePathWrtThisInstanceDocument)
-                      else document((child::element()/@metaDataFilePathWrtERHome) cast as xs:string)
+              select="
+        if (child::element()/@metaDataFilePathWrtThisInstanceDocument)
+        then document (child::element()/@metaDataFilePathWrtThisInstanceDocument)
+        else document( '../' 
+                        || 
+                        (child::element()/@metaDataFilePathWrtERHome) cast as xs:string)
                      "/>
 
 <xsl:variable name="namespace_uri" 

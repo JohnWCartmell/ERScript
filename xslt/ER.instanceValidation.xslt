@@ -84,7 +84,14 @@
 
 <!-- generic walk with callback functions passed as parameters -->
 <xsl:template match="/">
+   <!-- The following REALLY USEFUL for debugging 
+   ******************************************
+   -->
    <xsl:copy-of select="$erMetaModelData"/>
+
+   <!--
+   ******************************************
+   -->
    <xsl:message><xsl:value-of select="map:keys($reference_stroke_dependency_evaluation_lib)"/></xsl:message>
    <xsl:message> Schema is described as '<xsl:value-of select="$erMetaModelData/er:description"/>'</xsl:message>
    <xsl:message> Schema (absolute) is named '<xsl:value-of select="$erMetaModelData/er:absolute/er:name"/>'</xsl:message>
