@@ -6,7 +6,7 @@
       This is a model of relational database structure. It is an interesting example because 
       only one of the four reference relationships (that from foreign key to_table) is of global scope.
    </description>
-   <absolute>
+   <absolute name="relational_model">
       <composition name="all tables" type="table*" inverse=".."/>
    </absolute>
    <entity_type name="table">
