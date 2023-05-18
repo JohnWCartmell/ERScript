@@ -83,15 +83,11 @@
    <xsl:copy>  
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
       <xsl:if test="not(context) and not(identifying/context)">
-         <xsl:if test="@name='value_type'">
-            <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
-         </xsl:if>
+         <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
          <xsl:if test="//composition[era:typeFromExtendedType(@type)=current()/@name]">
-            <xsl:if test="@name='value_type'">
-               <xsl:message>Will plant dependency</xsl:message>
-            </xsl:if>
+            <xsl:message>Will plant dependency</xsl:message>
             <xsl:call-template name="create_dependency_from_scratch"/>
-          </xsl:if>
+         </xsl:if>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -134,17 +130,16 @@
                        ]" 
                     mode="parse__main_pass">
    <xsl:copy>
-      <xsl:apply-templates select="@*" mode="parse__main_pass"/> <!-- process attributes first -->
-         <xsl:element name="cardinality">
+      <xsl:apply-templates select="@name|@type|@inverse|@diagonal|@riser" mode="parse__main_pass"/> 
+      <xsl:element name="cardinality">
          <xsl:element name="{if (substring(@type,string-length(@type))='?')
-                             then 'ZeroOrOne'
-                             else if (substring(@type,string-length(@type))='*')
-                             then 'ZeroOneOrMore'
-                             else if (substring(@type,string-length(@type))='+')
-                             then 'OneOrMore'
-                             else 'ExactlyOne'
-                            }"/>
-
+                                then 'ZeroOrOne'
+                                else if (substring(@type,string-length(@type))='*')
+                                then 'ZeroOneOrMore'
+                                else if (substring(@type,string-length(@type))='+')
+                                then 'OneOrMore'
+                                else 'ExactlyOne'
+                               }"/>
       </xsl:element>
       <xsl:variable name="type" select="era:typeFromExtendedType(@type)"/>
       <xsl:element name="type">
@@ -232,6 +227,25 @@
    </xsl:element>
 </xsl:template>
 
+<xsl:template  match="pullback|copy" 
+                    mode="parse__main_pass">
+   <xsl:copy>
+      <xsl:apply-templates select="@along|@riser|@projection_rel|@diagonal|@type" mode="parse__main_pass"/> 
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="@diagonal|@riser|@along" mode="parse__main_pass">
+   <xsl:element name="{name()}">
+         <xsl:apply-templates select="." mode="parse_navigation"/>
+   </xsl:element>
+</xsl:template>
+
+<xsl:template match="pullback/(@projection_rel|@type)" mode="parse__main_pass">
+   <xsl:element name="{name()}">
+         <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template>
+
 
 <xsl:template match="attribute" 
                     mode="parse__main_pass">
@@ -265,14 +279,13 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="*[self::constructed_relationship|self::diagonal|self::riser|self::key]" mode="parse__main_pass">
+<xsl:template match="constructed_relationship" mode="parse__main_pass">
    <xsl:copy>
       <xsl:apply-templates select="@path" mode="parse_navigation"/>
    </xsl:copy>
 </xsl:template>
 
-
-<xsl:template match="@path" mode="parse_navigation">
+<xsl:template match="@path|@diagonal|@riser|@along" mode="parse_navigation">
    <xsl:variable name="text" as="xs:string" select="."/>
    <!--<xsl:message>text of navigation is <xsl:value-of select="$text"/></xsl:message>-->
    <xsl:choose>

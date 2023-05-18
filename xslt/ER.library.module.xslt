@@ -124,12 +124,49 @@ $destinationTypeOfRelationship
 := function ($r as element() ) as element(er:entity_type)     (: as element( (:er:Relationship:) ) :)
 {
   $entityType($r/er:type) 
+},
+
+$incomingCompositionRelationships
+:= function($etDefn as element(er:entity_type))
+           as element(er:composition)*
+{
+    $model//er:composition[$etDefn/ancestor-or-self::er:entity_type is $destinationTypeOfRelationship(.)]
+},
+$compositionRelationshipRepresentationElementName
+:= function($compRelDefn as element(er:composition))
+        as xs:string?
+{
+   if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
+   then ()
+   else $compRelDefn/er:name
+},
+$compositionRelationshipSrcEntityTypes  
+:= function($compRelDefn as element(er:composition))
+        as element((:entity_type|absolute:))*
+{
+  $compRelDefn
+          /..[self::er:entity_type|self::er:absolute]
+          /(self::er:absolute | descendant-or-self::er:entity_type[not(er:entity_type)]) 
+},
+$entityTypeParentElementNames
+:= function($etDefn as element(er:entity_type))
+        as xs:string+
+{
+    $incomingCompositionRelationships($etDefn) /
+        (
+         if ($compositionRelationshipRepresentationElementName(.))
+         then $compositionRelationshipRepresentationElementName(.)
+         else $compositionRelationshipSrcEntityTypes(.)/er:elementName
+        )
 }
+
 return map {
   'entityType' : $entityType,
   'attributeNamed' : $attributeNamed,
   'relationshipNamed' : $relationshipNamed,
-  'destinationTypeOfRelationship' : $destinationTypeOfRelationship
+  'destinationTypeOfRelationship' : $destinationTypeOfRelationship,
+  'incomingCompositionRelationships' : $incomingCompositionRelationships,
+  'entityTypeParentElementNames'     : $entityTypeParentElementNames
   }
 "/>
 </xsl:variable>
@@ -153,9 +190,16 @@ $getDefinitionOfInstance
              $instance as element()
             )
             as element((:entity_type_like:))?
-{
-   $model//(self::er:absolute|self::er:entity_type)
-                       [er:name eq $instance/name()]              (:  XXXX elementName XXXX :)           
+{  let $etDefs
+       := $model//(self::er:absolute|self::er:entity_type)
+                       [er:elementName eq $instance/name()]              (:  XXXX not er:name XXXX :) 
+   return 
+       if (count($etDefs) &lt;= 1)
+       then $etDefs
+       else   $etDefs[
+                        some $elementName in $erMetaModelLib?entityTypeParentElementNames(.)
+                                        satisfies $elementName eq  $instance/../name()
+                     ]        
 },
 
 $instanceClassifiedByEntityType
@@ -170,7 +214,7 @@ $instanceClassifiedByEntityType
          else false()
 },
            
-$instanceClassifiedByEntityTypeNamed
+$instanceClassifiedByEntityTypeNamed                             
 := function($instance as element(),
             $name as xs:string
            )
@@ -178,8 +222,21 @@ $instanceClassifiedByEntityTypeNamed
 {  
   let $etDefnOfInstance := $getDefinitionOfInstance($instance)
   return if ($etDefnOfInstance)
-         then exists($etDefnOfInstance/ancestor-or-self::er:entity_type[er:name eq $name])   (:  XXXX elementName XXXX :) 
+         then exists($etDefnOfInstance/ancestor-or-self::er:entity_type[er:name eq $name])   (:  XXXX elementName  NO PROBABLY NOT XXXX :) 
          else false()
+},
+
+$getAttribute   (: child element, attribute or text node representing an attribute :)
+:= function ($instance as element(), 
+             $attr as element(er:attribute)
+            )  as node()?
+{
+      if ($attr/er:xmlRepresentation/er:Anonymous or (not($attr/er:xmlRepresentation) and $model/er:attributeDefault/er:Anonymous)) 
+      then $instance/text()
+      else if ($attr/er:xmlRepresentation/er:Attribute or (not($attr/er:xmlRepresentation) and $model/er:xml/er:attributeDefault/er:Attribute) ) 
+      then   $instance/attribute::*[name()=$attr/er:name]         
+      else (: in all other cases must be represented as an Element :)                
+             $instance/child::*[name()=$attr/er:name]  
 },
 
 
@@ -222,7 +279,7 @@ $destination-type
 (: ultimately this could be following the 'type' reference relationship of the meta-schema :)
 := function ($r ) as element(er:entity_type)     (: as element( (:er:Relationship:) ) :)
 {
-  $model//er:entity_type[er:name=$r/er:type] 
+  $model//er:entity_type[er:name=$r/er:type]                                                
 },
 
 $concrete-destination-type-sequence 
@@ -254,7 +311,11 @@ $readNonAnonymousCompositionRelationship  (: private for now at least :)
 {
 let $container := if (not($compRelDefn/er:name)) 
                   then $instance 
-                  else $instance/child::*[name()=$compRelDefn/er:name]
+                  else $instance/child::*[name()=$compRelDefn/er:name]         (: er:elementName? XXXXXXXXXXXXXXXXXXX
+                                                                                 XXXXXXXXXXX not in meta model 
+                                                                                 but Anonymous used below -- so what is meta model?
+                                                                                 Please investigate - check schema ermodel2rng.
+                                                                                :)
 return $container/*[$type-check-relationship-instance($compRelDefn,.)]
 },
 
@@ -306,7 +367,19 @@ then $readAnonymousCompositionRelationship($instance, $compRelDefn)
 else $readNonAnonymousCompositionRelationship($instance, $compRelDefn)
 },
 
-
+$getCompositionRelationship  (: child element or elements representing a composition relationship :)
+:=
+function($instance as element(),
+         $compRelDefn as element(er:composition)
+         ) as element()*
+{
+if  ($compRelDefn/er:xmlRepresentation/er:Anonymous)
+then $readAnonymousCompositionRelationship($instance, $compRelDefn)
+else if (not($compRelDefn/er:name))
+then $instance/*[$type-check-relationship-instance($compRelDefn,.)]
+else $instance/child::*[name()=$compRelDefn/er:name]                              (: er:elementName? XXXXXXXXXXXXXXXXXXX 
+                                                                                         XXXXXXXXXXXXXX see comment above :)
+},
 
 $getReferenceRelationshipPrecondition
 :=
@@ -354,8 +427,10 @@ return map {
   'getDefinitionOfInstance'              : $getDefinitionOfInstance,
   'instanceClassifiedByEntityType'       : $instanceClassifiedByEntityType,
   'instanceClassifiedByEntityTypeNamed'  : $instanceClassifiedByEntityTypeNamed,
+  'getAttribute'                         : $getAttribute,   (:used to account for child nodes in instance validation :)
   'readAttribute'                        : $readAttribute,
   'readAttributeNamed'                   : $readAttributeNamed,
+  'getCompositionRelationship'           : $getCompositionRelationship,   (: used to account for child nodes in instance validation:)
   'readCompositionRelationship'          : $readCompositionRelationship,
   'getReferenceRelationshipPrecondition' : $getReferenceRelationshipPrecondition,
   'readReferenceOrDependencyRelationship': $readReferenceOrDependencyRelationship,

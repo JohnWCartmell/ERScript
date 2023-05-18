@@ -32,6 +32,7 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 echo 'Build physical (relational) model'
 . $TARGET\scripts\buildExampleSVG.ps1 relationalMetaModel3 -animate -physicalType r 
 
+
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 relationalMetaModel3..physical.xml -outputFolder ..\docs
 

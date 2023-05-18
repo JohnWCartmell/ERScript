@@ -7,28 +7,18 @@
       as an example of elaboration.
    </description>
    <absolute>
-      <composition type="grid*"/>
-      <composition type="cardinal*"/>
+      <composition type="grid*" inverse=".."/>
+      <composition type="cardinal*" inverse=".."/>
    </absolute>
    <entity_type name="grid">
       <identifying>
          <attribute name="name" type="string"/>
       </identifying>
-      <composition name="rows" type="row*">
-         <pullback>
-            <projection_rel>index</projection_rel>
-            <along>
-               noOfRows
-            </along>
-         </pullback>
+      <composition name="rows" type="row*" inverse="..">
+         <pullback along="noOfRows" type="ordinal"  projection_rel="index"/>
       </composition>
-      <composition name="columns" type="column*">
-         <pullback>
-            <projection_rel>index</projection_rel>
-            <along>
-               noOfCols
-            </along>
-         </pullback>
+      <composition name="columns" type="column*" inverse="..">
+         <pullback along="noOfCols" type="ordinal"  projection_rel="index"/>
       </composition>
       <reference name="noOfRows" type="cardinal"/>
       <reference name="noOfCols" type="cardinal"/>
@@ -37,41 +27,24 @@
       <entity_type name="row">
          <identifying>
             <context type="grid"/>
-            <reference name="index" type="ordinal">
-               <diagonal path="../noOfRows"/>
-               <riser path=".."/>
-            </reference>
+            <reference name="index" type="ordinal" diagonal="../noOfRows" riser=".."/>
          </identifying>
-         <composition name="cells" type="cell*">
-            <pullback>
-               <along>
-                  ..
-               </along>
-               <projection_rel>col</projection_rel>
-            </pullback>
+         <composition name="cells" type="cell*" inverse="..">
+            <pullback along=".." type="column" projection_rel="col"/>
          </composition>
       </entity_type>
       <entity_type name="column">
          <identifying>
             <context type="grid"/>
-            <reference name="index" type="ordinal">
-               <diagonal path="../noOfCols"/>
-               <riser path=".."/>
-            </reference>
+            <reference name="index" type="ordinal" diagonal="../noOfCols" riser =".."/>
          </identifying>
-         <reference name="cells" type="cell*">
-            <inverse>col</inverse>
-         </reference>
+         <reference name="cells" type="cell*" inverse="col"/>
       </entity_type>
    </group>
    <entity_type name="cell">
       <identifying>
          <context type="row"/>
-         <reference name="col" type="column">
-            <inverse>cells</inverse>
-            <diagonal path="../.."/>
-            <riser path=".."/>
-         </reference>
+         <reference name="col" type="column" inverse="cells" diagonal="../.." riser=".."/>
       </identifying>
    </entity_type>
    <group name="reuseable">

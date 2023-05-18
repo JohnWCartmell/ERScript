@@ -2,8 +2,9 @@
 <cricket metaDataFilePathWrtThisInstanceDocument="cricketMatch..physical.xml">
 <match>
 	<id>"firstTest"</id>
-	<side>
+	<side unwanted="justtotestredundancy detection">
 		<name>lancashire</name>
+		<rubbish>to test redundancy detection</rubbish>
 		<player>
 			<number>1</number>
 			<name>horton</name>

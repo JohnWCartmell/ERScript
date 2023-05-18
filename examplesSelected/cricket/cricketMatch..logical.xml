@@ -21,14 +21,8 @@
             <attribute name="number" type="string"/>
          </identifying>
          <composition type="over*"/>
-         <reference name="battingSide" type="side">
-            <diagonal path=".."/>
-            <riser path=".."/>
-         </reference>
-         <reference name="fieldingSide" type="side">
-            <diagonal path=".."/>
-            <riser path=".."/>
-         </reference>
+         <reference name="battingSide" type="side" diagonal=".." riser=".."/>
+         <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
       </entity_type>
       <entity_type name="side">
          <identifying>
@@ -44,10 +38,7 @@
          <attribute name="number" type="string"/>
       </identifying>
       <composition type="delivery*"/>
-      <reference name="bowler" type="player">
-         <diagonal path="../fieldingSide"/>
-         <riser path=".."/>
-      </reference>
+      <reference name="bowler" type="player" diagonal="../fieldingSide" riser=".."/>
    </entity_type>
    <entity_type name="player">
       <identifying>
@@ -61,9 +52,6 @@
          <context type="over"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <reference name="facingBatter" type="player">
-         <diagonal path="../../battingSide"/>
-         <riser path=".."/>
-      </reference>
+      <reference name="facingBatter" type="player" diagonal="../../battingSide" riser=".."/>
    </entity_type>
 </entity_model>

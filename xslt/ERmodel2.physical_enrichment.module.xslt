@@ -665,6 +665,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:element name="rel">
                <xsl:value-of select="$implemented_rel_name"/>
             </xsl:element>
+            <!--
             <xsl:element name= "origin">
                  <xsl:choose>
                    <xsl:when test="implementationOf">
@@ -672,6 +673,27 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                    </xsl:when>
                    <xsl:otherwise>
                       <xsl:value-of select="name"/>
+                   </xsl:otherwise>
+                 </xsl:choose>
+            </xsl:element>
+        -->
+            <xsl:element name= "attrOfOrigin">
+                 <xsl:choose>
+                   <xsl:when test="implementationOf">
+                      <xsl:value-of select="implementationOf/attrOfOrigin"/>
+                   </xsl:when>
+                   <xsl:otherwise>
+                      <xsl:value-of select="name"/>
+                   </xsl:otherwise>
+                 </xsl:choose>
+            </xsl:element>
+            <xsl:element name= "typeOfOrigin">
+                 <xsl:choose>
+                   <xsl:when test="implementationOf">
+                      <xsl:value-of select="implementationOf/typeOfOrigin"/>
+                   </xsl:when>
+                   <xsl:otherwise>
+                      <xsl:value-of select="../name"/>
                    </xsl:otherwise>
                  </xsl:choose>
             </xsl:element>

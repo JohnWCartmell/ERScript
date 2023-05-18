@@ -10,6 +10,7 @@
                xpath-default-namespace=""
                xmlns="">
 <xsl:output method="xml" indent="yes"/>
+<xsl:strip-space elements="*"/>
 
 <xsl:include href="ER.library.module.xslt"/>
   <xsl:include href="ERmodel.functions.module.xslt"/>
@@ -130,61 +131,100 @@
    </xsl:if>
    <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
 
+   <xsl:variable name="allValidChildNodes"
+                 as="node()*">
+      <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">              
+         <xsl:choose>    
+            <xsl:when test="self::er:attribute">
+                  <xsl:sequence select="
+                           $erDataLib?getAttribute($instance,self::er:attribute)
+                         "/>
+            </xsl:when>
+            <xsl:when test="self::er:composition ">
+               <xsl:sequence select="$erDataLib?getCompositionRelationship($instance,self::er:composition)"/>
+            </xsl:when>
+            <xsl:when test="self::er:reference">
+            </xsl:when>
+         </xsl:choose>
+      </xsl:for-each>
+   </xsl:variable>
+   <xsl:variable name="redundantNodes" 
+                 as="node()*"
+                 select="$instance/(child::node()|attribute::*) except $allValidChildNodes"/>  <!-- added $instance -->
+
    <!--<xsl:value-of select="$startInstance($instance)"/>-->
    <xsl:element name="{$instance/name()}">
        <xsl:for-each select="$etlDefn/ancestor-or-self::er:entity_type/er:attribute[er:identifying]">
          <xsl:attribute name="{self::er:attribute/er:name}" select="$erDataLib?readAttribute($instance,self::er:attribute)"/>
        </xsl:for-each> 
-
-   <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">               
-      <xsl:choose>             
-         <xsl:when test="self::er:attribute">
-               <xsl:value-of select="
-                        '@' 
-                     || self::er:attribute/er:name
-                     || ' '
-                     || $attribute($instance,self::er:attribute)
-                      "/>
-         </xsl:when>
-         <xsl:when test="self::er:composition ">
-            <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
-            <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
-               <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-                  <xsl:with-param name="instance" select="."/>
-                  <xsl:with-param name="startInstance"    select="$startInstance"/>
-                  <xsl:with-param name="attribute"        select="$attribute"/>
-                  <xsl:with-param name="startComposition" select="$startComposition"/>
-                  <xsl:with-param name="startMember"      select="$startMember"/>
-                  <xsl:with-param name="endMember"        select="$endMember"/>
-                  <xsl:with-param name="endComposition"   select="$endComposition"/>
-                  <xsl:with-param name="reference"        select="$reference"/>
-                  <xsl:with-param name="endInstance"      select="$endInstance"/>
-               </xsl:call-template>
+      <xsl:if test="count($redundantNodes) &gt; 0">
+         <xsl:element name="ERR_redundacy">
+            <xsl:attribute name="count" select="count($redundantNodes)"/>
+            <xsl:for-each select="$redundantNodes">
+                 <xsl:if test="self::text()">
+                     <txt> <xsl:value-of select="."/></txt>
+                 </xsl:if>
+                  <xsl:if test="self::attribute()">
+                     <xsl:element name="attribute">
+                         <xsl:value-of select="name() || '=' || ."/>
+                     </xsl:element>
+                 </xsl:if>
+                 <xsl:if test="self::element()">
+                     <xsl:element name="element">
+                        <xsl:value-of select="name()"/>
+                     </xsl:element>
+                 </xsl:if>
             </xsl:for-each>
-         </xsl:when>
-         <xsl:when test="self::er:reference">
-            <!--
-            <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
-                  calculated from <xsl:copy-of select="$instance/er:name"/> of <xsl:copy-of select="$instance/../er:name"/></xsl:message>
-               -->
-            <xsl:value-of select="
-                        '#' 
-                     || self::er:reference/er:name
-                     "/>
-            <xsl:variable name="refcheckerror" 
-                          as="xs:string?"
-                          select="$reference($instance,self::er:reference)"/>
-            <xsl:if test="$refcheckerror">
-               <xsl:element name="refcheckerror">
-                  <xsl:attribute name="relname" select="self::er:reference/er:name"/>
-                  <xsl:value-of select="$refcheckerror"/>
-               </xsl:element>
-            </xsl:if>
-
-         </xsl:when>
-      </xsl:choose>
-   </xsl:for-each>
-</xsl:element>
+         </xsl:element>
+      </xsl:if>
+      <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">           
+         <xsl:choose>             
+            <xsl:when test="self::er:attribute">
+                  <xsl:value-of select="
+                           '@' 
+                        || self::er:attribute/er:name
+                        || ' '
+                        || $attribute($instance,self::er:attribute)
+                         "/>
+            </xsl:when>
+            <xsl:when test="self::er:composition ">
+               <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
+               <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
+                  <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
+                     <xsl:with-param name="instance" select="."/>
+                     <xsl:with-param name="startInstance"    select="$startInstance"/>
+                     <xsl:with-param name="attribute"        select="$attribute"/>
+                     <xsl:with-param name="startComposition" select="$startComposition"/>
+                     <xsl:with-param name="startMember"      select="$startMember"/>
+                     <xsl:with-param name="endMember"        select="$endMember"/>
+                     <xsl:with-param name="endComposition"   select="$endComposition"/>
+                     <xsl:with-param name="reference"        select="$reference"/>
+                     <xsl:with-param name="endInstance"      select="$endInstance"/>
+                  </xsl:call-template>
+               </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="self::er:reference">
+               <!--
+               <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
+                     calculated from <xsl:copy-of select="$instance/er:name"/> of <xsl:copy-of select="$instance/../er:name"/></xsl:message>
+                  -->
+               <xsl:value-of select="
+                           '#' 
+                        || self::er:reference/er:name
+                        "/>
+               <xsl:variable name="refcheckerror" 
+                             as="xs:string?"
+                             select="$reference($instance,self::er:reference)"/>
+               <xsl:if test="$refcheckerror">
+                  <xsl:element name="refcheckerror">
+                     <xsl:attribute name="relname" select="self::er:reference/er:name"/>
+                     <xsl:value-of select="$refcheckerror"/>
+                  </xsl:element>
+               </xsl:if>
+            </xsl:when>
+         </xsl:choose>
+      </xsl:for-each>
+   </xsl:element>
    <xsl:value-of select="$endInstance($instance)"/>
 </xsl:template>
 
