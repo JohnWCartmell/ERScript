@@ -236,9 +236,8 @@ $getAttribute   (: child element, attribute or text node representing an attribu
       else if ($attr/er:xmlRepresentation/er:Attribute or (not($attr/er:xmlRepresentation) and $model/er:xml/er:attributeDefault/er:Attribute) ) 
       then   $instance/attribute::*[name()=$attr/er:name]         
       else (: in all other cases must be represented as an Element :)                
-             $instance/child::*[name()=$attr/er:name]  
+             $instance/child::element()[name()=$attr/er:name]  
 },
-
 
 $readAttribute
 := function ($instance as element(), 

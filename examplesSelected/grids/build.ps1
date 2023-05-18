@@ -23,24 +23,19 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-if ($false)
-{
 echo 'grid Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
-}
 
 echo 'build physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 grids -animate -physicalType hs
 
-if ($false)
-{
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs
 
 echo 'grids Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 grids..logical.xml -animate
-}
+
 popd 
 
 

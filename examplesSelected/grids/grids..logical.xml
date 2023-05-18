@@ -6,7 +6,7 @@
       A further test of the code generators and a demonstator of pullbacks. Should move to separate folder and 
       as an example of elaboration.
    </description>
-   <absolute>
+   <absolute name="grids">
       <composition type="grid*" inverse=".."/>
       <composition type="cardinal*" inverse=".."/>
    </absolute>

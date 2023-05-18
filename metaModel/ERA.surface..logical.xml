@@ -2,17 +2,22 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
-
-   <absolute>
-      <name>entity_model</name>
-      <composition type="entity_type_like*"/>
-      <composition type="absolute"/>
-      <composition type="xml?"/>
-   </absolute>
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
       <attributeDefault><Attribute/></attributeDefault>
    </xml>
+   <absolute>
+      <name>entity_model</name>
+      <attribute name="ERScriptVersion" type="string"/> 
+      <attribute name="metaDataFilePathWrtERHome" type="string?"/> 
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"/> 
+      <composition type="entity_type_like*"/>
+      <composition type="absolute"/>
+      <composition type="xml?"/>
+      <attribute name="description" type="string?">
+         <xmlRepresentation><Element/></xmlRepresentation>
+      </attribute>
+   </absolute>
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>
       <attribute name="namespace_uri" type="string"/>
@@ -33,7 +38,9 @@
       <entity_type name="absolute"/>
        <composition type="Feature*" inverse="^entity_type"/>
       <composition type="identifying" inverse="^entity_type"/>
-      <attribute name="description" type="string?"/>
+      <attribute name="description" type="string?">
+         <xmlRepresentation><Element/></xmlRepresentation>
+      </attribute>
       <attribute name="elementName " type="string?"/>
       <attribute name="module_name" type="string?"/>
    </entity_type>

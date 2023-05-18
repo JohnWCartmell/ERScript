@@ -2,15 +2,20 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
-   <absolute>
-      <name>entity_model</name>
-      <composition type="entity_type_like*"/>
-      <composition type="absolute"/>
-      <composition type="xml?"/>
-   </absolute>
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
    </xml>
+   <absolute>
+      <name>entity_model</name>
+      <attribute name="metaDataFilePathWrtERHome" type="string?"/> 
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"/> 
+      <composition type="entity_type_like*"/>
+      <composition type="absolute"/>
+      <composition type="xml?"/>
+      <attribute name="description" type="string?">
+         <xmlRepresentation><Element/></xmlRepresentation>
+      </attribute>
+   </absolute>
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>
       <attribute name="namespace_uri" type="string"/>
@@ -79,26 +84,17 @@
             <composition type="projection?"/>
             <attribute name="js" type="string?"/>
             <attribute name="xpath_evaluate" type="string?"/>
-            <reference name="inverse" type="reference?" inverse="inverse">
-               <diagonal path="type"/>
-               <riser path=".."/>
-            </reference>
+            <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser=".."/>
          </entity_type>
       </entity_type>
       <entity_type name="constructed_relationship">
          <composition type="navigation"/>
-         <reference name="inverse" type="constructed_relationship?" inverse="inverse">
-               <diagonal path="type"/>
-               <riser path=".."/>
-         </reference>
+         <reference name="inverse" type="constructed_relationship?" inverse="inverse" diagonal="type" riser=".."/>
       </entity_type>
       <entity_type name="composition">
          <composition type="transient?"/>
          <composition type="initialiser?" inverse=".."/>
-         <reference name="inverse" type="dependency?" inverse="inverse_of">
-            <diagonal path="type"/>
-            <riser path=".."/> 
-         </reference>
+         <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."/> 
       </entity_type>
       <composition type="sequence?"/>
       <composition type="identifying(1)?"/>
@@ -126,10 +122,7 @@
       <entity_type name="transient"/>
       <entity_type name="initialiser">
          <entity_type name="pullback">
-            <reference name="projection_rel" type="reference?">
-               <diagonal path="../type"/>
-               <riser path=".."/>
-            </reference>
+            <reference name="projection_rel" type="reference?" diagonal="../type" riser=".."/>
          </entity_type>
          <entity_type name="copy">
             <composition name="riser2" type="navigation"/>
@@ -148,10 +141,7 @@
          <entity_type name="aggregate"/>
       </entity_type>
       <entity_type name="component">
-         <reference name="rel" type="Relationship">
-            <diagonal path="src"/>
-            <riser path=".."/>
-         </reference>
+         <reference name="rel" type="Relationship" diagonal="src" riser=".."/>
       </entity_type>
       <group name="component children">
          <entity_type name="identity"><!--
@@ -161,7 +151,7 @@
      --></entity_type>
          <entity_type name="theabsolute"><!--
             <description>
-                A navigation to the ansolute.
+                A navigation to the absolute.
         </description>
      --></entity_type>
       </group>
@@ -171,22 +161,10 @@
    </entity_type>
    <group name="attribute_children">
       <entity_type name="implementationOf">
-         <reference name="destattr" type="attribute">
-            <diagonal path="rel/type"/>
-            <riser path=".."/>
-         </reference>
-         <reference name="attrOfOrigin" type="attribute">
-            <diagonal path="typeOfOrigin"/>
-            <riser path=".."/>
-         </reference>
-         <reference name="typeOfOrigin" type="ENTITY_TYPE">
-            <diagonal path="^"/>
-            <riser path="^"/>
-         </reference>
-         <reference name="rel" type="reference_or_dependency">
-            <diagonal path="../.."/>
-            <riser path=".."/>
-         </reference>
+         <reference name="destattr" type="attribute" diagonal="rel/type" riser=".."/>
+         <reference name="attrOfOrigin" type="attribute" diagonal="typeOfOrigin" riser=".."/>
+         <reference name="typeOfOrigin" type="ENTITY_TYPE" diagonal="^" riser="^"/>
+         <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
       </entity_type>
       <entity_type name="value_type">
          <entity_type name="boolean"/>
