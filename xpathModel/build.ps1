@@ -18,13 +18,32 @@ If(!(test-path -PathType container $TARGETXML))
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
 attrib +R $TARGETXML\*.xml
-#attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
+attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
 
+
+echo 'xpath Example'
+if ($false)
+{
+echo generate rng
 . $TARGET\scripts\er2.rng.ps1 xpath  -outputFolder ..\bin -debugSwitch
 
+echo 'Run surface ER.instanceValidation.xslt on logical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 xpath..logical.xml -outputFolder ..\docs
+
+echo 'build physical model'
+. $TARGET\scripts\ER.logical2physical.ps1 xpath -physicalType hs
+}
+
+echo 'Run ER.instanceValidation.xslt on physical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 xpath..physical.xml -outputFolder ..\docs
+
+if ($false)
+{
  . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
+
+}
 
 popd 
 

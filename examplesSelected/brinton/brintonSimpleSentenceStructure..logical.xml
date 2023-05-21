@@ -32,7 +32,6 @@
    </entity_type>
    <entity_type name="verb_group"/>
    <entity_type name="NP|AP|PP">
-      <dependency_group/>
       <entity_type name="NP|PP">
          <entity_type name="noun phrase">
             <entity_type name="proper_name">
@@ -57,7 +56,6 @@
    </entity_type>
    <entity_type name="yyy">
       <description/>
-      <dependency_group/>
       <entity_type name="N-bar">
          <composition type="adjectival phrase?"/>
          <composition type="yyy"/>
@@ -73,7 +71,6 @@
    <entity_type name="determiner"/>
    <entity_type name="Advpbar">
       <description/>
-      <dependency_group/>
       <entity_type name="degree"/>
       <entity_type name="adverbial_phrase">
          <description/>

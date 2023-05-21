@@ -97,8 +97,33 @@
    <xsl:if test="child::element()/name() ne $erMetaModelData/er:absolute/er:name">
       <xsl:message terminate="yes">Error ********** Root of instance is an element whose name does not match the absolute name specified in the meta data </xsl:message>
    </xsl:if>
+
+   <xsl:variable name="typeTaggedInstanceData"
+                 as="element()">
+      <xsl:for-each select="child::element()">
+         <xsl:call-template name="typeTagInstanceData"/>
+      </xsl:for-each>
+   </xsl:variable>
+
+   <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*[@etname]">
+      <xsl:message>here</xsl:message>
+      <xsl:variable name="instance" as="element()" select="."/>
+      <xsl:variable name="identifyingFeatures" 
+                    as="item()*" 
+                    select="$erDataLib?readIdentifyingFeatureSequence(.)"/>
+      <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*
+                             [@etname=$instance/@etname]
+                             [not(. is $instance)]
+                             [deep-equal($erDataLib?readIdentifyingFeatureSequence(.),$identifyingFeatures)]
+                          ">
+         <ERRORnonuniqueidentifer>
+              <xsl:copy-of select="$instance"/>
+           </ERRORnonuniqueidentifer>
+      </xsl:for-each>
+   </xsl:for-each>
+<!-- DEBUG UNIQUEBESS CHECKING
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-      <xsl:with-param name="instance"         select="child::element()"/>              
+      <xsl:with-param name="instance"         select="$typeTaggedInstanceData"/>              
       <xsl:with-param name="startInstance"    select="$instanceValidationLib?startInstance"/>
       <xsl:with-param name="attribute"        select="$instanceValidationLib?attribute"/>
       <xsl:with-param name="startComposition" select="$instanceValidationLib?startComposition"/>
@@ -108,6 +133,8 @@
       <xsl:with-param name="reference"        select="$instanceValidationLib?reference"/>
       <xsl:with-param name="endInstance"      select="$instanceValidationLib?endInstance"/>
    </xsl:call-template>
+-->
+
 </xsl:template>
 
 <xsl:template name="walk_an_instance_subtree__guided_by_schema">
@@ -121,7 +148,8 @@
    <xsl:param name="reference"      as="function(element(*),element(er:reference)) as xs:string?"/>
    <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
 
-   <xsl:message>Instance of type <xsl:value-of select="$instance/name()"/></xsl:message>
+   <xsl:message>Instance of type <xsl:value-of select="$instance/name()"/> name '<xsl:value-of select="$instance/er:name"/>'
+                                                                           type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
    <xsl:variable name="etlDefn" 
       as="element()?"
       select="$erDataLib?getDefinitionOfInstance($instance)
@@ -150,7 +178,10 @@
    </xsl:variable>
    <xsl:variable name="redundantNodes" 
                  as="node()*"
-                 select="$instance/(child::node()|attribute::*) except $allValidChildNodes"/>  <!-- added $instance -->
+                 select="$instance/(child::node()[not(self::comment())] 
+                                    | attribute::*[not(name()='etname')]
+                                    ) 
+                         except $allValidChildNodes"/>  <!-- added $instance -->
 
    <!--<xsl:value-of select="$startInstance($instance)"/>-->
    <xsl:element name="{$instance/name()}">
@@ -161,19 +192,34 @@
          <xsl:element name="ERR_redundacy">
             <xsl:attribute name="count" select="count($redundantNodes)"/>
             <xsl:for-each select="$redundantNodes">
-                 <xsl:if test="self::text()">
+               <xsl:choose>
+                 <xsl:when test="self::text()">
                      <txt> <xsl:value-of select="."/></txt>
-                 </xsl:if>
-                  <xsl:if test="self::attribute()">
+                 </xsl:when>
+                  <xsl:when test="self::attribute()">
                      <xsl:element name="attribute">
                          <xsl:value-of select="name() || '=' || ."/>
                      </xsl:element>
-                 </xsl:if>
-                 <xsl:if test="self::element()">
+                 </xsl:when>
+                 <xsl:when test="self::element()">
                      <xsl:element name="element">
                         <xsl:value-of select="name()"/>
                      </xsl:element>
-                 </xsl:if>
+                 </xsl:when>
+                  <xsl:when test="self::comment()">
+                     <xsl:element name="comment">
+                        <xsl:value-of select="."/>
+                     </xsl:element>
+                 </xsl:when>
+                 <xsl:when test="self::namespace-node()">
+                     <xsl:element name="namespace">
+                        <xsl:value-of select="node-name()"/>
+                     </xsl:element>
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <xsl:value-of select="'other:' || name()"/>
+                 </xsl:otherwise>
+               </xsl:choose>
             </xsl:for-each>
          </xsl:element>
       </xsl:if>
@@ -204,10 +250,9 @@
                </xsl:for-each>
             </xsl:when>
             <xsl:when test="self::er:reference">
-               <!--
                <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
-                     calculated from <xsl:copy-of select="$instance/er:name"/> of <xsl:copy-of select="$instance/../er:name"/></xsl:message>
-                  -->
+                     calculated from '<xsl:copy-of select="$instance/er:name"/>'' of '<xsl:copy-of select="$instance/../er:name"/>'</xsl:message>
+               
                <xsl:value-of select="
                            '#' 
                         || self::er:reference/er:name

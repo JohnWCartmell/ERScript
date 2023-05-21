@@ -174,27 +174,7 @@
       </composition>
    </entity_type>
 
-   <entity_type>
-      <name>xmlStyle(1)</name>
-      <presentation>
-         <xr>
-            <relative>
-               <to>ENTITY_TYPE</to>
-               <ratio>0</ratio>
-            </relative>
-         </xr>
-         <yt>
-            <relative>
-               <to>ENTITY_TYPE</to>
-               <ratio>1</ratio>
-               <d>1.0</d>
-            </relative>
-         </yt>
-         <name>
-            <Split/>
-         </name>
-      </presentation>
-   </entity_type>
+
   <entity_type>
       <name>identifying</name>
       <presentation>
@@ -207,9 +187,9 @@
    <entity_type>
       <name>Feature</name>
       <presentation>
-         <below>xmlStyle(1)</below>
-         <x>9.0</x>
-         <y>0.5</y>
+         <below>ENTITY_TYPE</below>
+         <x>3.0</x>
+         <y>1.5</y>
          <deltaw>0.4</deltaw>
          <deltah>0.5</deltah>
       </presentation>
@@ -295,13 +275,24 @@
       <name>composition_children</name>
       <presentation>
          <below>composition</below>
-         <x>1.0</x>
+         <x>-0.5</x>
          <y>2.75</y>
       </presentation>
    </group>
+
+   <entity_type>
+      <name>xmlStyle(1)</name>
+      <presentation>
+         <name>
+            <Split/>
+         </name>
+      </presentation>
+   </entity_type>
    <entity_type>
       <name>transient</name>
-      <presentation/>
+      <presentation>
+         <rightOf>xmlStyle(1)</rightOf>
+      </presentation>
    </entity_type>
       <entity_type>
       <name>sequence</name>

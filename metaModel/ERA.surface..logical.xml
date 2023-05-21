@@ -20,7 +20,7 @@
    </absolute>
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>
-      <attribute name="namespace_uri" type="string"/>
+      <attribute name="namespace_uri" type="string?"/>
    </entity_type>
    <entity_type name="ENTITY_TYPE">
       <identifying>
@@ -83,9 +83,9 @@
             <attribute name="navigationtbd" type="string"/>
             <attribute name="inverse" type="string?"/>
          </entity_type>
-
       </entity_type>
       <entity_type name="composition">
+         <composition name="xmlRepresentation" type="xmlStyle(1)?"/> 
          <composition type="transient?"/>  
          <composition type="sequence?"/>
          <composition type="initialiser?" inverse=".."/>  
@@ -95,6 +95,10 @@
    </entity_type>
 
    <group name="composition_children">
+      <entity_type name="xmlStyle(1)">
+         <entity_type name="Element(1)"/>
+         <entity_type name="Anonymous(1)"/>
+      </entity_type>
       <entity_type name="transient"/>
       <entity_type name="initialiser">
          <entity_type name="pullback">
@@ -117,9 +121,6 @@
       <entity_type name="Element(2)"/>
       <entity_type name="Anonymous(2)"/>
    </entity_type>
-   <entity_type name="xmlStyle(1)">
-      <entity_type name="Element(1)"/>
-      <entity_type name="Anonymous(1)"/>
-   </entity_type>
+
    <!--<include_model filename="ERA..derived_attributes.xml"/>-->
 </entity_model>

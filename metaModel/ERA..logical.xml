@@ -7,8 +7,8 @@
    </xml>
    <absolute>
       <name>entity_model</name>
-      <attribute name="metaDataFilePathWrtERHome" type="string?"/> 
-      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"/> 
+      <attribute name="metaDataFilePathWrtERHome" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
       <composition type="entity_type_like*"/>
       <composition type="absolute"/>
       <composition type="xml?"/>
@@ -18,7 +18,7 @@
    </absolute>
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>
-      <attribute name="namespace_uri" type="string"/>
+      <attribute name="namespace_uri" type="string?"/>
    </entity_type>
    <entity_type name="ENTITY_TYPE">
       <identifying>
@@ -28,7 +28,7 @@
       <entity_type name="entity_type_like">
          <dependency_group/>
          <entity_type name="entity_type">
-            <composition name="xmlRepresentation" type="xmlStyle(1)?"/>
+            <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_et"/>
          </entity_type>
          <entity_type name="group">
             <attribute name="annotation" type="string?"/>
@@ -92,6 +92,7 @@
          <reference name="inverse" type="constructed_relationship?" inverse="inverse" diagonal="type" riser=".."/>
       </entity_type>
       <entity_type name="composition">
+         <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_rel"/>
          <composition type="transient?"/>
          <composition type="initialiser?" inverse=".."/>
          <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."/> 

@@ -121,16 +121,18 @@ $relationshipNamed
 $destinationTypeOfRelationship     
 (: navigate the model from an er:Relationship to an er:entity_type                         :)
 (: ultimately this could be following the 'type' reference relationship of the meta-schema :)
-:= function ($r as element() ) as element(er:entity_type)     (: as element( (:er:Relationship:) ) :)
+:= function ($r as element((:er:Relationship:)) ) as element(er:entity_type)     
 {
   $entityType($r/er:type) 
 },
+
 
 $incomingCompositionRelationships
 := function($etDefn as element(er:entity_type))
            as element(er:composition)*
 {
-    $model//er:composition[$etDefn/ancestor-or-self::er:entity_type is $destinationTypeOfRelationship(.)]
+    $model//er:composition[some $ancestorEntityType in $etDefn/ancestor-or-self::er:entity_type
+                                                     satisfies $ancestorEntityType is $destinationTypeOfRelationship(.)]
 },
 $compositionRelationshipRepresentationElementName
 := function($compRelDefn as element(er:composition))
@@ -158,6 +160,17 @@ $entityTypeParentElementNames
          then $compositionRelationshipRepresentationElementName(.)
          else $compositionRelationshipSrcEntityTypes(.)/er:elementName
         )
+},
+$entityTypeParentEntityTypeElementNamesThroughNamedCompositions
+:= function($etDefn as element(er:entity_type))
+        as xs:string+
+{
+    $incomingCompositionRelationships($etDefn) /
+        (
+         if ($compositionRelationshipRepresentationElementName(.))
+         then ../(self::er:absolute | self::er:entity_type/descendant-or-self::er:entity_type[not(er:entity_type)])/er:elementName
+         else ()
+        )
 }
 
 return map {
@@ -165,8 +178,10 @@ return map {
   'attributeNamed' : $attributeNamed,
   'relationshipNamed' : $relationshipNamed,
   'destinationTypeOfRelationship' : $destinationTypeOfRelationship,
+  'compositionRelationshipRepresentationElementName' : $compositionRelationshipRepresentationElementName,
   'incomingCompositionRelationships' : $incomingCompositionRelationships,
-  'entityTypeParentElementNames'     : $entityTypeParentElementNames
+  'entityTypeParentElementNames'     : $entityTypeParentElementNames,
+  'entityTypeParentEntityTypeElementNamesThroughNamedCompositions' : $entityTypeParentEntityTypeElementNamesThroughNamedCompositions
   }
 "/>
 </xsl:variable>
@@ -196,10 +211,22 @@ $getDefinitionOfInstance
    return 
        if (count($etDefs) &lt;= 1)
        then $etDefs
-       else   $etDefs[
-                        some $elementName in $erMetaModelLib?entityTypeParentElementNames(.)
+       else let $etDefsFiltered := 
+                        $etDefs[
+                                some $elementName in $erMetaModelLib?entityTypeParentElementNames(.)
                                         satisfies $elementName eq  $instance/../name()
-                     ]        
+                               ] 
+            return if (count($etDefsFiltered) eq 1)
+                   then  $etDefsFiltered
+                   else let $etDefsDoubleFiltered :=
+                           $etDefsFiltered
+                             [
+                                some $elementName in $erMetaModelLib?entityTypeParentEntityTypeElementNamesThroughNamedCompositions(.)
+                                satisfies $elementName eq  $instance/../../name()
+                            ]
+                        return if (count($etDefsDoubleFiltered) eq 1)
+                               then $etDefsDoubleFiltered
+                               else fn:error(fn:QName('http://www.entitymodelling.org/IV', 'er:defnnotdefintive'),'wrong count (' || count($etDefsDoubleFiltered) || ')looking for  defn of instance' || $instance/name(),$instance)     
 },
 
 $instanceClassifiedByEntityType
@@ -407,6 +434,17 @@ function(
   return $readFn($instance)
 },
 
+$readRelationship
+:=
+function($instance as element(),
+         $relDefn as element()
+         ) as element()*
+{
+    if ($relDefn/self::er:composition)
+    then $readCompositionRelationship($instance,$relDefn)
+    else $readReferenceOrDependencyRelationship ($instance, $relDefn)
+},
+
 $readRelationshipNamed
 :=
 function($instance as element(),
@@ -416,10 +454,37 @@ function($instance as element(),
 let 
     $etDefnOfInstance := $getDefinitionOfInstance($instance),
     $relDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
-    return 
-    if ($relDefn/self::er:composition)
-    then $readCompositionRelationship($instance,$relDefn)
-    else $readReferenceOrDependencyRelationship ($instance, $relDefn)
+    return $readRelationship($relDefn)
+},
+
+$readFeature
+:=
+function($instance as element(),
+         $feature as element((:er:Feature:))
+         ) as item()*
+{
+  if ($feature[self::er:attribute])
+  then $readAttribute($instance,$feature)
+  else $readRelationship($instance,$feature)
+},
+
+$readFeatureSequence
+:=
+function($instance as element(),
+         $features as element((:er:Feature:))*
+         ) as item()*
+{
+$features ! $readFeature($instance,.)
+},
+
+$readIdentifyingFeatureSequence
+:=
+function($instance as element())
+        as item()*
+{
+    let $etDefn := $getDefinitionOfInstance($instance),
+        $identifyingFeatures := $etDefn/(er:reference|er:dependency|er:attribute)[er:identifying]
+    return $readFeatureSequence($instance,$identifyingFeatures)
 }
 
 return map {
@@ -433,7 +498,11 @@ return map {
   'readCompositionRelationship'          : $readCompositionRelationship,
   'getReferenceRelationshipPrecondition' : $getReferenceRelationshipPrecondition,
   'readReferenceOrDependencyRelationship': $readReferenceOrDependencyRelationship,
-  'readRelationshipNamed'                : $readRelationshipNamed
+  'readRelationship'                     : $readRelationship,
+  'readRelationshipNamed'                : $readRelationshipNamed,
+  'readFeature'                          : $readFeature,
+  'readFeatureSequence'                  : $readFeatureSequence,
+  'readIdentifyingFeatureSequence'       : $readIdentifyingFeatureSequence
   }
 "/>
 </xsl:variable>  <!-- end of erDataLib -->
@@ -515,6 +584,59 @@ return map {
         </xsl:for-each>
     </xsl:variable>
     <xsl:sequence select="map:merge($mapset)"/>
+</xsl:template>
+
+<xsl:template name="typeTagInstanceData">
+    <xsl:message>ENTER typeTagInstanceData </xsl:message>
+    <xsl:variable name="tagTable"
+                  as="element()">
+        <xsl:call-template name="build_entity_type_tag_table"/>
+    </xsl:variable>
+    <xsl:apply-templates select="." mode="etTagging">
+        <xsl:with-param name="tagTable" select="$tagTable"/>
+    </xsl:apply-templates> 
+    <xsl:message>EXIT typeTagInstanceData </xsl:message>
+</xsl:template>
+
+<xsl:template match="node()" mode="etTagging">
+    <xsl:param name="tagTable" as="element()"/>
+    <xsl:copy>
+        <xsl:for-each select="@*"><xsl:copy/></xsl:for-each>
+        <xsl:variable name="taggedElement" 
+                      as="element()?"
+                      select="$tagTable//*[@source-id = current()/fn:generate-id()]"/>
+        <!--<xsl:message>tagged element <xsl:value-of select="current()/fn:generate-id()"/> <xsl:value-of select="exists($taggedElement)"/></xsl:message>-->
+        <xsl:if test="exists($taggedElement)">
+            <xsl:attribute name="etname" select="$taggedElement/@etname"/>
+        </xsl:if>
+        <xsl:apply-templates select="node()" mode="etTagging">
+            <xsl:with-param name="tagTable" select="$tagTable"/>
+        </xsl:apply-templates> 
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template name="build_entity_type_tag_table">
+
+   <!--<xsl:message>Type tag Instance of type <xsl:value-of select="name()"/></xsl:message>-->
+   <xsl:variable name="etlDefn" 
+      as="element()?"
+      select="$erDataLib?getDefinitionOfInstance(.)
+             "/> 
+   <xsl:if test="not($etlDefn)">
+      <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="."/></xsl:message>
+   </xsl:if>
+   <!--<xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>-->
+   <xsl:copy>
+        <xsl:attribute name="source-id" select="fn:generate-id()"/>
+        <xsl:attribute name="etname" select="$etlDefn/er:name"/>
+        <xsl:variable name="instance" as="element()" select="."/>
+        <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/er:composition">   
+            <!--<xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>-->
+                <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
+                  <xsl:call-template name="build_entity_type_tag_table"/>
+                </xsl:for-each>
+        </xsl:for-each>
+   </xsl:copy>
 </xsl:template>
 
 </xsl:transform>

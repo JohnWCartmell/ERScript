@@ -1015,6 +1015,7 @@
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>dependency_group</below>
          <x>0.5</x>
+         <y>6.0</y>
       </presentation>
    </entity_type>
    <entity_type>

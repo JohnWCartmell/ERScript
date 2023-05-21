@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
               xmlns:diagram="http://www.entitymodelling.org/diagram"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml"
               ERScriptVersion="1.6">
    <description>xpath 3.1
    </description>
@@ -10,8 +11,7 @@
 
    <xml><attributeDefault><Attribute/></attributeDefault></xml>
 
-   <absolute>
-      <name>xpath-31</name>
+   <absolute name="xpath-31">
       <composition type="Expr"/>
    </absolute>
 

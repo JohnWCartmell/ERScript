@@ -102,11 +102,22 @@
                                     "/>
       </xsl:element>
    </xsl:variable>
+   <xsl:variable name="dotdotambiguous" 
+                 as="xs:boolean"
+                 select="count(//composition[era:typeFromExtendedType(@type)=current()/@name]
+                                            [not(@inverse) and not(@name)]
+                              ) &gt;=1"
+                 />
    <xsl:for-each select="//composition[era:typeFromExtendedType(@type)=current()/@name]">
       <!--<xsl:message>Creating from <xsl:value-of select="@name"/></xsl:message>-->
       <xsl:element name="dependency">
             <xsl:element name="name">
-               <xsl:value-of select="if (@inverse) then @inverse else if (@name) then concat(@name,'^') else '..'"/>
+               <xsl:value-of select="if (@inverse) 
+                                     then @inverse 
+                                     else if (@name) then concat(@name,'^') 
+                                     else if ($dotdotambiguous)
+                                     then '..' || position()
+                                     else '..'" />
             </xsl:element>
          <xsl:copy-of select="$cardinality"/>
          <xsl:element name="type">
@@ -162,7 +173,7 @@
                                      else if(//identifying/context[../../name=$type][@name])
                                      then //identifying/context[../../name=$type]/@name
                                      else if (@name) then concat(@name,'^')
-                                     else '..'
+                                     else '..'               (: possible number required XXXXXXXXXXX:)
                                      "/>
             </xsl:element>
          </xsl:when>
@@ -274,8 +285,8 @@
                                              <!-- Hmmmm ... not sure -->
          <xsl:element name="identifying"/>
       </xsl:if>
-      <!-- <xsl:apply-templates select="@*|node()" 
-                           mode="parse__main_pass"/>    -->
+      <xsl:apply-templates select="node()" 
+                           mode="parse__main_pass"/>   <!-- reintrodcued becuase xmlRepresenttion going missing -->
    </xsl:copy>
 </xsl:template>
 
