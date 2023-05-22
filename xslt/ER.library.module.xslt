@@ -440,7 +440,7 @@ function($instance as element(),
          $relDefn as element()
          ) as element()*
 {
-    if ($relDefn/self::er:composition)
+    if ($relDefn[self::er:composition])
     then $readCompositionRelationship($instance,$relDefn)
     else $readReferenceOrDependencyRelationship ($instance, $relDefn)
 },
@@ -454,7 +454,7 @@ function($instance as element(),
 let 
     $etDefnOfInstance := $getDefinitionOfInstance($instance),
     $relDefn := $erMetaModelLib?relationshipNamed($etDefnOfInstance, $name,())
-    return $readRelationship($relDefn)
+    return $readRelationship($instance,$relDefn)
 },
 
 $readFeature
@@ -483,7 +483,8 @@ function($instance as element())
         as item()*
 {
     let $etDefn := $getDefinitionOfInstance($instance),
-        $identifyingFeatures := $etDefn/(er:reference|er:dependency|er:attribute)[er:identifying]
+        $identifyingFeatures 
+            := $etDefn/ancestor-or-self::er:entity_type/(er:reference|er:dependency|er:attribute)[er:identifying]
     return $readFeatureSequence($instance,$identifyingFeatures)
 }
 

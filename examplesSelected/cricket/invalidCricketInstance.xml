@@ -26,7 +26,7 @@
 			<name>croft</name>
 		</player>
 		<player>
-			<number>5</number>
+			<number>6</number>
 			<name>davies</name>
 		</player>
 		<player>
@@ -105,6 +105,18 @@
 		<over>
 			<bowler>999</bowler>
 			<number>1</number>	
+			<delivery>
+				<number>1</number>
+				<facingBatter>999</facingBatter>
+			</delivery>
+			<delivery>
+				<number>2</number>
+				<facingBatter>1</facingBatter>
+			</delivery>
+		</over>
+		<over>
+			<bowler>5</bowler>
+			<number>2</number>	
 			<delivery>
 				<number>1</number>
 				<facingBatter>999</facingBatter>

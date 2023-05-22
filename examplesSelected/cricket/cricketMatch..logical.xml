@@ -12,7 +12,7 @@
          <attribute name="id" type="string"/>
       </identifying>
       <composition type="innings*"/>
-      <composition type="side*"/>
+      <composition type="side*" />
    </entity_type>
    <group name="inmatch">
       <entity_type name="innings">

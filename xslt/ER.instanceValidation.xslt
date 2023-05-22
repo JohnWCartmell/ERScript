@@ -66,6 +66,9 @@
          then 'relationship foreign key does not reference'
          else if ($relationship_is_mandatory and not($destination))
          then 'mandatory relationship is not defined'
+        (: else if (count($destination) &gt; 1)
+         then 'reference relationship not uniquely defined'
+         :)
          else '' 
    },
    $endInstance      := function($instance as element())
@@ -87,7 +90,9 @@
 <xsl:template match="/">
    <!-- The following REALLY USEFUL for debugging 
    ******************************************
+-->
    <xsl:copy-of select="$erMetaModelData"/>
+   <!--
    ******************************************
    -->
    <xsl:message><xsl:value-of select="map:keys($reference_stroke_dependency_evaluation_lib)"/></xsl:message>
@@ -105,25 +110,9 @@
       </xsl:for-each>
    </xsl:variable>
 
-   <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*[@etname]">
-      <xsl:message>here</xsl:message>
-      <xsl:variable name="instance" as="element()" select="."/>
-      <xsl:variable name="identifyingFeatures" 
-                    as="item()*" 
-                    select="$erDataLib?readIdentifyingFeatureSequence(.)"/>
-      <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*
-                             [@etname=$instance/@etname]
-                             [not(. is $instance)]
-                             [deep-equal($erDataLib?readIdentifyingFeatureSequence(.),$identifyingFeatures)]
-                          ">
-         <ERRORnonuniqueidentifer>
-              <xsl:copy-of select="$instance"/>
-           </ERRORnonuniqueidentifer>
-      </xsl:for-each>
-   </xsl:for-each>
-<!-- DEBUG UNIQUEBESS CHECKING
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-      <xsl:with-param name="instance"         select="$typeTaggedInstanceData"/>              
+      <xsl:with-param name="typeTaggedInstanceData" select="$typeTaggedInstanceData"/>
+      <xsl:with-param name="instance"         select="$typeTaggedInstanceData (: previously child::element() :)"/>    
       <xsl:with-param name="startInstance"    select="$instanceValidationLib?startInstance"/>
       <xsl:with-param name="attribute"        select="$instanceValidationLib?attribute"/>
       <xsl:with-param name="startComposition" select="$instanceValidationLib?startComposition"/>
@@ -133,11 +122,11 @@
       <xsl:with-param name="reference"        select="$instanceValidationLib?reference"/>
       <xsl:with-param name="endInstance"      select="$instanceValidationLib?endInstance"/>
    </xsl:call-template>
--->
 
 </xsl:template>
 
 <xsl:template name="walk_an_instance_subtree__guided_by_schema">
+   <xsl:param name="typeTaggedInstanceData" as="element()"/>
    <xsl:param name="instance" as="element()"/>
    <xsl:param name="startInstance" as="function(element()) as xs:string?"/>
    <xsl:param name="attribute"     as="function(element(*),element(er:attribute)) as xs:string?"/>
@@ -158,7 +147,6 @@
       <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
    </xsl:if>
    <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
-
    <xsl:variable name="allValidChildNodes"
                  as="node()*">
       <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">              
@@ -179,15 +167,32 @@
    <xsl:variable name="redundantNodes" 
                  as="node()*"
                  select="$instance/(child::node()[not(self::comment())] 
-                                    | attribute::*[not(name()='etname')]
+                                    |
+                                    attribute::*[not(name()='etname')]
                                     ) 
-                         except $allValidChildNodes"/>  <!-- added $instance -->
-
-   <!--<xsl:value-of select="$startInstance($instance)"/>-->
+                         except $allValidChildNodes"/> 
    <xsl:element name="{$instance/name()}">
+
        <xsl:for-each select="$etlDefn/ancestor-or-self::er:entity_type/er:attribute[er:identifying]">
          <xsl:attribute name="{self::er:attribute/er:name}" select="$erDataLib?readAttribute($instance,self::er:attribute)"/>
        </xsl:for-each> 
+
+      <!-- check uniqueness of identifying features -->
+      <xsl:message>check uniqueness of identifying features</xsl:message>
+      <xsl:variable name="identifyingFeatures" 
+                    as="item()*" 
+                    select="$erDataLib?readIdentifyingFeatureSequence($instance)"/>
+      <xsl:if test="exists($identifyingFeatures)">
+         <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*
+                                [@etname eq $instance/@etname]
+                                [not(. is $instance)]
+                                [deep-equal($erDataLib?readIdentifyingFeatureSequence(.),$identifyingFeatures)]
+                             ">
+            <xsl:element name="ERRORnonuniqueidentifer"/>
+         </xsl:for-each>
+      </xsl:if>
+
+      <!-- report redundant nodes -->
       <xsl:if test="count($redundantNodes) &gt; 0">
          <xsl:element name="ERR_redundacy">
             <xsl:attribute name="count" select="count($redundantNodes)"/>
@@ -223,7 +228,8 @@
             </xsl:for-each>
          </xsl:element>
       </xsl:if>
-      <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">           
+      <!-- check attributes and references -->
+      <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:reference)"> 
          <xsl:choose>             
             <xsl:when test="self::er:attribute">
                   <xsl:value-of select="
@@ -232,22 +238,6 @@
                         || ' '
                         || $attribute($instance,self::er:attribute)
                          "/>
-            </xsl:when>
-            <xsl:when test="self::er:composition ">
-               <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
-               <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
-                  <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
-                     <xsl:with-param name="instance" select="."/>
-                     <xsl:with-param name="startInstance"    select="$startInstance"/>
-                     <xsl:with-param name="attribute"        select="$attribute"/>
-                     <xsl:with-param name="startComposition" select="$startComposition"/>
-                     <xsl:with-param name="startMember"      select="$startMember"/>
-                     <xsl:with-param name="endMember"        select="$endMember"/>
-                     <xsl:with-param name="endComposition"   select="$endComposition"/>
-                     <xsl:with-param name="reference"        select="$reference"/>
-                     <xsl:with-param name="endInstance"      select="$endInstance"/>
-                  </xsl:call-template>
-               </xsl:for-each>
             </xsl:when>
             <xsl:when test="self::er:reference">
                <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
@@ -268,6 +258,24 @@
                </xsl:if>
             </xsl:when>
          </xsl:choose>
+      </xsl:for-each>
+      <!-- descend composition structure -->
+      <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/er:composition"> 
+         <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
+            <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
+               <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
+                  <xsl:with-param name="typeTaggedInstanceData" select="$typeTaggedInstanceData"/>
+                  <xsl:with-param name="instance" select="."/>
+                  <xsl:with-param name="startInstance"    select="$startInstance"/>
+                  <xsl:with-param name="attribute"        select="$attribute"/>
+                  <xsl:with-param name="startComposition" select="$startComposition"/>
+                  <xsl:with-param name="startMember"      select="$startMember"/>
+                  <xsl:with-param name="endMember"        select="$endMember"/>
+                  <xsl:with-param name="endComposition"   select="$endComposition"/>
+                  <xsl:with-param name="reference"        select="$reference"/>
+                  <xsl:with-param name="endInstance"      select="$endInstance"/>
+               </xsl:call-template>
+            </xsl:for-each>
       </xsl:for-each>
    </xsl:element>
    <xsl:value-of select="$endInstance($instance)"/>

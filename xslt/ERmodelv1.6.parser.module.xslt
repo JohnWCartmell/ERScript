@@ -116,7 +116,7 @@
                                      then @inverse 
                                      else if (@name) then concat(@name,'^') 
                                      else if ($dotdotambiguous)
-                                     then '..' || position()
+                                     then '..'                      (: || position() :)
                                      else '..'" />
             </xsl:element>
          <xsl:copy-of select="$cardinality"/>
