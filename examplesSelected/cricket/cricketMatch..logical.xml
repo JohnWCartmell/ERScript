@@ -5,6 +5,9 @@
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
    </description>
    <absolute name="cricket">
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?">
+         <xmlRepresentation><Attribute/></xmlRepresentation>
+      </attribute> 
       <composition type="match*"/>
    </absolute>
    <entity_type name="match">

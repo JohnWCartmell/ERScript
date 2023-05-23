@@ -90,9 +90,7 @@
 <xsl:template match="/">
    <!-- The following REALLY USEFUL for debugging 
    ******************************************
--->
    <xsl:copy-of select="$erMetaModelData"/>
-   <!--
    ******************************************
    -->
    <xsl:message><xsl:value-of select="map:keys($reference_stroke_dependency_evaluation_lib)"/></xsl:message>
@@ -104,15 +102,15 @@
    </xsl:if>
 
    <xsl:variable name="typeTaggedInstanceData"
-                 as="element()">
-      <xsl:for-each select="child::element()">
+                 as="document-node()">
+      <!--<xsl:for-each select="child::element()">-->
          <xsl:call-template name="typeTagInstanceData"/>
-      </xsl:for-each>
+      <!--</xsl:for-each>-->
    </xsl:variable>
 
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
       <xsl:with-param name="typeTaggedInstanceData" select="$typeTaggedInstanceData"/>
-      <xsl:with-param name="instance"         select="$typeTaggedInstanceData (: previously child::element() :)"/>    
+      <xsl:with-param name="instance"         select="$typeTaggedInstanceData/child::element() "/>    
       <xsl:with-param name="startInstance"    select="$instanceValidationLib?startInstance"/>
       <xsl:with-param name="attribute"        select="$instanceValidationLib?attribute"/>
       <xsl:with-param name="startComposition" select="$instanceValidationLib?startComposition"/>
@@ -126,7 +124,7 @@
 </xsl:template>
 
 <xsl:template name="walk_an_instance_subtree__guided_by_schema">
-   <xsl:param name="typeTaggedInstanceData" as="element()"/>
+   <xsl:param name="typeTaggedInstanceData" as="document-node()"/>
    <xsl:param name="instance" as="element()"/>
    <xsl:param name="startInstance" as="function(element()) as xs:string?"/>
    <xsl:param name="attribute"     as="function(element(*),element(er:attribute)) as xs:string?"/>

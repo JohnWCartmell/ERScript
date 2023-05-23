@@ -587,16 +587,20 @@ return map {
     <xsl:sequence select="map:merge($mapset)"/>
 </xsl:template>
 
-<xsl:template name="typeTagInstanceData">
-    <xsl:message>ENTER typeTagInstanceData </xsl:message>
-    <xsl:variable name="tagTable"
-                  as="element()">
-        <xsl:call-template name="build_entity_type_tag_table"/>
-    </xsl:variable>
-    <xsl:apply-templates select="." mode="etTagging">
-        <xsl:with-param name="tagTable" select="$tagTable"/>
-    </xsl:apply-templates> 
-    <xsl:message>EXIT typeTagInstanceData </xsl:message>
+<xsl:template name="typeTagInstanceData" match="/" mode="explicit">    
+    <xsl:copy>
+        <xsl:message>ENTER typeTagInstanceData </xsl:message>
+        <xsl:for-each select="child::element()">   
+            <xsl:variable name="tagTable"
+                          as="element()">
+                <xsl:call-template name="build_entity_type_tag_table"/>
+            </xsl:variable>
+            <xsl:apply-templates select="." mode="etTagging">
+                <xsl:with-param name="tagTable" select="$tagTable"/>
+            </xsl:apply-templates> 
+        </xsl:for-each>
+        <xsl:message>EXIT typeTagInstanceData </xsl:message>
+    </xsl:copy>
 </xsl:template>
 
 <xsl:template match="node()" mode="etTagging">
