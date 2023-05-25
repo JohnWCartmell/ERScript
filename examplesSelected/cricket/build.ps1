@@ -41,11 +41,9 @@ echo 'Run ER.instanceValidation.xslt on valid instance'
 echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 invalidCricketInstance.xml -outputFolder ..\docs
 
-if ($false)
-{
 echo 'Criket Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate 
-}
+
 popd 
 
 
