@@ -31,13 +31,15 @@ echo generate rng
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 xpath..logical.xml -outputFolder ..\docs
-}
 
 echo 'build physical model'
 . $TARGET\scripts\ER.logical2physical.ps1 xpath -physicalType hs
+}
+
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 xpath..physical.xml -outputFolder ..\docs
+
 
 if ($false)
 {

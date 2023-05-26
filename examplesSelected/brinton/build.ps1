@@ -27,6 +27,8 @@ echo 'Brinton Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
 
+if ($false)
+{
 echo 'Brinton Example'
 . $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure -animate
 
@@ -35,6 +37,7 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 
 echo 'Brinton Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 brintonSimpleSentenceStructure..logical.xml -animate
+}
 
 popd 
 

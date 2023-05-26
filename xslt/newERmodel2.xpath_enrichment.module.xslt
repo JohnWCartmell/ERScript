@@ -1,26 +1,4 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/src/ERmodel2.xpath_enrichment.module.xslt 
-****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
--->
 
 <!--
 *************************************
@@ -172,28 +150,8 @@ projection =>
                                  # composition relationship 
                                  # this is '' if absolute is the source
 
-
-DISCUSSION
-  It would be neat to replace the xpath naming prefix with an xpath namespace and 
-  to move out attributes other than xpath attributes as commented on above.
-
-CHANGE HISTORY
-
-CR18159 JC  30-Aug-2016 In generation of xpath_foreign_key implement support
-                        for the key directive of a reference relationship.
-
-CR18553 JC  21-Oct-2016 This module created from ERmodel2.physical.xslt.
-
-CR18159 JC  18-Oct-2016 In the generation of xpath_foreign_key do not include
-            26-Oct-2016 the primary key of the destination entity type of the
-                        riser unless all the rising relationships are identifying.
-            01-Nov-2016 Treat a missing diagonal as being same as theabsolute.
-CR18708     16-Nov-2016 Add xpath_iterate and xpath_resolve_candidate attributes.
-                        Intoduce a new function era:packArray
-CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xslt
-
-22-Sept-2017 JC Bug fix the generation of xpath_qualified_element_name. 
 -->
+
 
 <xsl:transform version="2.0" 
         xmlns="http://www.entitymodelling.org/ERmodel"
@@ -207,6 +165,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 
 <xsl:function name="era:brace">
   <xsl:param name="elementName" as="xs:string"/>
+  <xsl:param name="namespace_uri" as="xs:string"/>
  
   <xsl:value-of select="
     if ($namespace_uri)
@@ -221,9 +180,10 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
 
 <xsl:function name="era:braceIfDefined">
   <xsl:param name="elementName" as="xs:string?"/>
+  <xsl:param name="namespace_uri" as="xs:string?"/>
   <xsl:value-of select="
       if ($elementName)
-      then era:brace($elementName)
+      then era:brace($elementName,$namespace_uri)
       else () 
 
     "/>
@@ -460,7 +420,8 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
     </xsl:if>
     <xsl:if test="not(xpath_local_key)">
       <xpath_local_key>
-            <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name => era:braceIfDefined(),',')"/>
+            <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name 
+                                             => era:braceIfDefined(ancestor-or-self::entity_model/xml/namespace_uri),',')"/>
       </xpath_local_key>
     </xsl:if>
     <xsl:if test="not(xpath_primary_key) and xpath_local_key and xpath_parent_entity">
@@ -486,7 +447,8 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
                 <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
                   <xsl:text>,current()/</xsl:text>
-                  <xsl:value-of select="era:brace(ancestor-or-self::entity_type/attribute[identifying]/name)"/>
+                  <xsl:value-of select="era:brace(ancestor-or-self::entity_type/attribute[identifying]/name,
+                                                  ancestor-or-self::entity_model/xml/namespace_uri)"/>
                   <!-- what if many of these - a bug in the above I think JC 16-Nov-2016  -->
                   <!-- this bourne out by AX1X2BCD entity type C primary key              -->
                   <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX BUG ABOVE XXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -526,7 +488,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
         <xsl:when test="not(entity_type)">  <!-- is a concrete type -->
           <xsl:if test="elementName">
             <xpath_typecheck>
-              <xsl:value-of select="concat('self::',era:brace(elementName))"/>
+              <xsl:value-of select="concat('self::',era:brace(elementName,ancestor-or-self::entity_model/xml/namespace_uri))"/>
             </xpath_typecheck>
           </xsl:if>
         </xsl:when>  
@@ -711,7 +673,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
               <xsl:if test="position() &gt; 1">
                 <xsl:text>,</xsl:text>
               </xsl:if>
-              <xsl:value-of select="era:brace(../name)"/>
+              <xsl:value-of select="era:brace(../name,ancestor-or-self::entity_model/xml/namespace_uri)"/>
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -731,7 +693,7 @@ CR18720 JC  16-Nov-2016 Use packArray function from ERmodel.functions.module.xsl
               <xsl:if test="position() &gt; 1">
                 <xsl:text> and </xsl:text>
               </xsl:if>
-              <xsl:value-of select="'exists(' ||  era:brace(../name) || ')'"/>
+              <xsl:value-of select="'exists(' ||  era:brace(../name, ancestor-or-self::entity_model/xml/namespace_uri ) || ')'"/>
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>

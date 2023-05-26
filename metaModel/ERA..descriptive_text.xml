@@ -459,22 +459,25 @@
          <reference>
             <name>destattr</name>
             <type>attribute</type>
-            <description>.</description>
+            <description>This is an identifying attribute of the destination entity type of the relationship 'rel' which is being implemented. The scope of this relationship is not as currently modelled since 'destattr' may be an inherited attribute of the
+            destination type of 'rel'. To correct this scope would need to support the diagonal relationship being many-valued.</description>
          </reference>
          <reference>
             <name>attrOfOrigin</name>
             <type>attribute</type>
-            <description>.</description>
+            <description>This is an attribute of the logical model which through one or more steps is the origin of this foreign key attribute. Should deprecate use of this since only used in ERmodel2.phsyical.xslt where used in construction of a name. Could replace this use by use of a constructed relationship.</description>
          </reference>
          <reference>
             <name>typeOfOrigin</name>
             <type>ENTITY_TYPE</type>
-            <description>.</description>
+            <description>This the the host entity type of the 'attrOfOrigin'.
+               Should deprecate use of this since only used in ERmodel2.ts.xslt where used in construction of a name. Could replace this use by use of a constructed relationship.
+            </description>
          </reference>
          <reference>
             <name>rel</name>
             <type>reference_or_dependency</type>
-            <description>.</description>
+            <description>This is the reference relationship which is in whole or in part implemented by this foreign key attribute..</description>
          </reference>
       </entity_type>
       <entity_type>

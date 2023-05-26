@@ -10,181 +10,9 @@
                xpath-default-namespace=""
                xmlns="">
 
-<xsl:variable name="metaDataFilePathWrtERHome"
-                  as="xs:string?"
-                  select="child::element()/@metaDataFilePathWrtERHome"/>
-
-<xsl:variable name="metaDataFilePathWrtThisInstanceDocument"
-                  as="xs:string?"
-                  select="child::element()/@metaDataFilePathWrtThisInstanceDocument"/>
-
-<xsl:variable name="metaDataFile"
-              as="document-node()"
-              select="
-        if (child::element()/@metaDataFilePathWrtThisInstanceDocument)
-        then document (child::element()/@metaDataFilePathWrtThisInstanceDocument)
-        else document( '../' 
-                        || 
-                        (child::element()/@metaDataFilePathWrtERHome) cast as xs:string)
-                     "/>
-
-<xsl:variable name="namespace_uri" 
-              as="xs:string?"
-              select="$metaDataFile/er:entity_model/er:xml/er:namespace_uri"/> 
-
-<xsl:variable name="erMetaModelData" as="element(er:entity_model)">
-    <xsl:message> In 'ER.library.module' 
-                    root element is '<xsl:value-of select="child::element()/name()"/>'
-    </xsl:message> 
-
-   <xsl:variable name="state" 
-                 as="element(er:entity_model)" 
-                 select="$metaDataFile/er:entity_model"/>
-   <xsl:variable name="enrichment" as="document-node()">
-        <xsl:call-template name="recursive_xpath_enrichment">
-          <xsl:with-param name="interim" select="$state"/>
-        </xsl:call-template>
-    </xsl:variable>
-    <xsl:sequence select="$enrichment/er:entity_model"/>
-</xsl:variable>
 
 
-<xsl:template name="register_derived_relationship_evalulation_functions">
-    <!--TBD -->
-</xsl:template>
-
-
-<xsl:variable name="erMetaModelHelper" as="map(xs:string,function(*))">
-    <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
-    <xsl:sequence select="
-let 
-$relationshipReadId 
-:= function ( $relationship as element(* (:er:reference | er:derived_relationship | er:dependency :) )
-            ) as xs:string  
-{
-  $relationship/(parent::er:entity_type/er:name || '::' || er:name || '::' || er:type || 'read')
-},
-
-$relationshipPreconditionId
-:= function ( $relationship as element(* (:er:reference | er:derived_relationship | er:dependency :) )
-            ) as xs:string  
-{
-  $relationship/(parent::er:entity_type/er:name || '::' || er:name || '::' || er:type || 'precondition')
-}
-
-return map {
-  'relationshipReadId'         : $relationshipReadId,
-  'relationshipPreconditionId' : $relationshipPreconditionId
-  }
-"/>
-</xsl:variable>
-
-
-<xsl:variable name="erMetaModelLib" as="map(xs:string,function(*))">
-    <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
-    <xsl:sequence select="
-let 
-$entityType 
-:= function ($name as xs:string ) as element(er:entity_type)  
-{
-  $model//er:entity_type[er:name=$name] 
-},
-
-$attributeNamed 
-:= function($etDefn as element(er:entity_type),
-            $name as xs:string
-           ) 
-            as element((:er:Relationship:))
-{
-    $etDefn/ancestor-or-self::er:entity_type
-            /child::er:attribute
-            [er:name eq $name]
-},
-
-$relationshipNamed 
-:= function($etDefn as element(er:entity_type),
-            $name as xs:string?,
-            $type as xs:string?
-           ) 
-            as element((:er:Relationship:))
-{
-    if (not ($name or $type))
-    then fn:error(fn:QName('www.entitymodelling.org','relationshipNamedError'),
-                  'function ''relationshipNamed'' called with neither name nor type parameter'
-                  )
-    else
-        $etDefn/ancestor-or-self::er:entity_type
-            /*[self::er:composition|self::er:reference|self::er:dependency|self::er:constructed_relationship]
-            [if ($name) then er:name eq $name else true()][if ($type) then er:type eq $type else true()]
-},
-
-$destinationTypeOfRelationship     
-(: navigate the model from an er:Relationship to an er:entity_type                         :)
-(: ultimately this could be following the 'type' reference relationship of the meta-schema :)
-:= function ($r as element((:er:Relationship:)) ) as element(er:entity_type)     
-{
-  $entityType($r/er:type) 
-},
-
-
-$incomingCompositionRelationships
-:= function($etDefn as element(er:entity_type))
-           as element(er:composition)*
-{
-    $model//er:composition[some $ancestorEntityType in $etDefn/ancestor-or-self::er:entity_type
-                                                     satisfies $ancestorEntityType is $destinationTypeOfRelationship(.)]
-},
-$compositionRelationshipRepresentationElementName
-:= function($compRelDefn as element(er:composition))
-        as xs:string?
-{
-   if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
-   then ()
-   else $compRelDefn/er:name
-},
-$compositionRelationshipSrcEntityTypes  
-:= function($compRelDefn as element(er:composition))
-        as element((:entity_type|absolute:))*
-{
-  $compRelDefn
-          /..[self::er:entity_type|self::er:absolute]
-          /(self::er:absolute | descendant-or-self::er:entity_type[not(er:entity_type)]) 
-},
-$entityTypeParentElementNames
-:= function($etDefn as element(er:entity_type))
-        as xs:string+
-{
-    $incomingCompositionRelationships($etDefn) /
-        (
-         if ($compositionRelationshipRepresentationElementName(.))
-         then $compositionRelationshipRepresentationElementName(.)
-         else $compositionRelationshipSrcEntityTypes(.)/er:elementName
-        )
-},
-$entityTypeParentEntityTypeElementNamesThroughNamedCompositions
-:= function($etDefn as element(er:entity_type))
-        as xs:string+
-{
-    $incomingCompositionRelationships($etDefn) /
-        (
-         if ($compositionRelationshipRepresentationElementName(.))
-         then ../(self::er:absolute | self::er:entity_type/descendant-or-self::er:entity_type[not(er:entity_type)])/er:elementName
-         else ()
-        )
-}
-
-return map {
-  'entityType' : $entityType,
-  'attributeNamed' : $attributeNamed,
-  'relationshipNamed' : $relationshipNamed,
-  'destinationTypeOfRelationship' : $destinationTypeOfRelationship,
-  'compositionRelationshipRepresentationElementName' : $compositionRelationshipRepresentationElementName,
-  'incomingCompositionRelationships' : $incomingCompositionRelationships,
-  'entityTypeParentElementNames'     : $entityTypeParentElementNames,
-  'entityTypeParentEntityTypeElementNamesThroughNamedCompositions' : $entityTypeParentEntityTypeElementNamesThroughNamedCompositions
-  }
-"/>
-</xsl:variable>
+<!-- ER.dataLib.module.xslt -->
 
 <xsl:variable name="erDataLib" as="map(xs:string,function(*))">
 <!-- the following didn't work
@@ -195,6 +23,7 @@ return map {
 -->
 <!-- so this instead -->
 <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
+
 <xsl:sequence select="
 let 
 
@@ -416,11 +245,11 @@ function((: $dataLib as map(*), :)
 {
   let 
       $refrelpreconfunid := $erMetaModelHelper?relationshipPreconditionId($refRelDefn),
-      $preconFn := $reference_stroke_dependency_evaluation_lib($refrelpreconfunid)
+      $preconFn := $constructed_stroke_reference_stroke_dependency_evaluation_lib($refrelpreconfunid)
   return $preconFn((: $dataLib, :) $instance)
 },
 
-$readReferenceOrDependencyRelationship
+$readReferenceOrDependencyOrConstructedRelationship
 :=
 function(
          $instance as element(),
@@ -429,7 +258,7 @@ function(
 {
   let 
       $relid := $erMetaModelHelper?relationshipReadId($relDefn),
-      $readFn := $reference_stroke_dependency_evaluation_lib($relid)
+      $readFn := $constructed_stroke_reference_stroke_dependency_evaluation_lib($relid)
                       treat as function(element()) as element()*
   return $readFn($instance)
 },
@@ -442,7 +271,7 @@ function($instance as element(),
 {
     if ($relDefn[self::er:composition])
     then $readCompositionRelationship($instance,$relDefn)
-    else $readReferenceOrDependencyRelationship ($instance, $relDefn)
+    else $readReferenceOrDependencyOrConstructedRelationship ($instance, $relDefn)
 },
 
 $readRelationshipNamed
@@ -484,7 +313,7 @@ function($instance as element())
 {
     let $etDefn := $getDefinitionOfInstance($instance),
         $identifyingFeatures 
-            := $etDefn/ancestor-or-self::er:entity_type/(er:reference|er:dependency|er:attribute)[er:identifying]
+            := $etDefn/ancestor-or-self::er:entity_type/(er:constructed_relationship|er:reference|er:dependency|er:attribute)[er:identifying]
     return $readFeatureSequence($instance,$identifyingFeatures)
 }
 
@@ -498,7 +327,7 @@ return map {
   'getCompositionRelationship'           : $getCompositionRelationship,   (: used to account for child nodes in instance validation:)
   'readCompositionRelationship'          : $readCompositionRelationship,
   'getReferenceRelationshipPrecondition' : $getReferenceRelationshipPrecondition,
-  'readReferenceOrDependencyRelationship': $readReferenceOrDependencyRelationship,
+  'readReferenceOrDependencyOrConstructedRelationship': $readReferenceOrDependencyOrConstructedRelationship,
   'readRelationship'                     : $readRelationship,
   'readRelationshipNamed'                : $readRelationshipNamed,
   'readFeature'                          : $readFeature,
@@ -508,55 +337,70 @@ return map {
 "/>
 </xsl:variable>  <!-- end of erDataLib -->
 
+ <xsl:variable name="erMetaModelHelper" as="map(xs:string,function(*))">
+    <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
+    <xsl:sequence select="
+let 
+$relationshipReadId 
+:= function ( $relationship as element(* (:er:reference | er:constructed_relationship | er:dependency :) )
+            ) as xs:string  
+{
+  $relationship/(parent::er:entity_type/er:name || '::' || er:name || '::' || er:type || 'read')
+},
 
-<!--
-<xsl:variable name="erDataLibTwo" 
-     as="map(xs:QName,function(*))"
-  select="map{fn:QName('','readReferenceRelationshipNamed'): $erDataLib?readReferenceRelationshipNamed}"/>
-  -->  
+$relationshipPreconditionId
+:= function ( $relationship as element(* (:er:reference | er:derived_relationship | er:dependency :) )
+            ) as xs:string  
+{
+  $relationship/(parent::er:entity_type/er:name || '::' || er:name || '::' || er:type || 'precondition')
+}
 
-<xsl:variable name="reference_stroke_dependency_evaluation_lib" 
+return map {
+  'relationshipReadId'         : $relationshipReadId,
+  'relationshipPreconditionId' : $relationshipPreconditionId
+  }
+"/>
+</xsl:variable>
+
+<xsl:variable name="constructed_stroke_reference_stroke_dependency_evaluation_lib" 
                 as="map(xs:string, function((: map(*), :) element(*)) as item()?)">
-    <xsl:message>About to register reference rel read functions</xsl:message>
-    <xsl:call-template name="register_reference_stroke_dependency_relationship_evalulation_functions"/>
+    <xsl:message>About to register  rel read functions</xsl:message>
+    <xsl:call-template name="register_constructed_stroke_reference_stroke_dependency_relationship_evalulation_functions"/>
 </xsl:variable>
 
-<xsl:variable name="derived_relationship_evaluation_lib" 
-              as="map(xs:string, function(element(*)) as element(*)?)">
-    <xsl:call-template name="register_derived_relationship_evalulation_functions"/>
-</xsl:variable>
 
-<!-- work around saxon issue 6003 -->
-<xsl:variable name="workaround" 
-              select="'let $erDataLib := $erDataLib return '"
-              />
-
-<xsl:variable name="relationship_read_header_text"
-              select="
-               $workaround ||
-                'function(
-                $instance as element(*)) as element(*)?'"/>
-<xsl:variable name="relationship_precondition_header_text"
-              select="
-              $workaround ||
-              'function(
-              $instance as element(*)) as xs:boolean'"/>
-
-<xsl:template name="register_reference_stroke_dependency_relationship_evalulation_functions">
-    <xsl:message>Registering ref rel and dependency  read functions</xsl:message>
-    <xsl:variable name="mapset" as="map(xs:string, function(  element(*)) as item()?)*">  
-        <xsl:for-each select="$erMetaModelData//*[self::er:reference | self::er:dependency] ">
+<xsl:template name="register_constructed_stroke_reference_stroke_dependency_relationship_evalulation_functions">
+    <!-- work around saxon issue 6003 -->
+    <xsl:variable name="workaround" 
+                  select="'let $erDataLib := $erDataLib return '"
+                  />
+    <xsl:variable name="relationship_read_header_text"
+                  select="
+                   $workaround ||
+                    'function(
+                    $instance as element(*)) as element(*)?'"/>
+    <xsl:variable name="relationship_precondition_header_text"
+                  select="
+                  $workaround ||
+                  'function(
+                  $instance as element(*)) as xs:boolean'"/>
+    <xsl:message>Registering relationship  read functions</xsl:message>
+    <xsl:variable name="mapset" as="map(xs:string,
+                                        function(  element(*)) as item()?
+                                       )*">  
+        <xsl:for-each select="$erMetaModelData//*[self::er:constructed_relationship | self::er:reference | self::er:dependency] ">
             <xsl:if test="not(er:xpath_evaluate)">
                 <xsl:message terminate="yes">Relationship '<xsl:copy-of select="."/>' has no xpath_evaluate </xsl:message>
             </xsl:if>
-            <!--<xsl:message>Relationship '<xsl:copy-of select="."/>' </xsl:message>-->
+            <xsl:if test="self::er:constructed_relationship">
+                <xsl:message>Constructed Relationship '<xsl:copy-of select="."/>' </xsl:message>
+            </xsl:if>
             <xsl:variable name="eval_function_defn" as="xs:string"
                           select="$relationship_read_header_text || '{$instance/(' || ./er:xpath_evaluate || ')}' ">
             </xsl:variable>
             <xsl:variable name="read_function" 
                              as="function( element(*)) as element(*)?">
                       <xsl:evaluate  xpath="$eval_function_defn" >
-                             <!--  with-params="$erDataLibTwo"/> -->
                            <xsl:with-param name="erDataLib" select="$erDataLib"/>
                        </xsl:evaluate>
             </xsl:variable>
@@ -569,7 +413,7 @@ return map {
                 <xsl:variable name="precondition_function_defn" as="xs:string"
                               select="$relationship_precondition_header_text || '{$instance/(' || ./er:xpath_local_key_defined || ')}' ">
                 </xsl:variable>
-                <xsl:message>precondition fn text <xsl:value-of select="$precondition_function_defn"/></xsl:message>
+                <!--<xsl:message>precondition fn text <xsl:value-of select="$precondition_function_defn"/></xsl:message>-->
                 <xsl:variable name="precondition_function" 
                                  as="function( (: map(*), :) element(*)) as xs:boolean">
                     <xsl:evaluate  xpath="$precondition_function_defn">
@@ -587,61 +431,7 @@ return map {
     <xsl:sequence select="map:merge($mapset)"/>
 </xsl:template>
 
-<xsl:template name="typeTagInstanceData" match="/" mode="explicit">    
-    <xsl:copy>
-        <xsl:message>ENTER typeTagInstanceData </xsl:message>
-        <xsl:for-each select="child::element()">   
-            <xsl:variable name="tagTable"
-                          as="element()">
-                <xsl:call-template name="build_entity_type_tag_table"/>
-            </xsl:variable>
-            <xsl:apply-templates select="." mode="etTagging">
-                <xsl:with-param name="tagTable" select="$tagTable"/>
-            </xsl:apply-templates> 
-        </xsl:for-each>
-        <xsl:message>EXIT typeTagInstanceData </xsl:message>
-    </xsl:copy>
-</xsl:template>
+<!-- end of ER.DataLib.module.xslt -->
 
-<xsl:template match="node()" mode="etTagging">
-    <xsl:param name="tagTable" as="element()"/>
-    <xsl:copy>
-        <xsl:for-each select="@*"><xsl:copy/></xsl:for-each>
-        <xsl:variable name="taggedElement" 
-                      as="element()?"
-                      select="$tagTable//*[@source-id = current()/fn:generate-id()]"/>
-        <!--<xsl:message>tagged element <xsl:value-of select="current()/fn:generate-id()"/> <xsl:value-of select="exists($taggedElement)"/></xsl:message>-->
-        <xsl:if test="exists($taggedElement)">
-            <xsl:attribute name="etname" select="$taggedElement/@etname"/>
-        </xsl:if>
-        <xsl:apply-templates select="node()" mode="etTagging">
-            <xsl:with-param name="tagTable" select="$tagTable"/>
-        </xsl:apply-templates> 
-    </xsl:copy>
-</xsl:template>
-
-<xsl:template name="build_entity_type_tag_table">
-
-   <!--<xsl:message>Type tag Instance of type <xsl:value-of select="name()"/></xsl:message>-->
-   <xsl:variable name="etlDefn" 
-      as="element()?"
-      select="$erDataLib?getDefinitionOfInstance(.)
-             "/> 
-   <xsl:if test="not($etlDefn)">
-      <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="."/></xsl:message>
-   </xsl:if>
-   <!--<xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>-->
-   <xsl:copy>
-        <xsl:attribute name="source-id" select="fn:generate-id()"/>
-        <xsl:attribute name="etname" select="$etlDefn/er:name"/>
-        <xsl:variable name="instance" as="element()" select="."/>
-        <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/er:composition">   
-            <!--<xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>-->
-                <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
-                  <xsl:call-template name="build_entity_type_tag_table"/>
-                </xsl:for-each>
-        </xsl:for-each>
-   </xsl:copy>
-</xsl:template>
 
 </xsl:transform>

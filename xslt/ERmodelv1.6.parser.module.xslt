@@ -51,6 +51,12 @@
    </xsl:element>
 </xsl:template>  
 
+<xsl:template match="@xpath_evaluate" mode="parse__main_pass">
+   <xsl:element name="xpath_evaluate"> 
+      <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template>  
+
 <xsl:template match="@type" mode="parse__main_pass">
    <!-- intentially left blank -->
 </xsl:template>  
@@ -138,6 +144,7 @@
 
 <xsl:template  match="*[ self::reference
                         |self::composition
+                        | self::constructed_relationship
                        ]" 
                     mode="parse__main_pass">
    <xsl:copy>
@@ -156,10 +163,11 @@
       <xsl:element name="type">
          <xsl:value-of select="$type"/>
       </xsl:element>
-      <xsl:if test="   (self::reference and parent::identifying)
+      <xsl:if test="   ((self::reference or self::constructed_relationship) and parent::identifying)
                     or (self::composition and //identifying/context/../../@name=$type)">    
          <xsl:element name="identifying"/>
       </xsl:if>
+      <xsl:apply-templates select="@xpath_evaluate" mode="parse__main_pass"/>
       <xsl:choose>
          <xsl:when test="@inverse">
             <xsl:element name="inverse">

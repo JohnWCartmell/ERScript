@@ -12,9 +12,10 @@ If(!(test-path -PathType container $TARGETXSLT))
       New-Item -ItemType Directory -Path $TARGETXSLT
 }
 
-# COPY xslt files
+# COPY xslt and xpath files
 attrib -R $TARGETXSLT\*.xslt
 copy-item -Path $SOURCEXSLT\*.xslt -Destination $TARGETXSLT
+copy-item -Path $SOURCEXSLT\*.xpath -Destination $TARGETXSLT
 attrib +R $TARGETXSLT\*.xslt
 
 # COPY the meta model 

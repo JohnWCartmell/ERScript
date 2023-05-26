@@ -12,8 +12,11 @@
 <xsl:output method="xml" indent="yes"/>
 <xsl:strip-space elements="*"/>
 
-<xsl:include href="ER.library.module.xslt"/>
-  <xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="ER.metaModelLib.module.xslt"/>
+<xsl:include href="ER.dataLib.module.xslt"/>
+<xsl:include href="ER.instanceData.module.xslt"/>
+
+<xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="newERmodel2.xpath_enrichment.module.xslt"/>
 
 <xsl:variable name="instanceValidationLib"
@@ -59,7 +62,7 @@
                           ) as xs:string
    {
       let $precondition:= $erDataLib?getReferenceRelationshipPrecondition($instance, $refrel),
-          $destination := $erDataLib?readReferenceOrDependencyRelationship($instance, $refrel),
+          $destination := $erDataLib?readReferenceOrDependencyOrConstructedRelationship($instance, $refrel),
           $relationship_is_mandatory := $refrel/cardinality/ExactlyOne
       return
          if ($precondition and not(exists($destination)))
@@ -90,10 +93,12 @@
 <xsl:template match="/">
    <!-- The following REALLY USEFUL for debugging 
    ******************************************
+-->
    <xsl:copy-of select="$erMetaModelData"/>
+   <!--
    ******************************************
    -->
-   <xsl:message><xsl:value-of select="map:keys($reference_stroke_dependency_evaluation_lib)"/></xsl:message>
+   <xsl:message><xsl:value-of select="map:keys($constructed_stroke_reference_stroke_dependency_evaluation_lib)"/></xsl:message>
    <xsl:message> Schema is described as '<xsl:value-of select="$erMetaModelData/er:description"/>'</xsl:message>
    <xsl:message> Schema (absolute) is named '<xsl:value-of select="$erMetaModelData/er:absolute/er:name"/>'</xsl:message>
    <xsl:message> Root instance element name '<xsl:value-of select="child::element()/name()"/>'</xsl:message>

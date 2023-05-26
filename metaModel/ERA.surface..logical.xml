@@ -51,9 +51,9 @@
       <identifying>
          <constructed_relationship name="source_entity_type"
                                    type="ENTITY_TYPE" 
-                                   xpath_evaluate="parent::identifying/parent::entity_type 
+                                   xpath_evaluate="parent::Q{http://www.entitymodelling.org/ERmodel}identifying/parent::Q{http://www.entitymodelling.org/ERmodel}entity_type 
                                                      union 
-                                                   parent::entity_type
+                                                   parent::Q{http://www.entitymodelling.org/ERmodel}entity_type
                                                    "/>
          <attribute name="name" type="string?"/>
       </identifying>
