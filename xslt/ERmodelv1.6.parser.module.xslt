@@ -148,7 +148,7 @@
                        ]" 
                     mode="parse__main_pass">
    <xsl:copy>
-      <xsl:apply-templates select="@name|@type|@inverse|@diagonal|@riser" mode="parse__main_pass"/> 
+      <xsl:apply-templates select="@name|@type|@inverse|@diagonal|@riser|@key" mode="parse__main_pass"/> 
       <xsl:element name="cardinality">
          <xsl:element name="{if (substring(@type,string-length(@type))='?')
                                 then 'ZeroOrOne'
@@ -249,11 +249,11 @@
 <xsl:template  match="pullback|copy" 
                     mode="parse__main_pass">
    <xsl:copy>
-      <xsl:apply-templates select="@along|@riser|@projection_rel|@diagonal|@type" mode="parse__main_pass"/> 
+      <xsl:apply-templates select="@along|@riser2|@projection_rel|@diagonal|@type" mode="parse__main_pass"/> 
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@diagonal|@riser|@along" mode="parse__main_pass">
+<xsl:template match="@diagonal|@riser|@along|@key|@riser2" mode="parse__main_pass">
    <xsl:element name="{name()}">
          <xsl:apply-templates select="." mode="parse_navigation"/>
    </xsl:element>
