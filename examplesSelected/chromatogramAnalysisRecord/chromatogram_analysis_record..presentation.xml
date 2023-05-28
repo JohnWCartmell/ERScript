@@ -6,14 +6,14 @@
       </diagram>
    </presentation>
    <absolute>
-      <name/>
+      <name>chromatogram_analysis_record</name>
       <presentation>
          <x>1</x>
          <y>25.5</y>
       </presentation>
    </absolute>
    <group>
-      <name/>
+      <name>task tower</name>
       <presentation>
          <x>0.2</x>
          <y>0.75</y>
@@ -22,7 +22,7 @@
       </presentation>
    </group>
    <entity_type>
-      <name/>
+      <name>task</name>
       <presentation>
          <x>0.2</x>
          <y>0.25</y>
@@ -30,7 +30,7 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>revised_labsys_task</name>
       <presentation>
          <rightOf>task</rightOf>
          <x>3</x>
@@ -38,9 +38,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>revised_labsys_task</name>
       <reference>
-         <type/>
+         <name>revised_in</name>
          <diagram>
             <path>
                <align>
@@ -51,7 +51,7 @@
       </reference>
    </entity_type>
    <group>
-      <name/>
+      <name>external</name>
       <presentation>
          <below>task tower</below>
          <y>2.0</y>
@@ -59,7 +59,7 @@
       </presentation>
    </group>
    <entity_type>
-      <name/>
+      <name>sample_group</name>
       <presentation>
          <y>0.5</y>
          <x>0.2</x>
@@ -67,22 +67,22 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>test_sample_group</name>
       <presentation>
          <w>3.3</w>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>shared_sample_group</name>
       <presentation>
          <rightOf>test_sample_group</rightOf>
          <w>3.3</w>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample_group</name>
       <composition>
-         <type/>
+         <type>sample</type>
          <diagram>
             <path>
                <align>
@@ -93,9 +93,9 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample_group</name>
       <composition>
-         <type/>
+         <type>MSMS_component</type>
          <diagram>
             <path>
                <srcattach>0.65</srcattach>
@@ -104,7 +104,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>MSMS_component</name>
       <presentation>
          <rightOf>compound(2)</rightOf>
          <below>shared_sample_group</below>
@@ -113,16 +113,16 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample</name>
       <presentation>
          <below>sample_group</below>
          <rightOf>injection(2)</rightOf>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample</name>
       <composition>
-         <type/>
+         <type>required_MSMS_data</type>
          <diagram>
             <path>
                <align>
@@ -133,7 +133,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>required_MSMS_data</name>
       <presentation>
          <below>sample</below>
          <rightOf>component(2)</rightOf>
@@ -141,7 +141,7 @@
       </presentation>
    </entity_type>
    <group>
-      <name/>
+      <name>chromatogram tower</name>
       <presentation>
          <rightOf>task tower</rightOf>
          <x>0.5</x>
@@ -151,7 +151,7 @@
       </presentation>
    </group>
    <entity_type>
-      <name/>
+      <name>data_collection</name>
       <presentation>
          <x>4.0</x>
          <y>0.25</y>
@@ -159,9 +159,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>data_collection</name>
       <composition>
-         <type/>
+         <type>sample_group(2)</type>
          <diagram>
             <path>
                <align>
@@ -172,9 +172,37 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample_group(2)</name>
+      <presentation>
+         <below>data_collection</below>
+         <deltaw>0.5</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(2)</name>
+      <composition>
+         <type>injection(2)</type>
+         <diagram>
+            <path>
+               <destarmlen>1.5</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(2)</name>
+      <composition>
+         <type>compound(2)</type>
+         <diagram>
+            <path>
+                    </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(2)</name>
       <reference>
-         <type/>
+         <name>group</name>
          <diagram>
             <path>
                <align>
@@ -186,37 +214,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>data_collection</below>
-         <deltaw>0.5</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <destarmlen>1.5</destarmlen>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-                    </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>sample_group(2)</name>
       <reference>
-         <type/>
+         <name>RT_reference</name>
          <diagram>
             <path>
                <srcsign>1</srcsign>
@@ -242,9 +242,31 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>injection(2)</name>
+      <presentation>
+         <below>sample_group(2)</below>
+         <x>-3.0</x>
+         <y>5.0</y>
+         <deltaw>0.5</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>injection(2)</name>
+      <composition>
+         <type>component(2)</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>injection(2)</name>
       <reference>
-         <type/>
+         <name>subject</name>
          <diagram>
             <path>
                <align>
@@ -261,40 +283,7 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>sample_group(2)</below>
-         <x>-3.0</x>
-         <y>5.0</y>
-         <deltaw>0.5</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <reference>
-         <type/>
-         <diagram>
-            <path>
-               <srcarmlen>0.6</srcarmlen>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>compound(2)</name>
       <presentation>
          <below>sample_group(2)</below>
          <x>3.0</x>
@@ -304,9 +293,20 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>compound(2)</name>
       <reference>
-         <type/>
+         <name>subject</name>
+         <diagram>
+            <path>
+               <srcarmlen>0.6</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>compound(2)</name>
+      <reference>
+         <name>IS</name>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
@@ -331,16 +331,36 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>trace(2)</name>
       <presentation>
          <below>compound(2)</below>
          <deltaw>0.4</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>component(2)</name>
+      <presentation>
+         <below>injection(2)</below>
+         <deltaw>0.5</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>component(2)</name>
+      <composition>
+         <type>chromatogram</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>component(2)</name>
       <reference>
-         <type/>
+         <name>monitored</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -366,29 +386,16 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>chromatogram</name>
       <presentation>
-         <below>injection(2)</below>
+         <below>component(2)</below>
          <deltaw>0.5</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>chromatogram</name>
       <reference>
-         <type/>
+         <name>extracted</name>
          <diagram>
             <path>
                <srcattach>0.25</srcattach>
@@ -414,16 +421,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>component(2)</below>
-         <deltaw>0.5</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>chromatogram</name>
       <composition>
-         <type/>
+         <type>instrument_extraction_details</type>
          <diagram>
             <path>
                <align>
@@ -434,7 +434,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>instrument_extraction_details</name>
       <presentation>
          <below>chromatogram</below>
          <x>2.5</x>
@@ -442,21 +442,21 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>ab6600_extraction_details</name>
       <presentation>
          <rightOf>xevo_extraction_details</rightOf>
          <deltaw>0.5</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>step_size_specification</name>
       <presentation>
          <below>ab6600_extraction_details</below>
          <deltaw>0.5</deltaw>
       </presentation>
    </entity_type>
    <group>
-      <name/>
+      <name>interpretation tower</name>
       <presentation>
          <rightOf>chromatogram tower</rightOf>
          <x>3.0</x>
@@ -466,7 +466,7 @@
       </presentation>
    </group>
    <entity_type>
-      <name/>
+      <name>interpretation_session</name>
       <presentation>
          <x>4.0</x>
          <y>0.1</y>
@@ -475,9 +475,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>interpretation_session</name>
       <composition>
-         <type/>
+         <type>interpretation_event</type>
          <diagram>
             <path>
                     </path>
@@ -485,27 +485,14 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name/>
-      <reference>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToSrc/>
-               </align>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>interpretation_event</name>
       <presentation>
          <below>interpretation_session</below>
          <deltaw>0.9</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>programmed_interpretation_event</name>
       <presentation>
          <x>4.0</x>
          <y>-1.0</y>
@@ -513,7 +500,7 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>user_interpretation_event</name>
       <presentation>
          <rightOf>programmed_interpretation_event</rightOf>
          <x>4.0</x>
@@ -521,49 +508,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-               <destattach>0.85</destattach>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>interpretation_event</name>
       <reference>
-         <type/>
+         <name>base_event</name>
          <diagram>
             <path>
                <srcattach>0.8</srcattach>
@@ -589,9 +536,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>interpretation_event</name>
       <reference>
-         <type/>
+         <name>base_session</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -616,9 +563,71 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>interpretation_event</name>
       <reference>
-         <type/>
+         <name>subject</name>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>interpretation_event</name>
+      <composition>
+         <type>sample_group(3)</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>interpretation_event</name>
+      <composition>
+         <type>method</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>interpretation_event</name>
+      <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+               <destattach>0.85</destattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(3)</name>
+      <presentation>
+         <below>programmed_interpretation_event</below>
+         <rightOf>sample_group(2)</rightOf>
+         <deltah>0.75</deltah>
+         <deltaw>4.0</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(3)</name>
+      <reference>
+         <name>subject</name>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
@@ -636,64 +645,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>programmed_interpretation_event</below>
-         <rightOf>sample_group(2)</rightOf>
-         <deltah>0.75</deltah>
-         <deltaw>4.0</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <destarmlen>1.5</destarmlen>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.7</srcattach>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.9</srcattach>
-               <destattach>0.675</destattach>
-               <srcarmlen>0.5</srcarmlen>
-               <hstep>
-                  <absdim>
-                     <src>5.0</src>
-                     <dest>0</dest>
-                  </absdim>
-                  <vstep>
-                     <absdim>
-                        <src>2.75</src>
-                     </absdim>
-                  </vstep>
-               </hstep>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>sample_group(3)</name>
       <reference>
-         <type/>
+         <name>RT_reference</name>
          <diagram>
             <path>
                <srcattach>0.85</srcattach>
@@ -718,9 +672,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample_group(3)</name>
       <reference>
-         <type/>
+         <name>based_on</name>
          <diagram>
             <path>
                <srcattach>0.4</srcattach>
@@ -746,9 +700,66 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>sample_group(3)</name>
+      <composition>
+         <type>injection(3)</type>
+         <diagram>
+            <path>
+               <destarmlen>1.5</destarmlen>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(3)</name>
+      <composition>
+         <type>compound(3)</type>
+         <diagram>
+            <path>
+               <srcattach>0.7</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>sample_group(3)</name>
+      <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <srcattach>0.9</srcattach>
+               <destattach>0.675</destattach>
+               <srcarmlen>0.5</srcarmlen>
+               <hstep>
+                  <absdim>
+                     <src>5.0</src>
+                     <dest>0</dest>
+                  </absdim>
+                  <vstep>
+                     <absdim>
+                        <src>2.75</src>
+                     </absdim>
+                  </vstep>
+               </hstep>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>injection(3)</name>
+      <presentation>
+         <below>sample_group(3)</below>
+         <rightOf>injection(2)</rightOf>
+         <x>-3.5</x>
+         <y>-0.25</y>
+         <deltah>1.0</deltah>
+         <deltaw>1.0</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>injection(3)</name>
       <reference>
-         <type/>
+         <name>subject</name>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
@@ -760,33 +771,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>sample_group(3)</below>
-         <rightOf>injection(2)</rightOf>
-         <x>-3.5</x>
-         <y>-0.25</y>
-         <deltah>1.0</deltah>
-         <deltaw>1.0</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>injection(3)</name>
       <reference>
-         <type/>
+         <name>based_on</name>
          <diagram>
             <path>
                <srcattach>0.4</srcattach>
@@ -812,9 +799,45 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>injection(3)</name>
+      <composition>
+         <type>component(3)</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>compound(3)</name>
+      <presentation>
+         <below>sample_group(3)</below>
+         <x>3.5</x>
+         <rightOf>compound(2)</rightOf>
+         <deltah>0.5</deltah>
+         <deltaw>0.5</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>compound(3)</name>
+      <composition>
+         <type>trace(3)</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>compound(3)</name>
       <reference>
-         <type/>
+         <name>subject</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -841,49 +864,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>sample_group(3)</below>
-         <x>3.5</x>
-         <rightOf>compound(2)</rightOf>
-         <deltah>0.5</deltah>
-         <deltaw>0.5</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.9</srcattach>
-               <destattach>0.5</destattach>
-               <vstep>
-                  <absdim>
-                     <src>4.0</src>
-                  </absdim>
-               </vstep>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>compound(3)</name>
       <reference>
-         <type/>
+         <name>IS</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -913,9 +896,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>compound(3)</name>
       <reference>
-         <type/>
+         <name>selected</name>
          <diagram>
             <path>
                <srcarmlen>0.2</srcarmlen>
@@ -947,9 +930,36 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>compound(3)</name>
+      <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <srcattach>0.9</srcattach>
+               <destattach>0.5</destattach>
+               <vstep>
+                  <absdim>
+                     <src>4.0</src>
+                  </absdim>
+               </vstep>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>trace(3)</name>
+      <presentation>
+         <below>compound(3)</below>
+         <x>-0.25</x>
+         <rightOf>trace(2)</rightOf>
+         <deltah>0.5</deltah>
+         <deltaw>0.25</deltaw>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>trace(3)</name>
       <reference>
-         <type/>
+         <name>subject</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -976,28 +986,7 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>compound(3)</below>
-         <x>-0.25</x>
-         <rightOf>trace(2)</rightOf>
-         <deltah>0.5</deltah>
-         <deltaw>0.25</deltaw>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <reference>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.5</srcattach>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>component(3)</name>
       <presentation>
          <below>injection(3)</below>
          <ym>
@@ -1010,39 +999,20 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.9</srcattach>
-               <destattach>0.325</destattach>
-               <vstep>
-                  <absdim>
-                     <src>0.25</src>
-                  </absdim>
-               </vstep>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>component(3)</name>
       <reference>
-         <type/>
+         <name>subject</name>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>component(3)</name>
+      <reference>
+         <name>monitored</name>
          <diagram>
             <path>
                <srcattach>0.2</srcattach>
@@ -1068,9 +1038,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>component(3)</name>
       <reference>
-         <type/>
+         <name>based_on</name>
          <diagram>
             <path>
                <srcattach>0.75</srcattach>
@@ -1096,9 +1066,50 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>component(3)</name>
+      <composition>
+         <type>chromatogram(2)</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>component(3)</name>
+      <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <srcattach>0.9</srcattach>
+               <destattach>0.325</destattach>
+               <vstep>
+                  <absdim>
+                     <src>0.25</src>
+                  </absdim>
+               </vstep>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
+      <presentation>
+         <below>component(3)</below>
+         <x>-0.5</x>
+         <!--<ym><relative><to>chromatogram</to></relative></ym> -->
+         <rightOf>chromatogram</rightOf>
+         <deltaw>4.0</deltaw>
+         <deltah>1.0</deltah>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
       <reference>
-         <type/>
+         <name>subject</name>
          <diagram>
             <path>
                <align>
@@ -1111,88 +1122,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <below>component(3)</below>
-         <x>-0.5</x>
-         <!--<ym><relative><to>chromatogram</to></relative></ym> -->
-         <rightOf>chromatogram</rightOf>
-         <deltaw>4.0</deltaw>
-         <deltah>1.0</deltah>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.1</srcattach>
-               <label>
-                  <position>
-                     <Left/>
-                  </position>
-               </label>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.5</srcattach>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.6</srcattach>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcattach>0.75</srcattach>
-               <srcarmlen>0.5</srcarmlen>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
-      <composition>
-         <type/>
-         <diagram>
-            <path>
-               <srcarmlen>0.5</srcarmlen>
-               <srcattach>0.9</srcattach>
-               <destattach>0.15</destattach>
-               <vstep>
-                  <absdim>
-                     <src>0.1</src>
-                  </absdim>
-               </vstep>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>chromatogram(2)</name>
       <reference>
-         <type/>
+         <name>extracted</name>
          <diagram>
             <path>
                <srcattach>0.25</srcattach>
@@ -1218,9 +1150,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>chromatogram(2)</name>
       <reference>
-         <type/>
+         <name>based_on</name>
          <diagram>
             <path>
                <srcattach>0.75</srcattach>
@@ -1246,7 +1178,75 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>chromatogram(2)</name>
+      <composition>
+         <name>time_series</name>
+         <diagram>
+            <path>
+               <srcattach>0.1</srcattach>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
+      <composition>
+         <type>selected_peak</type>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
+      <composition>
+         <type>candidate_peak</type>
+         <diagram>
+            <path>
+               <srcattach>0.6</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
+      <composition>
+         <type>status</type>
+         <diagram>
+            <path>
+               <srcattach>0.75</srcattach>
+               <srcarmlen>0.5</srcarmlen>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>chromatogram(2)</name>
+      <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <srcarmlen>0.5</srcarmlen>
+               <srcattach>0.9</srcattach>
+               <destattach>0.15</destattach>
+               <vstep>
+                  <absdim>
+                     <src>0.1</src>
+                  </absdim>
+               </vstep>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>annotation</name>
       <presentation>
          <rightOf>status</rightOf>
          <y>3.5</y>
@@ -1255,15 +1255,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
-      <presentation>
-         <rightOf>reject_this_data</rightOf>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name/>
+      <name>annotation</name>
       <reference>
-         <type/>
+         <name>last_modified</name>
          <diagram>
             <path>
                <srcsign>1.0</srcsign>
@@ -1289,7 +1283,13 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>comment</name>
+      <presentation>
+         <rightOf>reject_this_data</rightOf>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>method</name>
       <presentation>
          <below>user_interpretation_event</below>
          <x>1.5</x>
@@ -1298,14 +1298,14 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>param</name>
       <presentation>
          <below>method</below>
          <deltaw>0.5</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>timepoint</name>
       <presentation>
          <below>chromatogram(2)</below>
          <x>-3.0</x>
@@ -1314,7 +1314,7 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>peak</name>
       <presentation>
          <rightOf>timepoint</rightOf>
          <deltaw>0.5</deltaw>
@@ -1322,16 +1322,19 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>selected_peak</name>
       <presentation>
+         <name>
+            <Split/>
+         </name>
          <y>1.75</y>
          <deltah>0.25</deltah>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>selected_peak</name>
       <reference>
-         <type/>
+         <name>previous</name>
          <diagram>
             <path>
                <srcattach>0.8</srcattach>
@@ -1357,15 +1360,18 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>candidate_peak</name>
       <presentation>
          <rightOf>selected_peak</rightOf>
          <x>0.1</x>
          <y>-1.55</y>
+         <name>
+            <Split/>
+         </name>
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>status</name>
       <presentation>
          <rightOf>peak</rightOf>
          <w>4.4</w>
@@ -1373,9 +1379,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>status</name>
       <reference>
-         <type/>
+         <name>method</name>
          <diagram>
             <path>
                <srcattach>0.15</srcattach>
@@ -1401,9 +1407,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>status</name>
       <reference>
-         <type/>
+         <name>last_reviewed</name>
          <diagram>
             <path>
                <srcattach>0.3</srcattach>
@@ -1429,9 +1435,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>status</name>
       <reference>
-         <type/>
+         <name>last_modified</name>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
@@ -1457,9 +1463,9 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name/>
+      <name>status</name>
       <reference>
-         <type/>
+         <name>previous</name>
          <diagram>
             <path>
                <srcattach>0.9</srcattach>

@@ -2,7 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
               ERScriptVersion="1.6"
               metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
-   <absolute>
+   <absolute name="chromatogram_analysis_record">
       <composition type="task"/>
       <composition type="sample_group*">
          <description>Made optional for pragmatic reasons.</description>
@@ -462,7 +462,8 @@
                      type="compound(3)"
                      diagonal="../.."
                      riser=".."
-                     key="subject/monitored"/>
+                     key="
+                     /monitored"/>
          <reference name="based_on"
                      type="component(3)?"
                      diagonal="../based_on"
