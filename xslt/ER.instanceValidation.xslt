@@ -93,9 +93,7 @@
 <xsl:template match="/">
    <!-- The following REALLY USEFUL for debugging 
    ******************************************
--->
    <xsl:copy-of select="$erMetaModelData"/>
-   <!--
    ******************************************
    -->
    <xsl:message><xsl:value-of select="map:keys($constructed_stroke_reference_stroke_dependency_evaluation_lib)"/></xsl:message>
