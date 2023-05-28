@@ -136,9 +136,41 @@ Models that utilise the additional power of the new form will not be fully repre
       <xsl:if test="inverse">
          <xsl:attribute name="inverse" select="inverse"/>
       </xsl:if>
+      <xsl:if test="diagonal">
+         <xsl:apply-templates select="diagonal" mode="flatten_as_attribute"/> 
+      </xsl:if>
+      <xsl:if test="riser">
+         <xsl:apply-templates select="riser" mode="flatten_as_attribute"/> 
+      </xsl:if>
+      <xsl:if test="key">
+         <xsl:apply-templates select="key" mode="flatten_as_attribute"/> 
+      </xsl:if>
       <xsl:apply-templates select="@*|*" mode="newform"/> <!-- don't want copy text nodes -->
    </xsl:copy>
 </xsl:template>
+
+<xsl:template  match="*[ self::pullback
+                        |self::copy
+                       ]" 
+                    mode="newform">
+   <xsl:copy>
+      <xsl:if test="type">
+         <xsl:attribute name="type" select="type"/>
+      </xsl:if>
+      <xsl:if test="projection_rel">
+         <xsl:attribute name="projection_rel" select="projection_rel"/>
+      </xsl:if>
+      <xsl:if test="along">
+         <xsl:apply-templates select="along" mode="flatten_as_attribute"/> 
+      </xsl:if>
+      <xsl:if test="riser2">
+         <xsl:apply-templates select="riser2" mode="flatten_as_attribute"/> 
+      </xsl:if>
+      <xsl:apply-templates select="@*|*" mode="newform"/> <!-- don't want copy text nodes -->
+   </xsl:copy>
+</xsl:template>
+
+
 
 <xsl:template  match="attribute" 
                     mode="newform">
@@ -162,6 +194,12 @@ Models that utilise the additional power of the new form will not be fully repre
                        | self::identifying
                        | self::inverse
                        | self::has_identifying_feature
+                       | self::diagonal
+                       | self::riser
+                       | self::key
+                       | self::along
+                       | self::projection_rel
+                       | self::riser2
                      ]" mode="newform">
    <!-- intentionally left blank -->
 </xsl:template>
@@ -170,16 +208,13 @@ Models that utilise the additional power of the new form will not be fully repre
    <!-- intentionally left blank -->
 </xsl:template>
 
-<xsl:template  match="*[self::diagonal|self::riser]" 
-                    mode="newform">
+<xsl:template  match="*[self::diagonal|self::riser|self::key|self::along|self::riser2]" 
+                    mode="flatten_as_attribute">
    <xsl:variable as="xs:string*" name="path">
          <xsl:apply-templates select="*" mode="newform"/> 
                <!-- * to match any element node and therefore ignore comments --> 
    </xsl:variable>
-   <xsl:copy>
-      <!--normalize-space(-->
-      <xsl:attribute name="path" select="normalize-space(string-join($path))"/>
-   </xsl:copy>
+   <xsl:attribute name="{name()}" select="normalize-space(string-join($path))"/>
 </xsl:template>
 
 <xsl:template  match="theabsolute" 
