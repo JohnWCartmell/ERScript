@@ -75,7 +75,27 @@
       <reference name="type" type="ENTITY_TYPE"/>
       <entity_type name="reference_or_dependency">
          <entity_type name="dependency">
-            <reference name="inverse_of" type="composition?" inverse="inverse"/>
+            <reference name="inverse_of" type="composition?" inverse="inverse">
+               <xpath_evaluate>
+               let $this := . return ancestor-or-self::document-node()//*[self::Q{http://www.entitymodelling.org/ERmodel}composition]
+               [(let $fk := data(($erDataLib?readRelationshipNamed(.,'type')/(Q{http://www.entitymodelling.org/ERmodel}name) ,
+                                   Q{http://www.entitymodelling.org/ERmodel}inverse,
+                                   ../Q{http://www.entitymodelling.org/ERmodel}name
+                                ))              
+                 return (ancestor-or-self::document-node()//*
+                         [self::Q{http://www.entitymodelling.org/ERmodel}dependency]
+                         [fn:deep-equal(data((../Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}type
+                                            )),
+                                        $fk
+                                       )
+                         ]
+                        )         
+                ) is $this
+               ]
+               </xpath_evaluate>
+            </reference>
          </entity_type>
          <entity_type name="reference">
             <composition name="diagonal" type="navigation?"/>
@@ -95,7 +115,26 @@
          <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_rel"/>
          <composition type="transient?"/>
          <composition type="initialiser?" inverse=".."/>
-         <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."/> 
+         <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser="..">     
+      <xpath_evaluate>
+      let $fk := data((
+                       $erDataLib?readRelationshipNamed(.,'type')/(Q{http://www.entitymodelling.org/ERmodel}name),
+                       Q{http://www.entitymodelling.org/ERmodel}inverse,
+                       ../Q{http://www.entitymodelling.org/ERmodel}name
+                      )) 
+      return (
+               ancestor-or-self::document-node()//*
+                        [self::Q{http://www.entitymodelling.org/ERmodel}dependency]
+                        [fn:deep-equal(data((
+                                              ../Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}type
+                                            )), 
+                                       $fk)
+                        ]
+             )
+   </xpath_evaluate> 
+         </reference>
       </entity_type>
       <composition type="sequence?"/>
       <composition type="identifying(1)?"/>
