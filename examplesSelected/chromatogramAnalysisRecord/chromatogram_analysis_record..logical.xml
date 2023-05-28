@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+              ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
+   <absolute>
+      <composition type="task"/>
+      <composition type="sample_group*">
+         <description>Made optional for pragmatic reasons.</description>
+      </composition>
+      <composition type="data_collection*" inverse=".."/>
+      <composition name="submit_to" type="revised_labsys_task?" inverse=".."/>
+      <composition type="interpretation_session*" inverse=".."/>
+   </absolute>
+   <group name="task tower">
+      <module_name>task</module_name>
+      <description>Represented by the 'task' module in the generated type script.</description>
+      <entity_type name="task">
+         <description>
+                The task whose data is being represented.
+            </description>
+         <attribute name="hostnameOfLabsysAppServer" type="string"/>
+         <attribute name="task_number" type="integer"/>
+         <attribute name="SOP_number" type="string"/>
+         <attribute name="procedure_name" type="string"/>
+         <attribute name="location" type="string"/>
+      </entity_type>
+      <entity_type name="revised_labsys_task">
+         <description>
+               This indicates that the data should be submitted back to the specifed task.
+            </description>
+         <attribute name="hostnameOfLabsysAppServer" type="string"/>
+         <attribute name="task_number" type="integer"/>
+         <reference name="revised_in"
+                     type="interpretation_session"
+                     diagonal="^"
+                     riser="^"/>
+      </entity_type>
+   </group>
+   <group name="external">
+      <annotation>Documentation only. Not represented in XML nor in rng or ts.</annotation>
+      <entity_type name="sample_group">
+         <identifying>
+            <attribute name="alpha_code" type="string"/>
+         </identifying>
+         <description>
+            This represents the sample group as represented in the task configuration xml.
+            There are two types of sample groups shared ('shared_sample_group' and others 'test_sample_group'.
+        </description>
+         <entity_type name="test_sample_group">
+            <description>
+                A grouping of samples which contribute to a 
+                single test result for each principle component 
+                and which do not contribute to other results.
+            </description>
+         </entity_type>
+         <entity_type name="shared_sample_group">
+            <description>
+                A grouping of samples which contribute to a multiple test results per principle component.
+            </description>
+         </entity_type>
+         <composition type="sample*" inverse="..">
+            <sequence/>
+         </composition>
+         <composition type="MSMS_component*" inverse=".."/>
+      </entity_type>
+      <entity_type name="MSMS_component">
+         <identifying>
+            <context type="sample_group"/>
+            <attribute name="compound_id" type="string"/>
+         </identifying>
+         <description>
+            This represents a compound which is to be monitored for in every sample within  a sample group.
+        </description>
+      </entity_type>
+      <entity_type name="sample">
+         <identifying>
+            <context type="sample_group"/>
+            <attribute name="sample_id" type="string"/>
+         </identifying>
+         <description>
+            Entities of this type represent samples within task_configuration xml.
+            Such entitites *ought to* represent physical samples in wells of analysis plates i.e.
+            they ought to be co-numerous with such. I say *ought to* because in future, but not currently 
+            I believe, this property might be lost because we might want to a sample list in which we multiply
+            inject the same sample as a matter of course. This does occur currently in the
+            unsuported biomarker assay in which QCs are multiply injected.
+        </description>
+         <composition type="required_MSMS_data*" inverse=".."/>
+         <attribute name="is_RT_reference_peak" type="boolean"/>
+      </entity_type>
+      <entity_type name="required_MSMS_data">
+         <identifying>
+            <context type="sample"/>
+            <attribute name="compound_id" type="string"/>
+         </identifying>
+         <description>
+            This represents each compound that is to be monitored for in a sample as described by the sample list.
+            This is in fact a derived entity because 
+            within each sample each MSMS_component of the parent sample_group is to be monitord for.
+            This can be expressed by saying that this required_MSMS_data entity type is the cartesian product
+            of sample and MSMS_component filtered by membership of the same sample_group.
+        </description>
+      </entity_type>
+   </group>
+   <group name="chromatogram tower">
+      <module_name>chromatogram</module_name>
+      <annotation>chromatogram tower</annotation>
+      <description>Represented by the 'task' module in the generated type script.</description>
+      <entity_type name="data_collection">
+         <identifying>
+            <attribute name="samplelist_name" type="string"/>
+         </identifying>
+         <description>
+                There will be an agent on the bus which merges collected data into this xml file.
+                In the case of multiple submissions for a single sample list name the samplelist_name 
+                will be insufficient as a key.
+                Could have instanceNo in addition.
+                Multiple submissions could be due to software or people multiply submitting in error or could be
+                because alternate masses are being submitted. In the case that alternate masses are submitted there may be
+                just one chromatogram per injection rather than the five, for example,  that will be present in a cassette by four assay.
+
+                OR: chromatograms have an extractionDate. Later extracted masses are merged in. I prefer this.
+            </description>
+         <composition type="sample_group(2)*" inverse="..">
+            <sequence/>
+         </composition>
+         <attribute name="instrument_name" type="string"/>
+         <attribute name="instrument_type" type="string"/>
+         <attribute name="chromatography" type="string"/>
+         <attribute name="collection_timestamp" type="dateTime"/>
+         <attribute name="labsys_submission_id" type="string"/>
+      </entity_type>
+      <entity_type name="sample_group(2)">
+         <identifying>
+            <context type="data_collection"/>
+            <reference name="group" type="sample_group"/>
+         </identifying>
+         <description>
+                This is used to structure the data collected for the injections of a sample list. 
+                each instance corresponds to a sample_group within the task_configuration xml.
+            </description>
+         <composition type="injection(2)*" inverse="..">
+            <sequence/>
+         </composition>
+         <composition type="compound(2)*" inverse="..">
+            <sequence/>
+         </composition>
+         <attribute name="method_filename" type="string"/>
+         <reference name="RT_reference"
+                     type="injection(2)?"
+                     diagonal="."
+                     riser=".."/>
+      </entity_type>
+      <entity_type name="injection(2)">
+         <identifying>
+            <context type="sample_group(2)"/>
+            <reference name="subject" type="sample" diagonal="../group" riser="..">
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                An injection of a sample from a well of an analysis plate for which data has been collected.
+            </description>
+         <composition type="component(2)*" inverse="..">
+            <sequence/>
+         </composition>
+         <!--  Need this to get the structure correct but ERmodel2Phyical will not cope with it currently. 31 May 2016 
+            <reference>
+               <name>RT_reference_of</name>
+               <inverse>RT_reference</inverse>
+               <cardinality>ZeroOrOne</cardinality>
+            </reference>
+-->
+         <attribute name="full_sample_id" type="string"/>
+         <attribute name="sample_name" type="string"/>
+         <attribute name="sample_type" type="string"/>
+         <attribute name="raw_data_filename" type="string"/>
+         <attribute name="drawer_position" type="string"/>
+         <attribute name="well_position" type="string"/>
+         <attribute name="timestamp" type="dateTime"/>
+      </entity_type>
+      <entity_type name="compound(2)">
+         <identifying>
+            <context type="sample_group(2)"/>
+            <reference name="subject"
+                        type="MSMS_component"
+                        diagonal="../group"
+                        riser="..">
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                A compound that has had data collected for some sample within the parent sample_group.
+                We *expect* that all samples within the sample_group will have data for this compound.
+            </description>
+         <composition type="trace(2)*" inverse=".."/>
+         <reference name="IS" type="compound(2)?" diagonal=".." riser=".."/>
+      </entity_type>
+      <entity_type name="trace(2)">
+         <identifying>
+            <context type="compound(2)"/>
+            <attribute name="trace" type="string"/>
+         </identifying>
+      </entity_type>
+      <entity_type name="component(2)">
+         <identifying>
+            <context type="injection(2)"/>
+            <reference name="monitored" type="compound(2)" diagonal="../.." riser=".."/>
+         </identifying>
+         <description>
+                A compound within an injection for which data has been collected and extracted.
+                The ususal case is that the data collected will constitute a single chromatogram.
+                An exception case is that high resolution mass spec is being utilised and data is 
+                first collected using an expected mass and subsequently extracted at an alternative mass.
+                ***  Note: 10 May 2016: Need a bit more modelling here. 
+            </description>
+         <composition type="chromatogram*" inverse="..">
+            <sequence/>
+         </composition>
+      </entity_type>
+      <entity_type name="chromatogram">
+         <identifying>
+            <context type="component(2)"/>
+            <reference name="extracted"
+                        type="trace(2)"
+                        diagonal="../monitored"
+                        riser=".."/>
+         </identifying>
+         <description>The time point intensity data of a chromatogram is held in a separate file in Labsys. 
+                This file is in the same submission as the 
+                original submission of the data collection. The file name will be 
+                'instrument_name'_'full_sample_id'_'monitored_compound_id'_'extraction_event_no' 
+                Example raw data file name: XevoM07_A8440302_Well_B6_R4_CY0000080999_6.xml
+            </description>
+         <composition type="instrument_extraction_details?" inverse=".."/>
+         <attribute name="extraction_timestamp" type="dateTime"/>
+         <attribute name="extraction_event_no" type="integer"/>
+         <attribute name="time_intensity_data" type="string"/>
+      </entity_type>
+      <entity_type name="instrument_extraction_details">
+         <identifying>
+            <context type="chromatogram"/>
+         </identifying>
+         <entity_type name="xevo_extraction_details">
+            <description>
+                    Contains the parameters used to extract the chromatogram using the Waters DACChromatogram.GetChromatogram() function.
+                </description>
+            <attribute name="xevo_function_no" type="integer"/>
+            <attribute name="xevo_compound_no" type="integer"/>
+         </entity_type>
+         <entity_type name="ab6600_extraction_details">
+            <description>
+                    Contains the parameters used to extract the chromatogram using the ab6600.
+                </description>
+            <composition type="step_size_specification*"/>
+            <attribute name="sample_no" type="integer"/>
+            <attribute name="period_no" type="integer"/>
+            <attribute name="experiment_no" type="integer"/>
+            <attribute name="number_of_data_points" type="integer"/>
+         </entity_type>
+      </entity_type>
+      <entity_type name="step_size_specification">
+         <identifying>
+            <context type="ab6600_extraction_details"/>
+            <attribute name="start_point_no" type="positiveInteger"/>
+         </identifying>
+         <description>
+                     These values are the results of calls of FMANChromData.GetStepSize(), and so use the conventions of the AB Sciex Analyst s/w - point numbers 
+                     start at 1 rather than zero, and the 'change_point_no' is the first point number the step_size does NOT apply to.
+           </description>
+         <attribute name="step_size" type="float"/>
+         <attribute name="change_point_no" type="positiveInteger"/>
+      </entity_type>
+   </group>
+   <group name="interpretation tower">
+      <module_name>interpretation</module_name>
+      <annotation>interpretation tower</annotation>
+      <description>Represented by the 'interpretation' module in the generated type script.</description>
+      <entity_type name="interpretation_session">
+         <identifying>
+            <attribute name="session_guid" type="string"/>
+         </identifying>
+         <composition type="interpretation_event*" inverse=".."/>
+      </entity_type>
+      <entity_type name="interpretation_event">
+         <identifying>
+            <context type="interpretation_session"/>
+            <reference name="subject" type="data_collection" diagonal="^" riser="^">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                The structure of an interpretation session follows the structure of one or more data colections.
+                An interpretation_event is either manual or programmed and accordingly is of type 'user_interpretation_event' or
+                'programmed_interpretation_event'.
+                Any interpretation session results in a submission to Labsys.
+            </description>
+         <entity_type name="programmed_interpretation_event">
+            <description>
+                    An application of automated methods to integrate a collected data set.
+                    Will have a single entity of type collection and have interpretations of all chromatograms contained in the associated data_collection.
+                    A programmed_interpretation_event will result in peak area data being submitted to Labsys.
+                </description>
+            <attribute name="program_name" type="string"/>
+         </entity_type>
+         <entity_type name="user_interpretation_event">
+            <description>
+                    A record of reviews of chromatograms by a scientist and of reintegrations.
+                    If and chromatograms are reintegrated then  user_interpretation_event results in 
+                      revised peak area data being submitted to Labsys.
+                </description>
+            <attribute name="username" type="string"/>
+         </entity_type>
+         <composition type="sample_group(3)*" inverse="..">
+            <pullback type="sample_group(2)" projection_rel="subject" along="subject"/>
+         </composition>
+         <composition type="method*" inverse="..">
+            <copy type="method" along="base_event" riser2=".."/>
+         </composition>
+         <composition type="annotation?"/>
+         <reference name="base_event"
+                     type="interpretation_event?"
+                     diagonal="base_session"
+                     riser=".."
+                     key="subject">
+            <description>This reference relationship modelled more generally than need be from
+                            so that available as undefined for programmed event. Need it this way
+                            so that can be used in lower level scopes.
+               </description>
+         </reference>
+         <attribute name="dateTimeOpened" type="dateTime"/>
+         <attribute name="dateTimeSaved" type="dateTime"/>
+         <attribute name="dateTimeSubmitted" type="dateTime"/>
+         <reference name="base_session"
+                     type="interpretation_session?"
+                     diagonal="^"
+                     riser="^">
+            <description>This reference relationship modelled more generally than need be from
+                                so that available as undefined for programmed event. Need it this way
+                                so that can be used in lower level scopes.
+                   </description>
+         </reference>
+      </entity_type>
+      <entity_type name="sample_group(3)">
+         <identifying>
+            <context type="interpretation_event"/>
+            <reference name="subject"
+                        type="sample_group(2)"
+                        diagonal="../subject"
+                        riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                There is an entity of this type for each sample group in the collected data. 
+                Thus each sample_group(3) instances a sample_group(2).
+            </description>
+         <composition type="injection(3)*" inverse="..">
+            <pullback type="injection(2)" projection_rel="subject" along="subject"/>
+         </composition>
+         <composition type="compound(3)*" inverse="..">
+            <pullback type="compound(2)" projection_rel="subject" along="subject"/>
+         </composition>
+         <composition type="annotation?"/>
+         <reference name="RT_reference"
+                     type="injection(3)?"
+                     diagonal="."
+                     riser=".."
+                     key="subject/RT_reference"/>
+         <reference name="based_on"
+                     type="sample_group(3)?"
+                     diagonal="../base_event"
+                     riser=".."
+                     key="subject"/>
+      </entity_type>
+      <entity_type name="injection(3)">
+         <identifying>
+            <context type="sample_group(3)"/>
+            <reference name="subject"
+                        type="injection(2)"
+                        diagonal="../subject"
+                        riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                There is an entity of this type for each injection in the collected data. Thus each injection(3) instances an injection(2).
+            </description>
+         <composition type="component(3)*" inverse="..">
+            <pullback type="component(2)" projection_rel="subject" along="subject"/>
+         </composition>
+         <reference name="based_on"
+                     type="injection(3)?"
+                     diagonal="../based_on"
+                     riser=".."
+                     key="subject"/>
+      </entity_type>
+      <entity_type name="compound(3)">
+         <identifying>
+            <context type="sample_group(3)"/>
+            <reference name="subject"
+                        type="compound(2)"
+                        diagonal="../subject"
+                        riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                There is an entity of this type for each compound found monitored in the collected data for the sample group. 
+                Each compound(3) instances a 'compound(2)'.
+            </description>
+         <composition type="trace(3)*" inverse="..">
+            <pullback type="trace(2)" projection_rel="subject" along="subject"/>
+         </composition>
+         <composition type="annotation?"/>
+         <reference name="IS"
+                     type="compound(3)?"
+                     diagonal=".."
+                     riser=".."
+                     key="subject/IS"/>
+         <reference name="selected" type="trace(3)?" diagonal="." riser=".."/>
+      </entity_type>
+      <entity_type name="trace(3)">
+         <identifying>
+            <context type="compound(3)"/>
+            <reference name="subject" type="trace(2)" diagonal="../subject" riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <reference name="chromatograms" type="chromatogram(2)*" inverse="extracted">
+            <js>
+        return this.parent.parent.injection_3.component_3.chromatogram_2
+               .where(e =&gt; e.extracted_trace === this.trace);
+                </js>
+         </reference>
+      </entity_type>
+      <entity_type name="component(3)">
+         <identifying>
+            <context type="injection(3)"/>
+            <reference name="subject"
+                        type="component(2)"
+                        diagonal="../subject"
+                        riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                There is an entity of this type for each compound found monitored in the collected data for 
+                the injection. Each component(3) instances a 'component(2)'.
+            </description>
+         <composition type="chromatogram(2)*" inverse="..">
+            <pullback type="chromatogram" projection_rel="subject" along="subject"/>
+         </composition>
+         <composition type="annotation?"/>
+         <reference name="monitored"
+                     type="compound(3)"
+                     diagonal="../.."
+                     riser=".."
+                     key="subject/monitored"/>
+         <reference name="based_on"
+                     type="component(3)?"
+                     diagonal="../based_on"
+                     riser=".."
+                     key="subject"/>
+      </entity_type>
+      <entity_type name="chromatogram(2)">
+         <identifying>
+            <context type="component(3)"/>
+            <reference name="subject"
+                        type="chromatogram"
+                        diagonal="../subject"
+                        riser="..">
+               <projection/>
+               <physical_prefix/>
+            </reference>
+         </identifying>
+         <description>
+                There is an entity of this type for each chromatogram found in the collected data for the monitored compound within the injection. 
+                Each 'chromatogram(2)'  instances a 'chromatogram'.
+            </description>
+         <composition name="time_series" type="timepoint*" inverse="..">
+            <transient/>
+         </composition>
+         <composition type="selected_peak?" inverse="..">
+            <copy type="selected_peak" along="based_on" riser2=".."/>
+         </composition>
+         <composition type="candidate_peak*" inverse="..">
+            <transient/>
+         </composition>
+         <composition type="status" inverse="..">
+            <copy type="status" along="based_on" riser2=".."/>
+         </composition>
+         <composition type="annotation?" inverse=".."/>
+         <reference name="extracted"
+                     type="trace(3)"
+                     inverse="chromatograms"
+                     diagonal="../monitored"
+                     riser=".."
+                     key="subject/extracted"/>
+         <reference name="based_on"
+                     type="chromatogram(2)?"
+                     diagonal="../based_on"
+                     riser=".."
+                     key="subject"/>
+      </entity_type>
+      <entity_type name="annotation">
+         <dependency_group/>
+         <entity_type name="reject_this_data"/>
+         <entity_type name="comment"/>
+         <attribute name="text" type="string"/>
+         <reference name="last_modified"
+                     type="interpretation_session"
+                     diagonal="^"
+                     riser="^"/>
+      </entity_type>
+      <entity_type name="method">
+         <identifying>
+            <attribute name="methodname" type="string"/>
+         </identifying>
+         <composition type="param*"/>
+      </entity_type>
+      <entity_type name="param">
+         <identifying>
+            <context type="method"/>
+         </identifying>
+         <description>
+                A parameter used to specify detail of a method.
+            </description>
+         <attribute name="name" type="string"/>
+         <attribute name="value" type="string"/>
+      </entity_type>
+      <entity_type name="timepoint">
+         <identifying>
+            <attribute name="time" type="float"/>
+         </identifying>
+         <attribute name="raw_intensity" type="float"/>
+         <attribute name="smoothed_intensity" type="float"/>
+      </entity_type>
+      <entity_type name="peak">
+         <description>
+			The identified and integrated peak within a chromatogram.
+            </description>
+         <entity_type name="selected_peak">
+            <reference name="previous"
+                        type="selected_peak?"
+                        diagonal="../based_on"
+                        riser=".."/>
+         </entity_type>
+         <entity_type name="candidate_peak"/>
+         <attribute name="RT" type="float"/>
+         <attribute name="peakArea" type="float"/>
+         <attribute name="peakHeight" type="float"/>
+         <attribute name="chromatogramNoise" type="float"/>
+         <attribute name="startRT" type="float"/>
+         <attribute name="endRT" type="float"/>
+         <attribute name="startHght" type="float"/>
+         <attribute name="endHght" type="float"/>
+         <attribute name="peakWidthHalfHeight" type="float"/>
+         <attribute name="peakSkew" type="float"/>
+      </entity_type>
+      <entity_type name="status">
+         <attribute name="timestamp" type="dateTime"/>
+         <reference name="method"
+                     type="method"
+                     diagonal="../../../../.."
+                     riser=".."/>
+         <reference name="last_reviewed"
+                     type="interpretation_session"
+                     diagonal="^"
+                     riser="^"/>
+         <reference name="last_modified"
+                     type="interpretation_session"
+                     diagonal="^"
+                     riser="^"/>
+         <reference name="previous"
+                     type="status?"
+                     diagonal="../based_on"
+                     riser=".."/>
+      </entity_type>
+   </group>
+</entity_model>
