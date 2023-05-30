@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-****************************************************************
-ERmodel_v1.2/src/ERmodel2.ts.xslt 
-****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
--->
 
 <xsl:transform version="2.0" 
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:era="http://www.entitymodelling.org/ERmodel" 
-               xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
+               xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
+               xmlns="http://www.entitymodelling.org/ERmodel">
 
 <!--  Maintenance Box 
 
@@ -159,7 +138,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 
 <xsl:template name="join_cardinality" match="*" mode="explicit">
     <xsl:param name="cardinalities" as="element(cardinality)*"/>
-    <era:cardinality>
+    <xsl:element name="cardinality">
         <xsl:variable name="temp" select="era:join_cardinalities($cardinalities)"/>
         <xsl:if test="string-length($temp)=0">
             <xsl:message terminate="yes">Terminate in join_cardinality AT <xsl:value-of select="name()"/>count<xsl:value-of select="count($cardinalities/*)"/>elements <xsl:value-of select="$cardinalities/*/name()"/></xsl:message>
@@ -167,7 +146,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         <xsl:call-template name="element">
            <xsl:with-param name="name" select="era:join_cardinalities($cardinalities)"/>
         </xsl:call-template>
-    </era:cardinality>
+   </xsl:element>
 </xsl:template>
 
 <xsl:template name="navigation_cardinality" match="*" mode="explicit">
@@ -177,20 +156,20 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
             <xsl:message terminate="yes">Terminate in navigation_cardinality AT <xsl:value-of select="name()"/>count<xsl:value-of select="count($cardinalities/*)"/>elements <xsl:value-of select="$cardinalities/*/name()"/>
             </xsl:message>
         </xsl:if>
-    <era:navigation_cardinality>
+    <xsl:element name="navigation_cardinality">
         <xsl:call-template name="element">
            <xsl:with-param name="name" select="era:join_cardinalities($cardinalities)"/>
         </xsl:call-template>
-    </era:navigation_cardinality>
+    </xsl:element>
 </xsl:template>
 
 <xsl:template name="inverse_cardinality" match="*" mode="explicit">
     <xsl:param name="cardinalities" as="element(inverse_cardinality)*"/>
-    <era:inverse_cardinality>
+    <xsl:element name="inverse_cardinality">
         <xsl:call-template name="element">
            <xsl:with-param name="name" select="era:join_cardinalities($cardinalities)"/>
         </xsl:call-template>
-    </era:inverse_cardinality>
+    </xsl:element>
 </xsl:template>
 
 <xsl:template match="/">
@@ -262,46 +241,54 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 <xsl:template match="absolute" mode="initial_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_pass"/>
-    <era:js_classname>
+    <xsl:element name="js_classname">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="name"/>
         </xsl:call-template>
-    </era:js_classname>
-    <era:js_listclassname>
+    </xsl:element>
+    <xsl:element name="js_listclassname">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="name"/>
         </xsl:call-template>
         <xsl:text>_List</xsl:text>
-    </era:js_listclassname>
+    </xsl:element>
 </xsl:copy>
 </xsl:template>
 
 <xsl:template match="entity_type" mode="initial_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_pass"/>
-    <era:js_classname>
+    <xsl:element name="js_classname">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="name"/>         
         </xsl:call-template>
-    </era:js_classname>
-    <era:js_listclassname>
+    </xsl:element>
+    <xsl:element name="js_listclassname">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="name"/>         
         </xsl:call-template>
         <xsl:text>_List</xsl:text>
-    </era:js_listclassname>
-    <era:js_parent_classname>
+    </xsl:element>
+    <xsl:element name="js_parent_classname">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="parentType"/>
         </xsl:call-template>
-    </era:js_parent_classname>
+    </xsl:element>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="composition|reference" mode="initial_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_pass"/>
-    <era:js_membername>
+    <!-- 'id' added here 30 May 2023 because 'id' no longer present in the physical model that is the input to this transform.
+        (could do to get rid of this use of 'id' tbh but that is for another time)
+    -->
+    <xsl:element name="id">
+      <xsl:text>Rel</xsl:text>  
+      <xsl:number count="(composition|reference)" level="any" />
+   </xsl:element>
+   <!-- end of 30 May 2023 -->
+    <xsl:element name="js_membername">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name">
               <xsl:choose>
@@ -314,8 +301,8 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                </xsl:choose>
            </xsl:with-param>
         </xsl:call-template>
-    </era:js_membername>
-    <era:js_inverse_membername>
+    </xsl:element>
+    <xsl:element name="js_inverse_membername">
         <!--
            composition - inverse is 'parent'
            reference take inverse and mangle if there is one or invent relname_inverse
@@ -332,7 +319,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
               </xsl:call-template>
            </xsl:when>
         </xsl:choose>
-    </era:js_inverse_membername>
+    </xsl:element>
     <xsl:variable name="objecttype">
         <xsl:if test="key('EntityTypes',type)/module_name">
              <xsl:if test="not(../module_name) or key('EntityTypes',type)/module_name != ../module_name">
@@ -344,19 +331,19 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
            <xsl:with-param name="name" select="type"/>
         </xsl:call-template>
     </xsl:variable>
-    <era:js_objecttype>
+    <xsl:element name="js_objecttype">
       <xsl:value-of select="$objecttype"/>
-    </era:js_objecttype>
-    <era:js_objectlisttype>
+    </xsl:element>
+    <xsl:element name="js_objectlisttype">
       <xsl:value-of select="$objecttype"/>
       <xsl:text>_List</xsl:text>
-    </era:js_objectlisttype>
-    <era:js_membertype>
+    </xsl:element>
+    <xsl:element name="js_membertype">
       <xsl:value-of select="$objecttype"/>
       <xsl:if test="cardinality/ZeroOneOrMore  or cardinality/OneOrMore">
           <xsl:text>_List</xsl:text>
       </xsl:if>
-    </era:js_membertype>
+    </xsl:element>
   </xsl:copy>
 </xsl:template>
 
@@ -364,16 +351,57 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 <xsl:template match="attribute" mode="initial_pass">
   <xsl:copy>
     <xsl:apply-templates mode="initial_pass"/>
-    <era:js_membername>
+    <xsl:element name="js_membername">
         <xsl:call-template name="js_mangle_name">
            <xsl:with-param name="name" select="name"/>
         </xsl:call-template>
-    </era:js_membername>
-    <era:js_membertype>
+    </xsl:element>
+    <xsl:element name="js_membertype">
         <xsl:apply-templates select="type" mode="type_subpass"/>
-    </era:js_membertype>
+    </xsl:element>
   </xsl:copy>
 </xsl:template>
+
+<!-- 
+<xsl:template match="composition
+                     [not(id)]
+                    "
+              mode="documentation_enrichment_recursive"  priority="1">
+   <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+       <id>
+          <xsl:text>S</xsl:text>  
+          <xsl:number count="composition" level="any" />
+       </id>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="dependency
+                     [not(id)]
+                     [key('CompositionByDestTypeAndInverseName',concat(../name,':',name))/id]
+                    "
+              mode="documentation_enrichment_recursive"  priority="1">
+   <xsl:copy>
+       <id>
+          <xsl:value-of select="key('CompositionByDestTypeAndInverseName',concat(../name,':',name))/id"/>
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="reference
+                     [not(id)]" 
+              mode="documentation_enrichment_recursive"  priority="1">
+   <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+        <id>
+          <xsl:text>R</xsl:text>
+          <xsl:number count="reference" level="any" />
+       </id>
+    </xsl:copy>
+</xsl:template>
+
+-->
 
 <xsl:template match="attribute/type[boolean]" mode="type_subpass">
         <xsl:text>boolean</xsl:text>
@@ -432,7 +460,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js_primary_key)">
-        <era:js_primary_key/>
+        <xsl:element name="js_primary_key"/>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -443,24 +471,24 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:variable name="rel" select="ancestor-or-self::entity_type/key('IncomingCompositionRelationships', name)"/>
       <xsl:if test="not(js_primary_key) and (every $r in $rel satisfies $r/../js_primary_key)">
-        <era:js_primary_key>
+        <xsl:element name="js_primary_key">
           <xsl:if test="count($rel)=1 and $rel/identifying">
             <xsl:for-each select="$rel/../js_primary_key/attribute">
-              <era:attribute>
-                <era:name><xsl:value-of select="name"/></era:name>
-                <era:type><xsl:value-of select="type"/></era:type>
-                <era:lookup>.parent<xsl:value-of select="lookup"/></era:lookup>
-              </era:attribute>
+              <xsl:element name="attribute">
+                <xsl:element name="name"><xsl:value-of select="name"/></xsl:element>
+                <xsl:element name="type"><xsl:value-of select="type"/></xsl:element>
+                <xsl:element name="lookup">.parent<xsl:value-of select="lookup"/></xsl:element>
+              </xsl:element>
             </xsl:for-each>
           </xsl:if>
           <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">
-            <era:attribute>
-              <era:name><xsl:value-of select="concat(../js_classname,'_',js_membername)"/></era:name>
-              <era:type><xsl:value-of select="js_membertype"/></era:type>
-              <era:lookup>.<xsl:value-of select="js_membername"/></era:lookup>
-            </era:attribute>
+            <xsl:element name="attribute">
+              <xsl:element name="name"><xsl:value-of select="concat(../js_classname,'_',js_membername)"/></xsl:element>
+              <xsl:element name="type"><xsl:value-of select="js_membertype"/></xsl:element>
+              <xsl:element name="lookup">.<xsl:value-of select="js_membername"/></xsl:element>
+            </xsl:element>
           </xsl:for-each>
-        </era:js_primary_key>
+        </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -469,11 +497,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js_member)">
-         <era:js_member>
+         <xsl:element name="js_member">
            <xsl:value-of select="js_membername"/>
            <xsl:text>: </xsl:text>
            <xsl:value-of select="js_membertype"/>
-         </era:js_member>
+         </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -488,14 +516,14 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         </xsl:call-template>
       </xsl:if>
       <xsl:if test="not(jscheck) and key/jscheck">
-        <era:jscheck>
+        <xsl:element name="jscheck">
           <xsl:value-of select="key/jscheck"/>
-        </era:jscheck>
+        </xsl:element>
       </xsl:if>
       <!-- 16 Aug 2016  - CR-18123 replace use of base - it isn't doing anything!-->
       <!-- <xsl:if test="not(js_foreign_key) and (not(key) or key/js) and (not(diagonal) or diagonal/theabsolute or (diagonal/js and diagonal/js_foreign_key and base))">  -->
       <xsl:if test="not(js_foreign_key) and (not(key) or key/js) and (not(diagonal) or diagonal/theabsolute or (diagonal/js and diagonal/js_foreign_key ))"> 
-        <era:js_foreign_key>
+        <xsl:element name="js_foreign_key">
             <xsl:choose>
                 <xsl:when test="key">   <!-- simplifying assumption that only one dest level (one component in riser in pullback ) -->
                                        <!-- probably need to generalise -->
@@ -504,8 +532,8 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                   <!-- build fk by navigating to projection that key is target and iterating implmentation from there -->
                   <xsl:for-each select="key('EntityTypes',type)/reference[projection]">
                     <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                      <era:attribute>
-                        <era:name>
+                      <xsl:element name="attribute">
+                        <xsl:element name="name">
                           <xsl:call-template name="js_mangle_name">
                             <!-- et name -->
                             <xsl:with-param name="name" select="../../name"/>
@@ -513,41 +541,41 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                           <xsl:text>_</xsl:text>
                           <!-- next line  need mangling ? -->
                           <xsl:value-of select="../name"/>  <!-- attr name -->
-                        </era:name>
-                        <era:type><xsl:value-of select="../type"/></era:type>
-                        <era:lookup>
+                        </xsl:element>
+                        <xsl:element name="type"><xsl:value-of select="../type"/></xsl:element>
+                        <xsl:element name="lookup">
                           <xsl:text>this</xsl:text>
                           <xsl:value-of select="$keyreljs"/>
                           <xsl:text>.</xsl:text>
                           <xsl:value-of select="destattr"/>   
-                        </era:lookup>
-                      </era:attribute>
+                        </xsl:element>
+                      </xsl:element>
                     </xsl:for-each>
                   </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>  <!-- the normal case for a stored ref rel implemented by foreign key -->  
                   <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                    <era:attribute>
-                      <era:name>
+                    <xsl:element name="attribute">
+                      <xsl:element name="name">
                         <xsl:value-of select="key('EntityTypes', typeOfOrigin)/js_classname"/>
                         <xsl:text>_</xsl:text>
                         <xsl:value-of select="attrOfOrigin"/>
-                      </era:name>
-                      <era:type><xsl:value-of select="../type"/></era:type>
-                      <era:lookup>
+                      </xsl:element>
+                      <xsl:element name="type"><xsl:value-of select="../type"/></xsl:element>
+                      <xsl:element name="lookup">
                         <xsl:text>this.</xsl:text>
                         <xsl:value-of select="../js_membername"/>
-                      </era:lookup>
+                      </xsl:element>
                       <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
                       <xsl:if test="../optional">
-                        <era:needs_check/>
+                        <xsl:element name="needs_check"/>
                       </xsl:if>
-                    </era:attribute>
+                    </xsl:element>
                   </xsl:for-each>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:sequence select="diagonal/js_foreign_key/attribute"/>
-         </era:js_foreign_key>
+         </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -557,15 +585,15 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js)">
           <xsl:message>dep acting</xsl:message>
-         <era:js>
+         <xsl:element name="js">
              <xsl:text>parent</xsl:text>
-         </era:js>
+         </xsl:element>
       </xsl:if>
       <xsl:if test="not(*:js_inverse_membername)">
           <xsl:if test="key('CompRelsByDestTypeAndInverseName',concat(../name,':',name))/js_membername"> 
-              <era:js_inverse_membername>
+              <xsl:element name="js_inverse_membername">
                   <xsl:value-of select="key('CompRelsByDestTypeAndInverseName',concat(../name,':',name))/js_membername"/>
-              </era:js_inverse_membername>
+              </xsl:element>
           </xsl:if> 
       </xsl:if>
    </xsl:copy>
@@ -575,12 +603,12 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js)">
-           <era:js/>    <!-- empty string -->
+           <xsl:element name="js"/>    <!-- empty string -->
       </xsl:if>
       <xsl:if test="not(*:cardinality)">
-        <era:cardinality>
+        <xsl:element name="cardinality">
             <xsl:element name="ExactlyOne"/>
-        </era:cardinality>
+       </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -590,19 +618,19 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:cardinality)">
-        <era:cardinality><xsl:element name="ExactlyOne"/></era:cardinality>
+        <xsl:element name="cardinality"><xsl:element name="ExactlyOne"/></xsl:element>
       </xsl:if>
       <xsl:if test="not(*:inverse_cardinality)">
-        <era:inverse_cardinality><xsl:copy-of select="$comp_rel/cardinality/*"/></era:inverse_cardinality>
+        <xsl:element name="inverse_cardinality"><xsl:copy-of select="$comp_rel/cardinality/*"/></xsl:element>
       </xsl:if>
       <xsl:if test="not(*:js)">
-           <era:js>absolute</era:js>
+           <xsl:element name="js">absolute</xsl:element>
       </xsl:if>
       <xsl:if test="not(*:jslookup)">
-            <era:jslookup>
+            <xsl:element name="jslookup">
                <xsl:text>.</xsl:text>
                <xsl:value-of select="$comp_rel/js_membername"/>
-            </era:jslookup>
+            </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -612,29 +640,29 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js)">
          <xsl:if test="identity">
-            <era:js/>
+            <xsl:element name="js"/>
          </xsl:if>
          <xsl:if test="(theabsolute|join|component)/js">
-            <era:js>
+            <xsl:element name="js">
                <xsl:text>.</xsl:text>
                <xsl:value-of select="(theabsolute|join|component)/js"/>
-            </era:js>
+            </xsl:element>
          </xsl:if>
       </xsl:if>
       <xsl:if test="not(*:dest) and (identity or (component|join)/dest)">
          <xsl:if test="identity">
-          <era:dest><xsl:value-of select="../../name"/></era:dest>
+          <xsl:element name="dest"><xsl:value-of select="../../name"/></xsl:element>
          </xsl:if>
          <xsl:if test="(component|join)/dest">
-            <era:dest>
+            <xsl:element name="dest">
                <xsl:value-of select="(component|join)/dest"/>
-            </era:dest>
+            </xsl:element>
          </xsl:if>
       </xsl:if>
       <xsl:if test="not(jscheck) and (component|join)/jscheck">
-        <era:jscheck>
+        <xsl:element name="jscheck">
           <xsl:value-of select="(component|join)/jscheck"/>
-        </era:jscheck>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(cardinality) and (component|join|theabsolute|identity)/cardinality">
         <xsl:copy-of select="(component|join|theabsolute|identity)/cardinality"/>
@@ -642,18 +670,18 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:variable name="target" select="key('EntityTypes', ../type)"/>
       <xsl:variable name="scope" select="key('EntityTypes', dest)"/>
       <xsl:if test="not(js_foreign_key) and $target/js_primary_key and ($scope/self::absolute or $scope/js_primary_key)">
-        <era:js_foreign_key>
+        <xsl:element name="js_foreign_key">
           <xsl:for-each select="$scope/js_primary_key/attribute">
             <xsl:variable name="attrname" select="name"/>
             <xsl:if test="$target/js_primary_key/attribute[name=$attrname]">
-              <era:attribute>
-                <era:name><xsl:value-of select="name"/></era:name>
-                <era:type><xsl:value-of select="type"/></era:type>
-                <era:lookup>diagonal<xsl:value-of select="lookup"/></era:lookup>
-              </era:attribute>
+              <xsl:element name="attribute">
+                <xsl:element name="name"><xsl:value-of select="name"/></xsl:element>
+                <xsl:element name="type"><xsl:value-of select="type"/></xsl:element>
+                <xsl:element name="lookup">diagonal<xsl:value-of select="lookup"/></xsl:element>
+              </xsl:element>
             </xsl:if>
           </xsl:for-each>
-        </era:js_foreign_key>
+        </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -662,24 +690,24 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(js) and (component|join|theabsolute)/jslookup">
-        <era:js>
+        <xsl:element name="js">
           <xsl:value-of select="(component|join|theabsolute)/jslookup"/>
-        </era:js>
+        </xsl:element>
       </xsl:if>
 <!-- 2 DEc 2016 -->
       <xsl:if test="not(*:js_descent)">
          <xsl:if test="(theabsolute|join|component)/js_inverse">
-            <era:js_descent>
+            <xsl:element name="js_descent">
                <xsl:value-of select="(theabsolute|join|component)/js_inverse"/>
-            </era:js_descent>
+            </xsl:element>
          </xsl:if>
       </xsl:if>
       <!-- shouldn't need this (CR-18553) but we do because that CR is purely about new attributes of entitties and riser2 isn't an entity -->
       <xsl:if test="not(src) and (theabsolute|join|component)/src">
-        <era:src><xsl:value-of select="(theabsolute|join|component)/src"/></era:src>
+        <xsl:element name="src"><xsl:value-of select="(theabsolute|join|component)/src"/></xsl:element>
       </xsl:if>
       <xsl:if test="src and not(js_objecttype)">
-        <era:js_objecttype>
+        <xsl:element name="js_objecttype">
           <xsl:if test="key('EntityTypes',src)/module_name">
                <xsl:if test="not(ancestor::entity_type[1]/module_name) or key('EntityTypes',src)/module_name != ancestor::entity_type[1]/module_name">
                    <xsl:value-of select="key('EntityTypes',src)/module_name"/>
@@ -687,12 +715,12 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                </xsl:if>
           </xsl:if>
           <xsl:value-of select="key('EntityTypes',src)/js_classname"/>
-        </era:js_objecttype>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(cardinality) and (component|join|theabsolute|identity)/inverse_cardinality">
-        <era:cardinality>
+        <xsl:element name="cardinality">
             <xsl:copy-of select="(component|join|theabsolute|identity)/inverse_cardinality/*"/>
-        </era:cardinality>
+       </xsl:element>
         <!-- CHECK THE ABOVE-->
       </xsl:if>
     </xsl:copy>
@@ -703,17 +731,17 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js_descent)">
          <xsl:if test="(theabsolute|join|component)/js_inverse">
-            <era:js_descent>
+            <xsl:element name="js_descent">
                <xsl:value-of select="(theabsolute|join|component)/js_inverse"/>
-            </era:js_descent>
+            </xsl:element>
          </xsl:if>
       </xsl:if>
       <!-- shouldn't need this (CR-18553) but we do because that CR is purely about new attributes of entitties and riser2 isn't an entity -->
       <xsl:if test="not(src) and (theabsolute|join|component)/src">
-        <era:src><xsl:value-of select="(theabsolute|join|component)/src"/></era:src>
+        <xsl:element name="src"><xsl:value-of select="(theabsolute|join|component)/src"/></xsl:element>
       </xsl:if>
       <xsl:if test="src and not(js_objecttype)">
-        <era:js_objecttype>
+        <xsl:element name="js_objecttype">
           <xsl:if test="key('EntityTypes',src)/module_name">
                <xsl:if test="not(ancestor::entity_type[1]/module_name) or key('EntityTypes',src)/module_name != ancestor::entity_type[1]/module_name">
                    <xsl:value-of select="key('EntityTypes',src)/module_name"/>
@@ -721,7 +749,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                </xsl:if>
           </xsl:if>
           <xsl:value-of select="key('EntityTypes',src)/js_classname"/>
-        </era:js_objecttype>
+        </xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -730,40 +758,40 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js) and (every $component in component satisfies boolean($component/js))">
-         <era:js>
+         <xsl:element name="js">
             <xsl:value-of select="string-join(component/js,'.')"/>
-         </era:js>
+         </xsl:element>
       </xsl:if>
       <xsl:if test="not(js_inverse) and (every $component in component satisfies boolean($component/js_inverse))">
-         <era:js_inverse>
+         <xsl:element name="js_inverse">
             <xsl:value-of select="string-join(component/js_inverse,'.')"/>
-         </era:js_inverse>
+         </xsl:element>
       </xsl:if>
 <!-- CR18123 
       <xsl:if test="not(*:dest)">   
           <xsl:if test="component[last()]/dest">
-             <era:dest>
+             <xsl:element name="dest">
                 <xsl:value-of select="component[last()]/dest"/>
-             </era:dest>
+             </xsl:element>
           </xsl:if>
       </xsl:if>
 -->
       <xsl:if test="not(jscheck) and component/jscheck">
-        <era:jscheck>
+        <xsl:element name="jscheck">
           <xsl:value-of select="component/jscheck"/>
-        </era:jscheck>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(jslookup) and component/jslookup">
-        <era:jslookup>
+        <xsl:element name="jslookup">
           <xsl:for-each select="component">
             <xsl:sort select="position()" data-type="number" order="descending"/>
             <xsl:value-of select="jslookup"/>
           </xsl:for-each>
-        </era:jslookup>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(cardinality) and (every $component in component satisfies boolean($component/cardinality))">
         <!--
-        <era:cardinality><xsl:element name="era:join_cardinalities(component/cardinality)"/></era:cardinality>
+        <xsl:element name="cardinality"><xsl:element name="era:join_cardinalities(component/cardinality)"/></xsl:element>
         -->
         <xsl:call-template name="join_cardinality">
             <xsl:with-param name="cardinalities"
@@ -778,7 +806,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         </xsl:call-template>
       </xsl:if>
       <xsl:if test="not(src) and component[1]/src">
-        <era:src><xsl:value-of select="component[1]/src"/></era:src>
+        <xsl:element name="src"><xsl:value-of select="component[1]/src"/></xsl:element>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
@@ -789,15 +817,15 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       <xsl:if test="not(*:js) and src">
          <xsl:choose>
             <xsl:when test="key('CompRelsByDestTypeAndInverseName',concat(src,':',rel))">
-               <era:js>
+               <xsl:element name="js">
                   <xsl:text>parent</xsl:text>
-               </era:js>
+               </xsl:element>
             </xsl:when>
             <xsl:when test="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))">
-               <era:js>
+               <xsl:element name="js">
                   <xsl:value-of select="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/js_membername"/> 
                                                                <!--  before 26 may was simply select="rel"  -->
-               </era:js>
+               </xsl:element>
             </xsl:when>
          </xsl:choose>
       </xsl:if>
@@ -805,9 +833,9 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         
           <xsl:choose>
             <xsl:when test="rel='..'">
-                <era:cardinality>
+                <xsl:element name="cardinality">
                     <xsl:element name="ExactlyOne"/>
-                </era:cardinality>
+               </xsl:element>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy-of select="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/cardinality"/>
@@ -815,29 +843,29 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           </xsl:choose>
       </xsl:if>
       <xsl:if test="not(inverse_cardinality) and src">
-        <era:inverse_cardinality>
+        <xsl:element name="inverse_cardinality">
           <xsl:choose>
             <xsl:when test="key('CompRelsByDestTypeAndInverseName',concat(src,':',rel))/cardinality">
               <xsl:copy-of select="key('CompRelsByDestTypeAndInverseName',concat(src,':',rel))/cardinality/*"/>
             </xsl:when>
             <xsl:otherwise><xsl:element name="ZeroOneOrMore"/></xsl:otherwise>
           </xsl:choose>
-        </era:inverse_cardinality>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(jscheck) and js and cardinality/ZeroOrOne">
-        <era:jscheck>
+        <xsl:element name="jscheck">
           <xsl:call-template name="ensure_relationship_exists">
             <xsl:with-param name="varname" select="concat('this.', string-join(preceding-sibling::component/js|js, '.'))"/>
           </xsl:call-template>
-        </era:jscheck>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(*:js_inverse) and src and key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/js_inverse_membername">
-         <era:js_inverse>
+         <xsl:element name="js_inverse">
             <xsl:value-of select="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/js_inverse_membername"/> 
-         </era:js_inverse>
+         </xsl:element>
       </xsl:if>
       <xsl:if test="not(jslookup) and js_inverse">
-        <era:jslookup>
+        <xsl:element name="jslookup">
           <xsl:variable name="ref" select="key('RelationshipById', relid)"/>
           <xsl:variable name="owningEnts" select="ancestor::entity_type"/>
           <xsl:text>.</xsl:text>
@@ -853,18 +881,18 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
             <xsl:value-of select="src"/>
             <xsl:text>()</xsl:text>
           </xsl:if>
-        </era:jslookup>
+        </xsl:element>
       </xsl:if>
       <xsl:if test="not(*:relid) and src">
          <xsl:if test="key('CompRelsByDestTypeAndInverseName',concat(src,':',rel))">
-            <era:relid>
+            <xsl:element name="relid">
                <xsl:value-of select="key('CompRelsByDestTypeAndInverseName',concat(src,':',rel))/id"/>
-            </era:relid>
+            </xsl:element>
          </xsl:if>
          <xsl:if test="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/js">
-            <era:relid>
+            <xsl:element name="relid">
                <xsl:value-of select="key('RelationshipBySrcTypeAndName',concat(src ,':',rel))/id"/>
-            </era:relid>
+            </xsl:element>
          </xsl:if>
       </xsl:if>
    </xsl:copy>
