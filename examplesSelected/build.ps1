@@ -31,11 +31,20 @@ echo "***"
 echo "================================================================= end grids ====================="
 
 echo "."
+
 echo "."
 echo "================================================================= begin relationalMetaModel3 ==================="
 echo "***"
 & $EXAMPLESSOURCE\relationalMetaModel3\build.ps1  
 echo "***"
 echo "================================================================= end relationalMetaModel3 ====================="
+echo "."
+
+echo "."
+echo "================================================================= begin chromatogramAnalysisRecord ==================="
+echo "***"
+& $EXAMPLESSOURCE\chromatogramAnalysisRecord\build.ps1  
+echo "***"
+echo "================================================================= end chromatogramAnalysisRecord ====================="
 echo "."
 

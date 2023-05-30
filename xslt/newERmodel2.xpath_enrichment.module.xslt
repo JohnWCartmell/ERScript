@@ -165,7 +165,7 @@ projection =>
 
 <xsl:function name="era:brace">
   <xsl:param name="elementName" as="xs:string"/>
-  <xsl:param name="namespace_uri" as="xs:string"/>
+  <xsl:param name="namespace_uri" as="xs:string?"/>
  
   <xsl:value-of select="
     if ($namespace_uri)
@@ -421,7 +421,8 @@ projection =>
     <xsl:if test="not(xpath_local_key)">
       <xpath_local_key>
             <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name 
-                                             => era:braceIfDefined(ancestor-or-self::entity_model/xml/namespace_uri),',')"/>
+                                                     => era:braceIfDefined(ancestor-or-self::entity_model/xml/namespace_uri)
+                                              ,',')"/>
       </xpath_local_key>
     </xsl:if>
     <xsl:if test="not(xpath_primary_key) and xpath_local_key and xpath_parent_entity">
