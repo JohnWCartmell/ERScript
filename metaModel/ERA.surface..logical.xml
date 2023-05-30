@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
-               ERScriptVersion="1.6">
+               ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
       <attributeDefault><Attribute/></attributeDefault>

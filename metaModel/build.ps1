@@ -25,6 +25,9 @@ pushd $TARGETXML
 echo 'ERA.surface'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -animate -physicalType hs 
 
+echo 'Run surface ER.instanceValidation.xslt on logical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
+
 echo 'ERA'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs 
 
