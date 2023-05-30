@@ -14,6 +14,12 @@ If(!(test-path -PathType container $TARGET))
       echo ('CREATING target folder ' + $TARGET)
       New-Item -ItemType Directory -Path $TARGET
 }
+
+attrib -R $TARGET\*.md
+copy-item $SOURCE\*.md -Destination $TARGET
+attrib +R $TARGET\*.md
+
+
 echo "."
 echo "================================================================= begin html ==================="
 echo "***"
