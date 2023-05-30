@@ -462,8 +462,7 @@
                      type="compound(3)"
                      diagonal="../.."
                      riser=".."
-                     key="
-                     /monitored"/>
+                     key="subject/monitored"/>
          <reference name="based_on"
                      type="component(3)?"
                      diagonal="../based_on"

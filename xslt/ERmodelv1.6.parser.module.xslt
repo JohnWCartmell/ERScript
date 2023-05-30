@@ -259,7 +259,7 @@
    </xsl:element>
 </xsl:template>
 
-<xsl:template match="pullback/(@projection_rel|@type)" mode="parse__main_pass">
+<xsl:template match="(pullback|copy)/(@projection_rel|@type)" mode="parse__main_pass">
    <xsl:element name="{name()}">
          <xsl:value-of select="."/>
    </xsl:element>
@@ -304,7 +304,7 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@path|@diagonal|@riser|@along" mode="parse_navigation">
+<xsl:template match="@path|@diagonal|@riser|@along|@riser2|@key" mode="parse_navigation">
    <xsl:variable name="text" as="xs:string" select="."/>
    <!--<xsl:message>text of navigation is <xsl:value-of select="$text"/></xsl:message>-->
    <xsl:choose>
