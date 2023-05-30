@@ -24,8 +24,7 @@ pushd $TARGETXML
 
 
 echo 'xpath Example'
-if ($false)
-{
+
 echo generate rng
 . $TARGET\scripts\er2.rng.ps1 xpath  -outputFolder ..\bin -debugSwitch
 
@@ -34,7 +33,6 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 
 echo 'build physical model'
 . $TARGET\scripts\ER.logical2physical.ps1 xpath -physicalType hs
-}
 
 
 echo 'Run ER.instanceValidation.xslt on physical model'
