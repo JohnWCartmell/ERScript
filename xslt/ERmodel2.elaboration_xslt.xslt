@@ -2,24 +2,6 @@
 ****************************************************************
 ERmodel_v1.2/src/ERmodel2.elaboration_xslt.xslt 
 ****************************************************************
-
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
 -->
 
 <!--
@@ -310,7 +292,7 @@ CR-19099 JC  18-Jan-2016 Support for include directive.
                             <!-- could be choice? -->
                             <xsl:element name="{../name}">
                                 <xsl:element name="xsl:value-of">
-                                    <xsl:attribute name="select" select="destattr"/>                 <!-- might need navigate up here for cascaded key -->
+                                    <xsl:attribute name="select" select="destAttr"/>                 <!-- might need navigate up here for cascaded key -->
                                 </xsl:element>
                             </xsl:element>
                         </xsl:for-each>

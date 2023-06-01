@@ -201,9 +201,8 @@
    </entity_type>
    <group name="attribute_children">
       <entity_type name="implementationOf">
-         <reference name="destattr" type="attribute" diagonal="rel/type" riser=".."/>
-         <reference name="attrOfOrigin" type="attribute" diagonal="typeOfOrigin" riser=".."/>
-         <reference name="typeOfOrigin" type="ENTITY_TYPE" diagonal="^" riser="^"/>
+         <reference name="destAttr" type="attribute" diagonal="destAttrHostEt" riser=".."/>
+         <reference name="destAttrHostEt" type="ENTITY_TYPE" diagonal="^" riser="^"/>
          <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
       </entity_type>
       <entity_type name="value_type">

@@ -35,8 +35,11 @@ echo 'ERA'
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -animate -physicalType hs
 
+if ($false)
+{
 echo 'ERA Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate
+}
 
 popd 
 

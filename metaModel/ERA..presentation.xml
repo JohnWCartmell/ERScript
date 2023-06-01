@@ -790,13 +790,13 @@
    <entity_type>
       <name>implementationOf</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <h>5.0</h>
+         <h>3.5</h>
       </presentation>
    </entity_type>
    <entity_type>
       <name>implementationOf</name>
       <reference>
-         <name>destattr</name>
+         <name>destAttr</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcarmlen>0.9</srcarmlen>
@@ -825,36 +825,7 @@
    <entity_type>
       <name>implementationOf</name>
       <reference>
-         <name>attrOfOrigin</name>
-         <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <path>
-               <srcarmlen>1.0</srcarmlen>
-               <srcsign>-1</srcsign>
-               <srcattach>0.3</srcattach>
-               <destsign>-1</destsign>
-               <hstep>
-                  <absdim>
-                     <src>-0.05</src>
-                  </absdim>
-               </hstep>
-               <scope>
-                  <label>
-                     <xAdjustment>1.3</xAdjustment>
-                  </label>
-               </scope>
-               <label>
-                  <position>
-                     <Downside/>
-                  </position>
-               </label>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name>implementationOf</name>
-      <reference>
-         <name>typeOfOrigin</name>
+         <name>destAttrHostEt</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcarmlen>1.0</srcarmlen>
@@ -878,6 +849,7 @@
          </diagram>
       </reference>
    </entity_type>
+
    <entity_type>
       <name>implementationOf</name>
       <reference>

@@ -547,7 +547,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                           <xsl:text>this</xsl:text>
                           <xsl:value-of select="$keyreljs"/>
                           <xsl:text>.</xsl:text>
-                          <xsl:value-of select="destattr"/>   
+                          <xsl:value-of select="destAttr"/>   
                         </xsl:element>
                       </xsl:element>
                     </xsl:for-each>
@@ -557,9 +557,9 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                   <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
                     <xsl:element name="attribute">
                       <xsl:element name="name">
-                        <xsl:value-of select="key('EntityTypes', typeOfOrigin)/js_classname"/>
+                        <xsl:value-of select="key('EntityTypes', destAttrHostEt)/js_classname"/>
                         <xsl:text>_</xsl:text>
-                        <xsl:value-of select="attrOfOrigin"/>
+                        <xsl:value-of select="destAttr"/>
                       </xsl:element>
                       <xsl:element name="type"><xsl:value-of select="../type"/></xsl:element>
                       <xsl:element name="lookup">

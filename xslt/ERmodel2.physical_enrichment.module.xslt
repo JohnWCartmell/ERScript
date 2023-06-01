@@ -396,21 +396,19 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              that implement reference relationships
    -->
 
-    <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying and                 
+    <xsl:for-each select="ancestor-or-self::entity_type/attribute
+                         [identifying and                 
                                (not(implementationOf) or
                                key('RelationshipBySrcTypeAndName',
                                    era:packArray((../name ,implementationOf/rel))
                                   )[self::reference]
                                )
-                              ]">                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                          ]">                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
          <xsl:copy>
-            <xsl:element name="typeOfOrigin">
+            <xsl:element name="destAttrHostEt">
                   <xsl:value-of select="../name"/>
             </xsl:element>
-            <xsl:element name="attrOfOrigin">
-                  <xsl:value-of select="name"/>
-            </xsl:element>
-            <xsl:apply-templates select="*[not(self::typeOfOrigin|self::attrOfOrigin)]"/>   <!-- maybe name of these attrs wrong since only local origin -->
+            <xsl:apply-templates select="*[not(self::destAttrHostEt)]"/>   
          </xsl:copy>
     </xsl:for-each>
 
@@ -596,7 +594,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:for-each select="attribute[implementationOf/rel=$headRel/name]">
                  <where_component>
                     <srcattr><xsl:value-of select="name"/></srcattr>
-                    <destattr><xsl:value-of select="implementationOf/destattr"/></destattr>
+                    <destAttr><xsl:value-of select="implementationOf/destAttr"/></destAttr>
                  </where_component>
             </xsl:for-each>
             <continues/>
@@ -619,7 +617,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                    then ''
                                    else concat($prefixstem,$compound_name_separator)" />
              <xsl:for-each select="$implementing_attributes/rdb_navigation">
-                 <xsl:copy-of select="destattr"/>
+                 <xsl:copy-of select="destAttr"/>
                  <xsl:for-each select="where_component">
                       <where_component>
                           <srcattr><xsl:value-of select="concat($prefix,srcname)"/></srcattr>
@@ -665,39 +663,19 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:element name="rel">
                <xsl:value-of select="$implemented_rel_name"/>
             </xsl:element>
-            <!--
-            <xsl:element name= "origin">
+        <!-- change  log ... 26 May 2023 -->
+            <xsl:element name= "destAttrHostEt">
                  <xsl:choose>
                    <xsl:when test="implementationOf">
-                      <xsl:value-of select="implementationOf/origin"/>
-                   </xsl:when>
-                   <xsl:otherwise>
-                      <xsl:value-of select="name"/>
-                   </xsl:otherwise>
-                 </xsl:choose>
-            </xsl:element>
-        -->
-            <xsl:element name= "attrOfOrigin">
-                 <xsl:choose>
-                   <xsl:when test="implementationOf">
-                      <xsl:value-of select="implementationOf/attrOfOrigin"/>
-                   </xsl:when>
-                   <xsl:otherwise>
-                      <xsl:value-of select="name"/>
-                   </xsl:otherwise>
-                 </xsl:choose>
-            </xsl:element>
-            <xsl:element name= "typeOfOrigin">
-                 <xsl:choose>
-                   <xsl:when test="implementationOf">
-                      <xsl:value-of select="implementationOf/typeOfOrigin"/>
+                      <xsl:value-of select="implementationOf/destAttrHostEt"/>
                    </xsl:when>
                    <xsl:otherwise>
                       <xsl:value-of select="../name"/>
                    </xsl:otherwise>
                  </xsl:choose>
             </xsl:element>
-            <xsl:element name="destattr">
+         <!-- end 26 May 23-->
+            <xsl:element name="destAttr">
                <xsl:value-of select="name"/>
             </xsl:element>
           </xsl:element>
@@ -718,14 +696,14 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                          else concat($prefixstem,$compound_name_separator)" />
    <xsl:variable name="prefix"
                  select="if (cascaded) 
-                         then concat($relprefix,typeOfOrigin,$compound_name_separator)
+                         then concat($relprefix,destAttrHostEt,$compound_name_separator)
                          else $relprefix"/>
    <xsl:variable name="relname" select="$relationship/name"/>
    <xsl:variable name="is_identifying" select="$relationship/identifying/name()"/>
    <xsl:variable as="xs:boolean" name="is_optional" select="$relationship/cardinality/ZeroOrOne or $relationship/cardinality/ZeroOneOrMore"/>
                                 <!-- 16 August 2022 - UPGRADED to latest metamodel : $relationship/cardinality='ZeroOrOne' or $relationship/cardinality='ZeroOneOrMore'
                                             >>> $relationship/cardinality/ZeroOrOne or $relationship/cardinality/ExactlyOne -->
-   <xsl:element name="attribute">                                   <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+   <xsl:element name="attribute">           <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
       <xsl:element name="name">
          <xsl:value-of select="if ($style='hs') then $relname else concat($prefix,name)"/>
       </xsl:element>
@@ -733,14 +711,14 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:when test="$is_identifying='identifying'">
             <xsl:apply-templates 
                        select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation                      
-                                  | self::typeOfOrigin | self::attrOfOrigin | self::optional)]" 
-                       mode="with_identifier"/> <!-- | self::typeOfOrigin | self::attrOfOrigin | self::optional added 29/11/2022 --> 
+                                  | self::destAttrHostEt | self::optional)]" 
+                       mode="with_identifier"/> 
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates 
                        select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation
-                                  | self::typeOfOrigin | self::attrOfOrigin | self::optional)]" 
-                       mode="without_identifier"/> <!-- | self::typeOfOrigin | self::attrOfOrigin | self::optional added 29/11/2022 --> 
+                                  | self::destAttrHostEt |  self::optional)]" 
+                       mode="without_identifier"/>  
          </xsl:otherwise>
       </xsl:choose>
       <xsl:if test="$is_optional">
@@ -751,14 +729,13 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:element name="rel">
             <xsl:value-of select="$relname"/>
          </xsl:element>
-         <xsl:element name="destattr">
+         <xsl:element name="destAttr">
              <xsl:value-of select="name"/>
          </xsl:element>
-         <xsl:element name="typeOfOrigin">
-             <xsl:value-of select="typeOfOrigin"/>
-         </xsl:element>
-         <xsl:element name="attrOfOrigin">
-             <xsl:value-of select="attrOfOrigin"/>
+         <!--    
+                SEE CHANGELOG 26-Apr-2023  -->   
+         <xsl:element name="destAttrHostEt">
+             <xsl:value-of select="destAttrHostEt"/>
          </xsl:element>
       </xsl:element>
       <xsl:element name="description">
