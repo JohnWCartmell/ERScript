@@ -1,33 +1,13 @@
 
 
-## 1 June 2023
-Correct the modelling of the `component` entity type in the metaModel `ERA..logical.xml`.
+## 2 June 2023
+Refinement to how relationships identified in the meta model `ERA..logical.xml` and associated code changes.
 
 ### Summary
-1. Add a relationship `relHostEt`.
-2. Define the scope of the `rel` relationship to be
-```
-	rel/parent::entity_type = relHostEt
-``` 
-
+1. Specify the relationship `type:RELATIONSHIP -> entity_type` to be identifying.
 ### Starting Point
-Currently `component` in the logical meta model is specified as having four relationships:
-```
-   	implementationOf => 
-		rel:reference_or_dependency 
-		src:entity_type
-		dest:entity_type
-```
-and the scope of the `rel` relationship is defined as
-```
-	rel/parent::entity_type = src
-``` 
 
 ### Reason
-1. The current scope of `rel` is incorrect.
-2. Scopes of `rel` needs to be  corrected  so thatthe metamodel will be navigable with erLib.
-3. Want to improve and correct the model so that it can be published  eventually.
-
 
 #### Analysis
 
