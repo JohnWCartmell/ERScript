@@ -50,10 +50,43 @@ The attribute `destattr` is used in `ERmodel2.elaboration_xslt.xslt`, `ERmodel2.
 
 #### Testing
 Regression testing should be carried out. All relevant outputs generated before and after the change.  
-1. Test on meta model but note that the specialised hierarchical style used (-hs) doesn't test the internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.
+1. Test on meta model but note that the specialised hierarchical style used (-hs) doesn't test the internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.[x]
 2. Test on `chromatogramAnalysisRecord` example because it an -h style hierarchical example. 
-This is  to test  internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.
-3. Test on relationalMetaModel3 use of physical enrichment with style 'r' (relational).
+This is  to test  internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.[x]
+3. Test on relationalMetaModel3 use of physical enrichment with style 'r' (relational).[x]
 4. Test by regression testing typescript generated from ERmodel2.ts for the`chromatogramAnalysisRecord` example.  
-In powershell use `diff (cat filename) (cat filenameofregressioncopy)`.
+In powershell use `diff (cat filename) (cat filenameofregressioncopy)`.[x]
+
+#### At first I missed the following error showing up in relationaModel3 example. 
+The error shows up as a referential integrity error  in the physical validation report.
+Have
+```
+   <entity_type>
+      <name>foreign key entry</name>
+      <attribute>
+         <name>table_name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+         <implementationOf>
+            <rel>partof</rel>
+            <destAttrHostEt>table</destAttrHostEt>
+            <destAttr>table_name</destAttr>
+         </implementationOf>
+      </attribute>
+```
+`<destAttrHostEt>table</destAttrHostEt>` should be `<destAttrHostEt>foreign key</destAttrHostEt>`.
+
+Error has now been fixed but suggests a further test required in which identifying attributes cascade along reference relationships.
+This *is* tested though because `to_column_name` attribute of entity type `foreign key entry` is such. Inspection shows it to be generated 
+with have the following (correct) implementationOf element:
+```
+<implementationOf>
+            <rel>to</rel>
+            <destAttr>column_name</destAttr>
+            <destAttrHostEt>primary key entry</destAttrHostEt>
+         </implementationOf>
+```
+
 

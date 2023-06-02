@@ -35,8 +35,11 @@ echo 'Build physical (relational) model'
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 relationalMetaModel3..physical.xml -outputFolder ..\docs
 
+if ($false)
+{
 echo 'Relational Meta Model Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 relationalMetaModel3..logical.xml -animate -debugswitch
+}
 
 popd 
 

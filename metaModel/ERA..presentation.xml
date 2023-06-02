@@ -710,6 +710,7 @@
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>complex</below>
          <w>1.5</w>
+         <h>1.2</h>
       </presentation>
    </entity_type>
    <entity_type>
@@ -718,6 +719,7 @@
          <name>rel</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
+               <srcattach>0.25</srcattach>
                <destattach>0.75</destattach>
                <srcarmlen>0.3</srcarmlen>
                <hstep>
@@ -729,6 +731,26 @@
          </diagram>
       </reference>
    </entity_type>
+   <entity_type>
+      <name>component</name>
+      <reference>
+         <name>relSrc</name>
+         <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <path>
+               <srcattach>0.75</srcattach>
+               <srcsign>1</srcsign>
+               <destattach>0.6</destattach>
+               <srcarmlen>0.9</srcarmlen>
+               <hstep>
+                  <absdim>
+                     <src>6.5</src>
+                  </absdim>
+               </hstep>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
    <group>
       <name>component children</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">

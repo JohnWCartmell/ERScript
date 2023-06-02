@@ -181,7 +181,8 @@
          <entity_type name="aggregate"/>
       </entity_type>
       <entity_type name="component">
-         <reference name="rel" type="Relationship" diagonal="src" riser=".."/>
+         <reference name="relSrc" type="ENTITY_TYPE?"/>
+         <reference name="rel" type="Relationship" diagonal="relSrc" riser=".."/>
       </entity_type>
       <group name="component children">
          <entity_type name="identity"><!--

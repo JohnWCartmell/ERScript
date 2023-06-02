@@ -395,7 +395,7 @@
          <description>A generalisation of the types join and aggregate..</description>
          <composition>
             <type>component</type>
-            <description>.</description>
+            <description>A step along a relationship which is either the whole of or a part of a navigation.</description>
          </composition>
          <entity_type>
             <name>join</name>
@@ -412,9 +412,19 @@
          <reference>
             <name>rel</name>
             <type>Relationship</type>
-            <description>.</description>
+            <description>The relationship along hich a step is taken.</description>
          </reference>
       </entity_type>
+      <entity_type>
+         <name>component</name>
+         <description>An entity type..</description>
+         <reference>
+            <name>relSrc</name>
+            <type>ENTITY_TYPE</type>
+            <description>The source entity type of the 'rel' relationship.</description>
+         </reference>
+      </entity_type>
+
       <group>
          <name>component children</name>
          <description>A generalisation of the types identity and theabsolute..</description>

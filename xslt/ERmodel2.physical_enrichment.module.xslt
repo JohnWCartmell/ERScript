@@ -665,6 +665,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             </xsl:element>
         <!-- change  log ... 26 May 2023 -->
             <xsl:element name= "destAttrHostEt">
+                <xsl:value-of select="../name"/>  <!-- 2 Jun 2023 -->
+                <!--
                  <xsl:choose>
                    <xsl:when test="implementationOf">
                       <xsl:value-of select="implementationOf/destAttrHostEt"/>
@@ -673,6 +675,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                       <xsl:value-of select="../name"/>
                    </xsl:otherwise>
                  </xsl:choose>
+             -->
             </xsl:element>
          <!-- end 26 May 23-->
             <xsl:element name="destAttr">

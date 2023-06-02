@@ -69,6 +69,9 @@ Description
         src : string,           # the name of the source entity type
         dest : string,          # the name of the destination entity type
 
+     component => relSrc : string  # the source entity type of relationship `rel'.
+                                   # See changeLog 1-Jun-2023
+
 
       composition/xmlRepresentation/Anonymous =>
                overlap_group_id : string
@@ -681,11 +684,19 @@ Description
                      mode="initial_enrichment_recursive">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
-         <dest>
-            <xsl:value-of select="key('AllRelationshipBySrcTypeAndName',
+        <!-- ChangeLog 1-Jun-2023 Add `relSrc' -->
+        <xsl:variable name="relationship"
+                      as="element((:reference_or_dependency:))"
+                      select="key('AllRelationshipBySrcTypeAndName',
                                       era:packArray((src,rel)))
-                                  /type"/>
+                             "/>
+
+         <dest>
+            <xsl:value-of select="$relationship/type"/>
          </dest>
+         <relSrc>
+            <xsl:value-of select="$relationship/parent::entity_type/name"/>
+        </relSrc>
         <!--  
         <entity_type>
            <name>component</name>
@@ -696,6 +707,7 @@ Description
             </reference>
         </entity_type>
         -->
+
    </xsl:copy>
 </xsl:template>
 

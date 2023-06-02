@@ -4,16 +4,16 @@
 Correct the modelling of the `component` entity type in the metaModel `ERA..logical.xml`.
 
 ### Summary
-1. Add a relationship `relHostEt`.
+1. Add a relationship `relSrc`.
 2. Define the scope of the `rel` relationship to be
 ```
-	rel/parent::entity_type = relHostEt
+	rel/parent::entity_type = relSrc
 ``` 
 
 ### Starting Point
 Currently `component` in the logical meta model is specified as having four relationships:
 ```
-   	implementationOf => 
+   	component => 
 		rel:reference_or_dependency 
 		src:entity_type
 		dest:entity_type
@@ -30,15 +30,19 @@ and the scope of the `rel` relationship is defined as
 
 
 #### Analysis
+Don't *need* to change any code except for part of the the logical2physical transformation  in `ERmodel1.initial_enrichment.xslt`.
 
-#### Proposal
+#### Changes
+1. Add `relSrc` to `ERA..logical.xml`. Edit `ERA..presentation.xml` `ERA..descriptive_text.xml`.
+2. Populate `relSrc` in `ERmodel1.physical_enrichment.xslt`.
+3. Rebuild the meta model.
 
 #### Testing
-Regression testing should be carried out. All relevant outputs generated before and after the change.  
-1. Test on meta model but note that the specialised hierarchical style used (-hs) doesn't test the internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.
-2. Test on `chromatogramAnalysisRecord` example because it an -h style hierarchical example. 
-This is  to test  internal use of `typeOfOrigin` in `ERModel2.physical_enrichment.module.xslt`.
-3. Test on relationalMetaModel3 use of physical enrichment with style 'r' (relational).
-4. Test by regression testing typescript generated from ERmodel2.ts for the`chromatogramAnalysisRecord` example.  
-In powershell use `diff (cat filename) (cat filenameofregressioncopy)`.
+1. Inspect one result to check that `relSrc` is being populated with the correct value in the case when `src` and `relSrc`
+are distinct: 
+	1. Go to the file ERA..physical.xml
+	2. Find the entity `reference` relationship with name `rel` of entity type `implementationOf`.
+	3. Look at its `<riser><component>`. It should have `<rel>..</rel>`, `<src>reference_or_depedency</src>` and
+		`<relSrc>Relationship</relSrc>`. [x]
+2. Test by rebuilding all examplesSelected and checking all physical validation reports for errors.[x]
 
