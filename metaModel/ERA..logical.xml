@@ -102,6 +102,7 @@
             <composition name="riser" type="navigation?"/>
             <composition name="key" type="navigation?"/>
             <composition type="projection?"/>
+            <composition type="auxiliary_scope_constraint*"/>
             <attribute name="js" type="string?"/>
             <attribute name="xpath_evaluate" type="string?"/>
             <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser=".."/>
@@ -145,20 +146,30 @@
       <attribute name="physical_prefix" type="string?"/>
    </entity_type>
    <entity_type name="sequence"/>
-   <group name="righthand_children">
-      <entity_type name="projection"/>
-      <entity_type name="identifying(1)">
-         <composition type="inherited?"/>
-      </entity_type>
+   <entity_type name="projection"/>
+   <entity_type name="auxiliary_scope_constraint">
+       <composition name="equivalent_path" type="navigation"/>
+       <reference name="identifying_relationship" 
+                  type="reference_or_dependency"
+                  diagonal="../type"
+                  riser=".."/>
+   </entity_type> 
+
+   <entity_type name="identifying(1)">
+      <composition type="inherited?"/>
+   </entity_type>
       <entity_type name="inherited"/>
+   <group name="composition_children">
+      <entity_type name="xmlStyle(1)">
+      <entity_type name="Element(1)"/>
+      <entity_type name="Anonymous(1)"/>
+      </entity_type>
       <entity_type name="cardinality">
          <entity_type name="ZeroOrOne"/>
          <entity_type name="ExactlyOne"/>
          <entity_type name="ZeroOneOrMore"/>
          <entity_type name="OneOrMore"/>
       </entity_type>
-   </group>
-   <group name="composition_children">
       <entity_type name="transient"/>
       <entity_type name="initialiser">
          <entity_type name="pullback">
@@ -184,8 +195,7 @@
          <reference name="relSrc" type="ENTITY_TYPE?"/>
          <reference name="rel" type="Relationship" diagonal="relSrc" riser=".."/>
       </entity_type>
-      <group name="component children">
-         <entity_type name="identity"><!--
+      <entity_type name="identity"><!--
             <description>
                 The identity navigation.
         </description>
@@ -195,11 +205,13 @@
                 A navigation to the absolute.
         </description>
      --></entity_type>
-      </group>
       <attribute name="xpath_evaluate" type="string?"/>
       <reference name="src" type="ENTITY_TYPE?"/>
       <reference name="dest" type="ENTITY_TYPE?"/>
    </entity_type>
+
+                             
+
    <group name="attribute_children">
       <entity_type name="implementationOf">
          <reference name="destAttr" type="attribute" diagonal="destAttrHostEt" riser=".."/>
@@ -229,9 +241,6 @@
       <entity_type name="Element(2)"/>
       <entity_type name="Anonymous(2)"/>
    </entity_type>
-   <entity_type name="xmlStyle(1)">
-      <entity_type name="Element(1)"/>
-      <entity_type name="Anonymous(1)"/>
-   </entity_type>
+
    <include_model filename="ERA..derived_attributes.xml"/>
 </entity_model>

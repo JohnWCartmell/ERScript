@@ -424,7 +424,10 @@
             <description>The source entity type of the 'rel' relationship.</description>
          </reference>
       </entity_type>
-
+   <entity_type>
+      <name>auxiliary_scope_constraint</name>
+      <description>Change log - 2-June-2023.</description>
+   </entity_type>
       <group>
          <name>component children</name>
          <description>A generalisation of the types identity and theabsolute..</description>
