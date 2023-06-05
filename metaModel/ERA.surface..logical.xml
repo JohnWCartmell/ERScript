@@ -70,8 +70,14 @@
                <attribute name="riser" type="string?"/>
                <attribute name="key" type="string?"/>
                <attribute name="inverse" type="string?"/>
+               <composition type="auxiliary_scope_constraint*"/>
             </entity_type>
          </entity_type>
+         <entity_type name="auxiliary_scope_constraint">
+               <attribute name="identifying_relationship" type="string"/>
+               <attribute name="equivalent_path" type="string"/>
+         </entity_type>
+
          <entity_type name="attribute">
             <composition type="deprecated?"/>
             <composition name="xmlRepresentation" type="xmlStyle(2)?">

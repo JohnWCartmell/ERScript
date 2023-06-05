@@ -63,6 +63,13 @@
                <label>
                   <yAdjustment>0.15</yAdjustment>
                </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </composition>
@@ -137,6 +144,19 @@
          </diagram>
       </composition>
    </entity_type>
+      <entity_type>
+      <name>reference</name>
+      <composition>
+         <type>auxiliary_scope_constraint</type>
+         <diagram>
+            <path>
+               <align>
+                  <ToSrc/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
    <entity_type>
       <name>attribute</name>
       <presentation>
@@ -160,6 +180,17 @@
          </diagram>
       </composition>
    </entity_type>
+
+
+   <entity_type>
+        <name>auxiliary_scope_constraint</name>
+        <presentation>
+           <below>reference</below>
+           <rightOf>deprecated</rightOf>
+           <x>-0.3</x>
+         </presentation>
+   </entity_type>
+
    <entity_type>
       <name>attribute</name>
       <composition>
@@ -169,6 +200,13 @@
                <srcattach>0.975</srcattach>
                <destattach>0.3</destattach>
                <destarmlen>0.3</destarmlen>
+               <inverse>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </composition>
@@ -329,7 +367,7 @@
                </label>
                <hstep>
                   <absdim>
-                     <src>12.6</src>
+                     <src>13.5</src>
                   </absdim>
                </hstep>
             </path>
@@ -347,7 +385,7 @@
    <entity_type>
       <name>deprecated</name>
       <presentation>
-         <!--<rightOf>optional</rightOf>-->
+         <x>0.5</x>
       </presentation>
    </entity_type>
 
@@ -356,7 +394,7 @@
       <presentation>
          <rightOf>deprecated</rightOf>
          <x>3.8</x>
-         <y>0.4</y>
+         <y>0</y>
       </presentation>
    </entity_type>
    <entity_type>
