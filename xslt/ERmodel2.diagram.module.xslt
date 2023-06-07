@@ -1278,7 +1278,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:variable name="result">
    <xsl:if test="$scheme='LOCAL' and not(parent::entity_type | parent::group)">
        <xsl:message terminate = "yes">
-	    et_y called with scheme LOCAL but no parent entity type or group
+	    et_y called with scheme LOCAL but no parent entity type or group '<xsl:value-of select="name"/>'
        </xsl:message>
    </xsl:if>
    <xsl:choose>

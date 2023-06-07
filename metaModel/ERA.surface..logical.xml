@@ -73,11 +73,6 @@
                <composition type="auxiliary_scope_constraint*"/>
             </entity_type>
          </entity_type>
-         <entity_type name="auxiliary_scope_constraint">
-               <attribute name="identifying_relationship" type="string"/>
-               <attribute name="equivalent_path" type="string"/>
-         </entity_type>
-
          <entity_type name="attribute">
             <composition type="deprecated?"/>
             <composition name="xmlRepresentation" type="xmlStyle(2)?">
@@ -91,6 +86,7 @@
             <attribute name="inverse" type="string?"/>
          </entity_type>
       </entity_type>
+
       <entity_type name="composition">
          <composition name="xmlRepresentation" type="xmlStyle(1)?"/> 
          <composition type="transient?"/>  
@@ -100,6 +96,12 @@
       </entity_type>
       <attribute name="description" type="string?"/>
    </entity_type>
+
+   <entity_type name="auxiliary_scope_constraint">
+      <attribute name="identifying_relationship" type="string"/>
+      <attribute name="equivalent_path" type="string"/>
+   </entity_type>
+
 
    <group name="composition_children">
       <entity_type name="xmlStyle(1)">

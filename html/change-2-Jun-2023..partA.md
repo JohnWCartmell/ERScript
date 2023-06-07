@@ -5,7 +5,7 @@
 ### Summary
 Enable the specification of auxiliary constraints.
 
-This change is the first of two changes specified in outline in the change note of 2 Hune 2023.
+This change is the first of two material changes specified in outline in the change note of 2 Hune 2023.
 
 #### Proposal
 
@@ -33,10 +33,10 @@ where the scope of `identifying_relationship` is given by
 3. Extend  the 1.6 parser -- to parse auxiliary scope constraint.
 4. Modify physical enrichment -- to take account of auxiliary scope constraint when generating foreign keys.
 
-5. Modify xpath enrichment -- to use the auxiliary scope constraint in `xpath_eveluate` of a `reference' relationshuip
+5. Modify xpath enrichment -- to use the auxiliary scope constraint in `xpath_eveluate` of a `reference`	 relationshuip
 
 I originally thought  that `erlib` would the change but it doesn't need to because the change will be picked up via generated `xpath_evaluate`
 
 #### Testing
 
-Where can we test this feature except for in the meta model.
+We will test this feature by implementing part B of this chenage of the 2nd June 2023. 

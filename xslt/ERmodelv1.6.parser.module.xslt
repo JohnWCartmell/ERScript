@@ -57,6 +57,12 @@
    </xsl:element>
 </xsl:template>  
 
+<xsl:template match="@identifying_relationship" mode="parse__main_pass">
+   <xsl:element name="identifying_relationship"> 
+      <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template> 
+
 <xsl:template match="@type" mode="parse__main_pass">
    <!-- intentially left blank -->
 </xsl:template>  
@@ -253,7 +259,7 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@diagonal|@riser|@along|@key|@riser2" mode="parse__main_pass">
+<xsl:template match="@diagonal|@riser|@along|@key|@riser2|@equivalent_path" mode="parse__main_pass">
    <xsl:element name="{name()}">
          <xsl:apply-templates select="." mode="parse_navigation"/>
    </xsl:element>
@@ -304,7 +310,7 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@path|@diagonal|@riser|@along|@riser2|@key" mode="parse_navigation">
+<xsl:template match="@path|@diagonal|@riser|@along|@riser2|@key|@equivalent_path" mode="parse_navigation">
    <xsl:variable name="text" as="xs:string" select="."/>
    <!--<xsl:message>text of navigation is <xsl:value-of select="$text"/></xsl:message>-->
    <xsl:choose>

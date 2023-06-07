@@ -71,6 +71,7 @@ This proposed change to the meta model will
 
 #### Proposal
 Split this change into a numnber of smaller steps that can be separately implemented and tested:
+- preparation simplification and improvement of code
 - Part A -- specification of auxiliary scope constraints
 - Part B -- specifying the type of a relationship to be identifying
 

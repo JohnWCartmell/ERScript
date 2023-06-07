@@ -805,8 +805,8 @@
       <name>component</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>complex</below>
-         <w>1.5</w>
-         <h>1.2</h>
+         <deltaw>0.3</deltaw>
+         <deltah>0.3</deltah>
       </presentation>
    </entity_type>
    <entity_type>

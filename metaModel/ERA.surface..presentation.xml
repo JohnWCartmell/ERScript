@@ -144,7 +144,7 @@
          </diagram>
       </composition>
    </entity_type>
-      <entity_type>
+   <entity_type>
       <name>reference</name>
       <composition>
          <type>auxiliary_scope_constraint</type>
@@ -211,7 +211,6 @@
          </diagram>
       </composition>
    </entity_type>
-
 
   <entity_type>
       <name>identifying</name>

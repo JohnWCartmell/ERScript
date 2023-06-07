@@ -260,7 +260,18 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       <xsl:value-of select="false()"/>
   </xsl:if>
   <xsl:for-each select="key('EntityTypes',$nonempty_et_name)">
+
+    <!-- fix bug in preparation change log 2nd June 2023 fix bug-->
+
+    <xsl:variable name="parentImplemented"
+                  as="xs:boolean"
+                  select="if (parent::entity_type)
+                          then era:et_is_implemented($root,parent::entity_type/name)
+                          else true()  
+                  "/>
+
      <xsl:value-of select="
+        $parentImplemented and 
         not(reference[identifying
                       and not(key('whereImplemented',
                                   era:packArray(($nonempty_et_name,name))
@@ -284,7 +295,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                ]  
                 )  
            )
-                            "/>         <!-- CR-18469  and not (../name='ansolute') -->
+                            "/>        
    </xsl:for-each>
    </xsl:for-each>
 </xsl:function>
@@ -334,7 +345,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        </xsl:for-each>
     </xsl:if>
     <!-- copy identifying attributes --> 
-    <xsl:apply-templates select="attribute[identifying]"/>                                           <!--16 August 2022 - UPGRADED to latest metamodel  value >>> attribute -->
+    <xsl:apply-templates select="attribute[identifying]"/>  
 
     <!-- add implementing attributes for reference relationships which are single valued-->
     <!-- though could be single valued on each side (noted as issue as at 18-Oct-2016 (JC)) -->
@@ -342,7 +353,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                     and not(key('whereImplemented',
                                             era:packArray((../name,name))))
                                     and not(key)             
-                                    ]">       <!-- 16 August 2022 - UPGRADED to latest metamodel : cardinality = 'ZeroOrOne' or cardinality = 'ExactlyOne' >>> cardinality/ZeroOrOne or cardinality/ExactlyOne -->    
+                                    ]">         
                                     <!-- simplifying assumption that key covers missing identifiers subject to future generalisation -->
                 <!-- @ reference relationship that is not already implemented-->
 				
@@ -354,24 +365,26 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 				        era:et_is_implemented(root(),../dependency/type)
 				     )
 						">
-         
+         <xsl:message>BEGIN Imp. R'<xsl:value-of select="name"/>'</xsl:message>
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
          <xsl:variable name="implementing_attributes" 
-                       as="element(attribute)*" >                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                       as="element(attribute)*" >   
            <xsl:for-each select="key('EntityTypes',type)">
              <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
                <xsl:with-param name="navigation" select="$relationship/riser/*"/>
-               <xsl:with-param name="reentry" select="false()"/>
+               <xsl:with-param name="exclude_rel_name" select="$relationship/auxiliary_scope_constraint/identifying_relationship"/>
              </xsl:call-template>
            </xsl:for-each>
          </xsl:variable>
+
          <xsl:for-each select="$implementing_attributes"> 
+            <xsl:message>IMPLEMENTING ATTRIBUTE '<xsl:value-of select="name"/>'</xsl:message>
             <xsl:call-template name="reinstantiate_attribute">
                <xsl:with-param name="relationship" select="$relationship"/>
             </xsl:call-template>
          </xsl:for-each>
-         <!--<xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message>-->
+         <xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message>
       </xsl:if>
     </xsl:for-each>
    
@@ -380,38 +393,51 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                select="*[not(self::attribute[identifying])       
                          and not(self::name) 
                          and not (self::presentation)]"
-                mode="recursive_physical_enrichment"/>                            <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+                mode="recursive_physical_enrichment"/>           
   </xsl:copy>
   <!-- <xsl:message> END ENTITY TYPE <xsl:value-of select="name"/> </xsl:message> -->
 </xsl:template>
 
+
+<!-- The idea of the next function is to collect from the destination entity of a relationship
+    all the attributes required to identify an entity of the type relative from a starting point
+    which will be identified by the riser of the same relationship.
+    The riser is passed as a navigation whose source is the destination entity type
+-->
 <xsl:template name="attributes_reqd_to_identify_from_ancestor" 
               match="entity_type" 
               mode="explicit">
    <xsl:param name="navigation" as="element()?"/>
-   <xsl:param name="reentry" as="xs:boolean"/>
+   <xsl:param name="exclude_rel_name" as="xs:string?"/>
 
    <!--all natural identifying attributes 
        and all referential identifying attributes 
              that implement reference relationships
    -->
-
+    <xsl:message>exclude rel is '<xsl:value-of select="$exclude_rel_name"/>'</xsl:message>
     <xsl:for-each select="ancestor-or-self::entity_type/attribute
-                         [identifying and                 
+                                [identifying and                 
                                (not(implementationOf) or
                                key('RelationshipBySrcTypeAndName',
                                    era:packArray((../name ,implementationOf/rel))
                                   )[self::reference]
                                )
-                          ]">                                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
-         <xsl:copy>
-            <xsl:element name="destAttrHostEt">
-                  <xsl:value-of select="../name"/>
-            </xsl:element>
-            <xsl:apply-templates select="*[not(self::destAttrHostEt)]"/>   
-         </xsl:copy>
+                          ]"> 
+                          <!-- the complication here is to omit attributes that implement dependencies
+                                    because I only want these if they are not so global as to be
+                                    already known from the context of the riser
+                              -->
+         <xsl:if test="not($exclude_rel_name) or not(name eq $exclude_rel_name)">
+             <xsl:copy>
+                <xsl:element name="destAttrHostEt">
+                      <xsl:value-of select="../name"/>
+                </xsl:element>
+                <xsl:apply-templates select="*[not(self::destAttrHostEt)]"/>   
+             </xsl:copy>
+         </xsl:if>
     </xsl:for-each>
 
+   
    <!-- all attributes of destination of navigationHead 
           local to navigationTail 
     -->
@@ -435,7 +461,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:for-each select="key('EntityTypes',$navigationHead/type)">
             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
                <xsl:with-param name="navigation" select="$navigationTail"/>
-               <xsl:with-param name="reentry" select="true()"/>   <!-- this isn't what is was needed - take it out -->
             </xsl:call-template>
          </xsl:for-each>
       </xsl:variable>
@@ -466,45 +491,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:if test="not(root(current()))">
        <xsl:message terminate="yes"> current has no document root </xsl:message>
    </xsl:if>
-   
-   <xsl:if test="not($navigationHeadRelName = '')">
-      <xsl:if test="not(key('AllRelationshipBySrcTypeAndName',
-                        era:packArray((  name ,$navigationHeadRelName)),root(current()))
-                       )">   <!-- CR-18059 -->
-         <xsl:message> 
-                 ***********************************************
-                 ERROR: no relationship named 
-                   '<xsl:value-of select="$navigationHeadRelName"/>' 
-                   from entity type 
-                   '<xsl:value-of select="name"/>'
-                 ***********************************************
-         </xsl:message>
-      </xsl:if>
-      <xsl:for-each select="key('AllRelationshipBySrcTypeAndName',
-                                   era:packArray((  name ,$navigationHeadRelName)))">
-                                                                <!-- CR-18059 -->
-         <xsl:copy>
-            <xsl:apply-templates/>
-            <xsl:if test="name()='dependency'">
-               <xsl:if test="not(key('CompRelsByDestTypeAndInverseName',
-                                     era:packArray((  ../name ,$navigationHeadRelName)))
-                            )">
-                     <xsl:message>
-                 ***********************************************
-                 ERROR: no inverse found for dependency relationship named 
-                   '<xsl:value-of select="$navigationHeadRelName"/>' 
-                   from entity type 
-                   '<xsl:value-of select="../name"/>'
-                 ***********************************************
-                     </xsl:message>
-               </xsl:if>              
-               <!-- 25 October 2016 get rid of this as part of CR-18159 -->
-               <xsl:copy-of select="key('CompRelsByDestTypeAndInverseName',
-                     era:packArray((  ../name ,$navigationHeadRelName)))/identifying"/>
-            </xsl:if>
-         </xsl:copy>
-      </xsl:for-each>
-   </xsl:if>
+ 
+    <!-- Much simplified  2nd June 2023 -->
+    <xsl:sequence select="key('AllRelationshipBySrcTypeAndName',
+                                   era:packArray((  name ,$navigationHeadRelName)))"/>
 </xsl:template>
 
 <xsl:template name="navigationHeadRelName" match="component|theabsolute|join" mode="explicit">
@@ -517,6 +507,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              <xsl:value-of select="rel"/>
          </xsl:when>
          <xsl:when test="name()='theabsolute'">
+            <!-- NOTE THAT THIS IS EMPTY !!!!-->
          </xsl:when>
          <xsl:when test="name()='join'">
              <xsl:value-of select="component[1]/rel"/>
@@ -640,7 +631,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 <xsl:message> ############################## get_identifying_attributes #### at entity type <xsl:value-of select="name"/> </xsl:message>
 <xsl:message>implemented_rel_name: '<xsl:value-of select="$implemented_rel_name"/>'</xsl:message>
    -->
-   <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]">                     <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+   <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]"> 
       <xsl:copy>
          <xsl:variable name="prefix" select="if(implementationOf) then '' 
                                            else concat($attr_nameprefix,$compound_name_separator)"/>
@@ -708,7 +699,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                             >>> $relationship/cardinality/ZeroOrOne or $relationship/cardinality/ExactlyOne -->
    <xsl:element name="attribute">           <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
       <xsl:element name="name">
-         <xsl:value-of select="if ($style='hs') then $relname else concat($prefix,name)"/>
+   <!--      <xsl:value-of select="if ($style='hs') then $relname else concat($prefix,name)"/> -->
+             <xsl:value-of select="if ($style='hs' and not(implementationOf)) then $relname else concat($prefix,name)"/>
       </xsl:element>
       <xsl:choose>
          <xsl:when test="$is_identifying='identifying'">
