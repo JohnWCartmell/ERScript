@@ -12,6 +12,10 @@
 <xsl:output method="xml" indent="yes"/>
 <xsl:strip-space elements="*"/>
 
+<xsl:param name="debug" as="xs:string?"/>
+
+<xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+
 <xsl:include href="ER.metaModelLib.module.xslt"/>
 <xsl:include href="ER.dataLib.module.xslt"/>
 <xsl:include href="ER.instanceData.module.xslt"/>
@@ -91,11 +95,13 @@
 
 <!-- generic walk with callback functions passed as parameters -->
 <xsl:template match="/">
-   <!-- The following REALLY USEFUL for debugging 
-   ******************************************
-   <xsl:copy-of select="$erMetaModelData"/>
-   ******************************************
-   -->
+   <xsl:if test="$debugon">
+      <xsl:message>Debug is on </xsl:message>
+      <xsl:result-document href="erMertaModelData.xml" method="xml">
+          <xsl:sequence select="$erMetaModelData"/>
+      </xsl:result-document>
+    </xsl:if>
+
    <xsl:message><xsl:value-of select="map:keys($constructed_stroke_reference_stroke_dependency_evaluation_lib)"/></xsl:message>
    <xsl:message> Schema is described as '<xsl:value-of select="$erMetaModelData/er:description"/>'</xsl:message>
    <xsl:message> Schema (absolute) is named '<xsl:value-of select="$erMetaModelData/er:absolute/er:name"/>'</xsl:message>
@@ -106,9 +112,7 @@
 
    <xsl:variable name="typeTaggedInstanceData"
                  as="document-node()">
-      <!--<xsl:for-each select="child::element()">-->
          <xsl:call-template name="typeTagInstanceData"/>
-      <!--</xsl:for-each>-->
    </xsl:variable>
 
    <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
@@ -189,7 +193,9 @@
                                 [not(. is $instance)]
                                 [deep-equal($erDataLib?readIdentifyingFeatureSequence(.),$identifyingFeatures)]
                              ">
-            <xsl:element name="ERRORnonuniqueidentifer"/>
+            <xsl:element name="ERRORnonuniqueidentifer">
+               <xsl:sequence select="$identifyingFeatures[self::attribute]"/>
+            </xsl:element>
          </xsl:for-each>
       </xsl:if>
 

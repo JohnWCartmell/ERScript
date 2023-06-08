@@ -15,9 +15,11 @@ dest/ancestor-or_self::entity_type = rel/type::entity_type
 #### Proposal
 1. Copy away `ERA..physical.xml` for safe keeping.[x]
 2. In `ERA..logical.xml` change the `type` reference relationship of entity type `Relationship` to be identifying.
-3. Build the meta model so as to generate `ERA..physical.xml`. There will be lots of unwanted foreign keys. Copy this away for comparison later.[x]
+3. From the file `ERA..logical.xml` remove the  xpath_evaluate patches of reference relationships `inverse` and `inverseOf`.
+Temporarily rename them patch_xpath-evaluate. As a consequence of this change of 2nd June the generated xpath_evaluate will be equivalent to these hand written versions.  
+4. Build the meta model so as to generate `ERA..physical.xml`. There will be lots of unwanted foreign keys. Copy this away for comparison later.[x]
 	
-4. Specify auxiliary scope constraints as follows:
+5. Specify auxiliary scope constraints as follows:
 	1. For relationship `inverse: reference -> reference` specify `type=parent::entity_type`.
 		 - Generate and check that the unwanted foreign key (`inverse_type`) is no longer there.
 	2. For relationship `inverse: constructed_relationship -> constructed_relationship` specify `type=parent::entity_type`.
@@ -31,6 +33,10 @@ dest/ancestor-or_self::entity_type = rel/type::entity_type
 	6. For relationship `projection_rel: pullback -> reference` specify `type=type::entity_type`.
 		 - Generate and check that the unwanted foreign key (`projection_rel_type`) is no longer there.
 
-5. Check that instance validation of `ERA..physical` has no errors. Specifically check that unnamed relationships no longer are flagged as errors. 
+6. Check that instance validation of `ERA..physical` has no errors. Specifically check that unnamed relationships no longer are flagged as errors. 
 
 #### Testing
+- Build the meta model.
+- Inspect the generated code for xpath_evaluate is equivalent to the previously hand written patch version.
+- Instance validate the model xxx. This instance validation failed previous to the patch to inverse. Check that the validation now runs to completion.
+- Instance validate the xpath model.  

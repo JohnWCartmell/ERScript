@@ -421,7 +421,7 @@ projection =>
     <xsl:if test="not(xpath_local_key)">
       <xpath_local_key>
             <xsl:value-of select="string-join(ancestor-or-self::entity_type/attribute[identifying]/name 
-                                                     => era:braceIfDefined(ancestor-or-self::entity_model/xml/namespace_uri)
+                                                       ! era:braceIfDefined(.,ancestor-or-self::entity_model/xml/namespace_uri)
                                               ,',')"/>
       </xpath_local_key>
     </xsl:if>
@@ -660,6 +660,12 @@ projection =>
                              and key('EntityTypes',key/*/dest)/xpath_primary_key
                            )
                         )
+                    and (every $asc in auxiliary_scope_constraint 
+                                satisfies (  $asc/equivalent_path/*/xpath_evaluate
+                                           and 
+                                             $asc/xpath_primary_key_of_auxiliary_identified_entity
+                                           )
+                        )
                    ">
       <xpath_local_key>
         <xsl:choose>
@@ -675,6 +681,16 @@ projection =>
                 <xsl:text>,</xsl:text>
               </xsl:if>
               <xsl:value-of select="era:brace(../name,ancestor-or-self::entity_model/xml/namespace_uri)"/>
+            </xsl:for-each>
+            <!-- Change log 2nd June 2023 -->
+            <!-- assume that auxiliary scopes are for trailing primary keys
+                  SHOULD IMPROVE ON THIS I THINK
+            -->
+            <xsl:for-each select="auxiliary_scope_constraint">
+                 <xsl:text>,</xsl:text>                 <!-- will it always be auxiliary ? -->
+                 <xsl:value-of select="equivalent_path/*/xpath_evaluate"/>
+                 <xsl:text>/</xsl:text>
+                 <xsl:value-of select="xpath_primary_key_of_auxiliary_identified_entity"/>
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -694,7 +710,7 @@ projection =>
               <xsl:if test="position() &gt; 1">
                 <xsl:text> and </xsl:text>
               </xsl:if>
-              <xsl:value-of select="'exists(' ||  era:brace(../name, ancestor-or-self::entity_model/xml/namespace_uri ) || ')'"/>
+              <xsl:value-of select="'exists(' ||  era:brace(../name, ancestor-or-self::entity_model/xml/namespace_uri ) || ')'"/>   <!-- TBD 2nd June 2023 Check that auxiliary key is defined ??? -->
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -786,7 +802,35 @@ projection =>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="reference/projection[host_type] " mode="recursive_xpath_enrichment">
+
+<xsl:template match="reference/auxiliary_scope_constraint" mode="recursive_xpath_enrichment">
+  <xsl:copy>
+    <xsl:apply-templates mode="recursive_xpath_enrichment"/>
+    <!-- xpath_primary_key_of_auxiliary_identified_entity -->
+
+<xsl:message> expect 'type' for  parent reference parant entity type '<xsl:value-of select="parent::reference/parent::entity_type/name"/>'</xsl:message>
+    <xsl:variable name="identifying_relationship"
+                               as="element(reference)"
+                               select="key('AllRelationshipBySrcTypeAndName',
+                                           era:packArray((parent::reference/type,
+                                                          identifying_relationship)))"/>
+
+    <xsl:variable name="destination_type_of_identifying_relationship"
+                               as="element(entity_type)"
+                               select="key('EntityTypes',$identifying_relationship/type)"/>
+
+
+    <xsl:if test="not(xpath_primary_key_of_auxiliary_identified_entity)
+                     and $destination_type_of_identifying_relationship/xpath_primary_key">
+
+      <xpath_primary_key_of_auxiliary_identified_entity>
+        <xsl:value-of select="$destination_type_of_identifying_relationship/xpath_primary_key"/>
+      </xpath_primary_key_of_auxiliary_identified_entity>
+    </xsl:if>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="reference/projection[host_type]" mode="recursive_xpath_enrichment">
   <xsl:copy>
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
 

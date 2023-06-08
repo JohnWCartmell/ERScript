@@ -4,7 +4,9 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName)
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName),
+   [Parameter(Mandatory=$False)]
+       [switch]$debugswitch
 )
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
@@ -29,4 +31,5 @@ echo $SAXON_JAR
 
 java -Xss2m -jar $SAXON_JAR -opt:0  -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\ER.instanceValidation.xslt `
-                       -o:$outputFolder\$filenamebase.validationReport.xml
+                       -o:$outputFolder\$filenamebase.validationReport.xml `
+                        debug=$(If ($debugswitch){'y'}Else{'n'}) 

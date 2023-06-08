@@ -23,12 +23,10 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-if ($false)
-{
+
 echo 'chromatogram Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..logical.xml -outputFolder ..\docs
-}
 
 ##################################################################################
 # NOTE that the physicalType is 'h'. I know this from looking at an old printout.

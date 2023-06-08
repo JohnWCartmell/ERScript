@@ -32,6 +32,7 @@ echo 'Brinton Example'
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..physical.xml -outputFolder ..\docs
+
  if ($false)
 {
 echo 'Brinton Flex version'
