@@ -328,6 +328,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                 -->
                 <!-- implementing foreign key attributes --> 
                 <xsl:variable name="dependencyname" select="inverse"/>
+                <xsl:variable name="dependencytypename" select="../name"/>  <!-- ???? -->
                 <xsl:variable name="is_identifying" select="identifying/name()"/>
                 <xsl:for-each select="..">  
                    <!-- @ source entity type of the composition relationship -->
@@ -336,6 +337,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                         select="name"/>
                         <xsl:with-param name="implemented_rel_name" 
                                         select="$dependencyname"/>
+                        <xsl:with-param name="implemented_rel_type" 
+                                        select="$dependencytypename"/>
                         <xsl:with-param name="is_identifying" 
                                         select="$is_identifying"/>   
                    </xsl:call-template>
@@ -626,6 +629,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 <xsl:template name="get_identifying_attributes" match="entity_type" mode="explicit">
    <xsl:param name="attr_nameprefix"/>
    <xsl:param name="implemented_rel_name"/>
+   <xsl:param name="implemented_rel_type"/>
    <xsl:param name="is_identifying"/>
    <!--
 <xsl:message> ############################## get_identifying_attributes #### at entity type <xsl:value-of select="name"/> </xsl:message>
@@ -654,19 +658,12 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:element name="rel">
                <xsl:value-of select="$implemented_rel_name"/>
             </xsl:element>
+            <xsl:element name="rel_type">
+               <xsl:value-of select="$implemented_rel_type"/>
+            </xsl:element>
         <!-- change  log ... 26 May 2023 -->
             <xsl:element name= "destAttrHostEt">
                 <xsl:value-of select="../name"/>  <!-- 2 Jun 2023 -->
-                <!--
-                 <xsl:choose>
-                   <xsl:when test="implementationOf">
-                      <xsl:value-of select="implementationOf/destAttrHostEt"/>
-                   </xsl:when>
-                   <xsl:otherwise>
-                      <xsl:value-of select="../name"/>
-                   </xsl:otherwise>
-                 </xsl:choose>
-             -->
             </xsl:element>
          <!-- end 26 May 23-->
             <xsl:element name="destAttr">
@@ -677,7 +674,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    </xsl:for-each>
 </xsl:template>
 
-<xsl:template name="reinstantiate_attribute" match="attribute" mode="explicit">                             <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+<xsl:template name="reinstantiate_attribute" match="attribute" mode="explicit"> 
    <xsl:param name="relationship" as="node()"/>
 
    <xsl:variable name="prefixstem"
@@ -692,15 +689,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                  select="if (cascaded) 
                          then concat($relprefix,destAttrHostEt,$compound_name_separator)
                          else $relprefix"/>
-   <xsl:variable name="relname" select="$relationship/name"/>
    <xsl:variable name="is_identifying" select="$relationship/identifying/name()"/>
-   <xsl:variable as="xs:boolean" name="is_optional" select="$relationship/cardinality/ZeroOrOne or $relationship/cardinality/ZeroOneOrMore"/>
-                                <!-- 16 August 2022 - UPGRADED to latest metamodel : $relationship/cardinality='ZeroOrOne' or $relationship/cardinality='ZeroOneOrMore'
-                                            >>> $relationship/cardinality/ZeroOrOne or $relationship/cardinality/ExactlyOne -->
-   <xsl:element name="attribute">           <!-- 16 August 2022 - UPGRADED to latest metamodel : value >>>  attribute -->
+   <xsl:variable name="is_optional"
+                 as="xs:boolean" 
+                 select="$relationship/cardinality/ZeroOrOne or $relationship/cardinality/ZeroOneOrMore"/>
+   <xsl:element name="attribute">           
       <xsl:element name="name">
-   <!--      <xsl:value-of select="if ($style='hs') then $relname else concat($prefix,name)"/> -->
-             <xsl:value-of select="if ($style='hs' and not(implementationOf)) then $relname else concat($prefix,name)"/>
+   <!--      <xsl:value-of select="if ($style='hs') then $relationship/name else concat($prefix,name)"/> -->
+             <xsl:value-of select="if ($style='hs' and not(implementationOf)) 
+                                   then $relationship/name 
+                                   else concat($prefix,name)"/>
       </xsl:element>
       <xsl:choose>
          <xsl:when test="$is_identifying='identifying'">
@@ -722,7 +720,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       <xsl:element name="implementationOf">
          <!-- CR-18497: consider including relid here -->
          <xsl:element name="rel">
-            <xsl:value-of select="$relname"/>
+            <xsl:value-of select="$relationship/name"/>
+         </xsl:element>
+         <xsl:element name="rel_type">
+            <xsl:value-of select="$relationship/type"/>
          </xsl:element>
          <xsl:element name="destAttr">
              <xsl:value-of select="name"/>
@@ -735,10 +736,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       </xsl:element>
       <xsl:element name="description">
            This is the '<xsl:value-of select="name"/>' attribute
-              of the related `<xsl:value-of select="$relname"/> 
+              of the related `<xsl:value-of select="$relationship/name"/> 
                     <xsl:text> </xsl:text>  <xsl:value-of select="$relationship/type"/>' (a foreign key
            to relationship 
-           `<xsl:value-of select="$relname"/>' : 
+           `<xsl:value-of select="$relationship/name"/>' : 
            <xsl:value-of select="../name"/> ----> <xsl:value-of select="$relationship/type"/>).
       </xsl:element>
    </xsl:element>
