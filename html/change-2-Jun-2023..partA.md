@@ -9,7 +9,7 @@ This change is the first of two material changes specified in outline in the cha
 
 #### Proposal
 
-1. Enable the specification of auxiliary constraints by adding an entity type `auxiliary_scope_constraint` t to `ERA.surface..logical.xml`
+1. Enable the specification of auxiliary constraints by adding an entity type `auxiliary_scope_constraint` to `ERA.surface..logical.xml`
 as follows
 ```
 reference => auxiliary_scope_constraint*
@@ -33,7 +33,7 @@ where the scope of `identifying_relationship` is given by
 3. Extend  the 1.6 parser -- to parse auxiliary scope constraint.
 4. Modify physical enrichment -- to take account of auxiliary scope constraint when generating foreign keys.
 
-5. Modify xpath enrichment -- to use the auxiliary scope constraint in `xpath_eveluate` of a `reference`	 relationshuip
+5. Modify xpath enrichment -- to use the auxiliary scope constraint in `xpath_evaluate` of a `reference`	 relationshuip
 
 I originally thought  that `erlib` would the change but it doesn't need to because the change will be picked up via generated `xpath_evaluate`
 

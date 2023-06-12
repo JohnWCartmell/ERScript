@@ -22,7 +22,6 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-
 echo 'xpath Example'
 
 echo generate rng

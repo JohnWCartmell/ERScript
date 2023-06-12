@@ -58,7 +58,8 @@ Description
                                  # if the reference is specified as the 
                                  # projection_rel by a pullback. 
 
-          
+    auxiliary_scope-constraint =>
+             identifying_relationship_type : string
 
      dependency => optional identifying : ()
  
@@ -374,6 +375,33 @@ Description
        <projection/>
        <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
    </xsl:copy>
+</xsl:template>
+
+
+<xsl:template match="auxiliary_scope_constraint
+                     [not(identifying_relationship_type)]
+                     "
+              mode="initial_enrichment_recursive"
+              priority="7">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
+    <xsl:variable name="identifying_relationship"
+                           as="element(reference)*"
+                           select="key('AllRelationshipBySrcTypeAndName',
+                                       era:packArray((parent::reference/type,
+                                                      identifying_relationship)))"/>
+
+    <xsl:if test="not($identifying_relationship)">
+        <xsl:message terminate="yes">Auxiliary scope constraint identifying_relationship '<xsl:value-of select="parent::reference/type || '.' || identifying_relationship"/>' not found</xsl:message>
+    </xsl:if>
+
+    <xsl:if test="count($identifying_relationship) &gt; 1">
+        <xsl:message terminate="yes">Auxiliary scope constraint identifying_relationship '<xsl:value-of select="parent::reference/type || '.' || identifying_relationship"/>' ambiguous  (count is <xsl:value-of select="count($identifying_relationship)"/>)</xsl:message>
+    </xsl:if>
+    <identifying_relationship_type>
+         <xsl:value-of select="$identifying_relationship/type"/>
+     </identifying_relationship_type>
+  </xsl:copy>
 </xsl:template>
 
 <xsl:template match="@*|node()"

@@ -33,7 +33,11 @@ Temporarily rename them patch_xpath-evaluate. As a consequence of this change of
 	6. For relationship `projection_rel: pullback -> reference` specify `type=type::entity_type`.
 		 - Generate and check that the unwanted foreign key (`projection_rel_type`) is no longer there.
 
-6. Check that instance validation of `ERA..physical` has no errors. Specifically check that unnamed relationships no longer are flagged as errors. 
+6. Extend `ERmodel2.initial_enrichment.module.xslt` to populate the `identifying_relationship_type` foreign key
+of an  `auxiliary_scope_contraint` entity if absent and uniquely implied by the value of the `identifying_relationship` 
+foreign key. If not possible terminate with an error.
+
+7. Check that instance validation of `ERA..physical` has no errors. Specifically check that unnamed relationships no longer are flagged as errors. 
 
 #### Testing
 - Build the meta model.
