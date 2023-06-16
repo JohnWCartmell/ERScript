@@ -33,7 +33,7 @@ where `ir` and  `ep` evaluates the identifying relationship, respectively the `e
 ```
 [fb1 eq $instance/erp/b1 and ... fbm eq $instance/ep/bm]
 ```
-where `fb1`,...`fbm` are implementing attributes of the destination entity type of `r`  that implementing the `identifying_relationship` relationship and that reference attributes `b1`,...`b2` of whatever is the destination type of both the `identifying_relationship` and the `equivalent_path`.
+where `fb1`,...`fbm` are implementing attributes of the destination entity type of `r`  that implement the `identifying_relationship` relationship and that reference the attributes `b1`,...`bm` of the destination type of both the `identifying_relationship` and the `equivalent_path`.
 
 
 4. To give the xslt processor the best chance of optimising the evaluation we shall plant the code in a different order and the epath_evaluate for the reference relationship will be planted as:
@@ -71,11 +71,11 @@ let $primarySubcondition := (:$riser is $instance/diagonal:)
 	                  	let $implementingAttributes := (: CHECK THE LOGIC OF THE FOLLOWING :)
 	                        $destination_type/ancestor-or-self::entity_type/attribute
 	                  	                     [implementationOf/rel eq $asc/identifying_relationship],
-	                  	in string-join($implementingAttributes ! (implementationOf/destAttr 
+	                  	in string-join($implementingAttributes ! (self::attribute/name implementationOf/destAttr 
 	                  										      || 'eq $instance/'
 	                  	                                          ||  $asc/equivalent_path/xpath_evaluate
 	                  	                                          || '/' 
-	                  	                                          || self::attribute/name
+	                  	                                          || implementationOf/destAttr
 	                  	                                         ) ,
 	                                   ' and ' 
 	                                   )

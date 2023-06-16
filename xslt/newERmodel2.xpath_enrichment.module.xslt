@@ -742,15 +742,84 @@ projection =>
       </xsl:choose>
     </xsl:if>
 
+
     <!-- xpath_evaluate -->
+
+    <xsl:if test="not(xpath_evaluate) and $is_implemented_by_fk ">
+        <xsl:if test="(not(diagonal)
+                        or diagonal/theabsolute
+                        or diagonal/*/xpath_evaluate and riser/*/xpath_evaluate
+                      )
+                      and key('EntityTypes',type)/xpath_typecheck
+                      and (every $asc in auxiliary_scope_constraint
+                              satisfies $asc/equivalent_path/*/xpath_evaluate
+                          )
+                      ">
+            <xpath_evaluate> <!-- see part D of change logged 2nd June 2023 -->
+                <xsl:value-of select="
+let $primarySubcondition := (:$riser is $instance/diagonal:)
+      if (diagonal and not (diagonal/theabsolute))
+      then self::reference/riser/*/xpath_evaluate
+           || ' is $instance/'
+           || self::reference/diagonal/*/xpath_evaluate
+      else '',
+    $secondarySubcondition := 
+      let $implementingAttributes := parent::entity_type/attribute[implementationOf/rel eq current()/self::reference/name]
+      return string-join($implementingAttributes ! 
+                             (    era:brace(implementationOf/destAttr, ancestor-or-self::entity_model/xml/namespace_uri) 
+                               || ' eq $instance/' 
+                               || era:brace(name, ancestor-or-self::entity_model/xml/namespace_uri) 
+                             ) ,
+                     ' and ' 
+                    ),
+    $tertiarySubcondition :=
+      let $destination_type := (:$erMetaModelLib?destinationTypeOfRelationship(self::reference),:)
+                                key('EntityTypes',type),   
+          $tertiary_clause_constructor
+               := function ($asc as element(auxiliary_scope_constraint)) as xs:string
+                  {
+                      let $implementingAttributes := (: CHECK THE LOGIC OF THE FOLLOWING :)
+                          $destination_type/ancestor-or-self::entity_type/attribute
+                                           [implementationOf/rel eq $asc/identifying_relationship]
+                      return string-join($implementingAttributes ! 
+                                           (  
+                                             era:brace(self::attribute/name, ancestor-or-self::entity_model/xml/namespace_uri) 
+                                            || ' eq $instance/'
+                                            ||  $asc/equivalent_path/*/xpath_evaluate
+                                            || '/' 
+                                            || era:brace(implementationOf/destAttr, ancestor-or-self::entity_model/xml/namespace_uri)
+                                           ) ,
+                                         ' and ' 
+                                         )
+
+                  }
+      return string-join( auxiliary_scope_constraint ! ( . => $tertiary_clause_constructor() ) ,
+                    ' and '
+                  )
+return
+  'let $instance := . return //*['
+  ||  key('EntityTypes',type)/xpath_typecheck
+  || ']['
+  || $secondarySubcondition
+  || (if ($secondarySubcondition ne '' and $tertiarySubcondition ne '') then ' and ' else '')
+  || $tertiarySubcondition
+  || ']'
+  || (if ($primarySubcondition ne '') then '[' else '')
+  || $primarySubcondition 
+  || (if ($primarySubcondition ne '') then ']' else '')
+                  "/>
+            </xpath_evaluate>
+        </xsl:if>
+    </xsl:if>
+
+
+    <!-- prior to partD of chenge logged 2nd June 2013 implmented 16 June 2023 
     <xsl:if test="not(xpath_evaluate) and $is_implemented_by_fk and xpath_foreign_key">
         <xsl:if test="(not(diagonal)
                         or diagonal/theabsolute
                         or diagonal/*/xpath_evaluate and riser/*/identification_status
                       )
                        and key('EntityTypes',type)/xpath_typecheck">
-
-                        <!-- and something or other for type check -->
 
             <xsl:variable name="topscoping" 
                           as="xs:string"
@@ -774,6 +843,7 @@ projection =>
             </xpath_evaluate>
         </xsl:if>
     </xsl:if>
+  -->
 
     <!-- pbe_passno -->
     <xsl:if test="not(pbe_passno)">

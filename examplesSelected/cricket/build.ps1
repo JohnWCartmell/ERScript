@@ -23,16 +23,21 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 echo 'Cricket Example'
-
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..logical.xml -outputFolder ..\docs
 
 echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs
+}
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs -debugSwitch
 
+if ($false)
+{
+ec
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validCricketInstance.xml -outputFolder ..\docs
 
@@ -40,9 +45,7 @@ echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 invalidCricketInstance.xml -outputFolder ..\docs
 
 
-if ($false)
-{
-echo 'Cricket Flex version'
+ho 'Cricket Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate 
 }
 popd 
