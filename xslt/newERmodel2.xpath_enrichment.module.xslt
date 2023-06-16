@@ -675,7 +675,8 @@ projection =>
             <xsl:value-of select="key('EntityTypes',key/*/dest)/xpath_primary_key"/>    <!-- this uses CR-18123: generalise 'dest' relationship -->
             <xsl:text>)</xsl:text>
           </xsl:when>
-          <xsl:otherwise>  <!-- the usual case! --> <!-- simplifying assumption that key and local identifying attribute are exclusive -->
+          <xsl:otherwise>  <!-- the usual case! --> 
+                          <!-- simplifying assumption that key and local identifying attribute are exclusive -->
             <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
               <xsl:if test="position() &gt; 1">
                 <xsl:text>,</xsl:text>

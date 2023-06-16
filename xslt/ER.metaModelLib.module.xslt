@@ -13,6 +13,8 @@
 
 <!--ER.metaModelLib.module.xslt -->
 
+  <xsl:include href="erMetaModelLibConstructor.module.xslt"/>
+
 <xsl:variable name="erMetaModelData" as="element(er:entity_model)">
     <xsl:message> In 'ER.library.module' 
                     root element is '<xsl:value-of select="child::element()/name()"/>'
@@ -42,108 +44,7 @@
 
 <xsl:variable name="erMetaModelLib" as="map(xs:string,function(*))">
     <xsl:variable name="model" as="element(er:entity_model)" select="$erMetaModelData"/>
-    <xsl:sequence select="
-let 
-$entityType 
-:= function ($name as xs:string ) as element(er:entity_type)  
-{
-  $model//er:entity_type[er:name=$name] 
-},
-
-$attributeNamed 
-:= function($etDefn as element(er:entity_type),
-            $name as xs:string
-           ) 
-            as element((:er:Relationship:))
-{
-    $etDefn/ancestor-or-self::er:entity_type
-            /child::er:attribute
-            [er:name eq $name]
-},
-
-$relationshipNamed 
-:= function($etDefn as element(er:entity_type),
-            $name as xs:string?,
-            $type as xs:string?
-           ) 
-            as element((:er:Relationship:))
-{
-    if (not ($name or $type))
-    then fn:error(fn:QName('www.entitymodelling.org','relationshipNamedError'),
-                  'function ''relationshipNamed'' called with neither name nor type parameter'
-                  )
-    else
-        $etDefn/ancestor-or-self::er:entity_type
-            /*[self::er:composition|self::er:reference|self::er:dependency|self::er:constructed_relationship]
-            [if ($name) then er:name eq $name else true()][if ($type) then er:type eq $type else true()]
-},
-
-$destinationTypeOfRelationship     
-(: navigate the model from an er:Relationship to an er:entity_type                         :)
-(: ultimately this could be following the 'type' reference relationship of the meta-schema :)
-:= function ($r as element((:er:Relationship:)) ) as element(er:entity_type)     
-{
-  $entityType($r/er:type) 
-},
-
-
-$incomingCompositionRelationships
-:= function($etDefn as element(er:entity_type))
-           as element(er:composition)*
-{
-    $model//er:composition[some $ancestorEntityType in $etDefn/ancestor-or-self::er:entity_type
-                                                     satisfies $ancestorEntityType is $destinationTypeOfRelationship(.)]
-},
-$compositionRelationshipRepresentationElementName
-:= function($compRelDefn as element(er:composition))
-        as xs:string?
-{
-   if ($compRelDefn/er:xmlRepresentation/er:Anonymous)
-   then ()
-   else $compRelDefn/er:name
-},
-$compositionRelationshipSrcEntityTypes  
-:= function($compRelDefn as element(er:composition))
-        as element((:entity_type|absolute:))*
-{
-  $compRelDefn
-          /..[self::er:entity_type|self::er:absolute]
-          /(self::er:absolute | descendant-or-self::er:entity_type[not(er:entity_type)]) 
-},
-$entityTypeParentElementNames
-:= function($etDefn as element(er:entity_type))
-        as xs:string+
-{
-    $incomingCompositionRelationships($etDefn) /
-        (
-         if ($compositionRelationshipRepresentationElementName(.))
-         then $compositionRelationshipRepresentationElementName(.)
-         else $compositionRelationshipSrcEntityTypes(.)/er:elementName
-        )
-},
-$entityTypeParentEntityTypeElementNamesThroughNamedCompositions
-:= function($etDefn as element(er:entity_type))
-        as xs:string+
-{
-    $incomingCompositionRelationships($etDefn) /
-        (
-         if ($compositionRelationshipRepresentationElementName(.))
-         then ../(self::er:absolute | self::er:entity_type/descendant-or-self::er:entity_type[not(er:entity_type)])/er:elementName
-         else ()
-        )
-}
-
-return map {
-  'entityType' : $entityType,
-  'attributeNamed' : $attributeNamed,
-  'relationshipNamed' : $relationshipNamed,
-  'destinationTypeOfRelationship' : $destinationTypeOfRelationship,
-  'compositionRelationshipRepresentationElementName' : $compositionRelationshipRepresentationElementName,
-  'incomingCompositionRelationships' : $incomingCompositionRelationships,
-  'entityTypeParentElementNames'     : $entityTypeParentElementNames,
-  'entityTypeParentEntityTypeElementNamesThroughNamedCompositions' : $entityTypeParentEntityTypeElementNamesThroughNamedCompositions
-  }
-"/>
+    <xsl:sequence select="$erMetaModelLibConstructor($model)"/>
 </xsl:variable>
 
 <!--End of ER.metaModelLib.module.xslt -->
