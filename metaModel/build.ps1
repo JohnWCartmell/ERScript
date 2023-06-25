@@ -20,19 +20,22 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be overwritable
 
 pushd $TARGETXML
-
+if ($false)
+{
 echo 'ERA.surface'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -animate -physicalType hs 
+. $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -animate -physicalType hs
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
-
+}
 echo 'ERA'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs
+. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType h
 
+if ($false)
+{
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA..physical.xml -outputFolder ..\docs -debugSwitch
-
+}
 if ($false)
 {
 echo 'ERA Diagrammed'

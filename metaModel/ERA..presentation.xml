@@ -480,7 +480,7 @@
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcattach>0.3</srcattach>
-               <destattach>0.8</destattach>
+               <destattach>0.85</destattach>
                <srcarmlen>0.2</srcarmlen>
                <hstep>
                   <absdim>
@@ -574,20 +574,24 @@
    </entity_type>
 
 
+
+
+
    <entity_type>
       <name>auxiliary_scope_constraint</name>
       <reference>
          <name>identifying_relationship</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
+               <srcattach>0.3</srcattach>
                <srcarmlen>1.0</srcarmlen>
                <label>
                   <position>
                      <Upside/>
                   </position>
-                  <!--
-                  <xAdjustment>0.3</xAdjustment>
-                  -->
+                  <name>
+                     <NoSplit/>
+                  </name>
                </label>
                <hstep>
                   <absdim>
@@ -598,6 +602,32 @@
          </diagram>
       </reference>
    </entity_type>
+
+   <entity_type>
+      <name>auxiliary_scope_constraint</name>
+      <reference>
+         <name>idRelationshipSrc</name>
+         <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <path>
+               <srcattach>0.7</srcattach>
+               <srcarmlen>1.0</srcarmlen>
+               <destattach>0.8</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <hstep>
+                  <absdim>
+                     <src>2.3</src>
+                  </absdim>
+               </hstep>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+
    <entity_type>
       <name>auxiliary_scope_constraint</name>
       <composition>

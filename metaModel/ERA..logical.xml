@@ -158,12 +158,17 @@
    <entity_type name="projection"/>
    <entity_type name="auxiliary_scope_constraint">
        <composition name="equivalent_path" type="navigation"/>
+       <reference name="idRelationshipSrc" 
+                  type="ENTITY_TYPE?"/>
+<!--        <reference name="identifying_relationship" 
+                  type="reference_or_dependency"
+                  diagonal="idRelationshipSrc"
+                  riser=".."/> -->
        <reference name="identifying_relationship" 
                   type="reference_or_dependency"
-                  diagonal="../type"
-                  riser=".."/>
+                  diagonal="^"
+                  riser="^"/>
    </entity_type> 
-
    <entity_type name="identifying(1)">
       <composition type="inherited?"/>
    </entity_type>
