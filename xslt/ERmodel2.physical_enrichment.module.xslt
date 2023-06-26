@@ -240,16 +240,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 <xsl:function name="era:et_is_implemented" as="xs:boolean">
   <xsl:param name="root" as="node()"/>
-  <xsl:param name="et_name"/>
+  <xsl:param name="et_name" as="xs:string"/>
   <!-- need set some context -->
   
   <!-- no unimplemented outgoing identifying reference relationships 
        and has no unimplemented incoming identifying 
            composition relationships 
   -->
-  <!-- <xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message>
-       <xsl:message>tring-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message>
-  -->
+ <xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message>
+ <xsl:message>string-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message>
+
   <xsl:variable name="nonempty_et_name" select="if(string-length($et_name)=0) then 'EMPTYVALUEREPLACED' else $et_name"/>
   <xsl:for-each select="$root">
   <xsl:if test = "not(key('EntityTypes',$nonempty_et_name))">
@@ -280,10 +280,12 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                      ]
            )
         and 
-          (((($style='h' or $style='hs') and (not(boolean(dependency)) or
-                               era:et_is_implemented($root, dependency/type) 
-                            )
-            )
+          (
+           (  (
+               ($style='h' or $style='hs') 
+                    and ( every $dep in dependency[identifying (:added 25/06/2023:)] satisfies era:et_is_implemented($root, $dep/type) 
+                         )
+               )
            )
            or
            not (key('IncomingCompositionRelationships',$nonempty_et_name)
@@ -361,14 +363,22 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                 <!-- @ reference relationship that is not already implemented-->
 				
 				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
-      <xsl:if test="era:et_is_implemented(root(),type)
+        <xsl:message>CONSIDER Relationship R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message>
+         <xsl:if test="name = inverse">
+                  <xsl:message>which meets test for reflexivity</xsl:message>
+         </xsl:if> 
+         <xsl:if test="era:et_is_implemented(root(),type)
 	                or
-	                (   name=inverse 
+	                (   name=inverse         (: should I check that nane and inverse not both empty ? 26/06/2023 :) 
 						  and  
-				        era:et_is_implemented(root(),../dependency/type)
+				        era:et_is_implemented(root(),
+                                                ancestor-or-self::entity_type/dependency[identifying]/type
+                                                                                         (: modified 26/06/2023 :)
+                                            )
 				     )
 						">
-         <xsl:message>BEGIN Imp. R'<xsl:value-of select="name"/>'</xsl:message>
+         <xsl:message>BEGIN Implementation of R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message>
+         
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
          <xsl:variable name="implementing_attributes" 
@@ -475,16 +485,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    </xsl:if>
 </xsl:template>
 
-<!-- Return the head relationship of a navigation or nothing if a navigation 
-     to absolute.  In the case of the head being a dependency includes in 
+<!-- Return the head relationship of a navigation or xxxxxx absolute.  
+    In the case of the head being a dependency includes in 
      addition the identifying attribute of the inverse composition relationship   GET RID OF THIS CR-19159
 -->
 <xsl:template name="navigationHead" match ="entity_type" mode="explicit">
    <xsl:param name="navigation" as="element()?"/>  
     <xsl:choose>
     <xsl:when test="$navigation[self::theabsolute]">
-        <xsl:sequence select="ancestor-or-self::entity_type/dependency">
-              <!-- not sure what to do if more than one -->
+        <xsl:sequence select="ancestor-or-self::entity_type/dependency[identifying]">  
+              <!-- not sure what to do if more than one but select [idenntifying] cos only those relevant -->
         </xsl:sequence>
     </xsl:when>
     <xsl:otherwise>
@@ -701,7 +711,11 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:element name="attribute">           
       <xsl:element name="name">
    <!--      <xsl:value-of select="if ($style='hs') then $relationship/name else concat($prefix,name)"/> -->
-             <xsl:value-of select="if ($style='hs' and not(implementationOf)) 
+             <xsl:value-of select="if (
+                                        $style='hs' 
+                                         and 
+                                        not(implementationOf or cascaded (: 26/06/2023 :) )
+                                      ) 
                                    then $relationship/name 
                                    else concat($prefix,name)"/>
       </xsl:element>

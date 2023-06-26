@@ -402,6 +402,11 @@ Description
     <idRelationshipSrc>
          <xsl:value-of select="$identifying_relationship/parent::entity_type/name"/>
      </idRelationshipSrc>
+
+     <identifying_relationship_ENTITY_TYPE_name>
+         <xsl:value-of select="$identifying_relationship/parent::entity_type/name"/>
+     </identifying_relationship_ENTITY_TYPE_name>
+
     <identifying_relationship_type>
          <xsl:value-of select="$identifying_relationship/type"/>
      </identifying_relationship_type>

@@ -142,8 +142,7 @@
    <xsl:param name="reference"      as="function(element(*),element(er:reference)) as xs:string?"/>
    <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
 
-   <xsl:message>Instance of type <xsl:value-of select="$instance/name()"/> name '<xsl:value-of select="$instance/er:name"/>'
-                                                                           type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
+   <xsl:message>Instance of type <xsl:value-of select="$instance/name()"/> name '<xsl:value-of select="$instance/er:name"/>'  type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
    <xsl:variable name="etlDefn" 
       as="element()?"
       select="$erDataLib?getDefinitionOfInstance($instance)
@@ -151,7 +150,8 @@
    <xsl:if test="not($etlDefn)">
       <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
    </xsl:if>
-   <xsl:message> In instance of type <xsl:value-of select="$etlDefn/er:name"/></xsl:message>
+   <xsl:message> In instance of type '<xsl:value-of select="$etlDefn/er:name"/>'</xsl:message>
+   <xsl:message> child of  instance of type '<xsl:value-of select="$etlDefn/../er:name"/>'</xsl:message>
    <xsl:variable name="allValidChildNodes"
                  as="node()*">
       <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">              
@@ -187,6 +187,7 @@
       <xsl:variable name="identifyingFeatures" 
                     as="item()*" 
                     select="$erDataLib?readIdentifyingFeatureSequence($instance)"/>
+      <!--<xsl:message>identifying features '<xsl:copy-of select="$identifyingFeatures"/>'</xsl:message>-->
       <xsl:if test="exists($identifyingFeatures)">
          <xsl:for-each select="$typeTaggedInstanceData/descendant-or-self::*
                                 [@etname eq $instance/@etname]
@@ -194,7 +195,7 @@
                                 [deep-equal($erDataLib?readIdentifyingFeatureSequence(.),$identifyingFeatures)]
                              ">
             <xsl:element name="ERRORnonuniqueidentifer">
-               <xsl:sequence select="$identifyingFeatures[self::attribute]"/>
+               <xsl:sequence select="$identifyingFeatures"/>  <!-- removed [self::attribute] 26/06/2013 -->
             </xsl:element>
          </xsl:for-each>
       </xsl:if>
