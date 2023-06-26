@@ -69,7 +69,7 @@
       <identifying>
          <context type="ENTITY_TYPE"/>
          <attribute name="name" type="string?"/>
-         <reference name="type" type="ENTITY_TYPE"/>  <!-- change of 2nd June  --> 
+         <reference name="type" type="entity_type"/>  <!-- change of 2nd June  --> 
       </identifying>
       <!-- <reference name="type" type="ENTITY_TYPE"/> -->
       <entity_type name="reference_or_dependency">
@@ -159,7 +159,7 @@
    <entity_type name="auxiliary_scope_constraint">
        <composition name="equivalent_path" type="navigation"/>
        <reference name="idRelationshipSrc" 
-                  type="ENTITY_TYPE?"/>
+                  type="entity_type?"/>
 <!--        <reference name="identifying_relationship" 
                   type="reference_or_dependency"
                   diagonal="idRelationshipSrc"
@@ -196,7 +196,7 @@
             <composition name="riser2" type="navigation"/>
          </entity_type>
          <composition name="along" type="navigation"/>
-         <reference name="type" type="ENTITY_TYPE"/>
+         <reference name="type" type="entity_type"/>
       </entity_type>
    </group>
    <entity_type name="navigation">
@@ -209,7 +209,7 @@
          <entity_type name="aggregate"/>
       </entity_type>
       <entity_type name="component">
-         <reference name="relSrc" type="ENTITY_TYPE?"/>
+         <reference name="relSrc" type="entity_type?"/>
          <reference name="rel" type="Relationship" diagonal="relSrc" riser="..">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path="dest"/>
@@ -226,14 +226,14 @@
         </description>
      --></entity_type>
       <attribute name="xpath_evaluate" type="string?"/>
-      <reference name="src" type="ENTITY_TYPE?"/>
-      <reference name="dest" type="ENTITY_TYPE?"/>
+      <reference name="src" type="entity_type?"/>
+      <reference name="dest" type="entity_type?"/>
    </entity_type>
 
    <group name="attribute_children">
       <entity_type name="implementationOf">
          <reference name="destAttr" type="attribute" diagonal="destAttrHostEt" riser=".."/>
-         <reference name="destAttrHostEt" type="ENTITY_TYPE" diagonal="^" riser="^"/>
+         <reference name="destAttrHostEt" type="entity_type" diagonal="^" riser="^"/>
          <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
       </entity_type>
       <entity_type name="value_type">

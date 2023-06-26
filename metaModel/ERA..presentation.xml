@@ -24,22 +24,24 @@
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <x>6.0</x>        
          <y>1.0</y>
-         <deltaw>6.0</deltaw>
+         <deltaw>0.5</deltaw>
          <deltah>0.1</deltah>
       </presentation>
    </entity_type>
+
    <entity_type>
       <name>absolute</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <rightOf>entity_type_like</rightOf>
+          <x>2.5</x>
+         <y>-1.0</y>
          <deltaw>0.2</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
       <name>entity_type_like</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <x>2.5</x>
-         <y>-1.0</y>
+         <rightOf>absolute</rightOf>
+         <deltaw>0.5</deltaw>
       </presentation>
    </entity_type>
    <entity_type>
@@ -57,7 +59,7 @@
          <name>xmlRepresentation</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
-               <srcattach>0.75</srcattach>
+               <srcattach>0.2</srcattach>
                <srcarmlen>1.6</srcarmlen>
                <destattach>0.8</destattach>
                <hstep>
@@ -72,18 +74,20 @@
          </diagram>
       </composition>
    </entity_type>
+      <entity_type>
+      <name>group</name>
+      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+      </presentation>
+   </entity_type>
    <entity_type>
       <name>entity_type</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <w>2.6</w>
+         <rightOf>group</rightOf>
+         <h>3.0</h>
+         <w>7.0</w>
       </presentation>
    </entity_type>
-   <entity_type>
-      <name>group</name>
-      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <rightOf>entity_type</rightOf>
-      </presentation>
-   </entity_type>
+
    <entity_type>
       <name>entity_type_like</name>
       <composition>
@@ -609,6 +613,7 @@
          <name>idRelationshipSrc</name>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
+               <srcsign>1</srcsign>
                <srcattach>0.7</srcattach>
                <srcarmlen>1.0</srcarmlen>
                <destattach>0.8</destattach>
@@ -785,6 +790,7 @@
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcattach>0.85</srcattach>
+               <destsign>1</destsign>
                <destattach>0.75</destattach>
                <label>
                   <position>
