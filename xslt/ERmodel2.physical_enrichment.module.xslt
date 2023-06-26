@@ -722,13 +722,17 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       <xsl:choose>
          <xsl:when test="$is_identifying='identifying'">
             <xsl:apply-templates 
-                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation                      
-                                  | self::destAttrHostEt | self::optional)]" 
+                       select="*[not(self::name|self::implementationOf|self::description
+                                (:26/06/2023|self::cascaded :)
+                                  |self::xmlRepresentation                      
+                                  | self::destAttrHostEt | self::optional)]"
                        mode="with_identifier"/> 
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates 
-                       select="*[not(self::name|self::implementationOf|self::description|self::cascaded|self::xmlRepresentation
+                       select="*[not(self::name|self::implementationOf|self::description
+                                       (:26/06/2023|self::cascaded :)
+                                  |self::xmlRepresentation
                                   | self::destAttrHostEt |  self::optional)]" 
                        mode="without_identifier"/>  
          </xsl:otherwise>
