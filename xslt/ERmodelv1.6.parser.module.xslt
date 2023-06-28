@@ -191,6 +191,18 @@
                                      "/>
             </xsl:element>
          </xsl:when>
+         <xsl:when test="self::reference">
+            <xsl:if test="not(diagonal)">
+               <xsl:element name="diagonal">
+                  <xsl:element name="theabsolute"/>
+               </xsl:element>
+            </xsl:if>
+            <xsl:if test="not(riser)">
+               <xsl:element name="riser">
+                  <xsl:element name="theabsolute"/>
+               </xsl:element>
+            </xsl:if>
+         </xsl:when>
       </xsl:choose>
       <xsl:apply-templates select="*" mode="parse__main_pass"/> <!-- now processing non-attributes -->
    </xsl:copy>

@@ -114,9 +114,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
-<xsl:variable name="compound_name_separator">
-   <xsl:value-of select="'_'"/>
-</xsl:variable>
+
 
 
 <xsl:template name="physical_enrichment">
@@ -468,7 +466,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:if test="$navigationHead/identifying
                  and 
                  $navigationTail">  
-
+      <xsl:variable name="etname" select="self::entity_type/name"/>
       <xsl:variable name="identifying_attributes" as="element(attribute)*">  
          <xsl:for-each select="key('EntityTypes',$navigationHead/type)">
             <xsl:call-template name="attributes_reqd_to_identify_from_ancestor">
@@ -478,8 +476,26 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
       </xsl:variable>
      <xsl:for-each select="$identifying_attributes">
           <xsl:copy>
-              <xsl:apply-templates/>
-               <cascaded/>
+                <reached_by>
+                    <join>
+                       <component>
+                            <src>
+                                <xsl:value-of select="$etname"/>
+                            </src>
+                            <relSrc>
+                                <xsl:value-of select="$navigationHead/parent::entity_type/name"/>
+                            </relSrc>
+                           <rel>
+                              <xsl:value-of select="$navigationHead/name"/>
+                           </rel>
+                           <dest>
+                              <xsl:value-of select="$navigationHead/type"/>
+                          </dest>
+                       </component>
+                       <xsl:copy-of select="reached_by/join/*"/>
+                    </join>
+                </reached_by>
+              <xsl:apply-templates select="*[not(self::reached_by)]"/>
           </xsl:copy>
      </xsl:for-each>
    </xsl:if>
@@ -624,7 +640,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              <xsl:variable name="prefix"
                            select="if($prefixstem='')
                                    then ''
-                                   else concat($prefixstem,$compound_name_separator)" />
+                                   else concat($prefixstem,$longSeparator)" />
              <xsl:for-each select="$implementing_attributes/rdb_navigation">
                  <xsl:copy-of select="destAttr"/>
                  <xsl:for-each select="where_component">
@@ -653,7 +669,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:for-each select="ancestor-or-self::entity_type/attribute[identifying]"> 
       <xsl:copy>
          <xsl:variable name="prefix" select="if(implementationOf) then '' 
-                                           else concat($attr_nameprefix,$compound_name_separator)"/>
+                                           else concat($attr_nameprefix,$shortSeparator)"/>
          <xsl:element name="name">
             <xsl:value-of select="concat($prefix,name)"/>
          </xsl:element>
@@ -699,11 +715,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:variable name="relprefix"
                  select="if($prefixstem='')
                          then ''
-                         else concat($prefixstem,$compound_name_separator)" />
+                         else concat($prefixstem,$longSeparator)" />
    <xsl:variable name="prefix"
-                 select="if (cascaded) 
-                         then concat($relprefix,destAttrHostEt,$compound_name_separator)
-                         else $relprefix"/>
+                 select="if (reached_by (:was cascaded:)) 
+                         then let $reachedET := (reached_by/join/component)[last()]/dest
+                              return
+                              concat($relprefix, 
+                                     $reachedET, 
+                                     $shortSeparator 
+                                    )
+                         else $relprefix"/> 
    <xsl:variable name="is_identifying" select="$relationship/identifying/name()"/>
    <xsl:variable name="is_optional"
                  as="xs:boolean" 
@@ -714,7 +735,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              <xsl:value-of select="if (
                                         $style='hs' 
                                          and 
-                                        not(implementationOf or cascaded (: 26/06/2023 :) )
+                                        not(implementationOf or reached_by (:was cascaded:) (: 26/06/2023 :) )
                                       ) 
                                    then $relationship/name 
                                    else concat($prefix,name)"/>
@@ -723,16 +744,16 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:when test="$is_identifying='identifying'">
             <xsl:apply-templates 
                        select="*[not(self::name|self::implementationOf|self::description
-                                (:26/06/2023|self::cascaded :)
-                                  |self::xmlRepresentation                      
+                                  | self::reached_by 
+                                  | self::xmlRepresentation                      
                                   | self::destAttrHostEt | self::optional)]"
                        mode="with_identifier"/> 
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates 
                        select="*[not(self::name|self::implementationOf|self::description
-                                       (:26/06/2023|self::cascaded :)
-                                  |self::xmlRepresentation
+                                  | self::reached_by
+                                  | self::xmlRepresentation
                                   | self::destAttrHostEt |  self::optional)]" 
                        mode="without_identifier"/>  
          </xsl:otherwise>
@@ -741,7 +762,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:element name="optional"/>
       </xsl:if>
       <xsl:element name="implementationOf">
-         <!-- CR-18497: consider including relid here -->
          <xsl:element name="rel">
             <xsl:value-of select="$relationship/name"/>
          </xsl:element>
@@ -751,11 +771,11 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:element name="destAttr">
              <xsl:value-of select="name"/>
          </xsl:element>
-         <!--    
-                SEE CHANGELOG 26-Apr-2023  -->   
+         <!--   SEE CHANGELOG 26-May-2023  2-June-2023-->   
          <xsl:element name="destAttrHostEt">
              <xsl:value-of select="destAttrHostEt"/>
          </xsl:element>
+         <xsl:copy-of select="reached_by"/>
       </xsl:element>
       <xsl:element name="description">
            This is the '<xsl:value-of select="name"/>' attribute

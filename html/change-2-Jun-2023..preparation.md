@@ -9,7 +9,7 @@ to implmentation of support for auxiliary scope constraints.
 - extension to 'hs' mode
 - bug fix
 
-This change is the first of three parts for the overall change specified in outline in the change note of 2 Hune 2023.
+This change is one part of the change  of 2 Hune 2023.
 
 ### Analysis
 1. The `ERmodel2.physical_enrichment.module.xslt` code will be modified as part of this overall change but is overly complex.

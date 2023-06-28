@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+              ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
+   <description>OrderEntry. Designed as a test of change of 2nd June 2023.
+   </description>
+   <!-- not fully supported in xpath_enrichment
+   <xml>
+      <attributeDefault><Attribute/></attributeDefault>
+   </xml>
+   -->
+   <absolute name="orderEntry">
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?">
+         <xmlRepresentation><Attribute/></xmlRepresentation>
+      </attribute> 
+      <composition type="order*"/> 
+      <composition type="country*"/>
+   </absolute>
+   <entity_type name="order">
+      <identifying>
+         <attribute name="order_number" type="string"/>
+      </identifying>
+      <reference name="delivery_address" type="house"/>
+      <reference name="billing_address_if_different" type="house?"/>
+   </entity_type>
+   <entity_type name="NAMED">
+      <identifying>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <entity_type name="country">
+         <composition type="town*"/>
+      </entity_type>
+      <entity_type name="town">
+         <identifying>
+            <context type="country"/>
+         </identifying>
+         <composition type="street*"/>
+      </entity_type>
+      <entity_type name="street">
+         <identifying>
+            <context type="town"/>
+         </identifying>
+         <composition type="house*"/>
+      </entity_type>
+   </entity_type>
+   <entity_type name="house">
+      <identifying>
+         <context type="street"/>
+         <attribute name="name_or_number" type="string"/>
+      </identifying>
+   </entity_type>
+</entity_model>

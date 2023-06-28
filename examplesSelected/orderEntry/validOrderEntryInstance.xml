@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orderEntry metaDataFilePathWrtThisInstanceDocument="orderEntry..physical.xml">
+	<order> 	
+	<order_number>1</order_number>
+		<delivery_address...name_or_number>1</delivery_address...name_or_number>
+		<delivery_address...street.name>main street</delivery_address...street.name> 
+		<delivery_address...town.name>newtown</delivery_address...town.name>
+		<delivery_address...country.name>neverland</delivery_address...country.name>
+	</order>
+	<country>
+		<name>neverland</name>
+		<town>
+			<name>newtown</name>
+			<street><name>main street</name>
+				<house><name_or_number>1</name_or_number></house>
+				<house><name_or_number>2</name_or_number></house>
+			</street>
+		</town>
+	</country>
+</orderEntry>

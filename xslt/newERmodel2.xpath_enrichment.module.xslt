@@ -746,6 +746,10 @@ projection =>
     <!-- xpath_evaluate -->
 
     <xsl:if test="not(xpath_evaluate) and $is_implemented_by_fk ">
+        <xsl:variable name="implementingAttributes"
+                      as="element(attribute)*"
+                      select="parent::entity_type/attribute[implementationOf/rel eq current()/self::reference/name]"/>
+
         <xsl:if test="(not(diagonal)
                         or diagonal/theabsolute
                         or diagonal/*/xpath_evaluate and riser/*/xpath_evaluate
@@ -753,6 +757,11 @@ projection =>
                       and key('EntityTypes',type)/xpath_typecheck
                       and (every $asc in auxiliary_scope_constraint
                               satisfies $asc/equivalent_path/*/xpath_evaluate
+                          )
+                      and ( every $impattr in $implementingAttributes
+                                 satisfies (not ($impattr/implementationOf/reached_by)
+                                              or $impattr/implementationOf/reached_by/*/xpath_evaluate
+                                            )
                           )
                       ">
             <xpath_evaluate> <!-- see part D of change logged 2nd June 2023 -->
@@ -764,14 +773,17 @@ let $primarySubcondition := (:$riser is $instance/diagonal:)
            || self::reference/diagonal/*/xpath_evaluate
       else '',
     $secondarySubcondition := 
-      let $implementingAttributes := parent::entity_type/attribute[implementationOf/rel eq current()/self::reference/name]
-      return string-join($implementingAttributes ! 
-                             (    era:brace(implementationOf/destAttr, ancestor-or-self::entity_model/xml/namespace_uri) 
+      string-join($implementingAttributes ! 
+                             (    (if (implementationOf/reached_by)
+                                    then implementationOf/reached_by/*/xpath_evaluate || '/'
+                                    else ''
+                                  )
+                               || era:brace(implementationOf/destAttr, ancestor-or-self::entity_model/xml/namespace_uri) 
                                || ' eq $instance/' 
                                || era:brace(name, ancestor-or-self::entity_model/xml/namespace_uri) 
                              ) ,
-                     ' and ' 
-                    ),
+                  ' and ' 
+                  ),
     $tertiarySubcondition :=
       let $destination_type := (:$erMetaModelLib?destinationTypeOfRelationship(self::reference),:)
                                 key('EntityTypes',type),   

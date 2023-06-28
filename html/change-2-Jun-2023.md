@@ -1,7 +1,10 @@
 
 
 ## 2 June 2023
-Refinement of how relationships identified in the meta model `ERA..logical.xml`.  
+Refinement of how relationships identified in the meta model `ERA..logical.xml`.
+Knock-on bug fixes to logical2physical (hierarchical) regarding implementation of relationships
+whose destination type has an incoming identifying dependency dominated by the riser
+and including those whose riser is specified as theabsolute.    
 
 ### Summary
 1. Specify the relationship `type:Relationship -> entity_type` to be identifying.

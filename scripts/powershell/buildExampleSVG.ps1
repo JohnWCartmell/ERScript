@@ -10,7 +10,11 @@ Param(
        [switch]$logical,  
    [Parameter(Mandatory='')]
         [ValidateSet('', 'r','h','hs')]
-        [System.String]$physicalType, 
+        [System.String]$physicalType,  
+   [Parameter(Mandatory='_')]
+        [System.String]$longSeparator,  
+   [Parameter(Mandatory='_')]
+        [System.String]$shortSeparator, 
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -53,7 +57,7 @@ if ($physicalType -ne '')
 {
     #  LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType debug=$(If ($debugswitch){'y'}Else{'n'})
+    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator debug=$(If ($debugswitch){'y'}Else{'n'})
 
     #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

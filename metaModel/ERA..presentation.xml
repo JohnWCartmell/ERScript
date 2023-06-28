@@ -948,6 +948,24 @@
          <h>3.5</h>
       </presentation>
    </entity_type>
+      <entity_type>
+      <name>implementationOf</name>
+      <composition>
+         <name>reached_by</name>
+         <diagram>
+            <path>
+               <srcarmlen>0.9</srcarmlen>
+               <destarmlen>0.9</destarmlen>
+               <destattach>0.9</destattach>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
    <entity_type>
       <name>implementationOf</name>
       <reference>

@@ -1,35 +1,46 @@
 
 
-## 2 June 2023 Part C - Reorganise meta model access library
+## 2 June 2023 Part C - Modify meta model so that type of a relationship is identifying. 
 
 ### Summary
-Arrange for configurability of the meta model access library so that the library can be deployed in two ways relative to the current document:
-1. the `erMetaModelLib` configuration uses meta model information (i.e. an er model) held in a separate file and linked to from instance data contained in the current document using one of two MetaModel filename attributes.
-2. the `erModelInstanceLib` configuration can and is to be used when the current document is an entity model. 
+This change is the second of two material changes to effect the overall change note of 2 June 2023.
 
-
-### Rationale
-We already use this library of functions in its first configuration. We require the libarry to be extended and also to have it available in its second configuration for use in the implementation of auxiliary scope constraints for which we need to  restructure the code generated as xpath_evaluate for reading of reference relationships. In this second configuration the library will be useful in simplifying most existing coe generators. 
+### Discussion
+I was pretty excited that this change led to the `rel::type` syntax in 'epathlite' expressions. Note however that unlike in future imagined epath langauge the 'type' is the type of the relationship not a subtype. If this is also required in 'epathlite'  then I imagine that the meta model would need be further extended. In fact I think we might like a scope square
+for the destination type just as a scope square is required for the src type. Interesting! If in the context of entity of type A we use the expression R::B then we need find types A' and B' and a relationship A -> B such that
+A <= A' and B <= B'. Modelled as a component we have src A, rel and dest B so that the diagram
+src/ancestor-or-self::entity_type = rel/parent::entity_type
+dest/ancestor-or_self::entity_type = rel/type::entity_type 
 
 #### Proposal
+1. Copy away `ERA..physical.xml` for safe keeping.[x]
+2. In `ERA..logical.xml` change the `type` reference relationship of entity type `Relationship` to be identifying.
+3. From the file `ERA..logical.xml` remove the  xpath_evaluate patches of reference relationships `inverse` and `inverseOf`.
+Temporarily rename them patch_xpath-evaluate. As a consequence of this change of 2nd June the generated xpath_evaluate will be equivalent to these hand written versions.  
+4. Build the meta model so as to generate `ERA..physical.xml`. There will be lots of unwanted foreign keys. Copy this away for comparison later.[x]
+	
+5. Specify auxiliary scope constraints as follows:
+	1. For relationship `inverse: reference -> reference` specify `type=parent::entity_type`.
+		 - Generate and check that the unwanted foreign key (`inverse_type`) is no longer there.
+	2. For relationship `inverse: constructed_relationship -> constructed_relationship` specify `type=parent::entity_type`.
+		 - Generate and check that the unwanted foreign key (`inverse_type`) is no longer there.
+	3. For relationship `inverse: composition -> dependency` specify `type=parent::entity_type`.
+		 - Generate and check that the unwanted foreign key (`inverse_type`) is no longer there.
+	4. For relationship `inverseOf: dependency -> composition` specify `type=parent::entity_type`.
+		 - Generate and check that the unwanted foreign key (`inverse_of_type`) is no longer there.
+	5. For relationship `rel: component -> reference` specify `type=dest::entity_type`.
+		 - Generate and check that the unwanted foreign key is no longer there.
+	6. For relationship `projection_rel: pullback -> reference` specify `type=type::entity_type`.
+		 - Generate and check that the unwanted foreign key (`projection_rel_type`) is no longer there.
 
-1. From  file `erMetaModelLib.module.xslt` create a new file `erMetaModelLibConstructor.module.xslt`.
+6. Extend `ERmodel2.initial_enrichment.module.xslt` to populate the `identifying_relationship_type` foreign key
+of an  `auxiliary_scope_contraint` entity if absent and uniquely implied by the value of the `identifying_relationship` 
+foreign key. If not possible terminate with an error.
 
-2. `erMetaModelLibConstructor.module.xslt` contains an xslt variable `metaModelLibraryConstructor`
-which is of type `function(model as element(er:entity_model)) as map(xs:string, function(*))`
-whose value is that of the current `erMetaModelLib` variable of file `erMetaModelLib.module.xslt` rexpressed as a function.
-
-3. Modify file `erMetaModelLib.module.xslt`
-- include file `erMetaModelLibConstructor.module.xslt`
-- redefine `erMetaModelLib` variable as `$metaModelLibraryConstructor($erMetaModelData)`
-
-4. Create a new file `erModelInstanceLib.module.xslt`
-- include file `erMetaModelLibConstructor.module.xslt`
-- define `erMetaModelLib` variable as `$metaModelLibraryConstructor(/entity_model)`
+7. Check that instance validation of `ERA..physical` has no errors. Specifically check that unnamed relationships no longer are flagged as errors. 
 
 #### Testing
-##### Regression Test Configuration 1
-Build the cricket example and inspect the validation reports.[x]
-
-##### Testing of Configuration 2 
-This will take place in part D of this overall change.
+- Build the meta model.
+- Inspect the generated code for xpath_evaluate is equivalent to the previously hand written patch version.
+- Instance validate the model xxx. This instance validation failed previous to the patch to inverse. Check that the validation now runs to completion.
+- Instance validate the xpath model.  

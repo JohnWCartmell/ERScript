@@ -49,6 +49,8 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
 
 
   <xsl:param name="style"/>   
+  <xsl:param name="longSeparator" as="xs:string" select="'_'"/>  <!-- used to separate rel name in name of implementing attributes -->   
+  <xsl:param name="shortSeparator" as="xs:string" select="'_'"/>  <!-- used as separate et name and attr name  in name of implementing attributes -->
   <xsl:param name="debug" as="xs:string?"/>
 
   <!-- can be 'h' or 'hs' for hierarchical and 'r' for relational -->

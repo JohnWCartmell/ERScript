@@ -436,6 +436,7 @@ Description
      ../[constructed_relationship]   +> ..[constructed_relationship]/src
      inverse(diagonal)               +> inverse(diagonal)/src
      inverse(riser)                  +> inverse(riser)/type
+     inverse(reached_by)             +> THIS WILL NOT HAPPEN
      inverse(key)                         ... this case is missing (key specifies 
                                                    relationship targets pullback and 
                                                    value implied by key relationship into
@@ -593,6 +594,12 @@ Description
          <xsl:when test="ancestor::riser">
             <src>
                <xsl:value-of select="ancestor::reference[1]/type"/>
+            </src>
+            <!-- <default># inverse(riser)/type #</default> -->
+         </xsl:when>
+         <xsl:when test="ancestor::reached_by">
+            <src>
+               <!-- tricky - see if I can fill it in earlier -->
             </src>
             <!-- <default># inverse(riser)/type #</default> -->
          </xsl:when>

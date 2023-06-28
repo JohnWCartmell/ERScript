@@ -5,7 +5,7 @@
 ### Summary
 Enable the specification of auxiliary constraints.
 
-This change is the first of two material changes specified in outline in the change note of 2 Hune 2023.
+This change is part of the change  of 2 Hune 2023.
 
 #### Proposal
 
@@ -17,6 +17,7 @@ reference => auxiliary_scope_constraint*
 auxiliary_scope_constraint => identifying_relationship : string,
 							  equivalent_path : string
 ```
+
 
 2. Add to the logical model `ERA..logical.xml`
 ```

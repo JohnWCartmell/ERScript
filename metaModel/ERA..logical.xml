@@ -215,16 +215,8 @@
                                            equivalent_path="dest"/>
          </reference>
       </entity_type>
-      <entity_type name="identity"><!--
-            <description>
-                The identity navigation.
-        </description>
-     --></entity_type>
-         <entity_type name="theabsolute"><!--
-            <description>
-                A navigation to the absolute.
-        </description>
-     --></entity_type>
+      <entity_type name="identity"></entity_type>
+         <entity_type name="theabsolute"></entity_type>
       <attribute name="xpath_evaluate" type="string?"/>
       <reference name="src" type="entity_type?"/>
       <reference name="dest" type="entity_type?"/>
@@ -235,6 +227,7 @@
          <reference name="destAttr" type="attribute" diagonal="destAttrHostEt" riser=".."/>
          <reference name="destAttrHostEt" type="entity_type" diagonal="^" riser="^"/>
          <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
+         <composition name="reached_by" type="navigation?"/>
       </entity_type>
       <entity_type name="value_type">
          <entity_type name="boolean"/>

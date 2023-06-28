@@ -310,10 +310,9 @@
                     [not(display_text)]
                     " 
               mode="documentation_enrichment_recursive"  priority="13">
-    <!--
+
     <xsl:message>attribute named <xsl:value-of select="name"/></xsl:message>
     <xsl:message>attribute type '<xsl:value-of select="type/*/name()"/>'</xsl:message>
-    -->
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
       <display_text>
