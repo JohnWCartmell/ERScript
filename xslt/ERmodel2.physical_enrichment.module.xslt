@@ -179,8 +179,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:message> Adding Sequence attribute </xsl:message>
              <attribute>                                               
                 <name>seqNo</name>
-                <type><integer/></type>           
-                <for_sequence/>
+                <type><integer/></type> 
                 <xsl:if test="identifying and not($has_identifiers)">
                      <identifying/>
                 </xsl:if>
@@ -440,10 +439,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                               -->
          <xsl:if test="not($exclude_rel_name) or not(name eq $exclude_rel_name)">
              <xsl:copy>
-                <xsl:element name="destAttrHostEt">
+                <xsl:element name="destAttr...ENTITY_TYPE.name">
                       <xsl:value-of select="../name"/>
                 </xsl:element>
-                <xsl:apply-templates select="*[not(self::destAttrHostEt)]"/>   
+                <xsl:apply-templates select="*[not(self::destAttr...ENTITY_TYPE.name)]"/>   
              </xsl:copy>
          </xsl:if>
     </xsl:for-each>
@@ -482,9 +481,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                             <src>
                                 <xsl:value-of select="$etname"/>
                             </src>
-                            <relSrc>
+                            <rel...ENTITY_TYPE.name>
                                 <xsl:value-of select="$navigationHead/parent::entity_type/name"/>
-                            </relSrc>
+                            </rel...ENTITY_TYPE.name>
                            <rel>
                               <xsl:value-of select="$navigationHead/name"/>
                            </rel>
@@ -689,11 +688,11 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
             <xsl:element name="rel">
                <xsl:value-of select="$implemented_rel_name"/>
             </xsl:element>
-            <xsl:element name="rel_type">
+            <xsl:element name="rel...type">
                <xsl:value-of select="$implemented_rel_type"/>
             </xsl:element>
         <!-- change  log ... 26 May 2023 -->
-            <xsl:element name= "destAttrHostEt">
+            <xsl:element name= "destAttr...ENTITY_TYPE.name">
                 <xsl:value-of select="../name"/>  <!-- 2 Jun 2023 -->
             </xsl:element>
          <!-- end 26 May 23-->
@@ -746,7 +745,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                        select="*[not(self::name|self::implementationOf|self::description
                                   | self::reached_by 
                                   | self::xmlRepresentation                      
-                                  | self::destAttrHostEt | self::optional)]"
+                                  | self::destAttr...ENTITY_TYPE.name | self::optional)]"
                        mode="with_identifier"/> 
          </xsl:when>
          <xsl:otherwise>
@@ -754,7 +753,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                        select="*[not(self::name|self::implementationOf|self::description
                                   | self::reached_by
                                   | self::xmlRepresentation
-                                  | self::destAttrHostEt |  self::optional)]" 
+                                  | self::destAttr...ENTITY_TYPE.name |  self::optional)]" 
                        mode="without_identifier"/>  
          </xsl:otherwise>
       </xsl:choose>
@@ -765,15 +764,15 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          <xsl:element name="rel">
             <xsl:value-of select="$relationship/name"/>
          </xsl:element>
-         <xsl:element name="rel_type">
+         <xsl:element name="rel...type">
             <xsl:value-of select="$relationship/type"/>
          </xsl:element>
          <xsl:element name="destAttr">
              <xsl:value-of select="name"/>
          </xsl:element>
          <!--   SEE CHANGELOG 26-May-2023  2-June-2023-->   
-         <xsl:element name="destAttrHostEt">
-             <xsl:value-of select="destAttrHostEt"/>
+         <xsl:element name="destAttr...ENTITY_TYPE.name">
+             <xsl:value-of select="destAttr...ENTITY_TYPE.name"/>
          </xsl:element>
          <xsl:copy-of select="reached_by"/>
       </xsl:element>

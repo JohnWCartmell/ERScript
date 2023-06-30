@@ -59,25 +59,23 @@ Description
                                  # projection_rel by a pullback. 
 
     auxiliary_scope-constraint =>
-             identifying_relationship_type : string,
-             idRelationshipSrc : string
+             identifying_relationship...type : string
 
-     dependency => optional identifying : ()
+    dependency => optional identifying : ()
  
 
-      navigation ::= identity | theabsolute | join | aggregate | component
+    navigation ::= identity | theabsolute | join | aggregate | component
       
-      navigation =>
+    navigation =>
         src : string,           # the name of the source entity type
         dest : string,          # the name of the destination entity type
 
-     component => relSrc : string  # the source entity type of relationship `rel'.
-                                   # See changeLog 1-Jun-2023
+     component => rel...ENTITY_TYPE.name : string  # the source entity type of relationship `rel'.
+                                   # See changeLog 1-Jun-2023, 2-June-2023
 
 
-      composition/xmlRepresentation/Anonymous =>
+    composition/xmlRepresentation/Anonymous =>
                overlap_group_id : string
-
 -->
 
 <xsl:transform version="2.0" 
@@ -380,7 +378,7 @@ Description
 
 
 <xsl:template match="auxiliary_scope_constraint
-                     [not(identifying_relationship_type)]
+                     [not(identifying_relationship...type)]
                      "
               mode="initial_enrichment_recursive"
               priority="7">
@@ -399,17 +397,14 @@ Description
     <xsl:if test="count($identifying_relationship) &gt; 1">
         <xsl:message terminate="yes">Auxiliary scope constraint identifying_relationship '<xsl:value-of select="parent::reference/type || '.' || identifying_relationship"/>' ambiguous  (count is <xsl:value-of select="count($identifying_relationship)"/>)</xsl:message>
     </xsl:if>
-    <idRelationshipSrc>
-         <xsl:value-of select="$identifying_relationship/parent::entity_type/name"/>
-     </idRelationshipSrc>
 
-     <identifying_relationship_ENTITY_TYPE_name>
+     <identifying_relationship...ENTITY_TYPE.name>
          <xsl:value-of select="$identifying_relationship/parent::entity_type/name"/>
-     </identifying_relationship_ENTITY_TYPE_name>
+     </identifying_relationship...ENTITY_TYPE.name>
 
-    <identifying_relationship_type>
+    <identifying_relationship...type>
          <xsl:value-of select="$identifying_relationship/type"/>
-     </identifying_relationship_type>
+     </identifying_relationship...type>
   </xsl:copy>
 </xsl:template>
 
@@ -729,6 +724,7 @@ Description
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
         <!-- ChangeLog 1-Jun-2023 Add `relSrc' -->
+        <!-- ChangeLog 2-Jun change name to `rel...ENTITY_TYPE.name' -->
         <xsl:variable name="relationship"
                       as="element((:reference_or_dependency:))"
                       select="key('AllRelationshipBySrcTypeAndName',
@@ -738,9 +734,9 @@ Description
          <dest>
             <xsl:value-of select="$relationship/type"/>
          </dest>
-         <relSrc>
+         <rel...ENTITY_TYPE.name>
             <xsl:value-of select="$relationship/parent::entity_type/name"/>
-        </relSrc>
+        </rel...ENTITY_TYPE.name>
         <!--  
         <entity_type>
            <name>component</name>

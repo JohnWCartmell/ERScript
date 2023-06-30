@@ -13,7 +13,6 @@ auxiliary scope constraint in which the
 - key constraints are only used from the chromatographAnalsysRecord example
 - need to modify generators that support key constraints to support auxiliary scpe constraints instead
 	- typescript
-	- ???
 - need to remove all other mention of key constraints
    - meta model
    - xpath-enrichment

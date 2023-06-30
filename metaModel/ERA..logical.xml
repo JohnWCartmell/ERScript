@@ -5,8 +5,7 @@
    <xml>
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
    </xml>
-   <absolute>
-      <name>entity_model</name>
+   <absolute name="entity_model">
       <attribute name="metaDataFilePathWrtERHome" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
       <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
       <composition type="entity_type_like*"/>
@@ -69,7 +68,7 @@
       <identifying>
          <context type="ENTITY_TYPE"/>
          <attribute name="name" type="string?"/>
-         <reference name="type" type="entity_type"/>  <!-- change of 2nd June  --> 
+         <reference name="type" type="ENTITY_TYPE"/>  <!-- change of 2nd June  --> 
       </identifying>
       <!-- <reference name="type" type="ENTITY_TYPE"/> -->
       <entity_type name="reference_or_dependency">
@@ -77,25 +76,6 @@
             <reference name="inverse_of" type="composition?" inverse="inverse">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path=".."/>
-               <patch_xpath_evaluate>
-               let $this := . return ancestor-or-self::document-node()//*[self::Q{http://www.entitymodelling.org/ERmodel}composition]
-               [(let $fk := data(($erDataLib?readRelationshipNamed(.,'type')/(Q{http://www.entitymodelling.org/ERmodel}name) ,
-                                   Q{http://www.entitymodelling.org/ERmodel}inverse,
-                                   ../Q{http://www.entitymodelling.org/ERmodel}name
-                                ))              
-                 return (ancestor-or-self::document-node()//*
-                         [self::Q{http://www.entitymodelling.org/ERmodel}dependency]
-                         [fn:deep-equal(data((../Q{http://www.entitymodelling.org/ERmodel}name,
-                                              Q{http://www.entitymodelling.org/ERmodel}name,
-                                              Q{http://www.entitymodelling.org/ERmodel}type
-                                            )),
-                                        $fk
-                                       )
-                         ]
-                        )         
-                ) is $this
-               ]
-               </patch_xpath_evaluate>
             </reference>
          </entity_type>
          <entity_type name="reference">
@@ -125,25 +105,7 @@
          <composition type="initialiser?" inverse=".."/>
          <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."> 
                <auxiliary_scope_constraint identifying_relationship="type"
-                                           equivalent_path=".."/>    
-      <patch_xpath_evaluate>
-      let $fk := data((
-                       $erDataLib?readRelationshipNamed(.,'type')/(Q{http://www.entitymodelling.org/ERmodel}name),
-                       Q{http://www.entitymodelling.org/ERmodel}inverse,
-                       ../Q{http://www.entitymodelling.org/ERmodel}name
-                      )) 
-      return (
-               ancestor-or-self::document-node()//*
-                        [self::Q{http://www.entitymodelling.org/ERmodel}dependency]
-                        [fn:deep-equal(data((
-                                              ../Q{http://www.entitymodelling.org/ERmodel}name,
-                                              Q{http://www.entitymodelling.org/ERmodel}name,
-                                              Q{http://www.entitymodelling.org/ERmodel}type
-                                            )), 
-                                       $fk)
-                        ]
-             )
-   </patch_xpath_evaluate> 
+                                           equivalent_path=".."/>     
          </reference>
       </entity_type>
       <composition type="sequence?"/>
@@ -158,12 +120,10 @@
    <entity_type name="projection"/>
    <entity_type name="auxiliary_scope_constraint">
        <composition name="equivalent_path" type="navigation"/>
+       <!--
        <reference name="idRelationshipSrc" 
                   type="entity_type?"/>
-<!--        <reference name="identifying_relationship" 
-                  type="reference_or_dependency"
-                  diagonal="idRelationshipSrc"
-                  riser=".."/> -->
+               -->
        <reference name="identifying_relationship" 
                   type="reference_or_dependency"
                   diagonal="^"
@@ -209,8 +169,7 @@
          <entity_type name="aggregate"/>
       </entity_type>
       <entity_type name="component">
-         <reference name="relSrc" type="entity_type?"/>
-         <reference name="rel" type="Relationship" diagonal="relSrc" riser="..">
+         <reference name="rel" type="Relationship">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path="dest"/>
          </reference>
@@ -224,8 +183,7 @@
 
    <group name="attribute_children">
       <entity_type name="implementationOf">
-         <reference name="destAttr" type="attribute" diagonal="destAttrHostEt" riser=".."/>
-         <reference name="destAttrHostEt" type="entity_type" diagonal="^" riser="^"/>
+         <reference name="destAttr" type="attribute"/>
          <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
          <composition name="reached_by" type="navigation?"/>
       </entity_type>

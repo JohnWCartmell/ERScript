@@ -240,16 +240,25 @@
       <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:reference)"> 
          <xsl:choose>             
             <xsl:when test="self::er:attribute">
-                  <xsl:value-of select="
+               <xsl:value-of select="
                            '@' 
                         || self::er:attribute/er:name
                         || ' '
-                        || $attribute($instance,self::er:attribute)
                          "/>
+               <xsl:variable name="attributeerror"
+                                as="xs:string"
+                                select="$attribute($instance,self::er:attribute)"/>
+               <xsl:if test="$attributeerror">
+                  <xsl:element name="attributeerror">
+                     <xsl:attribute name="attrname" select="self::er:attribute/er:name"/>
+                     <xsl:value-of select="$attributeerror"/>
+                  </xsl:element>
+               </xsl:if>
             </xsl:when>
             <xsl:when test="self::er:reference">
-               <xsl:message>Ref rel <xsl:value-of select="er:name"/> 
+               <!--<xsl:message>Ref rel <xsl:value-of select="er:name"/> 
                      calculated from '<xsl:copy-of select="$instance/er:name"/>'' of '<xsl:copy-of select="$instance/../er:name"/>'</xsl:message>
+               -->
                
                <xsl:value-of select="
                            '#' 

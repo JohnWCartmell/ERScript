@@ -105,7 +105,7 @@
 </xsl:template>
 
 <xsl:template name="create_dependency_from_scratch" match="entity_type" mode="explicit">
-   <!--<xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message>-->
+   <xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message>
    <xsl:variable name="cardinality" as="element(cardinality)">
       <xsl:element name="cardinality">
             <xsl:element name="{if (count(//composition[era:typeFromExtendedType(@type)=current()/@name]) &gt; 1)
@@ -114,32 +114,32 @@
                                     "/>
       </xsl:element>
    </xsl:variable>
+   <!--
    <xsl:variable name="dotdotambiguous" 
                  as="xs:boolean"
                  select="count(//composition[era:typeFromExtendedType(@type)=current()/@name]
                                             [not(@inverse) and not(@name)]
                               ) &gt;=1"
                  />
+              -->
    <xsl:for-each select="//composition[era:typeFromExtendedType(@type)=current()/@name]">
-      <!--<xsl:message>Creating from <xsl:value-of select="@name"/></xsl:message>-->
+      <xsl:message> Creating from '<xsl:value-of select="@name"/></xsl:message>''
       <xsl:element name="dependency">
             <xsl:element name="name">
                <xsl:value-of select="if (@inverse) 
                                      then @inverse 
                                      else if (@name) then concat(@name,'^') 
-                                     else if ($dotdotambiguous)
-                                     then '..'                      (: || position() :)
                                      else '..'" />
             </xsl:element>
          <xsl:copy-of select="$cardinality"/>
          <xsl:element name="type">
+            <!-- 29/06/2023 BUT... WHY DID I WRITE IT LIKE THIS PREVIOUSLY?
             <xsl:value-of select="ancestor::*[self::entity_type|self::absolute][1]/@name"/>
+         -->
+            <xsl:value-of select="parent::*[self::entity_type|self::absolute]/@name"/>
          </xsl:element>
-         <xsl:if test="identifying">    <!-- was a parent::identifying from host entity type too ... why?-->
-                                             <!-- TBD probably need a bit more than this -->
-                                          <!-- Hmmmm ... not sure -->
-               <xsl:element name="identifying"/>   <!-- little bit odd because previously wouldn't have modelled 
-                                             depedencies as identifying -->
+         <xsl:if test="identifying">    
+               <xsl:element name="identifying"/>   
          </xsl:if>
          <xsl:element name="inverse_of">
             <xsl:value-of select="@name"/>
@@ -192,12 +192,12 @@
             </xsl:element>
          </xsl:when>
          <xsl:when test="self::reference">
-            <xsl:if test="not(diagonal)">
+            <xsl:if test="not(@diagonal)">
                <xsl:element name="diagonal">
                   <xsl:element name="theabsolute"/>
                </xsl:element>
             </xsl:if>
-            <xsl:if test="not(riser)">
+            <xsl:if test="not(@riser)">
                <xsl:element name="riser">
                   <xsl:element name="theabsolute"/>
                </xsl:element>
