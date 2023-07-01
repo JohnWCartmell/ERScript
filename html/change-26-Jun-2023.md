@@ -3,7 +3,6 @@
 ## 26 June 2023
 Removal of unnecessary reference relationships from the meta model.
 
-DOUBLECHECK REQUIRED
 
 ### Summary
 1. Following the change of 2nd June 2023 and in particular following proper support for reference relationships to types

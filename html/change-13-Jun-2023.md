@@ -10,14 +10,25 @@ auxiliary scope constraint in which the
 `identifying_relationship` is the `projection_rel` of a pullback and the `equivalent_path` is the `key`.
 
 ### Analysis
-- key constraints are only used from the chromatographAnalsysRecord example
-- need to modify generators that support key constraints to support auxiliary scpe constraints instead
-	- typescript
-- need to remove all other mention of key constraints
-   - meta model
-   - xpath-enrichment
-   - 2phyiscal enrichment
+1. Key constraints are only used from the chromatographAnalsysRecord example
+2. Need to modify generators that support key constraints to support auxiliary scope constraints instead. 
+3. Change `ERmodel2.ts.xslt` to support auxiliary scope constraints and tremove support dor key constraints.
+   The code that needs change is 
+   - need generate of `js` fragment for equivalent_paths of auxiliary scope constraints.
+   - need generate lookup CHECK of equivalent path in foreign key section of reference relationship in recursive_js_enrichment.
+   - need try keep  intermediate xml and thus generated ts the same so as can regression test.
+4. Can  remove all other mention of key constraints
+   - meta model, surface model
+   - ERmodel2.xpath_enrichment..module.xslt
+   - ERmodel2.phyiscal_enrichment..module.xslt.
 
 ### Proposal
+1. Simplify and regression test `ERmodel2.ts.xslt` before continuing.
+   - replace intermediate element `dest` from template match="diagonal|along|key" mode="recursive_js_enrichment"
+     and replace by local variable. Rename variable `scope` to be `scopeTopType`. 
+   - similarly remove intermediate element `dest` from templates match="riser" and match ="riser2" mode="recursive_js_enrichment"
+      and replace by local variable 
+   - remove test of existence of element `src` from template match ="component" mode="recursive_js_enrichment"
+      (can replace by an initial assertion)
 
 
