@@ -68,7 +68,6 @@
             <entity_type name="reference">
                <attribute name="diagonal" type="nstring?"/>
                <attribute name="riser" type="string?"/>
-               <attribute name="key" type="string?"/>
                <attribute name="inverse" type="string?"/>
                <composition type="auxiliary_scope_constraint*"/>
             </entity_type>

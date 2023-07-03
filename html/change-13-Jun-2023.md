@@ -38,8 +38,20 @@ auxiliary scope constraint in which the
 2. Recode js_foreign_key in "reference". Copy and edit the logic of the $tertiary_clause_constructor from xpath_enrichment..module.xslt.
    Then, possibly take the `attribute_pair` logic back again. Possibly think of a better name for `attribuite_pair`.
 
+4. Remove  mention of key constraints
+- `ERA.logical.xml`,
+- `ERA.presentation.xml`
+- `ERA.descriptive_text.xml`
+- `ERA.surface.xml`
+- `ERmodel2.xpath_enrichment..module.xslt`
+- `ERmodel2.phyiscal_enrichment..module.xslt`.
+
 ### Testing
-Generate and diff `chromatogram_analysis_record.ts`. The generate typescript should be identical to that generated before the change.
+1. Generate and diff `chromatogram_analysis_record.ts`. The generate typescript should be identical to that generated before the change.
+Use powershell `diff (cat .\chromatogram_analysis_record..physical.ts) (cat .\chromatogram_analysis_record..physical.REGRESSION.ts)`
+2. Rebuild the meta model and check validation report and diagrams.
+### Completion Date
+Completed 3rd July 2023.
 
 
 

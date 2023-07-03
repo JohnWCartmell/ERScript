@@ -81,7 +81,6 @@
          <entity_type name="reference">
             <composition name="diagonal" type="navigation?"/>
             <composition name="riser" type="navigation?"/>
-            <composition name="key" type="navigation?"/>
             <composition type="projection?"/>
             <composition type="auxiliary_scope_constraint*"/>
             <attribute name="js" type="string?"/>

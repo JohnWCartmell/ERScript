@@ -353,20 +353,6 @@
          </diagram>
       </composition>
    </entity_type>
-   <entity_type>
-      <name>reference</name>
-      <composition>
-         <name>key</name>
-         <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
-            <path>
-               <srcattach>0.8</srcattach>
-               <align>
-                  <ToSrc/>
-               </align>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
       <entity_type>
       <name>reference</name>
       <composition>

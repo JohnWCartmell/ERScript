@@ -354,10 +354,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
     <xsl:for-each select="reference[ (cardinality/ZeroOrOne or cardinality/ExactlyOne)
                                     and not(key('whereImplemented',
                                             era:packArray((../name,name))))
-                                    and not(key)             
                                     ]">         
-                                    <!-- simplifying assumption that key covers missing identifiers subject to future generalisation -->
-                <!-- @ reference relationship that is not already implemented-->
+                                    
 				
 				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
         <xsl:message>CONSIDER Relationship R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message>

@@ -476,12 +476,6 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         </xsl:call-template>
       </xsl:if>
       
-      <xsl:if test="not(jscheck) and key/jscheck">
-        <xsl:element name="jscheck">
-          <xsl:value-of select="key/jscheck"/>
-        </xsl:element>
-      </xsl:if>
-       
        <xsl:if test="not(jscheck) 
                      and 
                      (every $asc in auxiliary_scope_constraint satisfies $asc/equivalent_path/*/jscheck)">
@@ -493,100 +487,66 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
         </xsl:if>
 
       <xsl:if test="not(js_foreign_key) 
-                    and (not(key) or key/js) 
                     and (not(diagonal) or diagonal/theabsolute or (diagonal/js and diagonal/js_foreign_key ))
                     and (every $asc in auxiliary_scope_constraint satisfies $asc/equivalent_path/*/js)
                     "> 
-        <xsl:element name="js_foreign_key">
-            <xsl:choose>
-                <xsl:when test="key">   <!-- simplifying assumption that only one dest level (one component in riser in pullback ) -->
-                                       <!-- probably need to generalise -->
-                  <xsl:variable name="keyreljs" select="key/js"/>
-
-                  <!-- build fk by navigating to projection that key is target and iterating implmentation from there -->
-                  <xsl:for-each select="key('EntityTypes',type)/reference[projection]">
-                    <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                      <xsl:element name="attribute_pair">
-                        <xsl:element name="name">
+        <xsl:element name="js_foreign_key"> 
+            <xsl:variable name="destination_type"
+                      as="element(entity_type)"
+                    select="key('EntityTypes',type)"/>
+            <xsl:for-each select="auxiliary_scope_constraint">
+                <xsl:message>auxiliary_scope_constraint found</xsl:message>
+                <xsl:variable name="equivalent_path_js"
+                              as="xs:string"
+                              select="equivalent_path/*/js"/>
+                <xsl:variable name="implementing_attributes"
+                              as="element(attribute)*"
+                              select="$destination_type/ancestor-or-self::entity_type/attribute
+                                   [implementationOf/rel eq current()/identifying_relationship]"/>
+                <xsl:for-each select="$implementing_attributes">
+                    <xsl:element name="attribute_pair">
+                      <xsl:element name="name">
+                        <!--<xsl:value-of select="key('EntityTypes', implementationOf/destAttr...ENTITY_TYPE.name)/js_classname"/>-->
                           <xsl:call-template name="js_mangle_name">
                             <!-- et name -->
-                            <xsl:with-param name="name" select="../../name"/>
+                            <xsl:with-param name="name" select="parent::entity_type/name"/>
                           </xsl:call-template>
                           <xsl:text>_</xsl:text>
-                          <!-- next line  need mangling ? -->
-                          <xsl:value-of select="../name"/>  <!-- attr name -->
-                        </xsl:element>
-                        <xsl:element name="type"><xsl:value-of select="../type"/></xsl:element>
-                        <xsl:element name="lookup">
-                          <xsl:text>this</xsl:text>
-                          <xsl:value-of select="$keyreljs"/>
-                          <xsl:text>.</xsl:text>
-                          <xsl:value-of select="destAttr"/>   
-                        </xsl:element>
+                          <!--<xsl:value-of select="implementationOf/destAttr"/>-->
+                          <xsl:value-of select="self::attribute/name"/>  <!-- attr name -->
                       </xsl:element>
-                    </xsl:for-each>
-                  </xsl:for-each>
-                </xsl:when>
-                <xsl:otherwise>  <!-- the normal case for a stored ref rel implemented by foreign key -->  
-                    <xsl:variable name="destination_type"
-                              as="element(entity_type)"
-                            select="key('EntityTypes',type)"/>
-
-                    <xsl:for-each select="auxiliary_scope_constraint">
-                        <xsl:message>auxiliary_scope_constraint found</xsl:message>
-                        <xsl:variable name="equivalent_path_js"
-                                      as="xs:string"
-                                      select="equivalent_path/*/js"/>
-                        <xsl:variable name="implementing_attributes"
-                                      as="element(attribute)*"
-                                      select="$destination_type/ancestor-or-self::entity_type/attribute
-                                           [implementationOf/rel eq current()/identifying_relationship]"/>
-                        <xsl:for-each select="$implementing_attributes">
-                            <xsl:element name="attribute_pair">
-                              <xsl:element name="name">
-                                <!--<xsl:value-of select="key('EntityTypes', implementationOf/destAttr...ENTITY_TYPE.name)/js_classname"/>-->
-                                  <xsl:call-template name="js_mangle_name">
-                                    <!-- et name -->
-                                    <xsl:with-param name="name" select="parent::entity_type/name"/>
-                                  </xsl:call-template>
-                                  <xsl:text>_</xsl:text>
-                                  <!--<xsl:value-of select="implementationOf/destAttr"/>-->
-                                  <xsl:value-of select="self::attribute/name"/>  <!-- attr name -->
-                              </xsl:element>
-                              <xsl:element name="type"><xsl:value-of select="type/*/name()"/></xsl:element>
-                              <xsl:element name="lookup">
-                                <xsl:value-of select="'this.' || $equivalent_path_js"/>
-                                <xsl:text>.</xsl:text>
-                                <xsl:value-of select="js_membername"/>
-                              </xsl:element>
-                              <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
-                              <!-- <xsl:if test="../optional">
-                                <xsl:element name="needs_check"/>
-                              </xsl:if>
-                          -->
-                            </xsl:element>
-                        </xsl:for-each>
-                    </xsl:for-each>
-                   <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                        <xsl:element name="attribute_pair">
-                          <xsl:element name="name">
-                            <xsl:value-of select="key('EntityTypes', destAttr...ENTITY_TYPE.name)/js_classname"/>
-                            <xsl:text>_</xsl:text>
-                            <xsl:value-of select="destAttr"/>
-                          </xsl:element>
-                          <xsl:element name="type"><xsl:value-of select="../type/*/name()"/></xsl:element>
-                          <xsl:element name="lookup">
-                            <xsl:text>this.</xsl:text>
-                            <xsl:value-of select="../js_membername"/>
-                          </xsl:element>
-                          <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
-                          <xsl:if test="../optional">
-                            <xsl:element name="needs_check"/>
-                          </xsl:if>
-                        </xsl:element>
-                    </xsl:for-each>
-                </xsl:otherwise>
-            </xsl:choose>
+                      <xsl:element name="type"><xsl:value-of select="type/*/name()"/></xsl:element>
+                      <xsl:element name="lookup">
+                        <xsl:value-of select="'this.' || $equivalent_path_js"/>
+                        <xsl:text>.</xsl:text>
+                        <xsl:value-of select="js_membername"/>
+                      </xsl:element>
+                      <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
+                      <!-- <xsl:if test="../optional">
+                        <xsl:element name="needs_check"/>
+                      </xsl:if>
+                  -->
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:for-each>
+           <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
+                <xsl:element name="attribute_pair">
+                  <xsl:element name="name">
+                    <xsl:value-of select="key('EntityTypes', destAttr...ENTITY_TYPE.name)/js_classname"/>
+                    <xsl:text>_</xsl:text>
+                    <xsl:value-of select="destAttr"/>
+                  </xsl:element>
+                  <xsl:element name="type"><xsl:value-of select="../type/*/name()"/></xsl:element>
+                  <xsl:element name="lookup">
+                    <xsl:text>this.</xsl:text>
+                    <xsl:value-of select="../js_membername"/>
+                  </xsl:element>
+                  <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
+                  <xsl:if test="../optional">
+                    <xsl:element name="needs_check"/>
+                  </xsl:if>
+                </xsl:element>
+            </xsl:for-each>
             <xsl:sequence select="diagonal/js_foreign_key/attribute_pair"/>
          </xsl:element>
       </xsl:if>
@@ -648,7 +608,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    </xsl:copy>
 </xsl:template>
 
-<xsl:template match="diagonal|along|key" mode="recursive_js_enrichment">
+<xsl:template match="diagonal|along" mode="recursive_js_enrichment">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_js_enrichment"/>
       <xsl:if test="not(*:js)">

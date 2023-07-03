@@ -668,53 +668,31 @@ projection =>
                         )
                    ">
       <xpath_local_key>
-        <xsl:choose>
-          <xsl:when test="key">   <!-- added 30-Aug-2016 CR-18159 created 5-Sept-2016 -->
-            <xsl:value-of select="key/*/xpath_evaluate"/>  
-            <xsl:text>/(</xsl:text>
-            <xsl:value-of select="key('EntityTypes',key/*/dest)/xpath_primary_key"/>    <!-- this uses CR-18123: generalise 'dest' relationship -->
-            <xsl:text>)</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>  <!-- the usual case! --> 
-                          <!-- simplifying assumption that key and local identifying attribute are exclusive -->
-            <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-              <xsl:if test="position() &gt; 1">
-                <xsl:text>,</xsl:text>
-              </xsl:if>
-              <xsl:value-of select="era:brace(../name,ancestor-or-self::entity_model/xml/namespace_uri)"/>
-            </xsl:for-each>
-            <!-- Change log 2nd June 2023 -->
-            <!-- assume that auxiliary scopes are for trailing primary keys
-                  SHOULD IMPROVE ON THIS I THINK
-            -->
-            <xsl:for-each select="auxiliary_scope_constraint">
-                 <xsl:text>,</xsl:text>                 <!-- will it always be auxiliary ? -->
-                 <xsl:value-of select="equivalent_path/*/xpath_evaluate"/>
-                 <xsl:text>/</xsl:text>
-                 <xsl:value-of select="xpath_primary_key_of_auxiliary_identified_entity"/>
-            </xsl:for-each>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
+          <xsl:if test="position() &gt; 1">
+            <xsl:text>,</xsl:text>
+          </xsl:if>
+          <xsl:value-of select="era:brace(../name,ancestor-or-self::entity_model/xml/namespace_uri)"/>
+        </xsl:for-each>
+        <!-- Change log 2nd June 2023 -->
+        <!-- assume that auxiliary scopes are for trailing primary keys
+              SHOULD IMPROVE ON THIS I THINK
+        -->
+        <xsl:for-each select="auxiliary_scope_constraint">
+             <xsl:text>,</xsl:text>                 <!-- will it always be auxiliary ? -->
+             <xsl:value-of select="equivalent_path/*/xpath_evaluate"/>
+             <xsl:text>/</xsl:text>
+             <xsl:value-of select="xpath_primary_key_of_auxiliary_identified_entity"/>
+        </xsl:for-each>
       </xpath_local_key>
           <!-- xpath_local_key_defined  -->
       <xpath_local_key_defined>
-        <xsl:choose>
-          <xsl:when test="key">   
-            <xsl:value-of select="
-                 'exists('
-              || key/*/xpath_evaluate
-              || ')'
-              "/> 
-          </xsl:when>
-          <xsl:otherwise>  
-            <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-              <xsl:if test="position() &gt; 1">
-                <xsl:text> and </xsl:text>
-              </xsl:if>
-              <xsl:value-of select="'exists(' ||  era:brace(../name, ancestor-or-self::entity_model/xml/namespace_uri ) || ')'"/>   <!-- TBD 2nd June 2023 Check that auxiliary key is defined ??? -->
-            </xsl:for-each>
-          </xsl:otherwise>
-        </xsl:choose>
+          <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
+            <xsl:if test="position() &gt; 1">
+              <xsl:text> and </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="'exists(' ||  era:brace(../name, ancestor-or-self::entity_model/xml/namespace_uri ) || ')'"/>   <!-- TBD 2nd June 2023 Check that auxiliary key is defined ??? -->
+          </xsl:for-each>
       </xpath_local_key_defined>
     </xsl:if>
 

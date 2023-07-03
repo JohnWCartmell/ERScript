@@ -211,15 +211,6 @@
                <description>.</description>
             </composition>
             <composition>
-               <name>key</name>
-               <type>navigation</type>
-               <description>This relationship is defined for a relationships whose destination type is a pullback object
-                            and which is the unique relationship into the pullback determined by a 'diagonal' and a 'key'.
-                            Despite the fact that such relationships are represented as reference relationships even though
-                           might be better represented as certain types of constructed relationship.  
-               </description>
-            </composition>
-            <composition>
                <type>projection</type>
                <description>.</description>
             </composition>
