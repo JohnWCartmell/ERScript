@@ -322,8 +322,9 @@
          <reference name="base_event"
                      type="interpretation_event?"
                      diagonal="base_session"
-                     riser=".."
-                     key="subject">
+                     riser="..">
+                     <!-- key="subject"> -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject"/>
             <description>This reference relationship modelled more generally than need be from
                             so that available as undefined for programmed event. Need it this way
                             so that can be used in lower level scopes.
@@ -367,13 +368,17 @@
          <reference name="RT_reference"
                      type="injection(3)?"
                      diagonal="."
-                     riser=".."
-                     key="subject/RT_reference"/>
+                     riser=".." >
+                     <!-- key="subject/RT_reference"-->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject/RT_reference"/>
+         </reference>
          <reference name="based_on"
                      type="sample_group(3)?"
                      diagonal="../base_event"
-                     riser=".."
-                     key="subject"/>
+                     riser="..">
+                     <!--key="subject"  -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject"/>
+         </reference>
       </entity_type>
       <entity_type name="injection(3)">
          <identifying>
@@ -395,8 +400,10 @@
          <reference name="based_on"
                      type="injection(3)?"
                      diagonal="../based_on"
-                     riser=".."
-                     key="subject"/>
+                     riser="..">
+                     <!--key="subject" -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject"/>
+         </reference>
       </entity_type>
       <entity_type name="compound(3)">
          <identifying>
@@ -420,8 +427,10 @@
          <reference name="IS"
                      type="compound(3)?"
                      diagonal=".."
-                     riser=".."
-                     key="subject/IS"/>
+                     riser=".." >
+                     <!-- key="subject/IS" -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject/IS"/>
+         </reference>
          <reference name="selected" type="trace(3)?" diagonal="." riser=".."/>
       </entity_type>
       <entity_type name="trace(3)">
@@ -461,13 +470,17 @@
          <reference name="monitored"
                      type="compound(3)"
                      diagonal="../.."
-                     riser=".."
-                     key="subject/monitored"/>
+                     riser=".." >
+                     <!-- key="subject/monitored"/> -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject/monitored"/>
+         </reference>
          <reference name="based_on"
                      type="component(3)?"
                      diagonal="../based_on"
-                     riser=".."
-                     key="subject"/>
+                     riser="..">
+                     <!-- key="subject"/> -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject"/>
+         </reference>
       </entity_type>
       <entity_type name="chromatogram(2)">
          <identifying>
@@ -501,13 +514,17 @@
                      type="trace(3)"
                      inverse="chromatograms"
                      diagonal="../monitored"
-                     riser=".."
-                     key="subject/extracted"/>
+                     riser="..">
+                     <!-- key="subject/extracted"/> -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject/extracted"/>
+         </reference>
          <reference name="based_on"
                      type="chromatogram(2)?"
                      diagonal="../based_on"
-                     riser=".."
-                     key="subject"/>
+                     riser="..">
+                     <!-- key="subject"/> -->
+            <auxiliary_scope_constraint identifying_relationship="subject" equivalent_path="subject"/>
+         </reference>
       </entity_type>
       <entity_type name="annotation">
          <dependency_group/>

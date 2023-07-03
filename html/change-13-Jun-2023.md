@@ -23,12 +23,23 @@ auxiliary scope constraint in which the
    - ERmodel2.phyiscal_enrichment..module.xslt.
 
 ### Proposal
-1. Simplify and regression test `ERmodel2.ts.xslt` before continuing.
-   - replace intermediate element `dest` from template match="diagonal|along|key" mode="recursive_js_enrichment"
+1. Simplify and regression test `ERmodel2.ts.xslt` before continuing. 
+   - For improved readability
+   change the internally used element `attribute` to be `attribute_pair`. Note that the bit of code that produces a list
+   of `attribute_pair`s implementing a reference relationship may be useful as a way of simplifying 
+   `xpath_enrichment..module.xslt`.
+   - Replace intermediate element `dest` from template match="diagonal|along|key" mode="recursive_js_enrichment"
      and replace by local variable. Rename variable `scope` to be `scopeTopType`. 
-   - similarly remove intermediate element `dest` from templates match="riser" and match ="riser2" mode="recursive_js_enrichment"
+   - Similarly, remove intermediate element `dest` from templates match="riser" and match ="riser2" mode="recursive_js_enrichment"
       and replace by local variable 
-   - remove test of existence of element `src` from template match ="component" mode="recursive_js_enrichment"
+   - Remove test of existence of element `src` from template match ="component" mode="recursive_js_enrichment"
       (can replace by an initial assertion)
+
+2. Recode js_foreign_key in "reference". Copy and edit the logic of the $tertiary_clause_constructor from xpath_enrichment..module.xslt.
+   Then, possibly take the `attribute_pair` logic back again. Possibly think of a better name for `attribuite_pair`.
+
+### Testing
+Generate and diff `chromatogram_analysis_record.ts`. The generate typescript should be identical to that generated before the change.
+
 
 

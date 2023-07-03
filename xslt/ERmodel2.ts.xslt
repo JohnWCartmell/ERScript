@@ -475,13 +475,28 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                             select="riser/cardinality|diagonal/cardinality"/>
         </xsl:call-template>
       </xsl:if>
+      
       <xsl:if test="not(jscheck) and key/jscheck">
         <xsl:element name="jscheck">
           <xsl:value-of select="key/jscheck"/>
         </xsl:element>
       </xsl:if>
+       
+       <xsl:if test="not(jscheck) 
+                     and 
+                     (every $asc in auxiliary_scope_constraint satisfies $asc/equivalent_path/*/jscheck)">
+           <xsl:for-each select="auxiliary_scope_constraint">
+                <xsl:element name="jscheck">
+                    <xsl:value-of select="equivalent_path/*/jscheck"/>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:if>
 
-      <xsl:if test="not(js_foreign_key) and (not(key) or key/js) and (not(diagonal) or diagonal/theabsolute or (diagonal/js and diagonal/js_foreign_key ))"> 
+      <xsl:if test="not(js_foreign_key) 
+                    and (not(key) or key/js) 
+                    and (not(diagonal) or diagonal/theabsolute or (diagonal/js and diagonal/js_foreign_key ))
+                    and (every $asc in auxiliary_scope_constraint satisfies $asc/equivalent_path/*/js)
+                    "> 
         <xsl:element name="js_foreign_key">
             <xsl:choose>
                 <xsl:when test="key">   <!-- simplifying assumption that only one dest level (one component in riser in pullback ) -->
@@ -491,7 +506,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                   <!-- build fk by navigating to projection that key is target and iterating implmentation from there -->
                   <xsl:for-each select="key('EntityTypes',type)/reference[projection]">
                     <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                      <xsl:element name="attribute">
+                      <xsl:element name="attribute_pair">
                         <xsl:element name="name">
                           <xsl:call-template name="js_mangle_name">
                             <!-- et name -->
@@ -513,27 +528,66 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
                   </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>  <!-- the normal case for a stored ref rel implemented by foreign key -->  
-                  <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
-                    <xsl:element name="attribute">
-                      <xsl:element name="name">
-                        <xsl:value-of select="key('EntityTypes', destAttrHostEt)/js_classname"/>
-                        <xsl:text>_</xsl:text>
-                        <xsl:value-of select="destAttr"/>
-                      </xsl:element>
-                      <xsl:element name="type"><xsl:value-of select="../type"/></xsl:element>
-                      <xsl:element name="lookup">
-                        <xsl:text>this.</xsl:text>
-                        <xsl:value-of select="../js_membername"/>
-                      </xsl:element>
-                      <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
-                      <xsl:if test="../optional">
-                        <xsl:element name="needs_check"/>
-                      </xsl:if>
-                    </xsl:element>
-                  </xsl:for-each>
-               </xsl:otherwise>
+                    <xsl:variable name="destination_type"
+                              as="element(entity_type)"
+                            select="key('EntityTypes',type)"/>
+
+                    <xsl:for-each select="auxiliary_scope_constraint">
+                        <xsl:message>auxiliary_scope_constraint found</xsl:message>
+                        <xsl:variable name="equivalent_path_js"
+                                      as="xs:string"
+                                      select="equivalent_path/*/js"/>
+                        <xsl:variable name="implementing_attributes"
+                                      as="element(attribute)*"
+                                      select="$destination_type/ancestor-or-self::entity_type/attribute
+                                           [implementationOf/rel eq current()/identifying_relationship]"/>
+                        <xsl:for-each select="$implementing_attributes">
+                            <xsl:element name="attribute_pair">
+                              <xsl:element name="name">
+                                <!--<xsl:value-of select="key('EntityTypes', implementationOf/destAttr...ENTITY_TYPE.name)/js_classname"/>-->
+                                  <xsl:call-template name="js_mangle_name">
+                                    <!-- et name -->
+                                    <xsl:with-param name="name" select="parent::entity_type/name"/>
+                                  </xsl:call-template>
+                                  <xsl:text>_</xsl:text>
+                                  <!--<xsl:value-of select="implementationOf/destAttr"/>-->
+                                  <xsl:value-of select="self::attribute/name"/>  <!-- attr name -->
+                              </xsl:element>
+                              <xsl:element name="type"><xsl:value-of select="type/*/name()"/></xsl:element>
+                              <xsl:element name="lookup">
+                                <xsl:value-of select="'this.' || $equivalent_path_js"/>
+                                <xsl:text>.</xsl:text>
+                                <xsl:value-of select="js_membername"/>
+                              </xsl:element>
+                              <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
+                              <!-- <xsl:if test="../optional">
+                                <xsl:element name="needs_check"/>
+                              </xsl:if>
+                          -->
+                            </xsl:element>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                   <xsl:for-each select="key('inverse_implementationOf',concat(../name,':',name))">
+                        <xsl:element name="attribute_pair">
+                          <xsl:element name="name">
+                            <xsl:value-of select="key('EntityTypes', destAttr...ENTITY_TYPE.name)/js_classname"/>
+                            <xsl:text>_</xsl:text>
+                            <xsl:value-of select="destAttr"/>
+                          </xsl:element>
+                          <xsl:element name="type"><xsl:value-of select="../type/*/name()"/></xsl:element>
+                          <xsl:element name="lookup">
+                            <xsl:text>this.</xsl:text>
+                            <xsl:value-of select="../js_membername"/>
+                          </xsl:element>
+                          <!--CR-18323 null safety means we need to exclude undefined attributes from the foreign key -->
+                          <xsl:if test="../optional">
+                            <xsl:element name="needs_check"/>
+                          </xsl:if>
+                        </xsl:element>
+                    </xsl:for-each>
+                </xsl:otherwise>
             </xsl:choose>
-            <xsl:sequence select="diagonal/js_foreign_key/attribute"/>
+            <xsl:sequence select="diagonal/js_foreign_key/attribute_pair"/>
          </xsl:element>
       </xsl:if>
    </xsl:copy>
@@ -643,7 +697,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
           <xsl:for-each select="$scopeTop/js_primary_key/attribute">
             <xsl:variable name="attrname" select="name"/>
             <xsl:if test="$target/js_primary_key/attribute[name=$attrname]">
-              <xsl:element name="attribute">
+              <xsl:element name="attribute_pair">
                 <xsl:element name="name"><xsl:value-of select="name"/></xsl:element>
                 <xsl:element name="type"><xsl:value-of select="type"/></xsl:element>
                 <xsl:element name="lookup">diagonal<xsl:value-of select="lookup"/></xsl:element>
@@ -1206,7 +1260,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
     <xsl:value-of select="diagonal/js"/>
     <xsl:text>;</xsl:text>
     <xsl:if test="navigation_cardinality/OneOrMore or navigation_cardinality/ZeroOneOrMore ">
-      <xsl:for-each select="js_foreign_key/attribute[needs_check]">
+      <xsl:for-each select="js_foreign_key/attribute_pair[needs_check]">
         <xsl:call-template name="newline"/>
         <xsl:text>        if (</xsl:text>
         <xsl:value-of select="lookup"/>
@@ -1218,7 +1272,7 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
       </xsl:for-each>
       <xsl:call-template name="newline"/>
       <xsl:text>        let foreignKey = {</xsl:text>
-      <xsl:for-each select="js_foreign_key/attribute">
+      <xsl:for-each select="js_foreign_key/attribute_pair">
         <xsl:call-template name="newline"/>
         <xsl:text>            </xsl:text>
         <xsl:value-of select="name"/>

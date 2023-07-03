@@ -142,7 +142,7 @@
    <xsl:param name="reference"      as="function(element(*),element(er:reference)) as xs:string?"/>
    <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
 
-   <xsl:message>Instance of type <xsl:value-of select="$instance/name()"/> name '<xsl:value-of select="$instance/er:name"/>'  type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
+   <xsl:message>Instance of type '<xsl:value-of select="$instance/name()"/>'' name '<xsl:value-of select="$instance/er:name"/>'  type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
    <xsl:variable name="etlDefn" 
       as="element()?"
       select="$erDataLib?getDefinitionOfInstance($instance)
@@ -150,8 +150,10 @@
    <xsl:if test="not($etlDefn)">
       <xsl:message terminate="yes">No entity_type_like found that matches element name of instance <xsl:copy-of select="$instance"/></xsl:message>
    </xsl:if>
+   <!--
    <xsl:message> In instance of type '<xsl:value-of select="$etlDefn/er:name"/>'</xsl:message>
    <xsl:message> child of  instance of type '<xsl:value-of select="$etlDefn/../er:name"/>'</xsl:message>
+-->
    <xsl:variable name="allValidChildNodes"
                  as="node()*">
       <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/(er:attribute|er:composition|er:reference)">              
@@ -278,7 +280,7 @@
       </xsl:for-each>
       <!-- descend composition structure -->
       <xsl:for-each select="$etlDefn/(self::er:absolute | ancestor-or-self::er:entity_type)/er:composition"> 
-         <xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>
+         <!--<xsl:message>Composition '<xsl:value-of select="$etlDefn/er:name"/>'.'<xsl:value-of select="er:name"/>':'<xsl:value-of select="er:type"/>' </xsl:message>-->
             <xsl:for-each select="$erDataLib?readCompositionRelationship($instance,self::er:composition)">
                <xsl:call-template name="walk_an_instance_subtree__guided_by_schema">
                   <xsl:with-param name="typeTaggedInstanceData" select="$typeTaggedInstanceData"/>

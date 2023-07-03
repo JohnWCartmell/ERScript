@@ -437,7 +437,12 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                     because I only want these if they are not so global as to be
                                     already known from the context of the riser
                               -->
-         <xsl:if test="not($exclude_rel_name) or not(name eq $exclude_rel_name)">
+         <xsl:if test="not($exclude_rel_name) or
+                       not(implementationOf) or
+                       not(implementationOf/rel eq $exclude_rel_name)">
+             <xsl:if test="$exclude_rel_name">
+                <xsl:message>exclude_rel_name  is '<xsl:value-of select="$exclude_rel_name"/>' copying attribute '<xsl:value-of select="name"/>' implementation of relationship named `<xsl:value-of select="implementationOf/rel"/>'</xsl:message>
+            </xsl:if>
              <xsl:copy>
                 <xsl:element name="destAttr...ENTITY_TYPE.name">
                       <xsl:value-of select="../name"/>

@@ -28,13 +28,16 @@ if ($false)
 echo 'chromatogram Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..logical.xml -outputFolder ..\docs
+}
 
 ##################################################################################
 # NOTE that the physicalType is 'h' (I know this from looking at an old printout).
 ##################################################################################
 echo 'build physical model'
-. $TARGET\scripts\buildExampleSVG.ps1 chromatogram_analysis_record -animate -physicalType h -longSeparator _ -shortSeaparator _
+. $TARGET\scripts\buildExampleSVG.ps1 chromatogram_analysis_record -animate -physicalType h -longSeparator _ -shortSeparator _
 
+if ($false)
+{
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\docs 
 }
