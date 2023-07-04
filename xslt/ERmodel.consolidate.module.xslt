@@ -57,7 +57,8 @@
 
    <xsl:template match="entity_type[parent::group]" mode="consolidate">
       <xsl:copy>
-         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <!-- <xsl:apply-templates select="@*|node()" mode="consolidate"/> -->
+         <xsl:apply-templates select="name" mode="consolidate"/>
          <xsl:apply-templates select="//entity_type[name=current()/name]/*[not(self::name)]"
                               mode="consolidate"/>
       </xsl:copy>

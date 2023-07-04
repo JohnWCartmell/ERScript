@@ -169,7 +169,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
 
     <xsl:if test="$debugon">
       <xsl:message>Debug is on </xsl:message>
-      <xsl:result-document href="initial_consolidated assembly_temp.xml" method="xml">
+      <xsl:result-document href="../temp/initial_consolidated assembly_temp.xml" method="xml">
         <xsl:sequence select="$state/entity_model"/>
       </xsl:result-document>
     </xsl:if>
@@ -181,7 +181,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:call-template>
     </xsl:variable>
     <xsl:if test="$debugon">
-      <xsl:result-document href="initial_enriched_temp.xml" method="xml">
+      <xsl:result-document href="../temp/initial_enriched_temp.xml" method="xml">
         <xsl:sequence select="$state/entity_model"/>
       </xsl:result-document>
     </xsl:if>

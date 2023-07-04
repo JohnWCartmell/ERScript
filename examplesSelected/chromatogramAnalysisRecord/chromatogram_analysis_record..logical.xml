@@ -11,10 +11,13 @@
       <composition name="submit_to" type="revised_labsys_task?" inverse=".."/>
       <composition type="interpretation_session*" inverse=".."/>
    </absolute>
-   <group name="task tower">
+  <!-- <group name="task tower">
       <module_name>task</module_name>
       <description>Represented by the 'task' module in the generated type script.</description>
+   -->
       <entity_type name="task">
+
+      <module_name>task</module_name>
          <description>
                 The task whose data is being represented.
             </description>
@@ -25,6 +28,8 @@
          <attribute name="location" type="string"/>
       </entity_type>
       <entity_type name="revised_labsys_task">
+
+      <module_name>task</module_name>
          <description>
                This indicates that the data should be submitted back to the specifed task.
             </description>
@@ -35,9 +40,11 @@
                      diagonal="^"
                      riser="^"/>
       </entity_type>
-   </group>
+   <!-- </group> -->
+   <!--
    <group name="external">
       <annotation>Documentation only. Not represented in XML nor in rng or ts.</annotation>
+   -->
       <entity_type name="sample_group">
          <identifying>
             <attribute name="alpha_code" type="string"/>
@@ -101,7 +108,7 @@
             of sample and MSMS_component filtered by membership of the same sample_group.
         </description>
       </entity_type>
-   </group>
+   <!-- </group> -->
    <group name="chromatogram tower">
       <module_name>chromatogram</module_name>
       <annotation>chromatogram tower</annotation>
