@@ -87,16 +87,39 @@ CR18533 JC  24-Oct-2016 Created. Definition of 'module_name'
 </xsl:template>
 
 
-<xsl:template match="entity_type" mode="recursive_class_enrichment">
+<xsl:template match="entity_type[not(module_name)][parent::*/module_name]" mode="recursive_class_enrichment">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_class_enrichment"/>
-      <xsl:if test="not(module_name) and parent::*/module_name">
-          <module_name>
-                <xsl:value-of select="parent::*/module_name"/>
-          </module_name>
+          <module_name><xsl:value-of select="parent::*/module_name"/></module_name>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="entity_type[not(module_name)]
+                                [not(parent::*/module_name)]
+                                [//entity_type[name eq current()/ancestor-or-self::entity_type/dependency[1]/type]]" 
+              mode="recursive_class_enrichment" >
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_class_enrichment"/>
+      <xsl:variable name="structuralParent"
+                    as="element()" 
+                    select="//entity_type[name eq current()/ancestor-or-self::entity_type/dependency[1]/type]"/>
+      <xsl:if test="$structuralParent/module_name">
+       <module_name><xsl:value-of select="$structuralParent/module_name"/></module_name>
       </xsl:if>
    </xsl:copy>
 </xsl:template>
+
+<xsl:template match="entity_type[not(module_name)]
+                     [not(parent::*/module_name)]
+                     [not(//entity_type[name eq current()/ancestor-or-self::entity_type/dependency[1]/type])]
+                     [child::entity_type/module_name]"
+                     mode="recursive_class_enrichment">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_class_enrichment"/>
+       <xsl:copy-of select="(child::entity_type/module_name)[1]"/>
+   </xsl:copy>
+</xsl:template>
+
 </xsl:transform>
 <!-- end of file: ERmodel_v1.2/src/ERmodel2.class_enrichment.module.xslt--> 
 

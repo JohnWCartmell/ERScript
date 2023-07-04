@@ -30,20 +30,22 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..logical.xml -outputFolder ..\docs
 }
 
+if ($false)
+{
 ##################################################################################
 # NOTE that the physicalType is 'h' (I know this from looking at an old printout).
 ##################################################################################
 echo 'build physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 chromatogram_analysis_record -animate -physicalType h -longSeparator _ -shortSeparator _ 
 
-if ($false)
-{
+
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\docs 
+}
 
 echo 'Run ERModel.2ts.xslt'
 . $TARGET\scripts\ER2.ts.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\typescript -debugswitch
-}
+
 if ($false)
 {
 echo 'grids Flex version'

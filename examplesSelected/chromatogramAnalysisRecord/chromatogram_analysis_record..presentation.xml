@@ -148,6 +148,16 @@
    </entity_type>
    <group>
       <name>chromatogram tower</name>
+      <annotation>chromatogram tower</annotation>
+      <entity_type><name>data_collection</name></entity_type>
+      <entity_type><name>sample_group(2)</name></entity_type>
+      <entity_type><name>injection(2)</name></entity_type>
+      <entity_type><name>compound(2)</name></entity_type>
+      <entity_type><name>trace(2)</name></entity_type>
+      <entity_type><name>component(2)</name></entity_type>
+      <entity_type><name>chromatogram</name></entity_type>
+      <entity_type><name>instrument_extraction_details</name></entity_type>
+      <entity_type><name>step_size_specification</name></entity_type>
       <presentation>
          <rightOf>task tower</rightOf>
          <x>0.5</x>
@@ -463,6 +473,21 @@
    </entity_type>
    <group>
       <name>interpretation tower</name>
+      <annotation>interpretation tower</annotation>
+      <entity_type><name>interpretation_session</name></entity_type>
+      <entity_type><name>interpretation_event</name></entity_type>
+      <entity_type><name>sample_group(3)</name></entity_type>
+      <entity_type><name>injection(3)</name></entity_type>
+      <entity_type><name>compound(3)</name></entity_type>
+      <entity_type><name>trace(3)</name></entity_type>
+      <entity_type><name>component(3)</name></entity_type>
+      <entity_type><name>chromatogram(2)</name></entity_type>
+      <entity_type><name>annotation</name></entity_type>
+      <entity_type><name>method</name></entity_type>
+      <entity_type><name>param</name></entity_type>
+      <entity_type><name>timepoint</name></entity_type>
+      <entity_type><name>peak</name></entity_type>
+      <entity_type><name>status</name></entity_type>
       <presentation>
          <rightOf>chromatogram tower</rightOf>
          <x>3.0</x>

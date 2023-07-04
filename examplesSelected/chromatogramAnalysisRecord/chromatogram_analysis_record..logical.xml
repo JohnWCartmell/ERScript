@@ -28,7 +28,6 @@
          <attribute name="location" type="string"/>
       </entity_type>
       <entity_type name="revised_labsys_task">
-
       <module_name>task</module_name>
          <description>
                This indicates that the data should be submitted back to the specifed task.
@@ -109,11 +108,12 @@
         </description>
       </entity_type>
    <!-- </group> -->
-   <group name="chromatogram tower">
-      <module_name>chromatogram</module_name>
+   <!--<group name="chromatogram tower">
       <annotation>chromatogram tower</annotation>
       <description>Represented by the 'task' module in the generated type script.</description>
+   -->
       <entity_type name="data_collection">
+          <module_name>chromatogram</module_name>
          <identifying>
             <attribute name="samplelist_name" type="string"/>
          </identifying>
@@ -278,12 +278,13 @@
          <attribute name="step_size" type="float"/>
          <attribute name="change_point_no" type="positiveInteger"/>
       </entity_type>
-   </group>
-   <group name="interpretation tower">
-      <module_name>interpretation</module_name>
+   <!--</group>-->
+   <!--<group name="interpretation tower">
       <annotation>interpretation tower</annotation>
       <description>Represented by the 'interpretation' module in the generated type script.</description>
+   -->
       <entity_type name="interpretation_session">
+          <module_name>interpretation</module_name>
          <identifying>
             <attribute name="session_guid" type="string"/>
          </identifying>
@@ -607,5 +608,5 @@
                      diagonal="../based_on"
                      riser=".."/>
       </entity_type>
-   </group>
+   <!--</group>-->
 </entity_model>
