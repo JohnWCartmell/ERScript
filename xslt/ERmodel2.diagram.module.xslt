@@ -242,7 +242,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
    <xsl:if test="$debugOn">
       <xsl:message>putting out initial assemby state <xsl:value-of select="$state/name()"/></xsl:message>
-      <xsl:result-document href="initial_consolidated_assembly_for_svg_temp.xml" method="xml">
+      <xsl:result-document href="../temp/initial_consolidated_assembly_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>
@@ -257,7 +257,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
    <xsl:if test="$debugOn">
       <xsl:message>putting out initial enrichment state <xsl:value-of select="$state/name()"/></xsl:message>
-      <xsl:result-document href="initial_enrichment_for_svg_temp.xml" method="xml">
+      <xsl:result-document href="../temp/initial_enrichment_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>
@@ -271,7 +271,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
    <xsl:if test="$debugOn">
       <xsl:message>putting out documentation enrichment state <xsl:value-of select="$state/name()"/></xsl:message>
-      <xsl:result-document href="documentation_enrichment_for_svg_temp.xml" method="xml">
+      <xsl:result-document href="../temp/documentation_enrichment_for_svg_temp.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>

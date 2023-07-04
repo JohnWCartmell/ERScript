@@ -29,7 +29,9 @@
       </composition>
    </entity_type>
    <group>
-      <name>inmatch</name>
+      <name>inmatch</name>   
+      <entity_type><name>innings</name></entity_type>
+      <entity_type><name>side</name></entity_type>
       <presentation>
          <below>match</below>
          <x>-0.2</x>

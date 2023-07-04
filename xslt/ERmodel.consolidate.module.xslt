@@ -55,7 +55,44 @@
               <!-- this template is deliberately left blank -->
    </xsl:template>
 
-   <xsl:template match="entity_type" mode="consolidate">
+   <xsl:template match="entity_type[parent::group]" mode="consolidate">
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:apply-templates select="//entity_type[name=current()/name]/*[not(self::name)]"
+                              mode="consolidate"/>
+      </xsl:copy>
+   </xsl:template>
+<!--
+   <xsl:template match="entity_type" mode="consolidate_unconditional">
+      <xsl:message>Consolidate unconditional </xsl:message>
+      <xsl:copy>
+         <xsl:apply-templates select="@*|node()" mode="consolidate"/>
+         <xsl:apply-templates select="following::entity_type[name=current()/name]
+                                        /*[not(self::name
+                                               | self::reference[some $localref in current()/reference
+                                                                 satisfies $localref/name = name] 
+                                               | self::attribute[some $localref in current()/attribute
+                                                                 satisfies $localref/name = name] 
+                                               | self::composition[some $localcomp in current()/composition
+                                                                 satisfies ($localcomp/name=name
+                                                                           or (not($localcomp/name)
+                                                                                and 
+                                                                               $localcomp/type=type
+                                                                              )
+                                                                           )
+                                                                 ]
+                                              )
+                                          ]"
+                              mode="consolidate"/> 
+      </xsl:copy>
+   </xsl:template>
+-->
+
+   <xsl:template match="entity_type[not(some $et in //entity_type[name=current()/name] satisfies $et[parent::group])
+                                    and 
+                                    not(preceding::entity_type[name=current()/name])
+                                    ]
+   " mode="consolidate">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <xsl:apply-templates select="following::entity_type[name=current()/name]
@@ -78,7 +115,11 @@
       </xsl:copy>
    </xsl:template>
 
-   <xsl:template match="entity_type[preceding::entity_type[name=current()/name]]" mode="consolidate">
+   <xsl:template match="entity_type[not(parent::group)]
+                                 [ some $et in //entity_type[name=current()/name] except . satisfies $et[parent::group]
+                                    or 
+                                     preceding::entity_type[name=current()/name]
+                                   ]" mode="consolidate">
               <!-- this template is deliberately left blank -->
    </xsl:template>
 

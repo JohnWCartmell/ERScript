@@ -17,7 +17,11 @@
       <composition type="innings*"/>
       <composition type="side*" />
    </entity_type>
-   <group name="inmatch">
+
+
+
+
+   <!--<group name="inmatch">-->
       <entity_type name="innings">
          <identifying>
             <context type="match"/>
@@ -34,7 +38,7 @@
          </identifying>
          <composition type="player*"/>
       </entity_type>
-   </group>
+   <!-- </group> -->
    <entity_type name="over">
       <identifying>
          <context type="innings"/>

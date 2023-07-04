@@ -132,7 +132,7 @@
       <composition type="inherited?"/>
    </entity_type>
       <entity_type name="inherited"/>
-   <group name="composition_children">
+   <group name="composition_children">  <!-- get rid of this from here -->
       <entity_type name="xmlStyle(1)">
       <entity_type name="Element(1)"/>
       <entity_type name="Anonymous(1)"/>
