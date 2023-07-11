@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+              ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
+   <description>The pack of cards.
+   </description>
+   <absolute name="thepack">
+      <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?">
+         <xmlRepresentation><Attribute/></xmlRepresentation>
+      </attribute> 
+      <composition type="suit+"/>
+      <composition type="denomination+"/>
+   </absolute>
+   <entity_type name="suit">
+      <composition type="card(0)*"/>
+      <entity_type name="clubs"/>
+      <entity_type name="diamonds"/>
+      <entity_type name="hearts"/>
+      <entity_type name="spades"/>
+   </entity_type>
+   <entity_type name="denomination">
+      <entity_type name="ace"/>
+      <entity_type name="king"/>
+      <entity_type name="queen"/>
+      <entity_type name="jack"/>
+      <entity_type name="ten"/>
+      <entity_type name="nine"/>
+      <entity_type name="eight"/>
+      <entity_type name="seven"/>
+      <entity_type name="six"/>
+      <entity_type name="five"/>
+      <entity_type name="four"/>
+      <entity_type name="three"/>
+      <entity_type name="two"/>
+   </entity_type>
+   <entity_type name="card(0)">
+   	   <identifying>
+   		   <context type="suit"/>
+       		<!--<reference name="value" type="denomination"/>-->
+   		</identifying>
+	</entity_type>
+</entity_model>
+   
+

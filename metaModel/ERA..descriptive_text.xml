@@ -7,7 +7,7 @@
       <description> This is a meta-model --- it is an entity model which describes the structure of a typical entity model --- as such 
       this entity model is self-descriptive. </description>
       <composition>
-         <type>entity_type_like</type>
+         <type>entity_type</type>
          <description></description>
       </composition>
       <composition>
@@ -34,40 +34,24 @@
    </entity_type>
    <entity_type>
       <name>ENTITY_TYPE</name>
-      <description>A generalisation of the types absolute and entity_type_like.</description>
+      <description>A generalisation of the types absolute and entity_type.</description>
       <entity_type>
          <name>absolute</name>
          <description>An entity type which is defined to have a single instance which is the structural root of instances of this 
          entity model.</description>
       </entity_type>
       <entity_type>
-         <name>entity_type_like</name>
-         <description>A generalisation of the types entity_type and group.</description>
-         <entity_type>
-            <name>entity_type</name>
-            <description>Instances of this type are entity types in the subject entity model. 
-               Each entity type describes a class of entities by describing the relationships that they participate in and the
-               properties that may be attributed to them.</description>
-            <composition>
-               <name>xmlRepresentation</name>
-               <type>xmlStyle(1)</type>
-               <description>Describes how entities of the entity type will be represented in xml.</description>
-            </composition>
-         </entity_type>
-         <entity_type>
-            <name>group</name>
-            <description>A way of grouping entity types together. Groups may be used to
-               assist in layout of an ER  diagram or in some cases to partition an entity model into distinct modules
-               used for example in code genweration into typescript.
-                </description>
-            <attribute>
-               <name>annotation</name>
-               <description>Text to be placed on a diagram and used to trigger representation of the group outline on the ER diagram.
-               </description>
-            </attribute>
-         </entity_type>
+         <name>entity_type</name>
+         <description>Instances of this type are entity types in the subject entity model. 
+            Each entity type describes a class of entities by describing the relationships that they participate in and the
+            properties that may be attributed to them.</description>
          <composition>
-            <type>entity_type_like</type>
+            <name>xmlRepresentation</name>
+            <type>xmlStyle(1)</type>
+            <description>Describes how entities of the entity type will be represented in xml.</description>
+         </composition>
+         <composition>
+            <type>entity_type</type>
             <description>The subtypes of a type or the contents of a group. </description>
          </composition>
       </entity_type>
@@ -210,10 +194,6 @@
                <type>navigation</type>
                <description>.</description>
             </composition>
-            <composition>
-               <type>projection</type>
-               <description>.</description>
-            </composition>
          </entity_type>
       </entity_type>
       <entity_type>
@@ -289,23 +269,9 @@
       <name>sequence</name>
       <description>An entity type..</description>
    </entity_type>
-   <group>
-      <name>righthand_children</name>
-      <description>A generalisation of the types projection, identifying(1), inherited and cardinality..</description>
-      <entity_type>
-         <name>projection</name>
-         <description>An entity type..</description>
-      </entity_type>
+
       <entity_type>
          <name>identifying(1)</name>
-         <description>An entity type..</description>
-         <composition>
-            <type>inherited</type>
-            <description>.</description>
-         </composition>
-      </entity_type>
-      <entity_type>
-         <name>inherited</name>
          <description>An entity type..</description>
       </entity_type>
       <entity_type>
@@ -328,10 +294,7 @@
             <description>An entity type..</description>
          </entity_type>
       </entity_type>
-   </group>
-   <group>
-      <name>composition_children</name>
-      <description>A generalisation of the types transient and initialiser..</description>
+
       <entity_type>
          <name>transient</name>
          <description>An entity type..</description>
@@ -373,7 +336,6 @@
             <description>.</description>
          </reference>
       </entity_type>
-   </group>
    <entity_type>
       <name>navigation</name>
       <description>A generalisation of the types complex and component..</description>
@@ -415,13 +377,10 @@
             <description>The source entity type of the 'rel' relationship.</description>
          </reference>
       </entity_type>
-   <entity_type>
-      <name>auxiliary_scope_constraint</name>
-      <description>Change log - 2-June-2023.</description>
-   </entity_type>
-      <group>
-         <name>component children</name>
-         <description>A generalisation of the types identity and theabsolute..</description>
+      <entity_type>
+         <name>auxiliary_scope_constraint</name>
+         <description>Change log - 2-June-2023.</description>
+      </entity_type>
          <entity_type>
             <name>identity</name>
             <description>
@@ -434,7 +393,6 @@
                 A navigation to the ansolute.
         </description>
          </entity_type>
-      </group>
       <reference>
          <name>src</name>
          <type>ENTITY_TYPE</type>
@@ -449,9 +407,7 @@
       .</description>
       </reference>
    </entity_type>
-   <group>
-      <name>attribute_children</name>
-      <description>A generalisation of the types implementationOf, value_type, identifying(2), optional and deprecated..</description>
+
       <entity_type>
          <name>implementationOf</name>
          <description>An entity type..</description>
@@ -533,7 +489,6 @@
          <name>deprecated</name>
          <description>An entity type..</description>
       </entity_type>
-   </group>
    <entity_type>
       <name>xmlStyle(2)</name>
       <description>A generalisation of the types Attribute, Element(2) and Anonymous(2)..</description>

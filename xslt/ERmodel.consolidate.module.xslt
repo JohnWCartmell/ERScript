@@ -9,6 +9,9 @@
  
 
    <xsl:template match="@*|node()" mode="consolidate">
+      <xsl:if test="self::entity_type">
+         <xsl:message terminate="yes">entity_type falls through to default rule</xsl:message>
+      </xsl:if>
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
       </xsl:copy>
@@ -55,14 +58,25 @@
               <!-- this template is deliberately left blank -->
    </xsl:template>
 
-   <xsl:template match="entity_type[parent::group]" mode="consolidate">
+   <xsl:template match="entity_type[parent::group]
+                                    [not(some  $et in preceding::entity_type satisfies ($et[parent_group] and $et/name = name))] 
+                        " mode="consolidate">
       <xsl:copy>
          <!-- <xsl:apply-templates select="@*|node()" mode="consolidate"/> -->
          <xsl:apply-templates select="name" mode="consolidate"/>
-         <xsl:apply-templates select="//entity_type[name=current()/name]/*[not(self::name)]"
+         <xsl:apply-templates select="//entity_type[name=current()/name]
+                                         /*[not(self::name)]
+                                           "
                               mode="consolidate"/>
       </xsl:copy>
    </xsl:template>
+
+   <xsl:template match="entity_type[parent::group]
+                                   [some  $et in preceding::entity_type satisfies ($et[parent_group] and $et/name = name)] 
+                                 " mode="consolidate">
+              <!-- this template is deliberately left blank -->
+   </xsl:template>
+
 <!--
    <xsl:template match="entity_type" mode="consolidate_unconditional">
       <xsl:message>Consolidate unconditional </xsl:message>
@@ -117,12 +131,14 @@
    </xsl:template>
 
    <xsl:template match="entity_type[not(parent::group)]
-                                 [ some $et in //entity_type[name=current()/name] except . satisfies $et[parent::group]
+                                 [ (some $et in //entity_type[name=current()/name] except . satisfies $et[parent::group])
                                     or 
                                      preceding::entity_type[name=current()/name]
                                    ]" mode="consolidate">
               <!-- this template is deliberately left blank -->
    </xsl:template>
+
+
 
    <xsl:template match="absolute/reference" mode="consolidate">
       <xsl:copy>

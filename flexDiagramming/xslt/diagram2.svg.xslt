@@ -458,8 +458,6 @@ CHANGE HISTORY
     <xsl:variable name="deststyle" as="xs:string"
                    select="if (destination/linestyle) then destination/linestyle else 'solidline'"/>
 
-
-
     <xsl:variable name="pointcount" select="count(path/point)"/>
     <!--<xsl:message>Route id <xsl:value-of select="id"/> Number of points is <xsl:value-of select="$pointcount"/></xsl:message>-->
     <!--<xsl:message>route/source in question is <xsl:copy-of select="source"/></xsl:message>  
@@ -472,7 +470,10 @@ CHANGE HISTORY
             <!-- not the norml case currently cant bbe sure of the midpoint but..-->
           <xsl:value-of  select="path/point[($pointcount + 1) div 2]/x/abs"/>
         </xsl:when>
-        <xsl:otherwise>   
+        <xsl:otherwise>  
+          <xsl:if test="not(path/point[$pointcount div 2]/x/abs)">
+            <xsl:message terminate="yes">Midpoint problem with <xsl:copy-of select="path"/></xsl:message>
+          </xsl:if> 
           <xsl:variable name="mid_segment_startx" 
                     as="xs:double"
                     select="path/point[$pointcount div 2]/x/abs"/>  

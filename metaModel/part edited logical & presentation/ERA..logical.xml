@@ -24,10 +24,13 @@
          <attribute name="name" type="string"/>
       </identifying>
       <entity_type name="absolute"/>
+      <!--<entity_type name="entity_type_like">
+         <dependency_group/>-->
       <entity_type name="entity_type">
          <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_et"/>
          <composition type="entity_type*"/>
       </entity_type>
+      <!-- </entity_type> -->
       <composition type="dependency_group*"/>
       <composition type="Relationship*" inverse=".."/>
       <composition type="attribute*" inverse=".."/>
@@ -75,6 +78,7 @@
          <entity_type name="reference">
             <composition name="diagonal" type="navigation?"/>
             <composition name="riser" type="navigation?"/>
+            <composition type="projection?"/>
             <composition type="auxiliary_scope_constraint*"/>
             <attribute name="js" type="string?"/>
             <attribute name="xpath_evaluate" type="string?"/>
@@ -109,14 +113,23 @@
       <attribute name="physical_prefix" type="string?"/>
    </entity_type>
    <entity_type name="sequence"/>
+   <entity_type name="projection"/>
    <entity_type name="auxiliary_scope_constraint">
        <composition name="equivalent_path" type="navigation"/>
+       <!--
+       <reference name="idRelationshipSrc" 
+                  type="entity_type?"/>
+               -->
        <reference name="identifying_relationship" 
                   type="reference_or_dependency"
                   diagonal="^"
                   riser="^"/>
    </entity_type> 
-   <entity_type name="identifying(1)"/>
+   <entity_type name="identifying(1)">
+      <composition type="inherited?"/>
+   </entity_type>
+      <entity_type name="inherited"/>
+   <group name="composition_children">  <!-- get rid of this from here -->
       <entity_type name="xmlStyle(1)">
       <entity_type name="Element(1)"/>
       <entity_type name="Anonymous(1)"/>
@@ -141,6 +154,7 @@
          <composition name="along" type="navigation"/>
          <reference name="type" type="entity_type"/>
       </entity_type>
+   </group>
    <entity_type name="navigation">
       <dependency_group/>
       <entity_type name="complex">
@@ -163,27 +177,29 @@
       <reference name="dest" type="entity_type?"/>
    </entity_type>
 
-   <entity_type name="implementationOf">
-      <reference name="destAttr" type="attribute"/>
-      <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
-      <composition name="reached_by" type="navigation?"/>
-   </entity_type>
-   <entity_type name="value_type">
-      <entity_type name="boolean"/>
-      <entity_type name="date"/>
-      <entity_type name="dateTime"/>
-      <entity_type name="integer"/>
-      <entity_type name="float"/>
-      <entity_type name="nonNegativeInteger"/>
-      <entity_type name="positiveInteger"/>
-      <entity_type name="string"/>
-      <entity_type name="time"/>
-   </entity_type>
-   <entity_type name="identifying(2)"/>
-   <entity_type name="optional">
-      <attribute name="value" type="string?"/>
-   </entity_type>
-   <entity_type name="deprecated"/>
+   <group name="attribute_children">
+      <entity_type name="implementationOf">
+         <reference name="destAttr" type="attribute"/>
+         <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
+         <composition name="reached_by" type="navigation?"/>
+      </entity_type>
+      <entity_type name="value_type">
+         <entity_type name="boolean"/>
+         <entity_type name="date"/>
+         <entity_type name="dateTime"/>
+         <entity_type name="integer"/>
+         <entity_type name="float"/>
+         <entity_type name="nonNegativeInteger"/>
+         <entity_type name="positiveInteger"/>
+         <entity_type name="string"/>
+         <entity_type name="time"/>
+      </entity_type>
+      <entity_type name="identifying(2)"/>
+      <entity_type name="optional">
+         <attribute name="value" type="string?"/>
+      </entity_type>
+      <entity_type name="deprecated"/>
+   </group>
    <entity_type name="xmlStyle(2)">
       <dependency_group/>
       <entity_type name="Attribute"/>

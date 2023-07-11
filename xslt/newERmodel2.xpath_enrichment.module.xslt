@@ -80,24 +80,6 @@ DESCRIPTION
         pbe_passno : nonNegativeNumber
                                 # used as an intermediate in the
                                 # calculation of pbe_passno for a pullback
-
-      reference/projection =>
-        xpath_delta_key : string,
-                  # This is a temporary used only in the generation
-                  # of xpath_inverse_fragment.
-                  # This is an xpath to be evaluated in the context of 
-                  # an entity of type the destination entity type of the
-                  # reference. It evaluates to that part of the primary key
-                  # of the putative destination entity required to identify
-                  # it relative to the destination of the riser.
-        xpath_inverse_fragment :string;
-                  # This is a temporary used only in the generation of
-                  # pullback/xpath_resolve_candidate.
-                  # This xpath is a subexpression to be evaluated
-                  # relative to a context entity of the type of the
-                  # destination of the host reference relationship
-                  # and with the host entity of the pullabck as
-                  # the current node.
       
       theabsolute =>
         xpath_evaluate : string
@@ -145,13 +127,9 @@ FINALLY 29/11/2022 MOVED FRPM initial_enrichment
 
 join | component => identification_status : ('Identifying', 'NotIdentifying')
 
-projection => 
-         host_type : string      # the source entity type of the pullback
-                                 # composition relationship 
-                                 # this is '' if absolute is the source
-
 -->
 
+<!-- entity type `projection' removed in change of 8-Jul-2023 -->
 
 <xsl:transform version="2.0" 
         xmlns="http://www.entitymodelling.org/ERmodel"
@@ -281,27 +259,6 @@ projection =>
    </xsl:copy>
 </xsl:template>
 
-<!-- host_type is REALLY a derived relationship whih we are cacheing-->
-<xsl:template match="reference/projection
-                     [not(host_type)]"
-              mode="recursive_xpath_enrichment"
-              priority="7">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()" mode="recursive_xpath_enrichment"/>
-        <host_type>
-            <xsl:for-each select="key('IncomingCompositionRelationships', ../../name)/..">
-               <xsl:value-of select="if (self::absolute) then '' else name"/>
-            </xsl:for-each>
-        </host_type>
-        <!-- host_type is defined as
-                parent::reference/src/incoming_composition_relationships/src/
-                                                  (if (self::absolute) then '' else name
-           The assumption is that there is only one incoming composition relationship. 
-           This could be policed to some extent by making the inverse to prjection_rel single valued?
-           host_type is used in xpath enrichment in support for pullbacks.
-        -->
-  </xsl:copy>
-</xsl:template>
 
 <xsl:template name="recursive_xpath_enrichment">
  <!-- <xsl:param name="mode" />-->
@@ -437,24 +394,22 @@ projection =>
                              satisfies boolean($entity/xpath_primary_key)">
           <xpath_primary_key>
             <xsl:choose>
-              <xsl:when test="key('AllIncomingCompositionRelationships',name)[identifying/inherited]">   
+              <xsl:when test="key('AllIncomingCompositionRelationships',name)[identifying/inherited]">  
+                   <xsl:message terminate="yes">Shouldn't ever travel this leg -- see Change of 9th July 2023 </xsl:message>
+      <!--
                 <xsl:value-of select="concat(xpath_parent_entity,'/')"/>
-                <xsl:text>descendant-or-self::entity_type/</xsl:text>    <!-- CHANGE THIS MAKE MORE GENERIC -->
+                <xsl:text>descendant-or-self::entity_type/</xsl:text>   
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
-                  <!-- <xsl:text>concat(</xsl:text> -->
                   <xsl:text>(</xsl:text>
                 </xsl:if>
-                <!-- parent primary key -->
                 <xsl:value-of select="key('AllIncomingCompositionRelationships',name)/../xpath_primary_key"/>
                 <xsl:if test="exists(ancestor-or-self::entity_type/attribute[identifying])">
                   <xsl:text>,current()/</xsl:text>
                   <xsl:value-of select="era:brace(ancestor-or-self::entity_type/attribute[identifying]/name,
                                                   ancestor-or-self::entity_model/xml/namespace_uri)"/>
-                  <!-- what if many of these - a bug in the above I think JC 16-Nov-2016  -->
-                  <!-- this bourne out by AX1X2BCD entity type C primary key              -->
-                  <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX BUG ABOVE XXXXXXXXXXXXXXXXXXXXXXXXXXX-->
                   <xsl:text>)</xsl:text>
                 </xsl:if>
+      -->
               </xsl:when>
               <xsl:otherwise>
                 <xsl:variable name="parent_primary_key" as="xs:string"
@@ -532,15 +487,54 @@ projection =>
   <xsl:copy>
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
 
-    <!-- xpath_resolve_candidate -->
+    <xsl:variable name="projection_relationship"
+                  as="element(reference)"
+                  select="key('AllRelationshipBySrcTypeAndName',era:packArray((../type,projection_rel)))"/>
+    <xsl:variable name="projection_rel_type"
+                  as="element(entity_type)"
+                  select="key('EntityTypes',$projection_relationship/type)"/>
+    <xsl:variable name="host_type"
+                  as="xs:string"
+                  select="parent::composition/parent::*/(if (self::absolute) then '' else name)"/>
+
     <xsl:if test="not(xpath_resolve_candidate)
-                    and key('AllRelationshipBySrcTypeAndName',era:packArray((../type,projection_rel)))/projection/xpath_inverse_fragment
-                   ">
+                    and $projection_relationship/riser/*/xpath_delta_key 
+                    and $projection_rel_type/xpath_local_key
+                    and 
+                    ($host_type=''
+                         or
+                         key('EntityTypes',$host_type)/xpath_primary_key
+                    )
+                  ">              
+
+
+      <xsl:variable name="xpath_inverse_fragment"
+                    as="xs:string">
+
+        <xsl:variable name="xpath_delta_key" 
+                      as="xs:string"
+                      select="era:combineKey(
+                                         $projection_relationship/riser/*/xpath_delta_key,
+                                         $projection_rel_type/xpath_local_key
+                                                )
+                                 "/>
+        <xsl:value-of select="if ($host_type='') 
+                              then $xpath_delta_key
+                              else
+                                 era:combineKey(   
+                                         concat('current()/',
+                                                key('EntityTypes',$host_type)/xpath_primary_key
+                                               ),
+                                         $xpath_delta_key
+                                                )
+                                 "/>
+      </xsl:variable>
+
       <xpath_resolve_candidate>
         <xsl:text>key('</xsl:text>
         <xsl:value-of select="key('EntityTypes',../type)/identifier"/>
         <xsl:text>',</xsl:text>
-        <xsl:value-of select="key('AllRelationshipBySrcTypeAndName',era:packArray((../type,projection_rel)))/projection/xpath_inverse_fragment"/>
+        <xsl:value-of select="$xpath_inverse_fragment"/>
         <xsl:text>)</xsl:text>
       </xpath_resolve_candidate>
     </xsl:if>
@@ -891,48 +885,6 @@ return
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="reference/projection[host_type]" mode="recursive_xpath_enrichment">
-  <xsl:copy>
-    <xsl:apply-templates mode="recursive_xpath_enrichment"/>
-
-    <!-- xpath_delta_key -->
-    <xsl:if test="not(xpath_delta_key) 
-                    and ../riser/*/xpath_delta_key 
-                    and key('EntityTypes',../type)/xpath_local_key">
-      <xpath_delta_key>
-        <xsl:value-of select="era:combineKey(
-                                         ../riser/*/xpath_delta_key,
-                                         key('EntityTypes',../type)/xpath_local_key
-                                                )
-                                 "/>
-      </xpath_delta_key>
-    </xsl:if>
-
-    <!-- xpath_inverse_fragment -->
-    <xsl:if test="not(xpath_inverse_fragment)
-                    and (
-                         host_type=''
-                         or
-                         key('EntityTypes',host_type)/xpath_primary_key
-                        )
-                    and xpath_delta_key
-                   ">
-      <xpath_inverse_fragment>
-        <xsl:value-of select="if (host_type='') 
-                              then xpath_delta_key
-                              else
-                                 era:combineKey(   
-                                         concat('current()/',
-                                                key('EntityTypes',host_type)/xpath_primary_key
-                                               ),
-                                         xpath_delta_key
-                                                )
-                                 "/>
-      </xpath_inverse_fragment>
-    </xsl:if>
-
-  </xsl:copy>
-</xsl:template>
 
 <xsl:template match="dependency" mode="recursive_xpath_enrichment">
   <xsl:copy>

@@ -21,16 +21,20 @@ attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be ov
 
 pushd $TARGETXML
 
- 'ERA.surface'
+if ($false)
+{
+echo 'ERA.surface'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -animate -physicalType hs -longSeparator ... -shortSeparator .
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
-
+}
 
 echo 'ERA'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs -longSeparator ... -shortSeparator .
+. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs -longSeparator ... -shortSeparator . 
 
+if ($false)
+{
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA..physical.xml -outputFolder ..\docs -debugSwitch
 
@@ -40,7 +44,7 @@ echo 'ERA Diagrammed'
 
 echo 'ERA Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate
-
+}
 
 popd 
 

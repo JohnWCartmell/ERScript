@@ -51,6 +51,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
   <xsl:param name="style"/>   
   <xsl:param name="longSeparator" as="xs:string" select="'_'"/>  <!-- used to separate rel name in name of implementing attributes -->   
   <xsl:param name="shortSeparator" as="xs:string" select="'_'"/>  <!-- used as separate et name and attr name  in name of implementing attributes -->
+  <xsl:param name="xpath" as="xs:string?"/>
   <xsl:param name="debug" as="xs:string?"/>
 
   <!-- can be 'h' or 'hs' for hierarchical and 'r' for relational -->
@@ -102,6 +103,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
 
 
   <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+  <xsl:variable name="xpathOn" as="xs:boolean" select="$xpath='y'" />
 
   <!-- save $docnode for use from assembly module 
       but surely I could do better than this abd keep the context all way
@@ -122,7 +124,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
   <xsl:include href="ERmodel.consolidate.module.xslt"/>
   <xsl:include href="ERmodel2.initial_enrichment.module.xslt"/>
   <xsl:include href="ERmodel2.physical_enrichment.module.xslt"/>
-  <xsl:include href="ERmodel2.xpath_enrichment.module.xslt"/>
+  <xsl:include href="newERmodel2.xpath_enrichment.module.xslt"/>
 
 
   <xsl:template match="/">
@@ -186,21 +188,17 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
       </xsl:result-document>
     </xsl:if>
     <!-- is followed by the main algorithm (see ERmodel2.physical_enrichment.module.xslt) -->
-    <!--
+   
     <xsl:variable name="state">
-    -->
       <xsl:call-template name="physical_enrichment">
         <xsl:with-param name="document" select="$state"/>
       </xsl:call-template>
-      <!--
     </xsl:variable>
-  -->
 
     <!-- and finally the document is optionally enriched by xpath attributes (see ERmodel2.xpath_enrichment.module.xslt) -->
     <!-- but it doesn't have to be does it ?? could do this on the fly where needed -->
-    <!--
     <xsl:choose>
-      <xsl:when test="$style='h' or $style='hs'">
+      <xsl:when test="($style='h' or $style='hs') and $xpathOn">
         <xsl:call-template name="recursive_xpath_enrichment">
           <xsl:with-param name="interim" select="$state"/>
         </xsl:call-template>
@@ -209,7 +207,7 @@ CR19229 JC  27-Jan-2016 Support absolute scopes.
         <xsl:sequence select="$state"/>
       </xsl:otherwise>
     </xsl:choose>    
-  -->
+
     <xsl:message>-------------------------</xsl:message>
     <xsl:message> EXIT ERmodel2.physical   </xsl:message>
     <xsl:message>=========================</xsl:message>

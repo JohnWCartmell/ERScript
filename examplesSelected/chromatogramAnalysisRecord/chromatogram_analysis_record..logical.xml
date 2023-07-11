@@ -294,7 +294,6 @@
          <identifying>
             <context type="interpretation_session"/>
             <reference name="subject" type="data_collection" diagonal="^" riser="^">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -358,7 +357,6 @@
                         type="sample_group(2)"
                         diagonal="../subject"
                         riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -395,7 +393,6 @@
                         type="injection(2)"
                         diagonal="../subject"
                         riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -420,7 +417,6 @@
                         type="compound(2)"
                         diagonal="../subject"
                         riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -445,7 +441,6 @@
          <identifying>
             <context type="compound(3)"/>
             <reference name="subject" type="trace(2)" diagonal="../subject" riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -463,7 +458,6 @@
                         type="component(2)"
                         diagonal="../subject"
                         riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>
@@ -497,7 +491,6 @@
                         type="chromatogram"
                         diagonal="../subject"
                         riser="..">
-               <projection/>
                <physical_prefix/>
             </reference>
          </identifying>

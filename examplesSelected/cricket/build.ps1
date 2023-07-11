@@ -2,7 +2,7 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 . ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE css folder")
+echo ("*** building from  $SOURCE XML  folder")
 
 $SOURCEXML = $SOURCE + '\examplesSelected\cricket'
 $TARGETXML = $TARGET + '\examplesSelected\cricket\xml'

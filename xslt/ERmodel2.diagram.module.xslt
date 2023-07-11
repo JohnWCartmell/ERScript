@@ -2271,21 +2271,25 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
     </xsl:call-template>
   </xsl:if>
-  <xsl:if test="identifying and not(projection)">  
+   <!-- change of 8th July 2023 -->
+  <xsl:variable name="projection" 
+                as="xs:boolean"
+                select="key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name"/>
+  <xsl:if test="identifying and not($projection)">  
      <xsl:call-template name="identifier_refrel">
 	<xsl:with-param name="x" select="$srcx +($relid_offset  * $srcsign)"/>
 	<xsl:with-param name="y" select="$srcy"/>
 	<xsl:with-param name="width" select="$relid_width"/>
      </xsl:call-template>
   </xsl:if>
-  <xsl:if test="identifying and projection">  
+  <xsl:if test="identifying and $projection">  
      <xsl:call-template name="identifier_refrel">
 	<xsl:with-param name="x" select="$srcx +(2 * $relcrowlen  * $srcsign)"/>
 	<xsl:with-param name="y" select="$srcy"/>
 	<xsl:with-param name="width" select="$relcrowwidth"/>
      </xsl:call-template>
   </xsl:if>
-  <xsl:if test="projection">
+  <xsl:if test="$projection">
      <xsl:call-template name="crowsfoot_across_reflected">
 	 <xsl:with-param name="xcm" select="$srcx"/>
 	 <xsl:with-param name="ycm" select="$srcy"/>

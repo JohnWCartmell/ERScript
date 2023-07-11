@@ -97,7 +97,7 @@
 <xsl:template match="/">
    <xsl:if test="$debugon">
       <xsl:message>Debug is on </xsl:message>
-      <xsl:result-document href="erMertaModelData.xml" method="xml">
+      <xsl:result-document href="erMetaModelData.xml" method="xml">
           <xsl:sequence select="$erMetaModelData"/>
       </xsl:result-document>
     </xsl:if>

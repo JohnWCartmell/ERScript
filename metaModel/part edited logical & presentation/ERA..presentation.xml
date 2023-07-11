@@ -24,8 +24,8 @@
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <x>6.0</x>        
          <y>1.0</y>
-         <deltaw>1.5</deltaw>
-         <deltah>1.0</deltah>
+         <deltaw>0.5</deltaw>
+         <deltah>0.1</deltah>
       </presentation>
    </entity_type>
 
@@ -37,8 +37,22 @@
          <deltaw>0.2</deltaw>
       </presentation>
    </entity_type>
-
-
+<!--    <entity_type>
+      <name>entity_type_like</name>
+      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <rightOf>absolute</rightOf>
+         <deltaw>0.5</deltaw>
+      </presentation>
+   </entity_type> -->
+<!--    <entity_type>
+      <name>entity_type_like</name>
+      <dependency_group>
+         <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <y>0.1</y>
+            <w>3.0</w>
+         </presentation>
+      </dependency_group>
+   </entity_type> -->
    <entity_type>
       <name>entity_type</name>
       <composition>
@@ -60,13 +74,17 @@
          </diagram>
       </composition>
    </entity_type>
-
+<!--       <entity_type>
+      <name>group</name>
+      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+      </presentation>
+   </entity_type> -->
    <entity_type>
       <name>entity_type</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <x>1.5</x>
-         <deltaw>1.0</deltaw>
-         <rightOf>absolute</rightOf>
+         <y>0.1</y>
+         <h>3.0</h>
+         <w>7.0</w>
       </presentation>
    </entity_type>
 
@@ -349,6 +367,19 @@
       </composition>
    </entity_type>
    <entity_type>
+      <name>reference</name>
+      <composition>
+         <type>projection</type>
+         <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
+            <path>
+               <align>
+                  <ToDest/>
+               </align>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
       <name>constructed_relationship</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>reference</below>
@@ -503,6 +534,16 @@
       </presentation>
    </entity_type>
 
+
+   <entity_type>
+      <name>projection</name>
+      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <rightOf>sequence</rightOf>
+         <deltaw>-0.1</deltaw>
+         <x>-0.5</x>
+         <y>1.5</y>
+      </presentation>
+   </entity_type>
    <entity_type>
       <name>auxiliary_scope_constraint</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
@@ -513,6 +554,18 @@
          <deltah>0.5</deltah>
       </presentation>
    </entity_type>
+
+   <entity_type>
+      <name>inherited</name>
+      <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
+         <below>identifying(1)</below>
+         <y>0</y>
+      </presentation>
+   </entity_type>
+
+
+
+
 
    <entity_type>
       <name>auxiliary_scope_constraint</name>
@@ -557,10 +610,6 @@
 
    <group>
       <name>composition_children</name>
-      <entity_type><name>xmlStyle(1)</name></entity_type>
-      <entity_type><name>cardinality</name></entity_type>
-      <entity_type><name>transient</name></entity_type>
-      <entity_type><name>initialiser</name></entity_type>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>composition</below>
          <rightOf>sequence</rightOf>
@@ -830,11 +879,6 @@
 
    <group>
       <name>attribute_children</name>
-            <entity_type><name>implementationOf</name></entity_type>
-      <entity_type><name>value_type</name></entity_type>
-      <entity_type><name>identifying(2)</name></entity_type>
-      <entity_type><name>optional</name></entity_type>
-      <entity_type><name>deprecated</name></entity_type>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <below>attribute</below>
          <deltah>0.5</deltah>
