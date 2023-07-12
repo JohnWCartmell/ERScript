@@ -12,6 +12,10 @@ Another way of talking about this change would be to say that we are enabling de
 #### Rationale
 This will enable support for Zaniolas telephone number model.
 
+#### Analysis
+1. Note that there are two Zaniola ER models in the folder exampleDataModels and there is also a nearestShop model.
+2. Question: Do such reference relationships as these have foreign keys in the relational model. Is this the rationale for them being represented by reference relationships. Also leads onto derived attributes in indexes a la Oracle.
+
 #### Proposal
 
 1. In  entity type `auxiliary_scope_constraint` in `ERA.surface..logical.xml`

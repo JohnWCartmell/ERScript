@@ -36,17 +36,16 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 echo 'build physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 chromatogram_analysis_record -animate -physicalType h -longSeparator _ -shortSeparator _ 
 
-
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\docs 
+
+echo 'Run ERModel.2ts.xslt'
+. $TARGET\scripts\ER2.ts.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\typescript -debugswitch
 
 
 if ($false)
 {
-echo 'Run ERModel.2ts.xslt'
-. $TARGET\scripts\ER2.ts.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\typescript -debugswitch
-
-echo 'grids Flex version'
+echo 'chromatogram_analysis_record Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 chromatogram_analysis_record..logical.xml -animate
 }
 

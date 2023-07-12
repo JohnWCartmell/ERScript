@@ -113,6 +113,8 @@
       <presentation>
          <below>grid</below>
       </presentation>
+      <entity_type><name>row</name></entity_type>
+      <entity_type><name>column</name></entity_type>
    </group>
    <entity_type>
       <name>row</name>
@@ -240,8 +242,13 @@
          </diagram>
       </reference>
    </entity_type>
+
+
+
    <group>
       <name>reuseable</name>
+      <entity_type><name>cardinal</name></entity_type>
+      <entity_type><name>ordinal</name></entity_type>
       <presentation>
          <rightOf>grid</rightOf>
          <x>6.5</x>

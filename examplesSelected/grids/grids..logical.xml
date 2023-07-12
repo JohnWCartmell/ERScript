@@ -23,7 +23,7 @@
       <reference name="noOfRows" type="cardinal"/>
       <reference name="noOfCols" type="cardinal"/>
    </entity_type>
-   <group name="row and column">
+   <!-- <group name="row and column"> -->
       <entity_type name="row">
          <identifying>
             <context type="grid"/>
@@ -40,14 +40,14 @@
          </identifying>
          <reference name="cells" type="cell*" inverse="col"/>
       </entity_type>
-   </group>
+   <!-- </group> -->
    <entity_type name="cell">
       <identifying>
          <context type="row"/>
          <reference name="col" type="column" inverse="cells" diagonal="../.." riser=".."/>
       </identifying>
    </entity_type>
-   <group name="reuseable">
+   <!-- <group name="reuseable"> -->
       <entity_type name="cardinal">
          <identifying>
             <attribute name="zno" type="nonNegativeInteger"/>
@@ -60,5 +60,5 @@
             <attribute name="zno" type="nonNegativeInteger"/>
          </identifying>
       </entity_type>
-   </group>
+   <!-- </group> -->
 </entity_model>

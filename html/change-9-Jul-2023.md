@@ -18,7 +18,9 @@ This concept isn't used. CHECK.
 2. Replace leg of code in `newERmodel2.xpath_enrichment.module.xslt` that is reached when `identifying/inherited` and replace by a termination and a message that references this change note. 
 
 ### Testing
+Rebuild meta model and all selected examples and check validation reports.
 
 ### Completion Date
+Testing completed 12 July 2023
 
 

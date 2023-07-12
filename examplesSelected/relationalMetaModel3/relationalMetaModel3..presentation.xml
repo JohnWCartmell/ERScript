@@ -55,6 +55,9 @@
    </entity_type>
    <group>
       <name>table_children</name>
+      <entity_type><name>primary key entry</name></entity_type>
+      <entity_type><name>column</name></entity_type>
+      <entity_type><name>foreign key</name></entity_type>
       <presentation>
          <below>table</below>
          <x>0.2</x>

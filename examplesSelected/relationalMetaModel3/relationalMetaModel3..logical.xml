@@ -19,7 +19,7 @@
       <composition type="column*" inverse="of"/>
       <composition type="foreign key*" inverse="of"/>
    </entity_type>
-   <group name="table_children">
+   <!-- <group name="table_children"> -->
       <entity_type name="primary key entry">
          <identifying>
             <context name="of" type="table"/>
@@ -41,7 +41,7 @@
          <composition type="foreign key entry*" inverse="partof"/>
          <reference name="to_table" type="table" diagonal="of/.." riser=".."/>
       </entity_type>
-   </group>
+   <!-- </group> -->
    <entity_type name="foreign key entry">
       <identifying>
          <context name="partof" type="foreign key"/>

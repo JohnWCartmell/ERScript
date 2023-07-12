@@ -28,7 +28,7 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
 
 echo 'build physical model'
-. $TARGET\scripts\buildExampleSVG.ps1 grids -animate -physicalType hs
+. $TARGET\scripts\buildExampleSVG.ps1 grids -animate -physicalType hs -shortSeparator _ -longSeparator _
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs

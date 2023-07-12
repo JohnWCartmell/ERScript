@@ -21,7 +21,9 @@ The only other functionality of group is to group together entity types which ar
 6. Move groups from `ERA..logical.xml` into `ERA..presentation.xml`.
 
 ### Testing
+Rebuild meta Model and all selected examples and check all diagrams and validation reports.
 
 ### Completion Date
+Completed. 12 July 2023
 
 
