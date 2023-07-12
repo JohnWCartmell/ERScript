@@ -27,7 +27,7 @@ in an instance the diagram that is specified as a pullback really is a pullback 
 3. Remove creation of `projection` from `ERmodel2.initial_enrichment.xslt`.                                                       [x]
 3. Change diagam module to test $projection as `key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name`  [x]
 4. Recode `xpath_enrichment..module` not to require `projection` entity type by recoding `<xpath_resolve_candidate.`              [x]
-5. Recode `ERmodel2.ts.xslt` ?????????????????????????????????????????????????????????                                            [x]
+5. Recode `ERmodel2.ts.xslt` - use the test from 2. above in pace of [projection].                                                [x]
 
 ### Testing
 1. Regression test the generated xpath by diff testing the physical model generated with the new -xpath swicth.
@@ -44,7 +44,7 @@ key('sample_group_3',era:packArray((current()/../session_guid,samplelist_name,gr
 Check that this xpath is not effected by this change. [x]
 
 
-2. Regression test the generated typescript by diff testing chromatogram_analysis_record.ts. []
+2. Regression test the generated typescript by diff testing chromatogram_analysis_record.ts. [x]
 
 ### Completion Date
 

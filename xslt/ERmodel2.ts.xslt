@@ -18,8 +18,6 @@ CR-18123 JC  30-Aug-2016 The derived attribute 'base' of a reference rel is
 CR-18376 JC  29-Sep-2016 Support references to entities that are scoped 
                      via their supertypes. 
                      Include pullback support.
-                     Infer <projection>. Later: moved out again see CR-18078.
-                     Allow relationships to be inherited.
 
 CR-18397 BA  03-Oct-2016 Support for references that include identifying 
                          sequences.
@@ -34,10 +32,7 @@ CR-18553 JC  24-Oct-2016 Minor restructure to use
                          rule in copy of structure.
                          Add debug='y' as a command line option to direct 
                          that intermediate xml file sbe output.
-CR-18708 JC  18-Nov-2016 The enrichment of a reference relationship with a 
-                         projection (CR-18376 above) is moved 
-                         out of this transform into the 
-                         earlier ERmodel2.initial_enrichment.
+
          JC  29-Nov-2016 Consider removal of riser2. Start by copying enrichment of riser2 to riser.
                          Subsequently replace use of riser2 by use of projection_rel/riser.
 
@@ -1129,7 +1124,8 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:text>    static create_view( </xsl:text>
    <xsl:call-template name="parent_member"/>
    <xsl:text>, </xsl:text>
-   <xsl:for-each select="ancestor-or-self::entity_type/reference[projection]">
+   <!--<xsl:for-each select="ancestor-or-self::entity_type/reference[projection]">-->
+   <xsl:for-each select="ancestor-or-self::entity_type/reference[key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name]">
        <xsl:value-of select="js_membername"/>
        <xsl:text>: </xsl:text>
        <xsl:value-of select="js_membertype"/>
@@ -1142,9 +1138,11 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
    <xsl:value-of select="js_classname"/>    
    <xsl:text>( parent</xsl:text>
    <xsl:variable name="actualname">
-         <xsl:value-of select="ancestor-or-self::entity_type/reference[projection]/js_membername"/>
+         <!-- <xsl:value-of select="ancestor-or-self::entity_type/reference[projection]/js_membername"/> -->
+         <xsl:value-of select="ancestor-or-self::entity_type/reference[key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name]/js_membername"/>
    </xsl:variable>
-   <xsl:variable name="destet" select="ancestor-or-self::entity_type/reference[projection]/type"/>
+   <!-- <xsl:variable name="destet" select="ancestor-or-self::entity_type/reference[projection]/type"/> -->
+   <xsl:variable name="destet" select="ancestor-or-self::entity_type/reference[key('IncomingCompositionRelationships', ../name)/pullback/projection_rel = name]/type"/>
    <xsl:for-each select="key('EntityTypes',$destet)/ancestor-or-self::entity_type/attribute[identifying]">
       <xsl:value-of select="concat(', ', $actualname, '.',  name)"/>
    </xsl:for-each>
@@ -1156,7 +1154,6 @@ CR-20492 BA  29-Jun-2016 EntityList constructor to support Array constructor int
 </xsl:template>
 
 <xsl:template name="create_copy" match="entity_type" mode="explicit"> 
-           <!-- this adapted from create_view which can be changed to work without a [projection] if we get this copy to work without [projection] -->
    <xsl:text>    static create_copy( </xsl:text>
    <xsl:call-template name="parent_member"/>
    <xsl:text>, </xsl:text>
