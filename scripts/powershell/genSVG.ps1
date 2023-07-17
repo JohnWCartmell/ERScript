@@ -47,5 +47,5 @@ java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                        animate=$(If ($animate){'y'}Else{'n'}) `
                        debug=$(If ($debugswitch){'y'}Else{'n'}) `
                        trace=$(If ($trace){'y'}Else{'n'}) `
-                       scopes=$(If ($scope){'y'}Else{'n'}) `
+                       scopes=$(If ($scopes){'y'}Else{'n'}) `
                        relids=$(If ($relids){'y'}Else{'n'})
