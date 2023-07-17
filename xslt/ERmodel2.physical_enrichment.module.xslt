@@ -360,7 +360,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
         <!-- <xsl:message>CONSIDER Relationship R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message> -->
          <xsl:if test="name = inverse">
-                  <xsl:message>which meets test for reflexivity</xsl:message>
+                  <!-- <xsl:message>which meets test for reflexivity</xsl:message> -->
          </xsl:if> 
          <xsl:if test="era:et_is_implemented(root(),type)
 	                or

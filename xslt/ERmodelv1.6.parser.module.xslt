@@ -13,17 +13,17 @@
 
 <xsl:template match="entity_model" mode="parse__conditional">
 
-   <xsl:message>parse conditional entity model</xsl:message>
+   <!-- <xsl:message>parse conditional entity model</xsl:message> -->
    <xsl:choose>
       <xsl:when test="@ERScriptVersion='1.6'">
-         <xsl:message>parse conditional actual entity model</xsl:message>
+         <!-- <xsl:message>parse conditional actual entity model</xsl:message> -->
          <xsl:copy>
             <xsl:attribute name="metaDataFilePathWrtERHome" select="'MetaModel/xml/ERScript..physical.xml'"/>
             <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/>
          </xsl:copy>
       </xsl:when>
       <xsl:otherwise>
-         <xsl:message>Copying stright through</xsl:message>
+         <!-- <xsl:message>Copying stright through</xsl:message> -->
          <xsl:copy-of select="."/>
       </xsl:otherwise>
    </xsl:choose>
