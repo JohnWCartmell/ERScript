@@ -2,11 +2,8 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
-   <xml>
-      <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
-   </xml>
 
-   <include_model filename="ERScript..commonDefinitions.xml"/>
+   <include_model filename="ERA..commonDefinitions.xml"/>
 
    <entity_type name="composition">
       <composition type="pullback?" inverse=".."/>  

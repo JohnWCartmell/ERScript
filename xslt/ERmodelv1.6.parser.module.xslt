@@ -18,7 +18,7 @@
       <xsl:when test="@ERScriptVersion='1.6'">
          <xsl:message>parse conditional actual entity model</xsl:message>
          <xsl:copy>
-            <xsl:attribute name="metaDataFilePathWrtERHome" select="'MetaModel/xml/ERA..physical.xml'"/>
+            <xsl:attribute name="metaDataFilePathWrtERHome" select="'MetaModel/xml/ERScript..physical.xml'"/>
             <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/>
          </xsl:copy>
       </xsl:when>
@@ -95,9 +95,9 @@
    <xsl:copy>  
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
       <xsl:if test="not(context) and not(identifying/context)">
-         <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message>
+         <!-- <xsl:message>Missing context in et named '<xsl:value-of select="@name"/> </xsl:message> -->
          <xsl:if test="//composition[era:typeFromExtendedType(@type)=current()/@name]">
-            <xsl:message>Will plant dependency</xsl:message>
+            <!-- <xsl:message>Will plant dependency</xsl:message> -->
             <xsl:call-template name="create_dependency_from_scratch"/>
          </xsl:if>
       </xsl:if>
@@ -105,7 +105,7 @@
 </xsl:template>
 
 <xsl:template name="create_dependency_from_scratch" match="entity_type" mode="explicit">
-   <xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message>
+   <!-- <xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message> -->
    <xsl:variable name="cardinality" as="element(cardinality)">
       <xsl:element name="cardinality">
             <xsl:element name="{if (count(//composition[era:typeFromExtendedType(@type)=current()/@name]) &gt; 1)
@@ -123,7 +123,7 @@
                  />
               -->
    <xsl:for-each select="//composition[era:typeFromExtendedType(@type)=current()/@name]">
-      <xsl:message> Creating from '<xsl:value-of select="@name"/></xsl:message>''
+      <!-- <xsl:message> Creating from '<xsl:value-of select="@name"/></xsl:message>'' -->
       <xsl:element name="dependency">
             <xsl:element name="name">
                <xsl:value-of select="if (@inverse) 
@@ -209,7 +209,7 @@
 </xsl:template>
 
 <xsl:template  match="context" mode="parse__main_pass">
-   <xsl:message>Context has type <xsl:value-of select="@type"/></xsl:message>
+   <!-- <xsl:message>Context has type <xsl:value-of select="@type"/></xsl:message> -->
    <xsl:element name="dependency">
       <xsl:if test="not(@name)">
          <xsl:variable name="comp" 

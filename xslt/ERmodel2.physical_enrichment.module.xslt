@@ -244,8 +244,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        and has no unimplemented incoming identifying 
            composition relationships 
   -->
- <xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message>
- <xsl:message>string-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message>
+ <!-- <xsl:message>Entering <xsl:value-of select="$et_name"/> </xsl:message> -->
+ <!-- <xsl:message>string-length of $et_name is '<xsl:value-of select="string-length($et_name)"/></xsl:message> -->
 
   <xsl:variable name="nonempty_et_name" select="if(string-length($et_name)=0) then 'EMPTYVALUEREPLACED' else $et_name"/>
   <xsl:for-each select="$root">
@@ -358,7 +358,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                     
 				
 				<!-- or condition added as support  for reflexive relationships 2 April 2019 -->
-        <xsl:message>CONSIDER Relationship R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message>
+        <!-- <xsl:message>CONSIDER Relationship R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message> -->
          <xsl:if test="name = inverse">
                   <xsl:message>which meets test for reflexivity</xsl:message>
          </xsl:if> 
@@ -372,7 +372,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                                             )
 				     )
 						">
-         <xsl:message>BEGIN Implementation of R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message>
+         <!-- <xsl:message>BEGIN Implementation of R'<xsl:value-of select="../name || '.' || name || ':' || type"/>'</xsl:message> -->
          
          <xsl:variable name="relationship" 
                        as="element()" select="."/> 
@@ -387,12 +387,12 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
          </xsl:variable>
 
          <xsl:for-each select="$implementing_attributes"> 
-            <xsl:message>IMPLEMENTING ATTRIBUTE '<xsl:value-of select="name"/>'</xsl:message>
+            <!-- <xsl:message>IMPLEMENTING ATTRIBUTE '<xsl:value-of select="name"/>'</xsl:message> -->
             <xsl:call-template name="reinstantiate_attribute">
                <xsl:with-param name="relationship" select="$relationship"/>
             </xsl:call-template>
          </xsl:for-each>
-         <xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message>
+         <!-- <xsl:message>END Imp. R'<xsl:value-of select="name"/>'</xsl:message> -->
       </xsl:if>
     </xsl:for-each>
    
@@ -422,7 +422,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
        and all referential identifying attributes 
              that implement reference relationships
    -->
-    <xsl:message>exclude rel is '<xsl:value-of select="$exclude_rel_name"/>'</xsl:message>
+    <!-- <xsl:message>exclude rel is '<xsl:value-of select="$exclude_rel_name"/>'</xsl:message> -->
     <xsl:for-each select="ancestor-or-self::entity_type/attribute
                                 [identifying and                 
                                (not(implementationOf) or
@@ -439,7 +439,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                        not(implementationOf) or
                        not(implementationOf/rel eq $exclude_rel_name)">
              <xsl:if test="$exclude_rel_name">
-                <xsl:message>exclude_rel_name  is '<xsl:value-of select="$exclude_rel_name"/>' copying attribute '<xsl:value-of select="name"/>' implementation of relationship named `<xsl:value-of select="implementationOf/rel"/>'</xsl:message>
+                <!-- <xsl:message>exclude_rel_name  is '<xsl:value-of select="$exclude_rel_name"/>' copying attribute '<xsl:value-of select="name"/>' implementation of relationship named `<xsl:value-of select="implementationOf/rel"/>'</xsl:message> -->
             </xsl:if>
              <xsl:copy>
                 <xsl:element name="destAttr...ENTITY_TYPE.name">
@@ -463,8 +463,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
           <xsl:with-param name="navigation" select="$navigation"/>
       </xsl:call-template>
    </xsl:variable>
-   <xsl:message>navigationHead name '<xsl:value-of select="$navigationHead/name"/>'</xsl:message>
-   <xsl:message>navigationHead type '<xsl:value-of select="$navigationHead/type"/>'</xsl:message>
+   <!-- <xsl:message>navigationHead name '<xsl:value-of select="$navigationHead/name"/>'</xsl:message> -->
+   <!-- <xsl:message>navigationHead type '<xsl:value-of select="$navigationHead/type"/>'</xsl:message> -->
    <xsl:if test="$navigationHead/identifying
                  and 
                  $navigationTail">  
@@ -579,7 +579,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              </xsl:if>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:message> unexpected: node type <xsl:copy-of select="name()"/>
+            <xsl:message terminate="yes"> unexpected: node type <xsl:copy-of select="name()"/>
                           in <xsl:copy-of select="."/> 
             </xsl:message>
          </xsl:otherwise>

@@ -142,7 +142,7 @@
    <xsl:param name="reference"      as="function(element(*),element(er:reference)) as xs:string?"/>
    <xsl:param name="endInstance" as="function(element()) as xs:string?"/>
 
-   <xsl:message>Instance of type '<xsl:value-of select="$instance/name()"/>'' name '<xsl:value-of select="$instance/er:name"/>'  type '<xsl:value-of select="$instance/er:type"/>'</xsl:message>
+   <!-- <xsl:message>Instance of type '<xsl:value-of select="$instance/name()"/>'' name '<xsl:value-of select="$instance/er:name"/>'  type '<xsl:value-of select="$instance/er:type"/>'</xsl:message> -->
    <xsl:variable name="etlDefn" 
       as="element()?"
       select="$erDataLib?getDefinitionOfInstance($instance)
@@ -185,7 +185,7 @@
        </xsl:for-each> 
 
       <!-- check uniqueness of identifying features -->
-      <xsl:message>check uniqueness of identifying features</xsl:message>
+      <!-- <xsl:message>check uniqueness of identifying features</xsl:message> -->
       <xsl:variable name="identifyingFeatures" 
                     as="item()*" 
                     select="$erDataLib?readIdentifyingFeatureSequence($instance)"/>

@@ -2,7 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel">
 
-   <include_model filename="ER..commonDescriptive_text.xml"/>
+   <include_model filename="ERA..commonDescriptive_text.xml"/>
 
    <entity_type>
       <name>composition</name>
@@ -14,7 +14,7 @@
 
    <entity_type>
       <name>pullback</name>
-      <description>alphaalpha</description>
+      <description>Used in the specification of pullback diagrams.</description>
          <reference>
             <name>projection_rel</name>
             <type>reference?</type>

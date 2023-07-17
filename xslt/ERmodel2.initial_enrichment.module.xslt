@@ -714,7 +714,7 @@ Description
       <xsl:apply-templates select="@*|node()" mode="initial_enrichment_recursive"/>
         <!-- ChangeLog 1-Jun-2023 Add `relSrc' -->
         <!-- ChangeLog 2-Jun change name to `rel...ENTITY_TYPE.name' -->
-        <xsl:message>Looking for rel '<xsl:value-of select="src || '.' || rel"/>'</xsl:message>
+        <!-- <xsl:message>Looking for rel '<xsl:value-of select="src || '.' || rel"/>'</xsl:message> -->
         <xsl:variable name="relationship"
                       as="element((:reference_or_dependency:))"
                       select="key('AllRelationshipBySrcTypeAndName',

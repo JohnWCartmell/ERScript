@@ -6,15 +6,35 @@
       <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
    </xml>
 
-   <include_model filename="ERScript..commonDefinitions.xml"/>
+   <include_model filename="ERA..commonDefinitions.xml"/>
 
    <absolute name="entity_model">
       <composition type="xml?"/>
    </absolute>
 
+   <entity_type name="ENTITY_TYPE">
+      <attribute name="xpath" type="string?"/>
+      <attribute name="module_name" type="string?"/>
+   </entity_type>
+
    <entity_type name="entity_type">
          <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_et"/>
    </entity_type>
+
+   <entity_type name="Relationship">
+      <attribute name="physical_prefix" type="string?"/>
+   </entity_type>
+
+
+   <entity_type name="reference">
+         <attribute name="js" type="string?"/>
+         <attribute name="xpath_evaluate" type="string?"/>
+   </entity_type>
+
+   <entity_type name="navigation">
+      <attribute name="xpath_evaluate" type="string?"/>
+   </entity_type>
+
 
    <entity_type name="xml">
       <composition name="attributeDefault" type="xmlStyle(2)?"/>

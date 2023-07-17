@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-   <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
 
-      <include_model filename="ERScript..commonPresentation.xml"/>
+   <include_model filename="ERA..commonPresentation.xml"/>
   
    <presentation>
      <diagram>
@@ -96,7 +96,7 @@
                </label>
                <hstep>
                   <absdim>
-                     <src>-3</src>
+                     <src>-1.0</src>
                   </absdim>
                </hstep>
             </path>

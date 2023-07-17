@@ -42,11 +42,13 @@ the current version which we want to keep `pullback` inherits from `initialiser`
 4. We require two versions of the current `ERA.descriptive_text` Call them
 	- `ERA..descriptive_text` 
 	- `ERScript..descriptive_text` 
-5. Both these descriptive_text files will include a file of common descriptive_text which we will call `ERA.commonDescriptive_text`.
+5. Both these descriptive_text files will include a file of common descriptive_text which we will call `ERA..commonDescriptive_text`.
 6. Change index.html to give access to ERScript model as well as the pure meta model. 
 7. Change the `ERmodelv1.6.parser.module.xslt` where it populates meta model attribute to plant `ERScript..physical.xml` instead of `ERA..physical`.
 
-8. Watch out for ERA..derived attributes!!
+8. Attributes `xpath_evaluate`, `xpath`, `module_name`, `js`, `physical_prefix` should appear in ERScript not in the pure entity modelling of `ERA`.
+
+9. Watch out for ERA..derived attributes!!
 
 
 ### State of Play
