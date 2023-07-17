@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+               xmlns:era="http://www.entitymodelling.org/ERmodel">
+
+<include_model filename="ER..commonDescriptive_text.xml"/>
+   <absolute>
+      <name>entity_model</name>
+      <composition>
+         <type>xml</type>
+         <description></description>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>xml</name>
+      <description>Implementation details relevant only when instances of the subject the entity model are represented in xml.</description>
+      <attribute>
+         <name>namespace_uri</name>
+         <description>XML namespace used by elements  when instances of the subject entity model are held in xml.</description>
+      </attribute>
+      <composition>
+         <name>attributeDefault</name>
+         <type>xmlStyle(2)</type>
+         <description>The default representation of ER attributes within the XML schema to describe instances of the subject entity model.</description>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>entity_type</name>
+      <composition>
+         <name>xmlRepresentation</name>
+         <type>xmlStyle(1)</type>
+         <description>Describes how entities of the entity type will be represented in xml.</description>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>attribute</name>
+      <composition>
+         <name>type</name>
+         <type>value_type</type>
+         <description>The type of the value of the attribute.</description>
+      </composition>
+      <composition>
+         <type>deprecated</type>
+         <description>If defined then the attribute is deprecated i.e. only  used in historic data and is not to be used in future.</description>
+      </composition>
+      <composition>
+         <name>xmlRepresentation</name>
+         <type>xmlStyle(2)</type>
+         <description>How the attribute is to be represented in xml.
+         </description>
+      </composition>
+   </entity_type>
+
+
+
+   <entity_type>
+      <name>composition</name>
+      <composition>
+         <type>transient</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>initialiser</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>transient</name>
+      <description>An entity type..</description>
+   </entity_type>
+
+   <entity_type>
+      <name>initialiser</name>
+      <description>A generalisation of the types pullback and copy.</description>
+      <dependency>
+         <name>..</name>
+         <type>composition</type>
+         <description>.</description>
+      </dependency>
+      <entity_type>
+         <name>pullback</name>
+         <description>An entity type in a pullback relationship with other entity types.</description>
+         <reference>
+            <name>projection_rel</name>
+            <type>reference</type>
+            <description>.</description>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>copy</name>
+         <description>An entity type..</description>
+         <composition>
+            <name>riser2</name>
+            <type>navigation</type>
+            <description>.</description>
+         </composition>
+      </entity_type>
+      <composition>
+         <name>along</name>
+         <type>navigation</type>
+         <description>.</description>
+      </composition>
+      <reference>
+         <name>type</name>
+         <type>ENTITY_TYPE</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>deprecated</name>
+      <description>An entity type..</description>
+   </entity_type>
+
+   <entity_type>
+      <name>xmlStyle(2)</name>
+      <description>A generalisation of the types Attribute, Element(2) and Anonymous(2)..</description>
+      <entity_type>
+         <name>Attribute</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Element(2)</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Anonymous(2)</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>xmlStyle(1)</name>
+      <description>A generalisation of the types Element(1) and Anonymous(1)..</description>
+      <entity_type>
+         <name>Element(1)</name>
+         <description>An entity type..</description>
+      </entity_type>
+      <entity_type>
+         <name>Anonymous(1)</name>
+         <description>An entity type..</description>
+      </entity_type>
+   </entity_type>
+</entity_model>

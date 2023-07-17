@@ -3,6 +3,6 @@
                xmlns:era="http://www.entitymodelling.org/ERmodel">
                
       <include_model filename="ERA..logical.xml"/>
-      <include_model filename="ERA..descriptive_text.xml"/> -->
-      <include_model filename="ERA..presentation.xml"/>  
+      <include_model filename="ERA..descriptive_text.xml"/>
+      <include_model filename="ERA..presentation.xml"/>
 </entity_model>

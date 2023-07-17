@@ -70,7 +70,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 <xsl:param name="animate"  as="xs:string?" select="n"/>
 <xsl:param name="debug"    as="xs:string?" select="n"/>
 <xsl:param name="trace"    as="xs:string?" select="n"/>
-<xsl:param name="scopes"   as="xs:string?" select="y"/>
+<xsl:param name="scopes"   as="xs:string?" select="n"/>
 <xsl:param name="relids"   as="xs:string?" select="n"/>
 
 
@@ -563,6 +563,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:variable name="ycm" select="$yabs + 0.3"/>
 	 <xsl:variable name="xsign" select="1"/>  <!-- group annotation was previously external to the group boundary -->
                                              <!-- modify to be in the bounding box of the group 28/10/2022-->
+   <!-- <xsl:message>annotate a group</xsl:message> -->
   	 <xsl:call-template name="spitLines">
 	    <xsl:with-param name="pText" select="annotation"/>
 	    <xsl:with-param name="x" select="$xcm"/>
@@ -707,6 +708,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:param name="xcm" />
    <xsl:param name="ycm" />
    <xsl:param name="xsign" />
+   <!-- <xsl:message>entity_type_name</xsl:message> -->
    <xsl:choose>
       <xsl:when test="presentation/name/Split">    <!-- add some other split directives sometime -->
 	 <xsl:call-template name="spitLines">
@@ -2368,6 +2370,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
      <xsl:when test="$presentation/None">  
      </xsl:when>
      <xsl:otherwise>
+         <!-- <xsl:message>drawText</xsl:message> -->
         <xsl:call-template name="spitLines">
            <xsl:with-param name="pText" select="$text"/>
            <xsl:with-param name="x" select="$px + $xLabelAdjustment"/>
@@ -2384,6 +2387,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:param name="srcx"/> <!-- this is the point of attachement of the relationship -->
   <xsl:param name="srcy"/>
   <xsl:param name="xsign"/>
+  <!-- <xsl:message>rel name ... rel of type '<xsl:value-of select="type"/>'  srcx '<xsl:value-of select="$srcx"/>'</xsl:message> -->
   <xsl:call-template name="drawText">
      <xsl:with-param name="text" select="name"/>
 	 <xsl:with-param name="class" select="'relname'"/>
@@ -2407,6 +2411,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:param name="destx"/>
   <xsl:param name="desty"/>
   <xsl:param name="xsign"/>
+    <!-- <xsl:message>inverse rel name ... rel of type '<xsl:value-of select="type"/>'  destx '<xsl:value-of select="$destx"/>'</xsl:message> -->
   <xsl:call-template name="drawText">
      <xsl:with-param name="text" select="inverse" />
      <xsl:with-param name="class" select="'relname'"/>
@@ -2433,6 +2438,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:param name="xsign"/>
    <xsl:param name="ysign"/>
    <xsl:param name="class"/>
+   <!-- <xsl:message> spitLines <xsl:value-of select="$pText"/></xsl:message> -->
    <xsl:if test="not($pText='')">
    <xsl:variable name="splitLines">
       <xsl:call-template name="splitLines">
@@ -3537,7 +3543,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:param name="midpointy"/>
       <xsl:param name="sign"/>
       <xsl:variable name="scope" as="xs:string?" select="ancestor-or-self::reference/scope_display_text"/>
-     <xsl:if test="not($scope='')">
+     <xsl:if test="$scopesOn">
+    <!-- <xsl:message>render_scope ... rel of type '<xsl:value-of select="type"/>'  midpointx '<xsl:value-of select="$midpointx"/>'</xsl:message> -->
         <xsl:call-template name="drawText">
            <xsl:with-param name="text" select="$scope"/>
            <xsl:with-param name="class" select="'scope'"/>
@@ -3569,6 +3576,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                                                                      ancestor-or-self::composition/concat(type,':',inverse)
                                                                     )
                                           )">
+      <!-- <xsl:message>render_relid ... rel of type '<xsl:value-of select="type"/>'  midpointx '<xsl:value-of select="$midpointx"/>'</xsl:message> -->
         <xsl:call-template name="drawText">
              <xsl:with-param name="text" select="$rel_id"/>
              <xsl:with-param name="class" select="'relid'"/>  

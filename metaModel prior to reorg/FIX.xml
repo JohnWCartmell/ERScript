@@ -1,0 +1,61 @@
+  ###    in et dependency #####
+            <reference>
+               <name>inverse_of</name>
+               <cardinality>
+                  <ZeroOrOne/>
+               </cardinality>
+               <type>composition</type>
+               <inverse>inverse</inverse>
+            </reference>
+
+
+            ##### In et composition: ##########
+
+                     <reference>
+            <name>inverse</name>
+            <diagonal>
+               <join>
+                  <component>
+                     <rel>type</rel>
+                     <src>composition</src>
+                     <dest>ENTITY_TYPE</dest>
+                  </component>
+                  <src>composition</src>
+                  <dest>ENTITY_TYPE</dest>
+               </join>
+            </diagonal>
+            <riser>
+               <join>
+                  <component>
+                     <rel>..</rel>
+                     <src>dependency</src>
+                     <dest>ENTITY_TYPE</dest>
+                  </component>
+                  <src>dependency</src>
+                  <dest>ENTITY_TYPE</dest>
+               </join>
+            </riser>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <type>dependency</type>
+            <inverse>inverse_of</inverse>
+      <xpath_evaluate>
+      let $fk := data((
+                       $erDataLib?readRelationshipNamed(.,'type')/(Q{http://www.entitymodelling.org/ERmodel}name),
+                       Q{http://www.entitymodelling.org/ERmodel}inverse,
+                       ../Q{http://www.entitymodelling.org/ERmodel}name
+                      )) 
+      return (
+               ancestor-or-self::document-node()//*
+                        [self::Q{http://www.entitymodelling.org/ERmodel}dependency]
+                        [fn:deep-equal(data((
+                                              ../Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}name,
+                                              Q{http://www.entitymodelling.org/ERmodel}type
+                                            )), 
+                                       $fk)
+                        ]
+             )
+   </xpath_evaluate>
+         </reference>

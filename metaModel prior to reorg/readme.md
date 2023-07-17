@@ -57,15 +57,3 @@ model.
 
 
 
- There are ambiguities which haunt us - that infect our writing, our comprehension - and one axis of ambigioty is the distinction btween type and instance. 
-
-Here is author John Gribin summarising molecular structure in a popular science book:
-'''
-'''
-
-This passage illustrates the struggle to distinguish between type and instance. 
-
-Now if I want to explain to you what I mean by type then I needs must explain type as an instance of kind of thing i.e. as an instance of a type. Because this latter type is a type whoose instances are types it is said to be a meta-type. The system of types that it participates in is called the meta model. One way of describing what I mean by and er model is by saying that I mean an instance of the er meta model. The diagram in figure xxx below is a presentation of the er meta model. What I mean by type
-then is an instance of the type `entity_type` that is defined in this meta-model.   
-
-

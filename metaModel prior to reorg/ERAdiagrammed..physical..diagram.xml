@@ -2,7 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel">
                
-      <include_model filename="ERA..logical.xml"/>
-      <include_model filename="ERA..descriptive_text.xml"/> -->
-      <include_model filename="ERA..presentation.xml"/>  
+      <include_model filename="ERAdiagrammed..physical.xml"/>
+      <include_model filename="ERA..descriptive_text.xml"/>
+      <include_model filename="ERAdiagrammed..presentation.xml"/>
 </entity_model>
