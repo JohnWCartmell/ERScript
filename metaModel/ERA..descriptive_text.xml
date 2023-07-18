@@ -8,27 +8,40 @@
       <name>composition</name>
       <composition> 
          <type>pullback</type>
-         <description>xxx</description>
+         <description>
+         <p>
+            Specifies a pullback constraint on a composition relationship. This is a certain type of existence assertion.
+         </p>
+         </description>
       </composition> 
    </entity_type>
 
    <entity_type>
       <name>pullback</name>
-      <description>Used in the specification of pullback diagrams.</description>
+      <description>
+         <p>
+            Used to specify a pullback diagram of relationships in which the subject composition relationship participates.
+         </p> 
+         <p>
+            For a discussion of the role of pullback diagrams in entity modelling see section 
+            <a href="http://www.entitymodelling.org/tutorialone/pullbacks.html">ExistenceAssertions/Pullbacks</a>
+            of the online entity modelling book.
+         </p>
+      </description>
          <reference>
             <name>projection_rel</name>
             <type>reference?</type>
-            <description>yyy</description>
+            <description>Specifies one of the sides of a pullback diagram.</description>
          </reference>
       <composition>
           <name>along</name>
           <type>navigation</type>
-         <description>zzz</description>
+         <description>Specifies one of the sides of a pullback diagram.</description>
       </composition>
       <reference>
          <name>type</name>
          <type>entity_type</type>
-         <description>www</description>
+         <description>Specifies one of the corners of a pullback diagram.</description>
       </reference>
    </entity_type>
 </entity_model>

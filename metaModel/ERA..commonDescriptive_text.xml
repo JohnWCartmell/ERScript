@@ -29,17 +29,17 @@
             properties that may be attributed to them.</description>
          <composition>
             <type>entity_type</type>
-            <description>The subtypes of a type or the contents of a group. </description>
+            <description>The subtypes of a type. </description>
          </composition>
       </entity_type>
       <attribute>
          <name>name</name>
-         <description>An attribute of type string and that uniquely identifies a group or entity type.
+         <description>An attribute of type string  that uniquely identifies an entity type within an entity model.
             The name of absolute is the name of the whole and is therefore a name for the entire entity model.</description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>Text documenting the meaning of the entity type or group.</description>
+         <description>Text documenting the meaning of the entity type.</description>
       </attribute>
 
       <composition>
@@ -57,7 +57,7 @@
          to entitites of the type. Often thought of as a slot within an entity which may be filled in with a value.
          Dates, numeric values, names, text descriptions, colour and truth values (booleans) only make sense 
          as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
-         In a physical representation attributes may be present simply to implement relationships. 
+         In a physical representation, attributes may be present simply to implement relationships. 
       </description>
       <dependency>
          <name>..</name>
@@ -77,8 +77,14 @@
       </composition>
       <composition>
          <type>identifying(2)</type>
-         <description>If this is defined then it signifies that the attribute is one of a set of identifying attributes 
-                       of the entity type and therefore in a physical model a part of the primary key.
+         <description>
+            <p>
+              If this is defined then it signifies that the attribute is one of a set of identifying attributes 
+              of the entity type.
+           </p>
+            <p> 
+              An identifying attribute in a physical model is a part of the primary key.
+           </p>
          </description>
       </composition>
       <composition>
@@ -97,7 +103,7 @@
 
    <entity_type>
       <name>Relationship</name>
-      <description>A generalisation of the types reference_or_dependency, constructed_relationship and composition..</description>
+      <description>A generalisation of the types reference, dependency, constructed_relationship and composition.</description>
       <dependency>
          <name>..</name>
          <type>ENTITY_TYPE</type>
@@ -105,36 +111,48 @@
       </dependency>
       <entity_type>
          <name>reference_or_dependency</name>
-         <description>A generalisation of the types dependency and reference..</description>
+         <description>A generalisation of the types dependency and reference.</description>
          <entity_type>
             <name>dependency</name>
-            <description>An entity type..</description>
+            <description>
+                <p>
+                  A dependency is a certain type of relationship. It is an inverse of a composition relationship
+                  and therefore at the instance level relates an entity to the context in which it appears i.e. to a parent entity
+                  or to the absolute. 
+                </p>
+             </description>
             <reference>
                <name>inverse_of</name>
                <type>composition</type>
-               <description>.</description>
+               <description>
+                  <p>
+                     Relates a dependency to the composition relationship that it is an inverse of.
+                  </p>
+               </description>
             </reference>
          </entity_type>
          <entity_type>
             <name>reference</name>
-            <description>A binary relationship between entities but not a composition relationship.
+            <description>
+               <p>
+                  A reference relationship is a binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature
+                  of the first type.
+                  A reference relationship is such a binary relationship which is not classified 
+                  as a composition relationship nor as a dependency and which, in a well-formed model at least, 
+                  has an extent which cannot be inferred from the extents of the other primitive relationships in the model. 
+               </p>
+               <p>
+                  To every reference relationship there is an inverse reference relationship.
+               </p>
             </description>
-<!-- 
-            <attribute>
-               <name>js</name>
-               <description>A javascript expression to evaluate the reference relationship.</description>
-            </attribute>
-            <attribute>
-               <name>xpath_evaluate</name>
-               <description>An xpath expression which can be used to evaluate this reference using primary keys and foreign keys. 
-                           This attribute is generated by logical2physical unless it is hand coded in the logical.
-          </description>
-            </attribute>
-             -->
             <reference>
                <name>inverse</name>
                <type>reference</type>
-               <description>.</description>
+               <description>
+                  <p>
+                     Relates a dependency to the reference relationship that is its inverse.
+                  </p>
+               </description>
             </reference>
             <composition>
                <name>diagonal</name>

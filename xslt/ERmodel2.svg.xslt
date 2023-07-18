@@ -353,7 +353,18 @@ CHANGE HISTORY
                 <xsl:call-template name="attributesummary"/>
               </xsl:for-each>
             </table>
-          </xsl:if> 
+          </xsl:if>
+          <xsl:if test="self::composition">
+              <xsl:variable name="typeid" select="key('EntityTypes',type)/id"/>
+              <p>
+               <xsl:text>See also </xsl:text>
+               <button>
+                   <xsl:attribute name="id" select="$typeid"/>
+                   <xsl:attribute name="class" select="'popout'"/>
+                   <xsl:value-of select="type"/>
+                </button> 
+              </p>
+          </xsl:if>
         </div>
       </div>
   </xsl:template>
