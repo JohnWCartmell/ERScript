@@ -2,9 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel"
                ERScriptVersion="1.6">
-   <xml>
-      <namespace_uri>http://www.entitymodelling.org/ERmodel</namespace_uri>
-   </xml>
+
    <absolute name="entity_model">
       <attribute name="metaDataFilePathWrtERHome" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
       <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?"> <xmlRepresentation><Attribute/></xmlRepresentation></attribute>
@@ -26,10 +24,6 @@
       <composition type="Relationship*" inverse=".."/>
       <composition type="attribute*" inverse=".."/>
       <attribute name="description" type="string?"/>
-<!-- 
-      <attribute name="xpath" type="string?"/>
-      <attribute name="module_name" type="string?"/>
-       -->   
    </entity_type>
 
    <entity_type name="attribute">
@@ -61,9 +55,6 @@
             <composition name="diagonal" type="navigation?"/>
             <composition name="riser" type="navigation?"/>
             <composition type="auxiliary_scope_constraint*"/>
-            <!-- 
-            <attribute name="js" type="string?"/>
-            <attribute name="xpath_evaluate" type="string?"/> -->
             <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser="..">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path=".."/>
@@ -122,7 +113,6 @@
       </entity_type>
       <entity_type name="identity"></entity_type>
          <entity_type name="theabsolute"></entity_type>
-      <!-- <attribute name="xpath_evaluate" type="string?"/> -->
       <reference name="src" type="entity_type?"/>
       <reference name="dest" type="entity_type?"/>
    </entity_type>
@@ -148,5 +138,4 @@
       <attribute name="value" type="string?"/>
    </entity_type>
 
-   <!-- <include_model filename="ERA..derived_attributes.xml"/> -->
 </entity_model>

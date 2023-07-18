@@ -10,11 +10,16 @@
    </entity_type>
  
    <entity_type name="pullback">
-         <reference name="projection_rel" type="reference?" diagonal="../type" riser="..">
-            <auxiliary_scope_constraint identifying_relationship="type"
-                                        equivalent_path="type"/>
-         </reference>
+      <reference name="projection_rel" type="reference?" diagonal="../type" riser="..">
+         <auxiliary_scope_constraint identifying_relationship="type"
+                                     equivalent_path="type"/>
+      </reference>
       <composition name="along" type="navigation"/>
       <reference name="type" type="entity_type"/>
    </entity_type>
+
+    <!-- the following here as a placeholder so that a dependency is created 
+         as the inverse to 'along' by the v1.6 parser    -->
+    <entity_type name="navigation"/>
+
 </entity_model>

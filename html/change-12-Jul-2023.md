@@ -65,6 +65,6 @@ NEXT STEP try coding tests for scope and relid where not output if no midpoint. 
 1. Build both meta models and examine diagrams and validation reports.
 
 ### Completion Date
-
+Completed 18 July 2023
 
 

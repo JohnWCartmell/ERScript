@@ -528,7 +528,6 @@
          </reference>
       </entity_type>
       <entity_type name="annotation">
-         <dependency_group/>
          <entity_type name="reject_this_data"/>
          <entity_type name="comment"/>
          <attribute name="text" type="string"/>

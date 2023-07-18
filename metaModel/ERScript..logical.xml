@@ -8,6 +8,8 @@
 
    <include_model filename="ERA..commonDefinitions.xml"/>
 
+   <include_model filename="ERScript..derived_attributes.xml"/>
+
    <absolute name="entity_model">
       <composition type="xml?"/>
    </absolute>
@@ -29,6 +31,10 @@
    <entity_type name="reference">
          <attribute name="js" type="string?"/>
          <attribute name="xpath_evaluate" type="string?"/>
+   </entity_type>
+
+   <entity_type name="attribute">
+      <composition name="xmlRepresentation" type="xmlStyle(2)?"/>
    </entity_type>
 
    <entity_type name="navigation">

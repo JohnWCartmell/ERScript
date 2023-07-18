@@ -863,7 +863,7 @@ return
     <xsl:apply-templates mode="recursive_xpath_enrichment"/>
     <!-- xpath_primary_key_of_auxiliary_identified_entity -->
 
-<xsl:message> expect 'type' for  parent reference parant entity type '<xsl:value-of select="parent::reference/parent::entity_type/name"/>'</xsl:message>
+  <!-- <xsl:message> expect 'type' for  parent reference parant entity type '<xsl:value-of select="parent::reference/parent::entity_type/name"/>'</xsl:message> -->
     <xsl:variable name="identifying_relationship"
                                as="element(reference)"
                                select="key('AllRelationshipBySrcTypeAndName',

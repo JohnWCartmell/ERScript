@@ -64,11 +64,17 @@
       <name>attribute</name>
       <composition>
          <name>xmlRepresentation</name>
+         <type>xmlStyle(2)</type>
          <diagram>
             <path>
                <srcattach>0.975</srcattach>
                <destattach>0.3</destattach>
-               <destarmlen>0.3</destarmlen>
+               <destarmlen>0.3</destarmlen>               
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </composition>
@@ -233,7 +239,7 @@
       <name>xmlStyle(2)</name>
       <presentation>
          <rightOf>deprecated</rightOf>
-         <y>1.0</y>
+         <y>1.5</y>
       </presentation>
    </entity_type>
 

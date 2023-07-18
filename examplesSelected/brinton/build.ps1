@@ -28,7 +28,7 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
 
 echo 'Brinton Example'
-. $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure -animate
+. $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure -physicalType hs -animate -shortSeparator NA -longSeparator NA
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..physical.xml -outputFolder ..\docs
