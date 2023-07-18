@@ -33,18 +33,18 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 echo 'ERA'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs -longSeparator ... -shortSeparator . 
 
-
-if ($false)
-{
-
 echo 'ERScript'
 . $TARGET\scripts\buildExampleSVG.ps1 ERScript -animate -physicalType hs -longSeparator ... -shortSeparator . 
 
 
-echo 'Run ER.instanceValidation.xslt on physical model'
+echo 'Run ER.instanceValidation.xslt on ERA physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA..physical.xml -outputFolder ..\docs -debugSwitch
 
+echo 'Run ER.instanceValidation.xslt on ERScript physical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 ERScript..physical.xml -outputFolder ..\docs -debugSwitch
 
+if ($false)
+{
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -animate -physicalType hs -longSeparator ... -shortSeparator .
 
