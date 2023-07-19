@@ -293,7 +293,16 @@
       </entity_type>
       <entity_type>
          <name>auxiliary_scope_constraint</name>
-         <description>Change log - 2-June-2023.</description>
+         <description>
+            <p>
+             If present this specifies a constraint on the extent of a subject relationship  additional to any other scope constraint that may  be specified for it. 
+             Like a principle scope constraint its presence obviates 
+             the need for one or more attributes which would  otherwise be required for the implementation of the subject relationship.
+            </p>
+            <p>
+               As can also be said of a principle scope constraint, it specifies a condition holding between  relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships.
+            </p>
+         </description>
       </entity_type>
          <entity_type>
             <name>identity</name>

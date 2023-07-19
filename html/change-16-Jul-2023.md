@@ -17,6 +17,16 @@ See also <button id="E26" class="popout">Pullback</button>
 ```
 2. Don't offer this in the case of a relationship whose src type equals destination type.
 
+3. Introduce new entity types or rename existing ones if the text strongly suggests new terminology. 
+
+4. Where useful link to the entity modelling book.
+
+### Analysis
+1. In the entity modelling book I contrast core from constructed. Consider instead a contrast between primitive and inferred.
+Consider primitive (relationship) ::= composition | reference | dependency. 
+Consider renaming `constructed_relationship` to be `inferred_relationship`.
+Would want to change entity modelling book likewise.   
+
 ### Proposal
 1. General improvements to text improve the pop ups as follows:
 
