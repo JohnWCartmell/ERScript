@@ -40,7 +40,13 @@ Would want to change entity modelling book likewise.
 
 3. Change `component` to `step`.
 
-3. Change `Relationship` to `directional_relationship`. 
+3. Change `Relationship` to `directional relationship`.
+
+4. Change `constructed_relationship` to `inferred_relationship`.
+
+5. Change `navigation` to `directional path`.
+
+6. Change `ENTITY_TYPE` to `entity type like`.
 
 ### State of Play
 

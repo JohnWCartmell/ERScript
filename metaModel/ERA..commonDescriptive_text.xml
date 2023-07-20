@@ -19,7 +19,7 @@
       </composition>
    </absolute>
    <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <description>A generalisation of the types absolute and entity_type.</description>
 
       <entity_type>
@@ -69,7 +69,7 @@
       </attribute>
 
       <composition>
-         <type>Relationship</type>
+         <type>directional relationship</type>
          <description>
             <p> The set of outgoing relationships from an entity type.</p>
          </description>
@@ -94,24 +94,31 @@
             as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
          </p>
          <p>
-            In a physical representation, attributes may be present simply to implement relationships.
+            In a physical representation, attributes may be present to implement relationships.
          </p> 
       </description>
       <dependency>
          <name>..</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>.</description>
       </dependency>
       <composition>
          <type>implementationOf</type>
-         <description>If this is defined then the attribute is one that is only present in a physical entity model
+         <description>
+            <p>
+               If this is defined then the attribute is one that is only present in a physical entity model
                       and is present to implement a particular relationship out from the entity type.
+            </p>
          </description>
       </composition>
       <composition>
          <name>type</name>
          <type>value_type</type>
-         <description>The type of the value of the attribute.</description>
+         <description>
+            <p>
+               The type of the value of the attribute.
+            </p>
+         </description>
       </composition>
       <composition>
          <type>identifying(2)</type>
@@ -127,26 +134,38 @@
       </composition>
       <composition>
          <type>optional</type>
-         <description>If defined then the attribute is optional.</description>
+         <description>
+            <p>
+               If defined then the attribute is optional.
+            </p>
+         </description>
       </composition>
       <attribute>
          <name>name</name>
-         <description>The name of the attrbute.</description>
+         <description>
+            <p>
+               The name of the attrbute.
+            </p>
+         </description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>A textual description of the atttribute.</description>
+         <description>
+            <p>
+               A textual description of the atttribute.
+            </p>
+         </description>
       </attribute>
    </entity_type>
 
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <description>
          <p>
             A binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature of the first.
          </p>
          <p>
-            On entity relationship diagrams, binary relationships are shown as annotated lines between boxes. In this meta model
+            On entity relationship diagrams, binary relationships are shown as labelled and cardinality annotated lines between boxes. In this meta model
             these abstract binary relationships are represented by pairs of directional relationships each of which is
             related to the other as inverse. 
          </p>    
@@ -158,7 +177,7 @@
       </description>
       <dependency>
          <name>..</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>.</description>
       </dependency>
       <entity_type>
@@ -208,7 +227,7 @@
             </reference>
             <composition>
                <name>diagonal</name>
-               <type>navigation</type>
+               <type>directional path</type>
                <description>
                   <p>
                      Part of the specification of the primary scope constraint of a reference relationship.
@@ -232,11 +251,14 @@
                   <p>
                      This meta model enables expression of scope constraints that are triangular rather then square shaped.
                   </p> 
+                  <p>
+                     The <i>diagonal</i> is an instance of a <i>directional path</i>.
+                  </p>
                </description>
             </composition>
             <composition>
                <name>riser</name>
-               <type>navigation</type>
+               <type>directional path</type>
                <description>
                   <p>
                      Part of the specification of the primary scope constraint of a reference relationship.
@@ -249,6 +271,10 @@
                   <p>
                      Note that the primary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The inverse to
                      the <i>riser</i> specifes one of the other sides of this diagram.
+                  </p>  
+                  <p>
+                     The <i>riser</i> is an instance of a <i>directional path</i>. 
+                     It should consist of a step along a single <i>depedency</i> relationship or <i>join</i> of steps along dependency relationships.
                   </p>
                </description>
             </composition>
@@ -263,8 +289,15 @@
             <description>.</description>
          </reference>
          <composition>
-            <type>navigation</type>
-            <description>.</description>
+            <type>directional path</type>
+            <description>
+               <p> A <i>constructed_relationship</i> is a binary directed relationship whose extent may be constructed
+                  entirely from the extents of the primitive relationships in the model. 
+               </p>
+               <p>
+                  A <i>constructed_relationship</i> is defined by an instance of a <i>directional path</i> which defines how to construct the relationship from others and thereby, ultimately, from primitive relationships. 
+               </p>
+            </description>
          </composition>
       </entity_type>
       <entity_type>
@@ -286,7 +319,7 @@
       </entity_type>
       <reference>
          <name>type</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>
             <p>
                This is the second of two entity types participating in a directional and therefore  binary relationship. 
@@ -302,6 +335,7 @@
          <type>sequence</type>
          <description>
             <p>
+               Should only be present for relationships which are many-valued and specifies that the order of the many values is significant.
             </p>
          </description>
       </composition>
@@ -309,6 +343,11 @@
          <type>identifying(1)</type>
          <description>
             <p>
+              If this is defined then it signifies that the relationship is one of a set of identifying relationships
+              of its host entity type.
+           </p>
+           <p>
+               In a physical model attributes that implement identifying relatuionships are themselves identifying.
             </p>
          </description>
       </composition>
@@ -317,23 +356,28 @@
          <type>cardinality</type>
          <description>
             <p>
+               Defines the cardinality of a directed relationship.
             </p>
          </description>
       </composition>
       <attribute>
          <name>name</name>
-         <description>An attribute of type string.</description>
+         <description>
+            <p>An attribute of type string.</p>
+         </description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>An attribute of type string.</description>
+         <description>
+            <p>An attribute of type string.</p>
+         </description>
       </attribute>
       <attribute>
          <name>id</name>
-         <description>An attribute of type string.</description>
+         <description>
+            <p>An attribute of type string.</p>
+         </description>
       </attribute>
-
-
    </entity_type>
    <entity_type>
       <name>sequence</name>
@@ -384,7 +428,7 @@
    </entity_type>
 
    <entity_type>
-      <name>navigation</name>
+      <name>directional path</name>
       <description>
          <p> Represents a path through the relationships of the entity model and maybe single or many-valued.</p> 
       </description>
@@ -392,13 +436,13 @@
       <entity_type>
          <name>composite</name>
          <description>
-            <p>A composite navigation.</p>
+            <p>A composite directional path.</p>
          </description>
          <composition>
             <type>component</type>
             <description>
                <p>
-                  The steps that are to be composed in a composite navigation.
+                  The steps that are to be composed in a composite directional path.
                </p>
             </description>
          </composition>
@@ -406,7 +450,7 @@
             <name>join</name>
             <description>
                <p>
-                  The joining togther of navigations end to end to form a composite navigation.
+                  The joining togther of directional paths end to end to form a composite directional path.
                </p>
             </description>
          </entity_type>
@@ -414,7 +458,7 @@
             <name>aggregate</name>
             <description>
                <p>
-                  Represents the aggregation or union of multiple navigations to form a composite navigation.
+                  Represents the aggregation or union of multiple directional paths to form a composite directional path.
                </p>
             </description>
          </entity_type>
@@ -423,12 +467,12 @@
          <name>component</name>
          <description>
             <p>
-               A step along a relationship which is either the whole of or a part of a navigation.
+               A step along a relationship which is either the whole of or a part of a directional path.
             </p>
          </description>
          <reference>
             <name>rel</name>
-            <type>Relationship</type>
+            <type>directional relationship</type>
             <description><p>The relationship along which a step is taken.</p></description>
          </reference>
       </entity_type>
@@ -437,7 +481,7 @@
          <description>An entity type..</description>
          <reference>
             <name>relSrc</name>
-            <type>ENTITY_TYPE</type>
+            <type>entity type like</type>
             <description><p>The source entity type of the 'rel' relationship.</p></description>
          </reference>
       </entity_type>
@@ -445,7 +489,7 @@
          <name>identity</name>
          <description>
             <p>
-             The identity navigation.
+             The identity directional path.
           </p>
         </description>
          </entity_type>
@@ -453,13 +497,13 @@
             <name>theabsolute</name>
             <description>
                <p>
-                  A navigation to the absolute.
+                  A directional path to the absolute.
                </p>
          </description>
          </entity_type>
       <reference>
          <name>src</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>
             <p>
             </p>
@@ -467,7 +511,7 @@
       </reference>
       <reference>
          <name>dest</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>
             <p>
             </p>
@@ -496,6 +540,9 @@
             <p>
                Each auxiliary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The <i>identifying_relationship</i> specifes one of the other sides of this diagram.
             </p>
+            <p>
+               The <i>identifying_relationship</i> is an instance of <i>directed relationship</i> and should have the <i>identifying</i> property.
+            </p>
          </description>
       </reference>
       <composition>
@@ -506,6 +553,9 @@
             </p>
             <p>
                Each auxiliary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The <i>equivalent_path</i> specifes one of the other sides of this diagram.
+            </p>
+            <p>
+               The <i>equivalent_path</i> is an instance of a <i>directional path</i>.
             </p>
          </description>
       </composition>
@@ -538,7 +588,7 @@
       </reference>
       <reference>
          <name>destAttrHostEt</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>
              <p>
                This the the host entity type of the attribute <i>destAttr</i>.
@@ -560,7 +610,7 @@
       </reference>
       <composition>
          <name>reached_by</name>
-         <type>navigation</type>
+         <type>directional path</type>
          <description>
             <p>
                This is the path from the destination type of the implemented relationship <i>rel</i>

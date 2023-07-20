@@ -40,7 +40,7 @@
    <entity_type>
       <name>xml</name>
       <presentation>
-         <rightOf>ENTITY_TYPE</rightOf>
+         <rightOf>entity type like</rightOf>
          <below>xmlStyle(2)</below>
          <deltaw>0.1</deltaw>
       </presentation>

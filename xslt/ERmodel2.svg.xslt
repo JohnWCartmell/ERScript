@@ -349,7 +349,7 @@ CHANGE HISTORY
               <p>
                <xsl:text>A generalisation of the following types:</xsl:text>
                <table>
-               <xsl:for-each select="descendant::entity_type">
+               <xsl:for-each select="descendant::entity_type[not(child::entity_type)]">
                  <tr>
                   <td>
                    <button>
@@ -377,7 +377,7 @@ CHANGE HISTORY
           <xsl:if test="self::composition">
               <xsl:variable name="typeid" select="key('EntityTypes',type)/id"/>
               <p>
-               <xsl:text>See also </xsl:text>
+               <xsl:text>See </xsl:text>
                <button>
                    <xsl:attribute name="id" select="$typeid"/>
                    <xsl:attribute name="class" select="'popout'"/>

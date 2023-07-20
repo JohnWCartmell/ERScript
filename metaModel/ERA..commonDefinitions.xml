@@ -13,7 +13,7 @@
       </attribute>
    </absolute>
 
-   <entity_type name="ENTITY_TYPE">
+   <entity_type name="entity type like">
       <identifying>
          <attribute name="name" type="string"/>
       </identifying>
@@ -21,14 +21,14 @@
       <entity_type name="entity_type">
          <composition type="entity_type*"/>
       </entity_type>
-      <composition type="Relationship*" inverse=".."/>
+      <composition type="directional relationship*" inverse=".."/>
       <composition type="attribute*" inverse=".."/>
       <attribute name="description" type="string?"/>
    </entity_type>
 
    <entity_type name="attribute">
       <identifying>
-         <context type="ENTITY_TYPE"/>
+         <context type="entity type like"/>
          <attribute name="name" type="string"/>
       </identifying>
       <composition type="implementationOf?" inverse=".."/>
@@ -37,13 +37,13 @@
       <composition type="optional?"/>
       <attribute name="description" type="string?"/>
    </entity_type>
-   <entity_type name="Relationship">
+   <entity_type name="directional relationship">
       <identifying>
-         <context type="ENTITY_TYPE"/>
+         <context type="entity type like"/>
          <attribute name="name" type="string?"/>
-         <reference name="type" type="ENTITY_TYPE"/>  <!-- change of 2nd June  --> 
+         <reference name="type" type="entity type like"/>  <!-- change of 2nd June  --> 
       </identifying>
-      <!-- <reference name="type" type="ENTITY_TYPE"/> -->
+      <!-- <reference name="type" type="entity type like"/> -->
       <entity_type name="reference_or_dependency">
          <entity_type name="dependency">
             <reference name="inverse_of" type="composition?" inverse="inverse">
@@ -52,8 +52,8 @@
             </reference>
          </entity_type>
          <entity_type name="reference">
-            <composition name="diagonal" type="navigation?"/>
-            <composition name="riser" type="navigation?"/>
+            <composition name="diagonal" type="directional path?"/>
+            <composition name="riser" type="directional path?"/>
             <composition type="auxiliary_scope_constraint*"/>
             <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser="..">
                <auxiliary_scope_constraint identifying_relationship="type"
@@ -62,7 +62,7 @@
          </entity_type>
       </entity_type>
       <entity_type name="constructed_relationship">
-         <composition type="navigation"/>
+         <composition type="directional path"/>
          <reference name="inverse" type="constructed_relationship?" inverse="inverse" diagonal="type" riser="..">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path=".."/>
@@ -84,7 +84,7 @@
    </entity_type>
    <entity_type name="sequence"/>
    <entity_type name="auxiliary_scope_constraint">
-       <composition name="equivalent_path" type="navigation"/>
+       <composition name="equivalent_path" type="directional path"/>
        <reference name="identifying_relationship" 
                   type="reference_or_dependency"
                   diagonal="^"
@@ -97,7 +97,7 @@
          <entity_type name="ZeroOneOrMore"/>
          <entity_type name="OneOrMore"/>
       </entity_type>
-   <entity_type name="navigation">
+   <entity_type name="directional path">
       <entity_type name="composite">
          <composition type="component*">
             <sequence/>
@@ -106,7 +106,7 @@
          <entity_type name="aggregate"/>
       </entity_type>
       <entity_type name="component">
-         <reference name="rel" type="Relationship">
+         <reference name="rel" type="directional relationship">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path="dest"/>
          </reference>
@@ -120,7 +120,7 @@
    <entity_type name="implementationOf">
       <reference name="destAttr" type="attribute"/>
       <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
-      <composition name="reached_by" type="navigation?"/>
+      <composition name="reached_by" type="directional path?"/>
    </entity_type>
    <entity_type name="value_type">
       <entity_type name="boolean"/>

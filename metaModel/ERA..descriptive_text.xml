@@ -28,15 +28,30 @@
             of the online entity modelling book.
          </p>
       </description>
-         <reference>
-            <name>projection_rel</name>
-            <type>reference?</type>
-            <description><p>Specifies one of the sides of a pullback diagram.</p></description>
-         </reference>
+      <reference>
+         <name>projection_rel</name>
+         <type>reference?</type>
+         <description>
+            <p>
+               Specifies one of the sides of a pullback diagram.
+            </p>
+            <p>
+               The <i>projection_rel</i> of a pullback is specified as an instance of a <i>reference</i> relationship.
+            </p>
+         </description>
+      </reference>
       <composition>
           <name>along</name>
           <type>navigation</type>
-         <description><p>Specifies one of the sides of a pullback diagram.</p></description>
+         <description>
+            <p>
+               Specifies one of the sides of a pullback diagram.
+            </p>
+            <p>
+               This side of the pullback diagram may be a single step along a single-valued relationship
+               or a join of such steps. It is specified as an instance of a <i>directional path</i>.
+            </p>
+         </description>
       </composition>
       <reference>
          <name>type</name>

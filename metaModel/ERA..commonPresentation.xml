@@ -13,7 +13,7 @@
    </absolute>
 
    <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <presentation>
          <x>4.0</x>        
          <y>1.0</y>
@@ -63,9 +63,9 @@
    </entity_type>
 
    <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <composition>
-         <type>Relationship</type>
+         <type>directional relationship</type>
          <diagram>
             <path>
                <align>
@@ -76,7 +76,7 @@
       </composition>
    </entity_type>
       <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <composition>
          <type>attribute</type>
          <diagram>
@@ -92,7 +92,7 @@
    <entity_type>
       <name>attribute</name>
       <presentation>
-         <rightOf>Relationship</rightOf>
+         <rightOf>directional relationship</rightOf>
          <x>5.0</x>
          <!-- <y>1.0</y> -->
          <deltaw>11.0</deltaw>
@@ -152,18 +152,18 @@
    </entity_type>
 
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <presentation>
          <xl>
             <relative>
-               <to>ENTITY_TYPE</to>
+               <to>entity type like</to>
                <ratio>0</ratio>
                <d>1.0</d>
             </relative>
          </xl>
          <yt>
             <relative>
-               <to>ENTITY_TYPE</to>
+               <to>entity type like</to>
                <ratio>1</ratio>
                <d>2.0</d>
             </relative>
@@ -313,7 +313,7 @@
    <entity_type>
       <name>constructed_relationship</name>
       <composition>
-         <type>navigation</type>
+         <type>directional path</type>
          <diagram>
             <path>
                <align>
@@ -353,7 +353,7 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <reference>
          <name>type</name>
          <diagram>
@@ -371,7 +371,7 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <composition>
          <type>sequence</type>
          <diagram>
@@ -384,7 +384,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <composition>
          <type>identifying(1)</type>
          <diagram>
@@ -397,7 +397,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <composition>
          <name>cardinality</name>
          <diagram>
@@ -418,7 +418,7 @@
    <entity_type>
       <name>identifying(1)</name>
       <presentation> 
-         <below>Relationship</below>
+         <below>directional relationship</below>
          <x>0.5</x>
          <deltaw>-0.35</deltaw>
       </presentation>
@@ -521,7 +521,7 @@
    </entity_type>
 
    <entity_type>
-      <name>navigation</name>
+      <name>directional path</name>
       <presentation>
          <below>cardinality</below>
          <x>3.0</x>
@@ -592,7 +592,7 @@
    </entity_type>
 
    <entity_type>
-      <name>navigation</name>
+      <name>directional path</name>
       <reference>
          <name>src</name>
          <diagram>
@@ -612,7 +612,7 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>navigation</name>
+      <name>directional path</name>
       <reference>
          <name>dest</name>
          <diagram>

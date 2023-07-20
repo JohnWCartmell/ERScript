@@ -14,7 +14,7 @@
       <composition type="xml?"/>
    </absolute>
 
-   <entity_type name="ENTITY_TYPE">
+   <entity_type name="entity type like">
       <attribute name="xpath" type="string?"/>
       <attribute name="module_name" type="string?"/>
    </entity_type>
@@ -23,7 +23,7 @@
          <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_et"/>
    </entity_type>
 
-   <entity_type name="Relationship">
+   <entity_type name="directional relationship">
       <attribute name="physical_prefix" type="string?"/>
    </entity_type>
 
@@ -37,7 +37,7 @@
       <composition name="xmlRepresentation" type="xmlStyle(2)?"/>
    </entity_type>
 
-   <entity_type name="navigation">
+   <entity_type name="directional path">
       <attribute name="xpath_evaluate" type="string?"/>
    </entity_type>
 
@@ -76,9 +76,9 @@
          </reference>
       </entity_type>
       <entity_type name="copy">
-         <composition name="riser2" type="navigation"/>
+         <composition name="riser2" type="directional path"/>
       </entity_type>
-      <composition name="along" type="navigation"/>
+      <composition name="along" type="directional path"/>
       <reference name="type" type="entity_type"/>
    </entity_type>
 </entity_model>

@@ -118,7 +118,7 @@
       </composition>
       <reference>
          <name>type</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <description>.</description>
       </reference>
    </entity_type>
