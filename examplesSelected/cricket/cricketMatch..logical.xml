@@ -18,27 +18,23 @@
       <composition type="side*" />
    </entity_type>
 
+   <entity_type name="innings">
+      <identifying>
+         <context type="match"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <composition type="over*"/>
+      <reference name="battingSide" type="side" diagonal=".." riser=".."/>
+      <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
+   </entity_type>
+   <entity_type name="side">
+      <identifying>
+         <context type="match"/>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <composition type="player*"/>
+   </entity_type>
 
-
-
-   <!--<group name="inmatch">-->
-      <entity_type name="innings">
-         <identifying>
-            <context type="match"/>
-            <attribute name="number" type="string"/>
-         </identifying>
-         <composition type="over*"/>
-         <reference name="battingSide" type="side" diagonal=".." riser=".."/>
-         <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
-      </entity_type>
-      <entity_type name="side">
-         <identifying>
-            <context type="match"/>
-            <attribute name="name" type="string"/>
-         </identifying>
-         <composition type="player*"/>
-      </entity_type>
-   <!-- </group> -->
    <entity_type name="over">
       <identifying>
          <context type="innings"/>
