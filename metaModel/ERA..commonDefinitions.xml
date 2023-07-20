@@ -98,7 +98,7 @@
          <entity_type name="OneOrMore"/>
       </entity_type>
    <entity_type name="navigation">
-      <entity_type name="complex">
+      <entity_type name="composite">
          <composition type="component*">
             <sequence/>
          </composition>
@@ -134,8 +134,6 @@
       <entity_type name="time"/>
    </entity_type>
    <entity_type name="identifying(2)"/>
-   <entity_type name="optional">
-      <attribute name="value" type="string?"/>
-   </entity_type>
+   <entity_type name="optional"/>
 
 </entity_model>

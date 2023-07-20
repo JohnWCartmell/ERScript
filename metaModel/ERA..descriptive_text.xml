@@ -31,17 +31,17 @@
          <reference>
             <name>projection_rel</name>
             <type>reference?</type>
-            <description>Specifies one of the sides of a pullback diagram.</description>
+            <description><p>Specifies one of the sides of a pullback diagram.</p></description>
          </reference>
       <composition>
           <name>along</name>
           <type>navigation</type>
-         <description>Specifies one of the sides of a pullback diagram.</description>
+         <description><p>Specifies one of the sides of a pullback diagram.</p></description>
       </composition>
       <reference>
          <name>type</name>
          <type>entity_type</type>
-         <description>Specifies one of the corners of a pullback diagram.</description>
+         <description><p>Specifies one of the corners of a pullback diagram.</p></description>
       </reference>
    </entity_type>
 </entity_model>

@@ -345,6 +345,26 @@ CHANGE HISTORY
                   <i><xsl:text>TBD</xsl:text></i>
             </xsl:otherwise>
           </xsl:choose>
+          <xsl:if test="self::entity_type and child::entity_type">
+              <p>
+               <xsl:text>A generalisation of the following types:</xsl:text>
+               <table>
+               <xsl:for-each select="descendant::entity_type">
+                 <tr>
+                  <td>
+                   <button>
+                       <xsl:attribute name="id" select="id"/>
+                       <xsl:attribute name="class" select="'popout'"/>
+                       <xsl:value-of select="name"/>
+                    </button>
+                  </td>
+                  </tr> 
+                </xsl:for-each>
+              </table>
+              </p>
+          </xsl:if>
+
+          
           <xsl:if test="attribute">
             <div><b>Attributes</b></div>
             <table>
@@ -365,6 +385,7 @@ CHANGE HISTORY
                 </button> 
               </p>
           </xsl:if>
+
         </div>
       </div>
   </xsl:template>

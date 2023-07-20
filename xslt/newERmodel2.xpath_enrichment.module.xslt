@@ -217,7 +217,7 @@ join | component => identification_status : ('Identifying', 'NotIdentifying')
 
 <!-- MOVED FROM initial_enrichment -->
        <!-- Two templates for
-             complex => identification_status
+             composite => identification_status
     This is pretty ugly because we have remodelled  the idea of an
     optional identifying flag just because we wanted
     to implement using recurive incremental enrichment.

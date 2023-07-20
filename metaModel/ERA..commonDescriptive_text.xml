@@ -4,60 +4,98 @@
 
    <absolute>
       <name>entity_model</name>
-      <description> This is a meta-model --- it is an entity model which describes the structure of a typical entity model --- as such  this entity model is self-descriptive. </description>
+      <description>
+         <p> 
+            This entity model can be said to be a meta-model --- it is an entity model which describes the structure of a typical entity model --- as such  this entity model is self-descriptive. 
+         </p>
+      </description>
       <composition>
          <type>entity_type</type>
          <description></description>
       </composition>
       <composition>
          <type>absolute</type>
-         <description></description>
+         <description>A representation of the entirety of an entity model.</description>
       </composition>
    </absolute>
    <entity_type>
       <name>ENTITY_TYPE</name>
       <description>A generalisation of the types absolute and entity_type.</description>
+
       <entity_type>
          <name>absolute</name>
-         <description>An entity type which is defined to have a single instance which is the structural root of instances of this 
-         entity model.</description>
+         <description>
+            <p> Represents both the entirety of an entity model and the single structural root of instances of the model.
+            </p>
+            <p>
+              Is entity type like and in any model instance is defined to have a single instance which is the root of the instance.
+            </p>
+            <p> 
+               An entity model may be logical in which case will have no attributes specified as being implementations of relationships or it may be physical in which case it <i>will</i> be populated with such attributes. 
+               If a model is physical then it may be hierarchical or relational. The distinction regards whether dependencies require implementing attributes. 
+            </p>
+         </description>
       </entity_type>
+
       <entity_type>
          <name>entity_type</name>
-         <description>Instances of this type are entity types in the subject entity model. 
-            Each entity type describes a class of entities by describing the relationships that they participate in and the
-            properties that may be attributed to them.</description>
+         <description>
+            <p>
+               Each entity type describes a class of like-structured entities by describing the relationships
+               that they participate in and the properties that may be attributed to them.
+            </p>
+         </description>
          <composition>
             <type>entity_type</type>
-            <description>The subtypes of a type. </description>
+            <description>
+               <p> The subtypes of an entity type.</p>
+            </description>
          </composition>
       </entity_type>
       <attribute>
          <name>name</name>
-         <description>An attribute of type string  that uniquely identifies an entity type within an entity model.
-            The name of absolute is the name of the whole and is therefore a name for the entire entity model.</description>
+         <description>
+            <p> 
+               An attribute of type string  that uniquely identifies an entity type within an entity model.
+               The name of absolute is the name of the whole and is therefore a name for the entire entity model.
+            </p>
+          </description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>Text documenting the meaning of the entity type.</description>
+         <description>
+            <p>Text documenting the meaning of the entity type.</p>
+         </description>
       </attribute>
 
       <composition>
          <type>Relationship</type>
-         <description>The set of outgoing relationships from an entity type.</description>
+         <description>
+            <p> The set of outgoing relationships from an entity type.</p>
+         </description>
       </composition>
       <composition>
          <type>attribute</type>
-         <description>The set of attributes of an entity type. </description>
+         <description>
+            <p>The set of attributes of an entity type.</p> 
+         </description>
       </composition>
    </entity_type>
    <entity_type>
       <name>attribute</name>
-      <description>A part of the structure of an entity type. An attribute is a named property that may be attributed 
-         to entitites of the type. Often thought of as a slot within an entity which may be filled in with a value.
-         Dates, numeric values, names, text descriptions, colour and truth values (booleans) only make sense 
-         as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
-         In a physical representation, attributes may be present simply to implement relationships. 
+      <description>
+         <p>
+            A part of the structure of an entity type. 
+         </p>
+         <p>
+            An attribute is a named property that may be attributed 
+            to entitites of the type. Often thought of as a slot within an entity which may be filled in with a value.
+            Dates, numeric values, names, text descriptions, colour and truth values (booleans) only make sense 
+            as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
+         </p>
+         <p>
+            In a physical representation, attributes may be present simply to implement relationships.
+         </p> 
       </description>
       <dependency>
          <name>..</name>
@@ -103,7 +141,21 @@
 
    <entity_type>
       <name>Relationship</name>
-      <description>A generalisation of the types reference, dependency, constructed_relationship and composition.</description>
+      <description>
+         <p>
+            A binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature of the first.
+         </p>
+         <p>
+            On entity relationship diagrams, binary relationships are shown as annotated lines between boxes. In this meta model
+            these abstract binary relationships are represented by pairs of directional relationships each of which is
+            related to the other as inverse. 
+         </p>    
+         <p>
+            Each binary relationship between entity types, call them A and B, is represented twice -- once from the point of view
+            of A where it is thought of as being a path or a link to zero, one or more B's and once from the point of view of B where it is thought of as a path or a link to zero, one or more A's. These two directional relationships are inverse to one another. In exceptional cases a directional relationship is its own inverse.
+         </p>  
+
+      </description>
       <dependency>
          <name>..</name>
          <type>ENTITY_TYPE</type>
@@ -111,7 +163,7 @@
       </dependency>
       <entity_type>
          <name>reference_or_dependency</name>
-         <description>A generalisation of the types dependency and reference.</description>
+         <description></description>
          <entity_type>
             <name>dependency</name>
             <description>
@@ -150,19 +202,55 @@
                <type>reference</type>
                <description>
                   <p>
-                     Relates a dependency to the reference relationship that is its inverse.
+                     Relates a reference relationship to a second not necesarily distint reference relationship that is its inverse.
                   </p>
                </description>
             </reference>
             <composition>
                <name>diagonal</name>
                <type>navigation</type>
-               <description>.</description>
+               <description>
+                  <p>
+                     Part of the specification of the primary scope constraint of a reference relationship.
+                  </p>
+                  <p>
+                   The primary scope constraint specifies a constraint on the extent of a subject relationship.
+                   In many situations its presence obviates 
+                   the need for one or more attributes which would  otherwise be required for the implementation of the subject relationship. 
+                  </p>
+                  <p>
+                     Note that the primary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The <i>diagonal</i> specifes one of the other sides of this diagram.
+                  </p>
+                  <p>
+                     For a discussion of the basic idea of scope see section
+                     <a href="http://www.entitymodelling.org/tutorialone/scope.html">The Scope Concept</a>
+                     of my online entity modelling book. 
+
+                     For a discussion of diagrams expressing scope triangles and scope squares see section
+                     <a href="http://www.entitymodelling.org/tutorialone/scopediagrams.html">Diagrams Expressing Scopes</a>.
+                  </p>
+                  <p>
+                     This meta model enables expression of scope constraints that are triangular rather then square shaped.
+                  </p> 
+               </description>
             </composition>
             <composition>
                <name>riser</name>
                <type>navigation</type>
-               <description>.</description>
+               <description>
+                  <p>
+                     Part of the specification of the primary scope constraint of a reference relationship.
+                  </p>
+                  <p>
+                   The primary scope constraint specifies a constraint on the extent of a subject relationship.
+                   In many situations its presence obviates 
+                   the need for one or more attributes which would  otherwise be required for the implementation of the subject relationship.
+                  </p>
+                  <p>
+                     Note that the primary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The inverse to
+                     the <i>riser</i> specifes one of the other sides of this diagram.
+                  </p>
+               </description>
             </composition>
          </entity_type>
       </entity_type>
@@ -181,105 +269,167 @@
       </entity_type>
       <entity_type>
          <name>composition</name>
-         <description>A relationship between entities in which entitites on one side of the relationship may be said to be in part composed of entitites on the other side.</description>
+         <description>
+            <p>
+               A binary relationship between entities in which entities on one side of the relationship may be said to be in part composed of entitites on the other side.
+            </p>
+         </description>
          <reference>
             <name>inverse</name>
             <type>dependency</type>
-            <description>.</description>
+            <description>
+               <p>
+                  Relates a composition relationship to the dependency that is its inverse.
+               </p>
+            </description>
          </reference>
       </entity_type>
       <reference>
          <name>type</name>
          <type>ENTITY_TYPE</type>
-         <description>.</description>
+         <description>
+            <p>
+               This is the second of two entity types participating in a directional and therefore  binary relationship. 
+               The first, by the way,  being the host entity type of the  relationship.
+            </p>  
+            <p>
+               If we think of the relationship as something that can be navigated then it can be navigated from entities of the 
+               host type to arrive at entities of this second <i>type</i>.
+            </p>
+         </description>
       </reference>
       <composition>
          <type>sequence</type>
-         <description>.</description>
+         <description>
+            <p>
+            </p>
+         </description>
       </composition>
       <composition>
          <type>identifying(1)</type>
-         <description>.</description>
+         <description>
+            <p>
+            </p>
+         </description>
       </composition>
       <composition>
          <name>cardinality</name>
          <type>cardinality</type>
-         <description>.</description>
+         <description>
+            <p>
+            </p>
+         </description>
       </composition>
       <attribute>
          <name>name</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>description</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>id</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
 
 
    </entity_type>
    <entity_type>
       <name>sequence</name>
-      <description>An entity type..</description>
+         <description>
+            <p>
+               May be specified as a property of a many-valued composition relationship to indicate that with regard to the many-values of the composition at any given entity, order is important.  In this way it indicates a <i>sequence</i> of values rather than simple a <i>set</i> of values. 
+            </p>
+            <p>
+               If <i>sequence</i> is specifed then in a relational implementation a sequence number column will be required.
+            </p>
+         </description>
    </entity_type>
 
+   <entity_type>
+      <name>identifying(1)</name>
+         <description>
+            <p>
+               If present specifies that the host relationship is an identifying attribute of its host entity type.
+            </p>
+            <p>
+               An entity type is specified to have one of more identifying attributes and relationships.
+            </p>
+         </description>
+   </entity_type>
+   <entity_type>
+      <name>cardinality</name>
+      <description>
+         <p>
+            Used to indicate the cardinality of a relationship.
+         </p>
+      </description>
       <entity_type>
-         <name>identifying(1)</name>
-         <description>An entity type..</description>
+         <name>ZeroOrOne</name>
+         <description><p>Used to indicate the cardinality of a relationship.</p></description>
       </entity_type>
       <entity_type>
-         <name>cardinality</name>
-         <description>A generalisation of the types ZeroOrOne, ExactlyOne, ZeroOneOrMore and OneOrMore..</description>
-         <entity_type>
-            <name>ZeroOrOne</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>ExactlyOne</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>ZeroOneOrMore</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>OneOrMore</name>
-            <description>An entity type..</description>
-         </entity_type>
+         <name>ExactlyOne</name>
+         <description><p>Used to indicate the cardinality of a relationship.</p></description>
       </entity_type>
-
-      
+      <entity_type>
+         <name>ZeroOneOrMore</name>
+         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+      </entity_type>
+      <entity_type>
+         <name>OneOrMore</name>
+         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+      </entity_type>
+   </entity_type>
 
    <entity_type>
       <name>navigation</name>
-      <description>A generalisation of the types complex and component..</description>
+      <description>
+         <p> Represents a path through the relationships of the entity model and maybe single or many-valued.</p> 
+      </description>
 
       <entity_type>
-         <name>complex</name>
-         <description>A generalisation of the types join and aggregate..</description>
+         <name>composite</name>
+         <description>
+            <p>A composite navigation.</p>
+         </description>
          <composition>
             <type>component</type>
-            <description>A step along a relationship which is either the whole of or a part of a navigation.</description>
+            <description>
+               <p>
+                  The steps that are to be composed in a composite navigation.
+               </p>
+            </description>
          </composition>
          <entity_type>
             <name>join</name>
-            <description>An entity type..</description>
+            <description>
+               <p>
+                  The joining togther of navigations end to end to form a composite navigation.
+               </p>
+            </description>
          </entity_type>
          <entity_type>
             <name>aggregate</name>
-            <description>An entity type..</description>
+            <description>
+               <p>
+                  Represents the aggregation or union of multiple navigations to form a composite navigation.
+               </p>
+            </description>
          </entity_type>
       </entity_type>
       <entity_type>
          <name>component</name>
-         <description>An entity type..</description>
+         <description>
+            <p>
+               A step along a relationship which is either the whole of or a part of a navigation.
+            </p>
+         </description>
          <reference>
             <name>rel</name>
             <type>Relationship</type>
-            <description>The relationship along hich a step is taken.</description>
+            <description><p>The relationship along which a step is taken.</p></description>
          </reference>
       </entity_type>
       <entity_type>
@@ -288,123 +438,204 @@
          <reference>
             <name>relSrc</name>
             <type>ENTITY_TYPE</type>
-            <description>The source entity type of the 'rel' relationship.</description>
+            <description><p>The source entity type of the 'rel' relationship.</p></description>
          </reference>
       </entity_type>
       <entity_type>
-         <name>auxiliary_scope_constraint</name>
+         <name>identity</name>
          <description>
             <p>
-             If present this specifies a constraint on the extent of a subject relationship  additional to any other scope constraint that may  be specified for it. 
-             Like a principle scope constraint its presence obviates 
-             the need for one or more attributes which would  otherwise be required for the implementation of the subject relationship.
-            </p>
-            <p>
-               As can also be said of a principle scope constraint, it specifies a condition holding between  relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships.
-            </p>
-         </description>
-      </entity_type>
-         <entity_type>
-            <name>identity</name>
-            <description>
-                The identity navigation.
+             The identity navigation.
+          </p>
         </description>
          </entity_type>
          <entity_type>
             <name>theabsolute</name>
             <description>
-                A navigation to the ansolute.
-        </description>
+               <p>
+                  A navigation to the absolute.
+               </p>
+         </description>
          </entity_type>
       <reference>
          <name>src</name>
          <type>ENTITY_TYPE</type>
-         <description>.</description>
+         <description>
+            <p>
+            </p>
+         </description>
       </reference>
       <reference>
          <name>dest</name>
          <type>ENTITY_TYPE</type>
-         <description>Introduced for potential use in better 
-                           scoping of 'rel' relationship for which require 'previous' navigation.
-                           Currently derived during enrichment.
-      .</description>
+         <description>
+            <p>
+            </p>
+         </description>
       </reference>
    </entity_type>
+
+   <entity_type>
+      <name>auxiliary_scope_constraint</name>
+      <description>
+         <p>
+          If present this specifies a constraint on the extent of a subject relationship  additional to any other scope constraint that may  be specified for it. 
+          Like a principle scope constraint its presence obviates 
+          the need for one or more attributes which would  otherwise be required for the implementation of the subject relationship.
+         </p>
+         <p>
+            As can also be said of a principle scope constraint, it specifies a condition holding between  relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships.
+         </p>
+      </description>
+      <reference>
+         <name>identifying_relationship</name>
+         <description>
+            <p>
+               Part of the specification of the auxiliary scope constraint of a reference relationship.
+            </p>
+            <p>
+               Each auxiliary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The <i>identifying_relationship</i> specifes one of the other sides of this diagram.
+            </p>
+         </description>
+      </reference>
+      <composition>
+         <name>equivalent_path</name>
+         <description>
+            <p>
+               Part of the specification of the auxiliary scope constraint of a reference relationship.
+            </p>
+            <p>
+               Each auxiliary scope constraint specifies a condition holding between some of the relationships of the model which in the  language of category theory can be expressed as the commutativity of a diagram of relationships. One side of this commuting diagram is the subject relationship. The <i>equivalent_path</i> specifes one of the other sides of this diagram.
+            </p>
+         </description>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>implementationOf</name>
+      <description>
+        <p>
+          Present for those attributes within a physical model whose purpose is to implement or be part of the implementation of a relationship.  
+        </p>
+      </description>
+      <dependency>
+         <name>..</name>
+         <type>attribute</type>
+         <description>
+            <p>
+               The host attribute whose purpose is to implement or be part of the implementation of a relationship.
+            </p>
+         </description>
+      </dependency>
+      <reference>
+         <name>destAttr</name>
+         <type>attribute</type>
+         <description>
+            <p>
+            This is an identifying attribute of the destination entity type of the relationship <i>rel</i> which is being implemented.
+            </p> 
+         </description>
+      </reference>
+      <reference>
+         <name>destAttrHostEt</name>
+         <type>ENTITY_TYPE</type>
+         <description>
+             <p>
+               This the the host entity type of the attribute <i>destAttr</i>.
+             </p>
+             <p>
+               If the <i>destrAttrHostEt</i> is distinct from the destination type of the implmented relationship <i>rel</i>
+               then the path from the destination type to the <i>destrAttrHostEt</i> is specified as the <i>reachedBy</i> relationship.
+            </p>
+         </description>
+      </reference>
+      <reference>
+         <name>rel</name>
+         <type>reference_or_dependency</type>
+         <description>
+            <p>
+               This is the reference relationship which is in whole or in part implemented by this foreign key attribute.
+            </p>
+         </description>
+      </reference>
+      <composition>
+         <name>reached_by</name>
+         <type>navigation</type>
+         <description>
+            <p>
+               This is the path from the destination type of the implemented relationship <i>rel</i>
+               to the host entity type of the implemented identifying attribute <i>destAttr</i>.
+            </p>
+         </description>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>value_type</name>
+      <description>
+         <p>
+            Specifies the type of an attribute.
+         </p>
+         <p>
+            Philosophically speaking the possibly types are "types all of whose instances are universals".
+         </p>
+      </description>
       <entity_type>
-         <name>implementationOf</name>
-         <description>An entity type..</description>
-         <dependency>
-            <name>..</name>
-            <type>attribute</type>
-            <description>.</description>
-         </dependency>
-         <reference>
-            <name>destAttr</name>
-            <type>attribute</type>
-            <description>This is an identifying attribute of the destination entity type of the relationship 'rel' which is being implemented. </description>
-         </reference>
-         <reference>
-            <name>destAttrHostEt</name>
-            <type>ENTITY_TYPE</type>
-            <description>This the the host entity type of the attribute 'destAttr'.
-            </description>
-         </reference>
-         <reference>
-            <name>rel</name>
-            <type>reference_or_dependency</type>
-            <description>This is the reference relationship which is in whole or in part implemented by this foreign key attribute..</description>
-         </reference>
+         <name>boolean</name>
+         <description><p>Specifies the type of the host attribute to be the boolean type.</p></description>
       </entity_type>
       <entity_type>
-         <name>value_type</name>
-         <description>A generalisation of the types boolean, date, dateTime, integer, float, nonNegativeInteger, positiveInteger, string and time..</description>
-         <entity_type>
-            <name>boolean</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>date</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>dateTime</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>integer</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>float</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>nonNegativeInteger</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>positiveInteger</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>string</name>
-            <description>An entity type..</description>
-         </entity_type>
-         <entity_type>
-            <name>time</name>
-            <description>An entity type..</description>
-         </entity_type>
+         <name>date</name>
+         <description><p>Specifies the type of the host attribute to be the date type.</p></description>
       </entity_type>
       <entity_type>
-         <name>identifying(2)</name>
-         <description>An entity type..</description>
+         <name>dateTime</name>
+         <description><p>Specifies the type of the host attribute to be the date and time type.</p></description>
       </entity_type>
       <entity_type>
-         <name>optional</name>
-         <description>An entity type..</description>
-         <attribute>
-            <name>value</name>
-            <description>An attribute of typestring.</description>
-         </attribute>
+         <name>integer</name>
+         <description><p>Specifies the type of the host attribute to be the integer type.</p></description>
       </entity_type>
+      <entity_type>
+         <name>float</name>
+         <description><p>Specifies the type of the host attribute to be the float type.</p></description>
+      </entity_type>
+      <entity_type>
+         <name>nonNegativeInteger</name>
+         <description><p>Specifies the type of the host attribute to be the nonNegativeInteger type.</p></description>
+      </entity_type>
+      <entity_type>
+         <name>positiveInteger</name>
+         <description><p>Specifies the type of the host attribute to be the positiveInteger type.</p></description>
+      </entity_type>
+      <entity_type>
+         <name>string</name>
+         <description><p>Specifies the type of the host attribute to be the string type.</p></description>
+      </entity_type>
+      <entity_type>
+         <name>time</name>
+         <description><p>Specifies the type of the host attribute to be the time type.</p></description>
+      </entity_type>
+   </entity_type>
+   <entity_type>
+      <name>identifying(2)</name>
+      <description>
+         <p>
+            If present specifies that the host attribute is an idenitfying attribute of it host entity type.
+         </p>
+         <p>
+            An entity type is specified to have one of more identifying attributes and relationships.
+         </p>
+      </description>
+   </entity_type>
+   <entity_type>
+      <name>optional</name>
+      <description>
+         <p>
+            Specifies that the host attribute is optional in other words that
+            it is expected that 
+            for some entities the attribute may not have a defined value.
+         </p>
+      </description>
+   </entity_type>
 </entity_model>

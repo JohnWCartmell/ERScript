@@ -132,7 +132,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      </xsl:if>
    </td>
    <td>
-      <xsl:value-of select="description"/>
+      <xsl:copy-of select="description"/>  <!-- was value-of -->
    </td>
 </xsl:template>
 

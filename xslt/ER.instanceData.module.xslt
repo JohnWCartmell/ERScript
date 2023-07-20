@@ -11,10 +11,6 @@
                xmlns="">
 
 
-
-
-
-
 <!-- ER.instanceData.module.xslt -->
 <xsl:template name="typeTagInstanceData" match="/" mode="explicit">    
     <xsl:copy>

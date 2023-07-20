@@ -546,7 +546,7 @@
    </entity_type>
 
    <entity_type>
-      <name>complex</name>
+      <name>composite</name>
       <presentation>
          <rightOf>theabsolute</rightOf>
       </presentation>
@@ -567,7 +567,7 @@
    <entity_type>
       <name>component</name>
       <presentation>
-         <below>complex</below>
+         <below>composite</below>
          <deltaw>0.3</deltaw>
          <deltah>0.3</deltah>
       </presentation>
