@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
-               xmlns:era="http://www.entitymodelling.org/ERmodel">
-               
-      <include_model filename="ERA.surface..physical.xml"/>
-      <include_model filename="ERA.surface..presentation.xml"/>
-</entity_model>

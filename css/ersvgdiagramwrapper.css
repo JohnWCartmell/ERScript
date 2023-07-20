@@ -136,7 +136,9 @@
 
 	/* font sizes in pixels so as to be commensurable with font sizes used in svgs */
    div.infoboxBody{
-      height: 3cm ;	
+      /* was height: 3cm ;	  */   
+      height: 6cm ;	
+      width: 10cm ;
  		overflow:auto;
    	clear:left;
    	display:block;
