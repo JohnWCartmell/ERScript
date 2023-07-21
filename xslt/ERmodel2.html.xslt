@@ -92,14 +92,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </style>
   <body>
 
+  <h2>About This Entity Model </h2>
+    <table>
+      <tr>
+        <th colspan="2">Entity Model</th>
+      </tr>
+      <tr>
+        <th> Name </th>
+        <th> Description </th>
+      </tr>
+      <tr>
+        <td>
+          <xsl:value-of select="absolute/name"/>
+        </td>
+        <td>
+          <xsl:copy-of select="absolute/description"/>
+        </td>
+      </tr>
+    </table>
+
   <h2>Entity Type Table </h2>
   <xsl:call-template name="entityTypeTable"/>
-<!-- Don't seem to add much Commented out 10/may2016.
+
   <h2>Composition Relationships </h2>
   <xsl:call-template name="compositionRelationshipTable"/>
+
   <h2>Reference Relationships </h2>
   <xsl:call-template name="referenceRelationshipTable"/>
--->
+
   <h2>Attributes </h2>
   <xsl:call-template name="attributeTable"/>
   </body>
@@ -110,7 +130,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <table>
     <tr>
       <th> Entity Type </th>
-      <th> IsA         </th>
+      <!-- <th> IsA         </th> -->
       <th> Description </th>
     </tr>
     <xsl:for-each select="//entity_type">
@@ -126,11 +146,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <td>
    <xsl:value-of select="name"/>
    </td>
-   <td>
+   <!-- <td>
      <xsl:if test="parent::entity_type">
        <xsl:value-of select="../name"/>
      </xsl:if>
-   </td>
+   </td> -->
    <td>
       <xsl:copy-of select="description"/>  <!-- was value-of -->
    </td>

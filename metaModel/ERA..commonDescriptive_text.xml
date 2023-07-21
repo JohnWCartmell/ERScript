@@ -6,8 +6,35 @@
       <name>entity_model</name>
       <description>
          <p> 
-            This entity model can be said to be a meta-model --- it is an entity model which describes the structure of a typical entity model --- as such  this entity model is self-descriptive. 
+            This entity model is an <i>entity model of entity models</i>.
+            Because of its unique and self-descriptive nature it is sometimes described as a meta-model.
          </p>
+         <p>
+            This entity model was developed to support software development and it is coded in ERScript software. It is instanced in all the ER diagrams presented in my online
+            <a href="http://www.entitymodelling.org">entity modelling book</a>
+             but note that this model does not describe the diagrams themselves but  the logical content of those diagrams and
+             ER diagrams are just one a way of presenting the information contained in a typical entity model. 
+         </p>
+         <p> 
+            The entity models described by this model may be physical or logical and this distinction we should
+            summarise here. 
+            In brief, a physical model is populated with attributes that are required to describe the implementation of relationships and is saturated with such for the purposes of either hierarchical or relational implementation 
+            (the latter generally requiring more attributes than the former).
+            A logical model has no such attributes. Those models that are physical may be hierarchically-physical or relationally-physical. 
+         </p>
+         <p>
+          For more on the distinction between logical and physical models see section
+                     <a href="http://www.entitymodelling.org/tutorialtwo/physicalERmodels.html">Logical and Physical</a>
+                     of the online book.
+         </p> 
+         <p>
+            In the descriptions below the entity model which is described by this meta model is described as the subject entity model.
+         </p> 
+
+         <p>
+            Consider for a monent that this meta model is an entity model and thus must be logical or physical.
+            For this reason this meta model is available in two forms and you may be reading one or the other of these, either the <a href="www.entitymodelling.org/???">logical one</a> or the <a href="www.entitymodelling.org/???">hierarchically physical one</a>.
+         </p>                
       </description>
       <composition>
          <type>entity_type</type>
@@ -15,24 +42,25 @@
       </composition>
       <composition>
          <type>absolute</type>
-         <description>A representation of the entirety of an entity model.</description>
+         <description>A representation of the entirety of the subject entity model.</description>
       </composition>
    </absolute>
    <entity_type>
       <name>entity type like</name>
-      <description>A generalisation of the types absolute and entity_type.</description>
+      <description>A generalisation of the types <i>absolute</i> and <i>entity_type</i>.</description>
 
       <entity_type>
          <name>absolute</name>
          <description>
-            <p> Represents both the entirety of an entity model and the single structural root of instances of the model.
+            <p> Represents both the entirety of the subject entity model and the logical root of the model.
             </p>
             <p>
-              Is entity type like and in any model instance is defined to have a single instance which is the root of the instance.
+              <i>absolute</i> is <i>entity type like</i> and in any instance of the subject model 
+              has a single instance which, logically, is the root of the entire system of entities described by the model.
             </p>
-            <p> 
-               An entity model may be logical in which case will have no attributes specified as being implementations of relationships or it may be physical in which case it <i>will</i> be populated with such attributes. 
-               If a model is physical then it may be hierarchical or relational. The distinction regards whether dependencies require implementing attributes. 
+            <p>
+               For the thinking behind the naming of this concept see the section
+               <a href="http://www.entitymodelling.org/perspective/theabsolute.html">The Absolute</a>.
             </p>
          </description>
       </entity_type>
@@ -41,7 +69,7 @@
          <name>entity_type</name>
          <description>
             <p>
-               Each entity type describes a class of like-structured entities by describing the relationships
+               Each <i>entity type</i> describes a class of like-structured entities by describing the relationships
                that they participate in and the properties that may be attributed to them.
             </p>
          </description>
@@ -89,12 +117,14 @@
          </p>
          <p>
             An attribute is a named property that may be attributed 
-            to entitites of the type. Often thought of as a slot within an entity which may be filled in with a value.
-            Dates, numeric values, names, text descriptions, colour and truth values (booleans) only make sense 
-            as the values of attributes of entities. Attributes may be core attributes or may be derived from other values.
+            to entities of the host entity type. Attribute instances are often described each as a slot within an entity which may have a value assigned.
+            Dates, numeric values, names, text descriptions, colour and truth values (booleans) only ever make sense 
+            as the values of attributes of entities.
          </p>
          <p>
-            In a physical representation, attributes may be present to implement relationships.
+            In a physical model, attributes may be present to implement relationships 
+            and  any such attributes will be distinguished from purely logical attributes  by 
+            the presence of <i>implementationOf</i> substructure.
          </p> 
       </description>
       <dependency>
@@ -162,16 +192,18 @@
       <name>directional relationship</name>
       <description>
          <p>
-            A binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature of the first.
+            A binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature of the first type.
          </p>
          <p>
-            On entity relationship diagrams, binary relationships are shown as labelled and cardinality annotated lines between boxes. In this meta model
+            On entity relationship diagrams, binary relationships are shown as doubly labelled and cardinality annotated lines between boxes. In this meta model
             these abstract binary relationships are represented by pairs of directional relationships each of which is
             related to the other as inverse. 
          </p>    
          <p>
-            Each binary relationship between entity types, call them A and B, is represented twice -- once from the point of view
-            of A where it is thought of as being a path or a link to zero, one or more B's and once from the point of view of B where it is thought of as a path or a link to zero, one or more A's. These two directional relationships are inverse to one another. In exceptional cases a directional relationship is its own inverse.
+            Suppose a  binary relationship relates two  types A and B. 
+            This binary relationship will be represented in an entity model twice -- once from the point of view
+            of A where it is thought of as being a path or a link to zero, one or more B's and once from the point of view of B where it is thought of as a path or a link to zero, one or more A's. These two directional relationships are inverse to one another. There is an exception
+            in the  case of a symmetric binary relationship, these are represented by a single directional relationship which is defined as its own inverse.
          </p>  
 
       </description>
@@ -187,9 +219,9 @@
             <name>dependency</name>
             <description>
                 <p>
-                  A dependency is a certain type of relationship. It is an inverse of a composition relationship
-                  and therefore at the instance level relates an entity to the context in which it appears i.e. to a parent entity
-                  or to the absolute. 
+                  A <i>dependency</i> is a certain type of <i>directed relationship</i> in that it is an inverse to a composition relationship
+                  and therefore at the instance level relates an entity to the context in which it appears 
+                  i.e. to a parent entity or to the absolute. 
                 </p>
              </description>
             <reference>
@@ -206,14 +238,20 @@
             <name>reference</name>
             <description>
                <p>
-                  A reference relationship is a binary relationship considered directionally as a relationship between entities of one type and entities of a second not necessarily distinct type  and represented as a feature
-                  of the first type.
-                  A reference relationship is such a binary relationship which is not classified 
-                  as a composition relationship nor as a dependency and which, in a well-formed model at least, 
+                  A reference relationship is a certain kind of <i>directional relationship</i> which is neither classified as a composition relationship nor as a dependency and which, in a well-formed model at least, 
                   has an extent which cannot be inferred from the extents of the other primitive relationships in the model. 
                </p>
                <p>
                   To every reference relationship there is an inverse reference relationship.
+               </p>
+               <p>
+                  For the distiction between composition and reference see
+                  <a href="http://www.entitymodelling.org/tutorialone/compositionvreference.html">
+                     Composition and Reference
+                  </a>.
+               </p>
+               <p>
+                  Primary and auxiliray scopes !!!
                </p>
             </description>
             <reference>
@@ -282,18 +320,27 @@
       </entity_type>
       <entity_type>
          <name>constructed_relationship</name>
-         <description>A binary relationship between entities that can be derived from other more primitive relationships. </description>
+         <description>
+            <p> A <i>constructed_relationship</i> is an inferrable  relationship i.e. one which maybe inferred from others. </p>
+            <p> As such, it is a binary directed relationship whose extent may be constructed
+               entirely from the extents of other primitive relationships in the model. 
+            </p>
+            <p>
+               A <i>constructed_relationship</i> is defined by an instance of a <i>directional path</i> which defines how to construct the relationship from other, ultimately primitive, relationships. 
+            </p>
+         </description>
          <reference>
             <name>inverse</name>
             <type>constructed_relationship</type>
-            <description>.</description>
+            <description>
+                  <p>
+                     Relates a constructed relationship to a constructed relationship that is its inverse.
+                  </p>
+            </description>
          </reference>
          <composition>
             <type>directional path</type>
             <description>
-               <p> A <i>constructed_relationship</i> is a binary directed relationship whose extent may be constructed
-                  entirely from the extents of the primitive relationships in the model. 
-               </p>
                <p>
                   A <i>constructed_relationship</i> is defined by an instance of a <i>directional path</i> which defines how to construct the relationship from others and thereby, ultimately, from primitive relationships. 
                </p>
@@ -304,7 +351,13 @@
          <name>composition</name>
          <description>
             <p>
-               A binary relationship between entities in which entities on one side of the relationship may be said to be in part composed of entitites on the other side.
+               A binary relationship between entities in which entities on one side of the relationship may be said to be in part composed of entities on the other side.
+            </p>
+            <p>
+               For the distiction between composition and reference see
+               <a href="http://www.entitymodelling.org/tutorialone/compositionvreference.html">
+                  Composition and Reference
+               </a>.
             </p>
          </description>
          <reference>
@@ -476,15 +529,7 @@
             <description><p>The relationship along which a step is taken.</p></description>
          </reference>
       </entity_type>
-      <entity_type>
-         <name>component</name>
-         <description>An entity type..</description>
-         <reference>
-            <name>relSrc</name>
-            <type>entity type like</type>
-            <description><p>The source entity type of the 'rel' relationship.</p></description>
-         </reference>
-      </entity_type>
+
       <entity_type>
          <name>identity</name>
          <description>

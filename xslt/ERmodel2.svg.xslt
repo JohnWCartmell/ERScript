@@ -363,6 +363,33 @@ CHANGE HISTORY
               </table>
               </p>
           </xsl:if>
+          <xsl:if test="self::entity_type and (child::composition or child::reference)">
+              <p>
+               <xsl:text>See also</xsl:text>
+                <table>
+                 <xsl:for-each select="child::composition | child::reference">
+                    <tr>
+                      <td>
+                       <button>
+                          <xsl:attribute name="class" select="'popout'"/>
+                          <xsl:choose>
+                            <xsl:when test="name">
+                              <xsl:attribute name="id" select="id"/>
+                              <xsl:value-of select="name"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:attribute name="id" select="key('EntityTypes',type)/id"/>
+                              <xsl:value-of select="type"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+
+                        </button> 
+                      </td> 
+                    </tr>
+                  </xsl:for-each>
+                </table>
+              </p>
+          </xsl:if>
 
           
           <xsl:if test="attribute">

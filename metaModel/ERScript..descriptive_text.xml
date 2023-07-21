@@ -119,7 +119,7 @@
       <reference>
          <name>type</name>
          <type>entity type like</type>
-         <description>.</description>
+         <description></description>
       </reference>
    </entity_type>
 
