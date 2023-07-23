@@ -389,6 +389,8 @@ return map {
                                         function(  element(*)) as item()?
                                        )*">  
         <xsl:for-each select="$erMetaModelData//*[self::er:constructed_relationship | self::er:reference | self::er:dependency] ">
+            <xsl:variable name="relationship_comment"
+                          select="'(:' || ../er:name || '.' || er:name || ':' || er:type || ':)'"/>
             <xsl:if test="not(er:xpath_evaluate)">
                 <xsl:message terminate="yes">Relationship '<xsl:copy-of select="."/>' has no xpath_evaluate </xsl:message>
             </xsl:if>
@@ -396,7 +398,11 @@ return map {
                 <xsl:message>Constructed Relationship '<xsl:copy-of select="."/>' </xsl:message>
             </xsl:if>
             <xsl:variable name="eval_function_defn" as="xs:string"
-                          select="$relationship_read_header_text || '{$instance/(' || ./er:xpath_evaluate || ')}' ">
+                          select="$relationship_read_header_text
+                                   || $relationship_comment
+                                   || '{$instance/(' 
+                                   || ./er:xpath_evaluate 
+                                   || ')}' ">
             </xsl:variable>
             <xsl:variable name="read_function" 
                              as="function( element(*)) as element(*)?">

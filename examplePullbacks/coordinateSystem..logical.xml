@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="coordinateSystem">
+      <composition type="coordinate system*"/>
+      <composition type="space*"/>
+   </absolute> -->
+   <entity_type name="coordinate system">
+      <composition type="coordinate*">
+         <pullback>
+            <projection_rel>identifies</projection_rel>
+            <along>
+               for
+            </along>
+         </pullback>
+      </composition>
+      <reference name="for" type="space"/>
+   </entity_type>
+   <entity_type name="space">
+      <composition type="point*"/>
+   </entity_type>
+   <entity_type name="coordinate">
+      <identifying>
+         <context type="coordinate system"/>
+         <reference name="identifies" type="point">
+            <riser path=".."/>
+            <diagonal path="../for"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="point"/>
+</entity_model>

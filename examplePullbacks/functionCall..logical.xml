@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="functionCall">
+      <composition type="call*"/>
+      <composition type="function*"/>
+   </absolute> -->
+   <entity_type name="call">
+      <composition type="actual param*">
+         <pullback>
+            <projection_rel>value of</projection_rel>
+            <along>
+               of
+            </along>
+         </pullback>
+      </composition>
+      <reference name="of" type="function"/>
+   </entity_type>
+   <entity_type name="function">
+      <composition type="formal param*"/>
+   </entity_type>
+   <entity_type name="actual param">
+      <identifying>
+         <context type="call"/>
+         <reference name="value of" type="formal param">
+            <riser path=".."/>
+            <diagonal path="../of"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="formal param"/>
+</entity_model>

@@ -6,16 +6,16 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>E1</name>
+      <name>diagram</name>
       <presentation>
          <x>0.6</x>
          <y>1.0</y>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E1</name>
+      <name>diagram</name>
       <reference>
-         <name>R1</name>
+         <name>represents</name>
          <diagram>
             <path>
                <label>
@@ -35,22 +35,22 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>E2</name>
+      <name>entity model</name>
       <presentation>
-         <rightOf>E1</rightOf>
+         <rightOf>diagram</rightOf>
          <x>3.0</x>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E3</name>
+      <name>box</name>
       <presentation>
-         <below>E1</below>
+         <below>diagram</below>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E3</name>
+      <name>box</name>
       <reference>
-         <name>R2</name>
+         <name>represents</name>
          <diagram>
             <path>
                <label>
@@ -77,10 +77,10 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>E4</name>
+      <name>entity type</name>
       <presentation>
-         <rightOf>E3</rightOf>
-         <below>E2</below>
+         <rightOf>box</rightOf>
+         <below>entity model</below>
       </presentation>
    </entity_type>
 </entity_model>

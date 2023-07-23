@@ -12,7 +12,7 @@
          <p>
             This entity model was developed to support software development and it is coded in ERScript software. It is instanced in all the ER diagrams presented in my online
             <a href="http://www.entitymodelling.org">entity modelling book</a>
-             but note that this model does not describe the diagrams themselves but  the logical content of those diagrams and
+             but note that this model does not describe the diagrams themselves but  the logical content of those diagrams and also note that
              ER diagrams are just one a way of presenting the information contained in a typical entity model. 
          </p>
          <p> 
@@ -28,7 +28,7 @@
                      of the online book.
          </p> 
          <p>
-            In the descriptions below the entity model which is described by this meta model is described as the subject entity model.
+            In the descriptions below the entity model which is described by this meta model is referred to as the subject entity model.
          </p> 
 
          <p>
@@ -52,6 +52,7 @@
       <entity_type>
          <name>absolute</name>
          <description>
+
             <p> Represents both the entirety of the subject entity model and the logical root of the model.
             </p>
             <p>
@@ -61,6 +62,7 @@
             <p>
                For the thinking behind the naming of this concept see the section
                <a href="http://www.entitymodelling.org/perspective/theabsolute.html">The Absolute</a>.
+               In the language of category theory the absolute is a terminal object.
             </p>
          </description>
       </entity_type>
@@ -213,13 +215,26 @@
          <description>.</description>
       </dependency>
       <entity_type>
-         <name>reference_or_dependency</name>
+         <name>primitive relationship</name>
          <description></description>
+         <composition>
+            <type>identifying(1)</type>
+            <description>
+               <p>
+                 If this is defined then it signifies that the relationship is one of a set of identifying relationships
+                 of its host entity type.
+              </p>
+              <p>
+                  In a physical model attributes that implement identifying relatuionships are themselves identifying.
+               </p>
+            </description>
+         </composition>
          <entity_type>
             <name>dependency</name>
             <description>
                 <p>
-                  A <i>dependency</i> is a certain type of <i>directed relationship</i> in that it is an inverse to a composition relationship
+                  A <i>dependency</i> is a certain type of <i>directed relationship</i>.
+                  By definition it  is an inverse to a composition relationship
                   and therefore at the instance level relates an entity to the context in which it appears 
                   i.e. to a parent entity or to the absolute. 
                 </p>
@@ -312,7 +327,7 @@
                   </p>  
                   <p>
                      The <i>riser</i> is an instance of a <i>directional path</i>. 
-                     It should consist of a step along a single <i>depedency</i> relationship or <i>join</i> of steps along dependency relationships.
+                     It should consist of a step along a single <i>dependency</i> relationship or <i>join</i> of steps along dependency relationships.
                   </p>
                </description>
             </composition>
@@ -321,23 +336,12 @@
       <entity_type>
          <name>constructed_relationship</name>
          <description>
-            <p> A <i>constructed_relationship</i> is an inferrable  relationship i.e. one which maybe inferred from others. </p>
-            <p> As such, it is a binary directed relationship whose extent may be constructed
-               entirely from the extents of other primitive relationships in the model. 
+            <p> A <i>constructed_relationship</i> is an inferrable  relationship i.e. one  whose extent may be inferred from the extents of other relationships in the model. 
             </p>
             <p>
-               A <i>constructed_relationship</i> is defined by an instance of a <i>directional path</i> which defines how to construct the relationship from other, ultimately primitive, relationships. 
+               Each  <i>constructed_relationship</i> is defined by an instance of a <i>directional path</i> which defines how to construct the relationship from other, ultimately primitive, relationships. 
             </p>
          </description>
-         <reference>
-            <name>inverse</name>
-            <type>constructed_relationship</type>
-            <description>
-                  <p>
-                     Relates a constructed relationship to a constructed relationship that is its inverse.
-                  </p>
-            </description>
-         </reference>
          <composition>
             <type>directional path</type>
             <description>
@@ -351,13 +355,30 @@
          <name>composition</name>
          <description>
             <p>
-               A binary relationship between entities in which entities on one side of the relationship may be said to be in part composed of entities on the other side.
+               The name of this meta-type, <i>composition</i>, is a shortened form
+               of <i>composition relationship</i>.
             </p>
             <p>
+               A <i>composition</i>, i.e a <i>composition relationship</i>, is a directional  relationship for
+               which which entities of one type (the host entity type of the relationship) 
+               may be said to be in part composed of the so related entities of a second type 
+               (the <i>type</i> of the relationship). 
+            </p>
+            <p> 
+               In this meta model composition relationships are classifed as directional relationships and are distiguished from reference relationships and  dependency relationships.
+               Dependency relationships are, by definition, the inverses to composition relationships.
                For the distiction between composition and reference see
                <a href="http://www.entitymodelling.org/tutorialone/compositionvreference.html">
                   Composition and Reference
                </a>.
+            </p>
+            <p> 
+               Composition relationships may be specified as either single-valued or many-valued. This is specified as the <i>cardinality</i> of the relationship. For a many-valued relationship it may be 
+               specified whether or not sequential order of the many-values is significant.
+            </p>
+            <p>
+               The cardinality of a composition relationships is a constraint on its extent. 
+               Its extent may be further constrained by a <i>pullback constraint</i>.
             </p>
          </description>
          <reference>
@@ -392,18 +413,7 @@
             </p>
          </description>
       </composition>
-      <composition>
-         <type>identifying(1)</type>
-         <description>
-            <p>
-              If this is defined then it signifies that the relationship is one of a set of identifying relationships
-              of its host entity type.
-           </p>
-           <p>
-               In a physical model attributes that implement identifying relatuionships are themselves identifying.
-            </p>
-         </description>
-      </composition>
+
       <composition>
          <name>cardinality</name>
          <type>cardinality</type>
@@ -459,24 +469,41 @@
       <name>cardinality</name>
       <description>
          <p>
-            Used to indicate the cardinality of a relationship.
+            Broad classification of the expected number of instances of a directional relationship
+            at specific entities of its host type.
          </p>
       </description>
       <entity_type>
          <name>ZeroOrOne</name>
-         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+         <description>
+             <p>
+               Used to indicate the cardinality of an optional single-valued relationship.
+             </p>
+          </description>
       </entity_type>
       <entity_type>
          <name>ExactlyOne</name>
-         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+         <description>
+            <p>
+               Used to indicate the cardinality of a mandatory single-valued relationship.
+            </p>
+         </description>
       </entity_type>
       <entity_type>
          <name>ZeroOneOrMore</name>
-         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+         <description>
+            <p>
+               Used to indicate the cardinality of a many-valued relationship whose set of values at a given entity may be the empty set.
+            </p>
+         </description>
       </entity_type>
       <entity_type>
          <name>OneOrMore</name>
-         <description><p>Used to indicate the cardinality of a relationship.</p></description>
+         <description>
+            <p>
+               Used to indicate the cardinality of a many-valued relationship whose set of values at a given entity is non-empty.
+            </p>
+         </description>
       </entity_type>
    </entity_type>
 
@@ -504,6 +531,8 @@
             <description>
                <p>
                   The joining togther of directional paths end to end to form a composite directional path.
+                  See section 
+                  <a href="http://www.entitymodelling.org/tutorialone/relationalconstructions.html">Relational Constructions</a> of the online book.
                </p>
             </description>
          </entity_type>
@@ -511,7 +540,8 @@
             <name>aggregate</name>
             <description>
                <p>
-                  Represents the aggregation or union of multiple directional paths to form a composite directional path.
+                  Represents the aggregation or union of multiple directional paths to form a composite directional path. See section 
+                  <a href="http://www.entitymodelling.org/tutorialone/relationalconstructions.html">Relational Constructions</a> of the online book.
                </p>
             </description>
          </entity_type>
@@ -534,7 +564,9 @@
          <name>identity</name>
          <description>
             <p>
-             The identity directional path.
+             This is the identity relationship considered as a directional path. 
+             The upshot is that this is a path from any given entity to itself i.e. one that 'goes nowhere'.
+             This isn't of any use in a join because it doesn't have any effect but can be usefully used in an aggregation. In the language of category theory this is the identity morphism.
           </p>
         </description>
          </entity_type>
@@ -542,7 +574,16 @@
             <name>theabsolute</name>
             <description>
                <p>
-                  A directional path to the absolute.
+                  The  directional path to the absolute.  
+               </p>
+               <p>
+                  Within any instance of the subject entity model there is a unique root entity which we call the absolute. This directional path refers (evaluates) to this root entity. 
+               </p>
+               <p>
+                  This path is used as the value of both  <i>diagonal</i> and <i>riser</i> for reference relationships which are of global scope.
+               </p> 
+               <p> 
+                  In the langauge of category theory this represents the unqiue morphism to a terminal object.
                </p>
          </description>
          </entity_type>
@@ -646,7 +687,7 @@
       </reference>
       <reference>
          <name>rel</name>
-         <type>reference_or_dependency</type>
+         <type>primitive relationship</type>
          <description>
             <p>
                This is the reference relationship which is in whole or in part implemented by this foreign key attribute.

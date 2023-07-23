@@ -10,6 +10,8 @@
 
 <!-- Enhancement request.  Create a matching composition relationship if a context cannot be matched to any incoming composition. -->
 
+<xsl:variable name="postfixForInverseNameConstruction"
+              select="'&#x207B;&#x00B9;'"/>  <!-- see change log for 16 July 2023 -->
 
 <xsl:template match="entity_model" mode="parse__conditional">
 
@@ -128,7 +130,7 @@
             <xsl:element name="name">
                <xsl:value-of select="if (@inverse) 
                                      then @inverse 
-                                     else if (@name) then concat(@name,'^') 
+                                     else if (@name) then concat(@name,$postfixForInverseNameConstruction) 
                                      else '..'" />
             </xsl:element>
          <xsl:copy-of select="$cardinality"/>
@@ -186,7 +188,7 @@
                                      then //context[../name=$type]/@name
                                      else if(//identifying/context[../../name=$type][@name])
                                      then //identifying/context[../../name=$type]/@name
-                                     else if (@name) then concat(@name,'^')
+                                     else if (@name) then concat(@name,$postfixForInverseNameConstruction)
                                      else '..'               (: possible number required XXXXXXXXXXX:)
                                      "/>
             </xsl:element>
@@ -216,7 +218,7 @@
                        as="element(composition)"
                        select="//composition[era:typeFromExtendedType(@type)=current()/ancestor-or-self::entity_type[1]/@name]"/>
          <xsl:element name="name">
-               <xsl:value-of select="if ($comp/@inverse) then $comp/@inverse else if ($comp/@name) then concat($comp/@name,'^') else '..'"/>
+               <xsl:value-of select="if ($comp/@inverse) then $comp/@inverse else if ($comp/@name) then concat($comp/@name,$postfixForInverseNameConstruction) else '..'"/>
          </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="@*" mode="parse__main_pass"/> <!-- process attributes first -->

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="diagramOfEntityModel">
+      <composition type="diagram*"/>
+      <composition type="entity model*"/>
+   </absolute> -->
+   <entity_type name="diagram">
+      <composition type="box*">
+         <pullback>
+            <projection_rel>represents</projection_rel>
+            <along>
+               represents
+            </along>
+         </pullback>
+      </composition>
+      <reference name="represents" type="entity model"/>
+   </entity_type>
+   <entity_type name="entity model">
+      <composition type="entity type*"/>
+   </entity_type>
+   <entity_type name="box">
+      <identifying>
+         <context type="diagram"/>
+         <reference name="represents" type="entity type">
+            <riser path=".."/>
+            <diagonal path="../represents"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="entity type"/>
+</entity_model>

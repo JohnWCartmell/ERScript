@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="castOfPlay">
+      <composition type="performance*"/>
+      <composition type="play*"/>
+   </absolute> -->
+   <entity_type name="performance">
+      <composition type="cast member*">
+         <pullback>
+            <projection_rel>plays_part of</projection_rel>
+            <along>
+               of
+            </along>
+         </pullback>
+      </composition>
+      <reference name="of" type="play"/>
+   </entity_type>
+   <entity_type name="play">
+      <composition type="character*"/>
+   </entity_type>
+   <entity_type name="cast member">
+      <identifying>
+         <context type="performance"/>
+         <reference name="plays_part of" type="character">
+            <riser path=".."/>
+            <diagonal path="../of"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="character"/>
+</entity_model>

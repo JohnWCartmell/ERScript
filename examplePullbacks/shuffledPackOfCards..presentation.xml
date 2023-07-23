@@ -6,16 +6,16 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>E1</name>
+      <name>shuffle</name>
       <presentation>
          <x>0.6</x>
          <y>1.0</y>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E1</name>
+      <name>shuffle</name>
       <reference>
-         <name>R1</name>
+         <name>of</name>
          <diagram>
             <path>
                <label>
@@ -35,22 +35,22 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>E2</name>
+      <name>pack</name>
       <presentation>
-         <rightOf>E1</rightOf>
+         <rightOf>shuffle</rightOf>
          <x>3.0</x>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E3</name>
+      <name>card(2)</name>
       <presentation>
-         <below>E1</below>
+         <below>shuffle</below>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>E3</name>
+      <name>card(2)</name>
       <reference>
-         <name>R2</name>
+         <name>is</name>
          <diagram>
             <path>
                <label>
@@ -77,10 +77,10 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>E4</name>
+      <name>card</name>
       <presentation>
-         <rightOf>E3</rightOf>
-         <below>E2</below>
+         <rightOf>card(2)</rightOf>
+         <below>pack</below>
       </presentation>
    </entity_type>
 </entity_model>

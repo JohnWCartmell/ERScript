@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="tripFollowsItinerary">
+      <composition type="trip*"/>
+      <composition type="itinerary*"/>
+   </absolute> -->
+   <entity_type name="trip">
+      <composition type="visit*">
+         <pullback>
+            <projection_rel>to</projection_rel>
+            <along>
+               follows
+            </along>
+         </pullback>
+      </composition>
+      <reference name="follows" type="itinerary"/>
+   </entity_type>
+   <entity_type name="itinerary">
+      <composition type="place*"/>
+   </entity_type>
+   <entity_type name="visit">
+      <identifying>
+         <context type="trip"/>
+         <reference name="to" type="place">
+            <riser path=".."/>
+            <diagonal path="../follows"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="place"/>
+</entity_model>

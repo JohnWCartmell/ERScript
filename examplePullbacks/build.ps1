@@ -129,15 +129,15 @@ attrib +R $TARGETXML\*.xml
 
 pushd $TARGETXML
 
-. $TARGET\scripts\buildExampleSVG.ps1 genericPullback -animate 
-. $TARGET\scripts\buildExampleSVG.ps1 tripFollowsItinerary -animate
-. $TARGET\scripts\buildExampleSVG.ps1 castOfPlay -animate
-. $TARGET\scripts\buildExampleSVG.ps1 recitalOfScript -animate 
-. $TARGET\scripts\buildExampleSVG.ps1 hearingOfRecital -animate
-. $TARGET\scripts\buildExampleSVG.ps1 functionCall -animate 
-. $TARGET\scripts\buildExampleSVG.ps1 coordinateSystem -animate
-. $TARGET\scripts\buildExampleSVG.ps1 shuffledPackOfCards -animate 
-. $TARGET\scripts\buildExampleSVG.ps1 diagramOfEntityModel -animate 
+. $TARGET\scripts\buildExampleSVG.ps1 genericPullback -animate -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 tripFollowsItinerary -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 castOfPlay -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 recitalOfScript -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 hearingOfRecital -animate -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 functionCall -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 coordinateSystem -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 shuffledPackOfCards -animate  -longSeparator TBD -shortSeparator TBD
+. $TARGET\scripts\buildExampleSVG.ps1 diagramOfEntityModel -animate  -longSeparator TBD -shortSeparator TBD
 popd 
 
 

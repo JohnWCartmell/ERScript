@@ -27,6 +27,21 @@
             <a href="http://www.entitymodelling.org/tutorialone/pullbacks.html">ExistenceAssertions/Pullbacks</a>
             of the online entity modelling book.
          </p>
+         <p>
+               <div id="svgcontainer">
+                  <object id="svg-object"
+                           data="genericPullback..diagram.svg"
+                           type="image/svg+xml">xxfiller to stop contraction of this xml element</object>
+               </div>
+         </p>
+         <p>
+               <div id="svgcontainer">
+                  <object id="svg-object"
+                           data="http://www.entitymodelling.org/svg/AB.svg"
+                           type="image/svg+xml">xxfiller to stop contraction of this xml element</object>
+               </div>
+         </p>
+
       </description>
       <reference>
          <name>projection_rel</name>

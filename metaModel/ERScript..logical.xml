@@ -35,6 +35,7 @@
 
    <entity_type name="attribute">
       <composition name="xmlRepresentation" type="xmlStyle(2)?"/>
+      <composition type="deprecated"/>
    </entity_type>
 
    <entity_type name="directional path">

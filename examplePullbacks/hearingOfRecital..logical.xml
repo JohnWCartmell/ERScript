@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="hearingofRecital">
+      <composition type="hearing*"/>
+      <composition type="recital*"/>
+   </absolute> -->
+   <entity_type name="hearing">
+      <composition type="heard_line*">
+         <pullback>
+            <projection_rel>hearing of</projection_rel>
+            <along>
+               of
+            </along>
+         </pullback>
+      </composition>
+      <reference name="of" type="recital"/>
+   </entity_type>
+   <entity_type name="recital">
+      <composition type="spoken_line*"/>
+   </entity_type>
+   <entity_type name="heard_line">
+      <identifying>
+         <context type="hearing"/>
+         <reference name="hearing of" type="spoken_line">
+            <riser path=".."/>
+            <diagonal path="../of"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="spoken_line"/>
+</entity_model>

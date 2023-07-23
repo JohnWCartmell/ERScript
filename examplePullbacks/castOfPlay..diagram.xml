@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="castOfPlay..logical.xml"/>
+   <include_model filename="castOfPlay..presentation.xml"/>
+</entity_model>

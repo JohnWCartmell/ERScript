@@ -182,7 +182,7 @@
    </entity_type>
 
    <entity_type>
-      <name>reference_or_dependency</name>
+      <name>primitive relationship</name>
       <presentation>
          <x>4.0</x>
          <y>-0.6</y>
@@ -299,17 +299,7 @@
          </name>
       </presentation>
    </entity_type>
-   <entity_type>
-      <name>constructed_relationship</name>
-      <reference>
-         <name>inverse</name>
-         <diagram>
-            <path>
-               <srcarmlen>1.0</srcarmlen>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
+
    <entity_type>
       <name>constructed_relationship</name>
       <composition>
@@ -384,7 +374,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>directional relationship</name>
+      <name>primitive relationship</name>
       <composition>
          <type>identifying(1)</type>
          <diagram>
@@ -416,20 +406,19 @@
    </entity_type>
 
    <entity_type>
-      <name>identifying(1)</name>
+      <name>sequence</name>
       <presentation> 
          <below>directional relationship</below>
          <x>0.5</x>
-         <deltaw>-0.35</deltaw>
       </presentation>
    </entity_type>
 
-
    <entity_type>
-      <name>sequence</name>
+      <name>identifying(1)</name>
       <presentation>
-         <rightOf>identifying(1)</rightOf>
-         <!-- <x>0.5</x> -->
+         <rightOf>sequence</rightOf>
+         <x>0.2</x>
+         <deltaw>-0.35</deltaw>
       </presentation>
    </entity_type>
 
@@ -437,7 +426,7 @@
       <name>auxiliary_scope_constraint</name>
       <presentation>
          <name><Split/></name>
-         <rightOf>sequence</rightOf>
+         <rightOf>identifying(1)</rightOf>
          <x>1.5</x>
          <y>0</y>
          <deltah>0.5</deltah>

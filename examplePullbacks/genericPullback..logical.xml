@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
-   <absolute name="genericPullback">
+<!--    <absolute name="genericPullback">
       <composition type="E1*"/>
       <composition type="E2*"/>
-   </absolute>
+   </absolute> -->
    <entity_type name="E1">
       <composition type="E3*">
          <pullback>

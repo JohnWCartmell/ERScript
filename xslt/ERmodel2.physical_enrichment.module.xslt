@@ -442,10 +442,10 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                 <!-- <xsl:message>exclude_rel_name  is '<xsl:value-of select="$exclude_rel_name"/>' copying attribute '<xsl:value-of select="name"/>' implementation of relationship named `<xsl:value-of select="implementationOf/rel"/>'</xsl:message> -->
             </xsl:if>
              <xsl:copy>
-                <xsl:element name="destAttr...ENTITY_TYPE.name">
+                <xsl:element name="destAttr...entity_type_like.name">
                       <xsl:value-of select="../name"/>
                 </xsl:element>
-                <xsl:apply-templates select="*[not(self::destAttr...ENTITY_TYPE.name)]"/>   
+                <xsl:apply-templates select="*[not(self::destAttr...entity_type_like.name)]"/>   
              </xsl:copy>
          </xsl:if>
     </xsl:for-each>
@@ -484,9 +484,9 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                             <src>
                                 <xsl:value-of select="$etname"/>
                             </src>
-                            <rel...ENTITY_TYPE.name>
+                            <rel...entity_type_like.name>
                                 <xsl:value-of select="$navigationHead/parent::entity_type/name"/>
-                            </rel...ENTITY_TYPE.name>
+                            </rel...entity_type_like.name>
                            <rel>
                               <xsl:value-of select="$navigationHead/name"/>
                            </rel>
@@ -695,7 +695,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                <xsl:value-of select="$implemented_rel_type"/>
             </xsl:element>
         <!-- change  log ... 26 May 2023 -->
-            <xsl:element name= "destAttr...ENTITY_TYPE.name">
+            <xsl:element name= "destAttr...entity_type_like.name">
                 <xsl:value-of select="../name"/>  <!-- 2 Jun 2023 -->
             </xsl:element>
          <!-- end 26 May 23-->
@@ -734,13 +734,18 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
    <xsl:element name="attribute">           
       <xsl:element name="name">
    <!--      <xsl:value-of select="if ($style='hs') then $relationship/name else concat($prefix,name)"/> -->
-             <xsl:value-of select="if (
-                                        $style='hs' 
-                                         and 
-                                        not(implementationOf or reached_by (:was cascaded:) (: 26/06/2023 :) )
-                                      ) 
-                                   then $relationship/name 
-                                   else concat($prefix,name)"/>
+             <xsl:value-of select="replace(
+                                            if(
+                                                $style='hs' 
+                                                 and 
+                                                not(implementationOf or reached_by (:was cascaded:) (: 26/06/2023 :) )
+                                              ) 
+                                           then $relationship/name 
+                                           else concat($prefix,name),
+                                           ' ',
+                                           '_'
+                                           )
+                                    "/>
       </xsl:element>
       <xsl:choose>
          <xsl:when test="$is_identifying='identifying'">
@@ -748,7 +753,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                        select="*[not(self::name|self::implementationOf|self::description
                                   | self::reached_by 
                                   | self::xmlRepresentation                      
-                                  | self::destAttr...ENTITY_TYPE.name | self::optional)]"
+                                  | self::destAttr...entity_type_like.name | self::optional)]"
                        mode="with_identifier"/> 
          </xsl:when>
          <xsl:otherwise>
@@ -756,7 +761,7 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
                        select="*[not(self::name|self::implementationOf|self::description
                                   | self::reached_by
                                   | self::xmlRepresentation
-                                  | self::destAttr...ENTITY_TYPE.name |  self::optional)]" 
+                                  | self::destAttr...entity_type_like.name |  self::optional)]" 
                        mode="without_identifier"/>  
          </xsl:otherwise>
       </xsl:choose>
@@ -774,8 +779,8 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
              <xsl:value-of select="name"/>
          </xsl:element>
          <!--   SEE CHANGELOG 26-May-2023  2-June-2023-->   
-         <xsl:element name="destAttr...ENTITY_TYPE.name">
-             <xsl:value-of select="destAttr...ENTITY_TYPE.name"/>
+         <xsl:element name="destAttr...entity_type_like.name">
+             <xsl:value-of select="destAttr...entity_type_like.name"/>
          </xsl:element>
          <xsl:copy-of select="reached_by"/>
       </xsl:element>

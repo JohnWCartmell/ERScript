@@ -363,11 +363,24 @@ CHANGE HISTORY
               </table>
               </p>
           </xsl:if>
-          <xsl:if test="self::entity_type and (child::composition or child::reference)">
+          <xsl:if test="   self::entity_type
+                        and
+                         (child::composition 
+                          or child::reference
+                          or (
+                                  not(child::entity_type)
+                              and (
+                                   ancestor::entity_type/(child::composition | child::reference)
+                                  )
+                             )
+                          )">
               <p>
                <xsl:text>See also</xsl:text>
                 <table>
-                 <xsl:for-each select="child::composition | child::reference">
+                 <xsl:for-each select="if (not(child::entity_type))
+                                       then ancestor-or-self::entity_type/(child::composition | child::reference)
+                                       else child::composition | child::reference
+                                       ">
                     <tr>
                       <td>
                        <button>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="shuffledPackOfCards">
+      <composition type="shuffle*"/>
+      <composition type="pack*"/>
+   </absolute> -->
+   <entity_type name="shuffle">
+      <composition type="card(2)*">
+         <pullback>
+            <projection_rel>is</projection_rel>
+            <along>
+               of
+            </along>
+         </pullback>
+      </composition>
+      <reference name="of" type="pack"/>
+   </entity_type>
+   <entity_type name="pack">
+      <composition type="card*"/>
+   </entity_type>
+   <entity_type name="card(2)">
+      <identifying>
+         <context type="shuffle"/>
+         <reference name="is" type="card">
+            <riser path=".."/>
+            <diagonal path="../of"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="card"/>
+</entity_model>

@@ -44,7 +44,8 @@
          <reference name="type" type="entity type like"/>  <!-- change of 2nd June  --> 
       </identifying>
       <!-- <reference name="type" type="entity type like"/> -->
-      <entity_type name="reference_or_dependency">
+      <entity_type name="primitive relationship">
+         <composition type="identifying(1)?"/>
          <entity_type name="dependency">
             <reference name="inverse_of" type="composition?" inverse="inverse">
                <auxiliary_scope_constraint identifying_relationship="type"
@@ -63,10 +64,6 @@
       </entity_type>
       <entity_type name="constructed_relationship">
          <composition type="directional path"/>
-         <reference name="inverse" type="constructed_relationship?" inverse="inverse" diagonal="type" riser="..">
-               <auxiliary_scope_constraint identifying_relationship="type"
-                                           equivalent_path=".."/>
-         </reference>
       </entity_type>
       <entity_type name="composition">
          <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."> 
@@ -75,7 +72,6 @@
          </reference>
       </entity_type>
       <composition type="sequence?"/>
-      <composition type="identifying(1)?"/>
       <composition name="cardinality" type="cardinality"/>
       <attribute name="description" type="string?"/>
       <attribute name="id" type="string?"/>
@@ -86,7 +82,7 @@
    <entity_type name="auxiliary_scope_constraint">
        <composition name="equivalent_path" type="directional path"/>
        <reference name="identifying_relationship" 
-                  type="reference_or_dependency"
+                  type="primitive relationship"
                   diagonal="^"
                   riser="^"/>
    </entity_type> 
@@ -119,7 +115,7 @@
 
    <entity_type name="implementationOf">
       <reference name="destAttr" type="attribute"/>
-      <reference name="rel" type="reference_or_dependency" diagonal="../.." riser=".."/>
+      <reference name="rel" type="primitive relationship" diagonal="../.." riser=".."/>
       <composition name="reached_by" type="directional path?"/>
    </entity_type>
    <entity_type name="value_type">

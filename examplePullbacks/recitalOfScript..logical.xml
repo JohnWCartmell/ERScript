@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+<!--    <absolute name="recitalOfScript">
+      <composition type="recital*"/>
+      <composition type="script*"/>
+   </absolute> -->
+   <entity_type name="recital">
+      <composition type="spoken_line*">
+         <pullback>
+            <projection_rel>articulation of</projection_rel>
+            <along>
+               of
+            </along>
+         </pullback>
+      </composition>
+      <reference name="of" type="script"/>
+   </entity_type>
+   <entity_type name="script">
+      <composition type="line*"/>
+   </entity_type>
+   <entity_type name="spoken_line">
+      <identifying>
+         <context type="recital"/>
+         <reference name="articulation of" type="line">
+            <riser path=".."/>
+            <diagonal path="../of"/>
+         </reference>
+      </identifying>
+   </entity_type>
+   <entity_type name="line"/>
+</entity_model>
