@@ -6,11 +6,11 @@
    <include_model filename="ERA..commonDefinitions.xml"/>
 
    <entity_type name="composition">
-      <composition type="pullback?" inverse=".."/>  
+      <composition type="pullback?" inverse="subject_relationship"/>  
    </entity_type>
  
    <entity_type name="pullback">
-      <reference name="projection_rel" type="reference?" diagonal="../type" riser="..">
+      <reference name="projection_rel" type="reference?" diagonal="subject_relationship/type" riser="host_entity_type">
          <auxiliary_scope_constraint identifying_relationship="type"
                                      equivalent_path="type"/>
       </reference>

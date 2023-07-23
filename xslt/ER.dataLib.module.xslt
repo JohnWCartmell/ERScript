@@ -55,7 +55,7 @@ $getDefinitionOfInstance
                             ]
                         return if (count($etDefsDoubleFiltered) eq 1)
                                then $etDefsDoubleFiltered
-                               else fn:error(fn:QName('http://www.entitymodelling.org/IV', 'er:defnnotdefintive'),'wrong count (' || count($etDefsDoubleFiltered) || ')looking for  defn of instance' || $instance/name(),$instance)     
+                               else fn:error(fn:QName('http://www.entitymodelling.org/IV', 'er:defnnotdefintive'),'wrong count (' || count($etDefsDoubleFiltered) || ')looking for  defn of instance ' || $instance/name(),$instance)     
 },
 
 $instanceClassifiedByEntityType

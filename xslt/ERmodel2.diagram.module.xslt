@@ -1520,13 +1520,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
-  <!--
-   <xsl:message> composition relationship 
+
+   <!-- <xsl:message> composition relationship 
 	  et '<xsl:value-of select="../name"/>' 
 	  name '<xsl:value-of select="name"/>'
 	 type  '<xsl:value-of select="type"/>' 
-   </xsl:message>
--->
+   </xsl:message> -->
+
 
   <xsl:if test="not(type)">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'compositionn rel mising type'), name)"/>
@@ -1534,15 +1534,27 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:if test="not(key('EntityTypes',type))">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'missing-entity-type'), type)"/>
   </xsl:if>
-  <xsl:variable name="inverse">
-     <xsl:if test='inverse'>
+  <xsl:variable name="inverse" 
+                as="element(dependency)?"
+                select="key('RelationshipBySrcTypeAndName',
+                              concat(type,':',inverse)
+                           )[current()/../name = type]
+                           "/>
+   <!--  <xsl:if test='inverse'>
        <xsl:for-each select="key('RelationshipBySrcTypeAndName',
 			       concat(type,':',inverse)
 			      )">
 	   <xsl:copy-of select="./child::*"/>
        </xsl:for-each>
      </xsl:if>
-  </xsl:variable>
+  </xsl:variable> -->
+
+  <xsl:variable name="identifying"
+                as="xs:boolean"
+                select="if ($inverse)
+                        then exists($inverse/identifying)
+                        else false()
+                       "/>
 
   <xsl:variable name="srcbasex">
      <xsl:for-each select="..">
@@ -1677,7 +1689,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
         </xsl:when>
 	<xsl:when test="sequence">
 	   <xsl:choose>
-	      <xsl:when test="identifying">
+	      <xsl:when test="$identifying">
 		 <xsl:value-of select="$comprelDestArmLenDelta
 					    + $seq_y_offset + $relid_step"/>  <!-- was seq_y_top_offset -->
 	      </xsl:when>
@@ -1687,7 +1699,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	      </xsl:otherwise>
 	   </xsl:choose>
 	</xsl:when>
-	<xsl:when test="identifying">
+	<xsl:when test="$identifying">
 	   <xsl:value-of select="$comprelDestArmLenDelta + 
 					    + $relid_offset + $relid_step"/>
 	</xsl:when>
@@ -1775,7 +1787,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
      <xsl:if test="sequence">
      <xsl:choose>
-       <xsl:when test="identifying">
+       <xsl:when test="$identifying">
      <xsl:call-template name="sequence">
         <xsl:with-param name="x" select="$destx"/>
         <xsl:with-param name="y" select="$desty - 0.05 
@@ -1790,14 +1802,14 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
        </xsl:otherwise>
      </xsl:choose>
   </xsl:if>
-  <xsl:if test="identifying and not(pullback)">  
+  <xsl:if test="$identifying and not(pullback)">  
      <xsl:call-template name="identifier_comprel">
    <xsl:with-param name="x" select="$destx"/>
    <xsl:with-param name="y" select="$desty - $relid_offset"/>
    <xsl:with-param name="width" select="$relid_width"/>
      </xsl:call-template>
   </xsl:if>
-    <xsl:if test="identifying and pullback">  
+    <xsl:if test="$identifying and pullback">  
      <xsl:call-template name="identifier_comprel">
    <xsl:with-param name="x" select="$destx"/>
    <xsl:with-param name="y" select="$desty - 2 * $relcrowlen"/>

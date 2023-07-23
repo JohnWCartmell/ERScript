@@ -64,14 +64,15 @@
    <entity_type name="composition">
          <composition name="xmlRepresentation" type="xmlStyle(1)?" inverse="subject_rel"/>
          <composition type="transient?"/>
-         <composition type="initialiser?" inverse=".."/>
+         <composition type="initialiser?" inverse="subject_relationship"/>
    </entity_type>
 
    <entity_type name="transient"/>
 
    <entity_type name="initialiser">
       <entity_type name="pullback">
-         <reference name="projection_rel" type="reference?" diagonal="../type" riser="..">
+         <reference name="projection_rel" type="reference?" 
+                                diagonal="subject_relationship/type" riser="host_entity_type">
             <auxiliary_scope_constraint identifying_relationship="type"
                                         equivalent_path="type"/>
          </reference>

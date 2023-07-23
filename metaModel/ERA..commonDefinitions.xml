@@ -21,8 +21,8 @@
       <entity_type name="entity_type">
          <composition type="entity_type*"/>
       </entity_type>
-      <composition type="directional relationship*" inverse=".."/>
-      <composition type="attribute*" inverse=".."/>
+      <composition type="directional relationship*" inverse="host_entity_type"/>
+      <composition type="attribute*" inverse="host_entity_type"/>
       <attribute name="description" type="string?"/>
    </entity_type>
 
@@ -39,7 +39,7 @@
    </entity_type>
    <entity_type name="directional relationship">
       <identifying>
-         <context type="entity type like"/>
+         <context name="host_entity_type" type="entity type like"/>
          <attribute name="name" type="string?"/>
          <reference name="type" type="entity type like"/>  <!-- change of 2nd June  --> 
       </identifying>
@@ -49,16 +49,16 @@
          <entity_type name="dependency">
             <reference name="inverse_of" type="composition?" inverse="inverse">
                <auxiliary_scope_constraint identifying_relationship="type"
-                                           equivalent_path=".."/>
+                                           equivalent_path="host_entity_type"/>
             </reference>
          </entity_type>
          <entity_type name="reference">
             <composition name="diagonal" type="directional path?"/>
             <composition name="riser" type="directional path?"/>
-            <composition type="auxiliary_scope_constraint*"/>
-            <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser="..">
+            <composition type="auxiliary_scope_constraint*" inverse="subject_relationship"/>
+            <reference name="inverse" type="reference?" inverse="inverse" diagonal="type" riser="host_entity_type">
                <auxiliary_scope_constraint identifying_relationship="type"
-                                           equivalent_path=".."/>
+                                           equivalent_path="host_entity_type"/>
             </reference>
          </entity_type>
       </entity_type>
@@ -66,17 +66,15 @@
          <composition type="directional path"/>
       </entity_type>
       <entity_type name="composition">
-         <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser=".."> 
+         <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser="host_entity_type"> 
                <auxiliary_scope_constraint identifying_relationship="type"
-                                           equivalent_path=".."/>     
+                                           equivalent_path="host_entity_type"/>     
          </reference>
       </entity_type>
       <composition type="sequence?"/>
       <composition name="cardinality" type="cardinality"/>
       <attribute name="description" type="string?"/>
       <attribute name="id" type="string?"/>
-      <!-- <attribute name="scope" type="string?"/> -->
-      <!-- <attribute name="physical_prefix" type="string?"/> -->
    </entity_type>
    <entity_type name="sequence"/>
    <entity_type name="auxiliary_scope_constraint">
@@ -115,7 +113,7 @@
 
    <entity_type name="implementationOf">
       <reference name="destAttr" type="attribute"/>
-      <reference name="rel" type="primitive relationship" diagonal="../.." riser=".."/>
+      <reference name="rel" type="primitive relationship" diagonal="../host_entity_type" riser="host_entity_type"/>
       <composition name="reached_by" type="directional path?"/>
    </entity_type>
    <entity_type name="value_type">
