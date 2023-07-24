@@ -71,7 +71,7 @@ CHANGE HISTORY
           <xsl:choose>
               <xsl:when test="$bundleOn">
                 <svg:style>
-                    <xsl:value-of select="unparsed-text('../../css/erdiagramsvgstyles.css')" 
+                    <xsl:value-of select="unparsed-text('../css/erdiagramsvgstyles.css')" 
                               disable-output-escaping="yes"/>
                 </svg:style>
               </xsl:when>
@@ -110,7 +110,7 @@ CHANGE HISTORY
           <xsl:choose>
               <xsl:when test="$bundleOn">
                 <style>
-                    <xsl:value-of select="unparsed-text('../../css/ersvgdiagramwrapper.css')" 
+                    <xsl:value-of select="unparsed-text('../css/ersvgdiagramwrapper.css')" 
                               disable-output-escaping="yes"/>
                 </style>
               </xsl:when>
@@ -122,7 +122,7 @@ CHANGE HISTORY
           <script>
             <xsl:choose>
                <xsl:when test="$bundleOn">
-                  <xsl:value-of select="unparsed-text('../../js/ersvgdiagraminteraction.js')" 
+                  <xsl:value-of select="unparsed-text('../js/ersvgdiagraminteraction.js')" 
                               disable-output-escaping="yes"/>
                </xsl:when>
                <xsl:otherwise>
@@ -134,7 +134,7 @@ CHANGE HISTORY
           <script>
             <xsl:choose>
                <xsl:when test="$bundleOn">
-                  <xsl:value-of select="unparsed-text('../../js/draggable.js')" 
+                  <xsl:value-of select="unparsed-text('../js/draggable.js')" 
                               disable-output-escaping="yes"/>
                </xsl:when>
                <xsl:otherwise>

@@ -28,7 +28,7 @@ echo 'ERA.surface'
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
-}
+
 
 echo 'ERA'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs -longSeparator ... -shortSeparator . 
@@ -42,6 +42,33 @@ echo 'Run ER.instanceValidation.xslt on ERA physical model'
 
 echo 'Run ER.instanceValidation.xslt on ERScript physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERScript..physical.xml -outputFolder ..\docs -debugSwitch
+}
+
+
+if ($false)
+{
+echo 'run genSVG.ps1 pullback.projection_rel..primary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 pullback.projection_rel..primary_scope.xml -bundle
+
+echo 'run genSVG.ps1 pullback.projection_rel..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 pullback.projection_rel..auxiliary_scope.xml -bundle
+
+echo 'run genSVG.ps1 reference.inverse..primary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 reference.inverse..primary_scope.xml -bundle
+
+echo 'run genSVG.ps1 reference.inverse..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 reference.inverse..auxiliary_scope.xml -bundle
+
+echo 'run genSVG.ps1 composition.inverse..primary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 composition.inverse..primary_scope.xml -bundle
+
+echo 'run genSVG.ps1 composition.inverse..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 composition.inverse..auxiliary_scope.xml -bundle
+}
+
+echo 'run genSVG.ps1 component.rel..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 component.rel..auxiliary_scope.xml -bundle
+
 
 if ($false)
 {

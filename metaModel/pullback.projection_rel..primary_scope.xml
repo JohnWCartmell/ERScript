@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              ERScriptVersion="1.6">
+
+   <!-- <include_model filename="ERA..commonDefinitions.xml"/> -->
+
+   <presentation>
+      <diagram>
+         <deltah>0.6</deltah>
+      </diagram>
+   </presentation>
+
+   <entity_type name="composition">
+      <presentation>
+         <x>0.6</x>
+         <y>1.0</y>
+         <shape>
+            <TopLeft/>
+         </shape>
+      </presentation>
+      <composition type="pullback?" name="x" inverse="host_entity_type">
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+
+      <reference name="type" type="entity_type">
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type name="entity_type">
+      <presentation>
+         <rightOf>composition</rightOf>
+         <x>3.0</x>
+         <shape>
+            <TopRight/>
+         </shape>
+      </presentation>
+      <composition type="reference*" inverse="host_entity_type">
+      </composition>
+   </entity_type>
+
+   <entity_type name="pullback">
+      <presentation>
+         <below>composition</below>
+         <y>1.5</y>
+         <shape>
+            <BottomLeft/>
+         </shape>
+      </presentation>
+   </entity_type>
+
+   <entity_type name="pullback">
+      <reference  name="projection_rel" type="reference">
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+                  <name>
+                     <NoSplit/>
+                  </name>
+                  <xAdjustment>0.1</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+               <scope>
+                  <label>
+                     <xAdjustment>-0.5</xAdjustment>
+                  </label>
+               </scope>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type name="reference">
+      <presentation>
+         <rightOf>pullback</rightOf>
+         <below>entity_type</below>
+         <shape>
+            <BottomRight/>
+         </shape>
+      </presentation>
+   </entity_type>
+</entity_model>

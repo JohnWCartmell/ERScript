@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              ERScriptVersion="1.6">
+
+   <!-- <include_model filename="ERA..commonDefinitions.xml"/> -->
+
+   <presentation>
+      <diagram>
+         <deltah>0.6</deltah>
+         <deltaw>0.2</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type name="entity_type">
+      <presentation>
+         <x>4.5</x>
+         <y>1.0</y>
+         <shape>
+            <Top/>
+         </shape>
+      </presentation>
+      <composition type="reference*" inverse="host_entity_type"/> 
+   </entity_type>
+
+   <entity_type name="reference&#160;">  <!-- use trailing 'non-breaking'  space so that "reference" may appear twice over on diagram -->
+      <presentation>
+         <below>entity_type</below>
+         <x>-4.0</x>
+         <y>1.0</y>
+         <deltaw>0.1</deltaw>
+         <deltah>0.4</deltah>
+         <shape>
+            <BottomLeft/>
+         </shape>
+      </presentation>
+      <reference  name="type" type="entity_type">
+         <diagram>
+            <path>
+               <srcattach>0.25</srcattach>
+               <destattach>0.4</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               <!--    <xAdjustment>0.1</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment> -->
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference  name="inverse" type="reference">
+         <diagram>
+            <path>
+               <align><ToSrc/></align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+                  <name>
+                     <NoSplit/>
+                  </name>
+                  <!-- <xAdjustment>0.1</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment> -->
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type name="reference">
+      <presentation>
+         <rightOf>reference&#160;</rightOf>
+         <below>entity_type</below>
+         <deltah>0.4</deltah>
+         <shape>
+            <Bottom/>
+         </shape>
+      </presentation>
+   </entity_type>
+</entity_model>
