@@ -14,7 +14,7 @@
    <entity_type name="entity_type">
       <presentation>
          <x>4.5</x>
-         <y>1.0</y>
+         <y>0.1</y>
          <shape>
             <Top/>
          </shape>

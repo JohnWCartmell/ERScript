@@ -19,13 +19,10 @@ Produce the following diagrams
 8. implementationOf.rel..primary_scope.xml
 
 ### Implementation
-1. Have one source file for each diagram which 
-- includes   ERA..logical and, indirectly, ERA..commonDefinitions.
-- has presentation specification for required types and relationshps.
 
-2. Add the source files to the metaModel folder.
+1. Add the source files to the metaModel folder.
 
-3. Update build.ps1 in folder metaModel to build each of the 8 diagrams
+2. Update build.ps1 in folder metaModel to build each of the 8 diagrams
    using script genSVG.ps1.
 
 ### Completion Date

@@ -13,20 +13,53 @@
 
    <entity_type name="entity_type">
       <presentation>
-         <x>7.3</x>
-         <y>0.5</y>
-         <deltah>0.5</deltah>
+         <x>4.5</x>
+         <y>1.0</y>
          <shape>
-            <TopRight/>
+            <Top/>
          </shape>
       </presentation>
+      <composition type="attribute*" inverse="host_entity_type">
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition> 
+      <composition type="primitive_relationship*" inverse="host_entity_type"/> 
    </entity_type>
 
-
-   <entity_type name="component">
+   <entity_type name="attribute">  
       <presentation>
          <below>entity_type</below>
-         <x>-7.0</x>
+         <x>-4.0</x>
+         <y>1.0</y>
+         <deltaw>0.1</deltaw>
+         <deltah>0.4</deltah>
+         <shape>
+            <Left/>
+         </shape>
+      </presentation>
+      <composition type="implementationOf?" inverse="..">
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+
+   <entity_type name="implementationOf"> 
+      <presentation>
+         <below>attribute</below>
          <y>1.0</y>
          <deltaw>0.1</deltaw>
          <deltah>0.4</deltah>
@@ -35,29 +68,7 @@
          </shape>
       </presentation>
 
-      <reference  name="type" type="entity_type">
-         <diagram>
-            <path>
-               <srcattach>0.25</srcattach>
-               <destattach>0.4</destattach>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-               <!--    <xAdjustment>0.1</xAdjustment>
-                  <yAdjustment>-0.1</yAdjustment> -->
-               </label>
-               <inverse>
-                  <label>
-                     <position>
-                        <Downside/>
-                     </position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </reference>
-      <reference  name="rel" type="directional_relationship">
+      <reference  name="rel" type="primitive_relationship">
          <diagram>
             <path>
                <align><ToSrc/></align>
@@ -76,31 +87,14 @@
       </reference>
    </entity_type>
 
-   <entity_type name="directional_relationship">
+   <entity_type name="primitive_relationship">
       <presentation>
-         <rightOf>component</rightOf>
-         <x>2.0</x>
-         <!-- <y>0.5</y> -->
+         <rightOf>implementationOf</rightOf>
+         <below>entity_type</below>
          <deltah>0.4</deltah>
          <shape>
             <Bottom/>
          </shape>
-         <name><Split/></name>
       </presentation>
-      <reference name="type" type="entity_type">
-         <identifying/>
-         <diagram>
-            <path>
-               <destattach>0.75</destattach>
-               <destsign>-1</destsign>
-               <srcarmlen>0.4</srcarmlen>
-               <label>
-                  <position>
-                     <Downside/>
-                  </position>
-               </label>
-            </path>
-         </diagram>
-      </reference>
    </entity_type>
 </entity_model>

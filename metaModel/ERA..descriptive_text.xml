@@ -27,21 +27,6 @@
             <a href="http://www.entitymodelling.org/tutorialone/pullbacks.html">ExistenceAssertions/Pullbacks</a>
             of the online entity modelling book.
          </p>
-         <p>
-               <div id="svgcontainer">
-                  <object id="svg-object"
-                           data="genericPullback..diagram.svg"
-                           type="image/svg+xml">xxfiller to stop contraction of this xml element</object>
-               </div>
-         </p>
-         <p>
-               <div id="svgcontainer">
-                  <object id="svg-object"
-                           data="http://www.entitymodelling.org/svg/AB.svg"
-                           type="image/svg+xml">xxfiller to stop contraction of this xml element</object>
-               </div>
-         </p>
-
       </description>
       <reference>
          <name>projection_rel</name>
@@ -52,6 +37,22 @@
             </p>
             <p>
                The <i>projection_rel</i> of a pullback is specified as an instance of a <i>reference</i> relationship.
+            </p>
+            <p>
+               The primary scope for this relationship is shown in the following diagram:
+               <div id="svgcontainer">
+                  <object id="svg-object"
+                           data="pullback.projection_rel..primary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               </div>
+            </p>
+            <p>
+               TThis relationship also has an auxiliary scope which can be illustrated as follows 
+               <div id="svgcontainer">
+                  <object id="svg-object"
+                           data="pullback.projection_rel..auxiliary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               </div>
             </p>
          </description>
       </reference>

@@ -276,6 +276,22 @@
                   <p>
                      Relates a reference relationship to a second not necesarily distint reference relationship that is its inverse.
                   </p>
+                  <p>
+               This relationship  has an primary scope constraint. This can be illustrated as follows 
+               <!-- <div id="svgcontainer"> -->
+                  <object id="svg-object"
+                           data="reference.inverse..primary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               <!-- </div> -->
+               </p>
+                <p>
+               This relationship  also has an auxiliary scope constraint. This is illustrated as follows 
+               <!-- <div id="svgcontainer"> -->
+                  <object id="svg-object"
+                           data="reference.inverse..auxiliary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               <!-- </div> -->
+               </p>
                </description>
             </reference>
             <composition>
@@ -388,6 +404,37 @@
                <p>
                   Relates a composition relationship to the dependency that is its inverse.
                </p>
+                <p>
+               This relationship has a constraint that
+               "the host entity type of the inverse of a composition relationship must be the destination
+               type of the relationship".
+
+               Equationally this is to say the the directional path <i>inverse/host_entity_type</i>
+               is equivalent to the (single step) path <i>type</i>.
+               In the entity model this equivalence  is modelled as a primary scope constraint by specifying the <i>inverse</i> relationship to have  
+                <i>host_entity_type</i> as  <i>riser</i> and 
+                <i>type</i> as <i>diagonal</i>. 
+               We can illustrate the relationships involved in this commutative diagram:
+               </p>
+                  <object id="svg-object"
+                           data="composition.inverse..primary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+    
+                <p>
+               This relationship has a second constraint that
+               "the destination <i>type</i> of the <i>inverse</i> of a composition relationship
+               must be the <i>host_entity_type</i> of the relationship".
+               Equationally this is to say the the directional path <i>inverse/type</i>
+               is equivalent to the (single step) path <i>host_entity_type</i>.
+               In the entity model this equivalence  is modelled as an auxiliary scope constraint of the
+               relationship <i>inverse</i> by specifying <i>type</i> as the <i>identifying_relationship</i>
+               and  <i>host_entity_type</i> as the <i>equivalent_path</i>.
+               The relationships involved are shown in this commutative diagram:
+            </p>
+                  <object id="svg-object"
+                           data="composition.inverse..auxiliary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+
             </description>
          </reference>
       </entity_type>
@@ -556,7 +603,18 @@
          <reference>
             <name>rel</name>
             <type>directional relationship</type>
-            <description><p>The relationship along which a step is taken.</p></description>
+            <description>
+               <p>The relationship along which a step is taken.
+               </p>
+               <p>
+               This relationship  has an auxiliary scope constraint which can be illustrated as follows 
+               <!-- <div id="svgcontainer"> -->
+                  <object id="svg-object"
+                           data="component.rel..auxiliary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               <!-- </div> -->
+               </p>
+            </description>
          </reference>
       </entity_type>
 
@@ -692,6 +750,14 @@
             <p>
                This is the reference relationship which is in whole or in part implemented by this foreign key attribute.
             </p>
+            <p>
+               This relationship  has a primary scope constraint. 
+               The 'diagonal' is '../host_entity_type' and the
+               'riser' is 'host_entity_type'. This scope constraint can be illustrated as follows 
+                  <object id="svg-object"
+                           data="implementationOf.rel..primary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
+               </p>
          </description>
       </reference>
       <composition>
