@@ -1662,7 +1662,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
     </xsl:for-each>
   </xsl:variable>
 
-
   <xsl:variable name="srcarmlen">
     <xsl:choose>
       <xsl:when test="diagram/path/srcarmlen">
@@ -3507,36 +3506,29 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:template name="render_path" match="constructed_relationship|composition|reference">
     <xsl:param name="source_to_midpoint" as="element(line)"/> 
     <xsl:param name="midpoint_to_destination" as="element(line)"/> 
-    <xsl:param name="relationship_element_id" as="xs:string"/> 
-     <xsl:variable  name="srcMandatory">
-         <xsl:value-of select="not(cardinality) 
-                or  cardinality/ExactlyOne 
-                or cardinality/OneOrMore "/>
-     </xsl:variable>
-     <xsl:variable name="inverse">
-     <xsl:if test='inverse'>
-       <xsl:for-each select="key('RelationshipBySrcTypeAndName',
-                concat(type,':',inverse)
-               )">
-      <xsl:copy-of select="./child::*"/>
-       </xsl:for-each>
-     </xsl:if>
-  </xsl:variable>
-     <xsl:variable  name="destMandatory">
-         <xsl:value-of select="not($inverse/cardinality) 
-                or  $inverse/cardinality/ExactlyOne 
-                or $inverse/cardinality/OneOrMore "/>
-     </xsl:variable>
+    <xsl:param name="relationship_element_id" as="xs:string"/>
+
+   <xsl:variable  name="relMandatory" as="xs:boolean"
+                  select="exists(cardinality/(ExactlyOne | OneOrMore))
+                 "/>
+  <xsl:variable name="inverse" 
+                as="element()?"
+                select="if (inverse) 
+                        then key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                                    [current()/../name = type]
+                        else ()" />
+  <xsl:variable  name="inverseMandatory" as="xs:boolean"
+                  select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
 
     <!-- change to call render_half_of_relationship (in 2svg) -->
     <xsl:call-template name="render_half_of_relationship">
       <xsl:with-param name="line" select="$source_to_midpoint"/>
-      <xsl:with-param name="p_ismandatory" select="$srcMandatory"/>
+      <xsl:with-param name="is_mandatory" select="$relMandatory"/>
     </xsl:call-template>
     <!-- change to call render_half_of_relationship (in 2svg) -->
     <xsl:call-template name="render_half_of_relationship">
       <xsl:with-param name="line" select="$midpoint_to_destination"/>   
-      <xsl:with-param name="p_ismandatory" select="$destMandatory"/>
+      <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
     </xsl:call-template>
     <!-- now for the hit area -->
     <xsl:call-template name="render_hitarea">

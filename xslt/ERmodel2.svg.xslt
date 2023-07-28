@@ -28,9 +28,11 @@ CHANGE HISTORY
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
         xmlns:xlink="http://www.w3.org/TR/xlink" 
         xmlns:svg="http://www.w3.org/2000/svg" 
+        xmlns:diagram="http://www.entitymodelling.org/diagram" 
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
   <xsl:include href="ERmodel2.diagram.module.xslt"/>
+  <xsl:include href="../flexDiagramming/xslt/diagram.functions.module.xslt"/>
 
   <xsl:output method="xml" indent="yes" />
 
@@ -118,6 +120,7 @@ CHANGE HISTORY
                 <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
               </xsl:otherwise>
           </xsl:choose>
+
           <xsl:if test="$animateOn">
           <script>
             <xsl:choose>
@@ -147,6 +150,12 @@ CHANGE HISTORY
                <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
           </script>
           </xsl:if>
+          <link xmlns="http://www.w3.org/1999/xhtml"
+            rel="stylesheet"
+            type="text/css"
+            href="/css/erdiagramsvgstyles.css"/>
+
+            <xsl:call-template name="svg_defs"/>
         </head>
         <body>
           <div> 
@@ -337,6 +346,13 @@ CHANGE HISTORY
             Scope : <xsl:value-of select="scope_display_text"/>
             <br/>
           </xsl:if>
+
+          <xsl:if test="self::reference or self::composition">
+              <xsl:call-template name="generate_relationship_info_header_svg">
+                <xsl:with-param name="rel" select="."/>
+              </xsl:call-template>
+          </xsl:if>
+
           <xsl:choose>
             <xsl:when test="description">
                   <xsl:copy-of select="description"/>  <!-- was xsl:value-of -->
@@ -1122,10 +1138,10 @@ CHANGE HISTORY
 
   <xsl:template name="render_half_of_relationship" match="constructed_relationship|composition|reference">
       <xsl:param name="line" as="element(line)"/>
-      <xsl:param name="p_ismandatory"/>
+      <xsl:param name="is_mandatory" as="xs:boolean"/>
       <xsl:variable name="class">
         <xsl:choose>
-          <xsl:when test="$p_ismandatory = 'true'">mandatoryrelationshipline</xsl:when>
+          <xsl:when test="$is_mandatory">mandatoryrelationshipline</xsl:when>
           <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
@@ -1451,6 +1467,224 @@ CHANGE HISTORY
       </xsl:when>
     </xsl:choose>
   </xsl:template>
+
+<xsl:template name="generate_relationship_info_header_svg">
+  <xsl:param name="rel" as="element((:reference|composition:))"/>
+
+  <xsl:variable name="src_etname" as="xs:string" select="$rel/../name"/>
+  <xsl:variable name="srcwidth" select="diagram:stringwidth($src_etname,1) + 0.5"/>
+  <xsl:variable name="dest_etname" as="xs:string" select="$rel/type"/>
+  <xsl:variable name="destwidth" select="diagram:stringwidth($dest_etname,1) + 0.5"/> 
+
+  <xsl:variable name="relname" as="xs:string?" select="$rel/name"/>
+  <xsl:variable name="inverse_name" as="xs:string?" select="$rel/inverse"/>
+  <xsl:variable name="relationship_half_length" as="xs:float" select="1.5"/>
+  <xsl:variable  name="relMandatory" as="xs:boolean"
+                  select="exists(cardinality/(ExactlyOne | OneOrMore))
+                 "/>
+  <xsl:variable  name="relManyValued" 
+                 as="xs:boolean"
+                 select="exists(cardinality/(ZeroOneOrMore | OneOrMore))"/>
+  <xsl:variable name="inverse" 
+                as="element((:reference|composition:))?"
+                select="if (inverse) 
+                        then key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                                    [current()/../name = type]
+                        else ()" />
+  <xsl:variable  name="inverseMandatory" as="xs:boolean"
+                  select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
+  <xsl:variable  name="inverseManyValued" as="xs:boolean"
+                  select="not($inverse) or exists($inverse/cardinality/(ZeroOneOrMore | OneOrMore))"/>
+
+  <xsl:variable name="srcx" as="xs:double" select="0"/>
+  <xsl:variable name="srcy" as="xs:double" select="0.4"/>
+  <xsl:variable name="destx" as="xs:double" select="if (self::reference)
+                                                     then $srcwidth+2*$relationship_half_length
+                                                     else 0
+                                                    "/>
+  <xsl:variable name="desty" as="xs:double" select="if (self::reference)
+                                                     then 0.4
+                                                     else 2
+                                                    "/>
+  <xsl:element name="svg">
+    <xsl:attribute name="width" select="'11cm'"/>
+    <xsl:attribute name="height" select="'4cm'"/>
+
+    <xsl:call-template name="labelled_box_of_given_width">
+      <xsl:with-param name="x" select="$srcx"/>
+      <xsl:with-param name="y" select="$srcy"/>
+      <xsl:with-param name="width" select="$srcwidth"/>
+      <xsl:with-param name="label" select="$src_etname"/>
+    </xsl:call-template>
+
+    <xsl:call-template name="labelled_box_of_given_width">
+      <xsl:with-param name="x" select="$destx"/>
+      <xsl:with-param name="y" select="$desty"/>
+      <xsl:with-param name="width" select="$destwidth"/>
+      <xsl:with-param name="label" select="$dest_etname"/>
+    </xsl:call-template>
+    
+    <xsl:element name="svg">
+      <xsl:attribute name="width" select="'11cm'"/>
+      <xsl:attribute name="height" select="'4cm'"/>
+      <xsl:attribute name="viewBox" select="'0 0 11 4'"/>
+
+      <xsl:call-template name="relationship_half_line">
+        <xsl:with-param name="startx"  select="$srcwidth"/>
+        <xsl:with-param name="midx"  
+                          select="$srcwidth + $relationship_half_length"/>
+        <xsl:with-param name="starty" select="0.7"/>            
+        <xsl:with-param name="midy" select="($srcy + $desty) div 2"/>            
+        <xsl:with-param name="rolename"  select="$rel/name"/>    
+        <xsl:with-param name="is_mandatory" select="$relMandatory"/>
+        <xsl:with-param name="is_manyvalued"  select="$inverseManyValued"/>
+        <xsl:with-param name="is_identifying"  select="exists($rel/identifying)"/>
+        <xsl:with-param name="is_sequence"  select="exists($inverse/sequence)"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="relationship_half_line">
+        <xsl:with-param name="startx" 
+                            select="$srcwidth+2*$relationship_half_length"/>
+        <xsl:with-param name="midx" 
+                          select="$srcwidth + $relationship_half_length"/>
+        <xsl:with-param name="starty" select="$desty"/>            
+        <xsl:with-param name="midy" select="($srcy + $desty) div 2"/>            
+        <xsl:with-param name="rolename" select="$rel/inverse"/>
+        <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
+        <xsl:with-param name="is_manyvalued"  select="$relManyValued"/>
+        <xsl:with-param name="is_identifying"  select="exists($inverse/identifying)"/>
+        <xsl:with-param name="is_sequence"  select="exists($rel/sequence)"/>
+      </xsl:call-template>
+
+    </xsl:element>  <!-- end inner svg (relationships) -->
+  </xsl:element>  <!-- end outer svg -->
+</xsl:template>
+
+<xsl:template name="relationship_half_line">
+    <xsl:param name="startx" as="xs:double"/>
+    <xsl:param name="midx" as="xs:double"/>
+    <xsl:param name="starty" as="xs:double"/>
+    <xsl:param name="midy" as="xs:double"/>
+    <xsl:param name="rolename" as="xs:string?"/>
+    <xsl:param name="is_mandatory" as="xs:boolean"/>
+    <xsl:param name="is_manyvalued" as="xs:boolean"/>
+    <xsl:param name="is_identifying" as="xs:boolean"/>
+    <xsl:param name="is_sequence" as="xs:boolean"/>
+
+    <xsl:variable name="startxtext" select="$startx"/>
+    <xsl:variable name="midxtext" select="$midx"/>
+    <xsl:variable name="startytext" select="$starty"/>
+    <xsl:variable name="midytext" select="$midy"/>
+
+    <xsl:variable name="path_dvalue" as="xs:string"
+                  select="'M' || $startxtext || ',' || $startytext ||
+                            'L' || $midxtext || ',' || $midytext "/>
+
+    <xsl:variable name="relclass">
+        <xsl:choose>
+          <xsl:when test="$is_mandatory">mandatoryrelationshipline</xsl:when>
+          <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+
+    <xsl:element name="path">
+      <xsl:attribute name="class" select="$relclass"/>
+      <xsl:attribute name="d" select="$path_dvalue"/>
+      <xsl:if test="$is_manyvalued">
+        <xsl:attribute name="marker-start" select="'url(#crowsfoot)'"/>
+      </xsl:if>
+    </xsl:element>
+
+    <xsl:if test="$is_identifying">
+      <xsl:element name="path">
+         <xsl:attribute name="class" select="$relclass"/>
+         <xsl:attribute name="d" select="$path_dvalue"/>
+         <xsl:attribute name="marker-start" select="'url(#identifying)'"/>
+       </xsl:element>             
+    </xsl:if>
+
+    <xsl:if test="$is_sequence">
+      <xsl:element name="path">
+         <xsl:attribute name="class" select="$relclass"/>
+         <xsl:attribute name="d" select="$path_dvalue"/>
+         <xsl:attribute name="marker-start" select="'url(#squiggle)'"/>
+       </xsl:element>             
+    </xsl:if>
+
+    <xsl:element name="text">
+      <xsl:attribute name="class" select="'relname'"/>
+      <xsl:attribute name="x" 
+                      select="if ($startx &lt; $midx) then $startx + 0.1 else $startx - 0.1"/>
+      <xsl:attribute name="y"   
+                      select="if ($startx &lt; $midx) then '0.5' else '1' "/>
+      <xsl:attribute name="text-anchor" 
+                      select="if ($startx &lt; $midx) then 'start' else 'end'"/>
+      <xsl:value-of select="$rolename"/>
+    </xsl:element>
+</xsl:template>
+
+<xsl:template name="labelled_box_of_given_width">
+  <xsl:param name="x" as="xs:double"/>
+  <xsl:param name="y" as="xs:double"/>
+  <xsl:param name="width" as="xs:double"/>
+  <xsl:param name="label" as="xs:string"/>
+  <xsl:variable name="boxround" select="'0.06cm'"/>
+  <xsl:variable name="boxheight" select="'0.6cm'"/>
+  <xsl:element name="rect">
+    <xsl:attribute name="class" select="'eteven'"/>
+    <xsl:attribute name="x" select="format-number($x, '#.00') || 'cm'"/>
+    <xsl:attribute name="y" select="format-number($y, '#.00') || 'cm'"/>
+    <xsl:attribute name="rx" select="$boxround"/>
+    <xsl:attribute name="ry" select="$boxround"/>
+    <xsl:attribute name="width" select="format-number($width, '#.00') || 'cm'"/>
+    <xsl:attribute name="height" select="$boxheight"/>
+  </xsl:element>
+  <xsl:element name="text">
+    <xsl:attribute name="class" select="'etname'"/> 
+    <xsl:attribute name="x" select="format-number($x + ($width div 2), '#.00') || 'cm'"/> 
+    <xsl:attribute name="y" select="format-number($y + 0.35, '#.00') || 'cm'"/> 
+    <xsl:attribute name="text-anchor" select="'middle'"/>
+    <xsl:value-of select="$label"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template name="svg_defs">
+      <svg>
+      <defs>
+      <marker id="crowsfoot"
+                   markerWidth="10"
+                   markerHeight="12"
+                   refX="10"
+                   refY="6"
+                   stroke-width="1"
+                   stroke="black"
+                   orient="auto-start-reverse">
+         <path d="M 0,6 L 10,12 M 0,6 L 10,6 M 0,6 L 10,0"/>
+      </marker>
+      <marker id="identifying"
+                   markerWidth="17"
+                   markerHeight="16"
+                   refX="16"
+                   refY="6"
+                   stroke-width="1"
+                   stroke="black"
+                   orient="auto-start-reverse">
+         <path d="M 1,1 L 1,11"/>
+      </marker>
+      <marker id="squiggle"
+                   markerWidth="10"
+                   markerHeight="22"
+                   refX="28"
+                   refY="11"
+                   stroke="black"
+                   fill="none"
+                   orient="auto-start-reverse">
+         <path d="M 0,13 C 3,0 6,22 9,9"/>
+      </marker>
+   </defs>
+   </svg>
+</xsl:template>
+
 
 </xsl:transform>
 <!-- end of file: ERmodel_v1.2/src/ERmodel2.svg.xslt--> 

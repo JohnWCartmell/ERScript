@@ -71,7 +71,7 @@
 
    <entity_type name="initialiser">
       <entity_type name="pullback">
-         <reference name="projection_rel" type="reference?" 
+         <reference name="projection_rel" type="reference" 
                                 diagonal="subject_relationship/type" riser="host_entity_type">
             <auxiliary_scope_constraint identifying_relationship="type"
                                         equivalent_path="type"/>

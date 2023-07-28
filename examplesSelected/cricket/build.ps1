@@ -33,11 +33,12 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs -shortSeparator NA -longSeparator NA -debugSwitch
 
-echo 'Run ER.instanceValidation.xslt on physical model'
-. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs -debugSwitch
 
 if ($false)
 {
+echo 'Run ER.instanceValidation.xslt on physical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs -debugSwitch
+
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validCricketInstance.xml -outputFolder ..\docs
 
