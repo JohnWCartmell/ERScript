@@ -1475,7 +1475,6 @@ CHANGE HISTORY
   <xsl:variable name="srcwidth" select="diagram:stringwidth($src_etname,1) + 0.5"/>
   <xsl:variable name="dest_etname" as="xs:string" select="$rel/type"/>
   <xsl:variable name="destwidth" select="diagram:stringwidth($dest_etname,1) + 0.5"/> 
-
   <xsl:variable name="relname" as="xs:string?" select="$rel/name"/>
   <xsl:variable name="inverse_name" as="xs:string?" select="$rel/inverse"/>
   <xsl:variable name="relationship_half_length" as="xs:float" select="1.5"/>
@@ -1495,20 +1494,51 @@ CHANGE HISTORY
                   select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
   <xsl:variable  name="inverseManyValued" as="xs:boolean"
                   select="not($inverse) or exists($inverse/cardinality/(ZeroOneOrMore | OneOrMore))"/>
+  <xsl:variable name="boxheight" as="xs:double" select="0.6"/>
 
-  <xsl:variable name="srcx" as="xs:double" select="0"/>
+  <xsl:variable name="xoffset" as="xs:double" select="2.0"/>
+
+  <xsl:variable name="srcx" as="xs:double" select="$xoffset +
+                                                   (if (self::reference)
+                                                    then 0
+                                                    else if ($destwidth &lt; $srcwidth)
+                                                         then 0
+                                                         else ($destwidth - $srcwidth) div 2
+                                                    )
+                                                  "/>
   <xsl:variable name="srcy" as="xs:double" select="0.4"/>
-  <xsl:variable name="destx" as="xs:double" select="if (self::reference)
-                                                     then $srcwidth+2*$relationship_half_length
-                                                     else 0
-                                                    "/>
+  <xsl:variable name="destx" as="xs:double" 
+                select="if (self::reference)
+                        then $srcx + $srcwidth+2*$relationship_half_length
+                        else $xoffset +
+                              (if ($srcwidth &lt; $destwidth)
+                               then 0
+                               else ($srcwidth - $destwidth) div 2
+                               )
+                        "/>
   <xsl:variable name="desty" as="xs:double" select="if (self::reference)
-                                                     then 0.4
+                                                     then $srcy
                                                      else 2
                                                     "/>
+  <xsl:variable name="relsrcx" as="xs:double" select="if (self::reference)
+                                                       then $srcx + $srcwidth 
+                                                       else $srcx + $srcwidth div 2  "/>
+  <xsl:variable name="relsrcy" as="xs:double" select="if (self::reference)
+                                                       then $srcy + $boxheight div 2 
+                                                       else $srcy + $boxheight "/>
+  <xsl:variable name="reldestx" as="xs:double" select="if (self::reference)
+                                                     then $relsrcx + $relationship_half_length * 2
+                                                     else $relsrcx
+                                                    "/>
+  <xsl:variable name="reldesty" as="xs:double" select="if (self::reference)
+                                                     then $relsrcy
+                                                     else 2
+                                                    "/>
+  <xsl:variable name="diagramHeight" as="xs:double" 
+                select="$desty + $boxheight + 0.1"/>
   <xsl:element name="svg">
     <xsl:attribute name="width" select="'11cm'"/>
-    <xsl:attribute name="height" select="'4cm'"/>
+    <xsl:attribute name="height" select="format-number($diagramHeight, '#.00') || 'cm'"/>
 
     <xsl:call-template name="labelled_box_of_given_width">
       <xsl:with-param name="x" select="$srcx"/>
@@ -1530,11 +1560,11 @@ CHANGE HISTORY
       <xsl:attribute name="viewBox" select="'0 0 11 4'"/>
 
       <xsl:call-template name="relationship_half_line">
-        <xsl:with-param name="startx"  select="$srcwidth"/>
+        <xsl:with-param name="startx"  select="$relsrcx"/>
         <xsl:with-param name="midx"  
-                          select="$srcwidth + $relationship_half_length"/>
-        <xsl:with-param name="starty" select="0.7"/>            
-        <xsl:with-param name="midy" select="($srcy + $desty) div 2"/>            
+                          select="($relsrcx + $reldestx) div 2"/>
+        <xsl:with-param name="starty" select="$relsrcy"/>            
+        <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
         <xsl:with-param name="rolename"  select="$rel/name"/>    
         <xsl:with-param name="is_mandatory" select="$relMandatory"/>
         <xsl:with-param name="is_manyvalued"  select="$inverseManyValued"/>
@@ -1544,11 +1574,11 @@ CHANGE HISTORY
 
       <xsl:call-template name="relationship_half_line">
         <xsl:with-param name="startx" 
-                            select="$srcwidth+2*$relationship_half_length"/>
+                            select="$reldestx"/>
         <xsl:with-param name="midx" 
-                          select="$srcwidth + $relationship_half_length"/>
-        <xsl:with-param name="starty" select="$desty"/>            
-        <xsl:with-param name="midy" select="($srcy + $desty) div 2"/>            
+                          select="($relsrcx + $reldestx) div 2"/>
+        <xsl:with-param name="starty" select="$reldesty"/>            
+        <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
         <xsl:with-param name="rolename" select="$rel/inverse"/>
         <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
         <xsl:with-param name="is_manyvalued"  select="$relManyValued"/>
@@ -1610,15 +1640,24 @@ CHANGE HISTORY
          <xsl:attribute name="marker-start" select="'url(#squiggle)'"/>
        </xsl:element>             
     </xsl:if>
-
     <xsl:element name="text">
       <xsl:attribute name="class" select="'relname'"/>
-      <xsl:attribute name="x" 
+      <xsl:if test="self::reference">
+        <xsl:attribute name="x" 
                       select="if ($startx &lt; $midx) then $startx + 0.1 else $startx - 0.1"/>
-      <xsl:attribute name="y"   
-                      select="if ($startx &lt; $midx) then '0.5' else '1' "/>
-      <xsl:attribute name="text-anchor" 
+        <xsl:attribute name="y"   
+                        select="if ($startx &lt; $midx) then '0.5' else '1' "/>
+        <xsl:attribute name="text-anchor" 
                       select="if ($startx &lt; $midx) then 'start' else 'end'"/>
+      </xsl:if>
+      <xsl:if test="self::composition">
+        <xsl:attribute name="x" 
+                      select="if ($starty &lt; $midy) then $startx - 0.1 else $startx + 0.1"/>
+        <xsl:attribute name="y"   
+                        select="if ($starty &lt; $midy) then $starty + 0.25 else $starty - 0.12 "/>
+        <xsl:attribute name="text-anchor" 
+                      select="if ($starty &lt; $midy) then 'end' else 'start'"/>
+      </xsl:if>
       <xsl:value-of select="$rolename"/>
     </xsl:element>
 </xsl:template>
@@ -1630,6 +1669,7 @@ CHANGE HISTORY
   <xsl:param name="label" as="xs:string"/>
   <xsl:variable name="boxround" select="'0.06cm'"/>
   <xsl:variable name="boxheight" select="'0.6cm'"/>
+
   <xsl:element name="rect">
     <xsl:attribute name="class" select="'eteven'"/>
     <xsl:attribute name="x" select="format-number($x, '#.00') || 'cm'"/>
