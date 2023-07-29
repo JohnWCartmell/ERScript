@@ -1537,7 +1537,7 @@ CHANGE HISTORY
   <xsl:variable name="diagramHeight" as="xs:double" 
                 select="$desty + $boxheight + 0.1"/>
   <xsl:element name="svg">
-    <xsl:attribute name="width" select="'11cm'"/>
+    <xsl:attribute name="width" select="'13cm'"/>
     <xsl:attribute name="height" select="format-number($diagramHeight, '#.00') || 'cm'"/>
 
     <xsl:call-template name="labelled_box_of_given_width">
