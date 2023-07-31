@@ -29,6 +29,7 @@ CHANGE HISTORY
         xmlns:xlink="http://www.w3.org/TR/xlink" 
         xmlns:svg="http://www.w3.org/2000/svg" 
         xmlns:diagram="http://www.entitymodelling.org/diagram" 
+        xmlns:era="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
 
   <xsl:include href="ERmodel2.diagram.module.xslt"/>
@@ -347,10 +348,56 @@ CHANGE HISTORY
             <br/>
           </xsl:if>
 
-          <xsl:if test="self::reference or self::composition">
-              <xsl:call-template name="generate_relationship_info_header_svg">
-                <xsl:with-param name="rel" select="."/>
-              </xsl:call-template>
+          <xsl:if test="self::reference">
+            <table>
+              <tr>
+                <td>
+                  <xsl:call-template name="generate_relationship_info_header_svg">
+                    <xsl:with-param name="rel" select="."/>
+                  </xsl:call-template>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <xsl:value-of select="'A' || era:indefinite(../name) || ' '"/>
+                    <xsl:element name="i"><xsl:value-of select="../name"/></xsl:element>
+                    <xsl:value-of select="if (cardinality/ZeroOrOne) then ' may reference' else ' references'"/>
+                    <xsl:value-of select="' a' || era:indefinite(type) || ' '"/>
+                    <xsl:element name="i"><xsl:value-of select="type"/></xsl:element>
+                    <xsl:text> which is said to be its </xsl:text>
+                    <xsl:element name="i"><xsl:value-of select="name"/></xsl:element>
+                    <xsl:text>.</xsl:text>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </xsl:if>
+          <xsl:if test="self::composition">
+            <table>
+              <tr>
+                <td>
+                  <xsl:call-template name="generate_relationship_info_header_svg">
+                    <xsl:with-param name="rel" select="."/>
+                  </xsl:call-template>
+                </td>
+                <td>
+                  <p>
+                    <xsl:value-of select="'A' || era:indefinite(../name) || ' '"/>
+                    <xsl:element name="i"><xsl:value-of select="../name"/></xsl:element>
+                    <xsl:call-template name="posesses_type"/>
+                    <xsl:if test="name">
+                      <xsl:text> said to be the </xsl:text>
+                      <xsl:element name="i">
+                        <xsl:value-of select="name"/>
+                      </xsl:element> 
+                      <xsl:value-of select="' ( ' || type || ')'"/>
+                    </xsl:if>
+                    <xsl:text>.</xsl:text>
+                  </p>
+                </td>
+              </tr>
+            </table>
           </xsl:if>
 
           <xsl:choose>
@@ -419,7 +466,6 @@ CHANGE HISTORY
                 </table>
               </p>
           </xsl:if>
-
           
           <xsl:if test="attribute">
             <div><b>Attributes</b></div>
@@ -445,6 +491,36 @@ CHANGE HISTORY
         </div>
       </div>
   </xsl:template>
+
+  <xsl:template name="posesses_type">
+    <xsl:variable name="vowel_modifier" select="era:indefinite(type)"/>
+    <xsl:value-of select="(if (cardinality/ZeroOrOne) 
+                               then ' may have a' || $vowel_modifier || ' ' 
+                               else if (cardinality/ExactlyOne) 
+                               then ' has a' || $vowel_modifier || ' '
+                               else if (cardinality/ZeroOneOrMore) 
+                               then ' has zero, one or more ' 
+                               else if (cardinality/OneOrMore) 
+                               then ' has one or more ' 
+                               else 'NO OTHER CASES HERE'
+                             )
+                            "/>
+    <xsl:element name="i">
+       <xsl:value-of select="type"/>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:function name="era:indefinite">
+    <xsl:param name="noun" as="xs:string"/>
+    <xsl:value-of select="let $char := substring($noun,1,1)
+                          return if (fn:exists(fn:index-of(('a','e','i','o','u'),
+                                                             $char
+                                                            )))
+                                 then 'n'
+                                 else ''
+                         "/>
+  </xsl:function>
+
 
   <xsl:template name="attributesummary" match="attribute" mode="explicit">
      <tr>
@@ -1536,8 +1612,14 @@ CHANGE HISTORY
                                                     "/>
   <xsl:variable name="diagramHeight" as="xs:double" 
                 select="$desty + $boxheight + 0.1"/>
+  <xsl:variable name="diagramWidth" as="xs:double" 
+                select="if (self::reference)
+                        then $destx + $destwidth + 1
+                        else max(($srcx + $srcwidth,$destx + $destwidth)) + 0.1
+                        "/>
+
   <xsl:element name="svg">
-    <xsl:attribute name="width" select="'13cm'"/>
+    <xsl:attribute name="width"  select="format-number($diagramWidth, '#.00') || 'cm'"/>
     <xsl:attribute name="height" select="format-number($diagramHeight, '#.00') || 'cm'"/>
 
     <xsl:call-template name="labelled_box_of_given_width">
