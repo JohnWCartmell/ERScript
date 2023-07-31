@@ -7,7 +7,7 @@
    <entity_type>
       <name>composition</name>
       <composition> 
-         <type>pullback</type>
+         <type>pullback_constraint</type>
          <description>
          <p>
             Specifies a pullback constraint on a composition relationship. This is a certain type of existence assertion.
@@ -17,7 +17,7 @@
    </entity_type>
 
    <entity_type>
-      <name>pullback</name>
+      <name>pullback_constraint</name>
       <description>
          <p>
             Used to specify a pullback diagram of relationships in which the subject composition relationship participates.

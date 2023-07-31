@@ -59,15 +59,13 @@ echo 'run genSVG.ps1 reference.inverse..primary_scope.xml'
 
 echo 'run genSVG.ps1 reference.inverse..auxiliary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 reference.inverse..auxiliary_scope.xml 
-}
 
 echo 'run genSVG.ps1 composition.inverse..primary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 composition.inverse..primary_scope.xml 
 
 echo 'run genSVG.ps1 composition.inverse..auxiliary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 composition.inverse..auxiliary_scope.xml
-if ($false)
-{
+
 echo 'run genSVG.ps1 component.rel..auxiliary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 component.rel..auxiliary_scope.xml
 }

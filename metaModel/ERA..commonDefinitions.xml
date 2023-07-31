@@ -31,8 +31,8 @@
          <context type="entity type like"/>
          <attribute name="name" type="string"/>
       </identifying>
-      <composition type="implementationOf?" inverse=".."/>
-      <composition name="type" type="value_type"/>
+      <composition type="reference_constraint?" inverse=".."/>
+      <composition name="type" type="type_constraint"/>
       <composition type="identifying(2)?"/>
       <composition type="optional?"/>
       <attribute name="description" type="string?"/>
@@ -111,12 +111,12 @@
       <reference name="dest" type="entity_type?"/>
    </entity_type>
 
-   <entity_type name="implementationOf">
-      <reference name="destAttr" type="attribute"/>
-      <reference name="rel" type="primitive relationship" diagonal="../host_entity_type" riser="host_entity_type"/>
-      <composition name="reached_by" type="directional path?"/>
+   <entity_type name="reference_constraint">
+      <reference name="identifying_attribute" type="attribute"/>
+      <reference name="supported_relationship" type="primitive relationship" diagonal="../host_entity_type" riser="host_entity_type"/>
+      <composition name="identifying_dependency_chain" type="directional path?"/>
    </entity_type>
-   <entity_type name="value_type">
+   <entity_type name="type_constraint">
       <entity_type name="boolean"/>
       <entity_type name="date"/>
       <entity_type name="dateTime"/>

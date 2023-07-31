@@ -101,7 +101,7 @@
    <entity_type>
       <name>attribute</name>
       <composition>
-         <type>implementationOf</type>
+         <type>reference_constraint</type>
          <diagram>
             <path>
                <align>
@@ -623,8 +623,8 @@
 
    <group>
       <name>attribute_children</name>
-      <entity_type><name>implementationOf</name></entity_type>
-      <entity_type><name>value_type</name></entity_type>
+      <entity_type><name>reference_constraint</name></entity_type>
+      <entity_type><name>type_constraint</name></entity_type>
       <entity_type><name>identifying(2)</name></entity_type>
       <entity_type><name>optional</name></entity_type>
       <presentation>
@@ -634,15 +634,16 @@
       </presentation>
    </group>
    <entity_type>
-      <name>implementationOf</name>
+      <name>reference_constraint</name>
       <presentation>
          <h>3.5</h>
+         <name><Split/></name>
       </presentation>
    </entity_type>
       <entity_type>
-      <name>implementationOf</name>
+      <name>reference_constraint</name>
       <composition>
-         <name>reached_by</name>
+         <name>identifying_dependency_chain</name>
          <diagram>
             <path>
                <srcarmlen>0.9</srcarmlen>
@@ -658,11 +659,12 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>implementationOf</name>
+      <name>reference_constraint</name>
       <reference>
-         <name>destAttr</name>
+         <name>identifying_attribute</name>
          <diagram>
             <path>
+               <srcattach>0.2</srcattach>
                <srcarmlen>0.9</srcarmlen>
                <srcsign>-1</srcsign>
                <destsign>-1</destsign>
@@ -672,14 +674,9 @@
                      <src>-0.05</src>
                   </absdim>
                </hstep>
-               <scope>
-                  <label>
-                     <xAdjustment>1.3</xAdjustment>
-                  </label>
-               </scope>
                <label>
                   <position>
-                     <Upside/>
+                     <Downside/>
                   </position>
                </label>
             </path>
@@ -688,29 +685,21 @@
    </entity_type>
 
    <entity_type>
-      <name>implementationOf</name>
+      <name>reference_constraint</name>
       <reference>
-         <name>rel</name>
+         <name>supported_relationship</name>
          <diagram>
             <path>
                <destattach>0.5</destattach>
                <destarmlen>3.0</destarmlen>
-               <scope>
-                  <label>
-                     <position>
-                        <Downside/>
-                     </position>
-                     <xAdjustment>0.4</xAdjustment>
-                  </label>
-               </scope>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
-      <name>value_type</name>
+      <name>type_constraint</name>
       <presentation>
-         <rightOf>implementationOf</rightOf>
+         <rightOf>reference_constraint</rightOf>
       </presentation>
    </entity_type>
    <entity_type>
@@ -770,7 +759,7 @@
    <entity_type>
       <name>identifying(2)</name>
       <presentation>
-         <rightOf>value_type</rightOf>
+         <rightOf>type_constraint</rightOf>
          <deltaw>-0.4</deltaw>
       </presentation>
    </entity_type>

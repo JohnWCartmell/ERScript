@@ -126,7 +126,7 @@
          <p>
             In a physical model, attributes may be present to implement relationships 
             and  any such attributes will be distinguished from purely logical attributes  by 
-            the presence of <i>implementationOf</i> substructure.
+            the presence of <i>reference_constraint</i> substructure.
          </p> 
       </description>
       <dependency>
@@ -135,7 +135,7 @@
          <description>.</description>
       </dependency>
       <composition>
-         <type>implementationOf</type>
+         <type>reference_constraint</type>
          <description>
             <p>
                If this is defined then the attribute is one that is only present in a physical entity model
@@ -145,7 +145,7 @@
       </composition>
       <composition>
          <name>type</name>
-         <type>value_type</type>
+         <type>type_constraint</type>
          <description>
             <p>
                The type of the value of the attribute.
@@ -706,7 +706,7 @@
    </entity_type>
 
    <entity_type>
-      <name>implementationOf</name>
+      <name>reference_constraint</name>
       <description>
         <p>
           Present for those attributes within a physical model whose purpose is to implement or be part of the implementation of a relationship.  
@@ -722,29 +722,17 @@
          </description>
       </dependency>
       <reference>
-         <name>destAttr</name>
+         <name>identifying_attribute</name>
          <type>attribute</type>
          <description>
             <p>
-            This is an identifying attribute of the destination entity type of the relationship <i>rel</i> which is being implemented.
+            This is an identifying attribute of the destination entity type of the  <i>supported relationship</i>.
+            This attribute may be located on the destination entity type or else be in scope via a chain of identifying dependencies. 
             </p> 
          </description>
       </reference>
       <reference>
-         <name>destAttrHostEt</name>
-         <type>entity type like</type>
-         <description>
-             <p>
-               This the the host entity type of the attribute <i>destAttr</i>.
-             </p>
-             <p>
-               If the <i>destrAttrHostEt</i> is distinct from the destination type of the implmented relationship <i>rel</i>
-               then the path from the destination type to the <i>destrAttrHostEt</i> is specified as the <i>reachedBy</i> relationship.
-            </p>
-         </description>
-      </reference>
-      <reference>
-         <name>rel</name>
+         <name>supported_relationship</name>
          <type>primitive relationship</type>
          <description>
             <p>
@@ -755,25 +743,25 @@
                The 'diagonal' is '../host_entity_type' and the
                'riser' is 'host_entity_type'. This scope constraint can be illustrated as follows 
                   <object id="svg-object"
-                           data="implementationOf.rel..primary_scope.svg"
+                           data="reference_constraint.rel..primary_scope.svg"
                            type="image/svg+xml">filler to stop contraction of this xml element</object>
                </p>
          </description>
       </reference>
       <composition>
-         <name>reached_by</name>
+         <name>identifying_dependency_chain</name>
          <type>directional path</type>
          <description>
             <p>
-               This is the path from the destination type of the implemented relationship <i>rel</i>
-               to the host entity type of the implemented identifying attribute <i>destAttr</i>.
+               This is the path from the destination type of the  <i>supported relationship</i>
+               to the location of the  <i>identifying_attribute</i>.
             </p>
          </description>
       </composition>
    </entity_type>
 
    <entity_type>
-      <name>value_type</name>
+      <name>type_constraint</name>
       <description>
          <p>
             Specifies the type of an attribute.

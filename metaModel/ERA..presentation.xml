@@ -12,7 +12,7 @@
    <entity_type>
       <name>composition</name>
       <composition>
-         <type>pullback</type>
+         <type>pullback_constraint</type>
          <diagram>
             <path>
                <destarmlen>1.1</destarmlen>
@@ -22,18 +22,21 @@
    </entity_type>
   
    <entity_type>
-      <name>pullback</name>
+      <name>pullback_constraint</name>
       <presentation>
          <below>composition</below>
          <x>-1.0</x>
          <y>4.0</y>
          <deltaw>0.4</deltaw>
          <deltah>1.0</deltah>
+         <name>
+            <Split/>
+         </name>
       </presentation>
    </entity_type>
   
    <entity_type>
-      <name>pullback</name>
+      <name>pullback_constraint</name>
       <reference>
          <name>projection_rel</name>
          <diagram>
@@ -54,7 +57,7 @@
    </entity_type>
 
    <entity_type>
-      <name>pullback</name>
+      <name>pullback_constraint</name>
       <composition>
          <name>along</name>
          <diagram>
@@ -80,7 +83,7 @@
    </entity_type>
 
    <entity_type>
-      <name>pullback</name>
+      <name>pullback_constraint</name>
       <reference>
          <name>type</name>
          <diagram>

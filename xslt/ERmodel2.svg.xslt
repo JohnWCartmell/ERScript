@@ -360,12 +360,12 @@ CHANGE HISTORY
               <tr>
                 <td>
                   <p>
-                    <xsl:value-of select="'A' || era:indefinite(../name) || ' '"/>
+                    <xsl:value-of select="'In the context of a' || era:indefinite(../name) || ' '"/>
                     <xsl:element name="i"><xsl:value-of select="../name"/></xsl:element>
-                    <xsl:value-of select="if (cardinality/ZeroOrOne) then ' may reference' else ' references'"/>
+                    <xsl:value-of select="if (cardinality/ZeroOrOne) then ' there may be' else ' there is'"/>
                     <xsl:value-of select="' a' || era:indefinite(type) || ' '"/>
                     <xsl:element name="i"><xsl:value-of select="type"/></xsl:element>
-                    <xsl:text> which is said to be its </xsl:text>
+                    <xsl:text> said to be the </xsl:text>
                     <xsl:element name="i"><xsl:value-of select="name"/></xsl:element>
                     <xsl:text>.</xsl:text>
                   </p>
