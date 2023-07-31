@@ -33,10 +33,36 @@ Would want to change entity modelling book likewise.
 - knock on changes to comments (where???) []
 9. Change `complex` to `composite` [x]
 10. Change `component` to `step` []
+11. Change `implementationOf` entity type:
+- change `implementationOf` to `reference_constraint`. 
+- change `destAttr` to `constraining_attribute`.
+- change `rel` to `constraining_relationship`.
+- change `reached_by` to `context_navigation`.
+- give the inverse to `constraining_relationship` the name `implemented_by`
+
+Knock ons:
+- change logical2physical
+- type script generator 
+- data library readrel function
+- change rng generation
+ 
+12. Change `pullback` to `pullback_constraint`. []
+- change car example
+- change ts generator
+- change diagram generator
+13. Change `value-type` to `type_constraint`. 
+14. Consider that an attribute either has a `reference constraint` or a `type constraint` but not both. 
+It should be this way to be in normal form but is this a step too far?
+- would require data lib to change ? 
+- change ts generator
+- change python generator
+- change logical2physical
+- OR JUST CHANGE initial enrichment to generate `type` of referential attributes? 
 
 ### Testing
 1. Rebuild and validate meta model.
 2. Rebuild and validate cricket model.
+3. Rebuild and diff test chromatogramAnalysisRecord example.
 
 ### Completion Date
 
