@@ -18,7 +18,7 @@
             <TopLeft/>
          </shape>
       </presentation>
-      <composition type="pullback?" name="x" inverse="host_entity_type">
+      <composition type="pullback_constraint?"  inverse="subject_relationship">
          <diagram>
             <path>
                <inverse>
@@ -64,17 +64,18 @@
       </composition>
    </entity_type>
 
-   <entity_type name="pullback">
+   <entity_type name="pullback_constraint">
       <presentation>
          <below>composition</below>
          <y>1.5</y>
          <shape>
             <BottomLeft/>
          </shape>
+         <name><Split/></name>
       </presentation>
    </entity_type>
 
-   <entity_type name="pullback">
+   <entity_type name="pullback_constraint">
       <reference  name="projection_rel" type="reference">
          <diagram>
             <path>
@@ -107,8 +108,9 @@
 
    <entity_type name="reference">
       <presentation>
-         <rightOf>pullback</rightOf>
+         <rightOf>pullback_constraint</rightOf>
          <below>entity_type</below>
+         <deltah>0.3</deltah>
          <shape>
             <BottomRight/>
          </shape>

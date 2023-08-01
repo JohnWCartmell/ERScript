@@ -94,8 +94,8 @@
       <presentation>
          <rightOf>directional relationship</rightOf>
          <x>5.0</x>
-         <!-- <y>1.0</y> -->
-         <deltaw>11.0</deltaw>
+         <deltaw>8.75</deltaw>
+         <deltah>0.1</deltah>
       </presentation>
    </entity_type>
    <entity_type>
@@ -107,6 +107,9 @@
                <align>
                   <ToDest/>
                </align>
+               <inverse>
+                  <label><name><Split/></name></label>
+               </inverse>
             </path>
          </diagram>
       </composition>
@@ -120,6 +123,9 @@
                <align>
                   <ToDest/>
                </align>
+               <label>
+                  <position><Left/></position>
+               </label>
             </path>
          </diagram>
       </composition>
@@ -169,7 +175,7 @@
             </relative>
          </yt>
          <deltaw>0.5</deltaw>
-         <deltah>0.75</deltah>
+         <deltah>0.95</deltah>
       </presentation>
    </entity_type>
 
@@ -303,18 +309,26 @@
    <entity_type>
       <name>constructed_relationship</name>
       <composition>
+         <name>definiens</name>
          <type>directional path</type>
          <diagram>
             <path>
                <align>
                   <ToSrc/>
                </align>
+               <label>
+                  <position><Left/></position>
+                  <xAdjustment>0.1</xAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <xAdjustment>-0.05</xAdjustment>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </composition>
    </entity_type>
-
-
 
    <entity_type>
       <name>composition</name>
@@ -348,7 +362,7 @@
          <name>type</name>
          <diagram>
             <path>
-               <srcattach>0.3</srcattach>
+               <srcattach>0.15</srcattach>
                <destattach>0.85</destattach>
                <srcarmlen>0.75</srcarmlen>
                <hstep>
@@ -410,6 +424,7 @@
       <presentation> 
          <below>directional relationship</below>
          <x>0.5</x>
+         <y>1.0</y>
       </presentation>
    </entity_type>
 
@@ -475,7 +490,7 @@
    </entity_type>
 
    <entity_type>
-      <name>cardinality</name>
+      <name>cardinality_constraint</name>
       <presentation>
          <below>dependency</below>
          <x>-0.5</x>
@@ -512,7 +527,7 @@
    <entity_type>
       <name>directional path</name>
       <presentation>
-         <below>cardinality</below>
+         <below>cardinality_constraint</below>
          <x>3.0</x>
          <y>1.5</y>
          <deltaw>8.0</deltaw>
@@ -554,21 +569,21 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name>component</name>
+      <name>step</name>
       <presentation>
          <below>composite</below>
-         <deltaw>0.3</deltaw>
+         <deltaw>1.0</deltaw>
          <deltah>0.3</deltah>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>component</name>
+      <name>step</name>
       <reference>
-         <name>rel</name>
+         <name>direction</name>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
-               <destattach>0.45</destattach>
+               <destattach>0.5</destattach>
                <srcarmlen>0.3</srcarmlen>
                <hstep>
                   <absdim>
@@ -630,7 +645,8 @@
       <presentation>
          <below>attribute</below>
          <deltah>0.5</deltah>
-         <x>-1.0</x>
+         <!-- <x>-1.0</x> -->
+         <y>1.0</y>
       </presentation>
    </group>
    <entity_type>
@@ -692,6 +708,11 @@
             <path>
                <destattach>0.5</destattach>
                <destarmlen>3.0</destarmlen>
+               <inverse>
+                  <label>
+                     <xAdjustment>0.75</xAdjustment>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>

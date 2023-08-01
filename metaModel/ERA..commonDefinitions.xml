@@ -31,21 +31,22 @@
          <context type="entity type like"/>
          <attribute name="name" type="string"/>
       </identifying>
-      <composition type="reference_constraint?" inverse=".."/>
-      <composition name="type" type="type_constraint"/>
-      <composition type="identifying(2)?"/>
-      <composition type="optional?"/>
+      <composition type="reference_constraint?" inverse="subject_attribute"/>
+      <composition name="type" type="type_constraint" inverse="subject"/>
+      <composition type="identifying(2)?" inverse="subject"/>
+      <composition type="optional?" inverse="subject"/>
       <attribute name="description" type="string?"/>
    </entity_type>
    <entity_type name="directional relationship">
       <identifying>
          <context name="host_entity_type" type="entity type like"/>
          <attribute name="name" type="string?"/>
-         <reference name="type" type="entity type like"/>  <!-- change of 2nd June  --> 
+         <reference name="type" type="entity type like"/>  
       </identifying>
-      <!-- <reference name="type" type="entity type like"/> -->
       <entity_type name="primitive relationship">
-         <composition type="identifying(1)?"/>
+         <composition type="identifying(1)?" inverse="subject"/>
+         <reference name="implemented_by" type="reference_constraint*"
+                     inverse="supported_relationship" />
          <entity_type name="dependency">
             <reference name="inverse_of" type="composition?" inverse="inverse">
                <auxiliary_scope_constraint identifying_relationship="type"
@@ -63,7 +64,7 @@
          </entity_type>
       </entity_type>
       <entity_type name="constructed_relationship">
-         <composition type="directional path"/>
+         <composition name="definiens" type="directional path" inverse="definiendum"/>
       </entity_type>
       <entity_type name="composition">
          <reference name="inverse" type="dependency?" inverse="inverse_of" diagonal ="type" riser="host_entity_type"> 
@@ -71,8 +72,8 @@
                                            equivalent_path="host_entity_type"/>     
          </reference>
       </entity_type>
-      <composition type="sequence?"/>
-      <composition name="cardinality" type="cardinality"/>
+      <composition type="sequence?" inverse="subject"/>
+      <composition name="cardinality" type="cardinality_constraint" inverse="subject"/>
       <attribute name="description" type="string?"/>
       <attribute name="id" type="string?"/>
    </entity_type>
@@ -85,7 +86,7 @@
                   riser="^"/>
    </entity_type> 
    <entity_type name="identifying(1)"/>
-      <entity_type name="cardinality">
+      <entity_type name="cardinality_constraint">
          <entity_type name="ZeroOrOne"/>
          <entity_type name="ExactlyOne"/>
          <entity_type name="ZeroOneOrMore"/>
@@ -93,14 +94,14 @@
       </entity_type>
    <entity_type name="directional path">
       <entity_type name="composite">
-         <composition type="component*">
+         <composition type="step*">
             <sequence/>
          </composition>
          <entity_type name="join"/>
          <entity_type name="aggregate"/>
       </entity_type>
-      <entity_type name="component">
-         <reference name="rel" type="directional relationship">
+      <entity_type name="step">       
+         <reference name="direction" type="directional relationship">
                <auxiliary_scope_constraint identifying_relationship="type"
                                            equivalent_path="dest"/>
          </reference>
@@ -113,7 +114,9 @@
 
    <entity_type name="reference_constraint">
       <reference name="identifying_attribute" type="attribute"/>
-      <reference name="supported_relationship" type="primitive relationship" diagonal="../host_entity_type" riser="host_entity_type"/>
+      <reference name="supported_relationship" type="primitive relationship" 
+                 inverse="implemented_by" 
+                 diagonal="subject_attribute/host_entity_type" riser="host_entity_type"/>
       <composition name="identifying_dependency_chain" type="directional path?"/>
    </entity_type>
    <entity_type name="type_constraint">

@@ -32,13 +32,26 @@ Would want to change entity modelling book likewise.
 8. Change `navigation` to `directional path` [x]
 - knock on changes to comments (where???) []
 9. Change `complex` to `composite` [x]
-10. Change `component` to `step` []
-11. Change `implementationOf` entity type:
-- change `implementationOf` to `reference_constraint`. 
-- change `destAttr` to `constraining_attribute`.
-- change `rel` to `constraining_relationship`.
-- change `reached_by` to `context_navigation`.
-- give the inverse to `constraining_relationship` the name `implemented_by`
+
+10. ASIDE I considered
+ - Add `step` and `inverse_step` as specialisations of  `component`
+ BUT THE PROBLEM WITH THIS IS THAT THE direction relationship would need different auxiliary scope on step to inverse step????
+ would need an aggregation with type guards and I dont have a syntax for this in the v1.6 surface structure.
+ Would need `identifying_relationship="([step]dest)|([inverse_step]src)`. I don't really uinderstand the meta model at this point - why have I got 
+ `rel` of global scope and not constrained by `src`?
+ LEAVE FOR NOWE AT LEAST
+
+ INSTEAD
+ - rename `component` to `step` [x]
+
+11. Rename the relationship `rel` of `component`/`step` to be `direction`.
+12. Change `implementationOf` entity type:
+- change `implementationOf` to `reference_constraint`. [x]
+- name its dependency `subject_attribute`
+- change `destAttr` to `identifying_attribute`.[x]
+- change `rel` to `supported_relationship`.[x]
+- change `reached_by` to `identifying_dependency_path`.[x]
+- give the inverse to `constraining_relationship` the name `implemented_by`[x]
 
 Knock ons:
 - change logical2physical
@@ -46,12 +59,14 @@ Knock ons:
 - data library readrel function
 - change rng generation
  
-12. Change `pullback` to `pullback_constraint`. []
+12. Change `pullback` to `pullback_constraint`
+and change its `type` relationship to `corner_type`.[]
 - change car example
 - change ts generator
 - change diagram generator
 13. Change `value-type` to `type_constraint`. 
-14. Consider that an attribute either has a `reference constraint` or a `type constraint` but not both. 
+14. Change `cardinality` entity type to be named `cardinality_constraint`. 
+15. Consider that an attribute either has a `reference constraint` or a `type constraint` but not both. 
 It should be this way to be in normal form but is this a step too far?
 - would require data lib to change ? 
 - change ts generator

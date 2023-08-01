@@ -7,6 +7,8 @@ var popupboxContainerOffsetY ;
 var resetArray = [] ;
 var currentlySelectedRelationshipId = undefined;
 
+var counter = 1;
+
 //Wait for document load
 if (document.readyState === 'loading') {  // Loading hasn't finished yet
   console.log("Adding initialiseInteraction event listener")
@@ -75,6 +77,7 @@ function positionInfoboxAtCursor(e,offsetX,offsetY){
    infoboxDivElement.style.top=e.pageY - offsetY;  
    infoboxDivElement.style.visibility = 'visible';
    infoboxDivElement.style.pointerEvents = 'auto';
+   infoboxDivElement.style.zIndex = ++counter;
 };
 
 
@@ -96,6 +99,7 @@ function clickRelationshipAtCursor(e){
       infoboxDivElement.style.top=e.pageY;
       infoboxDivElement.style.visibility = 'visible';
       infoboxDivElement.style.pointerEvents = 'auto';
+      infoboxDivElement.style.zIndex = ++counter;
      
       var hitAreaElement = svgDoc.getElementById(relid + "_hitarea");
       hitAreaElement.classList.add("relationshippopped");

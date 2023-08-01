@@ -87,11 +87,6 @@
 </xsl:template>
 
 
-<!-- logic below needs to get messy because need use @type fro scratch and sometime remove final character -->
-<!-- could do with a function which strips cardinalti final char. -->
-<!-- add a function to ERmodel.functions.module.xslt -->
-<!-- era:typeFromTypePlus  -->
-
 <xsl:template  match="entity_type" 
                     mode="parse__main_pass">
    <xsl:copy>  

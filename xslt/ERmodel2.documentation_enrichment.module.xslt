@@ -486,9 +486,10 @@
               mode="documentation_enrichment_recursive">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
-      <rel_id_csl>
+<!--       <rel_id_csl>
          <xsl:value-of select="'''??'''"/>
-      </rel_id_csl>
+      </rel_id_csl> -->
+      <rel_id_csl/>
       <rel_inv_csl>
          <xsl:text>1</xsl:text>
       </rel_inv_csl>

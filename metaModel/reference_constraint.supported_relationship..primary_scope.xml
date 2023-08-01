@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              ERScriptVersion="1.6">
+
+   <!-- <include_model filename="ERA..commonDefinitions.xml"/> -->
+
+   <presentation>
+      <diagram>
+         <deltah>0.6</deltah>
+         <deltaw>0.2</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type name="entity_type">
+      <presentation>
+         <x>4.5</x>
+         <y>1.0</y>
+         <shape>
+            <Top/>
+         </shape>
+      </presentation>
+      <composition type="attribute*" inverse="host_entity_type">
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition> 
+      <composition type="primitive_relationship*" inverse="host_entity_type">
+         <diagram>
+            <path>
+               <align><ToSrc/></align>
+            </path>
+         </diagram>
+      </composition> 
+   </entity_type>
+
+   <entity_type name="attribute">  
+      <presentation>
+         <below>entity_type</below>
+         <x>-3.5</x>
+         <y>1.0</y>
+         <deltaw>0.1</deltaw>
+         <deltah>0.4</deltah>
+         <shape>
+            <Left/>
+         </shape>
+      </presentation>
+      <composition type="reference_constraint?" inverse="subject_attribute">
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+
+   <entity_type name="reference_constraint"> 
+      <presentation>
+         <below>attribute</below>
+         <y>0.75</y>
+         <deltaw>0.1</deltaw>
+         <deltah>0.4</deltah>
+         <shape>
+            <BottomLeft/>
+         </shape>
+         <name><Split/></name>
+      </presentation>
+
+      <reference  name="supported_relationship" type="primitive_relationship">
+         <diagram>
+            <path>
+               <align><ToSrc/></align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+                  <label>
+                     <name>
+                        <Split/>
+                     </name>
+                  </label>
+                  <!-- <xAdjustment>0.1</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment> -->
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type name="primitive_relationship">
+      <presentation>
+         <rightOf>reference_constraint</rightOf>
+         <below>entity_type</below>
+         <x>0.5</x>
+         <deltah>0.4</deltah>
+         <shape>
+            <Bottom/>
+         </shape>
+         <name><Split/></name>
+      </presentation>
+   </entity_type>
+</entity_model>

@@ -7,68 +7,58 @@
    <presentation>
       <diagram>
          <deltah>0.6</deltah>
-         <deltaw>0.2</deltaw>
       </diagram>
    </presentation>
 
    <entity_type name="entity_type">
       <presentation>
-         <x>4.5</x>
+         <x>8.0</x>
          <y>1.0</y>
+         <deltah>0.75</deltah>
          <shape>
-            <Top/>
+            <TopRight/>
          </shape>
       </presentation>
-      <composition type="attribute*" inverse="host_entity_type">
-         <diagram>
-            <path>
-               <inverse>
-                  <label>
-                     <position><Left/></position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </composition> 
-      <composition type="primitive_relationship*" inverse="host_entity_type"/> 
    </entity_type>
 
-   <entity_type name="attribute">  
+
+   <entity_type name="pullback_constraint">
       <presentation>
          <below>entity_type</below>
-         <x>-4.0</x>
+         <x>-6.5</x>
          <y>1.0</y>
          <deltaw>0.1</deltaw>
-         <deltah>0.4</deltah>
-         <shape>
-            <Left/>
-         </shape>
-      </presentation>
-      <composition type="implementationOf?" inverse="..">
-         <diagram>
-            <path>
-               <inverse>
-                  <label>
-                     <position><Left/></position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </composition>
-   </entity_type>
-
-   <entity_type name="implementationOf"> 
-      <presentation>
-         <below>attribute</below>
-         <y>1.0</y>
-         <deltaw>0.1</deltaw>
-         <deltah>0.4</deltah>
+         <deltah>0.1</deltah>
          <shape>
             <BottomLeft/>
          </shape>
+         <name><Split/></name>
       </presentation>
 
-      <reference  name="rel" type="primitive_relationship">
+      <reference  name="corner_type" type="entity_type">
+         <diagram>
+            <path>
+               <srcattach>0.25</srcattach>
+               <destattach>0.4</destattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <Split/>
+               <!--    <xAdjustment>0.1</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment> -->
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference  name="projection_rel" type="reference">
          <diagram>
             <path>
                <align><ToSrc/></align>
@@ -87,14 +77,30 @@
       </reference>
    </entity_type>
 
-   <entity_type name="primitive_relationship">
+   <entity_type name="reference">
       <presentation>
-         <rightOf>implementationOf</rightOf>
-         <below>entity_type</below>
+         <rightOf>pullback_constraint</rightOf>
+         <x>2.2</x>
+         <!-- <y>0.5</y> -->
          <deltah>0.4</deltah>
          <shape>
             <Bottom/>
          </shape>
       </presentation>
+      <reference name="type" type="entity_type">
+         <identifying/>
+         <diagram>
+            <path>
+               <destattach>0.75</destattach>
+               <destsign>-1</destsign>
+               <srcarmlen>0.4</srcarmlen>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
    </entity_type>
 </entity_model>

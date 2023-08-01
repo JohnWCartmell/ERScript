@@ -85,7 +85,7 @@
    <entity_type>
       <name>pullback_constraint</name>
       <reference>
-         <name>type</name>
+         <name>corner_type</name>
          <diagram>
             <path>
                <srcsign>-1</srcsign>
@@ -93,6 +93,7 @@
                <destsign>-1</destsign>
                <destattach>0.75</destattach>
                <label>
+                  <Split/>
                   <position>
                      <Upside/>
                   </position>

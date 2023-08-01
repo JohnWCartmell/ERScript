@@ -359,6 +359,7 @@
             </p>
          </description>
          <composition>
+            <name>definiens</name>
             <type>directional path</type>
             <description>
                <p>
@@ -463,7 +464,7 @@
 
       <composition>
          <name>cardinality</name>
-         <type>cardinality</type>
+         <type>cardinality_constraint</type>
          <description>
             <p>
                Defines the cardinality of a directed relationship.
@@ -513,7 +514,7 @@
          </description>
    </entity_type>
    <entity_type>
-      <name>cardinality</name>
+      <name>cardinality_constraint</name>
       <description>
          <p>
             Broad classification of the expected number of instances of a directional relationship
@@ -566,7 +567,7 @@
             <p>A composite directional path.</p>
          </description>
          <composition>
-            <type>component</type>
+            <type>step</type>
             <description>
                <p>
                   The steps that are to be composed in a composite directional path.
@@ -594,14 +595,14 @@
          </entity_type>
       </entity_type>
       <entity_type>
-         <name>component</name>
+         <name>step</name>
          <description>
             <p>
                A step along a relationship which is either the whole of or a part of a directional path.
             </p>
          </description>
          <reference>
-            <name>rel</name>
+            <name>direction</name>
             <type>directional relationship</type>
             <description>
                <p>The relationship along which a step is taken.
@@ -610,7 +611,7 @@
                This relationship  has an auxiliary scope constraint which can be illustrated as follows 
                <!-- <div id="svgcontainer"> -->
                   <object id="svg-object"
-                           data="component.rel..auxiliary_scope.svg"
+                           data="step.direction..auxiliary_scope.svg"
                            type="image/svg+xml">filler to stop contraction of this xml element</object>
                <!-- </div> -->
                </p>
@@ -736,14 +737,14 @@
          <type>primitive relationship</type>
          <description>
             <p>
-               This is the reference relationship which is in whole or in part implemented by this foreign key attribute.
+               This is the reference relationship which in whole or in part is implemented by the subject attribute of this reference constraint.
             </p>
             <p>
                This relationship  has a primary scope constraint. 
                The 'diagonal' is '../host_entity_type' and the
                'riser' is 'host_entity_type'. This scope constraint can be illustrated as follows 
                   <object id="svg-object"
-                           data="reference_constraint.rel..primary_scope.svg"
+                           data="reference_constraint.supported_relationship..primary_scope.svg"
                            type="image/svg+xml">filler to stop contraction of this xml element</object>
                </p>
          </description>

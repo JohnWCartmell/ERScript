@@ -139,10 +139,10 @@
       /* was height: 3cm ;	  */   
       height: 6cm ;	
       width: 10cm ;
+      padding: 0.5cm;
  		overflow:auto;
    	clear:left;
    	display:block;
-   	padding-top:1px;
    	background-color:white;
 		font-size: 10px;
 		font-family: sans-serif ;	

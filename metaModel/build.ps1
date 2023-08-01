@@ -28,11 +28,10 @@ echo 'ERA.surface'
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
-}
+} 
 
 echo 'ERA'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -physicalType hs -longSeparator ... -shortSeparator . 
-
 
 if ($false)
 {
@@ -44,15 +43,12 @@ echo 'Run ER.instanceValidation.xslt on ERA physical model'
 
 echo 'Run ER.instanceValidation.xslt on ERScript physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERScript..physical.xml -outputFolder ..\docs -debugSwitch
-}
 
-if ($false)
-{
-echo 'run genSVG.ps1 pullback.projection_rel..primary_scope.xml'
-. $TARGET\scripts\genSVG.ps1 pullback.projection_rel..primary_scope.xml 
+echo 'run genSVG.ps1 pullback_constraint.projection_rel..primary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 pullback_constraint.projection_rel..primary_scope.xml 
 
-echo 'run genSVG.ps1 pullback.projection_rel..auxiliary_scope.xml'
-. $TARGET\scripts\genSVG.ps1 pullback.projection_rel..auxiliary_scope.xml 
+echo 'run genSVG.ps1 pullback_constraint.projection_rel..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 pullback_constraint.projection_rel..auxiliary_scope.xml 
 
 echo 'run genSVG.ps1 reference.inverse..primary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 reference.inverse..primary_scope.xml 
@@ -66,16 +62,12 @@ echo 'run genSVG.ps1 composition.inverse..primary_scope.xml'
 echo 'run genSVG.ps1 composition.inverse..auxiliary_scope.xml'
 . $TARGET\scripts\genSVG.ps1 composition.inverse..auxiliary_scope.xml
 
-echo 'run genSVG.ps1 component.rel..auxiliary_scope.xml'
-. $TARGET\scripts\genSVG.ps1 component.rel..auxiliary_scope.xml
-}
+echo 'run genSVG.ps1 step.direction..auxiliary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 step.direction..auxiliary_scope.xml
 
-echo 'run genSVG.ps1 implementationOf.rel..primary_scope.xml'
-. $TARGET\scripts\genSVG.ps1 implementationOf.rel..primary_scope.xml
+echo 'run genSVG.ps1 reference_constraint.supported_relationship..primary_scope.xml'
+. $TARGET\scripts\genSVG.ps1 reference_constraint.supported_relationship..primary_scope.xml
 
-
-if ($false)
-{
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -animate -physicalType hs -longSeparator ... -shortSeparator .
 

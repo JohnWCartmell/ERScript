@@ -33,26 +33,23 @@
          <type>reference?</type>
          <description>
             <p>
-               Specifies one of the sides of a pullback diagram.
-            </p>
-            <p>
-               The <i>projection_rel</i> of a pullback is specified as an instance of a <i>reference</i> relationship.
+               This specifies one of the sides of a pullback diagram.
             </p>
             <p>
                The primary scope for this relationship is shown in the following diagram:
-               <div id="svgcontainer">
-                  <object id="svg-object"
-                           data="pullback.projection_rel..primary_scope.svg"
-                           type="image/svg+xml">filler to stop contraction of this xml element</object>
-               </div>
             </p>
             <p>
-               TThis relationship also has an auxiliary scope which can be illustrated as follows 
-               <div id="svgcontainer">
                   <object id="svg-object"
-                           data="pullback.projection_rel..auxiliary_scope.svg"
+                           data="pullback_constraint.projection_rel..primary_scope.svg"
                            type="image/svg+xml">filler to stop contraction of this xml element</object>
-               </div>
+            </p>
+            <p>
+               This relationship also has an auxiliary scope which can be illustrated as follows
+            </p>
+            <p> 
+                  <object id="svg-object"
+                           data="pullback_constraint.projection_rel..auxiliary_scope.svg"
+                           type="image/svg+xml">filler to stop contraction of this xml element</object>
             </p>
          </description>
       </reference>
@@ -61,18 +58,21 @@
           <type>navigation</type>
          <description>
             <p>
-               Specifies one of the sides of a pullback diagram.
+               This specifies one of the sides of a pullback diagram.
             </p>
             <p>
                This side of the pullback diagram may be a single step along a single-valued relationship
                or a join of such steps. It is specified as an instance of a <i>directional path</i>.
             </p>
+            <p> Aside: The name of this relationship comes about because in category theory we may speak of pulling one morphism back along another. In this case it is the dependency chain from the
+            <i>corner type</i> which is pulled back along the <i>along</i> path.
+         </p>
          </description>
       </composition>
       <reference>
-         <name>type</name>
+         <name>corner_type</name>
          <type>entity_type</type>
-         <description><p>Specifies one of the corners of a pullback diagram.</p></description>
+         <description><p>Specifies the entity type which is one of the corners of a pullback diagram.</p></description>
       </reference>
    </entity_type>
 </entity_model>

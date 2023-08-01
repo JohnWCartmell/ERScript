@@ -23,7 +23,7 @@
    </entity_type>
 
 
-   <entity_type name="component">
+   <entity_type name="step">
       <presentation>
          <below>entity_type</below>
          <x>-7.0</x>
@@ -57,7 +57,7 @@
             </path>
          </diagram>
       </reference>
-      <reference  name="rel" type="directional_relationship">
+      <reference  name="direction" type="directional_relationship">
          <diagram>
             <path>
                <align><ToSrc/></align>
@@ -78,7 +78,7 @@
 
    <entity_type name="directional_relationship">
       <presentation>
-         <rightOf>component</rightOf>
+         <rightOf>step</rightOf>
          <x>2.0</x>
          <!-- <y>0.5</y> -->
          <deltah>0.4</deltah>
