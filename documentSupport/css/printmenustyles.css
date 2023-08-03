@@ -1,0 +1,90 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+@charset "UTF-8";
+/* Base Styles */
+#cssmenu,
+#cssmenu ul,
+#cssmenu li,
+
+#cssmenu a {
+  visibility:hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  /* font-family:Montserrat,sans-serif!important; */
+  font-family: sans-serif!important;
+  font-weight: normal;
+  text-decoration: none;
+  line-height: 1.5;
+  font-size: 10pt;
+  position: relative;
+}
+
+#cssmenu {
+  visibility: hidden;
+  width: 0px;
+  background: #fff;
+  padding: 0px;
+}
+#cssmenu > ul > li {
+  margin: 0 0 0px 0;
+}
+#cssmenu > ul > li:last-child {
+  margin: 0;
+}
+#cssmenu > ul > li > a {
+  display: block;
+  color: white;
+  background: #5064AE; 
+  /* border: 1px solid #000; */
+}
+#cssmenu > ul > li > a > span {
+  display: block;
+  padding: 0px 0px;
+  /* font-weight: bold; */
+}
+
+#cssmenu > ul > li > a:hover {
+  text-decoration: none;
+}
+#cssmenu > ul > li.active {
+  border-bottom: none;
+}
+#cssmenu > ul > li.active > a {
+  background: red; /* ineffective */
+  color: #fff; 
+  /* border: 1px solid #79980d; */
+}
+#cssmenu > ul > li.active > a span {
+  background-color: green; /*ineffective */
+  /border: 1px solid #97be10;
+}
+
+#cssmenu > ul > li.has-sub > a span {
+  background: url(images/icon_plus.png)  no-repeat 98% center; 
+}
+
+#cssmenu ul > li.has-sub.active > a span {
+  background-image: url(images/icon_minus.png) 98% center no-repeat;
+  background-color:red
+}
+
+/* Sub menu */
+#cssmenu ul ul {
+  padding: 5px 12px;
+  display: none;
+}
+#cssmenu ul ul li {
+  padding: 3px 0;
+}
+#cssmenu ul ul a {
+  display: block;
+  color: #283769;
+  font-size: 9pt;
+}
+
+
+#cssmenu ul li a:hover {
+  background-color: #555;
+  color: white;
+}

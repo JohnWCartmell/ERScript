@@ -1,0 +1,449 @@
+
+
+body{
+	background-color:#ECEEF6;
+	}
+
+div.caption{
+	float:left;
+	padding-left:5%;
+	padding-top:10px ;
+	padding-bottom:5px ;
+	font-size:9pt;
+	/*border:2px solid ;*/
+	}
+
+div.captionHeading{
+	padding-right:20px ;
+	float:left;
+	font-style:italic;
+	/*border:1px solid */
+	}
+
+div.bibentry{
+	/*float:left;*/
+	/*padding-left:5%;
+	padding-top:5px ;
+	padding-bottom:10px ;n*/
+	}
+  
+div.block{                    /* added 22 November 2017 */  
+                              /* Being used as a row that is to be horizontally centred */
+	display:inline-block;      /*modified 27 November 2017  so that can also be used as a column */
+  vertical-align: text-top;  /* This should probably be made into an attribute in doc model of <block> */
+	}
+
+div.body{
+	background-color:white;
+	}
+  
+div.bottomnavigation{
+	float:left;
+	margin-top:40px ;
+	width:100%;
+	/*border:2px solid */
+	}
+
+div.centercontent{
+	text-align:center;
+	width:100%;
+	/* border:1px solid red; */
+	}
+  
+div.code{
+	float:left;
+	margin-left:10%;
+	margin-right:10%;
+	padding-top:10px ;
+	padding-bottom:10px ;
+	font-family:courier;
+	color:#283769;
+	}
+  
+div.displayequation{
+	display:inline-block;/*new*/
+	float:left;
+	margin-left:20px ;
+	margin-right:20px ;
+	margin-bottom:0px ;
+	padding:15px ;
+	padding-top:10px ;
+	padding-bottom:0px ;
+	color:#283769;
+	background-color:rgb(238,238,238);
+	width:90%;
+	/*border:1px solid #283769;debug*/
+	}
+
+div.displayfigure{
+	display:inline-block;/*new*/
+	float:left;
+	margin-left:20px ;
+	margin-right:20px ;
+	margin-bottom:5px ;
+	padding:15px ;
+	padding-top:10px ;
+	padding-bottom:10px ;
+	color:#283769;
+	background-color:rgb(238,238,238);
+	/*width:90%;*/
+	/*border:1px solid #283769;debug*/
+	}
+
+div.displaypicture{
+	float:left;
+	background-color:transparent;
+	width:90%;
+	}
+
+div.displaytable{
+	display:inline-block;/*new*/
+	float:left;
+	margin-left:20px ;
+	margin-right:20px ;
+	margin-bottom:5px ;
+	padding:15px ;
+	padding-top:10px ;
+	padding-bottom:0px ;
+	color:#283769;
+	background-color:rgb(238,238,238);
+	/*width:90%;*/
+	/*border:1px solid #283769;debug*/
+	}
+
+div.div{
+	display:inline-block;
+	float:left;
+	/*border:1px solid red;*/
+	}
+
+div.eqno{
+	float:right;
+	margin-right:0.5cm;
+	}
+
+div.figuregroup{
+	display:block;
+	float:left;
+	overflow:hidden;
+	/*border:2px solid purple;*/
+	}
+
+div.footnote{
+	float:left;
+	font-size:9pt;
+	}
+
+div.footnote:first-child{
+	margin-top:40px ;
+	}
+  
+div.footer{
+	float:left;
+	padding-left:5%;
+	padding-top:20px ;
+	padding-bottom:20px ;
+	background-color:white;
+	font-size:14px ;
+	color:#283769;
+	}
+
+div.header{
+	float:left;
+	padding-left:5%;
+	padding-top:20px ;
+	padding-bottom:20px ;
+	background-color:white;
+	font-size:400%;
+	/*font-family:Montserrat;*/
+	font-family:sans-serif;
+	color:#445aa9;
+	#color:#5064AE;
+	#color:#283769;
+	}
+
+  div.longrightarrow:before{
+	float:left;
+	content:"\27F6"
+	}
+
+div.message_structure{
+	margin-top:10px ;
+	padding-left:40px ;
+	}
+
+/*Theparentforcontentthatistobeverticallymiddled.*/
+div.middlingContainer{
+	float:left;
+	/*text-align:center;*/
+	/*background:#c0c0c0;*/
+	/*border:#a0a0a0solid 1px */
+	}
+
+/*Theghost*/
+div.middlingContainer:before{
+	content:'';
+	display:inline-block;
+	height:100%;
+	vertical-align:middle;
+	width:5px 
+	}
+
+/*Thecontentwhichistobeverticallymiddled*/
+div.middledContent{
+	display:inline-block;
+	vertical-align:middle;
+	}
+
+div.normal{
+	display:block;
+	min-width:30%;
+	font-size:10pt;
+	line-height:1.5;
+	/*border:1ptsolid purple;*/
+	}
+
+div.outer{
+	float:left;
+	margin-left:5%;
+	background-color:white;
+	font-size:medium;
+	color:#283769;
+	width:95%
+	}
+
+div.page{
+	float:left;
+	padding-left:5%;
+	padding-right:5%;
+	padding-top:40px ;
+	padding-bottom:60px ;
+	background-color:white;
+	box-shadow:5px 5px 2px grey;
+	border:1px solid ;
+	/*font-family:Montserrat;*/
+	font-family:sans-serif;
+  line-height2.0;
+	font-size:10pt;
+	color:#283769;
+	width:60%
+	}
+
+div.pageheader{
+	text-align:center;
+	color:#283769;
+	margin-bottom:35px ;
+	}
+
+div.quotation{
+	float:left;
+	margin-left:10%;
+	margin-right:10%;
+	padding-top:10px ;
+	padding-bottom:10px ;
+	font-style:italic;
+	color:#283769;
+	}
+
+
+div.sidebar{float:left;
+	margin-left:5px ;
+	margin-right:5px ;
+	padding-left:5px ;
+	padding-right:5px ;
+	background-color:white;
+	border:1px solid ;
+	max-width:180px ;
+	font-size:medium;
+	color:#283769;
+	}
+
+div.short{
+	float:left;
+	width:50%
+	}
+
+div.veryshort{
+	float:left;
+	}
+
+h2{
+	color:#5064AE;
+	text-align:left;
+	font-size:1.35em;
+	}
+  
+h3{
+	color:#777777;
+	text-align:left
+	}
+img.inline{
+	vertical-align:middle
+	}
+
+p{
+	font-size:10pt;
+	line-height:1.5;
+	}
+
+p.small{
+	font-size:9pt;
+	}
+
+img.er{
+	background-color:transparent;
+	display:block;
+	margin-right:auto;
+	margin-left:auto;
+	text-align:center;
+	}
+  
+table{
+  background-color:white;
+	border-collapse:collapse;
+	border:1px solid #283769;
+  display:inline-table; /*22 Nov 2017 display:inline-block. Because without this cannot place tables anywhere- they always behave as blocks on lhs and don't centre */
+                        /*24 Nov 2017 display:inline-table. Because inline-block introduced problem with collapsing borders (in Chrome). */
+	margin-left:0px ;
+  vertical-align: inherit; /*22 Nov 2017 Because we wish yo vertical align to text-top but do this in the new block construct */
+	}
+  
+table.borderless{
+	border-collapse:collapse;
+	border:none;
+	margin-left:10px 
+	}
+
+table.equation{
+  background-color: transparent;
+  display:table; /* Introduced 22 Nov 2017 to counteract change to table style to be inline-block. */
+	border:none;
+  
+	width:90%;
+	}
+
+table.rule{
+  background-color: transparent;
+  display:table;
+	border:none;
+	margin-bottom:10px ;
+	}
+
+table.ruletd{
+	border:none;
+	padding-left:5px ;
+	padding-bottom:3px ;
+	padding-top:0px ;
+	}
+table.equationtd.eqno{
+	border:none;
+	text-align:right;
+	}
+
+
+thead.lowerborder{
+	border-bottom:1px solid #283769;
+	}
+
+td.rightborder{
+	border-right:1px solid #283769;
+	}
+
+tbody,tr,th,td{
+	border:inherit;
+	}
+
+table>thead>tr>th{
+	background-color:#455AA9;
+  border-width: 1px;
+  border-style: solid;
+	padding:3px ;
+	font-size:9pt;   /* 24 Nov 2017 */
+	color:white
+	}
+  
+table>thead>tr>th:not(:last-child){     /* 24 Nov 2017 */
+  border-right-color:white;
+}
+
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: 
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+td.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+td.rotate > div {
+  transform: 
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+td.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+td{
+	color:#283769;
+	font-size:8pt;  /* 24 Nov 2017 */
+	#border:1px solid #283769;
+	padding:3px ;
+	}
+span.terminal-identifying{
+	font-style:italic;
+	font-weight:600;
+	text-decoration:underline;
+	font-size:9pt;
+	}
+
+span.terminal{
+	font-style:italic;
+	font-weight:600;
+	font-size:9pt;
+	}
+span.non-terminal{
+	font-style:normal;
+	}
+
+span.small{
+	font-size:8pt;
+	}
+
+span.courier{
+	font-family:CourierNew;
+	}
+
+ul{
+	list-style-position:outside;
+	/*font-size:smallDONTWANTTHISEVERYWHEREREINTRODUCEMORESPECIFICALLYWHENINCERTAINCONTEXTS*/
+	}
+.displayfigureul{
+	list-style-position:outside;
+	}
+.displayfigure{
+	font-size:9pt;
+	}
+
+
+
+

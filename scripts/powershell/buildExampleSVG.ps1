@@ -17,6 +17,8 @@ Param(
         [System.String]$shortSeparator, 
    [Parameter(Mandatory=$False)]
        [switch]$xpath,
+   [Parameter(Mandatory='')]
+       [System.String]$elaboration_xslt_folder_path,
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -84,10 +86,10 @@ if ($physicalType -ne '')
 
     java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
 
+    if ($elaboration_xslt_folder_path -ne "")
+    {
+    #  generate xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$elaboration_xslt_folder_path\$filenamePrefix.elaboration.xslt
+    }
 
-    #  generate xslt's
-
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.elaboration.xslt
-
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.referential_integrity.xslt
 }

@@ -6,8 +6,6 @@
 Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$filenameOrFilenamePrefix,
-   [Parameter(Mandatory=$False)]
-       [switch]$logical,  
    [Parameter(Mandatory='')]
         [ValidateSet('', 'r','h','hs')]
         [System.String]$physicalType,  
@@ -17,6 +15,8 @@ Param(
         [System.String]$shortSeparator, 
    [Parameter(Mandatory=$False)]
        [switch]$xpath,
+   [Parameter(Mandatory='')]
+       [System.String]$elaboration_xslt_folder_path,  
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -61,16 +61,17 @@ echo ('diagram source is' + $diagramSource)
 
 $animateOption = if($animate){'-animate '}{''}
 $debugswitchOption = if($debugswitch){'-debugswitch'}{''}
-
+if ($false)
+{
 powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ..\docs ' + "$animateOption" + $debugswitchOption)
-
+}
 java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..report.html
 
 if ($physicalType -ne '')
 {
     #  LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator xpath=$(If ($xpath){'y'}Else{'n'}) debug=$(If ($debugswitch){'y'}Else{'n'})
+if ($false){
+    java -jr $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator xpath=$(If ($xpath){'y'}Else{'n'}) debug=$(If ($debugswitch){'y'}Else{'n'})
 
     #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -78,15 +79,14 @@ if ($physicalType -ne '')
 
 
     java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
-
+}
     #  generation of xml schema
 
     java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
 
-
-    #  generate xslt's
-
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.elaboration.xslt
-
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.referential_integrity_xslt.xslt -o:$ERHOME\xslt\$filenamePrefix.referential_integrity.xslt
+    if ($elaboration_xslt_folder_path -ne "")
+    {
+    #  generate xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$elaboration_xslt_folder_path\$filenamePrefix.elaboration.xslt
+    }
 }
