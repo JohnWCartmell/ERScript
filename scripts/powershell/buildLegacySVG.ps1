@@ -50,11 +50,10 @@ echo ('filenameOrFilenamePrefix ' + $filenameOrFilenamePrefix)
 echo ('filenamePrefix ' + $filenamePrefix)
 
 
-$diagramSource=        $filenamePrefix + '..diagram.xml'
-# $reportOutputFilepath= '..\docs\' + $filenamePrefix + '..MYreport.html'
-$logicalSource=        $filenamePrefix + '..logical.xml'
+$diagramSource=        $filenamePrefix + '.xml'
+$logicalSource=        $filenamePrefix + '.xml'
 $physicalFilename=     $filenamePrefix + '..physical.xml'
-$physicalDiagramSource=        $filenamePrefix + '..physical..diagram.xml'
+$physicalDiagramSource=        $filenamePrefix + '..physical.xml'
 
 echo ('diagram source is' + $diagramSource)
 

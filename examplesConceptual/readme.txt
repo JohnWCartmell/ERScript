@@ -7,9 +7,11 @@ We classify the entity models included here as 'conceptual' because they do not 
 
 Both svg and latex can be built from these examples from the windows command line.
 
+xxxxxxxxxxxxx OLD xxxxxxxxx
+previously
 cd to this conceptualExamples folder
 and then run the script ..\<ERHOME>\scripts\buildAllLogical.bat 
-
+xxxxxxxxxxxxx OLD xxxxxxxxxxxxx
 
 
 

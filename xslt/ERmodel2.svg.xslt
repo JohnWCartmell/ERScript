@@ -206,7 +206,11 @@ CHANGE HISTORY
 
   <!-- assume groups are not nested within entity types -->
   <xsl:template name="render_descriptive_text" 
-                 match="entity_model|entity_type|group">
+                 match="entity_model">
+ <!--    <xsl:if test="not(self::entity_model)">
+      <xsl:message terminate="yes">OUT OF SPEC</xsl:message>
+    </xsl:if> -->
+    <!-- <xsl:call-template name="infobox"/> -->
     <xsl:for-each select="entity_type">
         <xsl:call-template name="infoboxGenerate"/>
     </xsl:for-each>
@@ -214,7 +218,6 @@ CHANGE HISTORY
         <xsl:call-template name="render_descriptive_text"/>
     </xsl:for-each>
   </xsl:template>
-
 
   <xsl:template name="clearleft">
     <div>
@@ -274,7 +277,7 @@ CHANGE HISTORY
   </xsl:template>
 
   <xsl:template name="infoboxGenerate" 
-                match="entity_type|reference|composition|arribute" 
+                match="entity_model|entity_type|reference|composition|arribute" 
                 mode="explicit">
     <xsl:call-template name="infobox" />
     <xsl:for-each select="entity_type">
@@ -285,7 +288,7 @@ CHANGE HISTORY
     </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="infobox" match="entity_type|reference|composition|attribute" 
+  <xsl:template name="infobox" match="entity_model|entity_type|reference|composition|attribute" 
                                    mode="explicit">
     <xsl:variable name="popUpxPos">
       <xsl:call-template name="popUpxPos"/>

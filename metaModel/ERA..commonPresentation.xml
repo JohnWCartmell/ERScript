@@ -193,7 +193,7 @@
          <x>4.0</x>
          <y>-0.6</y>
          <deltah>0.3</deltah>
-         <deltaw>1.6</deltaw>
+         <deltaw>1.3</deltaw>
       </presentation>
    </entity_type>
 
@@ -210,7 +210,7 @@
       <name>reference</name>
       <presentation>
          <rightOf>dependency</rightOf>
-         <w>7.0</w>
+         <w>7.35</w>
          <h>2.0</h>
       </presentation>
    </entity_type>
