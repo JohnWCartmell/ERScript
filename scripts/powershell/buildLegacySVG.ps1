@@ -16,7 +16,9 @@ Param(
    [Parameter(Mandatory=$False)]
        [switch]$xpath,
    [Parameter(Mandatory='')]
-       [System.String]$elaboration_xslt_folder_path,  
+       [System.String]$elaboration_xslt_folder_path, 
+   [Parameter(Mandatory='')]
+       [System.String]$rng_folder_path,  
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -81,9 +83,10 @@ if ($false){
     java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
 }
     #  generation of xml schema
-
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
-
+    if ($rng_folder_path -ne "")
+    {
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$rng_folder_path\$filenamePrefix.rng
+    }
     if ($elaboration_xslt_folder_path -ne "")
     {
     #  generate xslt
