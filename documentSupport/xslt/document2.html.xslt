@@ -118,13 +118,13 @@
     </script>
 
           <link href='https://fonts.googleapis.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'/>
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/erstyle.css')}" media="screen" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/cssmenustyles.css')}"   media="screen" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/print.css')}"           media="print" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/printmenustyles.css')}" media="print" />
+          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/erstyle.css')}" media="screen" />
+          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/cssmenustyles.css')}"   media="screen" />
+          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/print.css')}"           media="print" />
+          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/printmenustyles.css')}" media="print" />
   <!-- start new 2 aug 2023 -->
-          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
-          <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/css/erdiagramsvgstyles.css"/>
+          <link rel="stylesheet" type="text/css" href="../css/ersvgdiagramwrapper.css"/>
+          <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="../css/erdiagramsvgstyles.css"/>
           <script src="/js/ersvgdiagraminteraction.js">
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
@@ -581,20 +581,14 @@
       <xsl:element name="div">
         <xsl:attribute name="style" select="concat('display:block;margin:0 auto; width:',$svg/(*:svg)/@width)"/>
 
-       <object id="svg-object" data="../svg/entityModelAsList.svg" type="image/svg+xml">filler to stop contraction of this xml element</object>
-       INSTEAD OF 
-       <img src="../svg/entityModelAsList.svg"></div>
-
-        <xsl:element name="img">
-          <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
+        <xsl:element name="object">
+          <xsl:attribute name="id" select="'svg-object'"/>
+          <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
+          <xsl:attribute name="type" select="'image/svg+xml'"/>
+          <xsl:text>filler to stop contraction of this xml element</xsl:text>
         </xsl:element>
-
-
-
-
       </xsl:element>
     </xsl:element>
-
   </xsl:template>
 
   <xsl:template match="er_inline">
@@ -605,10 +599,18 @@
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,filename,'.svg')"/> not found </xsl:message>
     </xsl:if>
 
-
+<!-- 
     <xsl:element name="img">
       <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
       <xsl:attribute name="class" select="'inline'"/>
+    </xsl:element>
+ -->
+    <xsl:element name="object">
+      <xsl:attribute name="id" select="'svg-object'"/>
+      <xsl:attribute name="class" select="'inline'"/>
+      <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
+      <xsl:attribute name="type" select="'image/svg+xml'"/>
+      <xsl:text>filler to stop contraction of this xml element</xsl:text>
     </xsl:element>
 
 
@@ -685,13 +687,25 @@
               )"/>
 
 
-
+<!--
           <xsl:element name="img" >
             <xsl:attribute name="class" select="'er'"/>
             <xsl:if test="imgwidth">
               <xsl:attribute name="style" select="concat('width:',imgwidth)"/>
             </xsl:if>
             <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
+          </xsl:element>
+        -->
+
+          <xsl:element name="object">
+            <xsl:attribute name="id" select="'svg-object'"/>
+            <xsl:attribute name="class" select="'er'"/>
+            <xsl:if test="imgwidth">
+              <xsl:attribute name="style" select="concat('width:',imgwidth)"/>
+            </xsl:if>
+            <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
+            <xsl:attribute name="type" select="'image/svg+xml'"/>
+            <xsl:text>filler to stop contraction of this xml element</xsl:text>
           </xsl:element>
 
 
@@ -740,7 +754,7 @@
             <xsl:attribute name="href" select="href"/>
             <xsl:attribute name="target" select="'_blank'"/>
 
-
+<!-- 
             <xsl:element name="img" >
               <xsl:attribute name="class" select="'er'"/>
               <xsl:if test="imgwidth">
@@ -748,10 +762,19 @@
               </xsl:if>
               <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
             </xsl:element>
+ -->
+            <xsl:element name="object">
+              <xsl:attribute name="id" select="'svg-object'"/>
+              <xsl:attribute name="class" select="'er'"/>
+              <xsl:if test="imgwidth">
+                <xsl:attribute name="style" select="concat('width:',imgwidth)"/>
+              </xsl:if>
+              <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
+              <xsl:attribute name="type" select="'image/svg+xml'"/>
+              <xsl:text>filler to stop contraction of this xml element</xsl:text>
+            </xsl:element>
 
 
-
-            
           </xsl:element>
         </xsl:element>
       </xsl:element>
@@ -813,6 +836,7 @@
             <xsl:attribute name="src" select="concat($runtimepathtoimages,'/',equationName,'.png')"/>
             <xsl:attribute name="style" select="concat('width:',framewidth)"/>
           </xsl:element>
+
         </xsl:element>
       </xsl:element>
       <xsl:element name="div">

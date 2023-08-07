@@ -20,7 +20,6 @@ exit /b 1
 
 :args_count_ok
 
-
 set filepath=%~dp1
 set filename=%~nx1
 set filenamebase=%filename:~0,-4%
@@ -33,11 +32,15 @@ SET DOCHOME=%ERHOME%\documentSupport
 echo dochome is %DOCHOME%
 
 echo "Copy the css files"
-copy %DOCHOME%\css\erstyle.css %outputfolder%\erstyle.css
-copy %DOCHOME%\css\cssmenustyles.css %outputfolder%\cssmenustyles.css
-copy %DOCHOME%\css\print.css %outputfolder%\print.css
-copy %DOCHOME%\css\printmenustyles.css %outputfolder%\printmenustyles.css
+if not exist %outputfolder%\css mkdir %outputfolder%\css
+copy %DOCHOME%\css\erstyle.css %outputfolder%\css\erstyle.css
+copy %DOCHOME%\css\cssmenustyles.css %outputfolder%\css\cssmenustyles.css
+copy %DOCHOME%\css\print.css %outputfolder%\css\print.css
+copy %DOCHOME%\css\printmenustyles.css %outputfolder%\css\printmenustyles.css
 
+copy %ERHOME%\css\erdiagramsvgstyles.css %outputfolder%\css\erdiagramsvgstyles.css
+copy %ERHOME%\css\ersvgdiagramwrapper.css %outputfolder%\css\ersvgdiagramwrapper.css
+copy %ERHOME%\css\flexdiagrammingsvg.css %outputfolder%\css\flexdiagrammingsvg.css
 
 java -jar %SAXON_JAR% -s:"%filepath%%filenamebase%.xml" -xsl:%DOCHOME%\xslt\document2.html.xslt -o:%filenamebase%.html rootfolder=%outputfolder%
 
