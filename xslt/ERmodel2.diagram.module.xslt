@@ -123,6 +123,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:key name="ReferenceBySrcTypeAndName" 
          match="reference" 
          use="concat(../name,':',name)"/>
+<xsl:key name="DependencyBySrcTypeAndName" 
+         match="dependency" 
+         use="concat(../name,':',name)"/>
 <xsl:key name="CompositionByDestTypeAndInverseName" 
          match="composition" 
          use="concat(type,':',inverse)"/>
@@ -1536,7 +1539,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   </xsl:if>
   <xsl:variable name="inverse" 
                 as="element(dependency)?"
-                select="key('RelationshipBySrcTypeAndName',
+                select="key('DependencyBySrcTypeAndName',
                               concat(type,':',inverse)
                            )[current()/../name = type]
                            "/>
@@ -3514,8 +3517,11 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:variable name="inverse" 
                 as="element()?"
                 select="if (inverse) 
-                        then key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
-                                    [current()/../name = type]
+                        then (
+                             if (self::composition)
+                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse)) 
+                             else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                             )[current()/../name = type]
                         else ()" />
   <xsl:variable  name="inverseMandatory" as="xs:boolean"
                   select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>

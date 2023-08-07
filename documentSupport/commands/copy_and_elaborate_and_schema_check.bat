@@ -11,14 +11,14 @@ call %~dp0\set_path_variables
 
 echo "Copying source svg files"
 xcopy %filepath%svg %outputfolder%\svg\  /q /y
-
-
+xcopy %ERHOME%\exampleDataModels\docs %outputfolder%\svg\ /q /y
+xcopy %ERHOME%\examplesConceptual\docs %outputfolder%\svg\ /q /y
 
 echo "copy .htaccess.txt"
 copy %filepath%.htaccess.txt %outputfolder%\.htaccess.txt
 
-java -jar %SAXON_JAR% -s:"%filepath%%filenamebase%.xml" -xsl:%ERHOME%\xslt\document\documentERmodel.elaboration.xslt -o:temp\%filenamebase%.elaborated.xml
+java -jar %SAXON_JAR% -s:"%filepath%%filenamebase%.xml" -xsl:%ERHOME%\xslt\documentERmodel.elaboration.xslt -o:temp\%filenamebase%.elaborated.xml
 
-java -jar %SAXON_JAR% -s:temp\%filenamebase%.elaborated.xml -xsl:%ERHOME%\xslt\document\documentERmodel.complete.xslt -o:temp\%filenamebase%.completed.xml
+java -jar %SAXON_JAR% -s:temp\%filenamebase%.elaborated.xml -xsl:%ERHOME%\documentSupport\xslt\documentERmodel.complete.xslt -o:temp\%filenamebase%.completed.xml
 
 java -jar %JING_PATH%\jing.jar -f %ERHOME%\documentModel\schemas\documentERmodel.rng temp\%filenamebase%.completed.xml

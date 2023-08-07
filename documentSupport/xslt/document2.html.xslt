@@ -15,11 +15,13 @@
   <xsl:variable name="runtimepathtosvgfiles" select="concat($pathtoroot,'/svg/')"/>
   <xsl:variable name="runtimepathtoimages" select="concat($pathtoroot,'/images/')"/>
 
-  <xsl:variable name="parentpath"
-      select="'file:///C:/Users/John/Documents/Cloudwork/Scripting/entitymodellingbook'" />
+<!--   <xsl:variable name="parentpath"
+      select="'file:///C:/Users/John/Documents/Cloudwork/Scripting/entitymodellingbook'" /> -->
+      <xsl:variable name="parentpath" select="'..'"/> <!--   6 Aug 2023
+                                                              also changed all uses of document() to have second argument . 
+                                                             this has effect of interpreting relative paths as relative to source document -->
 
-
-  <xsl:variable name="svgFolder" select="concat($parentpath,'/',$rootfolder,'/svg/')"/>
+  <xsl:variable name="svgFolder" select="concat($parentpath,'/',$rootfolder,'/svg/')"/> 
   <xsl:variable name="eqnFolder" select="'../tex_source/'"/>
   <!-- ??????????????????  -->
   <!--<xsl:variable name="chapterFolder" select="/chapter/label"/>-->
@@ -106,7 +108,7 @@
         <head>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-732VLCP0ME"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-732VLCP0ME"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -121,7 +123,7 @@
           <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/print.css')}"           media="print" />
           <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/printmenustyles.css')}" media="print" />
   <!-- start new 2 aug 2023 -->
-          <link rel="stylesheet" type="text/css"href="/css/ersvgdiagramwrapper.css"/>
+          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
           <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/css/erdiagramsvgstyles.css"/>
           <script src="/js/ersvgdiagraminteraction.js">
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
@@ -569,7 +571,7 @@
 
   <xsl:template match="er_center">
     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'))"/>
+      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'),.)"/>  <!-- ADDED A DOT SO THAT RELATIVE TO INPUT DOC -->
     </xsl:variable>
     <xsl:if test="$svg=''">
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,filename,'.svg')"/> not found </xsl:message>
@@ -578,9 +580,18 @@
       <xsl:attribute name="style" select="'width:100%;padding:0.5cm'"/>
       <xsl:element name="div">
         <xsl:attribute name="style" select="concat('display:block;margin:0 auto; width:',$svg/(*:svg)/@width)"/>
+
+       <object id="svg-object" data="../svg/entityModelAsList.svg" type="image/svg+xml">filler to stop contraction of this xml element</object>
+       INSTEAD OF 
+       <img src="../svg/entityModelAsList.svg"></div>
+
         <xsl:element name="img">
           <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
         </xsl:element>
+
+
+
+
       </xsl:element>
     </xsl:element>
 
@@ -588,15 +599,19 @@
 
   <xsl:template match="er_inline">
     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'))"/>
+      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'),.)"/>
     </xsl:variable>
     <xsl:if test="$svg=''">
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,filename,'.svg')"/> not found </xsl:message>
     </xsl:if>
+
+
     <xsl:element name="img">
       <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
       <xsl:attribute name="class" select="'inline'"/>
     </xsl:element>
+
+
   </xsl:template>
 
   <xsl:template match="figure">
@@ -643,7 +658,7 @@
 
   <xsl:template match="figureOfPicture">
     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,pictureName,'.svg'))"/>
+      <xsl:sequence select="document(concat($svgFolder,pictureName,'.svg'),.)"/>
     </xsl:variable>
     <xsl:if test="$svg=''">
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,pictureName,'.svg')"/> not found </xsl:message>
@@ -668,6 +683,9 @@
           <xsl:attribute name="style" select="concat('margin:auto;width:',
               $imgwidth
               )"/>
+
+
+
           <xsl:element name="img" >
             <xsl:attribute name="class" select="'er'"/>
             <xsl:if test="imgwidth">
@@ -675,6 +693,9 @@
             </xsl:if>
             <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
           </xsl:element>
+
+
+
         </xsl:element>
       </xsl:element>
       <div style="clear:left"/>
@@ -684,7 +705,7 @@
 
   <xsl:template match="figureOfPictureWithNote">
     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,pictureName,'.svg'))"/>
+      <xsl:sequence select="document(concat($svgFolder,pictureName,'.svg'),.)"/>
     </xsl:variable>
     <xsl:if test="$svg=''">
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,pictureName,'.svg')"/> not found </xsl:message>
@@ -718,6 +739,8 @@
           <xsl:element name="a">
             <xsl:attribute name="href" select="href"/>
             <xsl:attribute name="target" select="'_blank'"/>
+
+
             <xsl:element name="img" >
               <xsl:attribute name="class" select="'er'"/>
               <xsl:if test="imgwidth">
@@ -725,6 +748,10 @@
               </xsl:if>
               <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
             </xsl:element>
+
+
+
+            
           </xsl:element>
         </xsl:element>
       </xsl:element>

@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ****************************************************************
-ERmodel_v1.2/instances/catalogue/src/conceptualModels/2RegularHypergraph.xml 
-****************************************************************
 
-Copyright 2016, 2107 Cyprotex Discovery Ltd.
-
-This file is part of the the ERmodel suite of models and transforms.
-
-The ERmodel suite is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-ERmodel suite is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-****************************************************************
--->
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
@@ -48,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    <entity_type>
       <name>vertex</name>
       <composition>
+         <name>s1</name>
          <type>arc</type>
          <cardinality>
             <ZeroOneOrMore/>
@@ -59,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <ToSrc/>
                </align>
                <label>
-                  <position>
-                     <Left/>
-                  </position>
+                  <name>
+                     <None/>
+                  </name>
                </label>
                <inverse>
                   <label>
@@ -74,6 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          </diagram>
       </composition>
       <composition>
+         <name>s2</name>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
@@ -84,6 +64,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                <align>
                   <ToSrc/>
                </align>
+               <label>
+                  <name>
+                     <None/>
+                  </name>
+               </label>
             </path>
          </diagram>
       </composition>
@@ -99,6 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <ExactlyOne/>
          </cardinality>
          <type>vertex</type>
+         <inverseOf>s1</inverseOf>
       </dependency>
       <dependency>
          <name>from</name>
@@ -106,6 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <ExactlyOne/>
          </cardinality>
          <type>vertex</type>
+         <inverseOf>s2</inverseOf>
       </dependency>
       <presentation>
          <below>vertex</below>

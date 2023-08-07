@@ -53,13 +53,18 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
 
 pushd $TARGETXML
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
-. $TARGET\scripts\buildLegacySVG $filename -physicalType h -shortSeparator . -longSeparator ...
+. $TARGET\scripts\buildLegacySVG $filename -logical
+. $TARGET\scripts\buildLegacySVG $filename -physicalType h 
+. $TARGET\scripts\buildLegacySVG $filename -physicalType r 
 }else{
     echo 'building all'
     get-ChildItem -Path *.xml -Exclude *..physical.xml | Foreach-Object {
       echo 'building ' + $_.Name
-      . $TARGET\scripts\buildLegacySVG $_.Name -physicalType h -shortSeparator . -longSeparator ...
+      . $TARGET\scripts\buildLegacySVG $_.Name -logical
+      . $TARGET\scripts\buildLegacySVG $_.Name -physicalType h
+      . $TARGET\scripts\buildLegacySVG $_.Name -physicalType r
     }
     echo 'done building all'
 }
 popd 
+

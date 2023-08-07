@@ -6,6 +6,8 @@ Param(
    [Parameter(Mandatory=$False)]
        [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'),
    [Parameter(Mandatory=$False)]
+       [string]$outputFilename,
+   [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
        [switch]$animate,
@@ -29,19 +31,25 @@ $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
 
-echo ('outputFolder' + $outputFolder)
+echo ('outputFolder ' + $outputFolder)
 If(!(test-path -PathType container $outputFolder))
 {
       New-Item -ItemType Directory -Path $outputFolder
 }
 
+if ($outputFilename -eq ''){
+    $svgFilename = ($filenamebase + '.svg')
+} else {
+    $svgFilename = $outputFilename
+}
+echo ('svgFilename ' + $svgFilename)
 
 . ($commandFolder +'\set_path_variables.ps1')
 
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\xslt\ERmodel2.svg.xslt `
-                       -o:$outputFolder\$filenamebase.svg `
+                       -o:$outputFolder\$svgFilename `
                        filestem=$filenamebase `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `
                        animate=$(If ($animate){'y'}Else{'n'}) `

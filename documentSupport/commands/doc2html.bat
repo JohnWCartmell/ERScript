@@ -29,14 +29,14 @@ set outputfolder=%2
 
 call %~dp0\set_path_variables
 
-if not exist %ERHOMEDIR%\schemas mkdir %ERHOMEDIR%\schemas
+SET DOCHOME=%ERHOME%\documentSupport
 echo dochome is %DOCHOME%
 
 echo "Copy the css files"
-copy %DOCHOME%\docs\erstyle.css %outputfolder%\erstyle.css
-copy %DOCHOME%\docs\cssmenustyles.css %outputfolder%\cssmenustyles.css
-copy %DOCHOME%\docs\print.css %outputfolder%\print.css
-copy %DOCHOME%\docs\printmenustyles.css %outputfolder%\printmenustyles.css
+copy %DOCHOME%\css\erstyle.css %outputfolder%\erstyle.css
+copy %DOCHOME%\css\cssmenustyles.css %outputfolder%\cssmenustyles.css
+copy %DOCHOME%\css\print.css %outputfolder%\print.css
+copy %DOCHOME%\css\printmenustyles.css %outputfolder%\printmenustyles.css
 
 
 java -jar %SAXON_JAR% -s:"%filepath%%filenamebase%.xml" -xsl:%DOCHOME%\xslt\document2.html.xslt -o:%filenamebase%.html rootfolder=%outputfolder%

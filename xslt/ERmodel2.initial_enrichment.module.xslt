@@ -720,7 +720,6 @@ Description
                       select="key('AllRelationshipBySrcTypeAndName',
                                       era:packArray((src,rel)))
                              "/>
-
          <dest>
             <xsl:value-of select="$relationship/type"/>
          </dest>
@@ -737,7 +736,6 @@ Description
             </reference>
         </entity_type>
         -->
-
    </xsl:copy>
 </xsl:template>
 

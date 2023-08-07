@@ -1566,8 +1566,11 @@ CHANGE HISTORY
   <xsl:variable name="inverse" 
                 as="element((:reference|composition:))?"
                 select="if (inverse) 
-                        then key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
-                                    [current()/../name = type]
+                        then (
+                             if (self::composition)
+                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse)) 
+                             else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                             )[current()/../name = type]
                         else ()" />
   <xsl:variable  name="inverseMandatory" as="xs:boolean"
                   select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
