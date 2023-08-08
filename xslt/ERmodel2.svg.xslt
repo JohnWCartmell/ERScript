@@ -61,7 +61,7 @@ CHANGE HISTORY
     <xsl:param name="diagramHeight"/>
     <xsl:param name="diagramWidth"/>
     <!-- <xsl:result-document href="{concat($acting_filestem,'.svg')}"> -->
-    <svg:svg>
+    <svg>
       <!-- used to add 8.0 to both hieght and width to  make room for info boxes -->
       <!-- removed 22 Dec 2015 -->
       <!-- removed for the second time 11-Oct-2017 
@@ -73,10 +73,10 @@ CHANGE HISTORY
         <xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
           <xsl:choose>
               <xsl:when test="$bundleOn">
-                <svg:style>
+                <style>
                     <xsl:value-of select="unparsed-text('../css/erdiagramsvgstyles.css')" 
                               disable-output-escaping="yes"/>
-                </svg:style>
+                </style>
               </xsl:when>
               <xsl:otherwise>
                 <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
@@ -85,22 +85,22 @@ CHANGE HISTORY
               </xsl:otherwise>
           </xsl:choose>
 
-      <svg:defs>
-        <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
-          <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
-          <svg:stop offset="100%" style="stop-color:white;stop-opacity:1" />
-        </svg:linearGradient>
-        <svg:filter x="0" y="0" width="1" height="1" id="surfaceattreven">
-          <svg:feFlood flood-color="white"/>
-          <svg:feComposite in="SourceGraphic" />
-        </svg:filter>
-        <svg:filter x="0" y="0" width="1" height="1" id="surfaceattrodd">
-          <svg:feFlood flood-color="#FFFFCC"/>
-          <svg:feComposite in="SourceGraphic" />
-        </svg:filter>
-      </svg:defs>
+      <defs>
+        <linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:white;stop-opacity:1" />
+        </linearGradient>
+        <filter x="0" y="0" width="1" height="1" id="surfaceattreven">
+          <feFlood flood-color="white"/>
+          <feComposite in="SourceGraphic" />
+        </filter>
+        <filter x="0" y="0" width="1" height="1" id="surfaceattrodd">
+          <feFlood flood-color="#FFFFCC"/>
+          <feComposite in="SourceGraphic" />
+        </filter>
+      </defs>
       <xsl:copy-of select="$content"/>
-    </svg:svg>
+    </svg>
     <!--
   </xsl:result-document>
 -->
@@ -552,7 +552,7 @@ CHANGE HISTORY
     <xsl:param name="relationships"/>
     <xsl:param name="diagramHeight"/>
     <xsl:param name="diagramWidth"/>
-    <svg:svg>
+    <svg>
       <xsl:attribute name="width">
         <xsl:value-of select="$diagramWidth"/>cm</xsl:attribute>
       <xsl:attribute name="height">
@@ -564,7 +564,7 @@ CHANGE HISTORY
         <xsl:value-of select="$diagramHeight"/>
       </xsl:attribute>
       <xsl:copy-of select="$relationships"/>
-    </svg:svg>
+    </svg>
   </xsl:template>
 
   <xsl:template name="wrap_constructed_relationship" match="entity_model">   
@@ -572,7 +572,7 @@ CHANGE HISTORY
     <xsl:param name="diagramHeight"/>
     <xsl:param name="diagramWidth"/>
 
-    <svg:svg>   
+    <svg>   
       <xsl:attribute name="width">
         <xsl:value-of select="$diagramWidth"/>cm</xsl:attribute>
       <xsl:attribute name="height">
@@ -584,7 +584,7 @@ CHANGE HISTORY
         <xsl:value-of select="$diagramHeight"/>
       </xsl:attribute>
       <xsl:copy-of select="$relationships/drawing/*"/>
-    </svg:svg>
+    </svg>
   </xsl:template>
 
   <!--
@@ -606,7 +606,7 @@ CHANGE HISTORY
        </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <svg:rect>
+  <rect>
     <xsl:choose>
        <xsl:when test="$isgroup">
            <xsl:attribute name="class">group</xsl:attribute>
@@ -624,7 +624,7 @@ CHANGE HISTORY
     <xsl:attribute name="ry"><xsl:value-of select="$cornerRadiuscm"/>cm</xsl:attribute>
     <xsl:attribute name="width"><xsl:value-of select="$wcm"/><xsl:text>cm</xsl:text></xsl:attribute>
     <xsl:attribute name="height"><xsl:value-of select="$hcm"/><xsl:text>cm</xsl:text></xsl:attribute>
-  </svg:rect>
+  </rect>
 </xsl:template>
 -->
 
@@ -634,7 +634,7 @@ CHANGE HISTORY
     <xsl:param name="wcm"/>
     <xsl:param name="hcm"/>
     <xsl:param name="title"/>
-    <svg:rect>
+    <rect>
       <xsl:attribute name="class">outertitlebox</xsl:attribute>
       <xsl:attribute name="x">
         <xsl:value-of select="$xcm"/>cm</xsl:attribute>
@@ -648,8 +648,8 @@ CHANGE HISTORY
         <xsl:value-of select="$hcm"/>
         <xsl:text>cm</xsl:text>
       </xsl:attribute>
-    </svg:rect>
-    <svg:rect>
+    </rect>
+    <rect>
       <xsl:attribute name="class">titlebox</xsl:attribute>
       <xsl:attribute name="x">
         <xsl:value-of select="$xcm + 0.1"/>cm</xsl:attribute>
@@ -663,8 +663,8 @@ CHANGE HISTORY
         <xsl:value-of select="$hcm - 0.2"/>
         <xsl:text>cm</xsl:text>
       </xsl:attribute>
-    </svg:rect>
-    <svg:text>
+    </rect>
+    <text>
       <xsl:attribute name="class">titletext</xsl:attribute>
       <xsl:attribute name="text-anchor">middle</xsl:attribute>
       <xsl:attribute name="x">
@@ -672,7 +672,7 @@ CHANGE HISTORY
       <xsl:attribute name="y">
         <xsl:value-of select="$ycm + 0.275 + 0.8"/>cm</xsl:attribute>
       <xsl:value-of select="$title" />
-    </svg:text>
+    </text>
   </xsl:template>
 
   <xsl:template name="entity_type_box" saxon:trace="yes" xmlns:saxon="http://icl.com/saxon">
@@ -766,7 +766,7 @@ CHANGE HISTORY
     -->
     </xsl:variable>
 
-    <svg:svg>
+    <svg>
       <xsl:attribute name="x">
         <xsl:value-of select="$xcm - 0.1 - $xAdjustment"/>cm</xsl:attribute>
       <xsl:attribute name="y">
@@ -779,7 +779,7 @@ CHANGE HISTORY
         <xsl:value-of select="$hcm + 0.2"/>
         <xsl:text>cm</xsl:text>
       </xsl:attribute>
-      <svg:rect>
+      <rect>
         <xsl:attribute name="id" select="id"/>
         <xsl:choose>
           <xsl:when test="$isgroup">
@@ -818,8 +818,8 @@ CHANGE HISTORY
           <xsl:value-of select="$hcm"/>
           <xsl:text>cm</xsl:text>
         </xsl:attribute>
-      </svg:rect>
-    </svg:svg>
+      </rect>
+    </svg>
 
   </xsl:template>
 
@@ -836,7 +836,7 @@ CHANGE HISTORY
       <xsl:call-template name="element_text_div_id"/>
     -->
     </xsl:variable>
-    <svg:text>
+    <text>
       <xsl:attribute name="id"><xsl:value-of select="id"/></xsl:attribute>
       <xsl:attribute name="class">
         <xsl:value-of select="   
@@ -861,11 +861,11 @@ CHANGE HISTORY
         <xsl:text>)</xsl:text>
       </xsl:if>
       <xsl:value-of select="$annotation" />
-    </svg:text>
+    </text>
     <xsl:variable name="class" select="if (implementationOf) then 'surfaceattrmarker' else 'attrmarker'"/>
     <xsl:choose>
       <xsl:when test="optional">
-        <svg:circle>
+        <circle>
           <xsl:attribute name="class" select="$class"/>
           <xsl:attribute name="cx">
             <xsl:value-of select="$xcm + 0.05"/>cm</xsl:attribute>
@@ -874,10 +874,10 @@ CHANGE HISTORY
           <xsl:attribute name="r">
             <xsl:text>0.05cm</xsl:text>
           </xsl:attribute>
-        </svg:circle>
+        </circle>
       </xsl:when>
       <xsl:otherwise>
-        <svg:rect>
+        <rect>
           <xsl:attribute name="class" select="$class"/>
           <xsl:attribute name="x">
             <xsl:value-of select="$xcm"/>cm</xsl:attribute>
@@ -889,20 +889,20 @@ CHANGE HISTORY
           <xsl:attribute name="height">
             <xsl:text>0.1cm</xsl:text>
           </xsl:attribute>
-        </svg:rect>
+        </rect>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template name="wrap_entity_type">
     <xsl:param name="content"/>
-    <svg:g>
+    <g>
       <xsl:attribute name="id">
         <xsl:value-of select="replace(name,' ','_')"/>
         <!--cannot reference groups if names have spaces-->
       </xsl:attribute>
       <xsl:copy-of select="$content"/>
-    </svg:g>
+    </g>
   </xsl:template>
 
   <!--
@@ -1018,7 +1018,7 @@ CHANGE HISTORY
     <xsl:variable name="popUpyPos">
           <xsl:call-template name="popUpyPos"/>
     </xsl:variable>
-    <svg:svg>
+    <svg>
       <xsl:attribute name="x">
         <xsl:call-template name="popUpxPos"/>
         <xsl:text>cm</xsl:text>
@@ -1027,17 +1027,17 @@ CHANGE HISTORY
         <xsl:call-template name="popUpyPos"/>
         <xsl:text>cm</xsl:text>
       </xsl:attribute>
-      <svg:g> 
+      <g> 
         <xsl:attribute name="class">popupInfoBox</xsl:attribute>
-        <svg:rect>
+        <rect>
           <xsl:attribute name="class">popupBoundingBox</xsl:attribute>
           <xsl:attribute name="x">0cm</xsl:attribute>
           <xsl:attribute name="y">0cm</xsl:attribute>
           <xsl:attribute name="width">7.0cm</xsl:attribute>
           <xsl:attribute name="height">
             <xsl:value-of select="max((4.0,1.0 + (string-length(description) div 50) * 0.4))"/>cm</xsl:attribute>
-        </svg:rect>
-        <svg:text>
+        </rect>
+        <text>
           <xsl:attribute name="class">popupHeadingText</xsl:attribute>
           <xsl:attribute name="x">0.2cm</xsl:attribute>
           <xsl:attribute name="y">0.4cm</xsl:attribute>
@@ -1050,8 +1050,8 @@ CHANGE HISTORY
             </xsl:when>
           </xsl:choose>
           <xsl:value-of select="name"/>
-        </svg:text>
-        <svg:text>
+        </text>
+        <text>
           <xsl:attribute name="class">popupDetailText</xsl:attribute>
           <xsl:attribute name="x">0.2cm</xsl:attribute>
           <xsl:attribute name="y">0.5cm</xsl:attribute>
@@ -1060,8 +1060,8 @@ CHANGE HISTORY
             <xsl:with-param name="x" select="0.2"/>
             <xsl:with-param name="minLinelen" select="50"/>
           </xsl:call-template>
-        </svg:text>
-        <svg:set>
+        </text>
+        <set>
           <xsl:attribute name="attributeName">visibility</xsl:attribute>
           <xsl:attribute name="from">hidden</xsl:attribute>
           <xsl:attribute name="to">visible</xsl:attribute>
@@ -1072,12 +1072,12 @@ CHANGE HISTORY
           <xsl:attribute name="end">
             <xsl:text>click</xsl:text>
           </xsl:attribute>
-        </svg:set>
+        </set>
         <xsl:for-each select="entity_type|group">
           <xsl:call-template name="entity_type_or_group_description"/>
         </xsl:for-each>
-      </svg:g>
-    </svg:svg>
+      </g>
+    </svg>
   </xsl:template>
 -->
   <!--End of description code-->
@@ -1096,7 +1096,7 @@ CHANGE HISTORY
     <xsl:param name="y2"/>
     <xsl:param name="x3"/>
     <xsl:param name="y3"/>
-    <svg:path>
+    <path>
       <xsl:attribute name="class">squiggle</xsl:attribute>
       <xsl:attribute name="d">
         <xsl:text>M</xsl:text>
@@ -1109,13 +1109,13 @@ CHANGE HISTORY
         <xsl:text> </xsl:text>
         <xsl:value-of select="$x3"/>,<xsl:value-of select="$y3"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="crowsfoot_down">
     <xsl:param name="x"/>
     <xsl:param name="y"/>
-    <svg:path>
+    <path>
       <!-- destination crowsfoot -->
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
@@ -1126,14 +1126,14 @@ CHANGE HISTORY
         <xsl:value-of select="concat('M',$x,',',$y - $relcrowlen)"/>
         <xsl:value-of select="concat('L',$x + $relcrowwidth,',',$y)"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="crowsfoot_down_reflected">
     <!--Mark-->
     <xsl:param name="x"/>
     <xsl:param name="y"/>
-    <svg:path>    
+    <path>    
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
         <xsl:value-of select="concat('M',$x + $relcrowwidth,',',$y - (2*$relcrowlen))"/>
@@ -1147,7 +1147,7 @@ CHANGE HISTORY
         <xsl:value-of select="concat('L',$x + $relcrowwidth,',',$y - (2*$relcrowlen))"/>
 		-->
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="identifier_comprel">
@@ -1155,13 +1155,13 @@ CHANGE HISTORY
     <xsl:param name="x"/>
     <xsl:param name="y"/>
 	<xsl:param name="width"/>
-    <svg:path>   
+    <path>   
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
         <xsl:value-of select="concat('M',$x - $width,',',$y)"/>
         <xsl:value-of select="concat('L',$x + $width,',',$y)"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="identifier_refrel">
@@ -1169,13 +1169,13 @@ CHANGE HISTORY
     <xsl:param name="x"/>
     <xsl:param name="y"/>
     <xsl:param name="width"/>
-    <svg:path>   
+    <path>   
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
         <xsl:value-of select="concat('M',$x,',',$y - $width)"/>
         <xsl:value-of select="concat('L',$x,',',$y + $width)"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
 <!-- reinstated for use from relationship construction diagrams -->
@@ -1192,7 +1192,7 @@ CHANGE HISTORY
         <xsl:otherwise>optionalrelationshipline</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <svg:path>
+    <path>
       <xsl:attribute name="class">
         <xsl:value-of select="$class"/>
       </xsl:attribute>
@@ -1200,7 +1200,7 @@ CHANGE HISTORY
         <xsl:value-of select="concat('M',$x0cm,',',$y0cm)"/>
         <xsl:value-of select="concat('L',$x1cm,',',$y1cm)"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
 
@@ -1234,7 +1234,7 @@ CHANGE HISTORY
     <xsl:param name="element_id" as="xs:string?"/>
     <xsl:param name="line" as="element(line)"/> 
     <xsl:param name="class" as="xs:string"/>  
-    <svg:path>
+    <path>
         <xsl:if test="exists($element_id)">
            <xsl:attribute name="data-relid" select="$element_id"/>
            <xsl:attribute name="id" select="concat($element_id,'_hitarea')"/>
@@ -1259,7 +1259,7 @@ CHANGE HISTORY
           </xsl:attribute>
         </xsl:if>
         -->
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="arrow">
@@ -1276,7 +1276,7 @@ CHANGE HISTORY
     <xsl:variable name="angle">
       <xsl:value-of select="math:atan((y1cm-y0cm)/ (x1cm-x0cm))"/>
     </xsl:variable>
-    <svg:g transform="translate(200,200) rotate(45)">
+    <g transform="translate(200,200) rotate(45)">
       <xsl:attribute name="class">
         <xsl:value-of select="$class"/>
       </xsl:attribute>
@@ -1284,11 +1284,11 @@ CHANGE HISTORY
         <xsl:value-of select="concat('translate(',$x0cm,',',$y0cm,')')"/>
         <xsl:value-of select="concat('rotate(',$angle,')')"/>
       </xsl:attribute>
-      <svg:line x1="0" y1="0" x2="100" y2="0"/>
-      <svg:line x1="0" y1="0" x2="5" y2="-7" />
-      <svg:line x1="0" y1="0" x2="5" y2="7" />
-    </svg:g>
-    <svg:path>
+      <line x1="0" y1="0" x2="100" y2="0"/>
+      <line x1="0" y1="0" x2="5" y2="-7" />
+      <line x1="0" y1="0" x2="5" y2="7" />
+    </g>
+    <path>
       <xsl:attribute name="class">
         <xsl:value-of select="$class"/>
       </xsl:attribute>
@@ -1297,7 +1297,7 @@ CHANGE HISTORY
         <xsl:value-of select="'M0,0L5,-7'"/>
         <xsl:value-of select="'M0,0L5,+7'"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="arc">
@@ -1310,7 +1310,7 @@ CHANGE HISTORY
     <xsl:param name="y2"/>
     <xsl:param name="y3"/>
 
-    <svg:path>
+    <path>
       <xsl:attribute name="class">arc</xsl:attribute>
       <xsl:attribute name="d">
         <xsl:text>M</xsl:text>
@@ -1323,7 +1323,7 @@ CHANGE HISTORY
         <xsl:text> </xsl:text>
         <xsl:value-of select="$x3"/>,<xsl:value-of select="$y3"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="crowsfoot_across">
@@ -1331,7 +1331,7 @@ CHANGE HISTORY
     <xsl:param name="ycm"/>
     <xsl:param name="sign"/>
     <xsl:param name="p_isconstructed"/>
-    <svg:path>
+    <path>
       <!-- crowsfoot -->
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
@@ -1342,7 +1342,7 @@ CHANGE HISTORY
         <xsl:value-of select="concat('M',$xcm + $relcrowlen * $sign,',',$ycm)"/>
         <xsl:value-of select="concat('L',$xcm,',',$ycm + $relcrowwidth)"/>
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="crowsfoot_across_reflected">
@@ -1351,7 +1351,7 @@ CHANGE HISTORY
     <xsl:param name="ycm"/>
     <xsl:param name="sign"/>
     <xsl:param name="p_isconstructed"/>
-    <svg:path>
+    <path>
       <!-- crowsfoot -->
       <xsl:attribute name="class">crowsfoot</xsl:attribute>
       <xsl:attribute name="d">
@@ -1366,7 +1366,7 @@ CHANGE HISTORY
         <xsl:value-of select="concat('L',$xcm + 2*($relcrowlen * $sign),',',$ycm + $relcrowwidth)"/>
 		-->
       </xsl:attribute>
-    </svg:path>
+    </path>
   </xsl:template>
 
   <xsl:template name="spitLines2">
@@ -1384,11 +1384,11 @@ CHANGE HISTORY
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="contains($tailTxt,' ')">
-        <svg:tspan>
+        <tspan>
           <xsl:attribute name="x" select="concat($x,'cm')"/>
           <xsl:attribute name="dy" select="concat($infoTextLineHeight,'cm')"/>
           <xsl:value-of select= "concat($headTxt,substring-before($tailTxt,' '))"/>
-        </svg:tspan>
+        </tspan>
         <xsl:call-template name="spitLines2">
           <xsl:with-param name="pText" select= "substring-after($tailTxt,' ')"/>
           <xsl:with-param name="x" select= "$x"/>
@@ -1396,11 +1396,11 @@ CHANGE HISTORY
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <svg:tspan>
+        <tspan>
           <xsl:attribute name="x" select="concat($x,'cm')"/>
           <xsl:attribute name="dy" select="concat($infoTextLineHeight,'cm')"/>
           <xsl:value-of select= "$pText"/>
-        </svg:tspan>
+        </tspan>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -1448,7 +1448,7 @@ CHANGE HISTORY
       </xsl:choose>
     </xsl:variable>
 
-    <svg:text>
+    <text>
       <xsl:attribute name="class" select="$class"/>
       <xsl:choose>
         <xsl:when test="$class='relname' or $class='scope' 
@@ -1463,7 +1463,7 @@ CHANGE HISTORY
       </xsl:choose>
       <xsl:attribute name="text-anchor" select="$text-anchor"/>
       <xsl:value-of select= "$modifiedText"/>
-    </svg:text>
+    </text>
   </xsl:template>
 
 
