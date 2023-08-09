@@ -1,5 +1,6 @@
 /* Styles used on www.entitymodelling.org */
-/* 13 Nov 2022 Styles bigouter, bigbody, bigsvg, inforolist, inforlevel1...inforlevel5, infotextbox, metatype, closecontainer and close moved into ersvgdiagramwrapper.css */
+/* 13 Nov 2022 Styles bigouter, bigbody, bigsvg, inforolist, inforlevel1...inforlevel5, infotextbox, metatype, closecontainer 
+and close moved into ersvgdiagramwrapper.css */
 
    body {
        background-color: #ECEEF6;

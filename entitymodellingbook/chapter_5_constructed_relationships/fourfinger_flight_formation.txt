@@ -1,0 +1,35 @@
+<entity_model>
+<entity_type>
+   <name>flight</name>
+   <presentation><x>1.0</x><y>1.0</y><w>2.0</w></presentation>
+   <composition>
+      <name>lead</name>
+      <type>element</type>
+   </composition>
+   <composition>
+      <name>second</name>
+      <type>element</type>
+   </composition>
+   <reference>
+       <name>flight leader</name>
+       <type>aircraft</type>
+       <diagram><path></path></diagram>
+   </reference>
+</entity_type>
+<entity_type>
+   <name>element</name>
+   <presentation><below>flight</below><w>2.0</w></presentation>
+   <composition>
+      <name>leader</name>
+      <type>aircraft</type>
+   </composition>
+   <composition>
+      <name>wingman</name>
+      <type>aircraft</type>
+   </composition>
+</entity_type>
+<entity_type>
+   <name>aircraft</name>
+   <presentation><below>element</below><w>2.0</w></presentation>
+</entity_type>
+</entity_model>

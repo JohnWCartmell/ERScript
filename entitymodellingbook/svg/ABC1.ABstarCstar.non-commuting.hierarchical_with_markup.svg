@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg:svg xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xlink="http://www.w3.org/TR/xlink"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         width="9.275cm"
+         height="5cm">
+   <svg:defs>
+      <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
+         <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1"/>
+         <svg:stop offset="100%" style="stop-color:white;stop-opacity:1"/>
+      </svg:linearGradient>
+      <svg:style type="text/css">
+        .eteven {
+          fill: #FFFFCC;
+          stroke: black;
+          stroke-width: 1
+        }
+        .etodd {
+          fill: white;
+          stroke: black;
+          stroke-width: 1
+        }
+        .outertitlebox {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titlebox {
+          fill: #FCFCFC;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titletext {
+        fill: black;
+        font-size: 30px;
+        }
+        .group {
+          fill: url(#topdowngrey);
+        }
+        .groupannotation {
+          fill: grey;
+          font-size: 11px ;
+        }
+		.markuptext {
+		  fill:red ;
+		  font-size: 11px ;
+		  font-weight: bold ;
+		}
+		.bracket {
+		  fill:red ;
+		  font-family:Ariel ;
+		  font-weight:bold ;
+		}
+        .attrmarker {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1
+        }
+	.deprecatedattrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic;
+          text-decoration: line-through;
+        }
+        .mandatoryrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .optionalrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          stroke-dasharray: 0.07 0.07;
+          fill: none
+        }
+        .arrow {
+          stroke: red;
+          stroke-width: .02;
+          fill: none
+        }
+        .crowsfoot {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .arc {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .squiggle {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .etname {
+          fill: black;
+          font-size: 11px ;
+        }
+        .attrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic
+        }
+        .idattrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .popupInfoBox {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal ;
+          visibility: hidden
+        }
+        .popupBoundingBox {
+          fill: white;
+          stroke: black;
+          stroke-width: 2
+        }
+        .popupHeadingText {
+          fill: black;
+          font-size: 12px ;
+          font-style: normal
+        }
+        .popupDetailText {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal
+        }
+        .relname {
+          fill: black ;
+          font-size: .25px ;
+          font-style: italic
+        }
+        .reletname {
+          fill: black ;
+          font-size: .30px ;
+          font-style: italic
+        }
+      </svg:style>
+   </svg:defs>
+   <svg:g id="A">
+      <svg:svg xmlns:saxon="http://icl.com/saxon"
+               x="4.9cm"
+               y="1.2cm"
+               width="2.4000000000000004cm"
+               height="1.0999999999999999cm">
+         <svg:rect class="eteven"
+                   onclick="top.notify('A_text')"
+                   x="0.1cm"
+                   y="0.1cm"
+                   rx="0.09cm"
+                   ry="0.09cm"
+                   width="2.2cm"
+                   height="0.8999999999999999cm"/>
+      </svg:svg>
+      <svg:text class="etname" x="5.22cm" y="1.65cm" text-anchor="start">A</svg:text>
+      <svg:text class="idattrname" x="5.375cm" y="1.95cm">name</svg:text>
+      <svg:rect class="attrmarker"
+                x="5.2cm"
+                y="1.825cm"
+                width="0.1cm"
+                height="0.1cm"/>
+   </svg:g>
+   <svg:g id="">
+      <svg:g id="B">
+         <svg:svg xmlns:saxon="http://icl.com/saxon"
+                  x="2.9249999999999994cm"
+                  y="3.1cm"
+                  width="2.5500000000000007cm"
+                  height="1.5999999999999999cm">
+            <svg:rect class="eteven"
+                      onclick="top.notify('B_text')"
+                      x="0.1cm"
+                      y="0.1cm"
+                      rx="0.13999999999999999cm"
+                      ry="0.13999999999999999cm"
+                      width="2.3500000000000005cm"
+                      height="1.4cm"/>
+         </svg:svg>
+         <svg:text class="etname"
+                   x="3.2599999999999993cm"
+                   y="3.5500000000000003cm"
+                   text-anchor="start">B</svg:text>
+         <svg:text class="idattrname" x="3.3999999999999995cm" y="3.85cm">name</svg:text>
+         <svg:rect class="attrmarker"
+                   x="3.2249999999999996cm"
+                   y="3.725cm"
+                   width="0.1cm"
+                   height="0.1cm"/>
+         <svg:text class="attrname" x="3.3999999999999995cm" y="4.15cm">fname (R1)</svg:text>
+         <svg:rect class="attrmarker"
+                   x="3.2249999999999996cm"
+                   y="4.025cm"
+                   width="0.1cm"
+                   height="0.1cm"/>
+         <svg:text class="attrname" x="3.3999999999999995cm" y="4.45cm">fgname (R1)</svg:text>
+         <svg:rect class="attrmarker"
+                   x="3.2249999999999996cm"
+                   y="4.325cm"
+                   width="0.1cm"
+                   height="0.1cm"/>
+         <svg:g id="">
+			<svg:text class="bracket"
+                         onclick="top.notify('_text')"
+                         x="2.92cm"
+                         y="4.4cm"
+						 font-size="22px"
+						 font-weight="bold">
+						 {
+			</svg:text>
+            <svg:text class="markuptext"
+                      x="2.8cm"
+                      y="4.15cm"
+                      text-anchor="end">Data representation
+                			</svg:text>
+            <svg:text class="markuptext"
+                      x="2.8cm"
+                      y="4.5cm"
+                      text-anchor="end">	of the relationship f</svg:text>
+         </svg:g>
+      </svg:g>
+      <svg:g id="C">
+         <svg:svg xmlns:saxon="http://icl.com/saxon"
+                  x="6.875cm"
+                  y="3.1cm"
+                  width="2.4000000000000004cm"
+                  height="1.0999999999999999cm">
+            <svg:rect class="eteven"
+                      onclick="top.notify('C_text')"
+                      x="0.1cm"
+                      y="0.1cm"
+                      rx="0.09cm"
+                      ry="0.09cm"
+                      width="2.2cm"
+                      height="0.8999999999999999cm"/>
+         </svg:svg>
+         <svg:text class="etname"
+                   x="7.194999999999999cm"
+                   y="3.5500000000000003cm"
+                   text-anchor="start">C</svg:text>
+         <svg:text class="idattrname" x="7.35cm" y="3.85cm">name</svg:text>
+         <svg:rect class="attrmarker"
+                   x="7.175cm"
+                   y="3.725cm"
+                   width="0.1cm"
+                   height="0.1cm"/>
+      </svg:g>
+   </svg:g>
+   <svg:g id="">
+      <svg:svg xmlns:saxon="http://icl.com/saxon"
+               x="-0.1cm"
+               y="-0.4cm"
+               width="9.375cm"
+               height="0.7cm">
+         <svg:rect class="eteven"
+                   onclick="top.notify('_text')"
+                   x="0.1cm"
+                   y="0.1cm"
+                   rx="0.05cm"
+                   ry="0.05cm"
+                   width="9.175cm"
+                   height="0.5cm"/>
+      </svg:svg>
+   </svg:g>
+   <svg:svg width="9.175cm" height="4.6cm" viewBox="0 0 9.175 4.6">
+      <svg:text class="relname"
+                x="6.199999999999999"
+                y="0.5"
+                text-anchor="start"/>
+      <svg:path class="mandatoryrelationshipline" d="M6.1,0.2L6.1,0.75"/>
+      <svg:path class="mandatoryrelationshipline" d="M6.1,0.75L6.1,1.3"/>
+      <svg:path class="crowsfoot"
+                d="M6.1,1.1L6,1.3M6.1,1.1L6.1,1.3M6.1,1.1L6.199999999999999,1.3"/>
+      <svg:text class="relname"
+                x="5.833333333333333"
+                y="2.5"
+                text-anchor="start"/>
+      <svg:text class="relname"
+                x="4.299999999999999"
+                y="3.1"
+                text-anchor="start">h</svg:text>
+      <svg:path class="mandatoryrelationshipline"
+                d="M5.733333333333333,2.2L5.733333333333333,2.2750000000000004"/>
+      <svg:path class="mandatoryrelationshipline"
+                d="M4.199999999999999,3L4.199999999999999,3.2"/>
+      <svg:path class="mandatoryrelationshipline"
+                d="M5.733333333333333,2.2750000000000004L5.733333333333333,2.35L4.966666666666667,2.575"/>
+      <svg:path class="mandatoryrelationshipline"
+                d="M4.966666666666667,2.575L4.199999999999999,2.8000000000000003L4.199999999999999,3"/>
+      <svg:path class="crowsfoot"
+                d="M4.199999999999999,3L4.1,3.2M4.199999999999999,3L4.199999999999999,3.2M4.199999999999999,3L4.299999999999999,3.2"/>
+      <svg:text class="relname"
+                x="6.566666666666666"
+                y="2.5"
+                text-anchor="start"/>
+      <svg:text class="relname"
+                x="8.174999999999999"
+                y="3.1"
+                text-anchor="start">g</svg:text>
+      <svg:path class="mandatoryrelationshipline"
+                d="M6.466666666666667,2.2L6.466666666666667,2.2750000000000004"/>
+      <svg:path class="mandatoryrelationshipline" d="M8.075,3L8.075,3.2"/>
+      <svg:path class="mandatoryrelationshipline"
+                d="M6.466666666666667,2.2750000000000004L6.466666666666667,2.35L7.270833333333333,2.575"/>
+      <svg:path class="mandatoryrelationshipline"
+                d="M7.270833333333333,2.575L8.075,2.8000000000000003L8.075,3"/>
+      <svg:path class="crowsfoot"
+                d="M7.975,2.9000000000000004L8.174999999999999,2.9000000000000004M7.975,2.825L7.975,2.9750000000000005M8.174999999999999,2.825L8.174999999999999,2.9750000000000005"/>
+      <svg:path class="crowsfoot"
+                d="M8.075,3L7.975,3.2M8.075,3L8.075,3.2M8.075,3L8.174999999999999,3.2"/>
+      <svg:text class="relname"
+                x="5.475"
+                y="3.5500000000000003"
+                text-anchor="start">f</svg:text>
+      <svg:path class="optionalrelationshipline"
+                d="M5.375,3.6500000000000004L6.175,3.6500000000000004"/>
+      <svg:path class="optionalrelationshipline"
+                d="M6.175,3.6500000000000004L6.975,3.6500000000000004"/>
+      <svg:path class="crowsfoot"
+                d="M5.575,3.6500000000000004L5.375,3.5500000000000003M5.575,3.6500000000000004L5.375,3.6500000000000004M5.575,3.6500000000000004L5.375,3.7500000000000004"/>
+   </svg:svg>
+</svg:svg>

@@ -1,0 +1,112 @@
+
+<chapter>
+  <title>The Author</title>
+  <subtitle>About the Author</subtitle>
+  <label>finalthoughts</label>
+ 
+  <preface>
+    <para>
+      The author of this book/website is John Cartmell;  you can find me 
+      on  <a href="https://uk.linkedin.com/pub/john-cartmell/43/a08/b1a">LinkedIn</a> or you could email 
+      me as john.w.cartmell on gmail.  I was taught mathematics at the University of Bristol where H. Rose, B. Rotman and others taught me both Abstract Algebra and Mathematical Logic
+      and  where F. Rowbotham went on to teach me Category Theory and also to supervise my M.Sc. dissertation after A. Champenowne had introduced 
+      me to Lawere Theories.  D. Scott kindly supervised my D.Phil at Oxford where P. Hancock intoduced me to Martin-Lof type theory 
+      and thus to types that vary -- the subject of my D.Phil. Early on in my programming career I was fortunate to work in a team led by M. Falla and 
+      pioneering object-oriented software. I learnt databases and implemented my first database working to designs of A. Alderson
+      who in the process taught me databases and also requirements analysis and software design. Working at the University of Edinburgh 
+      with R. Burstall and G. Richie I learnt the utility of attribute grammars and some of the notation in this book I learnt from
+      working with and implementing designs of Harry Ellis. 
+      The distinction between reference and composition I learnt working on the PCTE+ project, sometime 
+      alongside the CAIS project team. 
+      New relational design theory has been in the back of my mind since I worked at Ipsys with A. Alderson, A. Elliott, B. Passingham and F. Smit.
+      It finally came together while I was working on Laboratory Workflow systems at Cyprotex - an opportunity given to me by D. Leahy and where 
+      discussions with B. Appleyard has been particularly supportive. A strikingly successful application of 
+      the methods and tools has been at Cyprotex Discovery in a mid-2016 project that produced
+      LCMS Chromatography Analysis Software overcoming deficiencies in the Mass Spectrometry supplier's 
+      own software so as to improve the productivity of scientists.
+      For that project we implemented entity models in XML and generated code in typescript and python.
+    </para>
+
+    <para>
+      For xslt I am gratefully for and acknowledge and recommend the Saxon xslt implementation which is also used
+      to produce the svg images on this website; likewise I have
+      benefitted from excellent articles on xslt from Lenz Consulting (for example <a href="http://lenzconsulting.com/how-xslt-works/">How XSLT Works</a>).  
+    </para>
+    <subsection>
+      <title>My Bibliography</title>
+      <para>
+        Cartmell J. (1978) 
+        Generalised Algebraic Theories and Contextual Categories,
+        PhD Thesis, Oxford.
+      </para>
+      <para>
+        Cartmell J. (1986) 
+        Generalised Algebraic Theories and Contextual Categories,
+        in Annals of Pure and Applied Logic, 32 North Holland.
+      </para>
+      <para>
+        Cartmell J. (1986) 
+        Formalising the Network and Hierarchical Data Models - an Application of Categorical Logic, 
+        in Category Theory and Computer Programming, Lecture Notes in Computer Science 240, Springer-Verlag.
+      </para>
+      <para>
+        Alderson A. and Cartmell J. (1987) 
+        The Eclipse Two-Tier Database Interface, 
+        in ESEC’87 Proceedings of the 1st European Software Engineering Conference, Strasbourg, Springer-Verlag, 1987.
+      </para>
+      <para>
+        Cartmell J. (1988) 
+        The Evaluation of Project Support Environments for the STARTS USER GUIDE,
+        in Software Engineering Environments, Ellis Horwood.
+      </para>
+      <para>
+        Cartmell J. and Alderson A. (1988) 
+        The Eclipse Data Model - A Functional Account,
+        in Software Engineering Environments, P.Brereton (Ed.), Ellis Horwood.
+      </para>
+      <para>
+        Alderson A. and Cartmell J. (1989) 
+        The Evolution of the Eclipse Kernel, 
+        in ECLIPSE An Integrated Project Support Environment, M.F.Bott (Ed.), Peter Peregrinus.
+      </para>
+      <para>
+        Cartmell J. and Alderson A. (1989) 
+        The Eclipse Two-Tier Database, 
+        in ECLIPSE An Integrated Project Support Environment, M.F.Bott (Ed.), Peter Peregrinus.
+      </para>
+      <para>
+        Alderson A., Elliott A. and Cartmell J. (1990) 
+        The Eclipse Programme,
+        in Proceedings of the First International Conference on Systems Development Environments and Factories, Berlin 1989, N.Madhavji, W.Schafer and H.Weber (Eds), Springer-Verlag.
+      </para>
+      <para>
+        Alderson A., Cartmell J., Elliott A., (1997), 
+        The Concepts Underlying a Meta-CASE Tool,
+        SOCTR/97/02, School of Computing, Staffordshire University.
+      </para>
+      <para>
+        Alderson A., Cartmell J., Elliott A., (1997), 
+        Data Transformation Based on Data Model Derivation,
+        SOCTR/97/03, School of Computing, Staffordshire University.
+      </para>
+      <para>
+        Alderson A., Cartmell J.W. and Elliott A., (1997), 
+        On the Scope of Relationships,
+        in Proceedings of the Eighth International Workshop on Software Technology and Engineering Practice (STEP  97), London, England 14-18th July 1997, IEEE Computer Society Press, 279-287.
+      </para>
+      <para>
+        Alderson A., Cartmell J.W. and Elliott A., (1999), 
+        ToolBuilder: From CASE Tool Components to Method Engineering, 
+        Proceedings of COSET’99 (Workshop WTM3 of ICSE’99), 17-18 May 1999, Los Angeles, CA, University of South Austrailia Press, ISBN 0868036293.
+      </para>
+      <para>
+        Cartmell J., Enoch S., Krstajic D., Leahy D.E., (2005), 
+        Automated QSAR through Competitive Workflow,
+        Journal of Computer-Aided Molecular Design, 19(11):821-33.
+      </para>
+    </subsection>
+  </preface>
+</chapter>
+
+
+

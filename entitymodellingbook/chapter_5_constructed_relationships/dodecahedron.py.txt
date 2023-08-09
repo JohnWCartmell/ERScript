@@ -1,0 +1,79 @@
+c1=0.309
+c2=0.809
+s1=0.951
+s2=0.588
+
+innerscale =0.8
+outerscale=3
+middleinscale =1.2
+middleoutscale =2.0
+
+inner1 = (innerscale*0,innerscale*1)
+inner2 = (innerscale*s1,innerscale*c1)
+inner3 = (innerscale*s2,-innerscale*c2)
+inner4 = (-innerscale*s2,-innerscale*c2)
+inner5 = (-innerscale*s1,innerscale*c1)
+
+middleinner1 = (middleinscale*0,middleinscale*1)
+middleinner2 = (middleinscale*s1,middleinscale*c1)
+middleinner3 = (middleinscale*s2,-middleinscale*c2)
+middleinner4 = (-middleinscale*s2,-middleinscale*c2)
+middleinner5 = (-middleinscale*s1,middleinscale*c1)
+
+outer1 = (-outerscale * s2,  outerscale * c2)
+outer2 = ( outerscale * s2,  outerscale * c2)
+outer3 = ( outerscale * s1, -outerscale * c1)
+outer4 = ( outerscale * 0 , -outerscale * 1 ) 
+outer5 = (-outerscale * s1, -outerscale * c1)
+
+middleouter1 = (-middleoutscale * s2,  middleoutscale * c2)
+middleouter2 = ( middleoutscale * s2,  middleoutscale * c2)
+middleouter3 = ( middleoutscale * s1, -middleoutscale * c1)
+middleouter4 = ( middleoutscale * 0 , -middleoutscale * 1 ) 
+middleouter5 = (-middleoutscale * s1, -middleoutscale * c1)
+
+def line (a,b):
+  print ("\\psline",a,b)
+
+line(inner1,inner2)
+line(inner2,inner3)
+line(inner3,inner4)
+line(inner4,inner5)
+line(inner5,inner1)
+
+line(inner1,middleinner1)
+line(inner2,middleinner2)
+line(inner3,middleinner3)
+line(inner4,middleinner4)
+line(inner5,middleinner5)
+
+line(outer1,outer2)
+line(outer2,outer3)
+line(outer3,outer4)
+line(outer4,outer5)
+line(outer5,outer1)
+
+line(outer1,middleouter1)
+line(outer2,middleouter2)
+line(outer3,middleouter3)
+line(outer4,middleouter4)
+line(outer5,middleouter5)
+
+line(middleouter1,middleinner1)
+line(middleouter2,middleinner2)
+line(middleouter3,middleinner3)
+line(middleouter4,middleinner4)
+line(middleouter5,middleinner5)
+
+line(middleinner1,middleouter2)
+line(middleinner2,middleouter3)
+line(middleinner3,middleouter4)
+line(middleinner4,middleouter5)
+line(middleinner5,middleouter1)
+
+
+
+
+
+
+

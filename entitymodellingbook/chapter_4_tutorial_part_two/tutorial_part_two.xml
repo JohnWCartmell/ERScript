@@ -1,0 +1,2268 @@
+
+<chapter>
+  <title>Tutorial Part Two</title>
+  <subtitle>Entity Modelling Tutorial Part Two - Representing Data</subtitle>
+  <label>tutorialtwo</label>
+  <explanation> which is a tutorial describing use of the notation for data modelling. 
+  </explanation>
+
+  <preface>
+    <para>In Part One we have shown how entity models describe 
+      both the types of things, <emph>entity types</emph>, and the <emph>relationships</emph> between 
+      different types
+      of things within a chosen perspective and which perspective is then 
+      considered the whole or <emph>the absolute</emph> from a logical point of view. 
+      In this chapter we focus on how entitites may be communicated. 
+      In doing so we explain  how entity models are used for <emph>data specification</emph> i.e. how
+      they may	prescribe or, <emph>a posteriori</emph>, document the structure of data.
+    </para>
+    <para>
+      To use entity modelling in this way in the description and construction of information systems, 
+      we require, alongside of the meta-concepts of <emph>entity type</emph> and <emph>relationship</emph>, a
+      third and vital meta-concept <emdash/> that of <emph>attribute</emph>. 
+      In the literature <emph>an attribute</emph> is variously defined as 
+      <quotation>any detail that serves to qualify, identify, classify, quantify or express an
+        entity<footnote><bibentry><label>RichardBarkerBook</label></bibentry></footnote>,
+      </quotation>
+      <quotation>
+        the smallest discrete component of the system information that is meaningful<footnote>
+          <bibentry><label>SSADM</label></bibentry></footnote>,</quotation>
+      <quotation>
+        the abstraction of a <emph>single</emph> characteristic pocessed by all the entities that
+        were, themselves, abstracted as an [entity type]<footnote>
+          From <bibentry><label>ShlaerMellor</label></bibentry> but with my 
+          word <q>entity type</q>
+          in place of their word <q>object</q>.</footnote>.
+      </quotation>
+    </para> 
+    <para> 
+      Whatever you make of these definitions it is clear that examples are needed; our first 
+      examples are given below 
+      and then others  follow in subsequent sections. Regarding such examples,
+      Schlaer and Mellor<footnote><bibentry><label>ShlaerMellor</label></bibentry></footnote> illustrate
+      these same concepts with examples in which entitites correspond to the rows of example tables and attributes correspond
+      to columns of the table; other authors do likewise and one at least treats <emph>column of table</emph>
+      and <emph>attribute</emph> as synonymous terms<footnote><bibentry><label>CJDate</label></bibentry></footnote>.		
+      We will also rely on examples in tabular form  but with one important difference: we shall have examples
+      in which some rows have other rows nested within them;
+      in our examples the nested rows represent dependent entitites <emdash/> they are a visible
+      representation of compositional structure within an entity model i.e. of composition 
+      relationships between entitites.
+    </para>
+    <para>
+      Now, when we call to mind <emph>data</emph>, then we think of names, quantities, monetary values, 
+      addresses, dates, temperatures, geographical coordinates, and so on. Such items 
+      of data as these convey information only within specific contexts and when attributed 
+      to subjects at hand. A temperature, a colour, a price, 
+      a height, a distance <emdash/> all these 
+      tell us nothing less they be the temperature, the colour, the price, the height or the 
+      distance <emph>of some thing</emph>. We can paraphrase in the language of entity modelling and 
+      say they tell us nothing less they be attributed to an entity. This then is our starting point. 
+      I ask you to start with the view that data only conveys information when it is embedded in messages built systematically 
+      following some sorts of rules,  just as vocabulary is only meaningful within the context of text that is 
+      grammatical and free from category mistakes and other howlers.
+      Primarily we focus on data as the consituent parts of messages rather than thinking of it as content within a database. 
+      If we do this then data specification is a more general term  than data modelling and a  methodology for data specification 
+      i.e. for the specification of message structures is of more general utility than one for
+      specification of database structure i.e for data modelling <emdash/> for the former subsumes the latter. 
+      Data specification is the act of specifying rules by which
+      data will be combined and communicated to convey information about subject entities.  
+      The same entities, essentially the same data,  may take many different forms <emdash/> they <emph>may be</emph> stored in a database, 
+      they may be communicated over a network, enriched by a program according to a set of rules,
+      displayed to a user, as, say, on a web page. Each form that they take, when analysed, will likely have 
+      different message structure but each will map one to the other and therefore one to all.       
+    </para>
+
+
+    <para>
+      Just as we conceive abstract lingustic structure common to speech
+      and writing, for our purposes here  we require an abstract concept of a message system
+      <emdash/>
+      what we lose in ease of explanation we gain in generality.
+      To achieve this level of abstraction, we take it as incidental, i.e. as a given, 
+      how we communicate universals; 
+      among these are the terminal instances, including numbers, dates and strings,
+      and the identities of entity types and attributes and we also take it as given 
+      that one set of messages may be embedded or otherwise presented within the context
+      of another.      
+    </para>
+    <para>
+      We require that a message communicates the identifying features of the subject entity, 
+      the attribute values for each of its attributes, which we have said is given, and
+      that it communicates all the relationships of the subject entity with other
+      entities. Optionally, it may communicate one or more of the subject entitites parts 
+      (i.e. entitites reached through composition relationships), recursively.
+      Finally we require that all data in a message communicate something i.e. that 
+      there is no redundant data in the overall message set that describes a state of affairs. 
+    </para>
+
+    <!--
+    <para>
+    There is some subtlety that does not immediately strike the eye and is need of explanation. From every entity model, for every type of entity, there is a bunch 
+    of different message structures trying to get out.
+   </para>
+   
+   
+   <para>
+    The content of the message corresponding to an entity type, the data items within, require recursive definition.
+
+    In addition it communicates each single-valued reference relationship of a subject entity 
+    by communicating the identifying attributes of the referenced entity <emdash/> each of these appearing 
+    syntactically just as any other attribute.   This phrase <emph>the identifying attributes of the referenced entity</emph> 
+    is where things get terminologically messy. Most often the term <emph>foreign key</emph> is used for this combination 
+    and most often these are presented as new attributes of the subject entity <emph>at the physical level</emph> and which,
+    relationally, translate to columns of the table representing the subject entity.     
+    </para>
+    <para> Data representations are described by  ER models as discussed in the earlier 
+      perspective:
+      <refsection>
+        <label>
+          <chapter>perspective</chapter>
+          <section>datamodelling</section>
+        </label>
+        <title>Data Modelling</title>
+      </refsection>; a physical ER model is an ER model which includes for each relationship a means of representing it in data. 
+    </para>
+    <para>
+      Previously
+      (in the 
+      <refsection>
+        <label>
+          <chapter>perspective</chapter>
+          <section>foundations</section>
+        </label>
+        <title>Foundations of Data</title>
+      </refsection>
+      section) we introduced the idea that databases are message systems<footnote> 
+        The idea here is to try and describe from first prinicples rather than from the past experience in which for example 
+        we have authors such as Richard Barker quoting C.J. Date who describes very much as Codd did who in turn prescribed <emph>relational</emph>, in part at least, as a ruling out of certain features that would be natural to and understood by the programmers of his time - many of whom would have programmed in Cobol.
+      </footnote>
+      and that specifying a data structure is specifying a system of messages. According to this view 
+      there are a number of types of subject entity and there is hierarchy of messages, each of them describing a subject entity; 
+      furthermore there are different types of message corresponding to the different types of subject entity and each type determines:
+      <itemize>
+        <item>
+          the content of that type of message as a tuple of attributes of the subject entity which are to be attributed in
+          each message of the type 
+        </item>
+        <item>
+          the types of message which may have this type of message as their contexual position within the hierarchy
+        </item>
+        <item>
+          which combinations of attributes of a message are referential, to what type of entity they are referential and how, 
+          and, of these,
+        </item>
+        <item>		 
+          which particular combination of attributes  referentially identifies the subject entity of the message.
+        </item>
+      </itemize>
+    </para>
+    -->
+
+
+  </preface>
+
+  <section>
+    <leader>
+      This tutuorial proceeds as follows. 
+      First we introduce the fundamentals of the notation and give some examples:
+    </leader>
+    <title>Attributes</title>
+    <trailer>
+    </trailer>
+    <label>attributes</label>
+    <subsection>
+      <title>A Quick Introduction to Attributes</title>
+      <para> As stored within information systems then the individually represented items <emdash/> the 
+        names, colours, quantities, the monetary amounts, the dates, etc <emdash/> in the language 
+        of entity modelling, are said to be the values of attributes. Thus an actual name 
+        like <qq>John Smith</qq> is said to the value of a <q>name</q> attribute of a <q>person</q> entity.
+
+        We may express that information about a person is communicated or stored as 
+        message with two components name and data of birth we might say that a <q>person</q> entity may be attributed a <q>name</q> and a <q>date of birth</q> 
+        on show an entity model diagram representing type <q>person</q>
+        with <q>name</q> and <q>date of birth</q> attribute annotations, like this:
+        <er_center>
+          <filename>personNameDobAttribute</filename>
+        </er_center>
+      </para>
+      <para>Alternatively to say 
+        that date of birth is optional
+        we may use a circle in place of the square:
+        <er_center>
+          <filename>personMandatoryNameAttribute</filename>
+        </er_center>
+        To show that the name attribute within a message is the identifying attribute we underline the annotation in the diagram: 			
+        <er_center>
+          <filename>personIdentifyingNameAttribute</filename>
+        </er_center>
+      </para>
+      <para>
+        If it is nessary to give both a person's name <emph>and</emph> their data of birth to uniquely identify 
+        them  then we underline
+        both of these attributes on the diagram:
+        <er_center>
+          <filename>personIdentifyingNameDobAttribute</filename>
+        </er_center>
+        Generally, systems will hold and communicate many different attributes of each type of entity and
+        these attributes are shown beneath the identifying attributes:
+        <er_center>
+          <filename>personAttributes</filename>
+        </er_center>
+      </para>
+      <para>
+        It is clear that computer programs are effective only in so long as the data items 
+        they manipulate are intended and understood as attributes of subject entities. It 
+        follows that to have an effective information system we must first have agreed types 
+        of subject entity and also what may be attributed to entities  of these types. In this agreement
+        we agree the data content of the program or system i.e.  
+        its subject matter.
+      </para>
+
+      <para>
+        In a message about a person two or more phone numbers may be communicated
+        but it is a rule of entity modelling that for a single attribute an entity may only be attributed a single value. 
+        For this reason if a person can have multiple phone numbers then <q>phone_number</q> is 
+        not an attribute  of a <q>person</q> entity type <emph>per se</emph> but an attribute of a <q>phone</q> entity type that 
+        stands in relation to (is owned by) the
+        <q>person</q> entity:
+        <er_center>
+          <filename>personPhone</filename>
+        </er_center>
+      </para>
+    </subsection>
+
+    <subsection>
+      <title>A More Considered View - Attributes as a Shorthand for Certain Relationships</title>
+      <para>
+        Entity types, for practical purposes, are only as useful as our ability to communicate their instances
+        and to communicate such an instance, i.e. an entity, we need communicate its relationships with other entitites.
+        A subset of these relationships serve to identify the entity within the chosen perspective.
+        These other entitites, those we might wish to communicate relationships with, need in turn be identified
+        which in turn implies communicating their relationships with other entities.
+        This has to end somewhere else there is an infinite regress. Therefore for practical application
+        in computer science there need be 
+        types of entity which, <emph>a priori</emph>, we are given a means of communicating <emph/>
+        so that instances of these givens will be the atoms in all communications of
+        complex entitites.
+        In practice, as used in computer science, but not in theory, the atoms are certain universal types
+        that are domain non-specific such as the 
+        types <entity>character</entity>, <entity>character string</entity>,  <entity>number</entity> 
+        both <entity>integer</entity> or <entity>floating point</entity>, 
+        <entity>date</entity> and <entity>boolean</entity> 
+        and these usually occurring many times in relation to each domain-specific entity type as
+        shown in the example in figure <figref>departmentEmployee0</figref>. 		
+      </para>
+      <para>
+        It profits us little to show these relationships with the atomic types on the entity model
+        diagram and therefore a different notation is used as illustrated in 
+        figure <figref>departmentEmployee1</figref>.			
+        Because relationships with the atomic types are sufficiently 
+        different to other relationships (as we shall see later), 
+        there  is a third term, <entity>attribute</entity> used for them instead in place of the 
+        term <entity>relationship</entity>. 
+      </para>		
+      <para>	
+        To conclude, in theory, an attribute is a kind of relationship however
+        to a practicing entity modeller this is not the way we think, we think instead of an attribute			   
+        as a named property of a type of entity, 
+        it can be optional or mandatory and it can have a type which is 
+        one of <entity>character</entity>, <entity>string</entity> 
+        (meaning character string), <entity>integer</entity>, <entity>float</entity> 
+        or <entity>boolean</entity>.
+        The attributes are shown itemised in the boxes, nested or otherwise, 
+        representing the entity types on which they occur. 
+        See figure <figref>departmentEmployee1</figref> for an illustration.
+      </para>
+
+      <figureOfPicture>
+        <pictureName>departmentEmployee0</pictureName>
+        <caption>
+          How a model might look with types on the diagram for  <entity>character string</entity>,  <entity>number</entity> and <entity>date</entity>.
+        </caption>
+      </figureOfPicture>
+
+      <figureOfPicture>
+        <pictureName>departmentEmployee1</pictureName>   
+        <caption>
+          The same model as figure <figref>departmentEmployee0</figref> but now using the attribute notation. 
+          Relationships to the universal types <entity>string</entity>,  <entity>number</entity> and <entity>date</entity> are represented as attributes. Optional attributes
+          are depicted with a leading circle; these correspond with the cardinality <emph>zero-or-one</emph> relationships in the previous diagram whilst mandatory attributes
+          <emdash/> those shown with a leading square <emdash/> replace relationships of cardinality <emph>exactly-one</emph>. Identifying attributes, i.e. those replacing identifying relationships, are distinguished by having their names underlined.
+        </caption>
+      </figureOfPicture>
+    </subsection>
+
+    <subsection>
+      <title>Example - Chemical Formulae</title>
+      <para>
+        In chemistry the chemical formula of a compound is one of the ways of expressing information
+        about the numbers of the different kinds of atoms  that constitute a particular molecular compound. 
+        For example water, famously, has formula H<sub>2</sub>O.
+        Consider the information given in (<eqref>molecularformulae.hierarchical</eqref>)  
+        below.
+        Each bullet describes a distinct chemical compound giving its <emph>molar mass</emph>, some of the names that it is known by
+        and its chemical formula.
+      </para>
+      <equation>
+        <number/>
+        <label>molecularformulae.hierarchical</label>
+        <itemize>
+          <item>aspirin (also know as acetylsalicylic acid) has the formula C<sub>9</sub>H<sub>8</sub>O<sub>4</sub>;its molar mass is 180.16</item>
+
+          <item>common salt (also known as sodium chloride or halite) has the formula NaCl; its molar mass is 58.44</item>
+          <item>water (also know as oxidane) has the formula H<sub>2</sub>O; its molar mass is 18.01</item>
+
+        </itemize>
+      </equation>	
+      <para>
+        Analysing this information we understand that each chemical compound may have many aliased names, and that
+        its formula describes many occuring types of element. These considerations lead us to this entity model in figure <figref>molecularFormula1</figref>
+        and also to the tabular
+        display  in table <tableref>chemicalcompounds</tableref>.
+
+      </para>
+      <figureOfPicture>
+        <pictureName>molecularFormula1</pictureName>
+        <caption>A model of chemical compound information.</caption>
+      </figureOfPicture>
+
+      <tabledisplay>
+        <label>chemicalcompounds</label>
+        <!--<width>3cm</width>-->
+        <table style="font-size:10px">
+          <thead>
+            <tr>
+              <th rowspan="2">name</th>
+              <th rowspan="2" style="width:50px">molar mass </th>
+              <td style="padding:1px"></td>
+              <td style="padding:1px">
+                <table style="margin-top:1px">
+                  <thead>
+                    <tr>
+                      <th  style="width:116px">aliases</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+              <td style="padding:1px"></td>
+              <td style="padding:1px" colspan="2">
+                <table style="margin-top:1px">
+                  <thead>
+                    <tr>
+                      <th style="width:136px">formula</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>            
+            </tr>
+            <tr>   
+              <td style="padding:1px"></td>              
+              <td style="padding-top:1px;padding-bottom-1px" colspan="1">
+                <table style="margin-top:1px">
+                  <thead>
+                    <tr>
+                      <th style="width:111px">aliased name</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td> 
+              <td style="padding:1px"></td>              
+              <td style="padding-top:1px;padding-bottom:1px" colspan="2">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:62px">symbol</th>
+                      <th style="width:62px">number</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>aspirin</td>
+              <td>180.16</td>
+              <td style="padding:1px; border-right-color:white"></td>
+              <td style="border-right-color:white">
+                <table>
+                  <tr>
+                    <td style="width:111px">acetylsalicylic acid</td>
+                  </tr>
+                </table>
+              </td>
+              <td style="padding:1px"></td>
+              <td>
+                <table>
+                  <tr>
+                    <td style="width:40px; padding-left:25px">C</td>
+                    <td style="width:40px; padding-left:25px">9</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:25px">H</td>
+                    <td style="padding-left:25px">8</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:25px">O</td>
+                    <td style="padding-left:25px">4</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>common salt</td>
+              <td>58.44</td>
+              <td style="padding:1px; border-right-color:white"></td>
+              <td style="border-right-color:white">
+                <table>
+                  <tr>
+                    <td style="width:111px">sodium chloride</td>
+                  </tr>
+                  <tr>
+                    <td style="width:111px">halite</td>
+                  </tr>
+                  <tr>
+                    <td style="width:111px">saline</td>
+                  </tr>
+                  <!--
+                    <tr>
+                       <td style="width:111px">table salt</td>
+                    </tr>
+                    -->
+                </table>
+              </td>
+              <td style="padding:1px"></td>
+              <td>
+                <table>
+                  <tr>
+                    <td style="width:40px; padding-left:25px">Na</td>
+                    <td style="width:40px; padding-left:25px"></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:25px">Cl</td>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>water</td>
+              <td>18.01</td>
+              <td style="padding:1px; border-right-color:white"></td>
+              <td style="border-right-color:white">
+                <table>
+                  <tr>
+                    <td style="width:111px;padding-left:21px">oxidane</td>
+                  </tr>
+                </table>
+              </td>
+              <td style="padding:1px"></td>
+              <td>
+                <table>
+                  <tr>
+                    <td style="width:40px; padding-left:25px">H</td>
+                    <td style="width:40px; padding-left:25px">2</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:25px">O</td>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+        <caption>Table of chemical compounds.
+          The rows of this table are messages communicating entitites:
+          <itemize>
+            <item>
+              the columns correspond to attributes,
+            </item>
+            <item>			the rows correspond to subject entities,
+            </item>
+            <item>
+              each cell presents the value
+              of an attribute of a subject entity,
+            </item>
+            <item>some rows have other rows nested within them; these are subordinate messages and representing subordinate 
+              entities in the sense defined by the composition structure in the model.
+            </item>
+          </itemize>
+        </caption>
+      </tabledisplay>
+
+
+    </subsection>		
+
+    <subsection>
+      <title>Example - Chemical Elements</title>
+      <para> In any given situation, getting to the right blend of entity types, attributes and relationships
+        may be an iterative process as demonstrated in this next example in which
+        we explore two entries for chemical elements from a scientific dictionary<footnote>Chambers Dictionary of Science and Technology, 1974, ISBN 0 550 13202 3</footnote>:
+        <quotation>
+          <b>oxygen</b> (Chem.). A nonmetalic element, symbol O, at. no. 8, r.a.m. 15.994, valency 2. 
+          It is a colourless, odourless gas which supports combustion and is essential for the 
+          respiration of most forms of life. M.p. -218<degreecelsius/>, b.p.-183<degreecelsius/>, 
+          density 1.42904 g/dm<sup>3</sup> at s.t.p., formula O<sub>2</sub>. 
+          An unstable form is ozone, O<sub>3</sub>. Oxygen is the most abundant element, etc.
+        </quotation>
+
+        <newline/>
+        <quotation>
+          <b>chlorine</b> (Chem.). Element, symbol Cl, at.no. 17, r.a.m. 35.453, valencies 1-,3+, 5+, 7+, m.p. -101<degreecelsius/>, b.p. -34.6<degreecelsius/>. The second halogen, chlorine is a geenish yellow gas, with an irritating smell etc.
+        </quotation>
+
+      </para>
+      <para>
+        From these entries, and with some expansion of abbreviations, I first surmise that each element has a name, a symbol, 
+        an atomic number, a relative atomic mass, one or more  valencies, a melting point, a boiling point, and, 
+        optionally maybe, a density. I am left unsure whether all elements have a formulae, or whether they may have 
+        forms which may have formulae which is probably closer to the truth. I provisionally model this situation on an 
+        entity model diagram like so:
+        <er_center>
+          <filename>chemicalElementAttributesProvisional</filename>
+        </er_center>
+      </para>
+      <para>
+        Reading the entry for sulphur, I find this preliminary model to be inadequate:
+        <quotation>
+          <b>sulphur</b> (Chem.). A nonmetalic element occurring in several allotropic forms. Symbol S, at. no. 16, r.a.m. 32.06, valencies 2,4,6. Rhombic(<alpha/>-) sulphur is a lemon yellow powder; m.p. 112.8 <degreecelsius/>, rel. d. 2.07. Monoclinic (<beta/>-) sulphur has a deeper colour than the rhombic form; m.p. 119 <degreecelsius/>, rel.d. 1.96, b.p. 444.6C. Chemically, sulphur resembles oxygen etc.
+        </quotation>
+        From this entry, I learn that different forms of sulphur have different melting points
+        and that my provisional model has miss-positioned the <q>melting point</q> attribute; it turns out that chemical elements, 
+        in and by themsleves, cannot be attributed melting points.		  
+        After a little further research I learn that these forms taken by chemical elements are, 
+        technically speaking, <entity>allotropes</entity> and that it is these 
+        that have melting-points, boiling points and densities. 
+        I reach this model:
+        <er_center>
+          <filename>chemicalElementAttributes</filename>
+        </er_center>
+      </para>
+      <para>
+        In tabular form the dictionary entries for oxygen, chlorine and sulphur can be 
+        structured like this<footnote>The dictionary, in an appendix, has such a table, albeit
+          one less detailed than the one shown here.</footnote> :
+      </para>
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">name</th>
+            <th rowspan="2">symbol</th>
+            <th rowspan="2">atomic no</th>
+            <th rowspan="2">r.a.m.</th>
+            <td style="padding:1px">              
+              <table style="margin-left:0px">
+                <thead>
+                  <tr>
+                    <th style="width:55px" >valency</th>
+                  </tr>
+                </thead>
+              </table>
+            </td>
+            <td colspan="3" style="padding:1px">             
+              <table style="margin-left:0px">
+                <thead>
+                  <tr>
+                    <th style="width:241px">allotrope</th>
+                  </tr>
+                </thead>
+              </table>
+            </td>
+          </tr>
+          <tr>    
+            <td style="margin:0px; padding:1px; padding-left:3px">
+              <table style="margin-left:0px">
+                <thead>
+                  <tr>
+                    <th style="width:50px;">number</th>
+                  </tr>
+                </thead>
+              </table>
+            </td>
+            <td colspan="3" style="padding:1px; padding-left:3px">
+              <table style="margin-left:0px">
+                <thead>
+                  <tr>
+                    <th style="width:85.0px">name</th>
+                    <th style="width:40.1px">m.p.</th>
+                    <th style="width:40.2px">b.p.</th>
+                    <th style="width:50.3px">density</th>
+                  </tr>
+                </thead>
+              </table>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>oxygen</td>
+            <td style="padding-left:25px" >O</td>
+            <td style="padding-left:25px">8</td>
+            <td>15.994</td>
+            <td align="center">
+              <table style="margin:auto">
+                <tr>
+                  <td style="width:15px;">2</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table style="margin-left:0px">
+                <tr>
+                  <td style="width:85px">dioxygen</td>
+                  <td style="width:40.1px">-218</td>
+                  <td style="width:40.2px">-183</td>
+                  <td style="width:50.3px">.0014</td>
+                </tr>
+                <tr>
+                  <td>Ozone</td>
+                  <td>-192.5</td>
+                  <td>-119.5</td>
+                  <td>.0032</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>chlorine</td>
+            <td style="padding-left:25px">Cl</td>
+            <td style="padding-left:25px">17</td>
+            <td>35.453</td>
+            <td style="" align="center">
+              <table style="margin:auto">
+                <tr>
+                  <td style="width:15px">1-</td>
+                </tr>
+                <tr>
+                  <td>3+</td>
+                </tr>
+                <tr>
+                  <td>5+</td>
+                </tr>
+                <tr>
+                  <td>7+</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table style="margin-left:0px">
+                <tr>
+                  <td style="width:85px">Dichlorine</td>
+                  <td style="width:40.1px">-101</td>
+                  <td style="width:40.2px">-34.6</td>
+                  <td style="width:50.3px">>??</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>sulphur</td>
+            <td style="padding-left:25px">S</td>
+            <td style="padding-left:25px">16</td>
+            <td>32.06</td>
+            <td align="center">
+              <table style="margin:auto">
+                <tr>
+                  <td style="width:15px;">2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table style="margin-left:0px">
+                <tr>
+                  <td style="width:85px">Rhombic</td>
+                  <td style="width:40.1px">112.8</td>
+                  <td style="width:40.2px">???</td>
+                  <td style="width:50.3px">2.07</td>
+                </tr>
+                <tr>
+                  <td style="width:85px" >Monoclinic</td>
+                  <td>119</td>
+                  <td>444.6</td>
+                  <td>1.96</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+      <!--
+        <para>
+        The overall structure of each row, considered as a messages, we will represent
+        by these message structure definitions: 
+
+        <message_structure>
+          <rule>
+            <name>element</name>
+            <rhs>
+              <terminal>
+                <name>name</name>
+                <identifying/>
+              </terminal>
+              <terminal>
+                <name>symbol</name>
+              </terminal>
+              <terminal>
+                <name>atom no</name>
+              </terminal>
+              <terminal>
+                <name>relative atomic mass</name>
+              </terminal>
+              <non-terminal>
+                <name>valency</name>
+                <repeating/>
+              </non-terminal>
+              <non-terminal>
+                <name>allotrope</name>
+                <repeating/>
+              </non-terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>valency</name>
+            <rhs>
+              <terminal>
+                <name>number</name>
+                <identifying/>
+              </terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>allotrope</name>
+            <rhs>
+              <terminal>
+                <name>name</name>
+                <identifying/>
+              </terminal>
+              <terminal>
+                <name>mp</name>
+              </terminal>
+              <terminal>
+                <name>bp</name>
+              </terminal>
+            </rhs>
+          </rule>
+        </message_structure>
+
+      </para>
+      -->
+    </subsection>
+
+    <subsection>
+      <title>Example - Attributes in a Model of a Personal Computer</title>
+      <para>
+        In the example in figure <figref>operationalComputer</figref> based on the operational state of a personal 
+        computer all files and folders are shown as
+        having <q>name</q> and <q>date modified</q> attributes. In addition files, but not folders, have <q>size</q>
+        and <q>content</q> attributes.
+        <figureOfPicture>
+          <pictureName>operationalComputer</pictureName>
+          <caption>
+            Model of a Personal Computer.
+          </caption>
+        </figureOfPicture>
+      </para>
+      <newline/>
+      <para> In this example I have based the attributes of the process entity type on the data that I typically see in the
+        table of processes that I can view through Task Manager, reached, for example, through Ctrl-Alt-Delete on my current Windows system.
+        I have omitted the name of the executable program because this is the name of a referenced something or other (the program); instead,
+        I have represented this by a reference relationship <emdash/> this being the core concept <emdash/> rather than by an attribute 
+        which is a derivative of this core concept.  
+      </para>
+    </subsection>
+
+    <subsection>
+      <title>Summary</title>
+      <para> 
+        Attributes are represented on entity model diagrams in place of relationships with types <emph>character</emph>,<emph>string</emph>, <emph>number</emph> etc. They are represented as mandatory or optional. If they are identifying then they are shown underlined. 
+        Entities are communicated, in tabular or other forms, by communicating the values of their attributes. 
+        Models should distinguish between core attributes and those derivative of the core; we describe this further in the next section.
+      </para>
+    </subsection>
+  </section>
+  <section>
+    <leader>then following this we consider the distinction between core attributes and others that can be expressed in terms or the core and which we call:</leader>
+    <title>Derived Attributes</title>
+    <trailer>.</trailer>
+    <label>derivedattributes</label>
+
+    <para>
+      We can now expand on something said earlier in the section regarding the
+      <refsection>
+        <label>
+          <chapter>tutorialone</chapter>
+          <section>goodness</section>
+        </label>
+        <title>whywhywhy</title>
+      </refsection>
+      and in particular regarding the core and the absence of redundancy.
+      It is the first priority of an entity model to represent a core
+      set of  relationships and attributes; the rule is <emdash/> <b>it should not be possible
+        to derive or infer the content of any one of the core attributes or relationships from 
+        the values of the others</b>.  For example the value of <q>weight(kgs)</q> can be inferred from that of
+      <q>weight(lbs)</q> and so the two of them   should not both be present in the core;
+      one needs to be picked as the core and the other documented along with  rule by which it is derived.    
+      When an attribute is not chosen for the core but instead has a rule defined for it by which its value 
+      can be calculated from the core then it is said to be a <emph>derived attribute</emph>.      
+    </para>
+    <para> Likewise choose <emph>date of birth</emph> as a core attribute, rather than <emph>age</emph>, choose 
+      attributes like <emph>adresss line 1</emph>,<emph>address line 2</emph>,... <emph>zip code</emph> as core
+      attributes not simply <emph>address</emph> which can be derived from the others. 
+    </para>		
+    <para>
+      There are exceptions to the rule stated above in regard to information 
+      systems  implementations which  are either layered and/or distributed, and, of course, most are 
+      and those that are not probably should be. 
+      In such implementations one layer may
+      be responsible for the derivation of the non-core attributes and relationships; to layers external
+      to this the non-core attributes appear to be core i.e follow a model in which they <emph>are</emph> core
+      despite the fact that there are prescribed rules by which they can be derived. 
+    </para>
+    <subsection>
+      <title>Example - Relative Atomic Mass as a Derived Attribute</title>
+      <para>
+        Entity models may have greater or lesser amounts of detail, depending on the purpose at hand, 
+        and the
+        model of chemical elements that we  presented in the previous section isn't the whole story, either intellectually, so as to do 
+        justice to the physics, or practically for the purposes of scientists detecting 
+        and analysing samples using mass spectroscopy; for them the fact that 
+        each <entity>chemical element</entity>
+        has a number of <entity>istope</entity>s comes into play <emdash/>
+        the relative abundancies of the isotopes becomes significant and also, to a mass spectroscopist, 
+        the mass of the most abundant isotope. Once we add the entity type <entity>isotope</entity> 
+        along with its <entity>relative isotopic mass</entity> attribute 
+        to the entity model then the <entity>relative atomic mass</entity> attribute of a chemical element can no longer
+        be regarded as 	a core attribute. In the model in figure <figref>chemicalElements3.hierarchical</figref>, 
+        instead of removing it from the diagram altogether I
+        have shown it with a hollow marker and followed it with parentheses. This is a reminder that
+        this attributes isn't core <emdash/> it is an attribute which can be calculated 
+        from the core by following  a rule. 
+        The diagram doesn't specify the rule so that will need to be documented separately.
+        <figureOfPictureWithNote>
+          <pictureName>chemicalElements3.hierarchical</pictureName>
+          <imgheight>6.5cm</imgheight>
+          <muchtext/>
+          <note>
+            <width>7.5cm</width>
+            <itemize>
+              <item>
+                an <entity>element</entity> has one or more <entity>isotopes</entity>, one or more
+                <entity>allotrope</entity>s and one or more <entity>valence</entity>s
+              </item>
+              <item>uniqueness <emdash/> an <entity>isotope</entity> is uniquely identified by 
+                its parent <entity>element</entity> and its <entity>numberOfNeutrons</entity>,
+              </item>
+              <item>uniqueness <emdash/> an <entity>allotrope</entity> is uniquely identified by 
+                its <entity>name</entity>,
+              </item>
+              <item>uniqueness <emdash/> a <entity>valency</entity> is uniquely identified by 
+                its parent <entity>element</entity> and its <entity>number</entity>,
+              </item>
+              <item>rule <emdash/> the <entity>relative atomic mass</entity> of an
+                element is equal to the sum of the <entity>relative isotopic mass</entity>es 
+                of its isotopes weighted by their <entity>abundancy ratio</entity>.
+              </item>
+            </itemize>
+          </note>
+          <caption>
+            Chemical element <emdash/> the <entity>relative atomic mass</entity> is an example of a derived
+            attribute<footnote>Because it is derived from children in the composition hierarchy some computer
+              scientists would refer to it as a <emph>synthetic</emph> attribute.</footnote>. 
+          </caption>
+        </figureOfPictureWithNote>
+
+      </para>
+    </subsection>
+    <subsection>
+      <title>Summary</title>
+      <para>To summarise, we have introduced the following notation for attributes:
+
+        <er_center>
+          <filename>attributeNotation</filename>
+        </er_center>
+        In addition we underline those attributes which are identifying.
+      </para>
+    </subsection>
+
+  </section>
+  <section>
+    <leader>
+      Relationships are represented within messages either by message containment or by explicit message content in the form of 
+    </leader>
+    <title>Reference Attributes</title>
+    <trailer>
+      or by a combination  of the two.
+    </trailer>
+    <label>referenceattributes</label>
+
+    <para>
+      When we look at the cover of a book and read the title, the author
+      and the publisher then we are looking at a message and within the message
+      we see character strings that can be modelled as attributes of a book entity type like so:
+      <er_center>
+        <filename>bookReferenceAttributes0</filename>
+      </er_center>
+      On reflection, we can distinguish the 
+      attribute <entity>title</entity> as being particular to the book and the other two attributes
+      as not particular but, within the message, serving to identifying other entities.
+      These other attributes that are not primarily properties of the subject entity in and by itself
+      but which are indicative of a relationship between the subject entity and
+      other entities we shall say are 
+      <emph>reference attributes</emph><footnote><bibentry>ShlaerMellor</bibentry></footnote><sup>,</sup><footnote>What we are calling here <emph>reference attributes</emph> 
+        are the <emph>foreign key attributes</emph> of relational database theory. Whatever we call them, 
+        and I personally struggle with this term from database theory, the concept is not purely
+        a database concept <emdash/> as a concept it is more important than this <emdash/> it should be seen
+        as a messaging concept.</footnote>.
+    </para>
+    <para>
+      Reference attributes are those  attributes which appear in messages communicating
+      entities and singly or taken multiply
+      serve to identify entities other than the subject of the message.
+      Reference attributes are significant because they model the way that
+      relationships may be communicated in messages or, in the specific case, represented in databases.
+      Understanding and modelling reference attributes is important because typically we form
+      or aquire models working from given examples and these are
+      represented to us in messages of various forms <emdash/> all we have of entitites 
+      (i.e. the knowledge that we can have of them)
+      is by way of messages and in these messages almost all we have of relationships
+      is reference attributes. 	
+    </para>
+    <para> 
+      Reference attributes are derived attributes which appear in messages with the purpose, wholy or partially, of communicating relationships.
+      We use a Shlaer-Lang notation to document them in an entity model.
+      In the case of the <entity>book</entity> entity type, to model
+      <entity>author</entity> and <entity>publisher</entity> as reference attributes
+      then we need introduce <entity>individual</entity> and <entity>publishing company</entity>
+      entity types, say, and introduce reference relationships as shown here:
+      <er_center>
+        <filename>bookReferenceAttributes1</filename>
+      </er_center>
+      We don't see all the possibilities in this single example but what we have done is to:
+      <itemize>		
+        <item>number the reference relationships R1, R2 and so on,</item> 
+        <item>depict the reference attributes as non-core,</item>
+        <item>for each reference attribute indicate, in parentheses, the
+          reference relationship(s) it wholy or partly communicates<footnote>
+            I have adopted this part of the notation from <bibentry><label>Shlaer96</label></bibentry>
+          </footnote>.</item>
+      </itemize>
+    </para>
+    <para>
+      Now let us suppose that a book is uniquely identified by the combination of 
+      <entity>title</entity> and <entity>author</entity>
+      and not just by its <entity>title</entity> alone. To document this in the entity model 
+      we show specify the author relationship by drawing a bar across the relationships line.
+      <er_center>
+        <filename>bookReferenceAttributes2</filename>
+      </er_center>
+      and see that now we underline the <entity>author name</entity> attribute for now this
+      is an identifying attribute of <entity>book</entity> messages. 
+    </para>
+    <subsection>
+      <title>Chemistry Example</title>
+      <para> 
+        Earlier we gave examples of (i) a model of a molecular compound, its alses and its chemical formula and 
+        (ii) a model of chemical elements, their isotopes and allotropes.
+        Because a chemical formula makes reference to chemical elements we can combine these models 
+        into a single model as shown in figure  <figref>molecularFormula2</figref>.
+        In the combined model some attributes which were core in the contributing models are now derived:
+        <itemize>
+          <item>the attribute <emph>symbol</emph> of entity type <entity>occurring element</entity> 
+            is changed to be a reference attribute <emdash/> it makes reference to a chemical <entity>element</entity>,
+          </item>
+          <item> the attribute <emph>molar mass</emph> of entity type <entity>compound</entity> is changed to be
+            a derived attribute; for its value can be calculated from weighted sum of relative atomic masses of occurring elements.
+          </item>
+        </itemize>
+      </para>
+      <figureOfPictureWithNote>
+        <pictureName>molecularFormula2</pictureName>
+        <!--<framewidth>4.0cm</framewidth>-->
+        <!--<muchtext/>-->
+        <lowertext/>
+        <note>
+          <width>13cm</width>
+          <para> 
+            <itemize>
+              <item>
+                rule <emdash/> the symbol of an occurring element is the symbol of the element which the occurring element is an instance of,
+              </item>
+              <item>
+                rule <emdash/> the molar mass of a compound is the sum of the relative atomic masses of the occuring elements times its number of occurrences,
+              </item>
+              <item>
+                rule <emdash/>the relative atomic mass of an element is the sum of the molar masses of its isotopes weighted by its relative abundance.
+              </item>  
+            </itemize>
+          </para>
+        </note>
+        <caption>
+          Model of molecular structure.
+        </caption>
+      </figureOfPictureWithNote>
+    </subsection>
+    <subsection>
+      <title>Take Account of Scope to Avoiding Redundancy.</title>
+      <para> We now come to a very important point <emdash/> the topic is usually covered in database 
+        design courses and it is usually presented  as a secondary step  as a sort of correction;
+        providing that we have document relationship scope then this does not need be  from the outset. 
+        The question is how are redundant reference attributes avoided when 
+        designing message structutes for communication or storage of entitities. The answer is tthat we must take account
+        of reference relationship scope at the outset.
+      </para>
+      <para>
+        Consider these two entity models which are different only in the reference attributes present on entity type <entity>student</entity>:
+      </para>
+
+      <center>
+        <block>
+          <er_inline><filename>shlaerMellorDeptStudentProfessor2</filename></er_inline>
+          <hspace width="2cm"/>
+          <er_inline><filename>shlaerMellorDeptStudentProfessor3</filename></er_inline>
+        </block>
+      </center>
+      <para>
+        One or the other of these entity models is suitable in regard to messages communicating or storing student entitites dependening on whether or not a student
+        is always assigned a professor within the same department as themselves. This is a question of scope. In other words is the triangle of
+        relationships depicted a commuting triangle or not.  
+      </para>
+      <para>
+        Previously, in section <refsection></refsection>, we described how the scopes of reference relationships
+        can be documented on entity modelling diagrams. Provided that we document these scopes then
+        reference attributes are implicit i.e. can be algorithmically generated  and therefore do not have to be included in the model. 
+        The following diagram with scope specified implicitly defines the right hand message structure from the two diagrams above:
+        <er_center><filename>shlaerMellorDeptStudentProfessor1</filename></er_center>
+      </para>
+    </subsection>
+  </section>
+
+  <section>
+    <title>What is meant by Relational?</title>
+    <label>relational</label>
+    <leader>
+      Next we describe:
+
+    </leader>
+    <trailer>
+      In brief, message systems that do not place a reliance on message containment are called 
+      relational. Note that it is usual to think of <emph>relational</emph> and <emph>hierarchical</emph> 
+      as contrasting terms and we use the terms so here, but, conceptually at least
+      message systems  which are relational are a special case of those that are hierarchical. 
+    </trailer>
+    <para> In computer science the term <q>relational</q> applies to a particular style of data table;
+      its use in this sense we describe here except that we describe it in a general setting 
+      by considering <q>relational</q> as applying to a certain style of message system. 
+      Instead of saying <q>columns of a table</q> I shall
+      say <q>attributes within a message structure</q>; this choice of terminology is made so
+      as to ensure both that concepts  are presented in their full generality and also that
+      software tools that support the concepts have the widest possible applicability. 
+    </para>
+    <para>So <emph>what is meant by relational</emph> when applied to a message structure? 
+      We ask this question in the context of entity modelling; we assume therefore an entity model
+      and a system of  messages so that each message communicates
+      what we know of an entity. In this context a message is relational if and only if it
+      communicates only attributes of a single subject entity and if it does not
+      rely on context; in particular (a) it does nor rely on context to determine 
+      the identity of the subject entity and (b) it does not rely on context for the interpretation 
+      of referential attributes. 
+    </para>
+    <para> A message system which has full coverage of an entity model is called a relational database schema.
+      Relational database design as an after step of entity modelling is to design a minimum such 
+      message system i.e one from which if any attribute of any message is removed from the system
+      the the system no longer has coverage of the entity model.
+    </para>
+    <para> 
+      Earlier, in display (<eqref>molecularformulae.hierarchical</eqref>)  
+      of section 
+      <refsection>
+        <label>
+          <chapter>tutorialtwo</chapter>
+          <section>attributes</section>
+        </label>
+      </refsection>
+      we gave examples of messages conveying information regarding chemical compounds aspirin, common salt and 
+      water, their aliases, their molar masses and their chemical formulae. In that example there was one messsage
+      per each of these three example compounds and each message included attributes from subordinate entities of the
+      <emph>compound</emph> entity i.e from its
+      <emph>alias</emph>s and its <emph>occuring element</emph>s as well as including attributes of the compound itself.
+      The same information can be conveyed relationally
+      in the fourteen messages shown below in		(<eqref>molecularformulae.relational</eqref>). 
+
+      Both (<eqref>molecularformulae.hierarchical</eqref>) and (<eqref>molecularformulae.relational</eqref>) convey 
+      the same information.
+    </para>
+    <!--
+      <equation>
+        <number/>
+        <label>molecularformulae.hierarchical</label>
+        <itemize>
+          <item>water (also know as oxidane) has the formula H<sub>2</sub>O</item>
+          <item>common salt (also known as sodium chloride or halite) has the formula NaCl</item>
+          <item>aspirin (also know as acetylsalicylic acid) has the formula C<sub>9</sub>H<sub>8</sub>O<sub>4</sub></item>
+        </itemize>
+      </equation>	     
+      -->
+    <equation>
+      <number/>
+      <label>molecularformulae.relational</label>
+      <itemize>
+        <item>aspirin is a chemical compound; it has molar mass 180.16</item>
+        <item>common salt is a chemical compound; it has molar mass 58.44</item>
+        <item>water is a chemical compound; it has molar mass 18.01</item>
+        <item>aspirin is also know as acetylsalicylic acid </item>
+        <item>common salt is also know as sodium chloride</item>
+        <item>common salt is also know as halite</item>
+        <item>water is also know as oxidane</item>
+        <item>the number of C atoms in each molecule of aspirin is 9</item>
+        <item>the number of H atoms in each molecule of aspirin is 8</item>
+        <item>the number of O atoms in each molecule of aspirin is 4</item>
+        <item>the number of Na atom in each molecule of common salt is 1</item>
+        <item>the number of Cl atom in each molecule of common salt is 1</item>
+        <item>the number of H atoms in each molecule of water is 2</item>
+        <item>the number of O atoms in each molecule of water is 1</item>
+      </itemize>
+    </equation>
+    <para>
+      This set of messages (<eqref>molecularformulae.relational</eqref>) is relational because each message 
+      gives information about a single entity type. 
+      The information can be conveyed in three tables, one per subject entity type, as shown in 
+      figure <figref>compounddiagramandtables</figref>.
+      <figure>
+        <label>compounddiagramandtables</label>
+        <center>
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">compound</th>
+              </tr>
+              <tr>
+                <th><u>name</u></th>
+                <th>molar mass</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>aspirin</td>
+                <td>180.16</td>
+              </tr>
+              <tr>
+                <td>common salt</td>
+                <td>58.44</td>
+              </tr>
+              <tr>
+                <td>water</td>
+                <td>18.01</td>
+              </tr>
+            </tbody>
+          </table>
+          <newline/>
+          <vspace height="0.5cm"/>
+          <er_inline>
+            <filename>molecularFormula1.relational</filename>
+          </er_inline>
+          <newline/>
+          <vspace height="0.5cm"/>
+          <block>
+            <table>
+              <thead>  
+                <tr>
+                  <th colspan="2">alias</th>
+                </tr>        
+                <tr>
+                  <th><u>aliased name</u></th>
+                  <th>compound name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>acetylsalicylic acid</td>
+                  <td>aspirin</td>
+                </tr>
+                <tr>
+                  <td>sodium chloride</td>
+                  <td>common salt</td>
+                </tr>
+                <tr>
+                  <td>halite</td>
+                  <td>common salt</td>
+                </tr>
+                <tr>
+                  <td>oxidane</td>
+                  <td>water</td>
+                </tr>
+              </tbody>
+            </table>
+            <hspace width="1cm"/>
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="3">occurring element</th>
+                </tr>
+                <tr>
+                  <th><u>compound name</u></th>
+                  <th><u>symbol</u></th>
+                  <th>number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>aspirin</td>
+                  <td>C</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>aspirin</td>
+                  <td>H</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>aspirin</td>
+                  <td>O</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>common salt</td>
+                  <td>Na</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>common salt</td>
+                  <td>Cl</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>water</td>
+                  <td>H</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>water</td>
+                  <td>O</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </block>
+
+        </center>
+        <caption>Relational presentation of formulae and alisases for three chemical compounds.</caption>	  
+      </figure>
+    </para>
+
+  </section>
+
+  <section>
+    <leader> Models that prescribe linear message representations in all or in part having a reliance on containment
+      are called hierarchical. In fact message structure may be </leader>
+    <title>Relational, Hierarchical or Multi-dimensional</title>
+    <trailer>.</trailer>
+    <label>loveinseveredhead</label>
+
+    <para> In figure <figref>lovegraph</figref> I have drawn a graph that is equivalent to one presentated by Mathematican Robin Gandy  in his
+      lecture <q>Structure in Mathematics</q>
+      <footnote>In <emph>Structuralism, edited by D. Robey, 
+          Wolfson College Lectures, 1972</emph>.</footnote>; he presents the love 
+      relationships to be found in Iris Murdoch's novel Severed Head as a 
+      directed graph and I shall use this as example data. 
+    </para>
+    <para>
+      We consider how the information in this graph can be communicated  as a set of independent messages and we illustrate the use of entity models
+      inclusive of reference attributes to document the message structures.
+    </para>
+    <figureOfEquation>
+      <width>10cm</width>
+      <equationName>lovegraph</equationName>
+      <framewidth>9cm</framewidth>
+      <caption>Example from <q>Structure in Mathematics</q> of a directed graph showing 
+        the love relationships to be found in Iris Murdoch's novel <q>Severed Head</q>. 
+      </caption>
+    </figureOfEquation>
+    <para> There is of course nothing special about this 
+      example <emdash/>
+      <entity>loves</entity> is a recursive many-many binary 
+      relationship and 
+      any such can be represented by a pair of many-one relationships and the pattern is that of a  directed graph.
+      We are using this example to provide us with some data with which we can illustrate relational and non-relational 
+      choices of message system in a simple setting. In a subsequent section we will build on this example to illustrate
+      further features.
+    </para>
+    <para>
+      We illustrate four different choices of message system for communicating directed graphs. Each choice has a natural affinity
+      with a different  entity model; having said that, the pertinent point is that the models only differ in the categorisation of binary relationships
+      as either reference of composition. In all cases the models have two binary relationships representing the giver and the receiver of love respectivly.
+      Abstractly these are the arc adjacency relationships of a directed graph i.e. the source respectively the destination of each arc of the graph.
+      If both of these binary relationships are classified as reference then two reference attributes represent them in messages and a relational message system results. 
+      If just one or the other of these relationships is classifed as a reference relationship, 
+      the other being classified as a composition relationship, then a hierarchical message structure results. There is a choice of two relationships to represent as compositional and so a choice of two message systems. Finally we illustrate the case  when both binary relationships are considered to be composition relationships.      
+    </para>  
+    <para>    
+      The first message system illustrated is relational, the next two hierarchical and the final one is two dimensional.
+    </para>
+    <subsection>
+      <title>Relational</title>
+      <figure>
+        <label>loveRelationshipLocal0</label>
+        <width>15cm</width>
+        <block>
+          <block>
+            <vspace height="1.5cm"/>
+            <table>
+              <thead>
+                <tr><th colspan="2">character</th></tr>
+                <tr><th><u>name</u></th><th>sex</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ALEXANDER</td><td>M</td>
+                </tr>
+                <tr>
+                  <td>ANTONIA</td><td>F</td>
+                </tr>
+                <tr>
+                  <td>HONOR</td><td>F</td>
+                </tr>
+                <tr>
+                  <td>GEORGIE</td><td>F</td>
+                </tr>
+                <tr>
+                  <td>PALMER</td><td>M</td>
+                </tr>
+                <tr>
+                  <td>MARTIN</td><td>M</td>
+                </tr>
+              </tbody>
+            </table>
+          </block>
+          <hspace width="0.5cm"/>
+          <block>
+            <vspace height="2.5cm"/>
+            <er_inline>
+              <filename>loveRelationshipLocal0</filename>
+            </er_inline> 
+          </block>
+          <hspace width="0.5cm"/>
+
+          <table>
+            <thead>
+              <tr><th colspan="2">love</th></tr>
+              <tr><th><u>of character</u></th><th><u>for character</u></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ALEXANDER</td><td>ANTONIA</td>
+              </tr>
+              <tr>
+                <td>ANTONIA</td><td>ALEXANDER</td>
+              </tr>
+              <tr>
+                <td>ANTONIA</td><td>PALMER</td>
+              </tr>
+              <tr>
+                <td>HONOR</td><td>PALMER</td>
+              </tr>
+              <tr>
+                <td>GEORGIE</td><td>ALEXANDER</td>
+              </tr>
+              <tr>
+                <td>GEORGIE</td><td>MARTIN</td>
+              </tr>
+              <tr>
+                <td>PALMER</td><td>ANTONIA</td>
+              </tr>
+              <tr>
+                <td>PALMER</td><td>GEORGIE</td>
+              </tr>
+              <tr>
+                <td>PALMER</td><td>HONOR</td>
+              </tr>
+              <tr>
+                <td>MARTIN</td><td>HONOR</td>
+              </tr>
+              <tr>
+                <td>MARTIN</td><td>GEORGIE</td>
+              </tr>
+              <tr>
+                <td>MARTIN</td><td>PALMER</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </block>
+        <caption>This is a relational representation. The messages are shown in rows of a table but equally we could have written them in English. 
+          The messages are relational because each message contains data from attributes of a single subject entity.
+        </caption>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Hierarchy of Person Loving</title>
+      <figure>
+        <label>loveRelationshipLocal1</label>
+        <width>15cm</width>
+        <table>
+          <thead>
+            <tr><th colspan="2">character</th></tr>
+            <tr>
+              <th rowspan="2"><u>name</u></th>
+              <td style="padding:1px">              
+                <table style="margin-left:0px">
+                  <thead>
+                    <tr>
+                      <th style="width:80px" >shows love</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+            <tr>    
+              <td style="margin:0px; padding:1px; padding-left:3px">
+                <table style="margin-left:0px">
+                  <thead>
+                    <tr>
+                      <th style="width:75px;">for character</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ALEXANDER</td><td><table><tr><td width="75px">ANTONIA</td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                ANTONIA</td><td><table>
+                  <tr><td>ALEXANDER</td></tr>
+                  <tr><td width="75px">PALMER </td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                GEORGIE</td><td><table><tr><td width="75px">ALEXANDER</td></tr>
+                  <tr><td>MARTIN</td></tr>
+                </table>
+              </td> 
+            </tr>
+            <tr>
+              <td>
+                HONOR</td><td><table><tr><td width="75px">PALMER</td></tr>
+                </table> 
+              </td>
+            </tr>
+            <tr>
+              <td>
+                MARTIN</td><td><table><tr>
+                    <tr><td>GEORGIE</td></tr>                                    
+                    <tr><td>HONOR</td></tr>
+                    <td width="75px">PALMER</td></tr>
+                </table> 
+              </td>
+            </tr>
+            <tr>
+              <td>PALMER</td><td><table>
+                  <tr><td>ANTONIA</td></tr>
+                  <tr><td>GEORGIE</td></tr>
+                  <tr><td width="75px">HONOR</td></tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hspace width="0.75cm"/>
+        <block>
+          <vspace height="3.0cm"/>  
+          <er_inline>
+            <filename>loveRelationshipLocal1</filename>
+          </er_inline>
+        </block>
+        <hspace width="0.75cm"/>
+        <block>
+          <width>3.5cm</width>       
+          <vspace height="2.0cm"/>
+          This is different to the representation in  figure <figref>loveRelationshipLocal0</figref> in that one of relationships has been represented
+          as a composition relationship rather than as a referrence relationship. The composition structure of the
+          message then follows the composition structure of the model.        
+          From this  representation you may quickly find who is 
+          loved by <emph><small>ALEXANDER</small></emph>, who is loved by <emph><small>ANTONIA</small></emph> and so on. 
+        </block>
+        <caption>
+          Gandy's love relationships data presented non-relationally. 
+          This is a hierarchical representation. It is a non-relational because a single row of the table i.e. a single message contains data from
+          a number of different entities. Each message has a subject which is an entity of type <entity>character</entity>
+          but also contains details of subordinate <entity>love</entity> entities.         
+        </caption>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Hierarchy of Person Being Loved</title>
+      <figure>
+        <label>loveRelationshipLocal2</label>  
+        <width>15cm</width>
+        <table>
+          <thead>
+            <tr><th colspan="2">character</th></tr>
+            <tr>
+              <th rowspan="2"><u>name</u></th>
+              <td style="padding:1px">              
+                <table style="margin-left:0px">
+                  <thead>
+                    <tr>
+                      <th style="width:80px" >receives love</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+            <tr>    
+              <td style="margin:0px; padding:1px; padding-left:3px">
+                <table style="margin-left:0px">
+                  <thead>
+                    <tr>
+                      <th style="width:75px;">of character</th>
+                    </tr>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ALEXANDER</td><td><table><tr><td width="75px">ANTONIA</td></tr>
+                  <tr><td width="75px">GEORGIE</td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                ANTONIA</td><td><table><tr><td width="75px">ALEXANDER </td></tr>
+                  <tr><td width="75px">PALMER </td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                GEORGIE</td><td><table><tr><td>MARTIN</td></tr>
+                  <tr><td width="75px">PALMER</td></tr>
+                </table>
+              </td> 
+            </tr>
+            <tr>
+              <td>
+                HONOR</td><td><table><tr><td>MARTIN</td></tr>
+                  <tr><td width="75px">PALMER</td></tr>
+                </table> 
+              </td>
+            </tr>
+            <tr>
+              <td>
+                MARTIN</td><td><table><tr><td width="75px">GEORGIE</td></tr>
+                </table> 
+              </td>
+            </tr>
+            <tr>
+              <td>PALMER</td><td><table><tr><td>ANTONIA</td></tr>
+                  <tr><td width="75px">HONOR</td></tr>
+                  <tr><td width="75px">MARTIN</td></tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>  
+        <hspace width="0.6cm"/>
+        <block>
+          <vspace height="3cm"/>      
+          <er_inline>
+            <filename>loveRelationshipLocal2</filename>
+          </er_inline>
+        </block>
+        <hspace width="0.75cm"/>
+        <block>
+          <vspace height="1.5cm"/>
+          <width>3.5cm</width>
+          From this representation which is  also non-relational, but now with a 
+          different choice of message composition as represented by the different choice of composition relationship in
+          the model,        
+          you may quickly find who <emph><small>ALEXANDER</small></emph> is loved by, 
+          who  <emph><small>ANTONIA</small></emph> is loved by and so on. 
+        </block>
+        <caption>Gandy's love relationships data presented non-relationally with a different choice of composition structure.     
+        </caption>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>A 2D Representation of Loving and Being Loved</title>
+      <figure>
+        <label>loveRelationshipLocal3</label>  
+        <width>15cm</width>
+        <table>
+          <class>borderless</class>
+          <columnstyles>
+            <col>
+              <class>rightborder</class>
+            </col>
+          </columnstyles>
+          <thead>
+            <class>lowerborder</class>
+            <tr>
+              <td/>
+              <td>ANTONIO</td>
+              <td>GEORGIE</td>
+              <td>HONOR</td>
+              <td>MARTIN</td>
+              <td>PALMER</td>
+              <td>ALEXANDER</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ANTONIO</td>
+              <td/>
+              <td/>
+              <td/>
+              <td/>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+            </tr>
+            <tr>
+              <td>GEORGIE</td>
+              <td/>
+              <td/>
+              <td/>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td/>
+            </tr>
+            <tr>
+              <td>HONOR</td>
+              <td/>
+              <td/>
+              <td/>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td/>
+            </tr>
+            <tr>
+              <td>MARTIN</td>
+              <td/>
+              <td/>
+              <td/>
+              <td/>
+              <td/>
+              <td/>
+            </tr>
+            <tr>
+              <td>PALMER</td>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td/>
+              <td/>
+            </tr>
+            <tr>
+              <td>ALEXANDER</td>
+              <td style="text-align:center">x</td>
+              <td style="text-align:center">x</td>
+              <td/>
+              <td/>
+              <td/>
+              <td/>
+            </tr>
+          </tbody>
+        </table> 
+        <hspace width="0.6cm"/>
+        <block>
+          <!-- <vspace height="3cm"/>   -->   
+          <er_inline>
+            <filename>loveRelationshipLocal3</filename>
+          </er_inline>
+        </block>
+        <newline/>
+        <vspace height="0.3cm"/>    
+        <hspace width="1.5cm"/>
+        <block>
+          <!-- <vspace height="1.5cm"/>-->
+          <width>10cm</width>
+          This way of modelling directed graphs is akin to the matrix structure modelled in chapter one. 
+          Applied to the representation of the Severed Head love relationships it implies a communication in which 
+          it is apparent both (i) who loves each subject <emph>a</emph>,<emph>g</emph>,<emph>h</emph> and so on  and (ii) who each subject <emph>a</emph>,<emph>g</emph>,<emph>h</emph>, etc.
+          is loved by.
+        </block>
+        <caption>Gandy's love relationships data presented non-relationally with a 2-D choice of composition structure.     
+        </caption>
+      </figure>
+
+    </subsection>
+  </section>
+
+  <section>
+    <leader>    <para>
+        Historically, as used for data specification,  an ER model will often be 
+        said to be <emph>logical</emph> or <emph>physical</emph> or to constitute a <emph>data model</emph>; I
+        will use  the terms somewhat differently as explained in the final section which finishes with an example from Chen.
+      </para>
+    </leader> 
+    <title>Logical and Physical</title>
+    <trailer>. For now at least, this brings us to the end of this tutorial. </trailer> 
+    <label>physicalERmodels</label>
+    <subsection>
+      <title>Definitions</title>
+      <para>
+        We have got to the point where we see that entity models may specify only core attributes and relationships or may
+        specify in addition non-core attributes. They may or may not specify reference attributes that are fully sufficent for communication of 
+        entitites; if they do, then the entity model then has affinity to a system of messages. If the scope of reference relationships is fully accounted for
+        then redundant reference attributes can be avoided and the message system is free of redundancies. 
+      </para>
+      <para>
+        For some authors, an entity model with a full complement of reference attributes is called a physical model and contrasted 
+        with a model devoid of reference attributes which is called a logical model. However note that, provided the logical model includes
+        proper definitions of scope for reference relationships then, the physical model can be algorithmically generated from it
+        either suitable for a relational message system or suitable for a hierarchical system. 
+      </para>  
+      <para>
+        We will use the following definition:	 
+        <itemize>
+          <item>
+            An entity model is <emph>fully logical</emph> provided that it does not contain reference attributes <emdash/> each attribute of each entity gives information about the entity beyond the information given by its relationships 
+          </item>
+        </itemize>
+        and in contrast: 
+        <itemize>
+          <item>
+            An entity model is <emph>fully physical</emph> if and only if it includes a specification how each of its relationships is to be represented in an abstract message system. 
+          </item>
+        </itemize>
+      </para>
+    </subsection>
+    <!--
+    <subsection>
+      <title>Relational Example</title>
+      <para>
+        The ER model shown in figure <figref>AfBgChD.relational</figref> is a <emph>physical</emph> model because the model includes a specification of how each relationship is to be represented. It is <emph>relational</emph> because none of these representations have a reliance on context. 
+      </para>
+      <figureOfPicture>
+        <pictureName>AfBgChD.relational</pictureName>
+        <caption>Four types of message - an example that is purely relational.
+          <para>
+            These representations can be explained as follows:
+            <itemize>
+              <item>
+                Messages of type A have attributes <entity>a0</entity>,<entity>a1</entity>
+                and <entity>a2</entity>. The underlining indicates that <entity>a0</entity> is an identifying
+                attribute, it alone identifies subject entitites of type <entity>A</entity>.
+              </item>
+              <item>
+                Messages of type B have attributes <entity>b0</entity>, <entity>b1</entity>
+                and <entity>b2</entity>. Again as indicated by the underlining <entity>b0</entity> is 
+                an identifying attribute, it alone identifies subject entitites of type <entity>B</entity>.
+                Attribute <entity>a0</entity> as indicated by the parenthetical <entity>(R3)</entity> is
+                a referential attribute it communicates the relationship a subject entity of type <entity>B</entity>
+                has with a subject entity of type <entity>A</entity> through relationship <entity>h</entity> which is here labelled <entity>R3</entity>.
+                In short, the attribute <entity>a0</entity> required of messages of type <entity>B</entity> represents relationship 
+                <entity>h</entity>; it has the same name as the identifying attribute of the destination 
+                entity type <entity>A</entity> but more often such a referential attribute  will be given a different name - it is the parenthetical <entity>(R3)</entity> which distinguishes it as 
+                a referential attribute not the coincidence of its naming. As we discuss later, such referential attributes
+                that represent relationships of one subject entity to another are, in relational database design, traditionally called foreign key attributes or foreign key columnns.
+              </item>
+              <item>
+                Messages of types <entity>C</entity> and <entity>D</entity> are similar to those of <entity>B</entity>.
+              </item>
+            </itemize>
+          </para>
+        </caption>
+      </figureOfPicture>
+    </subsection>
+    -->
+    <!--
+    <subsection> 
+      <title>Relational Models</title>
+      <para>In a relational model relationships are represented by attribute
+        For instance, In this example:  
+        <er_center>
+          <filename>ABcomposition.relational</filename>
+        </er_center>
+
+        the relationship <entity>a</entity> is represented by the attribute <entity>a_name</entity> 
+        which is in the surface of the message but not in the core model.
+      </para>
+      -->
+    <subsection>
+      <title>Example One</title>
+      <para>
+        The following entity model is fully physical. It is relational because it specifes a reference attribute for each of its relationships.
+        <er_center>
+          <filename>ABC0.relational</filename>
+        </er_center>
+      </para>
+
+
+      <!--
+    </subsection>
+    <subsection>
+      <title>Hierarchical ER Models</title>
+      
+      <para>
+        In a hierarchical data representation  another possibility is available for it is possible to represent the relationship between B and A by nesting data for B's within data for related A's.  
+        With this choice of data representation this is the message model convers the same information as xxx but now there is only one type of message in the system of messages:
+        <er_center>
+          <filename>ABcomposition.hierarchical</filename>
+        </er_center>
+      </para>
+
+      <para>
+        We can represent the nested hierarchical data representation textually like this:
+        <verbatim>
+          B(name)
+          A(name,B*)
+        </verbatim>
+      </para> 
+      <para>
+        This is an abbreviated form of what may be used to represent a document structure in a DTD:  the former i.e. relational, may be  represented in a DTD
+        like this:
+        <verbatim>
+          ELEMENT A(name)
+          ELEMENT name CDATA
+          ELEMENT B(name,aname)
+          ELEMENT aname CDATA
+        </verbatim>
+        and the nested hierarchical representation, like this:
+        <verbatim>
+          ELEMENT A(name, B*)
+          ELEMENT name CDATA
+          ELEMENT B(name)
+          ELEMENT aname CDATA
+        </verbatim> 
+      </para>
+      <para>
+        In the first case the xpath expression to navigate from a B element to its related A element is:
+        <verbatim>
+          //A[name=current()/aname]
+        </verbatim>
+        in the second case the xpath expression is simply the navigation to the parent element:
+        <verbatim>
+          ..
+        </verbatim>
+      </para>
+
+      <para>
+        The following two message models communicate the same information but in different ways; both message systems have two message types. 
+      </para>
+      -->
+
+      <para>
+        A fully physical model is non-relational if some relationships have no reference attributes to represent them.
+        The implication is that such relationships are represented by structural containment
+      </para>
+      <para>
+        If this model is interpreted as fully physical:
+        <er_center>
+          <filename>ABC0.ABstarC.hierarchical</filename>
+        </er_center>
+        then one relationship, <emph>c</emph> has an explicit representation by reference attribute whereas the other, <emph>a</emph>, implicitly, 
+        is represented by containment, for it has no associated reference attribute.
+        Similarly if this loosely equivalent model is fully physical :
+        <er_center>
+          <filename>ABC0.ACBstar.hierarchical</filename>
+        </er_center>
+        then it is the other relationship, <emph>c</emph>, which is to be represented by containment.
+      </para>
+
+    </subsection>
+
+
+
+    <subsection>
+      <title>Example Two <emdash/>Cascading Identifiers</title>
+      <label>cascadingids</label>
+
+      <para>Consider the two logically equivalent models shown in figure <figref>AfBgChD</figref>. 
+        The first is fully logical and the second fully physical.   
+
+        <figure>
+          <label>AfBgChD</label>
+          <para>
+            (a) a fully logical model
+            <newline/>
+            <er_inline>
+              <filename>AfBgChD.logical</filename>
+            </er_inline>
+          </para>
+          <newline/>
+          <para>
+            (b) a relational fully physical model that is logically equivalent 
+            <newline/>
+            <er_inline>
+              <filename>AfBgChD.relational</filename>
+            </er_inline>
+          </para>
+          <caption>Two models that are logically the same. The second has affinity to a relational message system.</caption>
+        </figure>
+      </para>
+      <newline/>
+      <para>
+        Now see what happens in fully physical models when some of the relationships are identifying,
+        for instance if we change the example slightly so that in the fully logical model the relationships <emph>g</emph> and <emph>h</emph> 
+        are specified to be identifying as shown in figure <figref>cascadingidentifiers</figref> (a).
+        In a corresponding physical model,  reference attributes that represent <emph>g</emph> and <emph>h</emph> themselves
+        need to be specified as identifying. This, in the fully physical model,  requires the existence of further attributes 
+        to represent relationships <emph>f</emph> and <emph>g</emph>. The identifying attribute of <entity>A</entity> is said to cascade to entity types
+        <entity>B</entity> and <entity>C</entity>. 
+        This is illustrated in figure <figref>cascadingidentifiers</figref> (b).
+      </para>
+
+      <figure>
+        <label>cascadingidentifiers</label>
+        <para>
+          (a)  the same logical model as in figure <figref>AfBgChD</figref> but with <emph>g</emph> and <emph>h</emph> identifying
+          <newline/>
+          <er_inline>
+            <filename>AfBgIdChIdD.logical</filename>
+          </er_inline>
+        </para>
+        <newline/>
+        <para>
+          (b) a relational fully physical model that is logically equivalent 
+          <newline/>
+          <er_inline>
+            <filename>AfBgIdChIdD.relational</filename>
+          </er_inline>
+        </para>
+
+        <caption>Example of a model in which identifiers have been cascaded.
+
+        </caption>
+      </figure>
+      <para>
+        In the example in figure <figref>cascadingidentifiers</figref> the 
+        attribute <entity>b0</entity> of entity type <entity>B</entity>
+        is shown as being identifying only when taken in conjunction with the relationship 
+        <entity>h</entity>. For this reason the referential attribute <entity>a0</entity>
+        which represents <entity>h</entity> is shown as an identifying attribute of 
+        <entity>B</entity>. The values of <entity>a0</entity> and <entity>b0</entity> are to be taken in 
+        conjunction to identify a unique entity of type <entity>B</entity>. This in turns means 
+        that the relationship <entity>g</entity> is represented by a pair of attributes of entity type 
+        <entity>C</entity> - both shown as identifying because relationship <entity>g</entity> is 
+        identifying. Finally, as a consequence, the relationship <entity>f</entity> of the entity type 
+        <entity>D</entity> is by necessity represented by a triple of attributes here shown
+        named <entity>a0</entity>, <entity>b0</entity> and <entity>c0</entity> and each annotated
+        with the parenthetical text <entity>(R1)</entity> to show their role in the model.
+      </para>
+      <para>
+        Identifying attributes are often called key attributes or just keys and those that 
+        individually or in combination reference entities other than the subject entity are sometimes called 
+        cascaded keys.
+      </para>
+    </subsection>
+    <subsection>
+        <title>Example Three - Based on an Example of Chen </title>
+        <para>This example is based on one used by Chen in 1976 in his seminal paper.</para>      
+      <figure>
+        <label>chen76N</label>
+        <para>
+          (a)  the fully logical model
+          <newline/>
+        <er_center>
+             <filename>chen76NwithAttributes</filename>
+        </er_center>
+        </para>
+        <newline/>
+        <para>
+          (b) a relational fully physical model that is logically equivalent 
+          <newline/>
+        <er_center>
+             <filename>chen76N_relational</filename>
+        </er_center>
+        </para>
+
+        <caption>Example based on Chen 1976. Note the presence of cascaded identifiers.
+        </caption>
+      </figure> 
+    </subsection>
+  </section>
+  <!--
+  <section>
+    <title>Messaging Matrices</title>
+    <label>messagingmatrices</label>
+
+    <para> In mathematics, a matrix is a rectangular array of numeric elements, as for example
+      the matrix
+      <table>
+        <tr>
+          <td>23 </td>
+          <td> 15 </td>
+          <td> 29 </td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>31 </td>
+          <td> 6 </td>
+          <td> 9  </td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>-1 </td>
+          <td> 8 </td>
+          <td> 17  </td>
+          <td>52</td>
+        </tr>
+      </table>
+      <para>  having 3 rows and 4 columns. Though,  
+        this is essentially 2 dimensional (we gave the two dimension model in figure <figref>matrix0</figref>) , the content can be communicated in a linear message either row by row  as [23,15,29,22] followed by [31,6,9,8] then [-1,8,17,52]        
+        which we can describe by the message structure
+        <verbatim>
+          matrix => row*
+
+          row => element*
+        </verbatim>
+        or column by column as [23,31,-1] then [15,6,8] then [29,9,17] then [22,8,52] which we can describe 
+        by the message structure
+        <verbatim>
+          matrix => column*
+
+          column => element*
+        </verbatim>
+      </para>
+      <para> As you see with this example, each element of any matrix is both part of a row and part of a column and so, 
+        as with the previous <entity>marriage</entity> entity, the <entity>element</entity> entity is 
+        modelled as a subordinate to two others of different types as shown in figure <figref>matrix0</figref>. 
+        The two ways of communicating the matrix correspond to the two branches of this entity model. 
+        The row by row communication is described by this model: </para>
+      <er_center>
+        <filename>matrixRowHierarchic</filename>
+      </er_center>
+      and the column by column communication by this one:
+      <er_center>
+        <filename>matrixColumnHierarchic</filename>
+      </er_center>
+    </para>
+    <subsection>
+      <title>Communicating Hierarchy - XML</title>
+      <label>xml</label>
+      <para> Whereas, matrix structure, as considered in the previous section, is essentially 2 dimensional, hierarchically structured information may be 
+        flattened into a linear i.e. 1 dimensional structure 
+        in which nesting of detail represents the hierarchy. XML is a language designed for this purpose.
+      </para>
+
+      <para> In the XML language communication of a hierarchically structured entity, each type <emph>X</emph> of entity is enclosed by its own parenthesis in the form
+        of character sequences  
+        for start and 
+        end element; this message that follows these 
+        conventions<footnote>
+          I have written the message on many 
+          lines and indented to make more readable
+        </footnote>:  
+      </para>
+      <textarea rows="21" cols="50">  
+        <![CDATA[<matrix>
+            <row>
+              <element>23</element>
+              <element>15</element>
+              <element>29</element>
+              <element>22</element>
+            </row>
+            <row>
+              <element>31</element>
+              <element>6</element>
+              <element>9</element>
+              <element>8</element>
+            </row>
+            <row>
+              <element>-1</element>
+              <element>8</element>
+              <element>17</element>
+              <element>52</element>
+            </row>
+          </matrix>]]>
+      </textarea>
+    </subsection>
+  </section> 
+  -->
+
+
+
+  <!--
+
+  <section>
+    <title>Spare</title>
+    <label>spare</label>
+    <para>
+      The existence and ownership of particular phone numbers may be communicated or stored independently in which case they have the message 
+      structure:
+
+      <message_structure>
+        <rule>
+          <name>particular_phone_number</name>
+          <rhs>
+            <terminal>
+              <name>phone number</name>
+              <identifying/>
+            </terminal>
+            <terminal>
+              <name>name</name>
+            </terminal>
+          </rhs>
+        </rule>
+      </message_structure>
+
+      The world as a whole now is communicated as :
+      <equation>
+        <label>phonerelational</label>
+        <number/>
+        <message_structure>
+          <rule>
+            <name>world</name>
+            <rhs>
+              <non-terminal>
+                <name>person</name>
+                <repeating/>
+              </non-terminal>
+              <non-terminal>
+                <name>particular_phone_number</name>
+                <repeating/>
+              </non-terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>person</name>
+            <rhs>
+              <terminal>
+                <name>name</name>
+                <identifying/>
+              </terminal>
+              <terminal>
+                <name>data of birth</name>
+              </terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>particular_phone_number</name>
+            <rhs>
+              <terminal>
+                <name>phone number</name>
+                <identifying/>
+              </terminal>
+              <terminal>
+                <name>name</name>
+              </terminal>
+            </rhs>
+          </rule>
+        </message_structure>
+
+      </equation>
+    </para>
+    <para>
+      This world view given by the message scheme (<eqref>
+        <label>phonerelational</label>
+      </eqref>) is an example of a          
+      relational 
+      schema. 
+      In summary, we have two possible ways of describing the world view in messages, 
+      the relational one (<eqref>
+        <label>phonerelational</label>
+      </eqref>) and the 
+      hierarchic<footnote>In this context, the term hierarchical and the term relational
+        are generally used as contrasting terms   but in actual fact a relational 
+        schema can be seen  to be a special case of a hierarchical 
+        schema <emdash/> one  
+        in which the hierarchical structure is minimised.
+      </footnote>
+      one shown in full in (<eqref>
+        <label>personhierarchical</label>
+      </eqref>).
+
+      <equation>
+        <label>personhierarchical</label>
+        <number/>
+        <message_structure>
+          <rule>
+            <name>world</name>
+            <rhs>
+              <non-terminal>
+                <name>person</name>
+                <repeating/>
+              </non-terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>person</name>
+            <rhs>
+              <terminal>
+                <name>name</name>
+                <identifying/>
+              </terminal>
+              <terminal>
+                <name>data of birth</name>
+              </terminal>
+              <terminal>
+                <name>phone number</name>
+                <repeating/>
+              </terminal>
+            </rhs>
+          </rule>
+        </message_structure>
+      </equation>
+    </para>
+-->
+  <!--
+	<subsection>
+		<title>Aside</title>
+		<para>
+			With knowledge of mathematical foundations what is surprising about 
+			the attribute concept is that we need it at all for in Principia Mathematica
+			Russell and Whitehead showed that the entire mathematical corpus could be deduced
+			from a small number of starting concepts, axioms and rules of deduction; other such systems
+			followed, most notably the system of Zermelo-Frankel set theory and in all of these the
+			concepts of relationship and, as a special case function, are logically antecedent to the
+			concept of number; which is to say that, in mathematical foundations, number 
+			is a type of entity, like any other, and is modelled as such.
+			Argued in this way, the concept of attribute is redundant and, for example, numeric
+			attributes are relationships with a type <entity>number</entity>, text-valued attributes are relationships with a
+			type <entity>text</entity> and so on.
+
+			<figureOfPicture>
+				<pictureName>personNumber</pictureName>
+				<width>6cm</width>
+				<caption>
+					Attributes of Person Entity <emdash/> this time showed as relationships with a 
+					type <entity>number</entity>. 
+				</caption>
+			</figureOfPicture>
+		</para>
+		<para>
+			If modelling data representation is the goal we need to give special account of these relationships with the given types <entity>number</entity>,<entity>text</entity>, 
+			<entity>boolean</entity> and so on <emdash/> we refer to them as 
+			attributes and, in fact,  use certain of them to code for relationships - for numbers and sequences of numbers
+			rather than relationships are the fundamental means of coding data <emdash/> sequences of binary digits
+			code for numbers and letters, sequences of codes code for words and text and these in turn code relationships.
+		</para>
+	</subsection>
+	-->
+  <!--
+  </section>
+  
+  -->
+</chapter> 
+
+
+
+
+

@@ -1,0 +1,502 @@
+
+%\renewcommand{\JCpictureFolder}[0]{../chapter_3_reference_relationships/pictures}
+
+\section {Reference Relationships}
+
+Reference relationships are a second class of relationships and are distinguished from composition relationships by being depicted connecting to the side edges of the boxes representing entity types rather than to the upper and lower edges. Without distinction, connection to the left or right hand side of the boxes can be made; the side can be chosen for the convenience for the drawing.  
+A text label at one end of a relationship line serves to describe the relationship from the point of view of the subject entity at that end.
+For example, we can say a chicken \emph{lays} an egg or that an egg \emph{is laid by} a chicken. Though there is a single relationship between chicken and egg there are two ways of articulating it and accordingly the relationship is shown labelled at each end: \\
+\ercenterPicture{refrelChickenLaysEgg}
+
+For convenience of the diagramming we can, without changing the meaning, turn this about so: \\
+\ercenterPicture{refrelEggLaidByChicken}
+
+
+\noindent A chicken hatches from an egg too and we can add this to the diagram like so: \\
+\ercenterPicture{refrelChickenLayingAndHatchedFromEgg}
+
+
+\noindent Of course, what we see here represented on the diagram are types of things not actual things - so the diagram does \emph{not} express that a chicken lays the very same egg that it hatches from: rather that a chicken lays things \emph{of the type} egg and that it is hatched from a thing \emph{of the same type}.\\
+
+
+\noindent The notation introduced for composition relationships has been descriptive of properties of relationships including cardinality and optionality (the crows foot and dashing of lines), exclusion (the exclusion arc) and use of abstraction (nested boxes). These notations apply equally to the representation of reference relationships. A reference relationship can be looped around to relate instances of a single type and it is then said to be recursive. If it is many-one then a hierarchical\footnote{we use the term somewhat loosely because there is nothing in the notation which implies an absence of cycles} system of entities is implied 
+such as a command hierarchy:\\
+
+\ercenterPicture{commandHierarchy}
+
+\noindent A reference relationship can be looped around to enter the opposite edge with no difference in meaning so the following is equivalent:
+
+\ercenterPicture{commandHierarchyWrappedAround}
+
+\noindent Consider also a chain composed of links each connected to the next.
+Each link of a chain is followed by the next and each link follows at most one other which is to say there is a recursive relationship: 
+
+\ercenterPicture{link}
+
+\noindent For a more complete model see figure \ref{chainLinkRefStruct}.
+
+
+\begin{erbulletedDimFig}{chainLinkRefStruct}{H}{Chain of Links}{4.93}{5}
+\item every chain has many links
+\item every chain has a start which is a link
+\item every chain has an end which is a link
+\item every link maybe followed by a link which is then said to follow that link
+\item every link is either the start of a chain or follows a link
+\item every link is either the end of a chain or is followed by a link
+\end{erbulletedDimFig}
+
+\noindent Some recursive relationships cannot be given a different role at either end for they are symmetric. For example x1 is married to x2 precisely if x2 is married to x1. Marriage is a symmetric binary relationship. When this relationship is shown in an entity model then it must be given the same the name at either end as so:
+
+\ercenterPicture{individualIsMarriedToIndividual}
+
+\noindent As a shorthand we can compress this to a single line:
+
+\ercenterPicture{individualIsMarried}
+
+\noindent The example in figure \ref{molecule} illustrates this notation in use.
+
+\begin{erbulletedDimFig}{molecule}{H}{Molecular Structure}{3.7}{5}
+\item every molecule  consists of one or more atoms
+\item every atom is an instance of a chemical element
+\item every atom has zero,one or more bonds formed
+\item every bond formed is with a bond formed (which is then with it)
+\end{erbulletedDimFig}
+
+
+\section{The Distinction between Composition and Reference}
+
+\noindent The entity modelling notation in one form or another is part of the core syllabus in the information sciences but invariably the distinction made here between composition and reference is hardly made\footnote {The one exception to this would be in teaching of the UML notation wherein there is a further classification of composition relationships resulting in three subclasses of the core relationship concept rather than two as here}. It is surprising that the distinction between composition and reference is not taught more frequently because one of the prime motivations for teaching the entity relationship model is as a precursor technique to database design and, as we shall see later, concepts of context, reference and scope are of prime importance to database design and without them there remains a fudged step of the `here is one I prepared earlier' variety. The concept of relationship scope is the key missing concept and it is introduced in this chapter. \\
+
+\noindent Of these two superficially similar types of relationship:
+\begin{itemize}
+\item{the relationship between a play and the characters within the play,}
+\item{the relationship between a play and performances of that play.}
+\end{itemize}
+The first of these would generally be classified as a composition relationship for we can say that a play is in part composed of all the characters within it, whereas the second would generally be classified as a reference relationship for we would not say that a play is in part composed of all of it's performances. 
+For this reason an entity model describing just these three entity types, `play', `performance' and `character', contains both vertical composition relationships and an orthogonal reference relationship, 
+as  shown below in figure \ref{modelperformancePlayCharacter}. \\
+
+\begin{erbulletedDimFig}{modelperformancePlayCharacter}{h}{Composition and reference}{3}{4}
+\item{a \underline{play} is composed of one or more \underline{character}s}
+\item{a \underline{performance} is a performance of exactly one \underline{play}}
+\end{erbulletedDimFig} 
+
+\noindent Since it is a distinction rarely made many readers may be sceptical of whether there is a credible distinction between composition and reference; in the circumstances such doubts are reasonable and much of this chapter will be devoted to examples and implications of the distinction. So far much weight has rested on appeal to a sense of what constitutes a part and of what parts something can reasonably be said to be composed. We said in the introduction that entity modelling was concerned with what could be known of an entity; now, another way of asking what can be known of an entity is to ask what description can be given of an entity or what of an entity can be communicated. \\
+
+\noindent If focusing on `parts' and `composition' doesn't clarify the distinction between composition and reference or, for that matter, to convince of the credibility of the distinction, then  another ways of clarifying relies on a focus on `full description' or `communication' and this in turns leads to the idea of copying the full description of an entity - for to communicate an entity is to copy it in some way from source to destination.\\
+
+\noindent Therefore we ask what would be communicated in a full description of a play - surely it would include a full description of each of the characters? The play-characters relationship therefore passes the full description test and is classified as a composition relationship. The play-performances relationship on the other hand fails this test - it is not necessary to describe every performance of a play in order to fully describe the play - and therefore it fails the test.
+
+\noindent The matter will not rest however - there are many relationships which can be modelled either way and then models containing them are subtly different and are appropriate in different circumstances. 
+
+\erboxedFigPicture{filesystem2}{h}{The `folder' example is an excellent example of a composition relationship. I cannot 
+delete a folder on my computer without deleting all the folders and files contained 
+within it (of course I can move the contained items first and then delete the parent 
+folder). Shortcuts are different - I can delete a shortcut to a file or folder without 
+deleting the file or folder. Therefore the relationship between a shortcut and that 
+which it is a short cut to is a reference relationship.}
+
+\section{The Scope Concept}
+\noindent The example in figure \ref{scriptOfPlay} models another aspect of play; it shows two composition relationships (which have been left unlabelled) and one reference relationship doubly labelled. \\
+
+
+\begin{erbulletedDimFig}{scriptOfPlay}{h}{Composition and reference within the script of a play}{4}{5}
+\item{a \underline{play} is composed of one or more \underline{spoken line}s}
+\item{a \underline{play} is composed of one or more \underline{character}s}
+\item{a \underline{spoken line} is assigned to exactly one \underline{character}}
+\item{each line of a play is assigned to a character of that same play}
+\end{erbulletedDimFig} 
+
+
+\noindent In terms of our understanding of a domain of discourse it is significant that reference relationships may be limited in scope - the instances of the reference relationship shown in figure \ref{scriptOfPlay} are local to the context of individual plays: as part of the structure of a play, a line is never assigned to a character of a different play - we might summarise the situation by saying that assignment is intra-play not inter-play. We have chosen to express this \emph{fact of limited scope} in bullet (iv) of figure \ref{scriptOfPlay} and it is significant that the diagram \emph{alone} does not express this fact\footnote{Bullet (iv) of figure {\ref{scriptOfPlay}} adds to the information given in the diagram and is different in this respect to bullets (i),(ii),(iii) for these simply restate what is already asserted by the diagram}.  Most significantly, the Entity Relationship diagram notation is able to express the types and cardinalities of reference relationships and how they are articulated but not their scopes. 
+Nonetheless every reference relationship has a scope, the scope is fundamentally important,  it can be expressed in words, or, as we see later, in equations, or in a subordinate diagram called a scope diagram. \\
+
+\noindent Contrast the situation of figure {\ref{scriptOfPlay}} with that of figure \ref{languageBookTranslation}. Figure \ref{languageBookTranslation} is similar in shape but the difference is that the reference relationship shown is \emph{not} limited in scope. Rather the point of the relationship \emph{translation} is to cross languages - it establishes an inter-language relationship rather than intra-language relationship. This again shows that the scope of a relationship - the extent to which it is global or local - `inter' or `intra' - cannot be deduced from the entity relationship diagram. Other means of expression must be used. Gaining an understanding of scope and the means of its expression is an important part of learning entity modelling. \\
+
+\begin{erbulletedDimFig}{languageBookTranslation}{h}{Translations of a book}{4}{5}
+\item{a \underline{language} has one or more \underline{native book}s}
+\item{a \underline{language} has one or more \underline{translated book}s}
+\item{a \underline{translated book} is a translation of exactly one \underline{native book}}
+\item{a \underline{native book} is translated as  zero,one or more \underline{translated book}s}
+\end{erbulletedDimFig} 
+
+
+\noindent A further example is given in figure \ref{recipe} in which there is an example of a reference relationship between types at different levels in a composition hierarchy.\\
+\begin{erbulletedDimFig}{recipe}{h}{Recipes and their ingredients. In this figure bullets (i) to (iv) restate what is said in the diagram. Bullet (v) adds to the diagram - it is a scope statement for relationship `use of'.}{4.5}{5}
+\item{a \underline{recipe} has one or more \underline{ingredient}s}
+\item{a \underline{recipe} has one or more \underline{step}s}
+\item{a \underline{step} has one or more full or partial uses of zero, one or more \underline{ingredient}s}
+\item{a \underline{thing used} makes reference to zero or one \underline{ingredient}s}
+\item{if a \underline{thing used} in a step of a recipe makes reference to an \underline{ingredient} then the ingredient is an ingredient within the very same recipe}
+\end{erbulletedDimFig} 
+
+
+\section{Many-Many Relationships and Their Avoidance}
+
+A many-many relationship is one depicted with a crows foot at each end whereas a many-one relationship is one with a crows foot at one end but not the other.
+An example many-many would be:
+\ercenterPicture{studentCourse}
+
+\noindent An alternative to using a many-many relationship is to use two many-one relationships and an entity type. The result is shown in figure \ref{studentEnrollmentCourse}. Any entity type introduced to eliminate a many-many relationship in this way is called an \textit{intersection entity}. \\
+
+\erplainFig{studentEnrollmentCourse}{H}{Students and courses in many-many relationship represented using an intersection entity `enrollment'.}
+
+\noindent The avoidance or elimination of many-many-relationships from models is important to database designers who wish to represent or communicate the facts of a situation in tabular form. After elimination of many-many relationships the tables that are required are just one table per entity type in the model. This topic is covered in chapter 5. \\
+
+\noindent Instead of using a pair of reference relationships in the elimination of a many-many, one composition and one reference can be used instead as illustrated in figure \ref{manyvaluedAgreement2}.
+
+\begin{figure}[H]
+\begin{erbox}
+\vspace{0.3cm}
+\caption{Eliminating of a many-many relationship using composition.}
+\label{manyvaluedAgreement2}
+\begin{center}
+\small
+\begin{tabular}{p{3cm}  c  p{5.5cm}}
+Elimination by Party Within Agreement - This is the model that feels most appropriate conceptually that `parties' are parts of agreements. & & \raisebox{-3.0cm}{
+\input{\erpictureFolder/manyvaluedAgreement2}} \\
+\\
+\end{tabular}
+\normalsize
+\end{center}
+\end{erbox}
+\end{figure}
+
+
+
+\noindent When a many-many recursive relationship is eliminated using a pair of reference relationships then the resulting model has the shape 
+shown in figure \ref{manyManyRecursiveEliminated}. \\
+\erboxedFigPicture{manyManyRecursiveEliminated}{H}{The shape after elimination of a many-many recursive relationship.}
+
+\noindent In regard to any model shaped as in figure \ref{manyManyRecursiveEliminated}, we can think of entities of the left hand type as being points and those of the right hand type as connections between these points; in this way we can imagine the instances of a many-many relationship as forming a network. For example because social interactions between people are many to many we can, and do, speak of social networks and in like manner we speak of business networks, supply networks, computer networks and so on; these are all usages based on many-many relationships between various types of entities as for instance this one: 
+\ercenterPicture{supplyChain}
+
+\noindent Of course we don't need entity modelling to enable us to think of networks of this, that or the other;
+entity modelling simply gives shape (that of figure \ref{manyManyRecursiveEliminated}) to this practice -  as we say elsewhere entity modelling gives shape to metaphor. In the next section we discuss the network concept and variations of it in the forms that they have been given by mathematicians. At the same time we look at what would be meant by replacing either or both of the two reference relationships in figure \ref{manyManyRecursiveEliminated} by composition relationships.
+
+\section{Graphs}
+
+\subsection{Directed Graphs continued}
+
+
+\noindent There is a reliance here on the use of the work `abstract' and on an understanding of what the mathematician means by this. The mathematical idea of an abstract structure is that of a set of individuals and relations independent of any particular representation of the individuals. In the case of a graph the individuals are vertices and edges and the relations are the incidence relations between them. With regard to any particular abstract structure, to describe it we need \textit{some} kind of representation.  Mathematican Robin Gandy describes this to a non-mathematical audience in lecture `Structure in Mathematics'\footnote{In \textit{Structuralism, edited by D. Robey, Wolfson College Lectures, 1972}.}; he draws the love relationships to be found in Iris Murdoch's novel Severed Head as a directed graph and I have drawn an equivalent graph in figure \ref{GandyLoveGraph}.
+If we abstract a directed graph from this then there are no labels, no lines, no points on paper just the facts of a set of individuals points and relationships\footnote{According to Gandy: This indifference to form of \textit{representation} is what Bertrand Russell referred to when he said that in mathematics we are not interested in what we are talking about. We return to the subject abstraction versus representation in Chapter xxx.}. 
+
+\begin{erboxedFigure}{H}{GandyLoveGraph}{Example from `Structure in Mathematics` of a directed graph showing the love relationships to be found in Iris Murdoch's novel `Severed Head'. The labels on the graph are simply to show the correspondence with the novel.}
+\begin{tabular} {p{8.0cm}  p{0.5cm}  p{2.0cm}}
+\raisebox{-3.0cm}{\pspicture(-9,-4)(-2,0)
+%\psgrid
+\rput[r](-6.6,-0.5){\footnotesize PALMER}
+\rput[l](-3.3,-0.5){\footnotesize HONOR}
+\rput[r](-8.3,-1.8){\footnotesize ANTONIA}
+\rput[r](-7.6,-3.1){\footnotesize ALEXANDER}
+\rput[r](-6.6,-1.8){\footnotesize GEORGIE}
+\rput[l](-4.9,-3.1){\footnotesize MARTIN}
+\psline[arrowsize=2pt 3]{<->}(-6.5,-0.5) (-3.4,-0.5)  %PALMER HONOR
+\psline[arrowsize=2pt 3]{<->}(-6.5,-0.5) (-8.2,-1.8)  %PALMER ANTONIA
+\psline[arrowsize=2pt 3]{<->}(-8.2,-1.8) (-7.5,-3.1)  %ANTONIA ALEXANDER
+\psline[arrowsize=2pt 3]{ ->}(-6.5,-0.5) (-6.5,-1.8)  %PALMER GEORGIE
+\psline[arrowsize=2pt 3]{<- }(-6.5,-0.5) (-5.0,-3.1)  %PALMER MARTIN
+\psline[arrowsize=2pt 3]{<->}(-6.5,-1.8) (-5.0,-3.1)  %GEORGI MARTIN
+\psline[arrowsize=2pt 3]{ ->}(-5.0,-3.1) (-3.4,-0.5)  %MARTIN HONOR
+\psline[arrowsize=2pt 3]{ ->}(-6.5,-1.8) (-7.5,-3.1)  %GEORGIE ALEXANDER
+\endpspicture }  
+
+\noindent \textit{As an illustration of different representations of the same abstract structure, Gandy gives the relational representation shown on the right.  In the relational representation, p occupies the same structural position as
+\small PALMER\normalsize, h as 
+\small HONOR\normalsize, a as 
+\small ANTONIA\normalsize, g as 
+\small GEORGIE\normalsize, m as 
+\small MARTIN\normalsize, x as 
+\small ALEXANDER\normalsize.} & & \itshape 
+pLh 
+
+hLp 
+
+aLp 
+
+pLa 
+
+pLg 
+
+mLp 
+
+mLh 
+
+aLx 
+
+xLa 
+
+gLx 
+
+gLm 
+
+mLg\\
+\end{tabular}
+\end{erboxedFigure} 
+
+\noindent Gandy's depicted love relationship is a many-many relationship and we can represent in an entity model like this:
+\begin{center}
+\input{\erpictureFolder /love0}
+\end{center}
+\noindent Equivalently in the technical vocabulary but with the same shape we have the entity model of a directed graph shown in figure \ref{directedGraph0}
+\erboxedFigPicture{directedGraph0}{H}{The model of a directed graph.}
+
+
+\noindent There is of course nothing special about this example -  'loves' is a recursive many-many relationship and any such could be used to illustrate that a recursive many-many relationship is structurally a directed graph.\\
+ 
+\noindent Gandy's relational representation shown in figure \ref{GandyLoveGraph} could be rearranged in two ways- from the point of view of the lover or the loved; these are shown in the left and right hand sides of figure \ref{GandyAlternativeCommunication}.
+
+\begin{erboxedFigure}{H}{GandyAlternativeCommunication}{Different versions of the relational representation of figure \ref{GandyLoveGraph}. From the left hand representation you may quickly find who is loved by $a$, who is loved by $g$ and so on, from the representation on the right you may quickly determine who loves $a$, who loves $g$ and so on.}
+\textit{
+\begin{tabular}{p{1cm} c c c| c c c }
+&\raisebox{-2cm}{\input{\erpictureFolder/loveRelationship1}}&
+\begin{tabular}{l}
+aLp\&x\\
+gLx,m,g  \\
+hLp    \\
+mLp,h,g   \\
+pLh,a,g \\
+xLa      \\
+\end{tabular}&&&
+\begin{tabular}{r}
+x,pLa \\
+m,pLg \\
+m,pLh \\
+gLm   \\
+h,mLp \\
+a,gLx \\
+\end{tabular}  &
+\raisebox{-2cm}{\input{\erpictureFolder/loveRelationship2}}\\
+\end{tabular}
+}
+\end{erboxedFigure}
+
+\subsection {ER Models of Directed Graph}
+
+\noindent Viewing figure \ref{GandyAlternativeCommunication} and following on from figure \ref{directedGraph0} we see that there are two 
+further ways of modelling directed graphs. These are shown in figure \ref{directedGraphs1and2}.
+\begin{figure}[H]
+\begin{erbox}
+\vspace{0.3cm}
+\caption{Further two ways of modelling directed graphs.}
+\label{directedGraphs1and2}
+\begin{center}
+\small
+\begin{tabular}{c c p{1cm} | p{1cm} c c}
+(i)  & \raisebox{-1.5cm}{
+\input{\erpictureFolder/directedGraph1}} & & &
+(ii) &  \raisebox{-1.5cm}{
+\input{\erpictureFolder/directedGraph2}} \\
+\end{tabular}
+\normalsize
+\end{center}
+\end{erbox}
+\end{figure}
+ 
+\noindent Though we have given three ways of modelling directed graphs note that mathematically there is only a single concept.  The different models represent different ways of localising and communicating the information content of a graph. 
+The models in figure \ref{directedGraphs1and2} vary the incidence relationships between edges and vertices between categories \textit{reference} and \textit{composition}. If both are made composition then we get a further variation:
+ 
+\ercenterPicture{directedGraph4}
+
+\noindent But what communication structure do we associate with this?  Well, this way of modelling directed graphs is akin to the matrix structure modelled in chapter one. Applied to the representation of the Severed Head love relationships it implies a communication in which it is apparent both (i) who loves each subject $a$,$g$,$h$, etc  and (ii) who each subject $a$,$g$,$h$, etc  is loved by. This is made apparent by a matrix representation:
+\begin{center}
+\begin{tabular}{c | c c c c c c}
+ &a&g&h&m&p&x\\
+\hline
+a&&&&&$\times$&$\times$\\
+g&&$\times$&&$\times$&$\times$&\\
+h&&&&$\times$&$\times$&\\
+m&&$\times$&&&&\\
+p&$\times$&&$\times$&$\times$&&\\
+x&$\times$&$\times$&&&&\\
+\end{tabular}
+\end{center}
+
+
+
+\noindent We mentioned in chapter one that information is usually hierarchically communicated whereas with double composition relationships there is not one hierarchy but two hierarchies. Information must 
+be double communicated once in each hierarchical form. For linear, hierarchical communication the above model is therefore replaced by one in which each of the two hierarchies is represented:
+ 
+\ercenterPicture{directedGraph3}
+
+
+\subsection{Modelling Graphs and Symmetric Relationships}
+We use the unqualified term graph to mean a set of vertices and a set of undirected connections or `edges's between them. To the mathematician the definition is straightforward but to the entity modeller it is less so and is somewhat unsatisfying. 
+There is a difficulty and this difficulty lies at the heart of entity modelling. An understanding of the difficulty reveals simultaneously a gap in the entity relational approach by comparison with the mathematical approach but also an affinity between it and the means of language and communication.\\
+
+\noindent To model a bidirectional graph is to add a reverse relationship to any of the models of a directed graph. If we start from the left hand side of figure \ref{directedGraphs1and2} then we get this model:
+\ercenterPicture{graphUnnormalised}
+
+\noindent In this model we have greyed out the `to' relationship to show that it has become redundant. This is because the vertex that an exit leads to is always the same vertex that its reverse leads from. 
+
+\section {Context and Relationship Scope}
+Some errors arise through confusions of context and some such, in programming parlance, are called scope violations or scope errors. 
+These are different to, but can be related with, the category mistakes identified by 
+Gilbert Ryle. Whereas a category mistake is an attempt to relate entities whose types are inconsistent with the defined end types of a relationship, 
+a scope violation occurs if the types are correct but the contexts of the respective entities, or, equivalently, the enclosing composite entities 
+(see wider perspective on context), are inconsistent with the defined scope of the relationship.
+Scope violations are attempts to relate across contexts improperly.\\
+
+\noindent Knowledge of a relationship's scope is a very significant part of understanding how a relationship is used and failure 
+to respect this aspect of proper usage is what constitutes a scope violation. \\
+
+\noindent For example when talking about the cast members of a performance of King Lear it would be a scope error to suggest that a 
+member of cast play the character Desdemona for Desdemona is a character within the scope of different play namely Othello.  
+The type of entity is correct for `Desdemona' is indeed a  `character' of a play, but the context is not. 
+It is part of our knowledge of the `plays part of'/`part played by' relationship (see figure \ref{performanceOfPlay}) that this is a 
+relationship whose scope is local to the enclosing `play' context. We can say that it is intra-play rather than inter-play. \\
+
+\noindent It would be a scope error in a conversation about antipodeans to assert that the New Zealand born physicist Ernest Rutherford could have been a native of Nelson in Lancashire, a place just 20 miles away from where he was Professor of Physics. 
+Not only would it be a factual error - it would be non-sensical and this is because of the grasp we have of the meta-relationship between relationships `country of birth' and `place of birth', that the latter is a more detailed version of the former. 
+The assertion would violate the scope of the `place of birth' relationship (see figure \ref{townOfBirth}).\\
+
+\erboxedFigPicture{performanceOfPlay}{h}{Model of the Performance of a Play}
+
+\noindent Likewise it would be a scope error to think that a local telephone call could be made between different countries or that the hydrogen of a water molecule could be covalently bonded to the oxygen of a \textit{different} molecule or that the captain of one team in a cricket match might be scheduled to bat for the opposing team. All of these errors are characterised as failures to respect the scopes of relationships. \\
+
+
+\erboxedFigPicture{townOfBirth}{h}{The relationship `place of birth' is scope constrained to `country of birth'.}
+
+\noindent In accord with the most fundamental principles of information theory the more constrained a relationship is in its scope then the less the information needed to express its individual instances or
+facts of which it comprises. 
+So the definition of relationship scopes is intimately connected to specifying information requirements for representing or communicating relationship instances. \\
+
+\noindent For example if we wish to propose that, in the context of a performance of King Lear, we  give someone the role of `the fool' then we do not have to say `the fool in King Lear' we simply have to say `the fool' for our shared knowledge of the scope of the relationship `plays the part of'/`part played by' implies the rest. Contrast this to the description often given of previous parts played by the actors as an enumeration of characters within plays.\\
+
+\section{Diagrams Expressing Scopes}
+\noindent To summarise, the `plays the part of' relationship is limited in scope. In the specific context of a cast member, the part they play is in the same play as the performance is a performance of. \\
+
+\noindent The relationship `plays the part of' has a type constraint : in its proper usage it has to relate cast members with characters but it also has a scope constraint: that the character is a character within the context of the play being performed.\\
+
+\begin{ernotedDimFig}{scopePlaysPartOf}{h}{A scope constraint diagram for relationship `plays part of'. In such a diagram it is the lower horizontal relationship shown in bold which is the subject of the constraint. 
+We have given an alternative explanation of the constraint to the right of the diagram but it is wordy and difficult to follow - for this reason we prefer to draw the diagram and have this mean the very same thing.}{2.2}{4}
+Whenever a cast member plays the part of a character then the performance the cast member is part of is a performance of the play the character is a part of.
+\end{ernotedDimFig} 
+
+\noindent In mathematical notation it is possible to include the scope constraint as a more general kind of type constraint than can be expressed in an entity model, namely a `dependent type constraint'. In entity modelling this is not possible and every relationship defined in a model should have a scope constraint specified for it. There is no standard way of doing this but an accompanying diagram, one per associative relationship is a satisfactory way of doing this. Figure \ref{scopePlaysPartOf} is the scope constraint diagram for relationship `plays part of'.  \\
+
+\noindent The diagram in figure \ref{scopeLineAQssignedTo}  can be interpreted as the scope constraints for relationship `assigned to' within the context of the entity models of figure \ref{scriptOfPlay}. The text on the right of the figure explains the constraint expressed by the scope diagram - it seems obvious but this is so only if we \emph{know} this model and this relationship i.e. providing we understand its proper usage. In this example there is a single entity type at the top of the diagram - therefore we call the diagram a scope triangle rather than a scope square. \noindent If we allow of the use of identity relationship in a scope square and allow it to be drawn horizontally then any scope triangle can be re-expressed as a scope square as illustrated by figure \ref{scopeSquareLineAssignedTo}. \\
+
+\begin{ernotedDimFig}{scopeLineAssignedTo}{h}{A scope constraint diagram for relationship `assigned to'. This is a scope triangle because rooted at a single entity type.}{2.0}{4}
+Whenever a line of a play is assigned to a character then the play the character is part of is the same play as the line is part of.
+\end{ernotedDimFig} 
+
+
+\noindent Some relationships may be unconstrained in their scope in the sense that they are global in their reach. We have given an example of such a relationship, `translation of', in figure \ref{languageBookTranslation}. The scope of this relationship, the fact that it is unconstrained, is expressed by the relationship scope diagram in figure 
+\ref{scopeTranslationOf}. 
+By way of explanation - what this diagram says is :
+\begin {quote}
+The absolute of the language of a translated book is the absolute of the language of the native book it is a translation of.
+\end{quote} 
+
+\noindent In other words it says that the relationship `translation of' is such that two absolutes are equal - which is to say nothing at all about the relationship because \emph{a priori} all absolutes are equal as absolute is unique of its type.
+
+\erboxedFigPicture{scopeSquareLineAssignedTo}{h}{The identity relationship `same as' used to express the scope triangle of figure \ref{scopeLineAQssignedTo} as a square.}
+
+
+\erboxedFigPicture{scopeTranslationOf}{h}{An example of a scope diagram for a relationship which is unconstrained in scope - the scope diagram is rooted at absolute.  }
+ 
+\section{Further examples}
+
+\noindent Ryle's second example is of a child witnessing the march-past of a division of soldiers. After having had battalions, batteries, squadrons, etc. pointed out, the child asks when is the division going to appear. `The march-past was not a parade of battalions, batteries, squadrons and a division; it was a parade of the battalions, batteries and squadrons of a division.'. \\
+
+\noindent The child might have asked further in discussion of a battalion and its sergeant major, to what battalion does the sergeant major belong? This would have been to fail to understand the scope of the `sergeant major' or `leader' relationship (see figure \ref{rylesMarchPast2}. Contrast this to asking in a discussion of a university examination of what institution an external examiner belongs. \\
+
+\noindent It is part of our understanding of the `sergeant major' relationship that a sergeant major is a soldier within the company, battalion or squadron of which he is the leader.
+
+\erboxedFigPicture{rylesMarchPast2}{h}{Based on Ryle's second example of category mistakes}
+
+
+\section{Disambiguation}
+
+\noindent We are not alone should we dispair at the difficult of expression of concepts. Poet's have expressed this difficulty and writer H.G.wells:
+
+\noindent The examples in this section illustrate disambiguation of concepts via relationship modelling.
+
+\subsection{book(1) and book(2)}
+
+\noindent It is often the case that a single word in a single dictionary sense can be used at a number of different levels. 
+We can illustrate this with the word `book' which in its primary sense seems unambiguous but consider how we can ask the question:
+\begin{erquote}
+How many books were published last year in the UK?
+\end{erquote}
+and contrast with our interpretation of:
+\begin{erquote}
+How many books were sold last year in the UK?
+\end{erquote}
+
+\noindent We expect an answer to the first question to be a count of book titles or ISBN numbers but we expect an answer to 
+the second to be a count of actual physical books sold by publishers. The use of the word 'book' in the first 
+question is at a different level to the use in the second question. The two are related and we classify as a reference relationship:
+\raisebox{-1.0cm}{\input{\erpictureFolder /relBook2PrintingOfBook1}}.\\
+
+\noindent An entity model can help disambiguate these distinct uses. 
+We have the situation shown in figure \ref{modelBook1Book2Person}. \\
+
+\erboxedFigPicture{modelBook1Book2Person}{h}{Different uses of `book' as a type of entity.}
+
+
+\subsection{word(1) and word(2)}
+\noindent The word `word' itself is also used at different levels. For example if we set 
+about counting how many words in 
+the English language we will be counting a different type of entity than if we count words in an essay or in an advertisement that we pay for by the word.
+There is a clear type instance relationship between the two which we again classify as a reference relationship:
+ 
+\raisebox{-1.0cm}{\input{\erpictureFolder /relWord2OccurrenceOfWord1}}.\\
+
+
+\erboxedFigPicture{modelWord2OccurrenceOfWord1}{h}{The occurrence relation between multiple ways uses of the word `word'.}
+
+
+\subsection{letter(1) and letter (2)}
+\noindent The word `letter' also for we can count the letters in a word and each one is an occurrence of a letter from the alphabet as shown in figure \ref{scopeLetter2OccurrenceOfLetter1}. \\
+
+\erboxedFigPicture{scopeLetter2OccurrenceOfLetter1}{h}{The scope square of the `occurrence of' relationship between multiple ways uses of the word `letter'.}
+
+\subsection{word(3) and letter(3)}
+\noindent In the model in figure \ref{model3UsesOfWord} we introduce a third type of  `word' and third type of `letter':\\
+\begin{erquote}
+word (1) - the word as defined by the dictionary. This is the level I am using when I say `What does that word mean?' 
+\end{erquote}
+\begin{erquote}
+word (2) - the words that appear in a book as conceived of by the author. This is the level I have in mind when I write, 
+for example  `In the words of T.S.Elliott' or, `According to the word of God'. (This last usage of the word `word' is given as a 
+different sense in the `Concise Oxford Dictionary'). 
+\end{erquote}
+\begin{erquote}
+word (3) - the actual copies of the words in some copy of a book. This is the level that we use when we say `That word is illegible'.
+\end{erquote}
+
+\erboxedFigPicture{model3UsesOfWord}{h}{Occurrence relationships between multiple uses of the word `word'.}
+
+\subsection{The Model}
+This leads to the model shown in figure \ref{modelBook2ToLetter1AndPerson}.
+
+\erboxedFigPicture{modelBook2ToLetter1AndPerson}{h}{This example pieces together the fragments described in the previous sections.}
+
+\noindent Returning for a moment to the question of when to model a relationship as composition (vertical) and when as reference (horizontal)
+we see that in the model in figure \ref{wordletterandall} the distinction between composition and reference has been representative of these considerations:
+\begin{itemize}
+\item{Describing an alphabet, I describe its letters but I do not describe the vocabulary of every language using the alphabet.}
+\item{Describing the vocabulary of a language, I describe the words and how they are spelt but I do not describe the corpus of works.}
+\item{Describing the corpus of works, I do not describe the dissemination of that corpus i.e the printed copies.}
+\end{itemize}
+
+\erboxedFigPicture{scopeLetter3Letter2}{h}{A scope square for the occurrence relation between letter(3) and letter(2).}
+
+\section{Scope Squares - A Warning}
+\noindent Not all relationship squares are scope squares. In the model of figure \ref{staysin_model} the obvious square is \emph{not} a scope square\footnote{Mathematicians would say that the diagram does not commute}. 
+Instead the relationship `stays in' is global in scope i.e unconstrained. As such its scope square is as shown is figure \ref{staysin_square}.
+
+\erboxedFigPicture{modelStaysIn}{h}{The relationship `stays-in' is not constrained : a cast member stays in a hotel but this does \emph{not} have to be in the same town that the performance is at.}
+
+\erboxedFigPicture{scopeStaysIn}{H}{The scope square for the unconstrained relationship `stays in'.}
+
+
+\noindent We return to the subject of scope squares in the next chapter after describing notations for constructing relationships. 
+
+
+
+
+

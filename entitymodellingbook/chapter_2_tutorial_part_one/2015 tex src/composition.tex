@@ -1,0 +1,959 @@
+
+
+\section{Entities and Their Parts}
+\noindent An entity model is a system of entity types and relationships and for a reader 
+of a model the most 
+important relationships - those to understand first - are those that represent associations between entities 
+and their parts. These relationships are called 
+\textit{composition relationships} and the term \textit{composition structure} is used to refer to the subsystem 
+consisting solely of entity types and compositions relationships. \\
+
+\noindent In the sections which follow we describe notations for describing the properties of
+entities and their composition relationships including cardinality and optionality (the crows foot and dashing of lines), 
+exclusion (the exclusion arc), recursion (looping structures), abstraction (nested boxes), the absolute (diagram root). 
+Almost all this notation applies equally to more general types of relationship but the approach is to introduce the 
+notation in this more restricted setting. The notation is as used in the SSADM method as described, 
+for example, in Richard Barker's book, but with further development including the special treatment of composition relationships, and thereby their foregrounding, 
+and the notation for the absolute.    
+
+\vspace{0.2cm}
+\noindent Composition relationships are shown top-down, which is to say that they are drawn leaving the lower edge of the box representing type of the whole and entering the upper edge of the type representing the part, as here: (a)
+\erinlinePicture{wholeOfOneOrMoreParts}{2.1}. This fragment signifies that there are \textit{one or more} entities of type \textit{part type} within the whole. \\
+
+\noindent Looking at composition relationships the other way around - bottom up - then they are seen to relate entities with the contexts in which they exist
+and it is because of this that these are the most important relationships in an entity model - they provide context to entities. \\
+
+\noindent The presence of the crows foot is representative of multiplicity - if the crows foot is present the notation asserts that there may be many parts of type \textit{part type} within each entity of type \textit{whole type}.\\
+
+\noindent If the crows foot is absent, as here: (b)
+\erinlinePicture{wholeOfExactlyOnePart}{2.1}
+then the assertion is that there is \textit{exactly one} entity of type \textit{part type} within the whole. \\
+
+
+\noindent A further distinction is made by use of a half-dashed line to represent the possibility of zero; this gives us \\
+
+\noindent (c) there may be \textit{zero, one or more} entities of  \textit{part type} within the whole:
+\erinlinePicture{wholeOfZeroOneOrMoreParts}{2.1} \\
+\noindent and (d) there may be \textit{zero or one} entities of type \textit{part type} :
+\erinlinePicture{wholeOfZeroOrOneParts}{2.1}.\\
+
+
+\noindent If there are parts of different types, then the structure is shown branching as for example here: (e)
+\erinlinePicture{wholeOfTwoPartTypes} {2.4}
+or here: (f)
+\erinlinePicture{wholeOfThreePartTypes}{2.4}. \\
+
+
+\noindent Figures \ref{nucleusProtonNeutron}, \ref{complexSentence} and \ref{grinWithoutCat} gives basic examples using the notation. 
+More examples follow as more features of the notation are introduced. 
+If you find yourself disagreeing with these examples - thinking that what they express 
+is contrary to your understanding then it is reasonable to suppose that I will have achieved 
+my aim of showing how the notation works - how it can be used to express precise models and that 
+it is then possible to consider these models, to disagree with them or, better, to 
+refine them.
+
+\begin{ernotedDimFigPW}{nucleusProtonNeutron}{H}{The atomic nucleus}{2}{5.2}{6}
+\item{a \underline{nucleus} is composed of one or more \underline{proton}s
+and zero,  one or more \underline{neutron}s}
+\end{ernotedDimFigPW}
+
+\begin{ernotedDimFigPW}{complexSentence}{H}{From grammar}{2.6}{5.2}{6}
+\item{a \underline{complex sentence} is composed of exactly one \underline{main clause}
+and one or more \underline{subordinate clause}s}
+\end{ernotedDimFigPW}
+
+\begin{ernotedDimFigPW}{grinWithoutCat}{H}{From Alice's dream:}{2}{5.2}{6}
+\item{`Well I've often seen a cat without a grin,' thought Alice; `but a grin without a cat! It's the most 
+curious thing I ever saw in my life!'}
+\end{ernotedDimFigPW}
+
+\section{Sequential Order}
+
+\noindent When the parts of a whole have a particular order amongst them then an 'S' shaped symbol (S for sequence) maybe added to the relationship. In this way we can represent a sentence as a sequence of words: (a)\erinlinePicture{sentenceWord}{2.1} and a word as a sequence of letters: (b)\erinlinePicture{wordLetter}{2.1}
+\\
+
+\noindent Famously, we can represent a DNA molecule (a chromosome?)  as a sequence of nucleotides.
+\ercenterPicture{dnaNucleotide}
+
+\section{Levels of Decomposition}
+
+\noindent When a whole is decomposed into parts then very often we find that the part types can be decomposed further. We have seen this already: `sentence's can be broken down into `word's and `word's into `letter's. We then put these together on the diagram the relationships are shown stacked up as follows:
+\ercenterPicture{sentenceWordLetter}
+
+\noindent The decomposition of wholes into parts can continue over many levels. Thus some linguists, for example, speak of five levels of decomposition of a sentence. These are shown in figure \ref{sentenceFiveLevels}. For another example
+in a dictionary you see each word with its different senses defined and so a dictionary is composed of words and these, within the context of a dictionary, 
+are composed of a number of senses\footnote{ For the word `sense' itself we find 
+no less than ten distinct senses given in the Concise Oxford Dictionary. 
+The 7th sense and the one we intend for it here is this:
+\begin{erquote}
+\noindent sense n... 7. meaning, way in which a word etc. is to be understood, intelligibility or coherence or possession of a meaning
+\end{erquote}
+}, see figure \ref{dictionaryWordSense} for the three levels of a dictionary. Figure \ref{atom} shows the parts of an atom as understood circa 1930.
+
+
+\begin{erbulletedDimFig}{sentenceFiveLevels}{h}{Some linguists describe five levels of decomposition of a sentence}{7}{7}
+\item{a \underline{sentence} is composed of one or more \underline{clause}s}
+\vspace{1cm}
+\item{a \underline{clause} is composed of one or more \underline{phrase}s}
+\vspace{1cm}
+\item{a \underline{phrase} is composed of one or more \underline{word}s}
+\vspace{1cm}
+\item{a \underline{word} is composed of one or more \underline{morpheme}s}
+\end{erbulletedDimFig}
+
+\erboxedFigPicture{dictionaryWordSense}{h}{Dictionary Structure}
+
+\vspace{.4cm}
+
+\begin{erbulletedFig}{atom}{h}{From physics}
+\item{an \underline{atom} is composed of exactly one \underline{nucleus} 
+and one or more \underline{electron}s}
+\vspace{0.3cm}
+\item{a \underline{nucleus} is composed of one or more \underline{proton}s
+and zero,  one or more \underline{neutron}s}
+\end{erbulletedFig}
+
+\vspace{.5cm}
+\section{Recursion}
+When the type of a part is identical to the type of the whole then the relationship must be looped around to renter the top after leaving the bottom:
+\raisebox{-0.7cm}{
+\raisebox{0.7cm}{(g)}
+\input{\erpictureFolder /typeRecursive1}
+}. This asserts that every \textit{type} entity is composed of one or more \textit{type} entities... each one of which, therefore, is itself composed of one more \textit{type} entities ... and so on indefinitely. The implied infinity in this model is a concern which is elaborated by Jonathon Swift in rhyme wherein the type in question is the type `flea':
+\begin{quote}
+\begin{verse}
+\textit{Big fleas have little fleas,\\
+Upon their backs to bite 'em,\\
+And little fleas have lesser fleas,\\
+and so, ad infinitum.\\
+}
+\end{verse}
+\end{quote} 
+
+\vspace{0.2cm}
+\noindent In fact, if we are to avoid asserting an infinity of parts of parts of parts then we 
+must specify \textit{zero}, one or more parts within the whole as here:
+\raisebox{-0.7cm}{
+\raisebox{0.7cm}{(h)}
+\input{\erpictureFolder /typeRecursive2}
+}. Further, if we are to avoid asserting an infinity of ever bigger conglomerates as suggested in Augustus De Morgan's rejoinder to Swift:
+\begin{quote}
+\begin{verse}
+\textit{And the great fleas themselves, in turn, have greater fleas to go on,\\
+While these again have greater still, and greater still, and so on\\
+}
+\end{verse}
+\end{quote}
+
+\noindent then we must specify that a part is \emph{optionally} part of some other part as here:
+
+\raisebox{-0.7cm}{
+\raisebox{0.7cm}{(i)}
+\input{\erpictureFolder /typeRecursive3}
+}.
+\\
+\\
+\noindent The example in figure \ref{filesystem0} illustrates this looping in action; it is further developed in subsequent sections. 
+
+\begin{erbulletedFig}{filesystem0}{h}{Describing the file system of a computer drive.}
+
+\item{a \underline{folder} is composed of zero, one or more \underline{folder}s 
+and zero, one or more \underline{file}s}
+\end{erbulletedFig}
+
+\section{Exclusion Arcs}
+
+\noindent When an entity of a particular type may be part of different types of whole, but not simultaneously so, then this is asserted by an arc drawn across the lines representing the composition relationships as here:
+\begin{center}
+\raisebox{-1cm}{
+\raisebox{1cm}{(j)}
+\input{\erpictureFolder /exclusionArc}
+}
+\end{center}
+
+\noindent This arc is called an exclusion relationship. Note that the presence of the arc circumvents the necessity to dash the relationship lines to represent optionality - optionality of relationships from parts to whole is implied. \\
+
+\noindent This now allows us to improve the model of a file system as shown in 
+figure \ref{filesystem1} in which we have introduced a drive entity ( i.e a disk drive) to provide context for those folders which do not themselves have folders for context.
+ 
+\begin{erbulletedFig}{filesystem1}{h}{From the file system of a computer}
+\item{a \underline{drive} has as a part exactly one \underline{folder}}
+\item{a \underline{folder} has as parts zero, one or more \underline{folder}s 
+and zero, one or more \underline{file}s}
+\item{every \underline{folder} is exclusively either a \underline{folder} that a \underline{drive}
+has as a part or a \underline{folder} which a folder has as a part}
+\end{erbulletedFig}
+
+
+
+
+\section{Describing Roles}
+
+The front and rear wheels of a bicycle are parts which play different roles within the whole - arguably 
+the front and back wheels should be modelled as different types of entity for the rear wheel has a 
+sprocket, or at least a housing for one, whilst the front does not. In the case of a child's scooter though 
+or in the case, prior to pedal power, of the velocipede, the whole thing has two identical parts playing 
+different roles within the whole. It is for reasons like this that the role played by a part in a whole 
+may be specified in a model. The role played is described as an annotation on the composition relationship 
+at the `whole' end of the relationship. \\ 
+
+\noindent Sentence structure gives an example of this, it is shown in figure \ref{sentenceNounPhrase}. 
+There may be multiple noun phrases within a sentence - a simple sentence must have a 
+subject noun phrase 
+and it may have have an object noun phrase. Like the front wheel and the rear wheel 
+of a child's scooter 
+the subject and object noun phrases are in and by themselves indistinguishable. \\
+
+\begin{erbulletedDimFig}{sentenceNounPhrase}{h}{First example of naming of relationship roles}{2}{6}
+\item{every \underline{sentence} has a \underline{subject} which is a \underline{noun phrase}}
+\item{a \underline{sentence} may have an \underline{object} which is a \underline{noun phrase}}
+\end{erbulletedDimFig}
+
+
+\begin{erbulletedDimFig}{scooter}{h}{Second example of naming of relationship roles}{2}{6}
+\item{every \underline{scooter} has a \underline{front wheel} which is a \underline{wheel}}
+\item{every \underline{scooter} has a \underline{rear wheel} which is a \underline{wheel}}
+\end{erbulletedDimFig}
+
+\begin{erbulletedDimFig}{fourFingerFlightFormation}{h}{The four-finger flight formation}{5.5}{4}
+\item{every \underline{flight} has exactly one \underline{lead} which is an \underline{element}}
+\item{every \underline{flight} has exactly one \underline{second} which is an \underline{element}}
+\item{every \underline{element} has exactly one \underline{leader}  which is an \underline{aircraft}}
+\item{every \underline{element} has exactly one \underline{wingman} which is an \underline{aircraft}}
+\end{erbulletedDimFig}
+
+\section{The Absolute Whole and Other Absolutes}
+
+The entirety of a modelling situation is represented by a half box at the upper edge of a diagram.
+Types whose entities may be free standing - not parts of or dependent on other entities are shown to be 
+part of the entirety - which, relative to the situation, is the whole of everything. \\
+
+\noindent The entirety is the `absolute' whole. It is a principle of logic that when we model we model a 
+specific situation and this establishes an absolute.
+Fiction operates the same way as logic in this regard. \\
+
+\noindent If the modelling situation is that of a single computer the entirety has 
+cpu, drives and memory as parts as shown in figure \ref{singleComputerModel}.\\
+
+\erboxedFigPicture{singleComputerModel}{h}{Model of a single desktop computer}
+\vspace{.2cm}
+\noindent but if the entirety of the modelling situation is a network of computers then the whole has computers as parts which in turn each have drives and memory
+as shown in figure \ref{networkComputerModel}.
+
+\erboxedFigPicture{networkComputerModel}{h}{Model of a network of computers}
+
+\noindent Similarly, the terms `true' and `false' are not relative terms - they do not rely
+ on context for their  interpretation - therefore they are absolutes and can be represented in relationship to the absolute.  
+We will follow the computer science convention of representing them as being of 
+type `boolean' which in  common language might be translated as the made up word `truthliness'. 
+This leads to the model shown in 
+figure \ref{boolean2} which depicts true and false as absolutes and as entities of type `boolean'. 
+Note that from this model we are able to infer the only boolean entities are either the absolute `true' or  the absolute `false'. 
+
+\erboxedFigPicture{boolean2}{h}{Model of two absolutes}
+
+\noindent We might not have said this already: an entity model defines the rules 
+by which entities of any of its types may exist; they do so by declaring the context 
+for their existence i.e. other types of entities and the relationships in which they must 
+be with these entities in order to exist. The uppermost model in figure \ref{sentenceNounPhrase} 
+declares then that every noun phrase is either subject or object of a sentence
+\footnote{though 
+the model states this please be aware that the model might be misguided! Also, later, we 
+shall we come back to many ambiguities with terms like `word', and likewise is true for the 
+terms `noun' and `noun phase'.}. Similarly, from the model in figure \ref{boolean2} we are able to 
+infer that the only boolean entities are either the absolute `true' or the absolute `false'. 
+
+\section {Use of Generalisations}
+We gave the example in figure \ref{nucleusProtonNeutron} of an atomic nucleus being composed of many protons and neutrons.
+This can be expressed slightly differently using the generalisation `nucleon' of the individual terms `proton' and `neutron'
+by stating: an atomic nucleus is composed of one or more nucleons; every nucleon is either a proton or a neutron;
+(it's pretty much expressed this way in a diagram from the physicist Harald Fritzsch's book - is it?). 
+In an entity model diagram the generalisation type 
+is shown as a box containing the specific types; so figure \ref{nucleusProtonNeutron} may be expressed thus:
+
+\begin{center}
+\input{\erpictureFolder /nucleusNucleon}
+.
+\end{center}
+Be aware that there is a minor difference between this way of expressing the situation and the form in figure \ref{nucleusProtonNeutron}: this way, 
+is consistent with a nucleus with one neutron and zero protons - in physics this cannot happen.
+Equally neither representation expresses that the number of protons must equal the number of electrons. \\
+
+\noindent The same generalisation can be used to express that protons and neutrons are combinations of quarks:
+\begin{center}
+\input{\erpictureFolder /nucleonQuark}
+.
+\end{center}
+
+\needspace{6cm}
+\section{Two Examples from Biology}
+As a further illustration of the notations described so far figures \ref{phylumAnthropoda} and \ref{cellStructure} give examples representing descriptions given in Biology. 
+\begin{ernotedDimFig}{phylumAnthropoda}{h}{an elementary description of phylum anthropoda}{5.6}{2.75}
+\item{the characteristics of phylum anthropoda are (i) exoskeleton, (ii) body segments grouped into specialized regions (= tagmata)
+(iii) jointed appendages variously specialized for feeding, locomotion, sensing }
+\end{ernotedDimFig}
+
+\erboxedFigPicture{cellStructure}{h}{You should know:
+animal cells have a nucleus, cytoplasm and a cell membrane.  
+Plant cells also have a cell wall, a vacuole and chloroplasts. }
+
+\needspace{10cm}
+\section{Fundamental Levels of Matter}
+\noindent
+
+\begin{erbulletedDimFig}{HaraldFritzsch}{h}{From physicist Harald Fritzsch}{6.95}{5}
+\item{every \underline{molecule} is composed of one or more \underline{nuclei} and one or more \underline{electrons}}
+\vspace{0.5cm}
+\item{every \underline{nucleus} is composed of one or more \underline{nucleons}}
+\vspace{0.5cm}
+\item{every \underline{nucleon} is either a \underline{neutron} or a \underline{proton}}
+\vspace{0.5cm}
+\item{every \underline{neutron} is composed of one or more \underline{quark}s}
+\end{erbulletedDimFig}
+
+\section{An Example From Linguistics - Adjectival Phrases}
+
+\noindent A variation in the use of the exclusion arc is illustrated in the next example, figure \ref{brintonAdjectivalPhrase}, in which the model formally describes a certain part of the structure of English as given in many books of grammar by describing the possible appearances of degree words, adverbs and adjectives in adjectival phrases. In this example the ordering of composition relationships as they leave an entity from its lower edge corresponds to the relative positions of such consituents within an adjectival phrase. \\
+
+\begin{ernotedDimFig}{brintonAdjectivalPhrase}{h}{Description of an adjectival phrase - an arrangement of degree words, adverbs and an adjective said to be the head of the phrase. }{4.0}{3.5}
+Adjectives, wherever they appear in sentences – as predicates or as qualifiers of nouns may be themselves be qualified by degree words or by adverbs; adverbs themselves may in turn be qualified by degree words. 
+\end{ernotedDimFig}
+
+\noindent Adjectival phrases may appear as the predicates of sentences or as the qualifiers of nouns. Examples of adjectival phrases and the types of the constitent words are given in table \ref{exampleAdjectivalPhrases}. The table uses abbreviations for the different word types as were introduced in table \ref{tableofwordtypes}.
+
+
+\begin{table}[h]
+\centering
+\begin{tabular} {l c l}
+adjectival phrase& & type sequence\\
+\hline 
+fierce & &  A \\
+very fierce & & Deg A \\
+fiercely barking & & Adv A  \\
+very fiercely barking & & Deg Adv A  \\
+\end{tabular}
+%\captionsetup{justification=centering}
+\caption{Example adjectival phrases}
+\label {exampleAdjectivalPhrases}
+\end{table} 
+
+
+\noindent The reason for the inclusion of a type `adverbial phrase' is illustrated by the example \textit{very fiercely barking} in which the degree word `very' is understood as qualifying the word `fiercely' which as a combination (an entity) `very fiercely' then qualifies the word `barking'.
+The phrase `very fiercely' is an example of an `adverbial phrase' as represented in the model in figure \ref{brintonAdjectivalPhrase}. 
+\noindent There are futher extended examples of modelling of structure of English in section \ref{modellingSentenceStructure}.
+
+\section {Gilbert Ryle}
+When Gilbert Ryle introduced the phrase `category mistake' he gave a number of examples. 
+The first example is of a visitor to Oxford. The visitor, upon viewing the colleges and library, reportedly inquired "But where is the University?". 
+The visitor's mistake, explains Ryle, is presuming that a University is part of the category ``units of physical infrastructure" or some such thing, rather than the category ``institutions", say, which are far more abstract and complex conglomerations of buildings, people, procedures, and so on.
+
+\vspace{0.5cm}
+\erboxedFigPicture{rylesUniversity}{h}{A university as an abstract conglomeration of buildings, people and procedures.}
+\vspace{0.5cm}
+
+\noindent Ryle's second example is of a child witnessing the march-past of a division of soldiers. After having had battalions, batteries, squadrons, etc. pointed out, the child asks when is the division going to appear. `The march-past was not a parade of battalions, batteries, squadrons and a division; it was a parade of the battalions, batteries and squadrons of a division.'. \\
+
+\vspace{1cm}
+\erboxedFigPicture{rylesmarchpast}{h}{Ryle's March Past}
+\vspace{1cm}
+%
+%
+\newpage  %Might come a point when we want to take this out again
+%
+%
+
+\section{Linguistics: Modelling Sentence Structure}
+\label{modellingSentenceStructure}
+
+\noindent In this section we give an extended example of entity modelling by demonstrating the modelling of English sentence structure. Our starting point has been the syntactic rules presented in chapters x-z of the book of Brinton: \textit{The Structure of Modern English}\footnote{Brinton, 2000}.\\
+
+\noindent In the study of syntax, linguists seek to understand and express the rules by which some sequences of words can be comprehended as having a structure which is well-formed - that is, we find them  grammatical - and some do not. In earlier sections we have spoken about an entity model as representing a theory of what is; we illustrate this now for, as Noam Chomsky wrote in 1957,
+\textit{a grammar of the language L is a theory of L}\footnote{Syntactic Structures, N. Chomsky, 1957 (page 49)}. 
+Chomsky says that each grammar is simply a description of a certain set of utterances, namely those that it generates and he illustrates with reference to a part of chemical theory concerned with structurally possible compounds. 
+Such a theory, says Chomsky, might be said to generate all physically possible compounds just as a grammar generates all grammatically `possible' utterances\footnote{Syntactic Structures(page 48)}\footnote {Since Chomsky's 1957 descriptions of phrase structure rules, transformation rules and morphophonemic rules there many different approaches to expressing sentence structure. The models developed in this section cover the same ground as the phrase structure rules of Chomsky which are expressed as a class of grammar know as a context free. All context free grammars lead naturally and mechanically to entity models of parse trees. This section is an illustration of this.}.\\
+
+\noindent Different authors have described English by various grammatical systems and with varying and over lapping degrees of success and agreement but each grammar do described is a rule system and what all such rule systems do is to identify and classify relationships between different parts of grammatical sentences; linguists bring to our attention types of entities and accompanying composition relationships which otherwise remain hidden. \\
+
+\noindent Rule systems invariably focus on different word classes i.e. different types of words such as were introduced in section \ref{typesOfWord}.
+
+\vspace{0.25cm}
+\noindent  The type of each word of an example sentence  can be shown by annotating the word entities as follows: \\
+
+\tagw{The}{Det} \tagw{young}{A} \tagw{athelete}{N} \tagw{set}{V} \tagw{a}{Det} \tagw{new}{A} \tagw{record}{NP}.\\
+\vspace{0.3cm}
+
+\noindent With regard to the types of words - many words can be used say as nouns and as verbs and so it is the \emph{use} of the word that is the entity to which a type is assigned. \\
+
+\noindent Figure \ref{fowlersentenceexample} shows the hierarchically structure of a simple sentence. It shows the composition relationships between its constituents parts. Each of the boxes in figure \ref{fowlersentenceexample} is an example of a sentence constituent - a single word or a phrase; this is a key entity type for the linguist.
+%\footnotemark
+\afterpage{
+\begin{figure}[htbp]
+\caption{Constituent Parts of an Example Sentence\protect\footnotemark - phrases are shown in relationship to their constituent parts - referred to as `sentence constituents'.}
+\label{fowlersentenceexample}
+\pspicture(-0.7,-5.7)(11,1)
+%\psgrid
+\pstree[radius=3pt, levelsep=1cm]
+   {\wnode{The young athelete set a new record}}
+   {
+     \phrnode{The young athelete}
+            { 
+             \wnode{The}
+             \phrnode{young athelete}
+             {
+               \wnode{young}
+               \wnode{athelete}
+             }
+            }
+     \phrnode{set a new record}
+            {
+             \wnode{set}
+             \phrnode{a new record}
+             {
+               \wnode{a}
+               \phrnode{new record}
+               {
+                  \wnode{new}
+                  \wnode{record}
+               }
+             }
+            }
+   }
+\endpspicture
+\end{figure}
+\footnotetext{Reproduced from Fowler, ``Understanding Language", page 100.}
+}
+
+\subsection{Sentence Constituents}
+
+\noindent According to Brinton:
+\begin{erquote}
+The study of syntax is the analysis of the constituent parts of a sentence: their form, positioning,
+and function. Constituents are the proper subparts of sentences. There are different
+types of constituents classified by the categories which constitute them; these have different
+functions and internal structures with elements arranged in a specific way. And they may
+themselves be complex, containing other constituents. The structure of a sentence is hence
+hierarchical.
+\end{erquote}
+\noindent Brinton notes that not all sequences of words function as constituents. It is the context, he says,  which determines whether a particular sequence forms a constituent or not. For example, the sequence of words \textit{beautiful flowers} is a constituent in \textit{I received beautiful flowers for my birthday} but not in \textit{Though they are beautiful, flowers cause me to sneeze}. The sequence \textit{the house on the hill} is a constituent in one reading of the ambiguous sentence \textit{I bought the house on the hill}, but not in the other; it is a constituent in the sense `I bought the house which is on the hill', but not in the sense `I bought the house while standing on the hill'.\\
+
+
+\noindent We can represent sentence constituent as an entity type generalising `phrase' and `word': \\
+
+\begin{center}
+\input{\erpictureFolder /sentenceConstituents1}
+\end{center}
+
+\noindent and show phrases as sequences of words:
+
+\begin{center}
+\input{\erpictureFolder /sentenceConstituents0}
+\end{center}
+
+\noindent this leads us to a single diagram as shown in  figure \ref{sentenceConstituents2}.   \\
+
+\begin{erbulletedDimFig}{sentenceConstituents2}{h}{From Understanding Language}{2}{5}
+\item{a \underline{sentence constituent} is either a \underline{word} or a \underline{phrase}}
+\vspace{0.5cm}
+\item{a \underline{phrase} is composed of one or more \underline{sentence constituents}}
+\end{erbulletedDimFig}
+
+
+\subsection{Types of Phrase}
+
+Our example sentence is of a type that is often termed a `simple' sentence and consists of a subject followed by a predicate as shown in figure \ref {subjectpredicate}. Other examples of the same type, subject followed by predicate, are shown in table \ref{examplesofsubjectpredicate};
+each subject in the table can equally combine with any of the given predicates to form a well-formed sentence. Though ten sentences are presented by combining different subjects with different predicates we can generate 100 different sentences\footnote{But only the proviso that some verbs need be inflected to match their subjects - for example `We is for sale' needs become `We are for sale'.}. What we cannot do is pair any two subjects to produce a well-formed sentence nor any two predicates. This illustrates that subject phrases and predicate phrases are of distinct types. These are the types `noun phrase' and `verb phrase' respectively. These types of phrase can appear in other contexts within sentences but for now they appear as subject and predicate respectively.
+\\
+
+\noindent This simple rule: \\
+\begin{equation}
+\label{subjectPredicateRule}
+\text{S  $\longrightarrow$   NP VP }\\
+\end{equation}
+\noindent using some self evident abbreviations is of a type sometimes referred to as a production, aggregates of which are used to express grammars technically referred to as context free grammars. This is a formal expression of the fact that a
+sentence(S) may be constructed as a noun phrase(NP) followed by a verb phrase(VP). 
+
+
+%\erboxedFigure{#1 FigureParam}{#2 Label}{#3 Caption}
+\begin{erboxedFigure}{h}{subjectpredicate}{Example sentence showing the decomposition into subject phrase and a predicate phrase.}
+\begin{tabular}{p{3cm} l }  % I could not get center to work here around this tree - hence the tabular
+ & \begin{pspicture}(0,-2.4)(7,0.4)
+%\psgrid
+\pstree[radius=3pt, levelsep=2cm]
+   {\wnode{The young athelete set a new record}}
+   {
+     \wnode{The young athelete}\funl{subject}
+     \wnode{set a new record}\funr{predicate}
+   } 
+\end{pspicture}
+\end{tabular}
+\end{erboxedFigure} 
+
+
+
+\begin{center}
+\begin{table}
+\begin{tabular} {l l l}
+	& Subject & Predicate \\
+\hline
+1. &  We     & had arrived at the wrong house.\\
+%	  \\
+2. &  The man &  could open the door.\\
+%		\\
+3. &  Truffles& are a kind of fungus.\\
+%		\\
+4. &  The house on the corner& is for sale.\\
+%    \\
+5. &  She& went to see who was at the door.\\
+%    \\
+6. &  The rain and fog&  dissipated.\\
+%    \\
+7. &  There& are five cats in the hall.\\
+%    \\
+8. &  The film that I saw last night& was depressing.\\
+%    \\
+9. &  It   & is raining.\\
+%    \\
+10. & It   & is possible that Alfred will know the answer.\\
+\end{tabular}
+\caption{Ten simple sentences used by Brinton to illustrate the subject predicate distinction.}
+\label {examplesofsubjectpredicate}
+\end{table}
+\end{center}
+
+\noindent What such a rule (\ref{subjectPredicateRule}) does not do is to give a name to the role played by the noun phrase (NP) in the sentence -- that of subject -- and nor does it give a name -- predicate -- to the role played by the verb phrase (VP). In Entity Modelling we have a notation for just such matters and accordingly we can represent the subject-predicate rule inclusive of role names by the entity model fragment shown in figure \ref{simpleSentenceSubjectPredicate}.
+
+\begin{erbulletedDimFig}{simpleSentenceSubjectPredicate}{H} {Sentence as subject and predicate} {2}{5}
+\item {every simple sentence has exactly one subject which is a noun phrase}
+\item {every simple sentence has exactly one predicate which is a verb phrase}
+\end {erbulletedDimFig}
+%\begin{center}
+%\input{\erpictureFolder /simpleSentenceSubjectPredicate}
+%\end{center}
+\FloatBarrier
+\noindent The entity type `phrase' of figure \ref{sentenceConstituents2} is very general 
+- it covers entities such as whole sentences, and the noun phrases and verb phrases shown in the subject and predicate columns of table \ref{examplesofsubjectpredicate}. Linguists recognise these different phrase types and, just as for the different types of words, phrases may be substituted in sentences by phrases of like type without effecting the acceptability of the sentence. Table \ref{tableofphrasetypes} shows some of the major distinctions within phrase types. 
+%\begin{table}
+%\begin{tabular} {l l l}
+\begin{longtable} {l l l}
+phrase type    & abbreviation& examples \\
+\hline
+whole sentence &      S      &   \textit{the young athelete set a new record}\\
+noun phase     &      NP     &   \textit{the young athelete}, \textit{a new record}\\
+verb phrase    &      VP     &   \textit{set a new record}\\
+adjectival phrase &   AP &   \\
+prepositional phase & PP  &   \\
+%\end{tabular} 
+\caption{Types of phrase and abbreviations used.}
+\label {tableofphrasetypes}
+%\end{table}
+\end{longtable}
+%\FloatBarrier
+\noindent This leads us to be able to refine  the entity type `phrase' in figure \ref{sentenceConstituents2} by a generalisation as follows: 
+\begin{center}
+\input{\erpictureFolder /brintonPhraseTypes}
+\end{center}
+
+\noindent  In the next two sections we continue the process of refinement - we describe the composition relationships that are possible between the different phrase types of a sentence. In this way we use the
+entity modelling notation as a meta-language in which we describe how different types of sentence constituent can be combined into grammatical sentences and in so doing present a
+description of a set of rules for sentence construction. There is not, in linguistic theory, an unequivocal set of rules to follow  - the rules we choose to model follow close to those presented by Brinton. 
+\newpage
+\subsection {The grammar of the Verb Phrase}
+We have examples of verb phrases in the right hand column of table \ref{examplesofsubjectpredicate}. They are quite varied in their structure. Here is a typical analysis of a verb phrase, in this case for the predicate of figure \ref{subjectpredicate}:
+\begin{center}
+\begin{minipage}{3.6cm}
+\pspicture(0,-2.5)(3.6,1)
+%\psgrid
+\pstree[radius=3pt, levelsep=2cm]
+   {\tagwnode{set a new record}{VP}}
+   {
+     \tagwnode{set}{V}\funl{head}
+     \tagwnode{a new record}{NP}\funr{direct object}
+   }
+\endpspicture 
+\end{minipage}
+\end{center}
+
+\noindent Generally, a verb phrase contains a verb which is said to be the head of the phrase. In this example the verb is complemented by a direct object which is of type `noun phrase'. Note that we can be sure that the phrase `a new record' is of type `noun phrase' because we can construct a sentence with it as the subject. In fact it can replace any of the subjects in table \ref{examplesofsubjectpredicate}  and new sentences result and, providing that verbs are conjugated appropriately, the results are well-formed though admittedly they are in some cases very unusual.  \\
+
+\noindent According to this analysis the phrase `set a new record' is a verb phrase constructed as a `verb' followed by a `noun phrase' and this is one general rule of a number of such for the construction of verb phrases. Formally expressed the rule is:\\
+
+\begin{equation}
+\label{monoTransitiveRule}
+\text{VP  $\longrightarrow$   V  NP }
+\end{equation} \\
+
+\noindent In an entity model we can represent this like this:
+
+\begin{equation}
+\text{\input{\erpictureFolder /brintonTransitiveVerbPhrase}}
+\end{equation} 
+
+\noindent In other cases a verb phase consists just of a verb alone and has no constituent noun phrase. Only certain verbs that can be used in this way and these are said to be intransitive. Thus `he cries' is an example in which `he' is the subject and `cries' is a predicate verb phrase consisting solely of the verb.
+Formally:\\
+
+\begin{equation}
+\label{inTransitiveRule}
+\text{VP  $\longrightarrow$   V}
+\end{equation} \\
+
+\noindent The entity model equivalent is simply this:
+
+\noindent These fragments can be combined like this:
+
+\begin{center}
+\input{\erpictureFolder /brintonTransitiveAndIntransitiveCombined}
+\end{center}
+Still other verb phrases have two obhjects a direct object of the action and an indirect object. Formally: \\
+
+\begin{equation}
+\label{diTransitiveRule}
+\text{VP  $\longrightarrow$   V  NP NP}
+\end{equation} \\
+
+\noindent This leads to a model combining representations of rules (\ref{monoTransitiveRule}), (\ref{inTransitiveRule}) and (\ref{diTransitiveRule})like this:
+
+
+\begin{center}
+\input{\erpictureFolder /brintonTransitiveIntransitiveAndDiTransitiveCombined}
+\end{center}
+
+
+\noindent It is worth saying at this point as an illustration of the choices that are open to an entity modeller in any modelling situation that sometimes the two rules above will be represented together
+as a single combined rule in which parentheses are used to indicate optionality of the noun phrase: \\
+
+\begin{equation}
+\label{alternateRule}
+\text{VP  $\longrightarrow$   V  (NP) }
+\end{equation} \\
+
+\noindent Likewise the entity modeller may dispense with the types representing the transitive and intransitive cases and represent the combined situation like this:
+
+\begin{center}
+\input{\erpictureFolder /brintonAlternateTransitiveRepresentation}
+\end{center}
+\noindent In total, Brinton describes seven different constructions for verb phrase. These constructions are both summarised and illustrated in table \ref{typesofverbphrase}. Alternatively the rules summarised in table \ref{typesofverbphrase} can be expressed by combining all the different rules into the entity model of a verb phrase shown in figure  
+\ref{brintonVerbPhrase} in which types `noun phrase', and `prepositional phrase' are yet to be described but `adjectival phrase' was described earlier in section xxx.
+
+%\begin{table}
+%\begin{tabular} {l  p{7cm} }
+\begin{longtable} {l  p{7cm} }
+\caption{Examples of different types of verb phrase.}\\
+\endfirsthead
+\caption[]{(continued)}\\
+\endhead
+Type of verb phrase/Rule & Example \\
+\hline \\
+
+\begin{minipage}{5cm} mono transitive \newline  VP $\longrightarrow$ V NP \end{minipage}      
+ & \raisebox{-1.5cm}{ \pspicture*(-1.2,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{set a new record}{VP}}
+   {
+     \tagwnode{set}{V}\funl{head}
+     \tagwnode{a new record}{NP}\funr{direct object}
+   }
+\endpspicture }\\
+\hline \\
+\begin{minipage}{4cm}intransitive \newline VP $\longrightarrow$ V \end{minipage}      
+ & \raisebox{-1.5cm}{ \pspicture*(-2.15,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{cries}{VP}}
+   {
+     \tagwnode{cries}{V}\funl{head}
+   }
+\endpspicture }\\
+\hline \\
+\begin{minipage}{4cm} ditransitive  \newline VP $\longrightarrow$ V NP NP \end{minipage}      
+ &   
+										\raisebox{-1.5cm}{ \pspicture*(-0.2,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{sent Olga roses}{VP}}
+   {
+     \tagwnode{sent}{V}\funl{head}
+		\tspace{-0.1cm}
+     \tagwnode{Olga}{NP}\funr{\parbox[t]{1.3cm}{indirect object}}
+		\tspace{1.0cm}
+		 \tagwnode{roses}{NP}\funr{direct object}
+   } 
+	\endpspicture }\\
+	\hline \\
+\begin{minipage}{4cm} copulative  \newline VP $\longrightarrow$ V \{NP,AP,PP\} \end{minipage}      
+  &     
+										\raisebox{-1.5cm}{ \pspicture*(-1.75,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{is a chemist}{VP}}
+   {
+     \tagwnode{is}{V}\funl{head}
+     \tagwnode{a chemist}{NP}\funr{subject complement}
+   } 
+	\endpspicture }\\
+	\hline \\
+\begin{minipage}{4cm} complex transitive \newline VP $\longrightarrow$ V NP \{NP,AP,PP\} \end{minipage}      
+ &  \raisebox{-1.5cm}{ \pspicture*(-0.2,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{consider him a fool}{VP}}
+   {
+     \tagwnode{consider}{V}\funl{head}
+		\tspace{-0.1cm}
+     \tagwnode{him}{NP}\funr{\parbox[t]{1.5cm}{direct object}}
+		\tspace{1.0cm}
+		 \tagwnode{a fool}{NP}\funr{object complement}
+   } 
+	\endpspicture }\\
+	\hline \\
+\begin{minipage}{4cm} mono prepositional \newline  VP $\longrightarrow$ V PP \end{minipage}      
+  & \raisebox{-1.5cm}{ \pspicture*(-1.4,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{stood on the ladder}{VP}}
+   {
+     \tagwnode{stood}{V}\funl{head}
+     \tagwnode{on the ladder}{PP}\funr{prepositional Complement (pC)}
+   } 
+	\endpspicture }\\
+	\hline \\
+\begin{minipage}{4cm} diprepositional  \newline  VP $\longrightarrow$ V PP PP \end{minipage}      
+ & \raisebox{-1.5cm}{ \pspicture*(-0.1,-2.1)(4.3,0.5)
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{argued with him about money}{VP}}
+   {
+     \tagwnode{argued}{V}\funl{head}
+     \tagwnode{with him}{PP}\funr{\parbox{1.5cm}{pC}}
+		 \tagwnode{about money}{PP}\funr{2nd pC}
+   } 
+	\endpspicture }\\
+%\end{longtable} 
+%\end{tabular}
+%\caption{Types of verb phrase.}
+\label{typesofverbphrase}
+%\end{table}
+\end{longtable} 
+
+\erplainFig{brintonVerbPhrase}{H}{The grammar of the Verb Phrase}
+
+\FloatBarrier
+\subsection {The Grammar of the Noun Phrase}
+ 
+There are three main types of Noun Phrase and paradoxically two of these types consist of phrases which are degenerate in the sense that they consist of single words - Pronouns and Proper Names because words of these types are grammatically acceptable as the subjects of sentences. For simplicity of the modelling we will henceforth consider pronouns and proper names as types of noun phrase. The other type of noun phrase takes a number of forms but does actually contain a noun and for technical reasons is known as type `N-bar-bar'\footnote{It may be abbreviated $\bar{\bar{N}}$}.\\
+
+\noindent By way of illustration for the model of N-bar-bar consider the phrase \textit{The wildly yapping dog on the sofa}. We can annotate the types of word and constituent phrase are as follows:
+
+
+\pspicture(-2,-6)(9,1)
+%\psgrid
+\pstree[radius=1pt, levelsep=1.5cm]
+    {\tagwnode{The wildy yapping dog on the sofa}{$\bar{\bar{N}}$}}
+		{
+		   \tagwnode{The}{Det}
+			 \pstree
+			 {\tagwnode{wildy yapping dog on the sofa}{$\bar{N}$}}
+			 {
+			    \tagwnode{wildy yapping}{AP}
+					\tagwnode{dog}{N}
+					\pstree
+					{\tagwnode{on the sofa}{PP}}
+					{
+					    \tagwnode{on}{P}
+							\tagwnode{the sofa}{NP}
+					}
+			 }
+		}
+\endpspicture
+
+\noindent In our earlier example the noun phrase which was the subject of our sentence is analysed like this:
+\begin{center}
+\pspicture(-3.6,-4)(11,0.5)
+%\psgrid
+\pstree[radius=1pt, levelsep=1.5cm]
+   {\tagwnode{The young athlete}{$\bar{\bar{N}}$}}
+   {
+     \tagwnode{The}{Det}\funl{specifier}
+		 \pstree
+     {\tagwnode{young athelete}{$\bar{N}$}}
+     {
+        \tagwnode{young}{A}\funl{complement}
+        \tagwnode{athelete}{N}\funr{head}
+     }      
+   }
+\endpspicture
+\end{center}
+
+\erplainFig{brintonNounPhraseSpeltOut}{H}{The grammar of the Noun Phrase}
+
+\FloatBarrier
+\subsection{Model of a Simple Sentence}
+\noindent The final step in constructing a model of a simple sentence is achieved by putting together the models represented in figures \ref{simpleSentenceSubjectPredicate},\ref{brintonVerbPhrase} and \ref{brintonNounPhraseSpeltOut} and rearranging the diagram to suit. The resulting model is shown in figure \ref{brintonSimpleSentenceStructure}.
+
+\begin{sidewaysfigure}
+\input{\erpictureFolder/brintonSimpleSentenceStructure}
+\caption{Structure of Simple Sentences - Based on Phrase Structure Rules given in Brinton.}
+\label{brintonSimpleSentenceStructure}
+\end{sidewaysfigure}
+
+\section{Network and Matrix Structure}
+\subsection {Marriages and Directed Graphs}
+\noindent If we model the marriage entity then we make it double dependent on person entity and since at the time of writing same sex marriage is not legal in my part of the world I can model it as a dependent on a male entity on the one hand, and a female on the other:
+
+\ercenterPicture{maleFemaleMarriage}
+
+\noindent In this model, unlike in those of figures \ref{sentenceNounPhrase} and \ref{scooter} 
+to which it is superficially similar, the subordinate 
+entity, `marriage', has no exclusion arc between its dependencies -- which is to say that the model shows each subordinate entity `marriage' to be dependent on two superordinate entities -   those shown as `male' and `female'. For the first time we see that the modelling notation is not constrained to situations where every entity has at most one other that it is dependent on. It is common practice to describe situations that do have this characteristic as \textit{hierarchical} - it is the defining principle of hierarchy that in a hierarchical system every entity within the system is subordinate to at most one other entity. \\
+
+\noindent In other instances of matrix structure the branch types (by which I mean for example the types \textit{row} and \textit{column} above) are not distinct types. We'll see this in the next example - the type in question being \textit{arc}.  \\
+
+\noindent Mathematicians define and use various notions each which abstract the idea of a network of points and connecting lines independently of how or whether physically realised. 
+They define such abstract notions using the language of sets and relations;
+they use the term `graph' for the most abstract concept of such a network and they variously use the terms `point', `node' or `vertex' for the things connected; generally they use the term `edge', `directed edge', `arc' or `arrow' for the connections. There is not a single terminology and so we have to plump for one of several available; our definitions will clarify the choices made. 
+For an entity modeller, and therefore for a database designer, the most straight forward of the graph notions is that of a `directed graph'. \\
+
+\ercenterPicture{directedGraph4}
+
+\subsection {Simple Graphs and Identifying Relationships}
+\noindent One of the restrictions often places on graph structures is that there be at most one edge between any two vertices. The term `simple graph' is used for graphs having this property and having the further property that vertices are not linked to themselves. Now the fact that there is at most one edge between any two verticies means that an edge can be uniquely identified by identifying the vertices that it connects. \\
+
+\noindent The `arc' type as used in models of simple directed graphs is an example of one each whose instances may be uniquely identified by relationships with other entities. Such relationships in entity modelling terminology are said to be \textit{identifying relationships} though this terminology lacks rigour for it is the set of them which are identifying not the individual relationships. \\    
+
+\noindent Identifying relationships are represented with a mark across the relationship having the form of the letter `I'. Adding these marks to the model of a directed graph we get the model of a simple directed graph: 
+
+\ercenterPicture{simpleDirectedGraph}
+
+
+\noindent The terms \textit{network} and \textit {matrix} are commonly used in contrast to the term hierarchical to refer to arrangements of entities not constrained to be hierarchical; for example in organisational structure the term \textit{matrix management} is used in
+situations were different dimensions are managed by different management hierarchies and in which individuals therefore have multiple reporting lines. The term hierarchical is etymologically derived from Greek \textit{sacred ruler} and emerged in its modern sense via its use in medieval times in relation to the church organisation. \\
+
+\subsection{Matrices and Tabular Displays}
+
+\noindent In mathematics, a matrix is a rectangular array of numeric elements, for example
+\[ \left( \begin{array}{ccc}
+23 & 15 & 29 \\
+31 & 6 & 9 \\
+-1 & 8 & 17 \end{array} \right)\] 
+
+\noindent is a matrix having 3 rows and 3 columns. Though, as with all matrix structure, this is essentially 2 dimensional, the content can be communicated linearly either row by row ([23,15,29], [31,6,9] and [-1,8,17])  or column by column ([23,31,-1],[15,6,8] and [29,9,17]). \\
+
+\noindent As you see with this example, each element of any matrix is both part of a row and part of a column and so, as with the `marriage' entity, the `element' entity is 
+modelled as a subordinate to two others of different types as shown in figure \ref{matrix0}. The two ways of communicating the matrix correspond to the two branches of this entity model. The row by row communication is described by this model: \\
+\ercenterPicture{matrixRowHierarchic}
+and the column by column communication by this one:
+\ercenterPicture{matrixColumnHierarchic}
+
+\begin{erbulletedDimFig}{matrix0}{H}{A mathematical matrix}{3.6}{6}
+\item{every \underline{matrix} has one or more \underline{rows}}
+\item{every \underline{matrix} has one or more \underline{columns}}
+\item{every \underline{matrix} has one or more \underline{elements}}
+\item{every \underline{element} is part of \underline{row} and part of a \underline{column}}
+\end{erbulletedDimFig}
+
+\noindent There is a similar shape to the models representing the structure\footnote{I am distinguishing here between the structure of the tabular display from the structure of the subject entitites} of a rectangular table of data. An example is given in figure \ref{dataTable0}. In the HTML language, and in other computer markup languages, data tables are communicated row by row rather than column by column.\\
+
+\noindent In other tabular displays the rows or columns of a table, or both, may be grouped together
+to represent some grouping of the subjects. The structure then has different branches that are hierarchical and joined at the detail level
+into the recognisable shape of the 2 dimensional matrix structure. One such is illustrated in figure \ref{dataTable1}. \\
+
+\begin{figure}[H]
+\begin{erbox}
+\caption{Model of the structure of a tabular display. Note that what is modelled is the structure of the display rather than the structure of the subject entities though, having said which, there is an important meta-relationship between the two - for of necessity there is a meta-relationship between the structure of a system of subject entities and the structure of a medium through which details of such a system may be communicated or visualised. }
+\label{dataTable0}
+\vspace{0.3cm}
+\begin{center}
+\footnotesize
+\begin{tabular}{c  c  c}
+\begin{tabular}{ |l|l|l| }
+\hline
+\multicolumn{3}{ |c| }{Team sheet} \\
+\hline
+Goalkeeper & GK & Paul Robinson \\ \hline
+\multirow{4}{*}{Defenders} & LB & Lucus Radebe \\
+ & DC & Michael Duberry \\
+ & DC & Dominic Matteo \\
+ & RB & Didier Domi \\ \hline
+\multirow{3}{*}{Midfielders} & MC & David Batty \\
+ & MC & Eirik Bakke \\
+ & MC & Jody Morris \\ \hline
+Forward & FW & Jamie McMaster \\ \hline
+\multirow{2}{*}{Strikers} & ST & Alan Smith \\
+ & ST & Mark Viduka \\
+\hline
+\end{tabular} & & \raisebox{-1.8cm}{
+\input{\erpictureFolder/dataTable0}} \\
+\\
+\end{tabular}
+\normalsize
+\end{center}
+\end{erbox}
+\end{figure}
+
+\begin{figure}[H]
+\begin{erbox}
+\caption[Caption for LOF]{Tabular structure  in which rows are grouped - part of dataset from U.S. Bureau of the Census.\protect\footnotemark}
+\label{dataTable1}
+%\vspace{0.3cm}
+%\begin{center}
+\footnotesize 
+\begin{tabular}{c   c  }
+\begin{tabular}{ |l|p{1.5cm}|l|l|l|l| }
+\hline
+\multicolumn{6}{ |c| }{Rank by Population of the 100 Largest Urban Places} \\
+\hline
+State & Urban Place &  1960 & 1970 & 1980 & 1990 \\ 
+\hline
+%\multicolumn{6}{ c} {} \\
+\multirow{2}{*}{ARIZONA} &Phoenix       & -  & - & - & 85\\ 
+                         &Tucson        & 61  & 23 & 22 & 15\\
+\hline
+\multirow{4}{*}{CALIFORNIA} &Fresno     & 24 & 27 & 29 & 36 \\
+                         &Long Beech    & - & - & - & -  \\
+                         &Los Angeles   & - & 90 & 88 & 93 \\
+                         &Oakland       & 83 & - & - & - \\
+         $\vdots$        &              &    &   &   &   \\
+\multirow{3}{*}{TEXAS} &Dallas          & 43 & 44 & 36 & 44 \\
+                       &Los Angeles     & - & 90 & 88 & 93 \\
+                       &Oakland         & 83 & - & - & - \\
+\hline
+\multirow{1}{*}{VIRGINIA}&Virginia Beech& 2 & 2 & 2 & 3 \\
+
+\hline
+\multirow{1}{*}{WASHINGTON}&Chicago     & 2 & 2 & 2 & 3 \\
+\hline
+\multirow{1}{*}{WISCIONSIN}&Milwauke    & 2 & 2 & 2 & 3 \\
+
+\end{tabular} & \raisebox{-1.8cm}{
+\input{\erpictureFolder/dataTable1}} \\
+\\
+\end{tabular}
+\normalsize
+%\end{center}
+\end{erbox}
+\end{figure}
+
+\footnotetext{http:/www.census.gov/population/www/documentation/twps0027/tab01.txt,\\ Internet Release date:  June 15, 1998}
+
+ 
+
+\section{Communicating Hierarchy - XML}
+
+\noindent Whereas, matrix structure, as considered in the previous section, is essentially 2 dimensional, hierarchically structured information may be flattened into a linear i.e. 1 dimensional structure 
+in which nesting of detail represents the hierarchy. XML is a language designed for this purpose.\\
+
+\noindent In the XML language communication of a hierarchically structured entity, each type \texttt{\textit{X}} of entity is enclosed by its own parenthesis in the form
+of character sequences  \verb|<|\texttt{\textit{X}}\verb|>| and \verb|<|\texttt{\textit{/X}}\verb|>|  giving us the conventions \verb|<matrix>| and \verb|</matrix>| for start and end matrix, \verb|<row>| and \verb|</row>| for start and end row, and \verb|<element>| and \verb|</element>| for start and end element; this message that follows these conventions\footnote{I have written the message on many lines and indented to make more readable}:  \\
+\begin{verbatim}
+<matrix>
+   <row>
+      <element>23</element>
+      <element>15</element>
+      <element>29</element>
+   </row>
+   <row>
+      <element>31</element>
+      <element>6</element> 
+      <element>9</element>
+   </row>
+   <row>
+      <element>-1</element>
+      <element>8</element>
+      <element>17</element>
+   </row>
+</matrix>
+\end{verbatim}
+

@@ -1,0 +1,456 @@
+
+\documentclass[10pt,a4paper]{article}
+\input{EntityModellingMacros}
+\author{ John Cartmell}
+\title{Entity Model}
+%\author{John Cartmell}
+\renewcommand{\JCpictureFolder}[0]{../chapter_1_perspective/pictures}
+\begin{document}
+\maketitle
+\section {JCplainFig command}
+
+\begin{verbatim}
+\JCplainFig{pictureFilename}{floatDirective}{Caption}
+\end{verbatim}
+
+\JCplainFig{picture1}{h}{Picture one from folder of chapter one}
+
+\section {JCboxedFig command}
+
+\begin{verbatim}
+\JCboxedFig{pictureFilename}{floatDirective}{Caption}
+\end{verbatim}
+
+\JCboxedFig{picture1}{h}{Picture one from folder of chapter one}
+
+\section {JCbulletedFig environment}
+
+\begin{verbatim}
+\begin{\JCbulletedFig}{pictureFilename}{floatDirective}{Caption}
+\item{text}
+\item{text}
+etc.
+\end{\JCbulletedFig}
+\end{verbatim}
+
+
+\begin{JCbulletedFig}{picture1}{h}{Picture one from folder of chapter one with bullets}
+\item{item 1}
+\item{item 2}
+\end{JCbulletedFig}
+
+\section{Notation}
+
+%\psset{unit=.9cm}
+\subsection {JCsimple}
+A macro for the simplest entity type - one with no subtypes just a name:
+
+\begin{verbatim}
+\JCsimple{bottom left x pos}{bottom left y pos}{width}{height}{entitytypename}{EntityTypeName}
+\end{verbatim}
+\pspicture(14,3)
+\JCsimple{5.5}{0}{3.5}{1}{entitytypename}{EntityTypeName}
+\endpspicture
+
+\subsection {entity model}
+
+\JCemstart{14}{3}
+\JCsimple{1.5}{0}{2.5}{1}{a}{Entity A}
+\JCcomp{ahanger}{aT}{many}
+\JCemend
+
+\subsection {JCrel}
+Join two entiity types by a reference relationship:
+\begin{verbatim}
+\JCrel{entitytypename1<label>}{entitytypename2<label>}{cardinality indication}{rolename of relationship}
+\end{verbatim}
+For example
+\begin{verbatim}
+\JCsimple{1.5}{0}{2.5}{1}{a}{Entity A}
+\JCsimple{7.5}{0}{2.5}{1}{b}{Entity B}
+\JCrel{aR}{bL}{AmanyBmany}{associated with}
+\end{verbatim}
+\pspicture(14,3)
+\JCsimple{1.5}{0}{2.5}{1}{a}{Entity A}
+\JCsimple{7.5}{0}{2.5}{1}{b}{Entity B}
+\JCrel{aR}{bL}{AmanyBmany}{associated with}
+\endpspicture
+
+\subsection {JCrel}
+Change the points of attachment of reference relationships
+\begin{verbatim}
+\JCrel{entitytypename1<label>}{entitytypename2<label>}{cardinality indication}{rolename of relationship}
+\end{verbatim}
+For example
+\begin{verbatim}
+\JCsimple{1.5}{2}{2.5}{1}{a}{Entity A}
+\JCsimple{7.5}{0}{2.5}{1}{b}{Entity B}
+\JCsimple{7.5}{4}{2.5}{1}{c}{Entity C}
+\JCrel{aRb}{bL}{AmanyBmany}{\parbox{2cm}{associated with}}
+\JCrel{aRg}{cL}{AmanyBmany}{associated with}
+\end{verbatim}
+\pspicture(14,5)
+\JCsimple{1.5}{2}{2.5}{1}{a}{Entity A}
+\JCsimple{7.5}{0}{2.5}{1}{b}{Entity B}
+\JCsimple{7.5}{4}{2.5}{1}{c}{Entity C}
+\JCrel{aRb}{bL}{AmanyBmany}{\parbox{1.5cm}{associated with}}
+\JCrel{aRg}{cL}{AmanyBmany}{associated with}
+\endpspicture
+
+\subsection{Entity Type Nesting}
+\vspace{1cm}
+\pspicture(14,7.5)
+%\psgrid
+%\rput[bl](0.0,0){\psaxes(14,7.5)}
+\JCentity{0}{0}{9}{7.5}{particle}
+{
+  \rput[bl](0.5,6.9){\underline{Particle}}
+  \JCentity{0.5}{0.5}{8}{3.2}{fermiparticle}
+  {  
+     \rput[bl](0.4,2.2){\underline{Fermi Particle}}
+     \JCsimple{0.5}{0.4}{2}{1}{nucleon}{\underline{Nucleon}}
+     \JCsimple{3.0}{0.4}{2}{1}{neutrino}{\underline{Neutrino}}
+     \JCsimple{5.5}{0.4}{2}{1}{baryon}{\underline{Baryon}}
+     \JCsimple{3.0}{1.8}{2}{1}{electron}{electron}
+     \JCsimple{5.5}{1.8}{2}{1}{muon}{muon}
+  }
+  \JCentity{0.5}{4.3}{8}{2.3}{boseparticle}
+  {
+    \rput[bl](0.4,1.6){\underline{Bose Particle}}
+    \JCsimple{0.5}{0.4}{2}{1}{photon}{photon}
+    \JCsimple{3.0}{0.4}{2}{1}{meson}{\underline{Meson}}
+    \JCsimple{5.5}{0.4}{2}{1}{graviton}{graviton}
+  }
+}
+\endpspicture
+
+\subsection{The absolute}
+\vspace{1cm}
+\pspicture[dimen=middle,border=0](14,2)
+\psgrid
+\JCabsolute{0}{1}{10}{0.5}
+\endpspicture
+\vspace{1cm}
+
+
+\section{Scope of relationships}
+Most models have constraints on and between relationships and though they are significant they not expressed in the model. 
+Constraints on the scope of a relationship are one kind of such constraint and they are the most important for reasons that we explain.
+The concept of the scope of a relationship is a missing concept in entity modelling.
+
+\subsection {Scope Squares}
+Example:
+\vspace{1cm}
+\begin{center}
+\JCemstart{8.5}{6}
+%\psaxes(8.5,6)
+\JCsimple{6}{3}{2.3}{1.3}{play}{play}
+\JCsimple{6}{0.5}{2.3}{1.3}{ char}{character}
+\JCsimple{0.5}{3}{2.3}{1.3}{performance}{performance}
+\JCsimple{0.5}{0.5}{2.3}{1.3}{actor}{cast member}
+\JCcomp{playhanger}{playT}{many mand}
+\JCcomp{playB}{charT}{many mand}
+\JCcomp{performanceB}{actorT}{many mand}
+\JCcomp{performancehanger}{performanceT}{many mand}
+\JCrel{performanceR}{playL}{Amany Amand}{\parbox{1.3cm}{performance of}}
+\JCrel{actorR}{charL}{Amany Amand}{\parbox{1.1cm}{plays part of}}
+\JCemend
+\end{center}
+\vspace{1cm}
+
+
+
+\section{example}
+Opening text...
+
+\vspace{1cm}
+
+\JCemstart{14}{9}
+%\psaxes(14,9)
+\rput(10,7){10101text}
+\JCentity{1}{6}{2}{1}{task}{\rput[bl](0.25,0.4){task}}
+%\ncloop[angleA=-90, angleB=90,loopsize=1.3,arm=.5,linearc=.1]{->}{taskBc}{taskTc}
+\JCcomp{taskBc}{taskTc}{clockwise opt mand many}
+\JCentity{6.5}{3}{2}{1.5}{analyte}{\rput[bl](0.25,0.4){analyte}}
+\JCentity{0}{1}{2}{3}{test}{\rput[bl](0.25,0.25){test}}
+\ncloop[angleB=180,loopsize=-1,arm=.5,linearc=.1]{->}{testRa}{testLa}
+\JCentity{4}{0}{2.5}{1}{compoundMap}{compoundMap}
+\ncloop[angleA=90, angleB=-90,loopsize=2,arm=.5,linearc=.1]{<-}{compoundMapT}{compoundMapB}
+\ncloop[angleA=-90, angleB=90,loopsize=-1,arm=.5,linearc=.1]{->}{analyteBi}{taskTg}
+\JCentity{10}{0.5}{2.5}{2}{c}{\rput[bl](0.25,0.4){compound}}
+\ncloop[angleA=180,loopsize=1,arm=1,linearc=.1]{->}{testLb}{cRb}
+\ncloop[angleA=180,loopsize=2,arm=1.5,linearc=.1]{->}{cLe}{cRe}
+\JCcomp{taskhanger}{taskT}{many}
+\JCcomp{changer}{cT}{many}
+\JCcomp{analytehanger}{analyteT}{many mand}
+\JCcomp{taskB}{testT}{many}
+\JCrel{testRh}{analyteL}{AmanyBmany}{\parbox{1.5cm}{analytic subject}}
+\JCrel{testRf}{cLf}{Amany}{subject dosed}
+\JCrel{testRb}{compoundMapL}{Amany}{dosed from}
+\JCemend
+\vspace{1cm}
+\subsection{Spare}
+\pspicture(-3,0)(10,-5)
+%\psgrid
+\JCentity{2.5}{-1}{1.5}{.6}{root}
+{
+\rput[B](0.75,.1){whole}
+\JCToggleFillColour
+\JCentity{-4}{-2}{1.5}{.6}{P1}{\rput[B](0.75,.1){P1}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{P11}{\rput[B](0.35,.15){P11}}
+\JCentity{0.125}{-2}{.75}{.6}{P12}{\rput[B](0.35,.15){P12}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{P13}{\rput[B](0.35,.15){P1n}}
+}
+\JCentity{-0.5}{-2}{1.5}{.6}{P2}{\rput[B](0.75,.1){P2}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{P21}{\rput[B](0.35,.15){P21}}
+\JCentity{0.125}{-2}{.75}{.6}{P22}{\rput[B](0.35,.15){P22}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{P23}{\rput[B](0.35,.15){P2n}}
+}
+\qdisk(2.4,-1.7){1pt}
+\qdisk(2.7,-1.7){1pt}
+\qdisk(2,-1.7){1pt}
+\JCentity{3.5}{-2}{1.5}{.6}{Pn}{\rput[B](0.75,.1){Pn}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{Pn1}{\rput[B](0.35,.15){Pn1}}
+\JCentity{0.125}{-2}{.75}{.6}{Pn2}{\rput[B](0.35,.15){Pn2}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{Pnm}{\rput[B](0.35,.15){Pnm}}
+}
+}
+\JCcomp{rootBc}{P1T}{many mand}
+\JCcomp{rootBe}{P2T}{many mand}
+\JCcomp{rootBg}{PnT}{many mand}
+\JCcomp{P1Bc}{P11T}{many mand}
+\JCcomp{P1Be}{P12T}{many mand}
+\JCcomp{P1Bg}{P13T}{many mand}
+\JCcomp{P2Bc}{P21T}{many mand}
+\JCcomp{P2Be}{P22T}{many mand}
+\JCcomp{P2Bg}{P23T}{many mand}
+\JCcomp{PnBc}{Pn1T}{many mand}
+\JCcomp{PnBe}{Pn2T}{many mand}
+\JCcomp{PnBg}{PnmT}{many mand}
+\endpspicture
+
+\vspace{0.5cm}
+\begin{JCexample}
+\noindent In some story book (I ask you to believe), every creature has a head, one or more segments and a tail:
+\begin{center}
+\raisebox{-1cm}{
+\pspicture(-1.85,1.4)(3.25,4)
+%\psgrid
+\JCentity{0}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{creature}}}}
+\JCentity{-1.85}{1.5}{1.6}{0.6}{partA}{\rput[B](0.8,0.15){\footnotesize{\textit{head}}}}
+\JCentity{-0.05}{1.5}{1.6}{0.6}{partB}{\rput[B](0.8,0.15){\footnotesize{\textit{segment}}}}
+\JCentity{1.85}{1.5}{1.6}{0.6}{partC}{\rput[B](0.8,0.15){\footnotesize{\textit{tail}}}}
+\JCcomp{wholeBc}{partAT}{mand}
+\JCcomp{wholeBe}{partBT}{many mand}
+\JCcomp{wholeBg}{partCT}{mand}
+\endpspicture}
+\end{center}
+\end{JCexample}
+
+
+\subsection{Note on Notation}
+The notations that are being used are those of Richard Barker and SSADM - except that that notation does not distinguish composition relationships from any others.
+The idea of distinguishing composition relationships and the term itself comes from PCTE. The idea of top-down modelling of composition relationships in
+entity relationships diagrams is inspired by older notations - very much as captured in the phrases 'top-down' and 'bottom-up'.
+
+\subsection{Cardinality of the Composition Relationship}
+\vspace{.4cm}
+\noindent If there can be no more than one of a particular type of part in any given whole then the relationship is shown without the crows foot; 
+if in some cases there may be no parts of a particular type then the relationship line is shown dashed. This gives four possibilities for the cardinality of the composition relationship:
+\begin{center}
+$
+\begin{array}{c p{0.5cm} | p{0.5cm} c}
+\pspicture(-0.9,1.4)(0.6,4)
+%\psgrid
+\JCentity{-1}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-1}{1.5}{1.5}{0.6}{part}{\rput[B](0.75,0.15){\footnotesize{\textit{part type}}}}
+\JCcomp{wholeB}{partT}{}
+\endpspicture & & &
+\pspicture(-0.9,1.4)(0.6,4)
+%\psgrid
+\JCentity{-1}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-1}{1.5}{1.5}{0.6}{part}{\rput[B](0.75,0.15){\footnotesize{\textit{part type}}}}
+\JCcomp{wholeB}{partT}{mand}
+\endpspicture \\
+\makebox[3cm]{zero or one} & & & \makebox[3cm]{exactly one} \\
+\hline
+\pspicture(-0.9,1.4)(0.6,4)
+%\psgrid
+\JCentity{-1}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-1}{1.5}{1.5}{0.6}{part}{\rput[B](0.75,0.15){\footnotesize{\textit{part type}}}}
+\JCcomp{wholeB}{partT}{many}
+\endpspicture & & &
+\pspicture(-0.9,1.4)(0.6,4)
+%\psgrid
+\JCentity{-1}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-1}{1.5}{1.5}{0.6}{part}{\rput[B](0.75,0.15){\footnotesize{\textit{part type}}}}
+\JCcomp{wholeB}{partT}{mand many}
+\endpspicture \\
+\makebox[3cm]{zero,one or more} & & & \makebox[3cm]{one or more}
+\end{array}
+$
+\end{center}
+\vspace{.4cm}
+\begin{center}
+\raisebox{-2.75cm}{
+\pspicture(-1,-5.5)(6,0)
+%\psgrid
+\JCentity{2.5}{-1}{1.5}{.6}{root}
+{
+\rput[B](0.75,.1){\footnotesize{\textit{whole type}}}
+\JCToggleFillColour
+\JCentity{-2.5}{-2}{1.7}{.6}{P1}{\rput[B](.85,.1){\footnotesize{\textit{part type 1}}}}
+\JCentity{-.5}{-2}{1.7}{.6}{P2}{\rput[B](.85,.1){\footnotesize{\textit{part type 2}}}
+\JCToggleFillColour
+\JCentity{-2.5}{-2}{2}{.6}{P21}{\rput[B](1,.1){\footnotesize{\textit{subpart type 1}}}}
+\JCentity{-.3}{-2}{2}{.6}{P22}{\rput[B](1,.1){\footnotesize{\textit{subpart type 2}}}}
+\JCentity{1.8}{-2}{2}{.6}{P23}{\rput[B](1,.1){\footnotesize{\textit{subpart type 3}}}}
+}
+\JCentity{1.6}{-2}{1.7}{.6}{P3}{\rput[B](.85,.1){\footnotesize{\textit{part type 3}}}}
+}
+\JCcomp{rootBc}{P1T}{many mand}
+\JCcomp{rootBe}{P2T}{many mand}
+\JCcomp{rootBg}{P3T}{many mand}
+\JCcomp{P2Bc}{P21T}{many mand}
+\JCcomp{P2Be}{P22T}{many mand}
+\JCcomp{P2Bg}{P23T}{many mand}
+\endpspicture}
+\end{center}
+
+
+
+\subsection {Hierarchy}
+\vspace{.5cm}
+\noindent If there are multiple types of part each composed of multiple types of subpart we get a three level tree structure of types and relationships like this:
+\begin{center}
+\pspicture(-3,-5.5)(10,0)
+%\psgrid
+\JCentity{2.5}{-1}{1.5}{.6}{root}
+{
+\rput[B](0.75,.1){}
+\JCToggleFillColour
+\JCentity{-4}{-2}{1.5}{.6}{P1}{\rput[B](0.75,.1){}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{P11}{\rput[B](0.35,.15){}}
+\JCentity{0.125}{-2}{.75}{.6}{P12}{\rput[B](0.35,.15){}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{P13}{\rput[B](0.35,.15){}}
+}
+\JCentity{-0.5}{-2}{1.5}{.6}{P2}{\rput[B](0.75,.1){}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{P21}{\rput[B](0.35,.15){}}
+\JCentity{0.125}{-2}{.75}{.6}{P22}{\rput[B](0.35,.15){}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{P23}{\rput[B](0.35,.15){}}
+}
+\qdisk(2.4,-1.7){1pt}
+\qdisk(2.7,-1.7){1pt}
+\qdisk(2,-1.7){1pt}
+\JCentity{3.5}{-2}{1.5}{.6}{Pn}{\rput[B](0.75,.1){}
+\JCToggleFillColour
+\JCentity{-.875}{-2}{.75}{.6}{Pn1}{\rput[B](0.35,.15){}}
+\JCentity{0.125}{-2}{.75}{.6}{Pn2}{\rput[B](0.35,.15){}
+}
+\qdisk(1.075,-1.7){1pt}
+\qdisk(1.25,-1.7){1pt}
+\qdisk(1.425,-1.7){1pt}
+\JCentity{1.625}{-2}{.75}{.6}{Pnm}{\rput[B](0.35,.15){}}
+}
+}
+\JCcomp{rootBc}{P1T}{many mand}
+\JCcomp{rootBe}{P2T}{many mand}
+\JCcomp{rootBg}{PnT}{many mand}
+\JCcomp{P1Bc}{P11T}{many mand}
+\JCcomp{P1Be}{P12T}{many mand}
+\JCcomp{P1Bg}{P13T}{many mand}
+\JCcomp{P2Bc}{P21T}{many mand}
+\JCcomp{P2Be}{P22T}{many mand}
+\JCcomp{P2Bg}{P23T}{many mand}
+\JCcomp{PnBc}{Pn1T}{many mand}
+\JCcomp{PnBe}{Pn2T}{many mand}
+\JCcomp{PnBg}{PnmT}{many mand}
+\endpspicture
+\end{center}
+
+\noindent The nodes of such a tree are entity types and the branches composition relationships. 
+
+\vspace{3cm}
+\subsection{Relativisation or Localisation}
+Comma categories!
+
+\subsection{Spare}
+\begin{JCexample}
+\begin{center}
+$
+\begin{array}{c m{1cm} | c m{6cm}}
+\raisebox{-1cm}{
+\pspicture(-0.9,1.4)(0.6,4)
+%\psgrid
+\JCentity{-1}{3}{1.5}{0.6}{sentence}{\rput[B](0.75,0.15){\footnotesize{\textit{coin}}}}
+\JCentity{-1}{1.5}{1.5}{0.6}{noun}{\rput[B](0.75,0.15){\footnotesize{\textit{face}}}}
+\JCcomp{sentenceBc}{nounTc}{mand opt}
+\nbput[npos=0,ref=tr,labelsep=0.1]{\rput[Br](0,-0.25){\footnotesize heads}}
+\JCcomp{sentenceBg}{nounTg}{mand opt}
+\naput[npos=0,ref=tl,labelsep=0.1]{\rput[Bl](0,-0.25){\footnotesize tails}}
+\psellipticarc[showpoints=false]{-}(-0.25,1.9)(.8,.5){30}{150}
+\endpspicture} & & & \text{\parbox{6cm}{\raggedright{\footnotesize{
+\begin{itemize}
+\item{every \underline{coin} has a \underline{heads} which is a \underline{face}}
+\item{every \underline{coin} has an \underline{tails} which is a \underline{face}}
+\end{itemize} }}}} \\
+\end{array}
+$
+\end{center}
+\end{JCexample}
+
+\noindent Two or more of the part types might have a common abstraction, as for example here:
+\raisebox{-1cm}{\raisebox{1cm}{(d)}
+\pspicture(-2.3,1.5)(1.8,4)
+%\psgrid
+\JCentity{-1.05}{3}{1.5}{0.6}{whole}{\rput[B](0.75,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-2.25}{1.4}{3.9}{1}{part}{
+\JCentity{0.25}{0.2}{1.6}{0.6}{partA}{\rput[B](0.8,0.15){\footnotesize{\textit{part type 1}}}}
+\JCentity{2.1}{0.2}{1.6}{0.6}{partB}{\rput[B](0.8,0.15){\footnotesize{\textit{part type 2}}}}
+}
+\JCcomp{wholeBe}{partTe}{many mand}
+\endpspicture}
+or here:
+\raisebox{-1.65cm}{
+\raisebox{1.65cm}{(e)}
+\pspicture(-2.3,.8)(3,3.6)
+%\psgrid
+\JCentity{0}{3}{1.7}{0.6}{whole}{\rput[B](0.8,0.15){\footnotesize{\textit{whole type}}}}
+\JCentity{-2.25}{1.4}{3.9}{1}{part}{
+\JCentity{0.25}{0.2}{1.6}{0.6}{partA}{\rput[B](0.8,0.15){\footnotesize{\textit{part type 1}}}}
+\JCentity{2.1}{0.2}{1.6}{0.6}{partB}{\rput[B](0.8,0.15){\footnotesize{\textit{part type 2}}}}
+}
+\JCentity{1.85}{1.65}{1.6}{0.6}{partC}{\rput[B](0.8,0.15){\footnotesize{\textit{part type 3}}}}
+\JCcomp{wholeBb}{partTe}{many mand}
+\JCcomp{wholeBh}{partCT}{many mand}
+\endpspicture}
+.
+
+
+
+\end{document}

@@ -1,0 +1,58 @@
+
+<chapter>
+  <title>Theory</title>
+  <subtitle>The mathematics of dependent types, category theory and entity modelling</subtitle>
+  <label>theory</label>
+  <explanation> Work in progress - papers about dependent types and category theory.
+  </explanation>
+
+  <preface>
+    <para>The mathematical notions of 
+  (a) Contextual Categories and (b) Generalised Algebraic Theories encapsulate the idea of
+types dependent on contexts which in turn are constructed from types<footnote>
+              <bibentry>Cartmell78</bibentry>
+            </footnote><sup>,</sup><footnote>
+              <bibentry>Cartmell86</bibentry>
+            </footnote> . 
+Now types of things are equally concepts and  (c) Entity Modelling
+as described here is about modelling the types of things of interest in a particular
+situation or or as part of a particular endeavour (the chosen perspective); in an entity model, 
+composition relationships model dependencies between types of things. (a), (b) and (c) are therefore closely related.
+    A  project of mine has been to try narrow the gap between (a) and (c)  by
+	finding a variation on the algebra of  
+	contextual categories which, unlike contextual categories, explicitly includes 
+    conjunctive dependencies such as we find them in entity modelling (here on this website at least) and also in the schemas of network databases. 
+    A paper I published on this in 1986<footnote><bibentry>Cartmell86B</bibentry></footnote> called 
+    <qq>Formalising the Network and Hierarchical Data Models </qq> I later came to realise was a long way off the mark.
+    Subsequently I have come up with revised definitions and these I have drafted here:
+	<a  href="..\downloads\DependencyCategories_7Aug2018.pdf" target="_blank"
+                        onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
+                              DependencyCategories.pdf.</a>	
+</para>  
+
+    
+
+    <para>  
+    In addition here are some  relatively recent notes on 
+    the <i>generalised algebraic theory</i> of <i>contextual categories</i>:
+      <a  href="..\downloads\theGATofCCs_5Jul2018.pdf" target="_blank"
+                        onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
+                              theGATofCCs.pdf</a>. I wrote these after having learnt of the definition of C-system given
+                                  by Vladimir Voevodsky. 
+    </para>
+    <para>  
+    Finally, here is a recent write up of some work that I did at the time of my thesis, basically it is a variation
+    on contextual categories <emdash/> in brief, meta-GAT algebras are to a contexual category as a clones are to  Lawvere theories.
+    I wrote these notes suspecting, as was subsequently confirmed, that Voevodsky was producing a paper describing similar structures to my meta-GAT algebras (he calls them B-systems):
+      <a  href="..\downloads\MetaGAT_3Oct2014.pdf" target="_blank"
+                        onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
+                              MetaGAT and MetaGAT algebras.pdf.</a>
+    </para>
+  
+  </preface>
+
+
+
+
+</chapter>
+

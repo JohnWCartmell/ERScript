@@ -1,0 +1,22 @@
+<xslt:variable name="root5" select="2.236"/>
+<xslt:variable name="rootof10plus2root5" select="3.804"/>
+<xslt:variable name="rootof10minus2root5" select="2.351"/>
+<xslt:variable name="c1" select="($root5-1)div 4"/>
+<xslt:variable name="c2" select="($root5+1)div 4"/>
+<xslt:variable name="s1" select="$rootof10plus2root5 div 4"/>
+<xslt:variable name="s2" select="$rootof10minus2root5 div 4"/>
+
+<xslt:call-template name="drawline">
+   <xslt:with-param name="x1" select="0"/>
+   <xslt:with-param name="y1" select="1"/>
+   <xslt:with-param name="x2" select="$s1"/>
+   <xslt:with-param name="y2" select="$c1"/>
+</xsl:call-template>
+<xslt:call-template name="drawline">
+   <xslt:with-param name="x1" select="$s1"/>
+   <xslt:with-param name="y1" select="$c1"/>
+   <xslt:with-param name="x2" select="$s2"/>
+   <xslt:with-param name="y2" select="- $c2"/>
+</xsl:call-template>
+
+

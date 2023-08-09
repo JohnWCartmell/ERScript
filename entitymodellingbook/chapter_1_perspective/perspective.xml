@@ -1,0 +1,1504 @@
+
+<chapter>
+  <title>Perspective</title>
+  <subtitle> Entity Modelling <emdash/> An Introductory Perspective</subtitle>
+  <label>perspective</label>
+
+  <explanation> that seeks to locate entity modelling so that it is not seen as an isolated discipline. 
+    Entity modelling evolved in the 1960s an 70s as an abstract way to describe databases (more 
+    specifically the structure of databases), and so it is, but its utility goes 
+    further than this as described here.
+  </explanation>
+
+
+
+  <preface>
+    <para> 
+      According to Jonathan Culler<footnote>
+        <bibentry>Culler</bibentry>
+      </footnote>, 
+      Saussure, founding modern linguistics in the early part of the 20th century, addressed a question regarding <emph>systematically
+      coming to terms with a complex world</emph> with a reply 
+      that included the view that
+      <quotation>
+        you cannot hope to attain an absolute or God-like view of things but must choose a perspective
+        ... within this perspective objects are defined by their relations with one another rather than by essences of some kind.
+      </quotation>
+      This summary perfectly frames entity modelling <emdash/> entity modelling takes this view to the extreme.
+      The nub of this chapter is that entity modelling is a new spin on an ancient discipline.
+      The subject is technical but metaphysics and the concept of concept lurk
+      in the background and give perspective.
+    </para>
+    
+    <para> An entity model may simply handwave a set of concepts  or it may be more detailed; sufficiently and appropriately detailed entity models, we call them physical entity models, are 
+    pretty much the same thing as 
+    Information System's data models and hence data modelling, at least  as written of here,  is a special case of entity modelling. 
+    We try to approach it from first principles and sometimes, take heed, this requires terminological deviation from the norm.
+  </para>
+
+  </preface>
+  <section>
+    <leader>        
+    In this chapter we start out by making the case that an entity model provides</leader> 
+    <title>A Framework for Knowledge</title>
+    <trailer></trailer>
+    <label>knowledgeframework</label>
+    <para> 
+      Entity modelling is a technique and a notation for describing and communicating <emph>what is</emph> in the 
+      world and we set out to present it here from first principles.  More usually, its purpose is given as the 
+      structuring of
+      data to be stored in information systems; we extend the notation and describe its use information systems development but we do not to take this use
+      as the starting point for the presentation nor as a subsequent <emph>raison d'etre</emph> because to do either 
+      would be to hide a greater potential. We take the wider view that the purpose 
+      of an entity model is to provide a framework for knowledge and that entity modelling is a form of conceptual 
+      modelling <emdash/> a technique for the elaboration of concepts. We describe the technique from first principles and 
+      relate to other meta-conceptual systems. We extend the notation from that commonly used in the 
+      development of information systems 
+      by the introduction of additional meta-conceptual machinary. This is done in a way strongly influenced 
+      by consideration of conceptual patterns brought to the fore in the branch of mathematics known as category theory. 
+    </para>
+
+    <para>
+      To illustrate at the outset what we mean by conceptual modelling, consider the experience of reading into a new 
+      subject area and finding terms which seemingly have specific patterns of usage, and, 
+      it must be assumed, 
+      contextual meanings, but which patterns and meanings are unfamiliar to us. 
+      In so reading we are drawn into a 
+      systematic and iterative arrangement and a classification of the unfamiliar terms; 
+      in this process we will 
+      likely distinguish terms for individual things, for types or classes of things, for 
+      relations between things 
+      and also quantitative and adjectival terms. The mental process we follow will build for us a conceptual model. 
+      Entity modelling is a particular technique for expressing such models and, indeed, it is a technique and a 
+      notation used by information scientists seeking to represent and computerise the sometimes unfamiliar domains 
+      in which they work. When asked whether they understand 
+      a particular topic, an entity modeller might well affirm they do only if they can sketch an entity model that 
+      frames the topic.
+    </para>
+
+    <figureOfPictureWithNote>
+      <pictureName>entityModellingProcess</pictureName>
+      <!--<framewidth>5cm</framewidth>-->
+      <muchtext/>
+      <note>
+        <itemize>
+          <item>
+            <entity>entity modelling</entity> is a <entity>process</entity>
+          </item>
+            <item>each <entity>entity modelling</entity> (process) results in one or more <entity>entity models</entity>
+            </item>
+        </itemize>
+      </note>
+      <caption>
+        Entity Modelling is a particular formal technique for the representation of conceptual models; 
+        its practioners represent types of entity as labelled boxes and relationships as annotated  connecting lines.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+    <para> Thinking about understanding a new area and its language, though <q>things themselves</q> 
+      are the subjects of the text, the language is of the types of things, the relations among 
+      the different types of things and the properties that can meaningfully be attributed to them.
+      This brings us to the 
+      three core elements of an entity model: entity types, relationships and attributes. In fact an entity 
+      model is little more than a structured list of such things.
+    </para>
+
+    <div>
+      <padding>0.5cm</padding>
+      <er_center>
+        <filename>entityModelAsList</filename>
+      </er_center>
+    </div>
+    <newline/>
+    <para> The premises of Entity Modelling have in them a pragmatic answer to the question what is knowledge? 
+      Knowledge, according to the premises of Entity Modelling, is knowledge about things. For any <q>thing</q> the 
+      knowledge that we can have of it is a sum of elementary pieces each of which is either the fact of an attribution, 
+      by which is meant a property a thing has inherent in itself, or else the fact of a relationship with another thing.  
+      More precisely, we can have knowledge of the type of a thing and knowing its type is to know both the kind of 
+      attributions which may be made of it and the relationships in which it may participate. This is the theory of 
+      knowledge according to the entity modeller;  it is also the basis of information modelling and therefore it is 
+      a pragmatic view of what knowledge is <emdash/> it is that which can be represented as information in a structured 
+      form suitable for representation in a computer system.
+    </para>
+  </section>
+
+  <section>
+    <leader>and that because entity modelling is a practical discipline used in engineering systems and yet is concerned with all manner of describable things it involves a </leader>
+    <title>Tangible Metaphysics</title>
+    <trailer>.</trailer>
+    <label>tangiblemetaphysics</label>
+
+
+    <para> Entity modelling has the questions <q>What is?</q> and <q>What can be said of it?</q> at its heart.
+      We can define it to be the process of defining what can be predicated of entities and it necessarily 
+      seems to embrace, in passing, many questions of philosophy, specifically of Ontology, the branch of 
+      metaphysics dealing with the nature of being.
+    </para>
+
+    <para> In ancient times, Aristotle had used the Greek word <emph>ousia</emph> (being) to describe 
+      the subject, to which predicates are ascribed<footnote>The Philosophy of Aristotle, D.J. Allan, pg 104</footnote>. 
+      Traditionally in translation the Greek <emph>ousia</emph> has been rendered as substance, a term with 
+      broad connotations whereas the Latin word <emph>ens</emph> which is, as is also the Greek <emph>ousia</emph>, 
+      the present participle of the verb <emph>to be</emph>, yielded our modern English word entity defined as:
+
+      <quotation>
+        entity n. things existence, as opposed to its qualities or relations; thing that has real existence. (Concise Oxford Dictionary)
+      </quotation>
+      <newline/>
+      or as:
+    </para>
+
+    <quotation>
+      entity n. (the quality of having) a single separate and independent existence. (Longman Dictionary of Contemporary English).
+    </quotation>
+    <newline/>
+    <para> The term entity, as we use it here in the term <q>entity modelling</q>, was introduced into information science by Chen in 1966. 
+      An entity for our purposes is simply something about which it is possible to have knowledge and which can be counted. 
+      Thus we can have fictional entities such as characters 
+      from a book or entities whose state of existence we can debate such as the number zero or the transcendental number <pi/>.
+    </para>
+
+    <para> In Aristotelian ontology, as outlined in Categories, there are ten genera of being. The first genus of 
+      being, <emph>ousia</emph>, is of two types: 
+      primary and secondary. Primary <emph>ousia</emph> are individual things <emdash/> they are 
+      our entities, secondary <emph>ousia</emph> are classes of things, or the genera and species of things <emdash/> for us these are 
+      entity types. The other genera of being (quantity, quality, relation, place, time, position, state, action, affection) 
+      are properties inherent in the primary <emph>ousia</emph>. 
+    </para>
+
+    <para> Though Metaphysics has such ancient origins, there is an intersection of concerns between it and a most practical and modern discipline, namely of software engineering and the programming of computer based systems. The overlap exists because metaphysics has as its subject matter what is most general about things in general <emdash/> not just physical properties of physical things <emdash/> and the software development discipline starts with the representation of the very same generalities. So whereas most computer programs have as their subjects, everyday if not concrete and physical things, things such as people, accounts, orders, contracts, airline bookings, and so on; other computer programs have as their subjects programs themselves, mathematical functions, relationships in general, not particular, types of things as distinct from the things themselves, and so on.
+    </para>
+
+    <para> The ontology of computer data is myriad: computer databases hold data, but also data about data, and data about data about data; the referentially rich, and it sometimes seems, tottering, structures of data involved in real working software can seem unreal; as to can the arguments made by metaphysicians and the positions they hold to. Distinctions are made in the modelling of data, for the most practical purposes and to achieve the ends of programming, which rendered in metaphysical discussion could be comfortably described as esoteric.
+    </para>
+  </section>
+
+  <section>
+    <leader>Entity models cover specific areas, chosen perspectives, in the words of Culler, which in other contexts might be described as</leader>
+    <title>Domains of Discourse</title>
+    <label>domainsofdiscourse</label>
+
+    <para> In essence an entity model establishes, or at very least proposes, a domain of discourse. 
+      The domain can be relatively familiar consisting of entities such as <q>house</q>, <q>street</q>, <q>person</q> etc. 
+      or can be technical, consisting of entities such as constituent parts of grammar, for example <q>noun phrase</q> and  
+      <q>verb phrase</q> and so on, or constituent parts of chemical structure such as <q>atom</q> and <q>covalent bond</q>. 
+      The primary function of entity modelling is to define and present such domains of discourse and to do so in a way that 
+      eliminates error and ambiguity. 
+    </para>
+
+
+
+    <figureOfPictureWithNote>
+      <pictureName>molecule0</pictureName>
+      <framewidth>5cm</framewidth>
+      <note>
+        <width>9cm</width>
+        <itemize>
+          <item>In chemistry, molecule, element, atom and bond are types of thing: 
+            molecules consist of many atoms and atoms have one 
+            or more bonds with other atoms. Each atom is an instance of an element 
+            within the periodic table.
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Some Types of Chemical Entity.
+      </caption>
+    </figureOfPictureWithNote>
+
+    <figureOfPictureWithNote>
+      <pictureName>brintonAlternateTransitiveRepresentation</pictureName>
+      <framewidth>5cm</framewidth> 
+      <note>
+        <width>9cm</width>
+        <itemize>
+          <item>In lingustics, there are things which may be classified as verbs, verb phrases and noun phrases: verb phrases always 
+            have a head which is a verb and they may have direct and/or indirect objects; these are noun phrases.  
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Some Types of Lingustic Entity.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+    <para> Sometimes the domain of discourse can be abstract such as when we use a metaphor based language term such as 
+      <q>network</q> in the noun phrase <q>social network</q> and by which means we seek to identify a conceptual pattern 
+      and bring to mind imagery of points and lines independently of what the points represent <emdash/> whether that be social entities, 
+      railway stations or atoms.  It is one of the functions of entity modelling to present and propose such deliberately 
+      abstract domains of discourse. In this one mentioned the principal entities will be named <q>point</q> and <q>line</q>
+      or <q>node</q> and <q>edge</q> or some such. 
+      Breakthrough abstractions in science often move into language as metaphor and this is just because abstractions 
+      have a metaphorical shape which gives them utility beyond their origins; by virtue of being abstract they are 
+      reusable and ever applicable in new situations. As diagrams of concepts, entity models give visual shape to 
+      this metaphorical shape of our abstractions. The point is made by the database pioneer Charles W. Bachman in his 1969 paper "Data Structure Diagrams" when he draws in outline a diagram representing a manufacturing system with 39 interrelated types of entity and having previously described to us these certain patterns asks of us
+      <q>Can you...find a five-level hierarchy? Two
+        simple networks? Five compound networks?</q> and, of course, we can.
+    </para>
+
+
+    <figureOfPictureWithNote>
+      <pictureName>proteinCodon</pictureName>
+      <framewidth>7cm</framewidth>
+      <note>
+        <width>7cm</width>
+        <itemize>
+          <item>In biology, codons code for amino acids and each codon consists of three nucleotuides <emdash/> either G, C, U or A.   
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Biological Coding.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+    <figureOfPictureWithNote>
+      <pictureName>morseCode0</pictureName>
+      <framewidth>7cm</framewidth>
+      <note>
+        <width>7cm</width>
+        <itemize>
+          <item>In telegraphic communication, each morse code codes for a letter of the alphabet as a sequence of dots and dashes.  
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Telegraphic Coding.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+  </section>
+
+
+  <section>
+    <leader>and within these perspectives the main focus of an entity model is on the</leader>
+    <title>Types of Things</title>
+    <trailer> <emdash/> the deliberation of which is of course a concern with a long history. </trailer>
+    <label>types</label>
+
+    <subsection>
+      <title>Aristotles Categories</title>
+      <para> In the statement <q>man and the apes are descendent from a common ancestor</q> <emdash/> 
+        it is clear that singular <q>man</q> is being used to denote a specific type which in biology, 
+        and as far back as Aristotle's Categories, is termed a species, and that plural <q>apes</q> is 
+        denoting a more general class of thing which following Aristotle we might call a genus or in 
+        biology are said to be <q>a classification of a higher rank</q> and which classifications 
+        includes genera, families, orders and kingdoms. As a reader one does not need know the 
+        individual species of apes but can infer that a multiplicity of species is implied <emdash/> simply
+        by noting the use of the plural form. In entity modelling both such specific and general 
+        types of thing are represented; these are <emph>species</emph>
+        and <emph>genera</emph> not just in the strict sense used in biological nomenclature but in the
+        more general sense that we find in translations of Aristotle's Categories, a species is a 
+        specific type such as the type <q>man</q> and a particular individual man is said to be 
+        predicated by that species. A genus, on the other hand, is a more general type 
+        such as <q>animal</q> or <q>ape</q>.
+      </para>
+
+      <quotation>
+        For if any one should render an account of what a primary ousia is, he would render a more instructive account by stating the species than by stating the genus. Thus, he would give a more instructive account of an individual man by stating that he was a man than by stating that he was an animal, for the former description is peculiar to the individual in a greater degree, while the latter is too general.
+      </quotation>
+
+      <para> In Aristotle's description both the individual man and the species man are predicated by the genus animal, and so to, by example, the species ox is predicated by the genus animal. From what we have already said this we will represent thus:
+      </para>
+
+
+      <er_center>
+        <filename>animal</filename>
+      </er_center>
+
+      <newline/>
+
+      <para> In some ways, such diagrams as these show similarity to Venn diagrams. This one can be so interpreted as showing the set of men and the set of oxen included in the set of animals. However, to the entity modeller, there is no set of all men, nor of all oxen, nor of all animals for the question is not <q>what exists?</q> but <q>what types of things exist and what can be said of them?</q>. The diagram can be interpreted as saying <q>what can be said of animal</q> can be said of <q>man</q> and of <q>ox</q> also.
+      </para>
+
+      <para> Aristotle says it like this:
+      </para>
+
+      <quotation>
+        Whenever one thing is predicated of another as a subject, all things said of what is predicated will be said of the subject also. For example, man is predicated of the individual man, and animal of man; so animal will be predicated of the individual man also <emdash/> for the individual man is both a man and an animal.
+      </quotation>
+
+      <para> Subsequently, after the time of Aristotle, used in biological nomenclature the term genus adopted a more specific meaning, in contradistinction to use of the term species for the lowest rank in the system <emdash/> individuals of the same species varying in minor ways and able to interbreed <emdash/> the term genus became used for a group of related species, the genera strictly forming just the second rank in a multi-ranked system. For the purposes of entity modelling we do not use the genus in its specific taxonomic sense but nonetheless have recourse to a convention from taxonomy by which the names of species are written with a leading lower case letter (e.g. sapiens) and the name of the genus is written with a leading upper case letter (e.g. Homo). For us the names of general types of things will be capitalised or have a leading capital letter whereas the names of the most specific types of things will be written entirely with lower letters.
+      </para>
+
+    </subsection>
+
+    <subsection>
+      <title>An example from Physics</title>
+      <para> A more technical example is given by the types of particle discussed in Feynman's Lecture Notes on Physics:
+      </para>
+      <quotation>
+        Particles which interfere with a positive sign are called Bose particles and those which 
+        interfere with a negative sign are called Fermi particles. The Bose particles are the photon, 
+        the mesons, and the graviton. The Fermi particles are the electron, the muon, the neutrinos, the nucleons, and the baryons.
+      </quotation>
+
+      <para> As in the usage <q>man and the apes</q> singular and plural terms are used in this 
+        passage to distinguish  between specific types of things and more general classes of things. 
+        The author's respective use of singular and plural terms inform as to which are the 
+        fundamental types of particle, the species, and which the related families, the genera. 
+        In diagramming this in an entity model, instead of retaining the plural form, so to speak, 
+        we may capitalise the genera and so arrive this diagram:
+      </para>
+
+
+      <er_center>
+        <filename>feynmanParticle</filename>
+      </er_center>
+
+    </subsection>
+
+
+
+    <subsection>
+      <title>Linguistics</title>
+      <label>typesOfWord</label>
+      <para> In linguistics the entity type <q>word</q> is generally represented as a generalisation 
+        of more specific types often referred to as word classes. These include <emph>noun</emph>, <emph>verb</emph>, 
+        <emph>adjective</emph> and so on as shown in figure <figref>brintonWordClasses</figref> and these are 
+        illustrated in table 
+        <tableref>tableofwordtypes</tableref>.
+      </para>
+
+      <para> The basis for the recognition of word classes in linguistics is the observation that 
+        certain words can be freely interchanged in sentences without altering the acceptability of 
+        the sentence grammatically.  For example we can apply substitutions replacing various words
+        of an example sentence such as 
+        <emph> I received beautiful flowers for my birthday</emph>
+        by randomly chosen other words
+        and some will deliver equally grammatical sentences and some will not. For example we can 
+        replace <q>beautiful</q> by <q>ugly</q> or <q>red</q> or <q>expensive</q> without losing 
+        sentence structure whereas we cannot replace by <q>the</q> or <q>very</q> or <q>at</q>. 
+        So the words <q>beautiful</q>,<q>ugly</q>, <q>red</q>, <q>expensive</q> are of the same 
+        class <emph>adjective</emph> and the words <q>the</q>, <q>very</q>, <q>at</q> are 
+        not of this class <emdash/> in fact the word <q>the</q> is classed as a <emph>determiner</emph>, 
+        the word <q>very</q> 
+        as a <emph>degree</emph> word and the word <q>at</q> as a <emph>preposition</emph>.
+      </para>
+
+      <tabledisplay>
+        <label>tableofwordtypes</label>
+        <position>h</position>
+        <table>
+          <format>
+            <col>l</col>
+            <col> l </col>
+            <col>l </col>
+          </format>
+          <thead>
+            <tr>
+              <th>class</th>
+              <th>abbreviation</th>
+              <th>examples</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>noun</td>
+            <td>N</td>
+            <td>
+              <emph>athelete, house, race, record, stream, water</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>pronoun</td>
+            <td>Pro</td>
+            <td>
+              <emph>I, you, he, she, we, they</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>determiner</td>
+            <td>Det</td>
+            <td>
+              <emph>a, the</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>verb</td>
+            <td>V</td>
+            <td>
+              <emph>arrive, run, set</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>auxiliary</td>
+            <td>Aux</td>
+            <td>
+              <emph>had, will</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>preposition</td>
+            <td>Prep</td>
+            <td>
+              <emph>at, by, from, in, to</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>prepositional specifier</td>
+            <td>Pspec</td>
+            <td>
+              <emph>close, right, straight, three seconds</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>adjective</td>
+            <td>A</td>
+            <td>
+              <emph>fierce, long, new, red, right, rosy, silk, young</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>general adverb</td>
+            <td>Adv</td>
+            <td>
+              <emph>abruptly, brightly, clearly, quickly</emph>
+            </td>
+          </tr>
+          <tr>
+            <td>degree adverb</td>
+            <td>Deg</td>
+            <td>
+              <emph>more, most, quite, rather, so, too, very</emph>
+            </td>
+          </tr>
+        </table>
+        <caption>Types of word and abbreviations used.</caption>
+      </tabledisplay>
+
+      <para> It is common to use abbreviations to identify the word classes; as to how many there are then 
+        it has to be said that they cannot be enumerated unequivocally; linguist C.C Fries defined nineteen types 
+        as the nineteen parts of speech of English in 1952 (he also distinguished content bearing types of word: 
+        <emph>nouns</emph>, <emph>verbs</emph>, <emph>adjectives</emph> and <emph>adverbs</emph> from function types such as 
+        <emph>prepositions</emph>, <emph>determiners</emph>
+        and <emph>coordinating conjunctions</emph>). For our purposes here we will use the classes and 
+        the abbreviations shown in table 
+        <tableref>tableofwordtypes</tableref>
+      </para>
+
+      <figureOfPictureWithNote>
+        <position>H</position>
+        <label>brintonWordClasses</label>
+        <pictureName>brintonWordClasses</pictureName>
+        <caption>
+          Word Classes shown using the nested box notation.
+        </caption>
+      </figureOfPictureWithNote>
+
+
+
+    </subsection>
+
+
+    <subsection>
+      <title>Aristotle <emdash/> Equivocal Naming</title>
+
+
+      <para> In biological nomenclature the species name alone is not always enough to uniquely identify a type of thing less it be used alongside of the genus name <emdash/> this system of naming, using the genus name alongside the species name, being called binomial and having been introduced by Linnaeus. Resonant and antecedent to this can be seen in the very first section of Aristotle's Categories which is the about the proper delineation of the of types of things: 
+      </para>
+
+      <quotation>
+        Things are said to be named <q>equivocally</q> when, though they have a common name, the definition 
+        corresponding with the name differs for each. Thus, a real man and a figure in a picture can both lay 
+        claim to the name <q>animal</q>;
+        yet these are equivocally so named, for, though they have a common name, the definition corresponding
+        with the name differs for each. For should any one define in what sense each is an animal, his definition
+        in the one case will be appropriate to that case only.
+      </quotation>
+
+      <para> The appropriate diagram to fit Aristotle's text would seem to be this:
+      </para>
+
+
+      <er_center>
+        <filename>equivocalNaming</filename>
+      </er_center>
+
+      <newline/>
+      <para> With such a configuration of types you might suppose a trinomial notation is 
+        required <emdash/> or... simply a diagram and the ability to point at it. And this is the point of such 
+        diagrams or at least a very good part of it.
+      </para>
+    </subsection>
+  </section>
+
+
+
+  <section>
+    <label>context</label>
+    <leader> 
+The view of entity modelling which we present reveals 
+      a specific recurring pattern in conceptual thought which we describe in the section</leader>
+
+    <title>Context Composition Duality</title>
+    <trailer></trailer>
+
+    <para> In entity modelling we shall see that two seeming different aspects of representing what is:
+      <itemize>
+        <item> 
+          the representation of entities as wholes or composite
+          entities having parts of which they are composed
+        </item>
+        <item>
+          the modelling of context for which entities depend 
+          for  their logical existence
+        </item>                         
+      </itemize>
+      are in fact two ways of looking at the same distinction and that in this way there is a duality between 
+      composition and context. For example we can say that the uses of the term <q>intra</q> in contrast 
+      to <q>inter</q> in the  adjective <q>intranational</q> and like constructions, derive applicability 
+      from context dependent  entities having relationships within (intra) and across (inter) contexts. 
+      Equally we can say  that these uses depend on existence of recognised composite entities (<q>nations</q>) 
+      and relationships between parts of the <emph>same</emph> composites (<q>intra</q>) and between 
+      parts of <emph>different</emph> composites (<q>inter</q>). 
+    </para>
+
+    <para> Modelling wholes and parts is equivalent to modelling context in which things exist. 
+      It is achieved by  distinguishing composition relationships to be described in 
+      section <refsection>
+        <title>Composition Relationships</title>
+        <label>
+          <chapter>tutorialone</chapter>
+          <section>entityparts</section>
+        </label>
+      </refsection>
+      <emdash/> those between wholes and parts <emdash/> from other relationships; 
+      for these others we use the term reference relationship as will be described in 
+      section <refsection>
+        <title>Reference Relationships</title>    
+        <label>
+          <chapter>tutorialone</chapter>
+          <section>referencerelationships</section>
+        </label>
+      </refsection>. 
+      It makes sense to ask of a reference relationship whether it is  intra- or inter- any of 
+      the contexts in which its participating entities are defined to exist; answering this question 
+      is said to be scoping the relationship and the answer itself is said to be the scope of the 
+      relationship. We will describe a distiction between composition relationships and reference 
+      relationships and see that
+      composition relationships do not have defined scopes, rather that they serve to define contexts 
+      and therefore scopes in the first place.
+      In summary, reference relationships have defined scopes and composition relationships do not.
+    </para>
+
+
+    <para> Entity models enable representation of the contexts within which things exist
+      and it would be hard not to agree with Gilbert Ryle that context is most important to 
+      the meaning of things both said and written:
+    </para>
+
+    <quotation>
+      A given word will, in different sorts of context, express ideas of an indefinite range of 
+      differing logical types and, therefore, with different logical powers. And what is true of 
+      single words is also true of complex expressions and of grammatical constructions.
+      (1945, 206)
+    </quotation>
+
+    <para> If you are familiar with computer programming you will be aware that computer instructions 
+      require context for their execution and of the fact that they perform according to data within 
+      the contexts of their execution. Likewise, if we were to note the inferences that we make in 
+      reading a novel, say,  to construct an opening scene and its characters and 
+      to place the narrator, then, focusing in this way on these mental steps, it would seem that 
+      novelists ask a lot of us the readers to construct a novel's opening context <emdash/> that they make 
+      us work. Give it some thought, for a moment, 
+      or consider the opening lines from James Joyce's <q>Portrait of the Artist as a Young Man</q>.
+    </para>
+
+    <quotation>
+      Once upon a time and a very good time it was there was a moocow coming down the road met a 
+      nicens little boy named baby tuckoo... His father told him that story: his father looked 
+      at him through a glass: he had a hairy face. 
+    </quotation>
+
+    <para> When computer programs are written then context is represented explicitly <emdash/> 
+      variables, i.e. individuals, are introduced explicitly <emdash/> the moocow and the nicens little boy 
+      named tuckoo <emdash/> and must be used consistently otherwise the software doesn't work. 
+      So computer programs are long and heavy on detail and they are in a style which is the 
+      antithesis of literary. 
+    </para>
+
+    <para> Contexts contain individual persons, and times (once upon a time) and places (the road)
+      and they are modelled and represented as data in both computer programs and in novels. In both 
+      storytelling and programming, individuals from one context become inaccessible from others <emdash/> they 
+      become <q>out of scope</q> to use a programming term <emdash/> so by the second paragraph quoted above the 
+      individuals of the first paragraph, in and by themselves, are <q>out of scope</q> <emdash/> to be replaced
+      by the first paragraph itself, which, in its totality, is <q>in scope</q> as a story.
+    </para>
+
+    <para> To introduce a real number as an unknown into a mathematical discussion is no different 
+      in principle to introducing a moocow or a tiny baby into a discourse. In both cases an individual
+      is introduced into a context and becomes part of the context for the remaining 
+      discussion <emdash/> until that is <emdash/> that storyline is escaped, becomes embedded, or otherwise 
+      goes out of scope <emdash/> in the mathematical book of exercises, by convention, unless otherwise 
+      stated, the x of question 1 is out of scope in question 2.
+    </para>
+
+    <para> So contexts, computational, mathematical and discursive, are populated by individuals.
+      <q>Moocow</q>, <q>baby</q> and <q>Real number</q>
+      are types of individual. Man, ox, animal, tree, plant <emdash/> large proportions of our vocabularies 
+      comprise words for types of things. Entity modelling is a tool enabling the expression of types 
+      (of entity) but also dependencies between individuals, types and contexts.
+    </para>
+
+  </section>
+
+  <section>
+    <leader> and in which we can recognise the philosophical concept of</leader>
+    <title>The Absolute</title>
+    <label>theabsolute</label>
+    <para>
+      We use the term <q>the Absolute</q>, which has a varied history in metaphysical writing, to mean the whole of everything and, equally, the context for everything. In giving two meanings we are following a rich tradition <emdash/> for definitions abound. The term was central to much of the philosophy of G.W.F Hegel <emdash/> in Shorter Logic section 87, among a number of other definitions, we find:
+    </para>
+
+    <quotation>
+      ...the Absolute is the Nought...The Nothing which the Buddhists make the universal principle, as well as the final aim and goal of everything, is the same abstraction.
+    </quotation>
+
+    <para> whereas in Phenomonology of Spirit in section 20 we find:
+    </para>
+
+    <quotation>
+      The True is the whole.
+    </quotation>
+    <newline/>
+    <para> and in section 75 of the same we find:
+    </para>
+
+    <quotation>
+      ...the Absolute alone is true, truth alone is absolute.
+    </quotation>
+    <newline/>
+    <para> Some sense can be made of these statements when we consider from a logical perpective and from the point of view of information theory. We can illustrate by considering the seemingly puzzling fact that in some programming languages (such as ML) there is an in-built concept with the name <q>Unit</q> and described as a singleton type, whereas  in some other earlier programming languages (Algol68, C)  the name given to the very same concept has been <q>void</q>. The apparently striking disparity in naming, the one versus the zero, has come  about as a  result of the concept being named on the one hand on the basis of the number of things predicated by the type (i.e the number of things we can say are of that type), which is exactly one, and on the other hand based on the number of bits (binary digits) of information carried in communicating a member of the type, which is precisely zero. We get the name <q>unit</q> from one point of view and the name <q>void</q> from the other. In this way we can say of the Absolute that it is the whole of everything. From it being the whole we can say there is only one of the type. From there being only one of the type we can say that it's information content is zero. If you present to me the absolute you present me with nothing. Like the true it can be assumed in all contexts for it carries nothing new with it. This is the logic of the absolute. 
+    </para>
+
+    <para> The whole of a modelling situation can be considered a single composite and this is both <q>the ultimate whole</q> when considered as a composite and equally <q>the absolute</q> when considered as a context. If what we have said above can be summarised as saying that there is a duality between context and composition then in this duality <q>the whole</q> and <q>the absolute</q> are duals: they are the same logical entities. 
+    </para>
+
+    <para> Another useage that we have, is to speak of concepts that are absolute. What we usually mean by saying of a concept that it is abolute is that 
+      it does not vary <emdash/> that it is not relative to the context in which it appears. As we seek to construct models of usage and thereby a conceptual model we can expect to find a dichotomy of relative and absolute terms: some terms, such as father, daughter, length, colour, that vary in so much as they reference different items in different contexts; and terms, such as the earth, the pole star, the London Times that are absolute or constant in what they reference. Whereas relative terms are conceptualised as relationships or as quantitative or adjectival attributes of subject entities, absolute terms cannot be so interpreted unless we posit the existence of a singular entity and then interpret the absolute terms as relational to or as attributive to this singular entity. In this way the matter is finessed for we can say of a relative term such as father that it varies as the person varies <emdash/> different subject persons having different fathers <emdash/> and we can say of an absolute term pole star that it varies depending on the singular entity <emdash/> the Absolute <emdash/> which is to say that it does not vary at all. 
+    </para>
+  </section>
+
+
+  <section>
+    <leader>which is functionally reincarnated, so to speak, in the table DUAL familar to Oracle programmers. 
+    We borrow from the language of Gilbert Ryle, to argue that entity modelling is an aid to logical analysis and assists avoidance of </leader>
+    <title>Howlers and Other Violations</title>
+    <trailer>.</trailer>
+
+    <label>howlers</label>
+
+    <para> Taking a bearing from a map, choosing a meal, calculating a trajectory, developing a
+      new drug, if errors are made then it is preferable to find them early <emdash/> before the impasse, 
+      the disappointment, the failed flight, the failed drug. So it is with computer programming and 
+      logical analysis of any kind <emdash/> if errors are to be found, if systems are to fail, if rethinks 
+      are to ensue then better rethink or reprogram early rather than backtrack later. 
+      In software development, there is a class of errors called <q>type errors</q> such as, 
+      in the context of logical analysis, philosopher Gilbert Ryle called <q>category mistakes</q> or,
+      more strikingly, <q>category howlers</q>.
+    </para>
+
+    <para> There is a class of programming language [the statically typed languages] in which type 
+      errors are not tolerated <emdash/> they need to be fixed at the earliest possible stage <emdash/> unless they are 
+      fixed the program cannot be deployed or executed. Use of such a programming language helps the 
+      programmer avoid such <q>howlers</q>  but H G Wells took Logicians to task for not 
+      helping <q>thinking men</q> in avoiding such errors: 
+    </para>
+
+    <quotation>
+      Finally : the Logician, intent upon perfecting the certitudes of his methods rather than 
+      upon expressing the confusing subtleties of truth, has done little to help thinking men 
+      in the perpetual difficulty that arises from the fact that the universe can be seen in 
+      many different fashions and expressed by many different systems of terms, each expression 
+      within its limits true and yet incommensurable with expression upon a differing system. 
+      There is a sort of stratification in human ideas. I have it very much in mind that various 
+      terms in our reasoning lie, as it were, in different planes, and that we accomplish a large 
+      amount of error and confusion by reasoning terms together that do not lie or nearly lie in 
+      the same plane.
+    </quotation>
+
+    <para> Other errors arise through confusions of context and some such, in programming parlance, 
+      are called scope violations. These arise when relationships are asserted between individuals 
+      whose contexts are <emph>a priori</emph> inconsistent with them. Scope violations are attempts 
+      to relate across contexts illegally. 
+    </para>
+
+    <para> Of all errors, in logical reckoning or in programming, category howlers and scope 
+      violations we need to fix; without fixing them we don't have proper basis to continue.  
+      To avoid these howlers  we need to be clear about types and scopes <emdash/>  it is establishing 
+      clarity on types of entity and types and scoping of relationships that is the purpose of 
+      an entity model.
+    </para>
+    
+    <para>The specification of scopes 
+    <emdash/> that we might understand them and avoid errors of scope <emdash/>
+    is a distinguishing feature of this presentation of entity modelling and it's supporting
+    software. We return to the topic in 
+    <refsection><label><section>scope</section></label></refsection> section later.
+    </para>
+  </section>
+
+  <section>
+
+    <leader>Finally, we present  some thoughts about the foundations of data modelling in</leader>
+    <title>Foundations of Data</title>
+    <label>foundations</label>
+    <para>
+      Studies of the foundations of a subject should reveal something 
+      of its essential characteristics, its possibilities and its bounds;
+      though study of  the foundations of data modelling seems
+      absent from the literature, such studies ought to reveal to us more directly
+      than logic or philosophy something of the nature of our relationship to 
+      the world. 
+    </para>
+
+    <subsection> 
+      <title>Indiscernibility of Identicals</title>
+      <para>
+        What is data and what do we mean by data structure, by data model and by database?  
+        As so often it is easier to give examples in response to questions like these than to give real answers
+        <emdash/> flight lists, bank records, a star catalogue, a price list, a list of waypoints along a route, 
+        the runners in a race, the times of the tides <emdash/> all these things can be presented as data 
+        typically containing names, both natural and coded, 
+        numerics as both ordinals and cardinals, measurements, dates and times, distances.
+        Though we wouldn't usually put the matter so, asking <emph>What is data</emph> is like asking 
+        <emph>What is language?</emph> for data is a form of language, and asking 
+        <emph>How does data relate to the real world</emph> is a way of asking 
+        <emph>How does language relate to the real world?</emph>
+      </para>
+
+      <para> Consider that in tabular presentations of data as 
+        well as in general discourse we often label things or more particularly number them <emph>arbitrarily</emph>. 
+        We make attributions of properties to individuals that <emph>in themselves</emph> 
+        do not have these properties; we do this of necessity when representing and communicating relationships 
+        between entities which are otherwise indiscernible from their properties. Thus, in a story of three, 
+        we can speak of the first, the second and the third, which is an arbitrary attribution, whereas in a 
+        story of an Englishman, a Scotsman and a Welshman we need for the telling no such arbitrary attribution. 
+        In the example tables used to present molecular structure in figure <figref>PubChemMolecules</figref> each table of 
+        bonds makes double reference to entries in the 
+        atoms table by identifying entries by their ordinal position in the table; this is an arbitrary attribution 
+        of a number to each atom within the molecular structure. This arbitrary attribution is necessary because 
+        the entities within an individual molecular structure in and by themselves do not satisfy the logical 
+        principle of the identity of indiscernibles. In the study of Logic to accept this principle is to accept
+        that no two distinct individuals/objects/things 
+        can be exactly the same in all of their properties. Logician Max Black suggested as 
+        a counter example to the principle a completely symmetric universe populated only by two distinct spheres; in such a 
+        universe the principle does not hold <emdash/> the two spheres are indiscernible but not identical; to put it 
+        another way, there is no definite description that can be applied to one sphere that does not apply to the other.
+      </para>
+      <figure>
+        <label>PubChemMolecules</label>
+        <position>H</position>
+        <div>
+          <width>5.5cm</width>
+          <picture>
+            <filename>water</filename>
+            <width>180</width>
+          </picture>
+          <newline/>
+          <para>(a) Water</para>
+        </div>
+        <div>
+          <table>
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>atoms</text>
+                </th>
+              </tr>
+              <!-- was <align>l</align> -->
+            </thead>
+            <tr>
+              <td>2.5369 </td>
+              <td> -0.1550 </td>
+              <td>  O </td>
+            </tr>
+            <tr>
+              <td>3.0739 </td>
+              <td> 0.1550 </td>
+              <td>  H </td>
+            </tr>
+            <tr>
+              <td>2.000 </td>
+              <td> 0.1550 </td>
+              <td>  H </td>
+            </tr>
+          </table> 
+        </div>
+
+        <div>
+          <table> 
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>bonds</text>
+                </th>
+              </tr>
+            </thead>
+            <tr>
+              <td>1 </td>
+              <td> 2 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>1 </td>
+              <td> 3 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>&#160; </td>
+              <td>  </td>
+              <td>  </td>
+            </tr>
+            <!-- spacer row - ought to try get rid of this -->
+          </table>
+        </div>
+        <!-- end water-->
+
+        <newline/>
+
+        <!-- start ethylene -->
+        <div>
+          <width>5.5cm</width>
+          <picture>
+            <filename>ethylene</filename>
+            <width>200</width>
+          </picture>
+          <newline/>
+          <para>(b) Ethylene</para>
+        </div>
+
+        <div>
+          <table>
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>atoms</text>
+                </th>
+              </tr>
+            </thead>
+            <!-- atoms -->
+            <tr>
+              <td> 2.0000  </td>
+              <td>  0.0000  </td>
+              <td> C  </td>
+            </tr>
+            <tr>
+              <td> 3.0000  </td>
+              <td>  0.0000  </td>
+              <td> C  </td>
+            </tr>
+            <tr>
+              <td> 1.6900  </td>
+              <td>  0.5369  </td>
+              <td> H  </td>
+            </tr>
+            <tr>
+              <td> 1.6900  </td>
+              <td> -0.5369  </td>
+              <td> H  </td>
+            </tr>
+            <tr>
+              <td> 3.3100  </td>
+              <td> -0.5369  </td>
+              <td> H </td>
+            </tr>
+            <tr>
+              <td> 3.3100  </td>
+              <td>  0.5369  </td>
+              <td> H  </td>
+            </tr>
+          </table> 
+        </div>
+        <div>
+          <table> 
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>bonds</text>
+                </th>
+              </tr>
+            </thead>
+            <!-- bonds -->
+            <tr>
+              <td> 1  </td>
+              <td>2 </td>
+              <td> 2 </td>
+            </tr>
+            <tr>
+              <td> 1  </td>
+              <td>3 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td> 1  </td>
+              <td>4 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td> 2  </td>
+              <td>5 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td> 2  </td>
+              <td>6 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>&#160; </td>
+              <td>  </td>
+              <td>  </td>
+            </tr>
+            <!-- spacer row - ought to try get rid of this -->
+          </table>
+          <!-- end ethylene table-->
+        </div>
+
+        <!-- end ethylene row -->
+
+        <newline/>
+
+        <!-- start benzene -->
+        <div>
+          <width>5.5cm</width>
+          <picture>
+            <filename>benzene</filename>
+            <width>200</width>
+          </picture>
+          <newline/>
+          <para>(c) Benzene</para>
+        </div>
+
+        <div>
+          <table>
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>atoms</text>
+                </th>
+              </tr>
+            </thead>
+            <!-- atoms -->
+            <tr>
+              <td>     2.8660  </td>
+              <td>  1.0000  </td>
+              <td> C  </td>
+            </tr>
+            <tr>
+              <td>     2.0000  </td>
+              <td>  0.5000  </td>
+              <td> C  </td>
+            </tr> 
+            <tr>
+              <td>     3.7320  </td>
+              <td>  0.5000  </td>
+              <td> C  </td>
+            </tr> 
+            <tr>
+              <td>     2.0000  </td>
+              <td> -0.5000  </td>
+              <td> C  </td>
+            </tr>
+            <tr>
+              <td>     3.7320  </td>
+              <td> -0.5000  </td>
+              <td> C  </td>
+            </tr> 
+            <tr>
+              <td>     2.8660  </td>
+              <td> -1.0000  </td>
+              <td> C  </td>
+            </tr>
+            <tr>
+              <td>     2.8660  </td>
+              <td>  1.6200  </td>
+              <td> H  </td>
+            </tr>
+            <tr>
+              <td>     1.4631  </td>
+              <td>  0.8100  </td>
+              <td> H  </td>
+            </tr>
+            <tr>
+              <td>     4.2690  </td>
+              <td>  0.8100  </td>
+              <td> H  </td>
+            </tr>
+            <tr>
+              <td>     1.4631  </td>
+              <td> -0.8100  </td>
+              <td> H </td>
+            </tr>
+            <tr>
+              <td>     4.2690  </td>
+              <td> -0.8100  </td>
+              <td> H </td>
+            </tr>  
+            <tr>
+              <td>     2.8660  </td>
+              <td> -1.6200  </td>
+              <td> H </td>
+            </tr>
+          </table> 
+        </div>
+        <div>
+          <table> 
+            <format>
+              <col>c</col>
+              <col>c</col>
+              <col>c</col>
+            </format>
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <text>bonds</text>
+                </th>
+              </tr>
+            </thead>
+            <!-- bonds -->
+            <tr>
+              <td>   1 </td>
+              <td> 2 </td>
+              <td> 2 </td>
+            </tr>
+            <tr>
+              <td>   1 </td>
+              <td> 3 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>   1 </td>
+              <td> 7 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>   2 </td>
+              <td> 4 </td>
+              <td> 1  </td>
+            </tr>
+            <tr>
+              <td>   2 </td>
+              <td> 8 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>   3 </td>
+              <td> 5 </td>
+              <td>2 </td>
+            </tr>
+            <tr>
+              <td>   3 </td>
+              <td> 9 </td>
+              <td>1 </td>
+            </tr>
+            <tr>
+              <td>   4 </td>
+              <td> 6 </td>
+              <td>2 </td>
+            </tr>
+            <tr>
+              <td>   4 </td>
+              <td>10 </td>
+              <td>1 </td>
+            </tr>
+            <tr>
+              <td>   5 </td>
+              <td> 6 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>   5 </td>
+              <td>11 </td>
+              <td> 1 </td>
+            </tr>
+            <tr>
+              <td>   6 </td>
+              <td>12 </td>
+              <td> 1 </td>
+            </tr>
+          </table>
+          <!-- end benzene table-->
+        </div>
+        <newline/>
+
+        <caption>Representations of molecular structure <emdash/> courtesy of the PubChem open chemistry database. 
+          Each atoms table represents x,y coordinates for the pictorial representations whereas 
+          each entry in the corresponding bonds table uses numerical position of rows within the atoms table to 
+          make reference to atoms bonded. The final column of the bonds table indicates whether a bond is single(1) or double(2).
+        </caption>
+
+      </figure>
+    </subsection>
+    <subsection>
+      <title>What properly constitutes a data model?</title>
+      <para>
+        If, rather than by blindly following current practice, we are to understand what should properly constitute 
+        a data model from first principles then we need decide whether the principle of the identity of 
+        indiscernibles should be included among these. 
+        The argument for the principle runs alongs the lines that a data model is a 
+        theory of various sorts of things that are in some sense real to us and which for convenience we call <q>real world entities</q>; databases hold data according to this model and represent these real world entities and relationships.
+        Clearly, goes the argument, there must be an <emph>unambiguous</emph> correspondence between the 
+        real word entities and their representations within the database instance <emdash/> of necessity 
+        from the properties of a database entity, a <emph>unique</emph> real word entity with matching 
+        properties must correspond. For this to be achieved then it must be so that no two distinct 
+        database entities nor any two real world entities
+        may have exactly the same properties, which is to say that the principle of <emph>identity of 
+        indiscernibles</emph> must hold true both of entities within database instances but also of real world entities. 
+        The counter argument is basically the 
+        Max Black counter argument given earlier and as illustrated by the molecular structure example <emdash/> the real world 
+        that we wish to represent just might have indiscernibles that are identical. The answer to this dilemma in relational data modelling  is to 
+        (i) enforce the indiscernibility of identicals in the database model
+        (ii) accept that the principle may not hold of real world entities and thus 
+        (iii) to require the introduction of arbitrary distinguishing properties that have no basis in the real world
+        but are simply artefacts introduced for descriptive purposes. 
+        In the case of descriptions of molecular structure 
+        it is common practice, as instanced in the Pubchem database, that the <q>arbitrary distinguishing property</q> takes the 
+        form of an ordinal <emdash/> one is assigned to each atom within the structure, 
+        in nature there is no such ordinal nor any other such distinguishing feature.
+      </para>
+    </subsection>
+    <subsection>
+      <title>First Principles of Data</title>
+      <para>
+        In early computer systems data was said to be stored in <entity>records</entity> within <entity>files</entity>
+        and this terminology kept contact with the paper systems whose use preceeded computerisation.  Subsequently,
+        driven by E.F. Codd, there was a shift of predominant terminology to data being said to be held in 
+        <entity>rows</entity> within <entity>tables</entity>, equally, in the accompanying theory, rows are 
+        described, unhelpfully it seems to me, as <entity>tuples</entity>. At the risk of confusing matters further,
+        but with foundations at heart, I will use instead the term <entity>message</entity> in place of either
+        <entity>record</entity> or <entity>row</entity> or <entity>tuple</entity>.
+      </para>
+      <para>
+        In building Information Systems the fundamental principles of data need include those regarding the identification 
+        of subject entities as described above and to which we can add these:
+        <itemize>
+          <item>
+            there are subject entitites and they are of a fixed number of types,
+          </item>
+          <item>
+            data consists of messages, each message describes a subject entity,
+          </item>
+          <item>
+            messages have a structure and messages describing the same type of subject entity have the same structure.
+          </item>
+        </itemize>
+      </para>
+      <para>
+        If a database is a set of messages able to communicate entitites then what, from first principles, is the message structure?
+        The most general statement that we can make is that a message comprises a set of attributes of the subject entity
+        and that the message structure is agreement upon the set of attributes and the message representation
+        corresponding to each type of subject entity. 
+      </para>
+
+      <para>Earlier we said that asking <emph>What is data?</emph> is a bit like asking <emph>What is language?</emph>.
+        So, in looking for the first principles of data modelling we might look for help at linguistics. In a book written by Jonathan Culler
+        summarising the work of the man sometimes said to be the father of linguistics, Ferdinand de Sassure, we find Alfred North Whitehead quoted:
+        <quotation>
+          ... every entity is to be understood in terms of the way it is interwoven with the rest of the universe
+        </quotation>
+        <newline/>and then by way of illustration and in Culler's words:
+        <quotation>
+          an electron is ... a node in a system of relations, which, like a phoneme, does not exist independently of these relations
+        </quotation>
+        <newline/>
+        In the domain of data messages, and with this lingustic mindset, it is no surprise then that many of the attributes 
+        communicated of a subject entity in a message are referential <emdash/> wholy or in part they communicate relationships 
+        of the message's subject entity to other entities. 
+      </para>
+
+      <para> For the data shown in figure <figref>PubChemMolecules</figref> we can describe 
+        individual rows in message structures like this:
+
+        <message_structure>
+          <rule>
+            <name>atom</name>
+            <rhs>
+              <terminal><name>atomNo</name><identifying/></terminal>
+              <terminal><name>x</name></terminal>
+              <terminal><name>y</name></terminal>
+              <terminal><name>elementSymbol</name></terminal>
+            </rhs>
+          </rule>
+          <rule>
+            <name>bond</name>
+            <rhs>
+              <terminal><name>bondNo</name><identifying/></terminal>
+              <terminal><name>atom1No</name></terminal>
+              <terminal><name>atom2No</name></terminal>
+              <terminal><name>bondtype</name></terminal>
+            </rhs>
+          </rule>
+        </message_structure>
+
+        In these descriptions <courier>atom</courier> and <courier>bond</courier> are types of entity and therefore types of message
+        and <courier>atomNo</courier>, <courier>x</courier>, <courier>y</courier>, <courier>elementSymbol</courier>, <courier>atom1No</courier>, <courier>atom2No</courier> and <courier>bondtype</courier> are attributes. Of these attributes <courier>atomNo</courier> and <courier>bondNo</courier>
+        are referential attributes which identify the subject entity of their respective messages and 
+        <courier>atom1No</courier> and <courier>atom2No</courier> are referential identifying the <entity>atoms</entity> which <entity>bonds</entity> link i.e. to which they are related.
+      </para>   	
+    </subsection>
+    <subsection>
+      <title>Entity Models as Data Models</title>
+      <para> When entity models are used to specify data models they define the types of subject entities and
+        for each such type the attributes used to communicate entitites of that type. They also 
+        define which attributes are referential and the relationships they represent inclusive of which referential attributes identify the subject entity of each message.
+      </para>
+    </subsection>
+
+  </section>
+  <section>
+    <leader>and some historical notes in a section on</leader>
+    <title>Data Modelling</title>
+    <trailer>.</trailer>
+    <label>datamodelling</label>
+    <para>
+      The term <q>Data Modelling</q> we use to cover both database 
+      design and also the specification of the structure of messages in a broad sense. 
+      Entity modelling though traditionally used as a precursor to relational data modelling is equally 
+      suitable as method of specifying  
+      hierarchical data structures <emdash/> in fact, supporting relational, hierarchical and network models of
+      data from a single specification  was the <emph>raison d'etre</emph> of 
+      the notation as originally proposed by 
+      Chen in the paper <q>Unified Model of Data</q> 
+      in 1976<footnote>
+        <bibentry>Chen1976</bibentry>
+      </footnote>.
+      This is particularly well illustrated in the 
+      Barker Entity Modelling book<footnote>
+        <bibentry>RichardBarkerBook</bibentry>
+      </footnote>.  
+    </para> 
+
+    <para>
+      ER modelling can be used to specify data at three distinct, increasingly prescriptive levels:
+      <itemize>
+        <item>conceptual <emdash/> entities and relationships only,</item>
+        <item>logical <emdash/> entities, relationships and non-referential attributes,</item>
+        <item>physical <emdash/> as logical but with message structure completed by the addition of attributes representing relationships.</item>
+      </itemize>
+    </para>
+    <para>
+      The most prescriptive level, that of a physical model, is precisely a data model and such models can be classified as relational or hierarchical;
+      most significantly, and in accord with the proposal of Chen, one of each can be generated algorithmically 
+      from a well-formulated logical model.   
+      Looking back, it seemed that hierarchical structured data took an intellectual back seat for a while during
+      the theoretical development 
+      and popularisation of the relational model of data but it has made a come back subsequently
+      through widespread adoption of the structured markup language XML. Via appropriate physical models 
+      both relational Data Definition Language (DDL) and hierarchical XML schemas (DTD, XSD or the like) can be generated 
+      automatically from a single logical ER model<footnote>We will return to this theme later but it has been said 
+        that relational data models generated in this way will
+        naturally tend to be well-formulated data models (i.e. to be in normal form). This is definitely not the case unless 
+        account is taken of reference scope constraints  as described here in later sections.</footnote>.
+    </para>
+
+    <para>
+      Historically, E.F.Codd's meta theory that was presented as the relational model of data 
+      by Codd in 1970<footnote>
+        <bibentry>Codd1970</bibentry>
+      </footnote>, emerged fully formed <emdash/> 
+      the meta concepts of table, 
+      column and primary key are defined as is that of a foreign key enabling one table to cross reference the rows of another. 
+      His is a theory of <emph>what data is</emph> and this theory has come to underpin the majority of corporate databases.  
+      Each such database, in accord with Codd's prescriptions, holds a meta-description of its own units of storage 
+      <emdash/> the tables, 
+      columns and keys <emdash/> what their names are and how they fit together to enable navigation through the data; this description is 
+      the core of what is described as a relational schema. The development of the relational model of data was strongly influenced 
+      by the predicate calculus representation of formal logic but arguably 
+      this meta-mathematics that influenced Codd has been overtaken by  later 20th century meta-mathematics in the form of type theory
+      and category theory; these are more diagrammatic in form and lead not to the relational model of data but to versions of the 
+      binary entity relationship model. It is these other meta-mathematical disciplines that influence this presentation and lead to meaningful 
+      improvements in relational design methodology. Paradoxically, each such improvement in relational design methodology undermines the
+      pre-eminence enjoyed by the relational model.
+    </para>
+
+
+    <para>
+      Codd has described various tests of goodness of a schema, applicable, it must be remembered, only with cognisance to the 
+      possibilities among the data that it is designed to hold i.e. the intended usage.
+      In the first instance three tests were described and successively a schema said to be in 1st normal form, 2nd normal 
+      form or 3rd normal form depending on its success in passing the tests. A process for 
+      fixing deficient schemas is described as normalisation of the schema. Normalisation is therefore
+      a method for converting or transforming one relational schema into another that is deemed more suitable for the purpose 
+      at hand. 
+    </para>
+
+    <para>
+      Subsequently, the relations of Codd's model are more abstractly presented, as either entities or as n-ary relationships, 
+      in Chen's entity-relationship model of data;
+      in the approach of Chen there is emphasis on a diagrammatic representation of the model. 
+      Chen describes a method for constructing 
+      a relational schema (in the sense of Codd) from an entity-relationship schema (ER-schema).
+      He states that normalisation of the relational schema might be required after construction from an ER-schema 
+      <emdash/> though why this might be is not explained. We will explain in a later 
+      section the fundamental reason why this is so.
+    </para>
+
+    <para>After Chen's 1976 paper, coming into and through the 1980's, came the 
+      development, concurrently, of Computer Aided Software 
+      Engineering (CASE) tools, including Meta-CASE tools, and semi-formalised and, in some 
+      instances, standardised official methodologies 
+      and notations; these supporting structured systems analysis and development. 
+      Universally in the methodologies from this time the terms <entity>entity</entity>
+      and <entity>relationship</entity> introduced in Chen's paper  were retained within a logical modelling 
+      phase and Chen's transformation step into relational database design,
+      inclusive of a normalisation step, is likewise retained. 
+      Though the terms and the overall shape of the process is retained the concepts behind 
+      these terms are adjusted. Most noticeably <entity>relationships</entity> are 
+      now <entity>binary relationships</entity> 
+      and at an early stage in these methodologies many-many 
+      relationships are eliminated in favour of many-one relationships. 
+      At this point there has been a conceptual <emph>volte face</emph> for a many-one 
+      binary relationship, implementation considerations aside, is a thinly disguised pointer 
+      between records of a file, such as in a VSAM file system, 
+      or a link between records in the network database model, and it can be conceptualised, 
+      abstractly, as a function between sets of like-typed entities 
+      <emdash/> leading some authors to describe a 
+      functional model of data<footnote>
+        <bibentry>Buneman1979</bibentry>,<bibentry>Shipman1981</bibentry>
+      </footnote>. The entity-relationship diagrams of these software analysis  methods and the accompanying
+      CASE tools that emerged in the 80's bear more resemblance to notation that preceded the work of 
+      Codd and Chen such as Bachman's data structure diagrams from 1973<footnote>
+        <bibentry>Bachman1973</bibentry>
+      </footnote> 
+      than to the diagrams of Chen.  
+      Among the many, and as summarised in the book of 
+      Rosemary Rock-Evans<footnote>
+        <bibentry>Rock-Evans1989</bibentry>
+      </footnote>,  
+      there are three variants of binary entity relationship diagram that stand out, 
+      those found, respectively,  in SSADM/Barker-Ellis (now adopted by Oracle), in Clive 
+      Finkelstein and James Martin's Information Engineering,  
+      and in IDEF. 
+    </para>
+
+    <para> 
+      Chen's paper introduced the idea of entities being dependent on binary relationships 
+      with others for both their identification and their existence:
+
+      <quotation>
+        Theoretically, any kind of relationship may be used to identify entities. For
+        simplicity, we shall restrict ourselves to the use of only one kind of relationship:
+        the binary relationships with 1:n mapping in which the existence of the n entities
+        on one side of the relationship depends on the existence of one entity on the other
+        side of the relationship. For example, one employee may have n ( = 0, 1, 2, . . .)
+        dependants, and the existence of the dependants depends on the existence of the
+        corresponding employee.
+        This method of identification of entities by relationships with other entities can
+        be applied recursively until the entities which can be identified by their own attribute
+        values are reached. For example, the primary key of a department in a
+        company may consist of the department number and the primary key of the
+        division, which in turn consists of the division number and the name of the company.
+      </quotation>
+    </para>
+
+    <para>
+      In many cases, software methodologies and supporting CASE tools introduced an intermediate step between the ER model and the
+      relational model naming the intermediary model the physical design model to contrast with the logically descriptive model that precedes it.
+      By a significant methodological improvement described in later sections we follow this approach but
+      are able to eliminate the normalisation step.
+      <figureOfEquation>
+        <equationName>ChenTransform</equationName>
+        <framewidth>15cm</framewidth>
+        <caption>Traditional methodology for relational data design includes a manual normalisation step</caption>  
+      </figureOfEquation>
+    </para>
+    <newline/>
+    <para>
+      Following PCTE<footnote> 
+        <!--Boudier1988,ECMA-149-->
+        <bibentry>Boudier1988</bibentry>
+      </footnote> 
+      we use the term <entity>composition relationship</entity> for Chen's <emph>binary relationships
+        with 1:n mapping in which the existence of the n entities
+        on one side ... depends on the existence of one entity on the other side</emph>
+      and we use the term <entity>reference relationship</entity> for binary 
+      relationships which are neither composition relationships nor their inverses. We shall also describe the inverses of composition relationships 
+      as being <entity>dependency relationships</entity>. Earlier than this a similar distinction 
+      had been made by the designers of the 
+      CAIS<footnote>
+        <bibentry>Oberndorf88</bibentry>
+      </footnote>
+      specification but in which the two kinds of relationship were distinguished as primary 
+      and secondary <emdash/> their rationale for the distinction
+      was as follows<footnote>
+        <bibentry>Munck1988</bibentry>
+      </footnote>:
+      <quotation>[Entities] and relationships may form a general 
+        graph or bowl of spaghetti. However, this raises various practical
+        problems of deletion and garbage collection, long term
+        naming, and unconnected sub-graphs. CAIS
+        therefore designates certain relationships as primary
+        (and all others as secondary) and requires that all [Entities]
+        and primary relationships in the database form a single
+        tree structure.
+      </quotation>
+      This distinction between composition and reference made by both CAIS and then PCTE served  
+      the goal of modelling computer file systems within a database framework, see figure <figref>filesystem2</figref> for example. 
+
+      <figureOfPicture> 
+        <pictureName>filesystem2</pictureName>
+        <caption>
+          An ER model of folder system modelling the hierarchical structure as a recursive composition relationship and shortcuts as reference relationships.
+        </caption>
+      </figureOfPicture> 
+
+    </para>
+
+    <para> In this presentation we shall not assume that all composition relationships are identifying nor, vice-versa, that only composition relationships
+      may be identifying. To depict ER-schemas we use a variant of the Barker-Ellis notation. Figure <figref>entityRelationalMetaModel1</figref> is a 
+      meta-model of this notation <emdash/> it is an ER schema describing ER schemas.
+    </para>
+
+    <para>
+      In cases where we wish to distinguish composition relationships from reference relationships then we draw the diagram top down: an anonymous
+      root entity type (the <q>absolute</q>) is introduced at the top of
+      the diagram, relationships leaving the lower edges of boxes are composition relationships and 
+      they always meet the top edge of the box 
+      representing the dependent type, reference relationships meet boxes from one side or the other. 
+      We note that there is a structural resemblance
+      to diagrams drawn by Bachman. To summarise, for composition relationships the crows feet point down; at this point the notation converges with that of SSADM for which  one explanation says: <q>there are no dead crows</q>. Our diagrams also have reference relationships and for these the crows feet are pointing sideways (the crows, presumably, at rest). 
+      The entity types which have the least numbers of instances occur at the top of our diagrams whereas in what seems an odd choice they occur to the bottom right in the diagrams style promoted in Barker's Entity Modelling book.
+    </para>
+    <figureOfPicture>
+      <pictureName>entityRelationalMetaModel1</pictureName>
+      <caption>
+        The logical ER meta-model. A simple version of the logical ER model of a logical ER model.
+      </caption> 
+    </figureOfPicture>
+
+
+  </section>
+</chapter>
+
+
+

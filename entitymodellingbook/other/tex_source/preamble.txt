@@ -1,0 +1,10 @@
+\documentclass[crop]{standalone}
+\usepackage{preview}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mnsymbol}
+\input{../../../SharedMacros/ermacros}
+\input{../../../SharedMacros/erdiagram}
+\input{../../../SharedMacros/syntaxmacros}
+\begin{document}
+\begin{preview}

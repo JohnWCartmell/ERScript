@@ -1,0 +1,11 @@
+Text for end of overview page "Tutorial Part Two - Representing Data"
+
+I give you the challenge, as I have given myself, of understanding and articulating
+entity modelling and the whole business of representation 
+of the world in data  from first principles and without reliance, recourse or reference
+to any particular technology - neither any programming language nor any database system.
+I wish, as a happy consequence, for you to be successful finding more patterns in your data 
+to exploit in database design and software development. 
+
+If you follow this tutorial and at the end view this whole business a little bit differently
+to before then I have achieved what  I set out to in writing it.  

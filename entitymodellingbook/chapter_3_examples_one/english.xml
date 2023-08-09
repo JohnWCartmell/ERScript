@@ -1,0 +1,713 @@
+<section>
+  <title>English Sentence Structure</title>
+  <label>englishsentence</label>
+
+  <subsection>
+     <title> Overview </title>
+    <para> In this section we give an extended example of entity modelling by demonstrating the modelling of English sentence structure. 
+      Our starting point has been the syntactic rules presented in chapters 7 and 8 of the book of Brinton: 
+      <emph>The Structure of Modern English</emph><footnote><bibentry><label>BrintonBook</label></bibentry></footnote>. What we do in this chapter is simply to translate 
+      the structural description of English sentence structure given there from the 
+      meta notation of phrase structure grammars into the more general entity relationship notation.
+    </para>
+    <para>
+      This chapter is a single example of the modelling of entitites and their parts. It demonstates that phrase structure grammars can be represented as entity models.
+    </para> 
+
+    <figureOfPictureWithNote>
+      <pictureName>brintonSimpleSentenceStructure</pictureName>
+      <framewidth>6cm</framewidth>
+      <width>16cm</width>
+      <imgwidth>5cm</imgwidth>
+      <imgheight>5cm</imgheight>
+      <href>../svg/brintonSimpleSentenceStructure.svg</href>
+      <note><width>8cm</width><para> <itemize>
+            <item>
+              if you know already entity modelling then use this model as a means to explore formal grammars and the structure of English
+            </item>
+            <item>
+              on the other hand if you are already familiar with formal grammars then see how an entity model can provide a single view encompassing a set of production rules.
+            </item>
+          </itemize>
+        </para></note>
+      <caption>Structure of Simple Sentences - Based on Phrase Structure 
+        Rules given in Brinton. Click
+        <a href="../svg/brintonSimpleSentenceStructure.svg">here</a> to browse the model in a new window.
+      </caption>
+    </figureOfPictureWithNote>
+    <newline/>
+
+    <para>
+      Some background to the material in the model is contained within the remaining sections.
+    </para>
+
+  </subsection>
+
+  <subsection>
+    <title>Background - Grammars as Models</title>
+    <label>grammars</label>
+
+
+    <para> In the study of syntax, linguists seek to understand and express the rules by which some sequences of words can be comprehended as having a structure which is well-formed - that is, we find them  grammatical - and some do not. In earlier sections we have spoken about an entity model as representing a theory of what is; we illustrate this now for, as Noam Chomsky wrote in 1957,
+      <emph>a grammar of the language L is a theory of L</emph><footnote>Syntactic Structures, N. Chomsky, 1957 (page 49).</footnote>. 
+      Chomsky says that each grammar is simply a description of a certain set of utterances, namely those that it generates and he illustrates
+      with reference to a part of chemical theory concerned with structurally possible compounds. 
+      Such a theory, says Chomsky, might be said to generate all physically possible compounds just as a grammar generates all 
+      grammatically `possible' utterances<footnote>Syntactic Structures (page 48).</footnote><sup>,</sup><footnote>Subsequent to Chomsky's 1957 descriptions of 
+        phrase structure rules, transformation rules and morphophonemic rules there many different approaches to expressing sentence structure. 
+        The models developed in this section cover the same ground as the phrase structure rules of Chomsky which are expressed as a class of 
+        grammar know as a context free. All context free grammars lead naturally and mechanically to entity models of parse trees. 
+        This section is an illustration of this.</footnote>.
+    </para>
+
+    <para> Different authors have described English by various grammatical systems and with varying and over lapping degrees of 
+      success and agreement but each grammar so described is a rule system and what all such rule systems do is to identify and 
+      classify relationships between different parts of grammatical sentences; linguists bring to our attention types of entities 
+      and accompanying composition relationships which otherwise remain hidden. 
+    </para>
+
+    <para> 
+      Rule systems invariably focus on different word classes i.e. different types of words such as were introduced in the table 1 in the earlier section 
+      <refsection><label><chapter>perspective</chapter><section>types</section></label><title>Type of Things</title></refsection>.
+    </para>
+
+    <para>  
+      The type of each word of an example sentence  can be shown by annotating the word entities as follows: 
+    
+    <equ_center><equationName>theatheletesetanewrecord</equationName><width>10cm</width></equ_center>
+    .
+	</para>
+
+    <!-- \tagw{The}{Det} \tagw{young}{A} \tagw{athelete}{N} \tagw{set}{V} \tagw{a}{Det} \tagw{new}{A} \tagw{record}{NP}.
+-->
+    <newline/>
+
+
+
+    <para> With regard to the types of words - many words can be used say as nouns 
+      and as verbs and so it is the <emph>use</emph> of the word 
+      that is the entity to which a type is assigned. 
+    </para>
+
+    <para> Figure <figref>fowlersentenceexample</figref> shows the hierarchically structure of a simple sentence. 
+      It shows the composition relationships between its constituents parts. 
+      Each of the boxes in figure <figref>fowlersentenceexample</figref> is an example of a sentence constituent - a single word or a phrase; 
+      this is a key entity type for the linguist.
+    </para>
+    <!--
+%\footnotemark
+\afterpage{
+\begin{figure}[htbp]
+\caption{Constituent Parts of an Example Sentence\protect\footnotemark - phrases are shown in relationship to their 
+constituent parts - referred to as `sentence constituents'.}
+\label{fowlersentenceexample}
+
+\end{figure}
+\footnotetext{Reproduced from Fowler, ``Understanding Language", page 100.}
+}
+-->
+
+    <figureOfEquation>
+      <equationName>fowlersentenceexample</equationName>
+      <framewidth>10cm</framewidth>
+      <width>12cm</width>
+      <caption>
+        Constituent Parts of an Example Sentence
+        <footnote>
+          Reproduced from Fowler, <qq>Understanding Language</qq>, page 100.
+        </footnote> 
+        - phrases are shown in relationship to their 
+        constituent parts - referred to as <q>sentence constituents</q>.
+      </caption>
+    </figureOfEquation>
+  </subsection>
+
+  <subsection>
+    <title>Sentence Constituents</title>
+    <label>sentenceconstituents</label>
+
+    <para> According to Brinton:
+      <quotation>
+        The study of syntax is the analysis of the constituent parts of a sentence: their form, positioning,
+        and function. Constituents are the proper subparts of sentences. There are different
+        types of constituents classified by the categories which constitute them; these have different
+        functions and internal structures with elements arranged in a specific way. And they may
+        themselves be complex, containing other constituents. The structure of a sentence is hence
+        hierarchical.
+      </quotation>
+    </para>
+
+    <para> Brinton notes that not all sequences of words function as constituents. 
+      It is the context, he says,  which determines whether a particular sequence 
+      forms a constituent or not. For example, the sequence of words <emph>beautiful flowers</emph>
+      is a constituent in <emph>I received beautiful flowers for my birthday</emph> but not in <emph>Though they are beautiful, 
+        flowers cause me to sneeze</emph>. The sequence <emph>the house on the hill</emph> is a constituent in one reading of the ambiguous 
+      sentence <emph>I bought the house on the hill</emph>, but not in the other; it is a constituent in the sense `I bought the house which is on the hill', 
+      but not in the sense `I bought the house while standing on the hill'.
+    </para>
+
+
+    <para> We can represent sentence constituent as an entity type generalising `phrase' and `word': 
+    </para>
+
+
+    <er_center><filename>sentenceConstituents1</filename></er_center>
+
+    <para> and show phrases as sequences of words: 
+    </para>
+
+    <er_center><filename>sentenceConstituents0</filename></er_center>
+
+    <para> 
+      this leads us to a single diagram as shown in  figure <figref>sentenceConstituents2</figref>.   
+    </para>
+
+
+    <figureOfPictureWithNote>
+      <pictureName>sentenceConstituents2</pictureName>
+      <note>
+        <itemize>
+          <item>a <entity>sentence constituent</entity> is either a <entity>word</entity> or a <entity>phrase</entity></item>
+          <item>a <entity>phrase</entity> is composed of one or more <entity>sentence constituents</entity></item>
+        </itemize>
+      </note>
+      <caption>
+        From Understanding Language
+      </caption>
+    </figureOfPictureWithNote>
+
+
+  </subsection>
+
+  <subsection><title>Types of Phrase</title>
+    <label>typesofphrase</label>
+    <para>
+      Our example sentence is of a type that is often termed a `simple' sentence and 
+      consists of a subject followed by a predicate as shown in 
+      figure <figref>subjectpredicate</figref>. 
+      Other examples of the same type, subject followed by predicate, are shown in table <tableref>examplesofsubjectpredicate</tableref>;
+      each subject in the table can equally combine with any of the given predicates to form a well-formed sentence. 
+      Though ten sentences are presented by combining different subjects with different predicates we can generate 100 different 
+      sentences<footnote>But only the proviso that some verbs need be inflected to match their subjects - for example `We is for sale' 
+        needs become `We are for sale'.</footnote>. What we cannot do is pair any two subjects to produce a well-formed sentence nor any two predicates. This illustrates 
+      that subject phrases and predicate phrases are of distinct types. These are the types `noun phrase' and `verb phrase' respectively. These types of 
+      phrase can appear in other contexts within sentences but for now they appear as subject and predicate respectively.
+    </para>
+
+    <para> This simple rule: 
+    </para>
+    <!--
+\begin{equation}
+\label{subjectPredicateRule}
+\text{S  <longrightarrow/>   NP VP }
+\end{equation}
+-->
+    <equation>
+      <label>subjectPredicateRule</label>
+      <number/>
+      <production>
+        <lhs>S</lhs>
+        <rhs>NP VP</rhs>
+      </production>
+    </equation>
+
+    <para> 
+      using some self evident abbreviations is of a type sometimes referred to as a production, aggregates of which are used to express grammars 
+      technically referred to as context free grammars. This is a formal expression of the fact that a
+      sentence(S) may be constructed as a noun phrase(NP) followed by a verb phrase(VP). 
+    </para>
+
+    <figureOfEquation>
+      <equationName>subjectpredicate</equationName>
+      <framewidth>6cm</framewidth>
+      <caption>
+        Example sentence showing the decomposition into subject phrase and a predicate phrase.
+      </caption>
+    </figureOfEquation>
+
+
+    <tabledisplay>
+      <caption>
+        Ten simple sentences used by Brinton to illustrate 
+        the subject predicate distinction.
+      </caption>
+      <label>examplesofsubjectpredicate</label>
+      <table>
+        <format><col>l</col><col> l </col><col>l </col></format>
+        <thead>
+          <tr>
+            <th> </th><th>Subject</th><th>Predicate</th>
+          </tr>
+        </thead>
+        <tr> 
+          <td>1.</td><td>  We </td> <td> had arrived at the wrong house.</td>
+        </tr> 
+        <tr>
+          <td>2.</td><td>  The man </td><td>  could open the door.</td>
+        </tr> 
+        <tr> 
+          <td>3.</td><td>  Truffles</td><td> are a kind of fungus.</td>
+        </tr> 
+        <tr> 
+          <td>4.</td><td>  The house on the corner</td><td> is for sale.</td>
+        </tr> 
+        <tr> 
+          <td>5.</td><td>  She</td><td> went to see who was at the door.</td>
+        </tr> 
+        <tr> 
+          <td>6.</td><td>  The rain and fog</td><td>  dissipated.</td>
+        </tr> 
+        <tr> 
+          <td>7.</td><td>  There</td><td> are five cats in the hall.</td>
+        </tr> 
+        <tr> 
+          <td>8.</td><td>  The film that I saw last night</td><td> was depressing.</td>
+        </tr> 
+        <tr> 
+          <td>9.</td><td>  It   </td><td> is raining.</td>
+        </tr> 
+        <tr> 
+          <td> 10.</td><td> It   </td><td> is possible that Alfred will know the answer.</td>
+        </tr>
+      </table>
+    </tabledisplay>
+
+    <para> 
+      What such a rule (<eqref>subjectPredicateRule</eqref>) does not do is to give a name to the role played by the noun
+      phrase (NP) in the sentence -- that of subject -- and nor does it give a name -- predicate -- to the role played 
+      by the verb phrase (VP). In Entity Modelling we have a notation for just such matters and accordingly we can represent 
+      the subject-predicate rule inclusive of role names by the entity model fragment shown in figure <figref>simpleSentenceSubjectPredicate</figref>.
+    </para>
+
+    <figureOfPictureWithNote>
+      <pictureName>simpleSentenceSubjectPredicate</pictureName>
+      <muchtext/>
+      <note>
+        <itemize>
+          <item>every simple sentence has exactly one subject which is a noun phrase</item>
+          <item>every simple sentence has exactly one predicate which is a verb phrase</item>
+        </itemize>
+      </note>
+      <caption>
+        Sentence as a combination of subject and predicate.
+      </caption>
+    </figureOfPictureWithNote>
+
+    <para> The entity type `phrase' of figure <figref>sentenceConstituents2</figref> is very general 
+      - it covers entities such as whole sentences, and the noun phrases and verb phrases shown in the 
+      subject and predicate columns of table <tableref>examplesofsubjectpredicate</tableref>. Linguists recognise these different phrase types and, 
+      just as for the different types of words, phrases may be substituted in sentences by phrases of like type without 
+      effecting the acceptability of the sentence. Table <tableref>tableofphrasetypes</tableref> shows some of the major distinctions 
+      within phrase types. 
+    </para>
+
+    <tabledisplay>
+      <table>
+        <format><col>l</col><col> l </col><col>l </col></format>
+        <thead>
+          <tr>
+            <th>phrase type </th><th>abbreviation</th><th>examples</th>
+          </tr>
+        </thead>
+        <tr> 
+          <td>whole sentence </td><td>      S      </td><td>   <emph>the young athelete set a new record</emph></td>
+        </tr>
+        <tr>
+          <td>noun phase     </td><td>      NP     </td><td>   <emph>the young athelete</emph>, <emph>a new record</emph></td>
+        </tr>
+        <tr>
+          <td>verb phrase    </td><td>      VP     </td><td>   <emph>set a new record</emph></td>
+        </tr>
+        <tr>
+          <td>adjectival phrase </td><td>   AP </td><td>   </td>
+        </tr>
+        <tr>
+          <td>prepositional phase </td><td> PP  </td><td>   </td>
+        </tr>
+      </table>
+
+      <caption>Types of phrase and abbreviations used</caption>
+      <label>tableofphrasetypes</label>
+    </tabledisplay>
+
+
+    <para> This leads us to be able to refine  the entity type `phrase' in figure <figref>sentenceConstituents2</figref> by a generalisation as follows: 
+    </para>
+
+    <er_center><filename>brintonPhraseTypes</filename></er_center>
+
+
+
+    <para>  In the next two sections we continue the process of refinement - we describe the composition relationships that are 
+      possible between the different phrase types of a sentence. In this way we use the
+      entity modelling notation as a meta-language in which we describe how different types of sentence constituent can be combined 
+      into grammatical sentences and in so doing present a
+      description of a set of rules for sentence construction. There is not, in linguistic theory, an unequivocal set of rules to 
+      follow  - the rules we choose to model follow close to those presented by Brinton. 
+    </para>
+  </subsection>
+
+
+  <subsection>
+    <title>Verb Phrases</title>
+    <label>verbphrase</label>
+    <para>
+      We have examples of verb phrases in the right hand column of table <tableref>examplesofsubjectpredicate</tableref>. 
+      They are quite varied in their structure. Here is a typical analysis of a verb phrase, in this case for the 
+      predicate of figure <figref>subjectpredicate</figref>:
+
+
+      <equ_center><equationName>monotransitive</equationName><width>4cm</width></equ_center>
+
+    </para>
+
+    <para> 
+      Generally, a verb phrase contains a verb which is said to be the head of the phrase. In this example the verb is 
+      complemented by a direct object which is of type `noun phrase'. Note that we can be sure that 
+      the phrase `a new record' is of type `noun phrase' 
+      because we can construct a sentence with it as the subject. In fact it can replace any of the
+      subjects in table <tableref>examplesofsubjectpredicate</tableref>  
+      and new sentences result and, providing that verbs are conjugated appropriately, the results are well-formed though admittedly they are in some 
+      cases very unusual.  
+    </para>
+
+    <para> According to this analysis the phrase `set a new record' is a verb phrase constructed as a `verb' followed by a `noun phrase' and 
+      this is one general rule of a number of such for the construction of verb phrases. Formally expressed the rule is:
+
+
+      <!--
+\begin{equation}
+\label{monoTransitiveRule}
+\text{VP  <longrightarrow/>   V  NP }
+\end{equation} 
+-->
+
+      <equation>
+        <label>monoTransitiveRule</label>
+        <number/>
+        <production>
+          <lhs>VP</lhs>
+          <rhs>V NP</rhs>
+        </production>
+      </equation>
+      <newline/>
+    </para>
+
+    <para> In an entity model we can represent this like this:
+
+      <er_center><filename>brintonTransitiveVerbPhrase</filename></er_center>
+
+    </para>
+
+    <para> In other cases a verb phase consists just of a verb alone and has no constituent noun phrase. Only certain verbs that can be used in this way and these are said to be intransitive. Thus `he cries' is an example in which `he' is the subject and `cries' is a predicate verb phrase consisting solely of the verb.
+      Formally:
+    </para>
+
+    <!--
+\begin{equation}
+\label{inTransitiveRule}
+\text{VP  <longrightarrow/>   V}
+\end{equation} 
+-->
+
+    <equation>
+      <label>inTransitiveRule</label>
+      <number/>
+      <production>
+        <lhs>VP</lhs>
+        <rhs>V</rhs>
+      </production>
+    </equation>
+    <para> The entity model equivalent is simply this:</para>
+
+    <er_center><filename>brintonIntransitiveVerbPhrase</filename></er_center>
+
+    <para> These fragments can be combined like this: </para>
+
+    <er_center><filename>brintonTransitiveAndIntransitiveCombined</filename></er_center>
+
+    <para>
+      Still other verb phrases have two objects a direct object of the action and an indirect object. Formally: 
+    </para>
+    <!--
+\begin{equation}
+\label{diTransitiveRule}
+\text{VP  <longrightarrow/>   V  NP NP}
+\end{equation} 
+-->
+
+    <equation>
+      <label>diTransitiveRule</label>
+      <number/>
+      <production>
+        <lhs>VP</lhs>
+        <rhs>V NP NP</rhs>
+      </production>
+    </equation>
+
+    <para> This leads to a model combining representations of 
+      rules (<eqref>monoTransitiveRule</eqref>), (<eqref>inTransitiveRule</eqref>) and (<eqref>diTransitiveRule</eqref>) like this:
+
+      <er_center><filename>brintonTransitiveIntransitiveAndDiTransitiveCombined</filename></er_center>
+
+    </para>
+
+
+    <para> It is worth saying at this point as an illustration of the choices that are open to an entity modeller in any modelling situation that sometimes the two rules above will be represented together
+      as a single combined rule in which parentheses are used to indicate optionality of the noun phrase: 
+    </para>
+
+    <!--
+\begin{equation}
+\label{alternateRule}
+\text{VP  <longrightarrow/>   V  (NP) }
+\end{equation}
+-->
+
+    <equation>
+      <label>alternateRule</label>
+      <number/>
+      <production>
+        <lhs>VP</lhs>
+        <rhs>V (NP)</rhs>
+      </production>
+    </equation>
+
+    <para> Likewise the entity modeller may dispense with the types representing the transitive and intransitive cases and represent the combined situation like this:
+
+      <er_center><filename>brintonAlternateTransitiveRepresentation</filename></er_center>
+    </para>
+
+    <para> 
+      In total, Brinton describes seven different constructions for verb phrase. 
+      These constructions are both summarised and illustrated 
+      in table <tableref>typesofverbphrase</tableref>. Alternatively the rules summarised 
+      in table <tableref>typesofverbphrase</tableref> can be expressed by combining all the different rules 
+      into the entity model of a verb phrase shown in figure  
+      <figref>brintonVerbPhrase</figref> in which types <q>noun phrase</q> and <q>prepositional phrase</q> are yet to be described.
+      while `adjectival phrase' was described earlier in section 
+      <refsection><label><section>furtherexamples</section></label></refsection>.
+    </para>
+
+    <!--
+%\begin{table}
+%\begin{tabular} {l  p{7cm} }
+\begin{longtable} {l  p{7cm} }
+\caption{Examples of different types of verb phrase.}
+\endfirsthead
+\caption[]{(continued)}
+\endhead
+-->
+    <tabledisplay>
+      <label>typesofverbphrase</label>
+      <caption>Examples of different types of verb phrase.</caption>
+      <table>
+        <thead>
+          <tr>
+            <th>Type of verb phrase/Rule</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr> 
+            <td>
+              <span>mono transitive</span>
+              <newline/>
+              <production>
+                <lhs>VP</lhs>
+                <rhs>V NP</rhs>
+              </production>
+            </td>
+            <td>
+              <equ_inline>
+                <equationName>monotransitive</equationName>
+                <width>4cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>intransitive</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V </rhs>
+              </production>
+            </td>
+            <td> 
+              <equ_inline>
+                <equationName>intransitive</equationName>
+                <width>1.25cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span>ditransitive</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V NP NP</rhs>
+              </production>
+            </td>
+            <td>   
+              <equ_inline>
+                <equationName>ditransitive</equationName>
+                <width>5cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>copulative</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V {NP, AP, PP}</rhs>
+              </production>
+            </td>
+            <td>     
+              <equ_inline>
+                <equationName>copulative</equationName>
+                <width>5cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span>complex transitive</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V NP {NP, AP, PP}</rhs>
+              </production>
+            </td>
+            <td>
+              <equ_inline>
+                <equationName>complextransitive</equationName>
+                <width>6.75cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>mono prepositional</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V PP</rhs>
+              </production>
+            </td>
+            <td>
+              <equ_inline>
+                <equationName>monoprepositional</equationName>
+                <width>6.75cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>diprepositional</span>
+              <newline/>
+              <production>
+                <lhs>VP </lhs> 
+                <rhs> V PP PP</rhs>
+              </production>
+            </td>
+            <td>
+              <equ_inline>
+                <equationName>diprepositional</equationName>
+                <width>6cm</width>
+              </equ_inline>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tabledisplay>
+    <!--
+%\end{longtable} 
+%\end{tabular}
+%\caption{Types of verb phrase.}
+\label{typesofverbphrase}
+%\end{table}
+\end{longtable} 
+-->
+
+    <figureOfPicture>
+      <pictureName>brintonVerbPhrase</pictureName>
+      <caption>The grammar of the Verb Phrase</caption>
+    </figureOfPicture>
+
+  </subsection>
+
+  <subsection>
+    <title>Noun Phrases</title>
+    <label>nounphrase</label>
+    <para> 
+      There are three main types of Noun Phrase and paradoxically two of these types consist of 
+      phrases which are degenerate in the sense that they consist of single words - Pronouns and Proper Names because 
+      words of these types are grammatically acceptable as the subjects of sentences. 
+      For simplicity of the modelling we will henceforth 
+      consider pronouns and proper names as types of noun phrase. 
+      The other type of noun phrase takes a number of forms but does 
+      actually contain a noun and for technical reasons is known as type <q>N-bar-bar</q>
+      <!--<latex>\footnote{It may be abbreviated $\bar{\bar{N}}$}</latex>-->.
+    </para>
+
+    <para> By way of illustration for the model of N-bar-bar consider the phrase 
+      <emph>The wildly yapping dog on the sofa</emph>. 
+      We can annotate the types of word and constituent phrase are as follows:
+    </para>
+
+
+    <equ_center><equationName>thewildyyappingdogonthesofa</equationName><width>8.5cm</width></equ_center>
+    <newline/>
+
+    <para> In our earlier example the noun phrase which was the subject of our sentence is analysed like this:
+      <equ_center><equationName>nounphrase</equationName><width>4.5cm</width></equ_center>
+    </para>
+
+    <newline/>
+
+    <para> The model is shown in figure <figref>brintonNounPhraseSpeltOut</figref>.
+    </para>
+
+    <figureOfPicture>
+      <pictureName>brintonNounPhraseSpeltOut</pictureName>
+      <caption>The grammar of the Noun Phrase</caption>
+    </figureOfPicture>
+
+  </subsection>
+
+  <!--
+<section>
+<title>The Simple Sentence</title>
+<label>simplesentence</label>
+<para> 
+The final step in constructing a model of a simple sentence is achieved by putting together the models represented in 
+figures <figref>simpleSentenceSubjectPredicate</figref>,<figref>brintonVerbPhrase</figref> and <figref>brintonNounPhraseSpeltOut</figref> and rearranging
+ the diagram to suit. The resulting model is shown in figure <figref>brintonSimpleSentenceStructure</figref>.
+Click <a href="../models/brintonSimpleSentenceStructure.svg" target="_blank">here</a> to view the model in a new window.
+</para>
+
+<figureOfPicture>
+	<pictureName>brintonSimpleSentenceStructure</pictureName>
+     <imgwidth>10cm</imgwidth>
+	<caption>Structure of Simple Sentences - based on Phrase Structure 
+		Rules given in Brinton.
+	</caption>
+</figureOfPicture>
+
+\begin{sidewaysfigure}
+\input{\erpictureFolder/brintonSimpleSentenceStructure}
+\caption{Structure of Simple Sentences - Based on Phrase Structure Rules given in Brinton.}
+\label{brintonSimpleSentenceStructure}
+\end{sidewaysfigure}
+
+</section>
+-->
+
+
+</section>

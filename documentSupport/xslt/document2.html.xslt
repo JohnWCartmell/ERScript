@@ -118,13 +118,13 @@
     </script>
 
           <link href='https://fonts.googleapis.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'/>
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/erstyle.css')}" media="screen" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/cssmenustyles.css')}"   media="screen" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/print.css')}"           media="print" />
-          <link rel="stylesheet" type="text/css" href="{concat($pathtoroot,'/css/printmenustyles.css')}" media="print" />
+          <link rel="stylesheet" type="text/css" href="/css/erstyle.css" media="screen" />
+          <link rel="stylesheet" type="text/css" href="/css/cssmenustyles.css"   media="screen" />
+          <link rel="stylesheet" type="text/css" href="/css/print.css"           media="print" />
+          <link rel="stylesheet" type="text/css" href="/css/printmenustyles.css" media="print" />
   <!-- start new 2 aug 2023 -->
-          <link rel="stylesheet" type="text/css" href="../css/ersvgdiagramwrapper.css"/>
-          <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="../css/erdiagramsvgstyles.css"/>
+          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
+          <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/css/erdiagramsvgstyles.css"/>
           <script src="/js/ersvgdiagraminteraction.js">
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
@@ -167,7 +167,7 @@
               </svg>
   <!-- end new 2nd Aug 2023 -->               
           <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"/>
-          <script src="{concat($pathtoroot,'/script.js')}"/>
+          <script src="/script.js"/>
           <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

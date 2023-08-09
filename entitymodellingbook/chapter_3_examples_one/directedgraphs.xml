@@ -1,0 +1,122 @@
+	
+<section>
+	<title>Modelling Graphs</title>
+	<label>graphs</label>
+	<para> 
+      In this section we discuss various ways of representing directed graphs, the different 
+      shapes that their entity models can take and the different organisations of information implied by the different shapes.
+	</para>
+
+	<subsection>
+		<title>Directed Graphs</title>
+		<para> There is a reliance here, in this presentation, on the use of the work <q>abstract</q> and 
+        on an understanding of what the mathematician means by this. 
+        The best that I can offer as explanation is that the mathematical idea of an abstract structure 
+        is that of a set of individuals and relations independent of any particular 
+        representation of the individuals and the mathematical concepts of <emph>graph</emph> and <emph>directed graph</emph> are cases in point.
+        In the case of a graph the individuals are notionally
+        vertices and edges and the relations are the
+        incidence relations between them. Paradoxically, with regard to any particular 
+        abstract structure, to describe it we need <emph>some</emph> kind 
+        of representation even though what we seek to describe is something <emph>without any</emph> particular representation.  Mathematican Robin Gandy describes this to a non-mathematical audience in 
+        a lecture <q>Structure in Mathematics</q>
+			<footnote>In <emph>Structuralism, edited by D. Robey, 
+            Wolfson College Lectures, 1972</emph>.</footnote>; he draws the love 
+        relationships to be found in Iris Murdoch's novel Severed Head as a 
+        directed graph and in a later section later I draw an equivalent graph (figure <figref>lovegraph</figref>).
+        If we abstract a directed graph from this then there are no labels, no lines, 
+        no points on paper just the facts of a set of notional individual entities and the
+        relationships between them<footnote>According to Gandy: This indifference to form of <emph>representation</emph>
+          is what Bertrand Russell referred to when he said that in mathematics we are not interested in 
+          what we are talking about. We return to the subject abstraction versus representation in a later section.</footnote>. 
+		</para>
+
+		<para> We gave one model of a directed graph earlier as an example of a conjunctive dependency it is reproduced below in figure <figref>directedGraph4</figref>.
+		</para>
+		<figureOfPicture>
+			<pictureName>directedGraph4</pictureName>
+			<width>35%</width>
+			<caption>The model of a directed graph.</caption>
+		</figureOfPicture>
+
+
+</subsection>
+	
+	<subsection>
+		<title>ER Models of Directed Graph</title>
+
+		<para> Viewing figures <figref>loveRelationship2</figref> and following on from figure <figref>loveRelationship2</figref> we see that there are two 
+        further ways of modelling directed graphs. These are shown in figure <figref>directedGraph1</figref> and <figref>directedGraph2</figref>.
+		</para>
+
+		<figuregroup>
+			<figureOfPicture>
+				<width>4cm</width>
+				<pictureName>directedGraph1</pictureName>
+				<caption>
+            Directed Graph ER Model (ii)
+				</caption>
+			</figureOfPicture>
+
+			<figureOfPicture>
+				<width>4cm</width>
+				<pictureName>directedGraph2</pictureName>
+				<caption>
+            Directed Graph ER Model (iii)
+				</caption>
+			</figureOfPicture>
+		</figuregroup>
+		<newline/>
+
+		<para> Though we have given three ways of modelling directed graphs note that mathematically there is only a single concept. 
+        The different models represent different ways of localising and communicating the information content of a graph. 
+        The models in figures <figref>directedGraph1</figref> and <figref>directedGraph2</figref> vary the incidence relationships between edges and vertices between 
+        categories <emph>reference</emph> and <emph>composition</emph>. If both are made composition then we get a further variation which is shown in 
+        figure <figref>directedGraph4</figref>.
+		</para>
+<!--
+		<figureOfPicture>
+			<width>4cm</width>
+			<pictureName>directedGraph4</pictureName>
+			<caption>
+          Directed Graph ER Model (iv)
+			</caption>
+		</figureOfPicture>
+-->
+	
+		<para> We mentioned in chapter one that information is usually hierarchically communicated whereas with double composition relationships there is not one hierarchy but two hierarchies. Information must 
+        be double communicated once in each hierarchical form. 
+        For linear, hierarchical communication the above model is 
+        therefore replaced by one in which both hierarchies are represented as shown in figure <figref>directedGraph3</figref>.
+			<figureOfPicture>
+				<pictureName>directedGraph3</pictureName>
+				<width>5cm</width>
+				<caption>
+            Directed Graph ER Model (v)
+				</caption>
+			</figureOfPicture>
+		</para>
+	</subsection>
+	<subsection>
+		<title>Modelling Graphs and Symmetric Relationships</title>
+		<para>
+        We use the unqualified term graph to mean a set of vertices and a set of undirected connections 
+        or <entity>edges</entity>s between them. To the mathematician the definition is straightforward but to the entity
+        modeller it is less so and is somewhat unsatisfying. 
+        There is a difficulty and this difficulty lies at the heart of entity modelling. 
+        An understanding of the difficulty reveals simultaneously a gap in the entity relational 
+        approach by comparison with the mathematical approach but also an affinity between it and the means of language and communication.
+		</para>
+
+		<para> To model a bidirectional graph is to add a reverse relationship to any of the models of a directed graph. 
+        If we start from figure <figref>directedGraph1</figref> then we get this model:
+			<er_center>
+				<filename>graphUnnormalised</filename>
+			</er_center>
+		</para>
+
+		<para> In this model we have greyed out the <entity>to</entity> relationship to show that it has become redundant. 
+        This is because the vertex that an exit leads to is always the same vertex that its reverse leads from. 
+		</para>
+	</subsection>
+</section>

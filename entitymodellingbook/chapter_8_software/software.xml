@@ -1,0 +1,71 @@
+
+<chapter>
+  <title>ER Script Software</title>
+  <subtitle>ER Script <emdash/> Concept to Code</subtitle>
+  <label>concept2code</label>
+  <explanation> First release of this open source software.
+  </explanation>
+
+  <preface>Open source software for scripting ER models and generating code.
+
+
+    <subsection>
+      <title>About this software</title>
+      <label>softwareoverview</label>
+
+      <para> This chapter describes entity modelling software designed and written by the author and supporting
+    both software and database design and code generation to a modern technology stack. This software 
+    is copyright Cyprotex Discovery Ltd. but is made freely available under a GPL v3 license. Before you download it you
+    need be aware that <emph>currently</emph> this software does <emph>not</emph> include a graphical user interface, instead ER models
+    inclusive of diagrams are scripted <emdash/> they require representation in XML. From the XML, diagrams 
+    can be generated in svg format and also in postscript or pdf format using the pstricks latex packages. A variety
+    of code generators support implementation in XML, typescript, python and in Google's protocol buffer format.     
+      </para>
+      <para>
+     Code generators inclusive of the diagram generators are written in xslt 2.0 and have been developed and tested using
+     the Saxon xslt processor. All the diagrams in this book have been generated this way;  indeed the whole book is generated
+     from structured content represented in XML <emdash/> the structure of which content <emdash/> you should have guessed it <emdash/> is 
+     described by an ER model. Along the same lines, the XML representation of an ER model has a structure which is described by
+     an ER meta model. 
+      </para>
+      <para> 
+     This software is a work in progress. The source code is made freely available on GitHub at <a href="https://github.com/JohnWCartmell/ERmodelSeries1">JohnWCartmell/ERmodelSeries1</a>. Raise an issue on Github
+     or contact the author john.w.cartmell on gmail if you would like to get involved.   There is lots to be done but the project is clear and
+     the current implementation has been stress-tested, so to speak, in the development of business critical laboratory workflow systems at
+     Cyprotex Discovery Ltd. To the software developer I say that to utilise this software you need to be bought into, or to be open to an idea of 
+     a smooth path from <emph>concept to code</emph>, to the ideas of Computer Aided Software Engineering (CASE) and, as a corollary, to the idea of 
+     meta-CASE. The software implements the novel ideas described in the relational design section of this book <emdash/>
+    as a user you can model scope and eliminate data normalisation <emdash/> you get a smoother road, concept to code.  
+      </para>     
+    <para>The following development work is in progress:
+      <itemize>
+        <item>Improved scripting of diagrams <emdash/> this is the highest priority.</item>
+        <item>Support for universals and reference by type.</item>
+        <item>Support for recursive identification.</item>
+        <item>Support for rules.</item>
+        <item>Though the relational concepts are all there, the final translation into SQL has not been programmed as yet.</item>  
+      </itemize>      
+      </para>
+    </subsection>
+
+    <subsection>
+      <title>ERScript Release 3</title>
+      <label>erscriptr3</label>
+
+      <para> 
+    First public release of this software.  Click 
+    <a  href="ERScript_r3.zip" target="_blank"
+                        onclick="ga('send', 'event', 'Software', 'Download', this.href);">
+                              here</a>
+    to download. 
+    This is a zip file containing the ER modelling software and also containing Saxon and Jing jar files <emdash/> each of these have their own specific license conditions and
+    these are included in the download. 
+      </para>
+    </subsection>
+  </preface>
+
+
+
+
+</chapter>
+

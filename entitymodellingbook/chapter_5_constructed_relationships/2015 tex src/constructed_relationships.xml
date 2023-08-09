@@ -1,0 +1,160 @@
+
+<chapter>
+  <title>unused words as yet</title>
+
+  <section>
+    <title>Navigating a Docdecahedron</title>
+
+    <para>
+Irish mathematician William Hamilton, suggested the game of searching for a circuit around the graph formed by the 
+corners and edges of a dodecahedron which visited all nodes of the graph exactly once. Such a circuit
+around any graph became know as a 'Hamiltonian Circuit'. In a paper in 1856 he  described a system of symbolic expressions
+every one of which:
+\begin{erquote}
+... may be interpreted, as having reference to the passage from ... from corner to corner... of the dodecahedron...
+\footnote{For simplicity I have used ellipsis to hide his primary remark regarding navigation through the faces of an icosahedron 
+and foregrounded his parenthetical and dual statement regarding the corners of the dodecahedron. }
+\end{erquote}
+    </para>
+
+\begin{center}
+\pspicture(-3,-3)(3,3)
+\psline (0.0, 0.8) (0.7608, 0.2472)
+\psline (0.7608, 0.2472) (0.4704, -0.6472000000000001)
+\psline (0.4704, -0.6472000000000001) (-0.4704, -0.6472000000000001)
+\psline (-0.4704, -0.6472000000000001) (-0.7608, 0.2472)
+\psline (-0.7608, 0.2472) (0.0, 0.8)
+\psline (0.0, 0.8) (0.0, 1.2)
+\psline (0.7608, 0.2472) (1.1412, 0.37079999999999996)
+\psline (0.4704, -0.6472000000000001) (0.7055999999999999, -0.9708)
+\psline (-0.4704, -0.6472000000000001) (-0.7055999999999999, -0.9708)
+\psline (-0.7608, 0.2472) (-1.1412, 0.37079999999999996)
+\psline (-1.7639999999999998, 2.427) (1.7639999999999998, 2.427)
+\psline (1.7639999999999998, 2.427) (2.8529999999999998, -0.927)
+\psline (2.8529999999999998, -0.927) (0, -3)
+\psline (0, -3) (-2.8529999999999998, -0.927)
+\psline (-2.8529999999999998, -0.927) (-1.7639999999999998, 2.427)
+\psline (-1.7639999999999998, 2.427) (-1.176, 1.618)
+\psline (1.7639999999999998, 2.427) (1.176, 1.618)
+\psline (2.8529999999999998, -0.927) (1.902, -0.618)
+\psline (0, -3) (0.0, -2.0)
+\psline (-2.8529999999999998, -0.927) (-1.902, -0.618)
+\psline (-1.176, 1.618) (0.0, 1.2)
+\psline (1.176, 1.618) (1.1412, 0.37079999999999996)
+\psline (1.902, -0.618) (0.7055999999999999, -0.9708)
+\psline (0.0, -2.0) (-0.7055999999999999, -0.9708)
+\psline (-1.902, -0.618) (-1.1412, 0.37079999999999996)
+\psline (0.0, 1.2) (1.176, 1.618)
+\psline (1.1412, 0.37079999999999996) (1.902, -0.618)
+\psline (0.7055999999999999, -0.9708) (0.0, -2.0)
+\psline (-0.7055999999999999, -0.9708) (-1.902, -0.618)
+\psline (-1.1412, 0.37079999999999996) (-1.176, 1.618)
+\endpspicture
+\end{center}
+
+    <para> We need imagine the directions to an ant facing along one of the edges of the graph of the dodecahedron. The ant is approaching a junction and can turn Left or Right.
+    </para>
+
+\begin{center}
+\pspicture(-2,-1.2)(1.5,1.2)
+%\psgrid
+\psline[linewidth=1.5pt](-1.0,-1.0)(0, 0)
+\rput(-0.35,0.75){Left}
+\psline[linewidth=1.5pt](0,0)(0.1, 1.2)
+\rput(1.0,-0.2){Right}
+\psline[linewidth=1.5pt](0,0)(1.2, 0.2)
+\rput{-45}(-1.1,-0.6){\scalebox{0.15}{
+\psellipse[fillcolor=darkgray,fillstyle=solid](0,1.75)(0.75,1.0)
+\pscurve[linewidth=3pt](-0.4,2.6)(-0.6,3)(-0.65,4.0)
+\pscurve[linewidth=3pt]( 0.4,2.6)( 0.6,3)( 0.65,4.0)
+\psellipse[fillcolor=darkgray,fillstyle=solid](0,0)(0.5,0.75)
+\pscurve[linewidth=4pt](-0.4,0.4)(-1.3,0.45)(-1.8,1.4)
+\pscurve[linewidth=4pt](-0.5,0)(-1.5,0.1)(-2,0)
+\pscurve[linewidth=4pt](-0.4,-0.4)(-1.3,-0.45)(-1.6,-1.6)
+%
+\pscurve[linewidth=4pt]( 0.4,0.4)( 1.3,0.45)( 1.8,1.4)
+\pscurve[linewidth=4pt]( 0.5,0)  ( 1.5,0.1) ( 2,0)
+\pscurve[linewidth=4pt]( 0.4,-0.4)( 1.3,-0.45)( 1.6,-1.6)
+\psellipse[fillcolor=darkgray,fillstyle=solid](0,-1.75)(0.75,1.0)
+}}
+\endpspicture
+\end{center}
+
+    <para>  Our directions to the ant will be a series of Left Right instructions. The following series of instructions will take the ant around all the vertices of the graph:
+
+\begin{verbatim}
+Left
+Right
+Left
+etc
+\end{verbatim}
+    </para>
+    <para> Each of these directions is a relationship between one position of the ant and another.
+    </para>
+
+    <para> We can model any graph like this:
+% model of graph here
+    </para>
+    <para> We can extend this model of a graph by a model which shows the possible positions and direction of the ant:
+\begin{center}
+\input{\erpictureFolder /directedGraph1}
+\end{center}
+% model of graph plus ant position
+    </para>
+    <para> The directions left and right are in fact relationships between one possible position and another:
+\begin{center}
+\input{\erpictureFolder /cubicGraph1}
+\end{center}
+% model of graph plus ant position plus left and right relationships.
+    </para>
+
+    <para> Each series of directions is a relationships constructed by join from the core Left and Right relationships in this model. Hamilton's symbolic expressions can be seen both as navigations and also as relational joins.  What he was interested in was the fact the algebra that resulted. For the ant to turn around he needs to complete a circuit of one of the faces and exit. This can be achieved in a clockwise direction:
+\begin{verbatim}
+Left/Right/Right/Right/Right/Left
+\end{verbatim}
+or anti-clockwise
+\begin{verbatim}
+Right/Left/Left/Left/Left/Right
+\end{verbatim}
+    </para>
+
+    <para> Turning around twice is do do nothing at all and so an equation results:
+\begin{verbatim}
+Right/Left/Left/Left/Left/Right/Right/Left/Left/Left/Left/Right = Identity
+\end{verbatim}
+    </para>
+
+  </section>
+
+  <subsection>
+    <title>Interpretation of Scope Squares</title>
+
+    <para>
+The scope squares of figures <figref>scopePlaysPartOf</figref> and <figref>scopeSquareLineAssignedTo</figref> are actually formed from four relationships. Figure <figref>scopeLetter2OccurrenceOfLetter1</figref> is a little different it has two relationships down the left hand side.
+Figure <figref>doublebase_square</figref> is different again it has two relationships along the base. More generally, as shown in figure<figref>generalscopesquare</figref> there may be a sequence of relationships forming the left hand entity type with context (an enclosing part of an enclosing part of an enclosing part, some number of times)
+and a sequence of relationships gives context to the right hand side. Along the base joining the left and right context types is a sequence of reference relationships.
+    </para>
+
+    <figureOfPicture>
+      <pictureName>scopeGeneralCase</pictureName>
+      <caption>The general case.</caption>
+    </figureOfPicture>
+
+    <para> 
+Such a diagram, if it is a scope constraint, is a constraint of the relationship R. As a scope constraint it asserts that following 
+\begin{quote}
+if x of type X is in relationship R with y of type Y then the context $c_x$ of x at level $C_x$ is related through the sequence of base relationships to the context $c_y$ of y at level $C_y$.
+\end{quote}
+    </para>
+
+    <para>
+Mathematicians have a simpler way of saying this - they simply say that the diagram <emph>commutes</emph>.
+    </para>
+
+    <para>
+Relational algebraists may say that the join of relationships followed clockwise is relationally identical to the join of relationships followed anti-clockwise.  
+    </para>
+
+  </subsection>
+
+</chapter>

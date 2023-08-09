@@ -1,0 +1,140 @@
+      
+	<section>
+		<title>Words, Words, Words</title>
+		<label>wordswordswords</label>
+		<subsection>
+			<title>Difficulties</title>
+			<para> We are not alone should we dispair at the difficult of expression of concepts;
+				we have already mentioned H.G.Wells' musing:
+				<quotation>
+					There is a sort of stratification in human ideas. I have it very much in mind that various terms in our reasoning lie, as it were, in different planes, and that we accomplish a large amount 
+					of error and confusion by reasoning terms together that do not lie or nearly lie in the same plane. 
+				</quotation>
+			</para>
+			<para>I would say that there are axes of ambiguity that typically confound our best efforts at expression.
+				The examples in this section are illustrative of the use of  entity relationship modelling to help  overcome some of these difficulties.  
+			</para>
+		</subsection>
+
+		<subsection>
+			<title>book(1) and book(2)</title>
+			<para> It is often the case that a single word in a single dictionary sense can be used at a number of different levels. 
+				We can illustrate this with the word <entity>book</entity> which in its primary sense seems unambiguous but consider how we can ask the question:
+				<quotation>
+					How many books were published last year in the UK?
+				</quotation>
+				<newline/>
+				and contrast with our interpretation of:
+				<quotation>
+					How many books were sold last year in the UK?
+				</quotation>
+				<newline/>
+			</para>
+			<para> We expect an answer to the first question to be a count of book titles or ISBN numbers but we expect an answer to 
+				the second to be a count of actual physical books sold by publishers. The use of the word <entity>book</entity> in the first 
+				question is at a different level to the use in the second question. The two are related and we classify as a reference relationship:
+				<er_inline>
+					<filename>relBook2PrintingOfBook1</filename>
+				</er_inline>
+				.
+			</para>
+
+			<para> An entity model can help disambiguate these distinct uses. 
+				We have the situation shown in figure <figref>modelBook1Book2Person</figref>. 
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>modelBook1Book2Person</pictureName>
+				<caption>Different uses of <entity>book</entity> as a type of entity. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>word(1) and word(2)</title>
+			<para> The word <entity>word</entity> itself is also used at different levels. For example if we set 
+				about counting how many words in 
+				the English language we will be counting a different type of entity than if we count words in an essay or in an advertisement that we pay for by the word.
+				There is a clear type instance relationship between the two which we again classify as a reference relationship:
+				<er_inline>
+					<filename>relWord2OccurrenceOfWord1</filename>
+				</er_inline>
+				. This thinking leads to the model in figure <figref>modelWord2OccurrenceOfWord1</figref>.
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>modelWord2OccurrenceOfWord1</pictureName>
+				<caption>The occurrence relation between multiple uses of the word <entity>word</entity>. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>letter(1) and letter (2)</title>
+			<para> The word <entity>letter</entity> also for we can count the letters in a word and each one is an occurrence of a letter from 
+				the alphabet as shown in figure <figref>scopeLetter2OccurrenceOfLetter1</figref>. 
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>scopeLetter2OccurrenceOfLetter1</pictureName>
+				<caption>The scope square of the <entity>occurrence of</entity> relationship between multiple uses of the word <entity>letter</entity>. </caption>
+			</figureOfPicture>
+
+		</subsection>
+		<subsection>
+			<title>word(3) and letter(3)</title>
+			<para> In the model in figure <figref>model3UsesOfWord</figref> we introduce a third type of  <entity>word</entity> and third type of <entity>letter</entity>:
+
+				<quotation>
+					word (1) - the word as defined by the dictionary. This is the level I am using when I say <q>What does that word mean?</q> 
+				</quotation>
+				<quotation>
+					word (2) - the words that appear in a book as conceived of by the author. This is the level I have in mind when I write, 
+					for example  <q>In the words of T.S.Elliott</q> or, <q>According to the word of God</q>. (This last usage of the word <entity>word</entity> is given as a 
+					different sense in the <q>Concise Oxford Dictionary</q>). 
+				</quotation>
+				<quotation>
+					word (3) - the actual copies of the words in some copy of a book. This is the level that we use when we say <q>That word is illegible</q>.
+				</quotation>
+			</para>
+
+			<figureOfPicture>
+				<pictureName>model3UsesOfWord</pictureName>
+				<caption>Occurrence relationships between multiple uses of the word <entity>word</entity>. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>The Model</title>
+			<para>
+				This leads to the model shown in figure <figref>modelBook2ToLetter1AndPerson</figref>.
+			</para>
+
+			<figureOfPicture>
+				<pictureName>modelBook2ToLetter1AndPerson</pictureName>
+				<caption>This example pieces together the fragments described in the previous sections. </caption>
+			</figureOfPicture>
+
+			<newline/>
+			<para>In this model there is a further example of a scope square<footnote>In fact the squares show in this section as examples of 
+					relationship scoping are of a
+					particular type of scope square each of which, following category theory, we should call a pullback diagram.</footnote>; this is shown in figure 
+				<figref>scopeLetter3Letter2</figref>.
+				<figureOfPicture>
+					<pictureName>scopeLetter3Letter2</pictureName>
+					<caption>A scope square for the occurrence relation between letter(3) and letter(2). </caption>
+				</figureOfPicture>
+			</para>
+
+			<para> Returning for a moment to the question of when to model a relationship as composition (vertical) and when as reference (horizontal)
+				we see that in the model in figure <figref>modelBook2ToLetter1AndPerson</figref> the distinction between 
+				composition and reference has been representative of these considerations:
+				<itemize>
+					<item>Describing an <emph>alphabet</emph>, I describe its letters but I do not describe the <emph>vocabulary</emph> of every language using the alphabet.</item>
+					<item>Describing the <emph>vocabulary</emph> of a language, I describe the words and how they are spelt but I do not describe the <emph>corpus of works</emph>.</item>
+					<item>Describing the <emph>corpus of works</emph>, I do not describe the <emph>dissemination</emph> of that corpus i.e the printed copies.</item>
+				</itemize>
+			</para>
+
+		</subsection>
+	</section>
+
+

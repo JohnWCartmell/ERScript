@@ -1,0 +1,511 @@
+
+<chapter>
+  <title>Blog</title>
+  <subtitle> Data Modelling, Entity Modelling and Logic</subtitle>
+  <label>blog</label>
+  <explanation> Some further thoughts on data modelling, entity modelling and logic.
+  </explanation>
+
+  <preface>This chapter contains a scattering of further thoughts on data modelling, entity modelling and logic.
+  </preface>
+
+
+  
+
+  <section>
+    <leader>On the importance of questions of commutativity to how data is represented</leader> 
+    <title>Questions of Commutativity</title>
+    <label>questionsofcommutivity</label>
+    <para> 
+      Questions of commutativity are very important in how data is represented - in saying this we need to clarify that by commutativity we make reference to the commutative diagrams that form the basis of category theory 
+      whether expresed in diagrams or in equations or in some other form and that by the term data representation we mean to include both the 
+      tabular relational means of storing and presenting data and also such hierarchical data representations as are familiar in, but not restricted to, XML documents.
+      What is described here is essentially about the means of anaphorical reference, whether we talk strictly of data or of communication generally; 
+      its relevance goes beyond a strict computer science interpretation. 
+    </para>
+    <para>
+      In the terminology of Ellis
+      <bibentry>ellis1982</bibentry>, wherever in an entity model there is a path of single-valued relationships:
+    </para>
+
+    <equ_center>
+      <equationName>path</equationName>
+      <width>5.5cm</width>
+    </equ_center>
+    <newline/>
+
+    <para>
+      then the destination entity type 
+      <var>b</var> is said to be in the <emph>logical horizon</emph>  of the source entity type 
+      <var>a</var>. In programming, equivalently, 
+      we might say that it was possible to navigate from any one <emph>a</emph> to a definitive other <emph>b</emph>. 
+      Now if there are two such navigation paths between entity type 
+      <var>a</var>
+      (the source) and entity type 
+      <var>b</var>
+      (the destination) then a question naturally arises as to whether following one path is equivalent to
+      following the other i.e whether starting at any entity of type 
+      <var>a</var>
+      we arrive at the same destination entity of type 
+      <var>b</var> 
+      regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent
+      paths are said to be <emph>commutative diagrams</emph> and methods of reasoning using such diagrams is the starting point of category theory. 
+    </para>
+    <para>
+      Scope diagrams of mandatory relationships are examples of near commuting diagrams, techically they only commute if the relationships whose scope they describe is specifed to be mandatory i.e cardinality One rather than Zero Or One. For instance there are examples of such commuting scope diagrams here:
+      <a href="../tutorialtwo/scope.html">The Scope Concept</a>.
+    </para>
+    <para> 
+      The questions that are important for how data is represented concern the commutativity of diagrams of relationships - which diagrams commute -
+      which is to say if one were to navigate the entitites and relationships to be represented in the data which navigational paths are equivalent? 
+      Understanding and agreeing the answer is cruical to data representation and interpretation, as we now illustrate.
+    </para>
+
+    <subsection>
+      <title>Example One</title>
+      <para>
+        Now we can adjust an earlier example to get to the nub of the matter. If the paths 
+        <courier>f/g</courier> and <courier>h</courier> are equivalent then attribute <courier>fgname</courier> in both relational and hierarchical models has always the same value as the attribute <courier>fname</courier>. It is therefore redundant and should be omitted from the data model. 
+        <figure>
+          <label>LogicalRelationalHierarchical</label>
+          <er_center>
+            <filename>ABC1.logical</filename>
+          </er_center>
+
+          <er_center>
+            <filename>ABC1.relational</filename>
+          </er_center>
+
+          <er_center>
+            <filename>ABC1.ABstarCstar.non-commuting.hierarchical_with_markup</filename>
+          </er_center>
+          <caption> Three equivalent models: logical model at the top, relational model in the 
+            middle, an hierarchical model at the bottom.
+          </caption>
+        </figure>
+      </para>  
+    </subsection>
+    <subsection>
+      <title>Example Two</title>
+      <para>
+        Another example is shown in figure <figref>tableA</figref>. 
+      </para>
+      <figureOfPictureWithNote>
+        <pictureName>tableA</pictureName>
+        <muchtext/>
+        <framewidth>5.3cm</framewidth>
+        <note>
+          <para>
+            The diagram commutes in that entity type <entity>data cell</entity> 
+            has entity type <entity>table</entity> in its logical horizon following two
+            distinct paths: <entity>OfRow</entity> followed by <entity>ofTable</entity> and <entity>ofCol</entity> followed by <entity>ofTable</entity>. The same table
+            will be reached which ever path is followed in otherwords, in the language of category theory, the diagram commutes.
+          </para>
+        </note>
+        <caption>Model of a table such as is used to represent data in a publication - there is one data cell per row and column of the table. 
+        </caption>
+      </figureOfPictureWithNote>
+
+      <newline/>
+
+      <figureOfPictureWithNote>
+        <pictureName>tableA.rdb.normalised</pictureName>
+        <muchtext/>
+        <framewidth>8cm</framewidth>
+        <note>
+          <para>
+            The relational model has the following additional attributes:
+            <itemize>
+              <item>
+                <entity>table_name(R1)</entity> represents the <entity>R1</entity> relationship</item>
+              <item>
+                <entity>table_name(R2)</entity> represents the <entity>R2</entity> relationship</item>
+              <item>
+                <entity>table_name(R3,R4)</entity> contributes to the representation of both  <entity>R3</entity> and <entity>R4</entity>.
+                The same attribute implements both R3 and R4 because of the commutativity of the diagram
+              </item>
+              <item>
+                <entity>row_number(R3)</entity> completes the representation of  <entity>R3</entity>
+              </item>
+              <item>
+                <entity>column_number(R4)</entity> completes to the representation of  <entity>R4</entity>
+              </item>	
+            </itemize>			
+          </para>
+        </note>
+        <caption>Physical Model - Relational
+        </caption>
+      </figureOfPictureWithNote>
+
+      <newline/>
+
+      <figureOfPictureWithNote>
+        <pictureName>tableAh.hierarchical</pictureName>
+        <muchtext/>
+        <framewidth>8cm</framewidth>
+        <note>
+          <para>
+            Because the implementation is hierarchical the only additional attributes are those representing reference relationships and in this case only one is required: 
+            <itemize>
+              <item>
+                <entity>col_number(R6)</entity> represents the <entity>R6</entity> relationship which, because 
+                of the specifed scope, requires no additional <entity>table_name</entity> attribute</item>
+            </itemize>
+
+
+          </para>
+        </note>
+        <caption>Physical Model - Hierarchical
+        </caption>
+      </figureOfPictureWithNote>
+    </subsection>
+  </section>   
+
+  <section>
+    <leader>Starting with a mediation on everything data:</leader> 
+    <title>Duality Diagram</title>
+    <label>duality</label>
+    <para> 
+      Thinking abstractly about data and how it is (a) described and (b) presented leads to this diagram with its pleasing symmetry.
+    </para>
+
+    <figureOfEquation>
+      <equationName>duality</equationName>
+      <framewidth>12cm</framewidth>
+      <caption>Data, its description and its presentation.
+        <itemize>
+          <item>
+            Schema data is data which describes the structure of data.
+          </item>
+          <item>
+            Presentation data is data which describes the presentation of data. 
+          </item>
+          <item>
+            Meta-schema data is schema data which describes schema data.
+          </item>
+          <item>
+            Presentation schema data is schema data which describes presentation data.
+          </item>
+          <item>
+            Meta presentation data is presentation data which presents presentation data.
+          </item>
+          <item>
+            Schema presentation data is presentation data which presents schema data.  
+          </item>
+        </itemize>
+      </caption>
+    </figureOfEquation>
+  </section>
+
+
+
+  <section>
+    <leader>This next section is under developed at the moment but the point is that it is natural to model in ER what ER is and this is the ER meta model. This evolves as more concepts such as commutative diagrams are added. At the moment what we have here is a simple version.</leader>
+    <title>ER Meta Models</title>
+    <label>metamodel</label>
+    <para>
+      Meta mathematics is the mathematics of mathematics and so by analogy meta modelling is the modelling of modelling - 
+      an ER meta model is an ER model that describes ER models. A simplified meta model is 
+      shown in figure <figref>entityRelationalMetaModel1Original</figref>.
+    </para>
+
+    <figureOfPictureWithNote>
+      <pictureName>entityRelationalMetaModel1Original</pictureName>
+      <caption>
+        An ER model showing the three principle components of ER modelling.
+      </caption>
+    </figureOfPictureWithNote>
+  </section>
+<!--
+  <section>
+    <title>The Khipu</title>
+    <label>khipu</label>
+    <leader> Data storage - a modern model of an ancient data system - I stumbled across this model on the internet and was fascinated by it:</leader>
+    <para>
+      Khipus (or quipus) were structured systems of knots used by the Inca people to communicate and record 
+      numerical records. A relatively small number of khipus survived the Spanish conquest of 
+      South America and by and large are now held in museums. Structural details of each of these khipus have been 
+      described in a database by the Khipu Database Project<footnote>See the Khipu Database Project: http://khipukamayuq.fas.harvard.edu/ProjectDescrERD.html.</footnote>. I have drawn the entity model shown here to describe this structure.
+      You can think of this model as a modern meta description of an ancient database system. 
+    </para>
+    <figureOfPictureWithNote>
+      <pictureName>quipu</pictureName>
+      <caption>
+        This model is adapted from a model of Khipu  presented by the Khipu database 
+        project and used to 
+        describe the data tables held in their database.
+      </caption>
+    </figureOfPictureWithNote>
+  </section>
+  
+  -->
+  <section>
+    <leader>This example shows how a category theory perspective informs 
+      physical data modelling:</leader>
+    <title>Double Diamond Example</title>
+    <label>doublediamond</label>
+    <para>
+      In figure <figref>tableAhPresentation.hierarchical</figref> 
+      we give an example logical ER model whose pattern of relationships<footnote>I first came across this pattern as a data modelling pattern in the implementation 
+        of an application supporting the analysis and review of chromatography data from 
+        laboratory based LCMS(MS) systems </footnote> follows a pattern of morphisms 
+      that is given in an exercise in category theory to students at Cambridge by 
+      Julia Goedecke<footnote>the student is asked to prove that <q>the pullback of a pullback square is a pullback</q>
+      </footnote>
+      and which can be used as a striking illustration
+      of the inadequacy of taking
+      a <q>one relationship at a time</q> approach to achieve transformation of logical model into a 
+      physical model <emdash/> an approach which Chen describes and which we provide
+      an alternative for in our
+      <a href="relationaldatadesign">Relational Data Design</a> section.
+    </para>
+    <para>
+      In this example ER model there are twelve relationships
+      connecting eight entity types as the twelve edges of a cube connect its vertices. 
+      Each of the squares of relationships corresponding to the faces of the cube forms 
+      a commutative diagram;  thus there are six
+      in all corresponding to the six faces of a cube. 
+      In fact each such square is a pullback square and so with this example we also illustrate the occurrence of pullbacks in data modelling. 
+      Some of these commuting diagrams are scope diagrams and this gives us
+      a form in which we can express them declaratively in an ER model.
+      Other of the commuting diagrams can be expressed as key constraints. From the combined declarations of scope and of key constraint, a physical design which are redundancy 
+      free can be  generated - in this way, using these insights from category theory, the normalisation stage is rendered unnecessary.
+    </para>
+
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical</pictureName>
+      <muchtext/>
+
+
+      <caption>
+        A physical hierarchical  ER model illusrating the double-diamond pattern. Assume, as the narrative for this extended model, a situation where there are many tablular data tables and many different ways of presenting that data. All the multiple data tables and all the multiple presentations are described by the model.
+        The starting point for this example is the example given 
+        in section <a href="logicalhorizons.html">Commutative Diagrams</a>  of a model of data presented in tabular form i.e in rows and columns. 
+        The right hand side diamond is just that earlier the physical hierarchical model  with
+        ascending relationships relabelled as <q>..</q> (a familiar notation and one used for eaxmple in xpath).
+      </caption>
+    </figureOfPicture>
+
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.rightend</pictureName>
+      <caption>
+        1st Commutative Diagram - The right hand diamond representing many tables of data organised by row and column. Relationship <entity>R14</entity> has this diagram as scope square - a fact that is represented by the equation ~/..=../.. where ~ represents the relationship R14 itself.
+      </caption>
+    </figureOfPicture>
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.R4</pictureName>
+      <caption>
+        2nd Commutative Diagram - Many ways of presenting each table are modelled by the <entity>tablep</entity>. Each table presentation has as <entity>subject</entity> - the table that it is a presentation of. Within each table presentation there are many presentations of rows one for each row in the subject table. Each 
+        <entity>rowp</entity> has a <entity>subject</entity> which is <entity>rowp</entity>.
+        The foregrounded relationships in this figure show the scope square of the row presentation subject relationship <entity>R4</entity>. This diagram is a pullback diagram: for every <entity>tablep</entity> and for every <entity>row</entity> of its <entity>subject</entity>
+        <entity>table</entity> there is a unique
+        <entity>rowp</entity> of the <entity>tablep</entity> having the <entity>row</entity> as <entity>subject</entity>.	 
+      </caption>
+    </figureOfPicture>
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.R6</pictureName>
+      <caption>
+        3rd Commutative Diagram - The scope diagram for the <entity>columnp</entity>
+        <entity>subject</entity> relationship <entity>R6</entity>. As in the previous figure
+        the foregrounded diagram is a pullback diagram.
+      </caption>
+    </figureOfPicture>
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.R9</pictureName>
+      <caption>
+        4th Commutative Diagram  - The scope diagram for the <entity>cellp</entity>
+        <entity>subject</entity> relationship <entity>R9</entity>. As in the previous figure
+        the foregrounded diagram is a pullback diagram.
+      </caption>
+    </figureOfPicture>
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.R9.as_key_to.col</pictureName>
+      <caption>
+        5th Commutative Diagram - This is a key constraint diagram for the reference relationship
+        that relates a <entity>cellp</entity> to the <entity>columnp</entity>
+        whose <entity>subject</entity> is the <entity>column</entity> its <entity>subject</entity>
+        <entity>data cell</entity> is in. This diagram is a pullback diagram.
+      </caption>
+    </figureOfPicture>
+    <figureOfPicture>
+      <pictureName>tableAhPresentation.hierarchical.leftend</pictureName>
+      <caption>
+        6th Commutative Diagram - Similar to the 1st Commutative diagram but at the presentation level. This is a scope diagram for the relationship
+        associating a <entity>cellp</entity> to its associated  <entity>columnp</entity>.
+        This diagram is a pullback diagram.
+      </caption>
+    </figureOfPicture>
+
+    <para> the 1st, 2nd, 3rd, 4th and 6th diagrams are pullback diagrams by defintion. 
+      The fifth diagram is a pullback by implication. The former are scope constraints. the latter a key constraint.
+    </para>
+
+  </section>
+
+
+  <section>
+    <leader>The next section comprises notes on the different ways that ordinal numbers can be represented in entity modelling and of the constructions that follow on from them. These are thoughts towards foundations rather than being of practical value at the moment. 
+    </leader>
+    <title>Number in Entity Modelling</title>
+    <label>counters</label>
+    <subsection>
+      <title>Interpretation of Composition Relationships and Detail Free Entity Types</title>
+      <para>
+        In viewing an entity model the lack of detail can be as significant as what is given. In some context A if a composition leads to an entity type having no detail whatsoever, other than its dependence on context A, then:
+      </para>
+
+      <para>
+        <itemize>
+          <item>
+            if the cardinality is Zero or One :
+            <er_inline>
+              <filename>AX0</filename>
+            </er_inline>
+            then the information content of <entity>x</entity> is that of a boolean indicator, <newline/>
+          </item>
+        </itemize>
+        <itemize>
+          <item>
+            if the cardinality is Exactly One :
+            <er_inline>
+              <filename>AX1</filename>
+            </er_inline>
+            then <entity>x</entity> contains no information <emdash/> the information content is zero <newline/>
+          </item>
+        </itemize>
+        <itemize>
+          <item>
+            if the cardinality is Zero, One or More :
+            <er_inline>
+              <filename>AX2</filename>
+            </er_inline>
+            then the information content of <entity>x</entity>  is that of a non-negative integer number. <newline/>
+          </item>
+        </itemize>
+      </para>
+    </subsection>
+    <subsection>
+      <title>Representations of Ordinal Number</title>
+      <para>There are three representations of ordinal number <entity>x</entity> associated with entity type <entity>A</entity> within an entity model. 
+        <itemize>
+          <item>
+            As described above, as a composition relationship to a detail free entity that we will name <entity>counter</entity> : 
+            <er_center>
+              <filename>counter2</filename>
+            </er_center> 
+          </item>
+          <item>
+            as a reference relationship <entity>x</entity> to a type representing the set of natural numbers and, say, denoted <entity>N</entity>
+            <newline/>
+          </item>
+          <item>
+            the standard representation <emdash/> to say that <entity>x</entity> is an attribute of type number.  <newline/>
+          </item>
+        </itemize>
+      </para>
+    </subsection>
+  </section>
+
+  <section>
+    <leader>Two papers that I have recently drafted on the concept of relationship scope and its use in 
+      relational data design:
+    </leader>
+    <title>Relational Data Design</title>
+    <label>relationaldatadesign</label>
+    <para>
+      The technique of logical ER modelling can be argmented by documenting commutative diagrams of relationships. The additional information makes possible the automatic generation of relational data designs that are in normal form. For anyone  following this approach two most immediate benefits are :
+      <itemize>
+        <item>
+          it is no longer necessary to carry out a normalisation step as part of logical to physical relational database design
+        </item>
+        <item>
+          it is no longer necessary to make a choice between either ditching logical designs after the initial software development stage or expending effort maintaining logical and physical designs in parallel.
+        </item>
+      </itemize>
+    </para>
+    <para> 
+      This is recent research work and it is ongoing. An  early implementation of a logical to physical translator have been implemented in xslt 2.0 and it has been used on its first project.
+    </para>
+    <para>
+      The early methodology and the background to the approach are described in this 
+      draft paper:   
+      <itemize>
+        <item>
+          <a  href="./RelationalDesignPartOne1Sept2016.pdf" target="_blank"
+                        onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
+                              Part One - Methodology and Benefits </a>
+        </item>
+      </itemize>
+    </para>
+
+    <para>
+      Formalising this work has led me to a mathematical description which constitutes an alternative formulation of the by now classical database normaalisation theory. The i's are not dotted yet and the t's not crossed but the gist is described in the following paper which with some debugging of the definitions 
+      and with accompanying
+      mathematical proofs to support the assertions should work out: 
+      <itemize>
+        <item>
+          <a  href="./RelationalDesignPartTwo18August2016.pdf" target="_blank"
+                        onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
+                              Part Two - Mathematical Description </a>
+        </item>
+      </itemize>
+    </para>
+    <para>
+      In using these ideas and accompanying software meta-models and translators to model and code generate a recent project it became apparent that some commuting diagrams of relationships didn't fall into 
+      the patterns described in the Part One paper above. It turned out that the the exceptional patterns  had simple descriptions in the language of category theory using the category theory notion of a pullback. These patterns are things of beauty
+      I will describe them here in future:
+      <itemize>
+        <item>
+          Part Three - Advanced Methodology - Pullbacks, Diamonds and Double Diamonds (in preparation)
+        </item>
+      </itemize>
+    </para>
+  </section>
+
+  <section>
+    <leader>How dependent types may be modelled:</leader>
+    <title>Dependent Type Structure</title>
+    <label>dependenttypestructure</label>
+    <figureOfPicture>
+      <pictureName>dependentTypeStructure</pictureName>
+      <caption>
+        A model of a system of dependent types.
+      </caption>
+    </figureOfPicture>
+
+    <figureOfPicture>
+      <pictureName>dependentTypeReferenceToScopeTriangle</pictureName>
+      <caption>
+        Dependent type reference to scope triangle.
+      </caption>
+    </figureOfPicture>
+
+    <figureOfPicture>
+      <pictureName>dependentTypeDependentTypePullback</pictureName>
+      <caption>
+        Scope diagram for substituting into a variable type - an example of a scope square which is also a pullback.
+      </caption>
+    </figureOfPicture>
+
+    <figureOfPicture>
+      <pictureName>dependentTypeDependentTermPullback</pictureName>
+      <caption>
+        Scope diagram for substituting actuals for formals in a function - also  
+        a pullback diagram.
+      </caption>
+    </figureOfPicture>
+
+    <figureOfPicture>
+      <pictureName>dependentTypesWithQuantifiers</pictureName>
+      <caption>
+        An extended model including construction of types using existential and universal quantifiers.
+      </caption>
+    </figureOfPicture>
+
+
+  </section>
+
+
+
+</chapter>
+

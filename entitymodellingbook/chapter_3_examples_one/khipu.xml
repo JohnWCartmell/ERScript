@@ -1,0 +1,20 @@
+
+  <section>
+    <title>The Khipu</title>
+    <label>khipu</label>
+    <para>
+      Khipus (or quipus) were structured systems of knots used by the Inca people to communicate and record 
+      numerical records. A relatively small number of khipus survived the Spanish conquest of 
+      South America and by and large are now held in museums. Structural details of each of these khipus have been 
+      described in a database by the Khipu Database Project<footnote>See the Khipu Database Project: http://khipukamayuq.fas.harvard.edu/ProjectDescrERD.html.</footnote>. I have drawn the entity model shown here to describe this structure.
+      You can think of this model as a modern meta description of an ancient database system. 
+    </para>
+    <figureOfPictureWithNote>
+      <pictureName>quipu</pictureName>
+      <caption>
+        This model is adapted from a model of Khipu  presented by the Khipu database 
+        project and used to 
+        describe the data tables held in their database.
+      </caption>
+    </figureOfPictureWithNote>
+  </section>

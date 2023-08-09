@@ -1,0 +1,41 @@
+<chapter>
+  <title>Examples One</title>
+
+  <subtitle> Examples and applications of the notation of Tutorial One</subtitle>
+  <explanation> which contains various examples of modelling using the notation introduced upto this point.</explanation>
+
+  <label>examplesone</label>
+
+  <preface>
+    <para>Before we go ahead and describe the use of entity models in relation to information systems we give some illustrative examples.
+    </para>
+  </preface>
+
+  <section>
+    <leader> Modelling a scenario that might be new to us we have to start with an analysis of the descriptions that we are given and
+      it has been noted in the past that nouns used in the description are candidates for entity types within the model.      
+      Our first example shows that the situation might be more subtle and that a single noun may have many entity types vying to be so named.      
+    </leader>
+    <trailer>.</trailer>
+    <include><filename>wordswordswords.xml</filename></include>
+  </section>
+  <section>
+    <leader>
+      Entity-relationship modelling can be used to model grammars and we illustrate this here in an example based on a 
+      phase structure grammar for simple english sentences.    
+    </leader>
+    <trailer>.</trailer>
+    <include><filename>english.xml</filename></include>
+  </section>
+  <section>
+    <leader>Next we consider some ways of modelling directed graphs</leader>
+    <include><filename>directedgraphs.xml</filename></include>
+  </section>
+  <section>
+    <leader>and, finally, we reproduce the following</leader>
+    <include><filename>khipu.xml</filename></include>
+    <trailer>. If we want to understand data modelling and messaging from first principles then we need
+      study the quipu and try and formulate the questions that it asks of us.
+    </trailer>
+  </section>
+</chapter>

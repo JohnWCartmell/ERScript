@@ -1,0 +1,2375 @@
+         <chapter>
+	<title>Tutorial Part One</title>
+	<label>tutorialone</label> 
+	<subtitle> The  Entity Modelling Tutorial Part One <emdash/> Entities, Relationships and Attributes</subtitle>
+	<explanation> which introduces from first principles  a good part of the basic notation.
+	</explanation>
+	<preface>
+		<para>
+			This chapter is a tutorial on the use of entity modelling notation. 
+			<!--
+      For programmers, code follows concepts 
+	     and a good part of this chapter is about modelling the concepts.
+      -->       
+		</para>
+		<para> 
+			Previously, in  <refsection>
+				<label>
+					<section>types</section>
+				</label>
+			</refsection>, we introduced boxes
+			as the diagrammatic representation of types of entities. In the sections which follow we describe 
+			the conventions for describing 
+			the properties of the differing types of
+			entities and their inter-type relationships including relationship cardinality and optionality (the crows foot and dashing of lines), 
+			relationship disjunction (the exclusion arc), recursion (looping structures), type generalisation (nested boxes) and the representation
+			of the absolute (diagram root). 
+			The notation is as used in the SSADM method as described, 
+			for example, in Richard Barker's 
+			book<footnote>
+				<bibentry>
+					<label>RichardBarkerBook</label>
+				</bibentry>
+			</footnote>, 
+			but with some refinements supported by additional notation and diagramming conventions including one
+			that distinguishes and foregrounds composition relationships. 
+		</para>
+	</preface>
+
+	<section>
+		<leader>The basics of the notation are introduced in the early sections :</leader>
+		<title>Composition Relationships</title>
+		<trailer>,</trailer>
+		<label>entityparts</label>
+		<para> 
+			An entity model is a system of entity types and relationships and for a reader 
+			of a model the most 
+			important relationships <emdash/> those to understand first <emdash/> are those that represent associations between entities 
+			and their parts. These relationships are called 
+			<emph>composition relationships</emph> and the term composition structure is used to refer to the subsystem 
+			consisting solely of entity types and compositions relationships. 
+		</para>
+
+
+		<para>
+			Composition relationships are shown top-down, which is to say that they are drawn leaving the lower edge of 
+			the box representing the type of the whole and entering the upper edge of the type representing the part, as here: (a)
+			<er_inline>
+				<filename>wholeOfOneOrMoreParts</filename>
+			</er_inline>. This fragment signifies that there are <emph>one or more</emph> 
+			entities of type <emph>part type</emph> within the whole. 
+		</para>
+
+		<para> Looking at composition relationships the other way around <emdash/> bottom up <emdash/> then they are seen to relate 
+			entities with the contexts in which they exist
+			and it is because of this that these are the most important relationships in an entity model <emdash/> they 
+			provide context to entities. 
+		</para>
+
+		<para> The presence of the crows foot is representative of multiplicity <emdash/> 
+			if the crows foot is 
+			present the notation asserts that there may be many parts of type <emph>part type</emph> within each 
+			entity of type <emph>whole type</emph>.
+		</para>
+
+		<para> 
+			If the crows foot is absent, as here: (b)
+			<er_inline>
+				<filename>wholeOfExactlyOnePart</filename>
+			</er_inline>
+			then the assertion is that there is <emph>exactly one</emph> entity of type <emph>part type</emph> within the whole. 
+		</para>
+
+
+		<para> A further distinction is made by use of a half-dashed line to represent the 
+			possibility of zero; this gives us 
+		</para>
+
+		<para> (c) there may be <emph>zero, one or more</emph> entities of  <emph>part type</emph> within the whole:
+			<er_inline>
+				<filename>wholeOfZeroOneOrMoreParts</filename>
+			</er_inline>
+		</para>
+		<para>
+			and (d) there may be <emph>zero or one</emph> entities of type <emph>part type</emph> :
+			<er_inline>
+				<filename>wholeOfZeroOrOneParts</filename>
+			</er_inline>.
+		</para>
+
+
+		<para> If there are parts of different types, then the structure is shown branching as for example here: (e)
+			<er_inline>
+				<filename>wholeOfTwoPartTypes</filename>
+			</er_inline>
+			or here: (f)
+			<er_inline>
+				<filename>wholeOfThreePartTypes</filename>
+			</er_inline>. 
+		</para>
+
+
+
+		<para> Figures <figref>nucleusProtonNeutron</figref>, <figref>complexSentence</figref> and <figref>grinWithoutCat</figref> 
+			gives basic examples using the notation. 
+			More examples follow as more features of the notation are introduced. 
+			If you find yourself disagreeing with these examples <emdash/> thinking that what they express 
+			is contrary to your understanding <emdash/> then good! <emdash/> It is reasonable to suppose that I will have achieved 
+			my aim of showing how the notation works <emdash/> that it can be used to express precise models which
+			it is then possible to disagree with, or, better, to refine.
+		</para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>nucleusProtonNeutron</pictureName>
+			<label>nucleusProtonNeutron</label>
+			<width>80%</width>
+			<framewidth>5.5cm</framewidth>
+			<note>
+				<itemize>
+					<item>a <entity>nucleus</entity> is composed of
+						one or more <entity>proton</entity>s and zero, one or 
+						more <entity>neutron</entity>s 
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				The atomic nucleus
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<figureOfPictureWithNote>
+			<pictureName>complexSentence</pictureName>
+			<width>80%</width>
+			<framewidth>5.5cm</framewidth>
+			<note>
+				<itemize>
+					<item>
+						a <entity>complex sentence</entity> is composed of exactly one <entity>main clause</entity>
+						and one or more <entity>subordinate clause</entity>s
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				From grammar
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<figureOfPictureWithNote>
+			<pictureName>grinWithoutCat</pictureName>
+			<width>80%</width>
+			<framewidth>5.5cm</framewidth>
+			<note>
+				<width>8.0cm</width>
+				<itemize>
+					<item>
+						<q>Well I've often seen a cat without a grin,</q> thought Alice; <q>but a grin without a cat! It's the most 
+							curious thing I ever saw in my life!</q>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				From Alice's dream.
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<para> When the parts of a whole have a particular order amongst them then an <q>S</q> shaped symbol (S for sequence) 
+			may be added to the relationship. 
+			In this way we can represent a sentence as a sequence of words: (a)
+			<er_inline>
+				<filename>sentenceWord</filename>
+			</er_inline>
+			and a word as a sequence of letters: (b)
+			<er_inline>
+				<filename>wordLetter</filename>
+			</er_inline>
+		</para>
+
+		<para> Famously, we can represent a DNA molecule (a chromosome)  as a sequence of nucleotides:
+			<er_center>
+				<filename>dnaNucleotide</filename>
+			</er_center>.
+		</para>
+
+	</section>
+
+	<section>
+		<title>Reference Relationships</title>
+		<label>referencerelationships</label>
+		<trailer>,</trailer>
+
+		<para>
+			Reference relationships are a second class of relationships and are distinguished from composition 
+			relationships by being depicted connecting to the sides of the boxes 
+			representing entity types rather than to the upper and lower edges. Without distinction, connection to the 
+			left or right sides of the boxes can be made; the side can be chosen for the convenience for the drawing.  
+			A text label at one end of a relationship line serves to describe the relationship from the point of view 
+			of the subject entity at that end.
+			For example, we can say a chicken <entity>lays</entity> an egg or that an egg <entity>is laid by</entity> a chicken. 
+			Though there is a single relationship between chicken and egg there are two ways of articulating it 
+			and accordingly the relationship is shown labelled at each end: 
+		</para>
+		<er_center>
+			<filename>refrelChickenLaysEgg</filename>
+		</er_center>
+
+		<para>For convenience of the diagramming we can, without changing the meaning, turn this about so: </para>
+		<er_center>
+			<filename>refrelEggLaidByChicken</filename>
+		</er_center>
+
+
+		<para> A chicken hatches from an egg too and we can add this to the diagram: </para>
+		<er_center>
+			<filename>refrelChickenLayingAndHatchedFromEgg</filename>
+		</er_center>
+
+
+		<para> Of course, what we see here represented on the 
+			diagram are types of things not actual things <emdash/> so the diagram does <emph>not</emph> express that a chicken lays the very same egg that it 
+			hatches from: rather that a chicken lays things <emph>of the type</emph> egg and that it is hatched from a thing <emph>of the same type</emph>.</para>
+	</section>
+
+	<section>
+		<title>Levels of Decomposition</title>
+		<trailer>,</trailer>
+		<label>decomposition</label>
+		<para> When a whole is decomposed into parts then very often we find that the part types can be decomposed further. 
+			We have seen this already: <entity>sentence</entity>s can be broken down into <entity>word</entity>s 
+			and <entity>words</entity> into <entity>letter</entity>s. 
+			These can be shown  on a single  diagram <emdash/>  the relationships are stacked, forming a tower, say,  as follows:
+			<er_center>
+				<filename>sentenceWordLetter</filename>
+			</er_center>
+		</para>
+		<para> The decomposition of wholes into parts can continue over many levels. 
+			Thus some linguists, for example, speak of five levels of decomposition of a sentence. 
+			These are shown in figure <figref>sentenceFiveLevels</figref>. For another example
+			in a dictionary you see each word with its different senses defined and so a dictionary 
+			is composed of words and these, within the context of a dictionary, 
+			are composed of a number of senses<footnote>
+				For the word <entity>sense</entity> itself we find 
+				no less than ten distinct senses given in the Concise Oxford Dictionary. 
+				The 7th sense and the one we intend for it here is this:
+				<quotation>
+					sense n... 7. meaning, way in which a word etc. is to be understood, intelligibility or coherence or possession of a meaning
+				</quotation>
+			</footnote>, see figure <figref>dictionaryWordSense</figref> for the three levels of a dictionary. 
+			Figure <figref>atom</figref> shows the parts of an atom as understood circa 1930.
+		</para>
+
+		<figureOfPictureWithNote>
+			<pictureName>sentenceFiveLevels</pictureName>
+			<framewidth>5cm</framewidth>
+			<note>
+				<itemize>
+					<item>
+						a <entity>sentence</entity> is composed of one or more <entity>clause</entity>s
+					</item>
+					<item>
+						a <entity>clause</entity> is composed of one or more <entity>phrase</entity>s
+					</item>
+					<item>
+						a <entity>phrase</entity> is composed of one or more <entity>word</entity>s
+					</item>
+					<item>
+						a <entity>word</entity> is composed of one or more <entity>morpheme</entity>s
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Some linguists describe five levels of decomposition of a sentence
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<figureOfPictureWithNote>
+			<pictureName>dictionaryWordSense</pictureName>
+			<framewidth>5cm</framewidth>
+
+			<note>
+				<itemize>
+					<item>
+						a <entity>dictionary</entity> has one or more
+						<entity>word</entity>s
+					</item>
+					<item>
+						a <entity>word</entity> has one or more 
+						<entity>sense</entity>s
+					</item>
+				</itemize>
+			</note>
+
+			<caption>Dictionary Structure</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<figureOfPictureWithNote>
+			<pictureName>atom</pictureName>
+			<framewidth>5cm</framewidth>
+			<note>
+				<itemize>
+					<item>an <entity>atom</entity> is composed of exactly one <entity>nucleus</entity>
+						and one or more <entity>electron</entity>s          </item>
+					<item>a <entity>nucleus</entity> is composed of one or more <entity>proton</entity>s
+						and zero,  one or more <entity>neutron</entity>s
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				From physics
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+	</section>
+
+
+	<section>
+
+		<title>Recursive Composition</title>
+		<trailer>,</trailer>
+		<label>recursion</label>
+		<!-- In which we describe recursive structures...-->
+		<para>
+			When the type of a part is identical to the type of the whole then the relationship must be looped around to renter the top after leaving the bottom:
+
+			<er_inline>
+				<filename>typeRecursive1</filename>
+			</er_inline>.
+
+
+			This asserts that every <emph>type</emph> entity is composed of one or more <emph>type</emph> entities... each one of which, therefore, is itself 
+			composed of one or more <emph>type</emph> entities ... and so on indefinitely. 
+		</para> 
+		<para>
+			The implied infinity in this model is a concern which is elaborated by Jonathon Swift for whom the type in question is the type <entity>flea</entity>:
+
+			<quotation>
+				Big fleas have little fleas,
+				<newline/>
+				Upon their backs to bite 'em,
+				<newline/>
+				And little fleas have lesser fleas,
+				<newline/>
+				and so, ad infinitum.
+				<newline/>
+			</quotation> 
+		</para>
+		<newline/>
+		<para> In fact, if we are to avoid asserting an infinity of parts of parts of parts then we 
+			must specify <emph>zero</emph>, one or more parts within the whole as here:
+
+
+			<er_inline>
+				<filename>typeRecursive2</filename>
+			</er_inline>
+			. Further, if we are to avoid asserting an infinity of ever bigger conglomerates as concerned Augustus De Morgan in his rejoinder:
+			<quotation>
+				And the great fleas themselves, in turn, have greater fleas to go on,
+				<newline/>
+				While these again have greater still, and greater still, and so on
+				<newline/>
+			</quotation>
+			<newline/>
+			then we must specify that a part is <emph>optionally</emph> part of some other part as here:
+
+			<er_inline>
+				<filename>typeRecursive3</filename>
+			</er_inline>
+			.
+		</para>
+
+		<para> 
+			The example in figure <figref>filesystem0</figref> illustrates this looping in action; it is further developed in subsequent sections. 
+		</para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>filesystem0</pictureName>
+			<framewidth>5cm</framewidth>
+			<note>
+				<itemize>
+					<item> a <entity>folder</entity> is composed of zero, one or more <entity>folder</entity>s 
+						and zero, one or more <entity>file</entity>s
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Describing the file system of a computer drive.
+			</caption>
+		</figureOfPictureWithNote>
+
+	</section>
+
+	<section>
+		<title>Exclusion Arcs</title>
+		<trailer>,</trailer>
+		<label>exclusionarcs</label>
+		<para> When an entity of a particular type may be part of different types of whole, but not simultaneously so, 
+			then this is asserted by an arc drawn across the lines representing the composition relationships as here:
+			<!--
+         \begin{center}
+         \raisebox{-1cm}{
+         \raisebox{1cm}{(j)}
+         \input{\erpictureFolder /exclusionArc}
+         }
+         \end{center}
+         -->
+			<er_inline>
+				<filename>exclusionArc</filename>
+			</er_inline>
+		</para>
+
+		<para> This arc is called an exclusion relationship. 
+			Note that the presence of the arc circumvents the 
+			necessity to dash the relationship lines to represent optionality <emdash/> optionality of 
+			relationships from parts to whole is implied. 
+		</para>
+
+		<para> This now allows us to improve the model of a file system as shown in 
+			figure <figref>filesystem1</figref> in which we have introduced a drive entity ( i.e a disk drive) to provide context 
+			for those folders which do not themselves have folders for context.
+		</para>
+
+		<figureOfPictureWithNote>
+			<pictureName>filesystem1</pictureName>
+
+			<note>
+				<width>9cm</width>
+				<itemize>
+					<item>
+						a <entity>drive</entity> has as a part exactly one <entity>folder</entity>
+					</item>
+					<item>
+						a <entity>folder</entity> has as parts zero, one or more <entity>folders</entity>
+						and zero, one or more <entity>file</entity>s
+					</item>
+					<item>
+						every <entity>folder</entity> is exclusively either a <entity>folder</entity> that a <entity>drive</entity>
+						has as a part or a <entity>folder</entity> which a folder has as a part
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				From the file system of a personal computer.
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+	</section>
+
+	<section> 
+		<title>Recursive Reference</title>
+		<trailer>,</trailer>
+		<label>recursivereference</label>
+		<para> The notation introduced for composition relationships has been descriptive of properties of relationships including cardinality and optionality (the crows foot and dashing of lines), exclusion (the exclusion arc) and use of abstraction (nested boxes). These notations apply equally to the representation of reference relationships. 
+			A reference relationship can be looped around to relate instances of a single type and it is then said to be recursive. 
+			If it is many-one then a hierarchical<footnote>we use the term somewhat loosely for there is nothing in the notation 
+				which implies an absence of cycles</footnote> system of entities is implied 
+			such as a command hierarchy:</para>
+
+		<er_center>
+			<filename>commandHierarchy</filename>
+		</er_center>
+
+		<para> A reference relationship can be looped around to enter the opposite edge with no difference in meaning so the following is equivalent: </para>
+
+		<er_center>
+			<filename>commandHierarchyWrappedAround</filename>
+		</er_center>
+
+		<para> Consider also a chain composed of links each connected to the next.
+			Each link of a chain is followed by the next and each link follows at most one other which is to say there is a recursive relationship: </para>
+
+		<er_center>
+			<filename>link</filename>
+		</er_center>
+
+		<para> For a more complete model see figure <figref>chainLinkRefStruct</figref>. </para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>chainLinkRefStruct</pictureName>
+			<framewidth>6cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>8cm</width>
+				<itemize>
+					<item> every chain has many links </item>
+					<item> every chain has a start which is a link </item>
+					<item> every chain has an end which is a link </item>
+					<item> every link maybe followed by a link which is then said to follow that link </item>
+					<item> every link is either the start of a chain or follows a link </item>
+					<item> every link is either the end of a chain or is followed by a link </item>
+				</itemize>
+			</note>
+			<caption>
+				Chain of Links
+			</caption>
+		</figureOfPictureWithNote>
+
+		<newline/>
+
+		<para> Some recursive relationships cannot be given a different role at either end for they are symmetric. 
+			For example <emph>x<sub>1</sub>
+			</emph> is married to <emph>x<sub>2</sub>
+			</emph> precisely if <emph>x<sub>2</sub>
+			</emph> is married to <emph>x<sub>1</sub>
+			</emph>. 
+			Marriage is a symmetric binary relationship. When this relationship is shown in an entity model then it must be 
+			given the same the name at either end as so: 
+		</para>
+
+		<er_center>
+			<filename>individualIsMarriedToIndividual</filename>
+		</er_center>
+
+		<para> As a shorthand we can compress this to a single line: </para>
+
+		<er_center>
+			<filename>individualIsMarried</filename>
+		</er_center>
+
+		<para> The example in figure <figref>molecule</figref> combines composition structure 
+			(molecule has atoms, atoms have bonds formed) and reference structure by which atoms reference elements of the periodic table 
+			and bonds formed reference each other. </para>
+
+		<figureOfPictureWithNote>
+			<pictureName>molecule</pictureName>
+			<framewidth>6cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>7.3cm</width>
+				<itemize>
+					<item> every molecule  consists of one or more atoms </item>
+					<item> every atom is an instance of a chemical element </item>
+					<item> every atom has zero,one or more bonds formed </item>
+					<item> every bond formed is with a bond formed (which is then with it)</item>
+				</itemize>
+			</note>
+			<caption>
+				Molecular Structure
+			</caption>
+		</figureOfPictureWithNote>
+	</section>
+
+	<section>
+		<title>Describing Roles</title>
+		<trailer>,</trailer>
+		<label>roles</label>
+		<para>
+			The front and rear wheels of a bicycle are parts which play different roles within the whole <emdash/> arguably 
+			the front and back wheels should be modelled as different types of entity for the rear wheel has a 
+			sprocket, or at least a housing for one, whilst the front does not. In the case of a child's scooter though 
+			or in the case, prior to pedal power, of the velocipede, the whole thing has two identical parts playing 
+			different roles within the whole. It is for reasons like this that the role played by a part in a whole 
+			may be specified in a model. The role played is described as an annotation on the composition relationship 
+			at the <emph>whole</emph> end of the relationship. 
+		</para> 
+
+		<para> Sentence structure gives an example of this, it is shown in figure <figref>sentenceNounPhrase</figref>. 
+			There may be multiple noun phrases within a sentence <emdash/> a simple sentence must have a 
+			subject noun phrase 
+			and it may have have an object noun phrase. Like the front wheel and the rear wheel 
+			of a child's scooter 
+			the subject and object noun phrases are in and by themselves indistinguishable. 
+		</para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>sentenceNounPhrase</pictureName>
+			<framewidth>4cm</framewidth>
+			<note>
+				<width>9cm</width>
+				<itemize>
+					<item>every <entity>sentence</entity> has a <entity>subject</entity> which is a <entity>noun phrase</entity>
+					</item>
+					<item>a <entity>sentence</entity> may have an <entity>object</entity> which is a <entity>noun phrase</entity>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Roles of noun phrases within sentences.
+			</caption>
+		</figureOfPictureWithNote>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>scooter</pictureName>
+			<framewidth>4cm</framewidth>
+			<note>
+				<width>9cm</width>
+				<itemize>
+					<item>every <entity>scooter</entity> has a <entity>front wheel</entity> which is a <entity>wheel</entity>
+					</item>
+					<item>every <entity>scooter</entity> has a <entity>rear wheel</entity> which is a <entity>wheel</entity>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Roles of the wheels of a scooter.
+			</caption>
+		</figureOfPictureWithNote>
+
+		<figureOfPictureWithNote>
+			<pictureName>fourFingerFlightFormation</pictureName>
+			<framewidth>4cm</framewidth>
+			<note>
+				<width>9cm</width>
+				<itemize>
+					<item>every <entity>flight</entity> has exactly one <entity>lead</entity> which is an <entity>element</entity>
+					</item>
+					<item>every <entity>flight</entity> has exactly one <entity>second</entity> which is an <entity>element</entity>
+					</item>
+					<item>every <entity>element</entity> has exactly one <entity>leader</entity>  which is an <entity>aircraft</entity>
+					</item>
+					<item>every <entity>element</entity> has exactly one <entity>wingman</entity> which is an <entity>aircraft</entity>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Roles within the four-finger flight formation.
+			</caption>
+		</figureOfPictureWithNote>
+
+	</section>
+
+	<section>
+		<title>The Absolute</title>
+		<trailer>,</trailer>
+		<label>absolute</label>
+		<para>
+			The entirety of a modelling situation is represented by a half box at the upper edge of a diagram.
+			Types whose entities may be free standing <emdash/> not parts of or dependent on other entities are shown to be 
+			part of the entirety <emdash/> which, relative to the situation, is the whole of everything. 
+		</para>
+
+		<para> The entirety is the <entity>absolute</entity> whole. It is a principle of logic that when we model we model a 
+			specific situation and this establishes an absolute.
+			Fiction operates the same way as logic in this regard. 
+		</para>
+
+		<para> If the modelling situation is that of a single computer the entirety has 
+			cpu, drives and memory as parts as shown in figure <figref>singleComputerModel</figref>
+			but if the entirety of the modelling situation is a network of computers then the whole has computers as parts which in turn each have drives and memory
+			as shown in figure <figref>networkComputerModel</figref>. 
+		</para>
+
+		<figuregroup>
+
+			<figureOfPicture>
+				<pictureName>singleComputerModel</pictureName>
+				<caption>Model of a single desktop computer</caption>
+			</figureOfPicture>
+			<figureOfPicture>
+				<pictureName>networkComputerModel</pictureName>
+				<caption>Model of a network of computers</caption>
+			</figureOfPicture>
+
+		</figuregroup>
+
+		<para> 
+			Similarly, the terms <q>true</q> and <q>false</q> are not 
+			relative terms <emdash/> they do not rely
+			on context for their  interpretation <emdash/> therefore they are absolutes and can be represented in relationship to the absolute.  
+			We will follow the computer science convention of representing them as being of 
+			type <entity>boolean</entity> which in  common language might be translated as the made up word 'truthliness'. 
+			This leads to the model shown in 
+			figure <figref>boolean2</figref> which depicts true and false as absolutes and as entities of type <entity>boolean</entity>. 
+			Note that from this model we are able to infer the only boolean entities are either the absolute <entity>true</entity> or  the absolute <entity>false</entity>. 
+		</para>
+
+		<newline/>
+
+		<para> We might not have said this already: an entity model defines the rules 
+			by which entities of any of its types may exist; they do so by declaring the context 
+			for their existence i.e. other types of entities and the relationships in which they must 
+			be with these entities in order to exist. The model shown figure <figref>sentenceNounPhrase</figref> in the previous section
+			declares then that every noun phrase is either subject or object of a 
+			sentence<footnote>
+				This is what the model states but this may well not the case in a more comprehensive representation of sentence structure.
+			</footnote>. 
+
+			Similarly, from the model in figure <figref>boolean2</figref> we are able to 
+			infer that the only boolean entities are either the absolute <entity>true</entity> or the absolute <entity>false</entity>. 
+		</para>
+		<figureOfPictureWithNote>
+			<pictureName>boolean2</pictureName>
+			<caption>Model of two absolutes</caption>
+		</figureOfPictureWithNote>
+	</section>
+
+	<section>
+		<title>Generalisation</title>
+		<trailer>.</trailer>
+		<label>generalisation</label>
+
+		<para>
+			Previously we gave this example model of an atomic nucleus:
+			<er_center>
+				<filename>nucleusProtonNeutron</filename>
+			</er_center>
+		</para>
+
+		<para>
+			This model can be expressed in a different way using the generalisation <entity>nucleon</entity> of the individual 
+			terms <entity>proton</entity> and <entity>neutron</entity>
+			by stating: an atomic nucleus is composed of one or more nucleons; every nucleon is either a proton or a neutron. 
+			In an entity model diagram the generalisation type 
+			is shown as a box containing the specific types; so the model may be expressed thus:
+
+			<er_center>
+				<filename>nucleusNucleon</filename>
+			</er_center>
+			Be aware that there is a minor difference between this way of expressing the situation and the first form: when expressed in this latter form the model 
+			is consistent with a nucleus with one neutron and zero protons <emdash/> physics teaches us that such nuclei will not occur in the real world.
+		</para>
+
+		<para> The same generalisation can be used to express that both protons and neutrons are combinations of quarks:
+
+
+			<er_center>
+				<filename>nucleonQuark</filename>
+			</er_center>.
+		</para>
+		<!-- \needspace{6cm} -->
+
+		<subsection>
+			<title>Examples from Biology</title>
+			<label>biology</label>
+			<para>
+				As a further illustration of the notations described so far figures <figref>phylumArthropoda</figref> and <figref>cellStructure</figref> give examples 
+				representing descriptions given in Biology. 
+			</para>
+
+			<figureOfPictureWithNote>
+				<pictureName>phylumArthropoda</pictureName>
+				<!--<framewidth>13cm</framewidth>-->
+				<muchtext/>
+				<note>
+					<itemize>
+						<item>the characteristics of phylum arthropoda are (i) exoskeleton, (ii) body segments grouped into
+							specialized regions (= tagmata)
+							(iii) jointed appendages variously specialized for feeding, locomotion, sensing
+						</item>
+					</itemize>
+				</note>
+				<caption>
+					An elementary description of phylum arthropoda.
+				</caption>
+			</figureOfPictureWithNote>
+
+			<figureOfPicture>
+				<pictureName>cellStructure</pictureName>
+				<framewidth>13cm</framewidth>
+				<caption>
+					You should know:
+					animal cells have a nucleus, cytoplasm and a cell membrane.  
+					Plant cells also have a cell wall, a vacuole and chloroplasts.
+				</caption>
+			</figureOfPicture>
+
+			<!-- \needspace{10cm} -->
+		</subsection>
+
+
+		<subsection>
+			<title>Fundamental Levels of Matter</title>
+			<label>physics</label>
+
+			<figureOfPictureWithNote>
+				<pictureName>HaraldFritzsch</pictureName>
+				<note>
+					<itemize>
+						<item>every <entity>molecule</entity> is composed of one or more <entity>nuclei</entity> and one or more <entity>electrons</entity>
+						</item>
+						<item>every <entity>nucleus</entity> is composed of one or more <entity>nucleons</entity>
+						</item>
+						<item>every <entity>nucleon</entity> is either a <entity>neutron</entity> or a <entity>proton</entity>
+						</item>
+						<item>every <entity>nucleon</entity> is composed of one or more <entity>quark</entity>s</item>
+					</itemize>
+				</note>
+				<caption>
+					Modelled from a description given by physicist Harald Fritzsch. 
+				</caption>
+			</figureOfPictureWithNote>
+
+		</subsection>
+
+		<subsection>
+			<title>Adjectival Phrases</title>
+			<label>adjectivals</label>
+			<para> A variation in the use of the exclusion arc is illustrated in the next example, 
+				figure <figref>brintonAdjectivalPhrase</figref>, in which the model formally describes a certain 
+				part of the structure of English as given in many books of grammar by describing the 
+				possible appearances of degree words, adverbs and adjectives in adjectival phrases. 
+				In this example the ordering of composition relationships as they leave an entity 
+				from its lower edge corresponds to the relative positions of such consituents 
+				within an adjectival phrase. 
+			</para>
+
+
+			<figureOfPictureWithNote>
+				<pictureName>brintonAdjectivalPhrase</pictureName>
+				<framewidth>9cm</framewidth>
+				<muchtext/>
+				<note>
+					<para>
+						Adjectives, wherever they appear in sentences <emdash/> as predicates or as qualifiers of 
+						nouns <emdash/> may be themselves be qualified by degree words or by adverbs; adverbs themselves may 
+						in turn be qualified by degree words.
+					</para>
+				</note>
+				<caption>
+					Description of an adjectival phrase <emdash/>
+					an arrangement of degree words, adverbs and an adjective said to be the head of the phrase.
+				</caption>
+			</figureOfPictureWithNote>
+
+
+			<para> Adjectival phrases may appear as the predicates of sentences or as the qualifiers of nouns.
+				Examples of adjectival phrases and the types of the constitent 
+				words are given in table <tableref>exampleAdjectivalPhrases</tableref>. 
+				The table uses abbreviations for the different word types as were introduced earlier in table 1 of section 
+				<refsection>
+					<label>
+						<section>types</section>
+					</label>
+					<title>Type of Things</title>
+				</refsection>.
+			</para>
+
+			<tabledisplay>
+				<label>exampleAdjectivalPhrases</label>
+				<caption>Example adjectival phrases</caption>
+				<position>h</position>
+				<table>
+					<format>
+						<col>l</col>
+						<col> l </col>
+					</format>
+					<thead>
+						<tr>
+							<th>adjectival phrase</th>
+							<th>type sequence</th>
+						</tr>
+					</thead>
+					<tr>
+						<td>fierce </td>
+						<td>  A </td>
+					</tr>
+					<tr>
+						<td>very fierce </td>
+						<td> Deg A </td>
+					</tr>
+					<tr>
+						<td>fiercely barking </td>
+						<td> Adv A </td>
+					</tr>
+					<tr>
+						<td>very fiercely barking </td>
+						<td> Deg Adv A  </td>
+					</tr>
+				</table>
+			</tabledisplay> 
+
+
+			<para> The reason for the inclusion of a type <entity>adverbial phrase</entity> is illustrated 
+				by the example <emph>very fiercely barking</emph> in which the 
+				degree word <q>very</q> is understood as qualifying the word <q>fiercely</q> which as a combination (an entity) <q>very fiercely</q>
+				then qualifies the word <q>barking</q>.
+				The phrase <q>very fiercely</q> is an example of an <entity>adverbial phrase</entity> as represented 
+				in the model in figure <figref>brintonAdjectivalPhrase</figref>. 
+			</para>
+			<para> A further extended example of the modelling of sentence structure in presented in
+				section
+				<refsection>
+					<label><chapter>examplesone</chapter><section>englishsentence</section></label>
+					<title>English Sentence Structure</title>
+				</refsection>.
+			</para>
+		</subsection>
+
+		<subsection>
+			<title>Gilbert Ryle</title>
+			<label>ryle</label>
+			<para>
+				When Gilbert Ryle introduced the phrase <emph>category mistake</emph> he gave a number of examples. 
+				The first example is of a visitor to Oxford. The visitor, upon viewing the colleges and library, 
+				reportedly inquired <qq>But where is the University?</qq>. 
+				The visitor's mistake, explains Ryle, is presuming that a University is 
+				part of the category <qq>units of physical infrastructure</qq> or some such thing, 
+				rather than the category <qq>institution</qq>, say, which are far more abstract and complex 
+				conglomerations of buildings, people, procedures, and so on.
+			</para>
+
+			<figureOfPicture>  
+				<width>35%</width>
+				<pictureName>rylesUniversity</pictureName>
+				<caption>A university as an abstract conglomeration of buildings, people and procedures.</caption>
+			</figureOfPicture>
+
+
+			<newline/>
+
+			<figureOfPictureWithNote>
+				<pictureName>rylesMarchPast</pictureName>
+				<note>
+					<itemize>
+						<item>
+							<emph>The march-past was not a parade of battalions, batteries, squadrons and a division; 
+								it was a parade of the battalions, batteries and squadrons of a division.</emph>. 
+						</item>
+					</itemize>
+				</note>
+				<caption>The March Past <emdash/> Ryle's second example is of a child witnessing the march<emdash/>past of a division of soldiers. 
+					After having had battalions, batteries, squadrons, etc. pointed out, the child asks when is the division going to appear.
+				</caption>
+			</figureOfPictureWithNote>
+
+		</subsection>
+	</section>
+	<section>
+		<title>Goodness of an Entity Model</title>
+		<label>goodness</label>
+
+		<para> Though we often have alternate, sometime conflicting, ways of seeing and 
+			articulating <q>what is</q> in the world, it is the purpose of an entity model to present a single, 
+			self-consistent set of concepts that is minimal for a particular domain and, 
+			in a well-defined way that is to be explained here, does not introduce 
+			relationships needlessly.
+		</para>
+
+		<para> 
+			For example, for minimally expressing, <q>what is</q> in kinship, 
+			the <emph>grandparent</emph> relationship is needless 
+			<emdash/> it should be omitted in favour of the <emph>parent-child</emph> relationship 
+			from which, as parent's parent, it can be derived. So it is with <emph>brother</emph> 
+			as <emph>parent's male child</emph>, <emph>uncle</emph> as <emph>parent's brother</emph>
+			i.e. <emph>parent's parent's male child</emph>, and likewise <emph>sister</emph> 
+			and <emph>aunt</emph>, <emph>grandfather</emph>, <emph>cousin</emph> 
+			<emdash/> all these relationships can be constructed from the <emph>parent-child</emph> 
+			relationship and the <emph>male</emph> and <emph>female</emph> typing of individuals. 
+			These latter relationships form a core, as shown in figure <figref>kinship</figref>, 
+			from which the others can be derived. 
+		</para>
+
+		<para> We use the terms derived and constructed interchangeably and we need to be clear what it means to say that the relationship <emph>grandparent</emph> can be derived or constructed from the <emph>parent-child</emph> relationship <emdash/> what it means is that if one party communicates to another (i) a set of individuals and (ii) the parent-child relationships between them then nothing new is added to this by a further communication of (iii) the grandparent-grandchild relationships between the same set of individuals.  
+		</para>
+
+		<para> We say that the grandparent-grandchild relationship can be constructed from the parent-child relationship but note that what we actually mean by this is that in any given situation information about who is whose grand parent can be constructed from information about who is whose parent. 
+		</para>
+		<figureOfPicture>
+			<pictureName>kinship</pictureName>
+			<caption>The core family relationships</caption>
+		</figureOfPicture>
+
+		<subsection>
+			<title>The Golden Rule</title>
+			<para> Inferrable relationships such as <emph>grandparent-grandchild</emph> one are said to be <emph>constructed</emph> and need to be contrasted with the <emph>core</emph> relationships from which they can be constructed. The golden rule of entity modelling is that it should not be possible to construct any of the relationships within an entity model from combinations of the others.
+			</para>
+
+			<para> The golden rule is a prerequisite for a goodness criteria within database design technically 
+				referred to as <q>normal form</q>. Rather than just accept this condition we must understand what is achieved by meeting the condition; to do so it is helpful to keep in mind that meeting the condition and coming up with a good entity model requires a skill and that this skill is, to all intents and purposes, the ancient Euclidean skill of good theorizing by which I mean the articulation of a minimum set of assumptions or givens and their separation from that which can be derived or inferred from them. For our present purpose good modelling is good theorising and to borrow from Occam's dictum it is <emph>not multiplying relationships needlessly</emph>.    
+			</para>
+		</subsection>
+
+		<subsection>
+			<title>Illustration 1</title>
+
+			<para>
+				Atoms are related to protons (and neutrons too for that matter), for each atom contains one or more protons, but the relationship
+				<er_inline>
+					<filename>atomProton</filename>
+				</er_inline>  
+				was not represented on the model of figure <figref>atom</figref> nor should it have been for to do so would have broken the golden rule since this is a relationship which can be constructed or inferred from the ones already present. The construction can be summarised thus:
+			</para>
+			<para> 
+				From
+				<equation>
+					<number/>
+					every atom contains exactly one nucleus
+				</equation>
+				and
+				<equation>
+					<number/>
+					every nucleus contains one or more protons
+				</equation>
+				derive
+				<equation>
+					<number/>
+					every atom contains one or more protons.
+				</equation>
+			</para>
+
+			<para> This represents the inference of a new relationship from old and is a further example of a join construction:
+			</para>
+
+			<!-- might handcraft a constructed relationship definition here MYFIGURE atomProtonAtomNeutron --> 
+			<figureOfPicture>
+				<pictureName>atom</pictureName>
+				<caption>Atomic Structure</caption>
+			</figureOfPicture>
+			<para> What is illustrated here is a general rule that if <q>every A has parts of type B</q> 
+				and <q>every B has parts of type C</q> then <q>every A has parts of type C</q>. 
+				This is precisely the relationship join construction applied to a pair of many-valued composition relationships.
+				The rub is that the relationship 
+				<er_inline>
+					<filename>atomProton</filename>
+				</er_inline> 
+				<emph>can</emph> appear in a core model <emdash/> it is just that it cannot appear in the model of figure <figref>atom</figref>. Figure <figref>atomProtonNeutronElectron</figref> illustrates this. 
+				This is a model which does contain the relationship but which does not does not break the golden rule. 
+				The model in figure <figref>atomProtonNeutronElectron</figref> is appropriate in modelling situations where the localisation of protons and neutrons to the nucleus is irrelevant to the task at hand. 
+				There is nothing necessarily inherent, therefore, in the distinction between core and constructed <emdash/> in one model a relationship may be core while in a different model it may be constructed. 
+			</para>
+
+			<figureOfPicture>
+				<pictureName>atomProtonNeutronElectron</pictureName>
+				<caption>Atomic Structure</caption>
+			</figureOfPicture>
+
+		</subsection>
+		<subsection>
+			<title>Illustration 2</title>
+			<para>
+				Consider the model of a four-finger flight formation in figure <figref>fourFingerFlightFormationUnnormalised</figref>. 
+				All is well with this model until examination of the subject matter reveals that
+				in all cases the flight leader is the leader of the lead element of the flight. 
+				This is to say that <emph>flight leader</emph> is a relationship that can be constructed from the others.   
+				With this knowledge, the model of figure <figref>fourFingerFlightFormationUnnormalised</figref> is seen to break the golden rule by representing the <emph>flight leader</emph> relationship unnecessarily.
+
+
+				<figureOfPicture>
+					<pictureName>fourFingerFlightFormationUnnormalised</pictureName>
+					<caption>The Four-Finger Flight Formation</caption>
+				</figureOfPicture>
+
+				<figureOfPicture>
+					<pictureName>fourFingerFlightFormation.flight.flightleader</pictureName>
+					<width>7cm</width>
+					<caption>The flightleader is the leader of the lead element of the formation.</caption>
+				</figureOfPicture>
+			</para>
+		</subsection>
+		<subsection>
+			<title>Finally</title>
+			<para> The first priority of an entity model is the description of core relationships 
+				and it is misleading, and, for some purposes, wrong, to include constructed relationships 
+				in an entity model 
+				so as to confuse them with the core. 
+			</para>
+
+		</subsection>
+	</section>
+
+	<section>
+		<title>Uniqueness Assertions/Identifiers</title>
+		<label>many-many</label>
+
+		<para>
+			Often the instances of a particular entity type have a number of relationships with other entity types which taken in combination have a uniqueness condition that holds true of them
+			to the effect that that entities of the  type are uniquely 
+			determined by their combined relationships with entitites of the other related types. Each combination of relationships for which such a uniquness condition holds is a candidate identification systems for entities of that type and this in turn is significant for data modelling as discussed in the earlier perpective in section.
+			<refsection>
+				<label>
+					<chapter>perspective</chapter>
+					<section>foundations</section>
+				</label>
+			</refsection>. We use a bar notation across the contributing relationships as shown in the examples that follow. If we wish to document multiple independent uniqueness constraints
+			then the bars can be subscripted. 
+		</para>                      
+		<subsection>
+			<title>Examples occuring when many-many relationships are eliminated</title>
+
+			<para> A many-many relationship is one depicted with a crows foot at each end whereas a many-one relationship is one with a crows foot at one end but not the other.
+				An example many-many would be: 
+			</para>
+
+			<er_center>
+				<filename>studentCourse</filename>
+			</er_center>
+
+			<para> An alternative to using a many-many relationship is to use two many-one relationships and an entity type. 
+				The result is shown in figure <figref>studentEnrollmentCourse</figref>.
+				Any entity type introduced to eliminate a many-many relationship in this way is commonly called an <emph>intersection entity</emph>; unavoidably an entity of this type,
+				and, by the way, we are better calling it the intersection type, 
+				is   unique  with respect to the entities it relates. In the example of figure <figref>studentEnrollmentCourse</figref> this is to say that for any student and any course there is at most one enrollment that relates to that student and that course. This is documented by placing a bar across each of the two relationships of the <entity>enrollment</entity> 
+				entity type.
+			</para>
+
+			<figureOfPicture>
+				<width>50%</width>
+				<pictureName>studentEnrollmentCourse</pictureName>
+				<caption>Students and courses in many-many relationship represented using an intersection type <entity>enrollment</entity>. Because it represents a many-many realtionship
+					between student and course, for any student and course there is at most one enrollement of that student on that course. Another way of saying this is that an enrollment can be identified uniquely by identifying the course and the student that it is related to. This is the meaning of the bars across the two relationships. Loosely spesaking they are said to be identifying relationships.</caption>
+			</figureOfPicture>
+
+			<para> The avoidance or elimination of many-many-relationships from models is important to database designers who wish to represent or communicate the facts of a situation in tabular form. 
+				After elimination of many-many relationships the tables that are required are just one table per entity type in the model. 
+				This topic is covered in chapter 5. 
+			</para>
+
+			<para> Instead of using a pair of reference relationships in the elimination of a many-many, one composition and one reference can be used instead as illustrated in figure <figref>manyvaluedAgreement2</figref>.
+			</para>
+
+
+			<figureOfPictureWithNote>
+				<pictureName>manyvaluedAgreement2</pictureName>
+				<!--<framewidth>7.5cm</framewidth>-->
+				<muchtext/>
+				<note>
+					<width>8cm</width>
+					<para>
+						Elimination by <entity>party</entity> within <entity>agreement</entity>
+						<emdash/> this is the model that feels most appropriate conceptually in that <q>parties</q> 
+						are parts of agreements rather than parts of individuals.
+					</para>
+				</note>
+				<caption>
+					Eliminating of a many-many relationship using composition. Now the intersection type is <entity>party</entity> and, as shown by the bars,
+					it has two identifying relationships 
+					<emph/> one a dependence and one a reference relationship. 
+				</caption>
+			</figureOfPictureWithNote>
+
+
+			<para> When a many-many <emph>recursive</emph> relationship is eliminated using a pair of reference relationships then the resulting model has the shape 
+				shown in figure <figref>manyManyRecursiveEliminated</figref>. </para>
+			<figureOfPicture>
+				<pictureName>manyManyRecursiveEliminated</pictureName>
+				<width>35%</width>
+				<caption>The shape after elimination of a many-many recursive relationship.</caption>
+			</figureOfPicture>
+
+
+			<para> In regard to any model shaped as in figure <figref>manyManyRecursiveEliminated</figref>, we can think of entities of the left hand type as being points and 
+				those of the right hand type as connections between these points; in this way we can imagine the instances of a many-many relationship as forming a network. 
+				For example because social interactions between people are many to many we can, and do, speak of social networks and in like manner we speak of business networks, 
+				supply networks, computer networks and so on; these are all usages based on many-many relationships between various types of entities as for instance this one: 
+				<er_center>
+					<filename>supplyChain</filename>
+				</er_center>
+			</para>
+
+		</subsection>
+	</section>
+
+	<!--
+  <section>
+    <leader/>
+    <title>Universals</title>
+    <label>universals</label>
+  </section>
+-->
+
+
+
+
+
+	<section>
+		<title>The Distinction between Composition and Reference</title>
+		<label>compositionvreference</label>
+
+
+		<para> The entity modelling notation in one form or another is a part of the core syllabus in the information
+			sciences. Invariably, though, no distinction is made between 
+			composition and reference <footnote>The one exception to this would be in teaching of the UML notation 
+				wherein there is a further classification of composition relationships resulting in three subclasses 
+				of the core relationship concept rather than two as here.</footnote>. This is a weakness currently; students are not
+			being provided with the best conceptual tools for database design and without these tools there remains a database
+			normalisation step which is not properly explained and has the feel of a dark art.
+			The concept of relationship scope is the key missing concept and it is introduced in the sections which follow. 
+			Before this however we revisit the distinction between compsotion and reference and ask <q>is this a real distinction?</q>.
+		</para>
+
+		<para> Consider these two superficially similar types of relationship:
+			<itemize>
+				<item>the relationship between a play and the characters within the play,</item>
+				<item>the relationship between a play and performances of that play.</item>
+			</itemize>
+			The first of these would generally be classified as a composition relationship for we can say that a play is in part composed of all the characters within it, 
+			whereas the second would generally be classified as a reference relationship for we would not say that a play is in part composed of all of it's performances. 
+			For this reason an entity model describing just these three entity types, <entity>play</entity>, <entity>performance</entity> and <entity>character</entity>, contains both vertical 
+			composition relationships and an orthogonal reference relationship, 
+			as  shown below in figure <figref>modelPerformancePlayCharacter</figref>. </para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>modelPerformancePlayCharacter</pictureName>
+			<framewidth>5cm</framewidth>
+			<note>
+				<itemize>
+					<item>a <entity>play</entity> is composed of one or more <entity>character</entity>s</item>
+					<item>a <entity>performance</entity> is a performance of exactly one <entity>play</entity>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Composition and reference
+			</caption>
+		</figureOfPictureWithNote>
+
+
+		<para> Since it is a distinction rarely made many readers may be sceptical of whether there is a credible distinction between composition and reference; 
+			in the circumstances such doubts are reasonable and much of this chapter will be devoted to examples and implications of the distinction. So far much 
+			weight has rested on appeal to a sense of what constitutes a part and of what parts something can reasonably be said to be composed. 
+			There is another way of thinking about it though. We said in the 
+			introduction that entity modelling was concerned with what could be known of an entity; now, another way of asking what can be known of an entity is 
+			to ask what description can be given of an entity or what of an entity can be communicated. 
+		</para>
+
+		<para> If focusing on <emph>parts</emph> and <emph>composition</emph> doesn't clarify the distinction between composition and reference or, 
+			for that matter, to convince of the credibility of the distinction, then  another ways of clarifying relies on a focus on <emph>full description</emph> or <emph>communication</emph> and 
+			this in turns leads to the idea of copying the full description of an entity - for to communicate an entity is to copy it in some way from source to destination.
+		</para>
+
+		<para> Therefore we ask what would be communicated in a full description of a play and we answer that surely it would include a full description of each of the characters? 
+			The play-characters relationship therefore passes the full description test and is classified as a composition relationship. 
+			The play-performances relationship on the other hand fails this same test - it is not necessary to describe every performance of a play in order to 
+			fully describe the play - it fails the full description test. 
+		</para>
+
+		<para> The matter will not rest however - there are many relationships which can be modelled either way and then models 
+			containing them are subtly different and are appropriate in different circumstances. 
+		</para>
+
+
+		<figureOfPicture>
+			<pictureName>filesystem2</pictureName>
+			<caption>The <entity>folder</entity> example is an excellent example of a composition relationship. 
+				I cannot delete a folder on my computer without deleting all the folders and files contained 
+				within it (of course I can move the contained items first and then delete the parent 
+				folder). Shortcuts are different - I can delete a shortcut to a file or folder without 
+				deleting the file or folder. Therefore the relationship between a shortcut and that 
+				which it is a short cut to is a reference relationship.
+			</caption>
+		</figureOfPicture>
+
+	</section>
+
+	<section>
+		<title>The Scope Concept</title>
+		<label>scope</label>
+
+		<para> In terms of our understanding of a domain of discourse it is significant that reference relationships may be limited 
+			in scope - for example it is a characteristic  of the line assignment reference relationship shown in 
+			figure <figref>scriptOfPlay</figref> that its instances are local to the context of 
+			individual plays: It is obvious, I know, but it is part of the nature of a play that a line is never assigned to a character of a 
+			different play - we might summarise the situation by saying that assignment is intra-play not inter-play. 
+			We have chosen to express this <emph>fact of limited scope</emph> in bullet (iv) of figure <figref>scriptOfPlay</figref> and it is 
+			significant that the diagram <emph>alone</emph> does not express this fact<footnote>Bullet (iv) of figure <figref>scriptOfPlay</figref>
+				adds to the information given in the diagram and is different in this respect to bullets (i),(ii),(iii) for these simply 
+				restate what is already asserted by the diagram</footnote>.  Most significantly, the Entity Relationship diagram notation is able to 
+			express the types and cardinalities of reference relationships and how they are articulated but not their scopes. 
+			Nonetheless every reference relationship has a scope, the scope is fundamentally important,  it can be expressed in words, 
+			or, as we see later, in equations, or in a subordinate diagram called a scope diagram. </para>
+
+		<figureOfPictureWithNote>
+			<pictureName>scriptOfPlay</pictureName>
+			<framewidth>6.5cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>7.5cm</width>
+				<itemize>
+					<item>a <entity>play</entity> is composed of one or more <entity>spoken line</entity>s</item>
+					<item>a <entity>play</entity> is composed of one or more <entity>character</entity>s</item>
+					<item>a <entity>spoken line</entity> is assigned to exactly one <entity>character</entity>
+					</item>
+					<item>
+						<emph>each line of a play is assigned to a character of that same play</emph>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Composition and reference within the script of a play
+			</caption>
+		</figureOfPictureWithNote>
+		<newline/>
+
+
+
+		<para> Contrast the situation of figure <figref>scriptOfPlay</figref> with that of figure <figref>languageBookTranslation</figref>. Despite figure <figref>languageBookTranslation</figref>
+			being similar in shape to the earlier figure, in this case instances of the reference relationship <emph>are not</emph> limited in scope. 
+			Rather the point of the relationship <entity>translation</entity> is to cross languages - it establishes an inter-language relationship rather than intra-language relationship. 
+			This again shows that the scope of a relationship - the extent to which it is global or local - <emph>inter</emph> or <emph>intra</emph> - cannot be 
+			deduced from the entity relationship diagram. Other means of expression must be used. Gaining an understanding of scope and 
+			the means of its expression is an important part of learning entity modelling. </para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>languageBookTranslation</pictureName>
+			<framewidth>6.5cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>6.25cm</width>
+				<itemize>
+					<item>a <entity>language</entity> has one or more <entity>native book</entity>s</item>
+					<item>a <entity>language</entity> has one or more <entity>translated book</entity>s</item>
+					<item>a <entity>translated book</entity> is a translation of exactly one <entity>native book</entity>
+					</item>
+					<item>a <entity>native book</entity> is translated as  zero,one or more <entity>translated book</entity>s</item>
+				</itemize>
+			</note>
+			<caption>
+				Translations of a book
+			</caption>
+		</figureOfPictureWithNote>
+
+
+		<para> A further example is given in figure <figref>recipe</figref> in which there is an example of a reference relationship between types at different levels in a composition hierarchy.</para>
+
+
+		<figureOfPictureWithNote>
+			<pictureName>recipe</pictureName>
+			<framewidth>6.5cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>6.25cm</width>
+				<itemize>
+					<item>a <entity>recipe</entity> has one or more <entity>ingredient</entity>s</item>
+					<item>a <entity>recipe</entity> has one or more <entity>step</entity>s</item>
+					<item>a <entity>step</entity> has one or more full or partial uses of zero, one or more <entity>ingredient</entity>s</item>
+					<item>a <entity>thing used</entity> makes reference to zero or one <entity>ingredient</entity>s</item>
+					<item>
+						<emph>if a <entity>thing used</entity> in a step of a recipe makes reference to an <entity>ingredient</entity> then the ingredient is an ingredient within the very same recipe</emph>
+					</item>
+				</itemize>
+			</note>
+			<caption>
+				Recipes and their ingredients. In this figure bullets (i) to (iv) restate what is said in the diagram. Bullet (v) adds to the diagram - 
+				it is a scope statement for relationship <entity>use of</entity>.
+			</caption>
+		</figureOfPictureWithNote>
+
+
+		<subsection>
+			<title>Context and Relationship Scope</title>
+			<para>
+				Some errors arise through confusions of context and some such, in programming parlance, are called scope violations or scope errors. 
+				These are different to, but can be related with, the category mistakes identified by 
+				Gilbert Ryle. Whereas a category mistake is an attempt to relate entities whose types are inconsistent with the defined end types of a relationship, 
+				a scope violation occurs if the types are correct but the contexts of the respective entities, or, equivalently, the enclosing composite entities 
+				(see wider perspective on context), are inconsistent with the defined scope of the relationship.
+				Scope violations are attempts to relate across contexts improperly.
+			</para>
+
+			<para> Knowledge of a relationship's scope is a very significant part of understanding how a relationship is used and failure 
+				to respect this aspect of proper usage is what constitutes a scope violation. 
+			</para>
+
+			<para> For example when talking about the cast members of a performance of King Lear it would be a scope error to suggest that a 
+				member of cast play the character Desdemona for Desdemona is a character within the scope of different play namely Othello.  
+				The type of entity is correct for <q>Desdemona</q> is indeed a  <entity>character</entity> of a play, but the context is not. 
+				It is part of our knowledge of the <entity>plays part of<entity>/</entity>part played by</entity> relationship (see figure <figref>performanceOfPlay</figref>) 
+				that this is a 
+				relationship whose scope is local to the enclosing <entity>play</entity> context. We can say that it is intra-play rather than inter-play. 
+			</para>
+
+			<para> It would be a scope error in a conversation about antipodeans to assert that the New Zealand born physicist
+				Ernest Rutherford could have been a native of Nelson in Lancashire, a place just 20 miles away from where he was Professor of Physics. 
+				Not only would it be a factual error - it would be non-sensical and this is because of the grasp we have of the meta-relationship
+				between relationships <entity>country of birth</entity> and <entity>place of birth</entity>, that the latter is a more detailed version of the former. 
+				The assertion would violate the scope of the <entity>place of birth</entity> relationship (see figure <figref>townOfBirth</figref>).
+			</para>
+
+
+			<figuregroup>
+				<figureOfPicture>
+					<pictureName>performanceOfPlay</pictureName>
+					<caption>Model of the Performance of a Play</caption>
+				</figureOfPicture>
+
+				<!-- <newline/> NOT in Document Model-->
+
+				<figureOfPicture>
+					<pictureName>townOfBirth</pictureName>
+					<caption>The relationship <entity>place of birth</entity> is scope constrained to <entity>country of birth</entity>.</caption>
+				</figureOfPicture>
+
+			</figuregroup>
+
+			<para> Likewise it would be a scope error to think that a local telephone call could be made between different 
+				countries or that the hydrogen of a water molecule could be covalently bonded to the oxygen of a <emph>different</emph>
+				molecule or that the captain of one team in a cricket match might be scheduled to bat for the opposing team. 
+				All of these errors are characterised as failures to respect the scopes of relationships. 
+			</para>
+
+			<para> In accord with the most fundamental principles of information theory the more constrained a relationship is in its scope then the less the information needed to express its individual instances or
+				facts of which it comprises. 
+				So the definition of relationship scopes is intimately connected to specifying information requirements for representing or communicating relationship instances. 
+			</para>
+
+
+
+			<para> For example if we wish to propose that, in the context of a performance of King Lear, 
+				we  give someone the role of <q>the fool</q> then we do not have to say <q>the fool in King Lear</q> we 
+				simply have to say <q>the fool</q> for our shared knowledge of the scope of the relationship <entity>plays part of</entity>/<entity>part played by</entity> implies
+				the rest. Contrast this to the description often given of previous parts played by the actors as an enumeration of characters within plays.
+			</para>
+
+		</subsection>
+	</section>
+
+
+	<section>
+		<title>Diagrams Expressing Scopes</title>
+		<label>scopediagrams</label>
+
+
+		<para> To summarise, the <entity>plays part of</entity> relationship is limited in scope. In the specific context of a cast member, 
+			the part they play is in the same play as the performance is a performance of. </para>
+
+		<para> The relationship <entity>plays part of</entity> has a type constraint : in its proper usage it has to relate cast members with 
+			characters but it also has a scope constraint: that the character is, necessarily, a character within the context of the play being performed.
+		</para>
+
+		<figureOfPicture>
+			<pictureName>scopePlaysPartOf</pictureName>
+			<framewidth>7.5cm</framewidth>
+			<muchtext/>
+			<caption>
+				A scope constraint diagram for relationship <entity>plays part of</entity>. In such a diagram it is the lower horizontal relationship which is the subject of the constraint. By saying that this is a scope constraint diagram we mean that the two  navigation paths from the lower left entity type <entity>cast member</entity> to
+				the upper right entity type <entity>play</entity> are equivalent. This can be said in words:
+				<itemize>
+					<item>Whenever a cast member plays the part of a character then the performance the cast member is part of is a performance of the play the character is a part of.</item>
+				</itemize>
+				<para>
+					or as the equation:
+
+					<code>
+						<scopesubject/>/<scopeup/> = <scopeup/>/of
+					</code>
+
+					where   
+					<courier>
+						<scopesubject/>
+					</courier>
+					represents navigation in the many-one direction of the subject relationship and
+					<courier>
+						<scopeup/>
+					</courier>
+					represents
+					navigation up the diagram along the dependency to a parent entity.
+				</para>	  
+				<para>
+					In category theory terminology this is a diagram that commutes, see section 
+					<refsection>
+						<label>
+							<chapter>blog</chapter>
+							<section>questionsofcommutivity</section>
+						</label>
+						<title>Questions Of Commutativity</title>.
+					</refsection>
+				</para>	
+			</caption>
+		</figureOfPicture>
+
+		<para> In mathematical notation it is possible to include the scope constraint as a more general kind of type constraint than can be expressed 
+			in an entity model, namely a <emph>dependent type constraint</emph>. In entity modelling this is not possible and every relationship defined in a
+			model should have a scope constraint specified for it. There is no standard way of doing this but an accompanying diagram, one per 
+			associative relationship is a satisfactory way of doing this. Figure <figref>scopePlaysPartOf</figref> is the scope constraint diagram for 
+			relationship <entity>plays part of</entity>.  
+		</para>
+
+		<para> The diagram in figure <figref>scopeLineAssignedTo</figref> can be interpreted as the scope constraint for the relationship <entity>assigned to</entity> within 
+			the context of the entity models of figure <figref>scriptOfPlay</figref>. The text on the right of the figure explains the constraint expressed by the 
+			scope diagram - it seems obvious but this is so only if we <emph>know</emph> this model and this relationship i.e. providing we understand its 
+			proper usage. In this example there is a single entity type at the top of the diagram - therefore we call the diagram a scope triangle rather than a scope square. 
+		</para>
+
+		<para> If we allow of the use of identity relationship in a scope square and allow it to be drawn horizontally then any scope 
+			triangle can be re-expressed as a scope square as illustrated by figure <figref>scopeSquareLineAssignedTo</figref>. 
+		</para>
+
+		<figureOfPictureWithNote>
+			<pictureName>scopeLineAssignedTo</pictureName>
+			<framewidth>5.5cm</framewidth>
+			<muchtext/>
+			<note>
+				<width>5cm</width>
+				<itemize>
+					<item>Whenever a line of a play is assigned to a character then the play the character is part of is the same play as the line is part of.</item>
+				</itemize>
+			</note>
+			<caption>
+				A scope constraint diagram for relationship <entity>assigned to</entity>. This is a scope triangle because rooted at a single entity type. Equivalently we can annotate 
+				the subject relationship with the equation <verbatim>~/..=..</verbatim>.
+			</caption>
+		</figureOfPictureWithNote>
+
+
+		<para> Some relationships may be unconstrained in their scope in the sense that they are global in their reach. 
+			We have given an example of such a relationship, <entity>translation of</entity>, in figure <figref>languageBookTranslation</figref>. 
+			The scope of this relationship, the fact that it is unconstrained, is expressed by the relationship scope diagram in figure 
+			<figref>scopeTranslationOf</figref>. 
+			By way of explanation - what this diagram says is :
+			<quotation>
+				The absolute of the language of a translated book is the absolute of the language of the native book it is a translation of.
+			</quotation> 
+		</para>
+
+		<para> In other words it says that the relationship <entity>translation of</entity> is such that two 
+			absolutes are equal - which is to say nothing at all about the relationship 
+			because <emph>a priori</emph> all absolutes are equal as absolute is unique of its type.
+		</para>
+
+		<figureOfPicture>
+			<pictureName>scopeSquareLineAssignedTo</pictureName>
+			<width>40%</width>
+			<caption>The identity relationship <entity>is same as</entity> used to express the scope triangle of figure <figref>scopeLineAssignedTo</figref> as a square.</caption>
+		</figureOfPicture>
+
+
+		<figureOfPicture>
+			<pictureName>scopeTranslationOf</pictureName>
+			<width>40%</width>
+			<caption>An example of a scope diagram for a relationship which is unconstrained in scope - the scope diagram is rooted at absolute. </caption>
+		</figureOfPicture>
+
+
+
+		<subsection>
+
+			<title>Further example</title>
+
+			<para> Ryle's second example is of a child witnessing the march-past of a division of soldiers. 
+				After having had battalions, batteries, squadrons, etc. pointed out, the child asks when is the 
+				division going to appear. <q>The march-past was not a parade of battalions, batteries, squadrons 
+					and a division; it was a parade of the battalions, batteries and squadrons of a division.</q>. 
+			</para>
+
+			<para> The child might have asked further in discussion of a battalion and its sergeant major, 
+				to what battalion does the sergeant major belong? This would have been to fail to understand the 
+				scope of the <entity>sergeant major</entity> or <entity>leader relationship</entity> (see figure <figref>rylesMarchPast2</figref>). 
+				Contrast this to asking in a discussion of a university examination of what institution an 
+				external examiner belongs. 
+			</para>
+
+			<para> It is part of our understanding of the <entity>sergeant major</entity> relationship that a sergeant major is a soldier within the 
+				company, battalion or squadron of which he is the leader.
+			</para>
+
+			<figureOfPicture>
+				<pictureName>rylesMarchPast2</pictureName>
+				<caption>Based on Ryle's second example of category mistakes. </caption>
+			</figureOfPicture>
+
+		</subsection>
+
+		<subsection>
+			<title>Scope Squares - A Warning</title>
+
+			<para> Not all relationship squares are scope squares. In the model of figure <figref>modelStaysIn</figref> the obvious square is <emph>not</emph> a 
+				scope square<footnote>Mathematicians would say 
+					that the diagram does not commute.</footnote>. 
+				Instead the relationship <entity>stays in</entity> is global in scope i.e unconstrained. As such its scope square is as shown is figure <figref>scopeStaysIn</figref>.
+			</para>
+
+			<figureOfPicture>
+				<pictureName>modelStaysIn</pictureName>
+				<width>40%</width>
+				<caption>The relationship <entity>stays-in</entity> is not constrained : a cast member stays in a hotel but this does <emph>not</emph> have to be in the same town that the performance is at.</caption>
+			</figureOfPicture>
+
+
+			<figureOfPicture>
+				<pictureName>scopeStaysIn</pictureName>
+				<width>40%</width>
+				<caption>The scope square for the unconstrained relationship <entity>stays in</entity>. </caption>
+			</figureOfPicture>
+
+
+		</subsection>
+	</section>
+
+	<section>
+		<leader>At this point we move into less traditional areas:</leader>
+		<title>Conjunctive Dependencies</title>
+		<trailer>.</trailer>
+		<label>networkvmatrix</label>
+		<subsection>
+			<title>Marriages and Directed Graphs</title>
+			<para> 
+				If we model the marriage entity then we make it double dependent on person entity and 
+				since at the time of writing same sex marriage is not legal in my part of the world I can 
+				model it as a dependent on a male entity on the one hand, and a female on the other:
+
+				<er_center>
+					<filename>maleFemaleMarriage</filename>
+				</er_center>
+			</para>
+
+			<para> In this model, unlike in those of figures <figref>sentenceNounPhrase</figref> and <figref>scooter</figref> 
+				to which it is superficially similar, the subordinate 
+				entity, <entity>marriage</entity>, has no exclusion arc 
+				between its dependencies <emdash/> which is to say that the 
+				model shows each subordinate entity <entity>marriage</entity> to be 
+				dependent on two superordinate entities <emdash/>   
+				those shown as <entity>male</entity> and <entity>female</entity>. 
+				For the first time we see that the modelling notation is not constrained to situations where every 
+				entity has at most one other that it is dependent on. 
+				What is now absent in this example is <emph>hierarchy</emph> for it is  
+				the defining principle of
+				hierarchy that, in a hierarchical system, every entity within the system is subordinate to at most one other entity.
+				We can say that we have <emph>conjunctive</emph> dependencies now whereas before when we used the arc to indicated exclusion then
+				the dependencies were specified to be <emph>disjunctive</emph>.
+			</para>
+			<para>
+				In passing, note that there is no uniqueness indicated for marriage on the above diagram; this is because I was thinking of all mariages
+				and not all extant marriages. Thinking over all time, as I was, I knew that each <entity>marriage</entity> need not be unique for two given people
+				(actress Elizabeth Taylor was married to Richard Burton on two separate occasions, for example). If instead I <emph>am</emph> thinking
+				of marriages extant at a given time then cardinalities change and I can chose either of parties as a suitable way of identifying amarriage.
+				One choice is as follows:
+				<er_center>
+					<filename>maleFemaleMarriageExtant</filename>
+				</er_center>
+			</para>
+			<para>
+				Finally, consider the following model of a marriage:
+				<er_center>
+					<filename>maleFemaleDatedMarriageDivorce</filename>
+				</er_center>
+				in which I have included a <entity>divorce</entity> entity and indicated that a divorce is uniquely identified by the marriage it is 
+				a divorce of. I have shown a marriage to be uniquely identified by a combination of the parties in the marriage plus the date of the marriage.
+				This model is a little curious in that according to it an individual 
+				could get married twice on the same day provided it is not to the same person!
+			</para>      
+
+
+			<para> In other cases where conjunctive dependencies are modelled, the superordinate types 
+				(by which I mean for example the types <emph>male</emph> and <emph>female</emph> above) are not 
+				distinct in that is there is a double dependency on a single type. We see this in example in figure <figref>directedGraph4</figref>
+				<emdash/> the 
+				type in question being <emph>arc</emph> which the type <emph>vertex</emph> is doubly dependent on.  
+			</para>
+
+			<figureOfPictureWithNote>
+				<pictureName>directedGraph4</pictureName>
+				<framewidth>4.0cm</framewidth>
+				<muchtext/>
+				<note>
+					<width>14cm</width>
+					<para> Mathematicians define and use various notions each which abstract the idea of a network of points and connecting lines independently of 
+						how or whether physically realised. 
+						They define such abstract notions using the language of sets and relations;
+						they use the term <entity>graph</entity> for the most abstract concept of such a network and they variously use the terms <entity>point</entity>, 
+						<entity>node</entity> or <entity>vertex</entity> for the 
+						things connected; generally they use the term <entity>edge</entity>, <entity>directed edge</entity>, <entity>arc</entity> or <entity>arrow</entity> for the connections. 
+						There is not a single terminology and so we have to plump for one of several available; the diagram clarifies the choices made. 
+						For an entity modeller, and therefore for a database designer, the most straight forward of the graph notions is that of a <entity>directed graph</entity>. 
+					</para>
+				</note>
+				<caption>
+					Model of a directed graph.
+				</caption>
+			</figureOfPictureWithNote>
+		</subsection>
+
+		<subsection>
+			<title>Simple Graphs and Uniqueness Conditions</title>
+			<para> One of the restrictions sometimes required of a graph structures is that there be at most one edge between any two vertices. 
+				The term <entity>simple graph</entity> is used for graphs having this property and having the further property that vertices are not 
+				linked to themselves. In such cases the fact that there is at most one edge between any two verticies means that an edge can be uniquely
+				identified by identifying the vertices that it connects. 
+				The model of a simple directed graph captures this fact as shown in figure <figref>simpleDirectedGraph</figref>. 
+
+				<figureOfPictureWithNote>
+					<pictureName>simpleDirectedGraph</pictureName>
+					<framewidth>4.5cm</framewidth>
+					<note>
+						<width>7cm</width>
+						<para> 
+							The bars on the relationships indicate a uniqueness condition in 
+							this case that there is at most one arc between any two vertices.
+							This is exactly the condition that for a directed graph to be
+							said to be <emph>simple</emph>.
+						</para>
+					</note>
+					<caption>
+						Model of a simple directed graph.
+					</caption>
+				</figureOfPictureWithNote>
+			</para>
+		</subsection>
+	</section>
+
+
+	<section>
+		<title>Existence Assertions/Pullbacks</title> 
+		<label>pullbacks</label>
+		<para>
+			Relationship cardinalities can be said to make existence assertions - that such an 
+			such entity may or must exist in relation to a given entity.
+			Sometimes it is useful to make further existence assertions beyond what can be 
+			asserted by means of relationship cardinality, 
+			applying as cardinality does to a single relationship. 
+			In this section we introduce a notation for doing so for a certain significant 
+			class of existence assertions which involves use of a <q>bowtie</q> symbol on 
+			each of two or more contributing relationships;
+			visually the bowtie  is an extension of the
+			cardinality crowsfoot and the bar used to distinguish identifying relationships. 
+			The use of the bowtie was proposed by Bob Appleyard and is a nod in the direction
+			of relational algebra.   The combination of uniqueness and existence conditions 
+			on entitites of a type conditional upon the proper scoping of relationships is expressed
+			by pullback diagrams in category theory and so we speak of certain diagrams of 
+			relationships as <emph>pullback diagrams</emph>. We now give a number of examples.
+		</para>
+
+		<subsection>
+			<title>Matrices</title>
+			<para>
+				In the example in figure <figref>matrix0</figref> the existence assertion is to the effect that in a mathematic matrix there 
+				is an element for each combination of a row and a column. According to the uniqueness assertion there is at most one. The bowties
+				assert both the existence and the uniqueness and the square of relationships is said to be a pullback square.          
+				<figureOfPictureWithNote>
+					<pictureName>matrix0</pictureName>
+					<muchtext/>
+					<note>
+						<width>14cm</width>
+						<itemize>
+							<item>every <entity>matrix</entity> has one or more <entity>rows</entity>
+							</item>
+							<item>every <entity>matrix</entity> has one or more <entity>columns</entity>
+							</item>
+							<item>every <entity>matrix</entity> has one or more <entity>elements</entity>
+							</item>
+							<item>every <entity>element</entity> is part of <entity>row</entity> and part of a <entity>column</entity>
+							</item>
+							<item> uniqueness assertion <emdash/> to a given row and a given column there is at most one element that is part of the row and part of the column
+							</item>
+							<item> existence assertion <emdash/> to a given row and a given column there is at least one element that is part of the row and part of the column
+							</item>
+						</itemize>
+					</note>
+					<caption>
+						Model of a mathematical matrix. 
+					</caption>
+				</figureOfPictureWithNote>
+			</para>
+		</subsection>
+		<subsection>
+			<title>Tabular Displays</title>
+			<para> There is a similar shape to the models representing the 
+				structure<footnote>
+					I am distinguishing here between the structure of the
+					tabular display from the structure of the subject entitites
+				</footnote>
+				of rectangular tables of data. An example is given in figure <figref>dataTable0</figref>. 
+				In the HTML language, and in other computer markup languages, such data tables are communicated row by row rather than column by column.
+			</para>
+
+			<para> In some tabular displays the rows or columns of a table, or both, may be grouped together
+				to represent some grouping of the subjects. The structure then has different branches that are hierarchical and joined at the detail level
+				into the recognisable shape of the 2 dimensional matrix structure. One such is illustrated in figure <figref>dataTable1</figref>. 
+			</para>
+
+			<figure>
+				<caption>
+					Model of the structure of a tabular display. Note that what is modelled is the structure of the display rather 
+					than the structure of the subject entities though, having said which, there is an 
+					important meta-relationship between the 
+					two <emdash/> for of necessity there is a meta-relationship between the structure of a system of subject entities and the structure 
+					of a medium through which details of such a system may be communicated or visualised.
+				</caption>
+				<newline/>
+				<label>dataTable0</label>
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th colspan="3"> Team sheet </th>
+							</tr>
+						</thead>
+						<tr>
+							<td>Goalkeeper</td>
+							<td>GK</td>
+							<td> Paul Robinson </td> 
+						</tr>
+						<tr>
+							<td rowspan="4">Defenders</td>
+							<td> LB </td>
+							<td> Lucus Radebe </td>
+						</tr>
+						<tr>
+							<td> DC </td>
+							<td> Michael Duberry </td>
+						</tr>
+						<tr>
+							<td> DC </td>
+							<td> Dominic Matteo </td>
+						</tr>
+						<tr>
+							<td> RB </td>
+							<td> Didier Domi </td>
+						</tr>
+						<tr>
+							<td rowspan="3"> Midfielders</td>
+							<td> MC </td>
+							<td> David Batty </td>
+						</tr>
+						<tr>
+							<td> MC </td>
+							<td> Eirik Bakke</td>
+						</tr>
+						<tr>
+							<td> MC </td>
+							<td> Jody Morris </td>
+						</tr>
+						<tr>
+							<td>Forward </td>
+							<td> FW </td>
+							<td> Jamie McMaster</td>
+						</tr>
+						<tr>
+							<td rowspan="2"> Strikers </td>
+							<td> ST </td>
+							<td> Alan Smith </td>
+						</tr>
+						<tr>
+							<td> ST </td>
+							<td> Mark Viduka</td>
+						</tr>
+					</table>
+					<er_inline>
+						<filename>dataTable0</filename>
+					</er_inline>
+				</div>
+			</figure>
+
+			<newline/>
+
+			<figure>
+				<caption>
+					Tabular structure  in which rows are grouped <emdash/> part of   
+					dataset from U.S. Bureau of the 
+					Census<footnote>
+						http:/www.census.gov/population/www/documentation/twps0027/tab01.txt,<newline/> Internet Release date:  June 15, 1998
+					</footnote>
+				</caption>
+				<newline/>
+				<label>dataTable1</label>
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th colspan="6">
+									Rank by Population of the 100 Largest Urban Places
+								</th>
+							</tr>
+							<tr>
+								<th>State </th>
+								<th> Urban Place </th>
+								<th>  1960 </th>
+								<th> 1970 </th>
+								<th> 1980 </th>
+								<th> 1990 </th>
+							</tr>
+						</thead>
+						<tr>
+							<td rowspan="2"> ARIZONA </td>
+							<td>Phoenix       </td>
+							<td> -  </td>
+							<td> - </td>
+							<td> - </td>
+							<td> 85</td>
+						</tr>
+						<tr>
+							<td>Tucson        </td>
+							<td> 61  </td>
+							<td> 23 </td>
+							<td> 22 </td>
+							<td> 15</td>
+						</tr>
+						<tr>
+							<td rowspan="6"> CALIFORNIA </td>
+							<td>Fresno     </td>
+							<td> 24 </td>
+							<td> 27 </td>
+							<td> 29 </td>
+							<td> 36 </td>
+						</tr>
+						<tr>
+							<td>Long Beech    </td>
+							<td> - </td>
+							<td> - </td>
+							<td> - </td>
+							<td> -  </td>
+						</tr>
+						<tr>
+							<td>Los Angeles   </td>
+							<td> - </td>
+							<td> 90 </td>
+							<td> 88 </td>
+							<td> 93 </td>
+						</tr>
+						<tr>
+							<td>Oakland       </td>
+							<td> 83 </td>
+							<td> - </td>
+							<td> - </td>
+							<td> - </td>
+						</tr>
+						<tr>
+							<td> &#8226;        </td>
+							<td/>
+							<td/>
+							<td/>
+							<td/>
+							<td/>
+							<!-- vdots -->
+						</tr>
+						<tr>
+							<td> &#8226;        </td>
+							<td/>
+							<td/>
+							<td/>
+							<td/>
+							<td/>
+							<!-- vdots -->
+						</tr>
+						<tr>
+							<td rowspan="3"> TEXAS </td>
+							<td>Dallas          </td>
+							<td> 43 </td>
+							<td> 44 </td>
+							<td> 36 </td>
+							<td> 44 </td>
+						</tr>
+						<tr>
+							<td>Los Angeles     </td>
+							<td> - </td>
+							<td> 90 </td>
+							<td> 88 </td>
+							<td> 93 </td>
+						</tr>
+						<tr>
+							<td>Oakland         </td>
+							<td> 83 </td>
+							<td> - </td>
+							<td> - </td>
+							<td> - </td>
+						</tr>
+						<tr>
+							<td rowspan="1"> VIRGINIA</td>
+							<td>Virginia Beech</td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 3 </td>
+						</tr>
+						<tr>
+							<td rowspan="1"> WASHINGTON</td>
+							<td>Chicago     </td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 3 </td>
+						</tr>
+						<tr>
+							<td rowspan="1"> WISCIONSIN</td>
+							<td>Milwauke    </td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 2 </td>
+							<td> 3 </td>
+						</tr>
+					</table>
+					<er_inline>
+						<filename>dataTable1</filename>
+					</er_inline>
+				</div>
+			</figure>
+
+		</subsection>
+		<subsection>
+			<title>Network and Matrix versus Hierarchical</title>
+			<para> The terms <emph>network</emph> and <emph>matrix</emph> are commonly used in contrast to the term hierarchical to refer to arrangements of entities not 
+				constrained to be hierarchical; for example in organisational structure the term <emph>matrix management</emph> is used in
+				situations were different dimensions are managed by different management hierarchies and in which individuals therefore have multiple reporting lines. 
+				The term hierarchical is etymologically derived from Greek <emph>sacred ruler</emph> and emerged in its modern sense via its use 
+				in medieval times in relation to the church organisation. 
+			</para>
+
+		</subsection>
+	</section>
+
+
+<!--
+
+	<section>
+		<title>Further Examples</title>
+		<label>furtherexamples</label>
+		<subsection>
+			<title>Difficulties</title>
+			<para> We are not alone should we dispair at the difficult of expression of concepts. 
+				It is a favourite topic of poets<footnote>For example,
+					T.S. Elliott: <emph>'the word within a word, unable to speak a word'</emph>.</footnote> and 
+				we have already mentioned H.G.Wells' musing:
+				<quotation>
+					There is a sort of stratification in human ideas. I have it very much in mind that various terms in our reasoning lie, as it were, in different planes, and that we accomplish a large amount 
+					of error and confusion by reasoning terms together that do not lie or nearly lie in the same plane. 
+				</quotation>
+			</para>
+
+			<para> I would say that there are axes of ambiguity that typically confound our best efforts at expression.
+				The examples in this section illustrate how by use of entity relationship modelling we can 
+				overcome some of these difficulties.
+			</para>
+
+		</subsection>
+
+		<subsection>
+			<title>book(1) and book(2)</title>
+
+			<para> It is often the case that a single word in a single dictionary sense can be used at a number of different levels. 
+				We can illustrate this with the word <entity>book</entity> which in its primary sense seems unambiguous but consider how we can ask the question:
+				<quotation>
+					How many books were published last year in the UK?
+				</quotation>
+				<newline/>
+				and contrast with our interpretation of:
+				<quotation>
+					How many books were sold last year in the UK?
+				</quotation>
+				<newline/>
+			</para>
+			<para> We expect an answer to the first question to be a count of book titles or ISBN numbers but we expect an answer to 
+				the second to be a count of actual physical books sold by publishers. The use of the word <entity>book</entity> in the first 
+				question is at a different level to the use in the second question. The two are related and we classify as a reference relationship:
+				<er_inline>
+					<filename>relBook2PrintingOfBook1</filename>
+				</er_inline>
+				.
+			</para>
+
+			<para> An entity model can help disambiguate these distinct uses. 
+				We have the situation shown in figure <figref>modelBook1Book2Person</figref>. 
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>modelBook1Book2Person</pictureName>
+				<caption>Different uses of <entity>book</entity> as a type of entity. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>word(1) and word(2)</title>
+			<para> The word <entity>word</entity> itself is also used at different levels. For example if we set 
+				about counting how many words in 
+				the English language we will be counting a different type of entity than if we count words in an essay or in an advertisement that we pay for by the word.
+				There is a clear type instance relationship between the two which we again classify as a reference relationship:
+				<er_inline>
+					<filename>relWord2OccurrenceOfWord1</filename>
+				</er_inline>
+				. This thinking leads to the model in figure <figref>modelWord2OccurrenceOfWord1</figref>.
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>modelWord2OccurrenceOfWord1</pictureName>
+				<caption>The occurrence relation between multiple uses of the word <entity>word</entity>. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>letter(1) and letter (2)</title>
+			<para> The word <entity>letter</entity> also for we can count the letters in a word and each one is an occurrence of a letter from 
+				the alphabet as shown in figure <figref>scopeLetter2OccurrenceOfLetter1</figref>. 
+			</para>
+
+
+			<figureOfPicture>
+				<pictureName>scopeLetter2OccurrenceOfLetter1</pictureName>
+				<caption>The scope square of the <entity>occurrence of</entity> relationship between multiple uses of the word <entity>letter</entity>. </caption>
+			</figureOfPicture>
+
+		</subsection>
+		<subsection>
+			<title>word(3) and letter(3)</title>
+			<para> In the model in figure <figref>model3UsesOfWord</figref> we introduce a third type of  <entity>word</entity> and third type of <entity>letter</entity>:
+
+				<quotation>
+					word (1) - the word as defined by the dictionary. This is the level I am using when I say <q>What does that word mean?</q> 
+				</quotation>
+				<quotation>
+					word (2) - the words that appear in a book as conceived of by the author. This is the level I have in mind when I write, 
+					for example  <q>In the words of T.S.Elliott</q> or, <q>According to the word of God</q>. (This last usage of the word <entity>word</entity> is given as a 
+					different sense in the <q>Concise Oxford Dictionary</q>). 
+				</quotation>
+				<quotation>
+					word (3) - the actual copies of the words in some copy of a book. This is the level that we use when we say <q>That word is illegible</q>.
+				</quotation>
+			</para>
+
+			<figureOfPicture>
+				<pictureName>model3UsesOfWord</pictureName>
+				<caption>Occurrence relationships between multiple uses of the word <entity>word</entity>. </caption>
+			</figureOfPicture>
+		</subsection>
+		<subsection>
+			<title>The Model</title>
+			<para>
+				This leads to the model shown in figure <figref>modelBook2ToLetter1AndPerson</figref>.
+			</para>
+
+			<figureOfPicture>
+				<pictureName>modelBook2ToLetter1AndPerson</pictureName>
+				<caption>This example pieces together the fragments described in the previous sections. </caption>
+			</figureOfPicture>
+
+			<newline/>
+			<para>In this model there is a further example of a scope square<footnote>In fact the squares show in this section as examples of 
+					relationship scoping are of a
+					particular type of scope square each of which, following category theory, we should call a pullback diagram.</footnote>; this is shown in figure 
+				<figref>scopeLetter3Letter2</figref>.
+				<figureOfPicture>
+					<pictureName>scopeLetter3Letter2</pictureName>
+					<caption>A scope square for the occurrence relation between letter(3) and letter(2). </caption>
+				</figureOfPicture>
+			</para>
+
+			<para> Returning for a moment to the question of when to model a relationship as composition (vertical) and when as reference (horizontal)
+				we see that in the model in figure <figref>modelBook2ToLetter1AndPerson</figref> the distinction between 
+				composition and reference has been representative of these considerations:
+				<itemize>
+					<item>Describing an <emph>alphabet</emph>, I describe its letters but I do not describe the <emph>vocabulary</emph> of every language using the alphabet.</item>
+					<item>Describing the <emph>vocabulary</emph> of a language, I describe the words and how they are spelt but I do not describe the <emph>corpus of works</emph>.</item>
+					<item>Describing the <emph>corpus of works</emph>, I do not describe the <emph>dissemination</emph> of that corpus i.e the printed copies.</item>
+				</itemize>
+			</para>
+
+		</subsection>
+	</section>
+  
+  -->
+
+
+	<section>
+		<title>Relational Constructions</title>
+		<label>relationalconstructions</label>
+		<para> In mental operation and in everyday speech we have recourse to constructions in which relationship terms are refined or composed to enable identification of one or more entities from the context of another. For example, relationships are strung together as in phrases like <emph>his father's cousin</emph> or <emph>my child's school's head teacher</emph>; they are narrowed in scope, as in the definition of <emph>sister</emph> as <emph>female sibling</emph> and they are combined or aggregated such as in the definition of <emph>parent</emph> as <emph>mother or father</emph>. In technical contexts, programmers using high level programming languages have use of formal equivalents of these as means of expression of program logic and mathematicians too have their notational equivalents. In this section we are going to describe the significance of these constructions to entity modelling and to present a way of visualising them in diagrams. 
+		</para>
+
+		<subsection>
+			<title>Translational Equivalents</title>
+			<para> In some cases a single term exists that can be used in place of a composite relational construction; 
+				kinship terms provide a rich source of examples: <emph>grandfather</emph> substitutes for <emph>male grandparent</emph>, <emph>aunt</emph> for <emph>parent's sister</emph> and so on. Linguists would say in such cases that the single term and the composite phrase were translational equivalents.
+			</para>
+
+			<para> Different languages vary with respect to the common relational constructions for which there are single term translational equivalents. For example, from the realm of temporal relationships rather those of kinship, in the Alamblak language of Papua New Guinea there is a word <emph>yuanane</emph> whose meaning is two days removed from the present which is to say its English translational equivalent is <emph>the day before yesterday or day after tomorrow</emph>. There is of course no single term in English which is translationally equivalent.
+			</para>
+
+			<para> In regard to kinship terms, the English language is poorly endowed compared to many other languages and in English we need rely on explicit constructions such as elder brother, maternal uncle, wife's brother, cousin on mother's side to articulate relationships for which there are single word translational equivalents in other languages. For example, in the Sudanese kinship system also know as the descriptive system and into which category falls ancient Latin there is a specific term for all of the close family relationships.  In Latin for example <emph>amitinus</emph> is father's sister's son, <emph>patruelis</emph> is father's brother's son, <emph>matruelis</emph> is mother's sister's son and, completing the male cousins, <emph>consobrinus</emph> is mother's brother's son.  
+			</para>
+		</subsection>
+		<subsection>
+			<title>The Join Construction</title>
+			<para> In the definition of <q>maternal grandfather</q> as <q>mother's father</q> the <emph>definiendum</emph> is a relationship between invididuals: 
+
+				<er_center>
+					<filename>maternalgrandfatherdefiniendum</filename>
+				</er_center>
+
+
+			</para>
+
+			<para> whereas the <emph>definiens</emph> is a phrasing which joins two relationships end to end:
+
+
+				<er_center>
+					<filename>maternalgrandfatherdefiniens</filename>
+				</er_center>
+			</para>
+
+			<para> The definition presupposes types as shown in figure <figref>kinship</figref>.
+			</para>
+
+			<figureOfPicture>
+				<pictureName>kinship</pictureName>
+				<caption>The core family relationships</caption>
+			</figureOfPicture>
+
+			<para> This construction by which a new relationship is defined from two others joined end to end 
+				is known simply as a <emph>join</emph> and the constructed relationship, the <emph>definiendum</emph> <q>maternal grandfather</q>, is said to be a join of the other two <emdash/> in this case the join of the <q>mother</q> relationship with the <q>father</q> relationship. 
+				In definitions like this we shall put together <emph>definiendum</emph> and <emph>definiens</emph> is a single diagram:  
+
+
+				<er_center>
+					<filename>kinship.individual.maternalgrandfather</filename>
+				</er_center>
+
+
+			</para>
+
+			<para> There is no limit to the numbers of relationships which can be joined together, for example:
+				<er_center>
+					<filename>kinship.individual.maternalgrandfathersmother</filename>
+				</er_center>
+			</para>
+		</subsection>
+
+		<subsection>
+			<title>Expressing a Join in Mathematical Notation</title>
+			<para> Being as both the <emph>mother</emph> and <emph>father</emph> relationships are many-one relationships then they can be classified as mathematical functions; the relational join in this special case is precisely the mathematical operation of functional composition. In mathematical notation the functional composition, written f o g, of two functions f and g is defined by :
+
+				<equ_center>
+					<equationName>definitionofcirc</equationName>
+					<width>2.5cm</width>
+				</equ_center>
+
+				and so we can write:
+				<verbatim>
+					maternalgrandfather = mother o father
+				</verbatim>
+
+				and 
+
+				<verbatim>
+					maternalgrandfather's mother = mother o father o mother
+				</verbatim>
+			</para>
+		</subsection>
+		<subsection>
+			<title>Join as Navigation</title>
+
+			<para> In computer software the / operation is often used in the <emph>definiens</emph> in these situations giving a
+				construction which is sometimes described as a path or a navigation:
+
+				<verbatim>
+					mother/father/mother
+				</verbatim>
+			</para>
+
+			<para> The words navigate and navigation have come to be used in recent years in describing the activity of 
+				following links through the internet or through a web site and this usage has been entered into modern dictionaries.
+				Pre-internet the words had widespread use among programmers describing the behaviour of programs moving along links 
+				between data entities. Immersed in the contexts of their programs, programmers will say I navigate here and I navigate their 
+				meaning that they program their programs to do this and this was echoed as earlier as 1960 by C.W.Bachman writing about the
+				structural representations of data in that he called his paper <qq>The programmer as navigator</qq>. Family relationships 
+				again are a good source of examples.
+				Suppose a program had to extract details of a person's maternal grandfather's mother. 
+				The programmer might say that they navigated:
+
+				<enumerate>
+					<item> to the person's mother</item>
+					<item> to her father</item>
+					<item> to his mother</item>
+				</enumerate>
+			</para>
+
+			<para> This is of course to follow the join construction from left to right in the 
+				<emph>definiens</emph> of <figref>kinship.individual.maternalgrandfather</figref> above. 
+			</para>
+
+			<para> A concept which has been used in theoretical contexts but not more widely is that of 
+				logical horizon (a term which can be found in Kant's 'Critique of Pure Reason'). Used in the entity modelling context, 
+				the logical horizon of an entity is 
+				the set of entities which can be reached from it by navigation of single valued relationships. Thus father,
+				mother, their fathers and mothers and so on to all ancestors are said to be with in the logical horizon of a 
+				particular subject person entity. 
+			</para>
+
+			<para> Constructed relationships such as the joins that we have seen in (<figref>kinship.individual.maternalgrandfather</figref>) 
+				and (<figref>kinship.individual.maternalgrandfathersmother</figref>) above encapsulate possible navigations. 
+				This gives us another way of expressing what the logical horizon of an entity is <emdash/> we can define it to be the set of entities which 
+				can be reached by way of navigation of a single valued constructed relationship.
+			</para>
+
+			<para> Whereas constructed relationships encapsulate directions for navigation from subject entities a set of directions such as:
+				<enumerate>
+					<item> take the first left</item>
+					<item> when you get to the next lights turn right</item>
+					<item> now take the second right</item>
+				</enumerate>
+				equally can be seen as a relational construction between one subject entity which include place and direction to another place
+				approached from a specific direction. 
+			</para>
+		</subsection>
+
+		<subsection>
+			<title>The Aggregation of Relationships</title>
+			<para> In contrast to the definition of <q>maternal grandfather</q>, we can define the <q>parent</q> relationship 
+				to be the <emph>aggregate</emph> of the <q>mother</q> and <q>father</q> relationships. The <emph>definiens</emph> is 
+				now <q>mother</q>
+				<emph>and</emph> <q>father</q> instead of being <q>mother</q>
+				<emph>then</emph> <q>father</q> In this case 
+				the two relationships, <q>father</q> and <q>mother</q> are put together side by side and the whole definition 
+				can be viewed like this:
+				<er_center>
+					<filename>kinship.individual.parent</filename>
+				</er_center>
+			</para>
+
+			<para>
+				<q>A day two days removed from the present</q>, or <emph>yuanane</emph>
+				<footnote>From the Alamblak language of Papua New Guinea 
+					and given as an example of a word having no direct translational equivalent in English, see xxx.</footnote>, 
+				is also an aggregation since it is <q>day before yesterday</q> aggregated with <q>day after tomorrow</q> :
+				<er_center>
+					<filename>yuananeDefined.day.yuanane</filename>
+				</er_center>
+			</para>
+
+			<para> whereas <q>day before yesterday</q> and <q>day after tomorrow</q> are both joins:
+				<er_center>
+					<filename>successionOfDays.day.dayAfterTomorrow</filename>
+				</er_center>
+
+			</para>
+
+			<para>
+				<q>Tomorrow</q> and <q>yesterday</q> are different ends of the one binary relationship of succession between days:
+				<er_center>
+					<filename>successionOfDays</filename>
+				</er_center>
+			</para>
+
+			<para> Joining <q>tomorrow</q> with <q>tomorrow</q> is equally 
+				joining <q>yesterday</q> with <q>yesterday</q>. 
+				Consequently the <emph>yuanane</emph> relationship 
+				is it's own inverse, that is it is a symmetric relationship.
+			</para>
+
+			<para> By expanding the <emph>definiens</emph> in the definition of <emph>yuanane</emph> and by also adding labels for all inverse relationships we get a single diagram:
+				<er_center>
+					<filename>successionOfDays.day.yuanane</filename>
+				</er_center>
+			</para>
+
+			<para> If either of the relationships in a join is many-valued then the resulting relationship is many-valued. 
+				Thus maternal grandparent is many-valued because parent is:
+				<er_center>
+					<filename>kinship.individual.maternalgrandparent</filename>
+				</er_center>
+			</para>
+
+			<para> The existence of translational equivalents poses a particular danger to entity modellers as we have discussed in 
+				the section on
+				<refsection>
+				<label>
+					<chapter>perspective</chapter>
+					<section>goodness</section>
+				</label>
+			</refsection>.
+			</para>
+
+		</subsection>
+
+
+	</section>
+
+
+
+
+
+
+</chapter>

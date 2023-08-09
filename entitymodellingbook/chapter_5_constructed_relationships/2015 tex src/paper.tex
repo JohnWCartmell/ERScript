@@ -1,0 +1,21 @@
+
+\documentclass[10pt,a4paper]{article}
+%\usepackage[margin=3cm,noheadfoot]{geometry}
+\input{../notation/ermacros}
+\input{../notation/EntityModellingMacros}
+\input{../notation/erdiagram}
+\title{Relational Constructions}
+\author{John Cartmell}
+
+
+\begin{document}
+\maketitle
+\newcommand{\compcent}[1]{\vcenter{\hbox{$#1\circ$}}} 
+
+\newcommand{\comp}{\mathbin{\mathchoice 
+{\compcent\scriptstyle}{\compcent\scriptstyle} 
+{\compcent\scriptscriptstyle}{\compcent\scriptscriptstyle}}} 
+
+\input{constructed_relationships}
+
+\end{document}

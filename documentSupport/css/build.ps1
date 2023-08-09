@@ -6,7 +6,7 @@ echo ("*** building from   $SOURCE css folder")
 
 
 $SOURCESCRIPTS = $SOURCE + '\documentSupport\css'
-$TARGETSCRIPTS = $TARGET + '\documentSupport\css' 
+$TARGETSCRIPTS = $TARGET + '\css' 
 
 # CREATE target scripts folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETSCRIPTS))

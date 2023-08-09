@@ -1,0 +1,426 @@
+
+
+\newenvironment{JCexample}
+{\newcommand\colboxcolor{F0F0FF}%
+\begin{lrbox}{\riddlebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax} \textbf{} \\ \itshape}
+{\end{minipage}\end{lrbox}%
+%\begin{center}
+\colorbox[HTML]{\colboxcolor}{\usebox{\riddlebox}}
+%\end{center}
+}
+\newcommand{\JCpictureFolder}[0]{../pictures}
+
+%\JCplainFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\newcommand{\JCplainFig}[3]{
+\begin{figure}[#2]
+\caption{#3}
+\label{#1}
+\begin{center}
+\input{\JCpictureFolder/#1}
+\end{center}
+\end{figure}
+}
+
+%\JCboxedFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\newcommand{\JCboxedFig}[3]{
+\begin{figure}[#2]
+\begin{JCexample}
+\vspace{-0.5cm}
+\caption{#3}
+\label{#1}
+\begin{center}
+\input{\JCpictureFolder/#1}
+\end{center}
+\end{JCexample}
+\end{figure}
+}
+
+
+%\JCbulletedFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\NewEnviron{JCbulletedFig}[3]{%
+\setlength{\textfloatsep}{0pt}
+\begin{figure}[#2]
+\begin{JCexample}
+\caption{#3}
+\label{#1}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} | c m{6cm}}
+\raisebox{-2.0cm}{
+\input{\JCpictureFolder/#1}}& & & \text{\parbox{6cm}{\raggedright{\footnotesize{
+\begin{enumerate}[(i)]
+\BODY
+\end{enumerate}}}}} \\
+\end{array}
+$
+\end{center}
+\end{JCexample}
+\end{figure} 
+}
+
+\newlength{\JChalfHt}
+%\JCbulletedDimFig{#1 pictureFilename}{#2 figureParam}{#3Caption}{#4PictureHeight}{#5TextWidth}
+\NewEnviron{JCbulletedDimFig}[5]{%
+\begin{figure}[#2]
+\begin{JCexample}
+\vspace{-0.5cm}
+\caption{#3}
+\label{#1}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} |  m{#5cm}}
+\setlength{\JChalfHt}{#4cm * \real{0.5}}
+\raisebox{-\JChalfHt}{
+\input{\JCpictureFolder/#1}}& & \text{\parbox{#5cm}{\raggedright{\footnotesize{
+\begin{enumerate}[(i)]
+\BODY
+\end{enumerate}}}}} \\
+\end{array}
+$
+\end{center}
+\end{JCexample}
+\end{figure} 
+}
+
+\NewEnviron{JCnotedDimFig}[5]{%
+\begin{figure}[#2]
+\begin{JCexample}
+\vspace{-0.5cm}
+\caption{#3}
+\label{#1}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} | c m{#5cm}}
+\setlength{\JChalfHt}{#4cm * \real{0.5}}
+\raisebox{-\JChalfHt}{
+\input{\JCpictureFolder/#1}}& & & \text{\parbox{#5cm}{\raggedright{\footnotesize{
+\BODY }}}}\\
+\end{array}
+$
+\end{center}
+\end{JCexample}
+\end{figure} 
+}
+
+
+\newenvironment{JCquote}
+{\begin{quote}\itshape}
+{\end{quote}}
+
+
+\newlength{\JCxmin}
+\newlength{\JCxmid}
+\newlength{\JCxmax}
+\newlength{\JCymin}
+\newlength{\JCymid}
+\newlength{\JCymax}
+\newlength{\JCxa}
+\newlength{\JCxb}
+\newlength{\JCxc}
+\newlength{\JCxd}
+\newlength{\JCxe}
+\newlength{\JCxf}
+\newlength{\JCxg}
+\newlength{\JCxh}
+\newlength{\JCxi}
+\newlength{\JCya}
+\newlength{\JCyb}
+\newlength{\JCyc}
+\newlength{\JCyd}
+\newlength{\JCye}
+\newlength{\JCyf}
+\newlength{\JCyg}
+\newlength{\JCyh}
+\newlength{\JCyi}
+\newlength{\JCabsoluteHeight}
+\newlength{\JCabsoluteWidth}
+\newlength{\JCabsypos}
+\newlength{\JChangerx}
+\newcommand{\JCsegments}[0]{1}
+\definecolor{lightyellow}{cmyk}{0,0,0.3,0}
+\newcommand{\JCEntityFillColour}[0]{white}
+\newcommand{\JCToggleFillColour}[0]
+{\ifthenelse{\equal{\JCEntityFillColour}{lightyellow}}{\renewcommand{\JCEntityFillColour}[0]{white}}
+{\renewcommand{\JCEntityFillColour}[0]{lightyellow}}
+}
+
+%\entity{#1 width}{#2 height}{#3nodeprefix}{#4content}
+\newcommand{\JCentity}[6]{
+\JCToggleFillColour
+\addtolength{\JCabsypos}{-#2cm}
+\setlength{\JCxmin}{0cm}
+\setlength{\JCymin}{0cm}
+\setlength{\JCxmid}{#3cm * \real{0.5}}
+\setlength{\JCymid}{#4cm * \real{0.5}}
+\setlength{\JCxmax}{#3cm}
+\setlength{\JCymax}{#4cm}
+\setlength{\JCxa}{#3cm * \real{0.1}}
+\setlength{\JCxb}{#3cm * \real{0.2}}
+\setlength{\JCxc}{#3cm * \real{0.3}}
+\setlength{\JCxd}{#3cm * \real{0.4}}
+\setlength{\JCxe}{#3cm * \real{0.5}}
+\setlength{\JCxf}{#3cm * \real{0.6}}
+\setlength{\JCxg}{#3cm * \real{0.7}}
+\setlength{\JCxh}{#3cm * \real{0.8}}
+\setlength{\JCxi}{#3cm * \real{0.9}}
+\setlength{\JCya}{#4cm * \real{0.1}}
+\setlength{\JCyb}{#4cm * \real{0.2}}
+\setlength{\JCyc}{#4cm * \real{0.3}}
+\setlength{\JCyd}{#4cm * \real{0.4}}
+\setlength{\JCye}{#4cm * \real{0.5}}
+\setlength{\JCyf}{#4cm * \real{0.6}}
+\setlength{\JCyg}{#4cm * \real{0.7}}
+\setlength{\JCyh}{#4cm * \real{0.8}}
+\setlength{\JCyi}{#4cm * \real{0.9}}
+\rput[bl](#1,#2){\pspicture(#3,#4)
+%\psgrid
+\rput[bl](0,0){\psframe[framearc=.2,fillstyle=solid,fillcolor=\JCEntityFillColour](0,0)(#3,#4)}
+\rput[bl](0,0){#6}
+\pnode(\JCxmax,\JCymid){#5R}
+\pnode(\JCxmin,\JCymid){#5L}
+\pnode(\JCxmid,\JCymin){#5B}
+\pnode(\JCxmid,\JCymax){#5T}
+\pnode(\JCxa,\JCymax){#5Ta}
+\pnode(\JCxb,\JCymax){#5Tb}
+\pnode(\JCxc,\JCymax){#5Tc}
+\pnode(\JCxd,\JCymax){#5Td}
+\pnode(\JCxe,\JCymax){#5Te}
+\pnode(\JCxf,\JCymax){#5Tf}
+\pnode(\JCxg,\JCymax){#5Tg}
+\pnode(\JCxh,\JCymax){#5Th}
+\pnode(\JCxi,\JCymax){#5Ti}
+\pnode(\JCxa,\JCymin){#5Ba}
+\pnode(\JCxb,\JCymin){#5Bb}
+\pnode(\JCxc,\JCymin){#5Bc}
+\pnode(\JCxd,\JCymin){#5Bd}
+\pnode(\JCxe,\JCymin){#5Be}
+\pnode(\JCxf,\JCymin){#5Bf}
+\pnode(\JCxg,\JCymin){#5Bg}
+\pnode(\JCxh,\JCymin){#5Bh}
+\pnode(\JCxi,\JCymin){#5Bi}
+\pnode(\JCxmin,\JCya){#5La}
+\pnode(\JCxmin,\JCyb){#5Lb}
+\pnode(\JCxmin,\JCyc){#5Lc}
+\pnode(\JCxmin,\JCyd){#5Ld}
+\pnode(\JCxmin,\JCye){#5Le}
+\pnode(\JCxmin,\JCyf){#5Lf}
+\pnode(\JCxmin,\JCyg){#5Lg}
+\pnode(\JCxmin,\JCyh){#5Lh}
+\pnode(\JCxmin,\JCyi){#5Li}
+\pnode(\JCxmax,\JCya){#5Ra}
+\pnode(\JCxmax,\JCyb){#5Rb}
+\pnode(\JCxmax,\JCyc){#5Rc}
+\pnode(\JCxmax,\JCyd){#5Rd}
+\pnode(\JCxmax,\JCye){#5Re}
+\pnode(\JCxmax,\JCyf){#5Rf}
+\pnode(\JCxmax,\JCyg){#5Rg}
+\pnode(\JCxmax,\JCyh){#5Rh}
+\pnode(\JCxmax,\JCyi){#5Ri}
+\endpspicture
+}
+\setlength{\JChangerx}{#1cm + (#3cm * \real{0.5})}
+\addtolength{\JCabsypos}{#2cm}
+\pnode(\JChangerx,\JCabsypos){#5hanger}
+\JCToggleFillColour
+}
+
+\newcommand {\JCabsolute}[4]{
+\setlength{\JCabsoluteHeight}{#4cm * \real{0.5}}
+\setlength{\JCabsoluteWidth}{#3cm * \real{2}}
+\rput[bl](#1,#2){\pspicture*[dimen=outer,border=0](0,0)(20,\JCabsoluteHeight)
+\JCentity{0}{0}{#3}{#4}{absolute}{}
+\endpspicture}
+}
+
+\newcommand {\JCemstart}[2]
+{\pspicture(#1,#2)
+%\psgrid
+\setlength{\JCabsypos}{#2cm-0.25cm}
+\JCabsolute{0}{\JCabsypos}{#1}{0.5}
+}
+\newcommand{\JCemend}{\endpspicture}
+
+
+
+\newcommand \JCsimple[6]{
+  \JCentity{#1}{#2}{#3}{#4}{#5}{\rput[B](\JCxe,\JCyd){\footnotesize \textit{#6}}}
+  }
+
+\newcommand{\JCsetangleA}[1]{
+\reversestring[q]{#1}
+\substring[q]{\thestring}{1}{2}
+\whereisword[q]{\thestring}{L}
+\ifthenelse{\equal{\theresult}{0}}
+{\renewcommand{\JCrelangleA}{0}}
+{\renewcommand{\JCrelangleA}{180}}
+%\stringlength[q]{#1}
+\substring[q]{#1}{$}{$}
+\whereisword[q]{abcd}{\thestring}
+\ifthenelse{\equal{\theresult}{0}}
+{\renewcommand{\JCrelpos}{efghi}}
+{\renewcommand{\JCrelpos}{abcd}}
+}
+
+\newcommand{\JCsetangleB}[1]{
+\reversestring[q]{#1}
+\substring[q]{\thestring}{1}{2}
+\whereisword[q]{\thestring}{L}
+\ifthenelse{\equal{\theresult}{0}}
+{\renewcommand{\JCrelangleB}{0}}
+{\renewcommand{\JCrelangleB}{180}}
+}
+
+% 3/05/2012
+%\newcommand {\JCrelarmlen} {1.5} before 11/10/2012
+\newcommand {\JCrelarmlen} {1.0} % after 15/10/2012
+\newcommand {\JCrellinearc} {0.10}
+\newcommand {\JCrelcrowlen} {0.2}
+\newcommand {\JCrelcrowwidth} {0.1}
+\newcommand {\JCrelcrowarc} {0.2}
+\newcommand {\JCrelcrowbendx}{.05}
+\newcommand {\JCrelcrowbendy}{0.17}
+\newcommand {\JCrelangleA}{0}
+\newcommand {\JCrelangleB}{180}
+\newcommand {\JCrelpos}{abcd}
+
+\newcommand{\JCrel}[4]{
+\JCsetangleA{#1}
+\JCsetangleB{#2}
+\ncdiag[angleA=\JCrelangleA, angleB=\JCrelangleB,arm=\JCrelarmlen, linearc=\JCrellinearc,linestyle=dashed,dash=3pt 2pt]{-}{#1}{#2}
+\ifthenelse{\equal{\JCrelangleA}{0}}{
+\ifthenelse{\equal{\JCrelpos}{abcd}}{
+\nbput[npos=0,refangle=dr,labelsep=0.1]{\rput[tl](0,0){\footnotesize{\textit{#4}}}}
+}{
+\naput[npos=0,refangle=ur,labelsep=0.1]{\rput[bl](0,0){\footnotesize{\textit{#4}}}}
+}
+}
+{
+\ifthenelse{\equal{\JCrelpos}{abcd}}{
+\naput[npos=0,refangle=ur,labelsep=0.1]{\rput[tr](0,0){\footnotesize{\textit{#4}}}}
+}
+{
+\nbput[npos=0,refangle=dr,labelsep=0.1]{\rput[br](0,0){\footnotesize{\textit{#4}}}}
+}
+}
+\ncput{\pnode{xxx}}
+\renewcommand{\JCsegments}[0]{3}
+\ifthenelse{\isin{Amany}{#3}}{
+% left hand end
+\ncput[nrot=:R,npos=0]{\psline[linearc=\JCrelcrowarc](0,\JCrelcrowlen)(\JCrelcrowbendx,\JCrelcrowbendy)(\JCrelcrowwidth,0)}
+\ncput[nrot=:R,npos=0]{\psline[linearc=\JCrelcrowarc](0,\JCrelcrowlen)(-\JCrelcrowbendx,\JCrelcrowbendy)(-\JCrelcrowwidth,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,\JCrelcrowlen)(0,0)}
+}{}
+\ifthenelse{\isin{Bmany}{#3}}{
+% Right hand end
+\ncput[nrot=:R,npos=\JCsegments]{\psline[linearc=\JCrelcrowarc](0,-\JCrelcrowlen)(\JCrelcrowbendx,-\JCrelcrowbendy)(\JCrelcrowwidth,0)}
+\ncput[nrot=:R,npos=\JCsegments]{\psline[linearc=\JCrelcrowarc](0,-\JCrelcrowlen)(-\JCrelcrowbendx,-\JCrelcrowbendy)(-\JCrelcrowwidth,0)}
+\ncput[nrot=:R,npos=\JCsegments]{\psline(0,-\JCrelcrowlen)(0,0)}
+}{}
+\ifthenelse{\isin{Amand}{#3}}{
+\ncdiag[angleA=\JCrelangleA, angleB=\JCrelangleB,armA=\JCrelarmlen, armB=0,linearc=\JCrellinearc]{-}{#1}{xxx}
+}{}
+\ifthenelse{\isin{Bmand}{#3}}{
+\ncdiag[angleA=\JCrelangleA, angleB=\JCrelangleB,armA=0, armB=\JCrelarmlen,linearc=\JCrellinearc]{-}{xxx}{#2}
+}{}
+}
+
+\newcommand {\JCcomparmlen} {0.25}
+\newcommand {\JCreccarmlen} {0.45}
+
+\newcommand{\JCcomp}[3]{
+    \ifthenelse{\isin{clockwise}{#3}}{
+        \ncloop[angleA=-90, angleB=90,loopsize=1.3,armA=\JCreccarmlen,armB=\JCreccarmlen,linearc=.1,linestyle=dashed,dash=3pt 2pt ]{-}{#1}{#2}
+        \renewcommand{\JCsegments}[0]{5}
+    }
+    {
+        \ncdiag[angleA=-90, angleB=90,arm=\JCcomparmlen, linearc=\JCrellinearc,linestyle=dashed,dash=3pt 2pt ]{-}{#1}{#2}
+        \renewcommand{\JCsegments}[0]{3}
+    }
+    \ncput{\pnode{xxx}}
+
+
+  \ifthenelse{\isin{many}{#3}}{
+    % Right hand end
+    \ncput[nrot=:R,npos=\JCsegments]{\psline[linearc=\JCrelcrowarc](0,-\JCrelcrowlen)(\JCrelcrowbendx,-\JCrelcrowbendy)(\JCrelcrowwidth,0)}
+    \ncput[nrot=:R,npos=\JCsegments]{\psline[linearc=\JCrelcrowarc](0,-\JCrelcrowlen)(-\JCrelcrowbendx,-\JCrelcrowbendy)(-\JCrelcrowwidth,0)}
+    \ncput[nrot=:R,npos=\JCsegments]{\psline(0,-\JCrelcrowlen)(0,0)}
+  }{}
+  \ifthenelse{ \not \isin{opt}{#3}}{
+      \ifthenelse{\isin{clockwise}{#3}}{
+          \ncangle[angleA=-90, angleB=90,armA=0, armB=\JCreccarmlen,linearc=\JCrellinearc]{-}{xxx}{#2}
+      }
+      {     
+          \ncdiag[angleA=-90, angleB=90,armA=0, armB=\JCcomparmlen,linearc=\JCrellinearc]{-}{xxx}{#2}
+      }
+  }{}
+  \ifthenelse{\isin{mand}{#3} }{
+      \ifthenelse{\isin{clockwise}{#3}}{
+          \ncangles[angleA=-90, angleB=90,armA=\JCreccarmlen, armB=0,linearc=\JCrellinearc]{-}{#1}{xxx}
+      }
+      {
+      
+          \ncdiag[angleA=-90, angleB=90,armA=\JCcomparmlen, armB=0,linearc=\JCrellinearc]{-}{#1}{xxx}
+      }
+   }{}
+   % repeat the whole line so context esists for labels
+    \ifthenelse{\isin{clockwise}{#3}}{
+        \ncloop[angleA=-90, angleB=90,loopsize=1.3,armA=\JCreccarmlen,armB=\JCreccarmlen,linearc=.1,linestyle=dashed,dash=3pt 2pt ]{-}{#1}{#2}
+        \renewcommand{\JCsegments}[0]{5}
+    }
+    {
+        \ncdiag[angleA=-90, angleB=90,arm=\JCcomparmlen, linearc=\JCrellinearc,linestyle=dashed,dash=3pt 2pt ]{-}{#1}{#2}
+        \renewcommand{\JCsegments}[0]{3}
+    }
+}
+
+
+\newlength{\JCattrTop}
+\newcommand{\JCattributesThemselves}[2]{
+%\fbox{
+\begin{minipage}{#1}
+\setlist{noitemsep}
+\textit{\footnotesize{
+\begin{itemize}[label=$\succ$,itemindent=-0.5cm,labelsep=0cm,leftmargin=0.5cm,rightmargin=0cm]
+#2
+\end{itemize}
+}}
+\end{minipage}
+%}
+}
+
+\newcommand{\JCattributes}[2]{
+\setlength{\JCattrTop}{\JCymax}
+\addtolength{\JCattrTop}{-0.55cm}
+\rput[tr](\JCxmax,\JCattrTop){\JCattributesThemselves{#1}{#2}}
+}
+
+\newcommand{\JCgattributes}[2]{
+\setlength{\JCattrTop}{\JCyg}
+\addtolength{\JCattrTop}{-0.35cm}
+\rput[tr](\JCxmax,\JCattrTop){\JCattributesThemselves{#1}{#2}}
+}
+
+\newcommand{\JCctAbstractEntityName}[1]{
+\uput[d](\JCxmid,\JCymax){\underline{\textit{#1}}}
+}
+
+\newcommand{\JCctEntityName}[1]{
+\uput[d](\JCxmid,\JCymax){\textit{#1}}
+}
+
+\newcommand{\JCsimpleEntityName}[1]{
+\rput(\JCxmid,\JCymid){
+\begin{minipage}
+{\JCxmax}{\begin{center}\textit{#1}\end{center}}
+\end{minipage}
+}
+}
+
+\newcommand{\JCgEntityName}[1]{
+\rput(\JCxmid,\JCyg){
+\begin{minipage}
+{\JCxmax}{\begin{center}\textit{#1}\end{center}}
+\end{minipage}
+}
+}

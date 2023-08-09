@@ -1,0 +1,1 @@
+python generateBuildForImages.py
