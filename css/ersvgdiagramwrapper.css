@@ -38,7 +38,7 @@
 
 
 /* font sizes in pixels so as to be commensurable with font sizes used in svgs */
-  	p {
+  	p.UNUSED {
 	   font-size: 10px;
 		line-height: 1.5;
     }

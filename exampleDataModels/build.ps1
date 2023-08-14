@@ -14,6 +14,8 @@ $SOURCEXML = $SOURCE  +  '\' + $EXAMPLEFOLDERNAME
 
 $TARGETXML = $TARGET + '\' + $EXAMPLEFOLDERNAME +'\xml'
 $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
+$TARGETWWW = $TARGET + '\www.entitymodelling.org'
+$TARGETSVG = $TARGETWWW + '\svg'
 
 $file=Get-Item $filename
 echo ('basename is:' + $file.Basename) 
@@ -53,16 +55,16 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
 
 pushd $TARGETXML
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
-. $TARGET\scripts\buildLegacySVG $filename -logical
-. $TARGET\scripts\buildLegacySVG $filename -physicalType h 
-. $TARGET\scripts\buildLegacySVG $filename -physicalType r 
+. $TARGET\scripts\buildLegacySVG $filename -svgOutputFolder $TARGETSVG -logical
+. $TARGET\scripts\buildLegacySVG $filename -svgOutputFolder $TARGETSVG -physicalType h 
+. $TARGET\scripts\buildLegacySVG $filename -svgOutputFolder $TARGETSVG -physicalType r 
 }else{
     echo 'building all'
-    get-ChildItem -Path *.xml -Exclude *..physical.xml | Foreach-Object {
+    get-ChildItem -Path *.xml -Exclude *.hierarchical.xml,*.relational.xml | Foreach-Object {
       echo 'building ' + $_.Name
-      . $TARGET\scripts\buildLegacySVG $_.Name -logical
-      . $TARGET\scripts\buildLegacySVG $_.Name -physicalType h
-      . $TARGET\scripts\buildLegacySVG $_.Name -physicalType r
+      . $TARGET\scripts\buildLegacySVG $_.Name -svgOutputFolder $TARGETSVG -logical
+      . $TARGET\scripts\buildLegacySVG $_.Name -svgOutputFolder $TARGETSVG -physicalType h
+      . $TARGET\scripts\buildLegacySVG $_.Name -svgOutputFolder $TARGETSVG -physicalType r
     }
     echo 'done building all'
 }

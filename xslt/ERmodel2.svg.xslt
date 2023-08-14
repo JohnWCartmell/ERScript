@@ -21,16 +21,16 @@ CHANGE HISTORY
                        this is essentially a blend of previous approaches to this.
 -->
 <xsl:transform version="2.0" 
-        xmlns="http://www.entitymodelling.org/ERmodel"
+        xmlns="http://www.w3.org/2000/svg"
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
         xmlns:xlink="http://www.w3.org/TR/xlink" 
-        xmlns:svg="http://www.w3.org/2000/svg" 
         xmlns:diagram="http://www.entitymodelling.org/diagram" 
         xmlns:era="http://www.entitymodelling.org/ERmodel"
-        xpath-default-namespace="http://www.entitymodelling.org/ERmodel">
+        xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
+        exclude-result-prefixes="fn math xs xsl xlink diagram era">
 
   <xsl:include href="ERmodel2.diagram.module.xslt"/>
   <xsl:include href="../flexDiagramming/xslt/diagram.functions.module.xslt"/>
@@ -61,12 +61,7 @@ CHANGE HISTORY
     <xsl:param name="diagramHeight"/>
     <xsl:param name="diagramWidth"/>
     <!-- <xsl:result-document href="{concat($acting_filestem,'.svg')}"> -->
-    <svg>
-      <!-- used to add 8.0 to both hieght and width to  make room for info boxes -->
-      <!-- removed 22 Dec 2015 -->
-      <!-- removed for the second time 11-Oct-2017 
-     <xsl:attribute name="width"><xsl:value-of select="$diagramWidth + 8.0"/>cm</xsl:attribute>
-         -->
+    <xsl:element name="svg">
       <xsl:attribute name="width">
         <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
       <xsl:attribute name="height">
@@ -100,7 +95,7 @@ CHANGE HISTORY
         </filter>
       </defs>
       <xsl:copy-of select="$content"/>
-    </svg>
+    </xsl:element>
     <!--
   </xsl:result-document>
 -->

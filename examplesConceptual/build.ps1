@@ -13,6 +13,8 @@ $EXAMPLEFOLDERNAME='examplesConceptual'
 $SOURCEXML = $SOURCE  +  '\' + $EXAMPLEFOLDERNAME
 
 $TARGETXML = $TARGET + '\' + $EXAMPLEFOLDERNAME +'\xml'
+$TARGETWWW = $TARGET + '\www.entitymodelling.org'
+$TARGETSVG = $TARGETWWW + '\svg'
 $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
 
 $file=Get-Item $filename
@@ -54,8 +56,14 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
 
 pushd $TARGETXML
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
-. $TARGET\scripts\genSVG $filename
+. $TARGET\scripts\genSVG $filename -outputFolder $TARGETSVG
 }else{
-. $TARGET\scripts\genAllSvg
+    echo 'building all'
+    get-ChildItem -Path *.xml  | Foreach-Object {
+      echo 'building ' + $_.Name
+      . $TARGET\scripts\genSVG $_.Name -outputFolder $TARGETSVG
+    }
+    echo 'done building all'
 }
 popd 
+

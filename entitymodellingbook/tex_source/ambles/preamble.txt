@@ -1,0 +1,51 @@
+\documentclass[crop]{standalone}
+\usepackage{preview}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+%\usepackage{mdsymbol}  %used for \rightpitchfork but then error
+% work around
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern, mathtools}
+
+\DeclareFontFamily{U}  {MnSymbolA}{}
+\DeclareSymbolFont{MnSyA}         {U}  {MnSymbolA}{m}{n}
+\SetSymbolFont{MnSyA}       {bold}{U}  {MnSymbolA}{b}{n}
+\DeclareFontShape{U}{MnSymbolA}{m}{n}{
+<-6>  MnSymbolA5
+<6-7>  MnSymbolA6
+<7-8>  MnSymbolA7
+<8-9>  MnSymbolA8
+<9-10> MnSymbolA9
+<10-12> MnSymbolA10
+<12->   MnSymbolA12}{}
+\DeclareFontShape{U}{MnSymbolA}{b}{n}{
+<-6>  MnSymbolA-Bold5
+<6-7>  MnSymbolA-Bold6
+<7-8>  MnSymbolA-Bold7
+<8-9>  MnSymbolA-Bold8
+<9-10> MnSymbolA-Bold9
+<10-12> MnSymbolA-Bold10
+<12->   MnSymbolA-Bold12}{}
+
+\makeatletter
+\newcommand{\xleftfork}[2][]{%
+\ext@arrow 0079\xleftforkfill@{#1}{#2}%
+}
+\newcommand{\xleftforkfill@}{%
+\arrowfill@\Mnrelbar\Mnrelbar{\mathrel{\leftpitchfork}}
+}
+\newcommand{\xrightfork}[2][]{%
+\ext@arrow 0097\xrightforkfill@{#1}{#2}%
+}
+
+\DeclareMathSymbol{\rightpitchfork}{\mathrel}{MnSyA}{"88}%
+\DeclareMathSymbol{\leftpitchfork}{\mathrel}{MnSyA}{"8A}%
+\DeclareMathSymbol{\Mnrelbar}{\mathrel}{MnSyA}{"D0}%
+% END OF WORK AROUND FOR rightpitchfork
+
+\input{../../../../GitHub/Theory/SharedMacros/ermacros}
+\input{../../../../GitHub/Theory/SharedMacros/erdiagram}
+\input{../../../../GitHub/Theory/SharedMacros/syntaxmacros}
+\begin{document}
+\begin{preview}

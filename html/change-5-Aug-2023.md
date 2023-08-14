@@ -1,7 +1,7 @@
 
 ## 5 August 2023
-
- . Have a single incremental Sublime consistent build system.
+ Merge and reorganise sources of document model and entitymodellingbook into ERScript. 
+Construct a single incremental Sublime Text consistent build system.
 
 ### Rationale
 Driven by short term goal of publishing the meta model to the online book www.entitymodelling.org. 
@@ -33,7 +33,6 @@ ERScript
 	- exampleDataModels(contains html only)
 
 ### Proposal
-
 1. Create two new folders in ERSCript one called `documentSupport` containing xslt, scripts and latex and one named `documentModel` containing the entity model describing documents. 
 2. Create a new entitymodellingbook folder within ERScript.
 3. Write build scripts in the sublime text style for examplesConceptual and ExampleDataModels. Create a new `buildLegacySVG.ps1` script to support the legacy style (that constrasts with v1.6 style).
@@ -73,14 +72,17 @@ Rename this one `erstyles.css.forreasonunknown`. [x]
 `/css` and `/js`
 - documentSupport\xslt\document2html [x]
 
+14. The build of entitymodellingbook/images should be rewritten in powerscript in the Sublime style as a build.ps1.
+- should build a single image if called in the context of a tex file or all images otherwise.
+- should copy tex into $ERScript/temp/images
+- should use get-childitem to iterate through tex files
+- for each file should sequentially call `latex`, `dvisps`, `ps2pdf`, and `convert` as per generated buildAll.bat that is currently used.
+- the final step - the convert - should place the constructed png  into `www.entitymodelling.org/images`
 
 ### Testing
-
-
-
-
+From within Sublime Text, build local copy of www.entitymodelling.org nested within build of ERScript. 
+Fully review local copy. Make simple change to wording as suits.  Rebuild. Review and deploy live. See separate change note for how deployment is carried out.
 
 ### Completion Date
-Testing completed 12 July 2023
 
 

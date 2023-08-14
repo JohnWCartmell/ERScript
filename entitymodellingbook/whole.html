@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><preface xmlns:era="http://www.entitymodelling.org/ERmodel"><label>home</label><subtitle>Preface</subtitle><preface><div class="normal"><p class="normal">
+          This website is an online book, part written as yet, in which entity modelling
+          and data design, both relational and hierarchical, are described from first principles
+          so as to harmonise with and benefit from mathematical type theory and category theory.
+          It features a new theory of relational design supported by open source software implementing
+          the physical data design transformation and other model transformations accompanied by 
+          code generators to support a variety of programming languages. 
+        </p></div><div class="normal"><p class="normal">
+		I give the reader the challenge, as I have given myself, of understanding and articulating
+        entity modelling and the whole business of representation 
+        of the world in data  from first principles and without reliance, recourse or reference
+        to particular technology - neither any programming language nor any database system.
+        I wish  the reader  to be open to discovering
+        previously unrecognised patterns  of concepts and data 
+		in their own areas of interest and of a kind  that can be exploited 
+		in database design and software development. 
+		</p></div><div style="clear:left"/><h3>Entity Modelling ...</h3><div class="normal"><p class="normal">
+            Entity modelling is saying what is and <em>doing so purposefully</em>— it's a technique and a notation for describing 
+            and communicating <em>what is</em> in the 
+            world and we set out to present it here from first principles. 
+            It enables the representation of conceptual models.
+            Its practitioners represent types of entity as labelled boxes and relationships 
+            as annotated connections between boxes:
+            <div style="width:100%;padding:0.5cm"><div style="display:block;margin:0 auto; width:5.166599999999999cm"><object id="svg-object" data="./svg/refrelChickenLayingAndHatchedFromEgg.svg" type="image/svg+xml">filler to stop contraction of this xml element</object></div></div></p></div><div class="normal"><p class="normal">
+            There is no standard notation for entity modelling - different authors 
+            use different diagramming styles and models are variously known as entity models, 
+            entity-relationship (ER) models or entity relationship attribute (ERA) models.  
+            This site promotes a notation that is an extension of the data modelling notation used in 
+            the SSADM<sup>1</sup>  software design methodology
+            and which is described in a book by Richard Barker<sup>2</sup>. Sometimes, recognising the influence of Harry Ellis, it is described as the Barker-Ellis notation.
+            It is used in a number of data modelling tools including Oracle's SQL Developer Data Modeler.
+          </p></div><div style="clear:left"/><h3>...with a Difference</h3><div class="normal"><p class="normal">        
+            Compared to the many books, web pages and lecture notes on this subject, key differentiating features of the presentation here are 
+            <ul><li> we describe concepts from afresh and, as part of the deal, neither rely on nor promote some established terminology which we judge to be not fully fit for purpose,
+              </li><li>a distinction is made between 
+                composition relationships and reference relationships, 
+              </li><li>
+                diagrams are laid out top-down,
+              </li><li>there is the concept of the scope of a relationship which is then utilised in data design and code generation,
+              </li><li>database design is right first time — the normalisation step from relational data design is eliminated,
+              </li><li>the pullback concept from category theory is incorporated and feeds into code generation.
+              </li></ul></p></div><div class="normal"><p class="normal">
+            These differences in approach represent a significant and valuable step up from established practice.
+            The crux, as expressed in the penultimate bullet point above, is the elimination of the database normalisation step and therefore of much of physical database modelling  - the fulcrum on which this hinges
+            is the modelling of the scope of reference relationships as a way of encapsulating
+            commutative diagrams of relationships.        
+            </p></div><div style="clear:left"/><h3>Contents</h3></preface></preface><!--
+  <leader> 
+    On this site you will find:
+  </leader>
+
+--><subtitle xmlns:era="http://www.entitymodelling.org/ERmodel"> Entity Modelling — An Introductory Perspective</subtitle><label xmlns:era="http://www.entitymodelling.org/ERmodel">perspective</label><explanation xmlns:era="http://www.entitymodelling.org/ERmodel"> that seeks to locate entity modelling so that it is not seen as an isolated discipline. 
+    Entity modelling evolved in the 1960s an 70s as an abstract way to describe databases (more 
+    specifically the structure of databases), and so it is, but its utility goes 
+    further than this as described here.
+  </explanation><preface xmlns:era="http://www.entitymodelling.org/ERmodel"><div class="normal"><p class="normal"> 
+      According to Jonathan Culler<sup>1</sup>, 
+      Saussure, founding modern linguistics in the early part of the 20th century, addressed a question regarding <em>systematically
+      coming to terms with a complex world</em> with a reply 
+      that included the view that
+      <div class="quotation">
+        you cannot hope to attain an absolute or God-like view of things but must choose a perspective
+        ... within this perspective objects are defined by their relations with one another rather than by essences of some kind.
+      </div><div style="clear:left"/>
+      This summary perfectly frames entity modelling — entity modelling takes this view to the extreme.
+      The nub of this chapter is that entity modelling is a new spin on an ancient discipline.
+      The subject is technical but metaphysics and the concept of concept lurk
+      in the background and give perspective.
+    </p></div><div class="normal"><p class="normal"> An entity model may simply handwave a set of concepts  or it may be more detailed; sufficiently and appropriately detailed entity models, we call them physical entity models, are 
+    pretty much the same thing as 
+    Information System's data models and hence data modelling, at least  as written of here,  is a special case of entity modelling. 
+    We try to approach it from first principles and sometimes, take heed, this requires terminological deviation from the norm.
+  </p></div></preface><label xmlns:era="http://www.entitymodelling.org/ERmodel">tutorialone</label><subtitle xmlns:era="http://www.entitymodelling.org/ERmodel"> The  Entity Modelling Tutorial Part One — Entities, Relationships and Attributes</subtitle><explanation xmlns:era="http://www.entitymodelling.org/ERmodel"> which introduces from first principles  a good part of the basic notation.
+	</explanation><preface xmlns:era="http://www.entitymodelling.org/ERmodel"><div class="normal"><p class="normal">
+			This chapter is a tutorial on the use of entity modelling notation. 
+			<!--
+      For programmers, code follows concepts 
+	     and a good part of this chapter is about modelling the concepts.
+      --></p></div><div class="normal"><p class="normal"> 
+			Previously, in  <a href="./perspective/types.html">types of things</a>, we introduced boxes
+			as the diagrammatic representation of types of entities. In the sections which follow we describe 
+			the conventions for describing 
+			the properties of the differing types of
+			entities and their inter-type relationships including relationship card

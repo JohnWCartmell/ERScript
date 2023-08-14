@@ -21,7 +21,7 @@
                                                               also changed all uses of document() to have second argument . 
                                                              this has effect of interpreting relative paths as relative to source document -->
 
-  <xsl:variable name="svgFolder" select="concat($parentpath,'/',$rootfolder,'/svg/')"/> 
+  <xsl:variable name="svgFolder" select="'../www.entitymodelling.org/svg/'"/> 
   <xsl:variable name="eqnFolder" select="'../tex_source/'"/>
   <!-- ??????????????????  -->
   <!--<xsl:variable name="chapterFolder" select="/chapter/label"/>-->

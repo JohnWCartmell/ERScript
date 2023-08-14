@@ -797,7 +797,7 @@ The view of entity modelling which we present reveals
           <width>5.5cm</width>
           <picture>
             <filename>water</filename>
-            <width>180</width>
+            <width>200px</width> <!-- unit (px) added 14 Aug 2023  then changed from 180 to 200 -->
           </picture>
           <newline/>
           <para>(a) Water</para>
@@ -876,7 +876,7 @@ The view of entity modelling which we present reveals
           <width>5.5cm</width>
           <picture>
             <filename>ethylene</filename>
-            <width>200</width>
+            <width>200px</width> <!-- unit (px) added 14 Aug 2023 -->
           </picture>
           <newline/>
           <para>(b) Ethylene</para>
@@ -988,7 +988,7 @@ The view of entity modelling which we present reveals
           <width>5.5cm</width>
           <picture>
             <filename>benzene</filename>
-            <width>200</width>
+            <width>200px</width> <!-- unit (px) added 14 Aug 2023 -->
           </picture>
           <newline/>
           <para>(c) Benzene</para>
