@@ -114,9 +114,9 @@
 			</figureOfPicture>
 
 			<newline/>
-			<para>In this model there is a further example of a scope square<footnote>In fact the squares show in this section as examples of 
+			<para>In this model there is a further example of a scope square;<footnote>In fact the squares show in this section as examples of 
 					relationship scoping are of a
-					particular type of scope square each of which, following category theory, we should call a pullback diagram.</footnote>; this is shown in figure 
+					particular type of scope square each of which, following category theory, we should call a pullback diagram.</footnote> this is shown in figure 
 				<figref>scopeLetter3Letter2</figref>.
 				<figureOfPicture>
 					<pictureName>scopeLetter3Letter2</pictureName>

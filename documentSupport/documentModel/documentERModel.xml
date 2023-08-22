@@ -256,11 +256,10 @@
       <type>
         <string/>
       </type>
-      <!--
+      <optional/>
 			<xmlRepresentation>
 				<Attribute/>
 			</xmlRepresentation>
-			-->
     </attribute>
     <entity_type>
       <name>divlike</name>
@@ -311,6 +310,19 @@
         <presentation>
           <rightOf>footnote</rightOf>
         </presentation>
+      </entity_type>
+      <entity_type>
+        <name>block</name>
+        <presentation>
+          <below>para</below>
+        </presentation>
+        <attribute>
+          <name>width</name>
+          <type>
+            <string/>
+          </type>
+          <optional/>
+        </attribute>
       </entity_type>
       <entity_type>
         <name>equation</name>
@@ -579,6 +591,9 @@
         <attribute>
           <name>height</name>
           <type><string/></type>
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
         </attribute>
       </entity_type>
       <entity_type>
@@ -589,6 +604,9 @@
         <attribute>
           <name>width</name>
           <type><string/></type>
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
         </attribute>
       </entity_type>
       <entity_type>
@@ -671,6 +689,24 @@
               <Attribute/>
             </xmlRepresentation>
           </attribute>
+                  <attribute>
+          <name>target</name>
+          <type>
+            <string/>
+          </type>
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
+        </attribute>
+        <attribute>
+          <name>onclick</name>
+          <type>
+            <string/>
+          </type>
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
+        </attribute>
         </entity_type>
         <entity_type>
           <name>b</name>
@@ -1074,13 +1110,8 @@
                 <below>figureOfPicture</below>
               </presentation>
               <attribute>
-                <name>imgwidth</name>
-                <type>
-                  <string/>
-                </type>
-              </attribute>
-              <attribute>
-                <name>imgheight</name>
+                <name>imgscale</name>
+                <optional/>
                 <type>
                   <string/>
                 </type>
@@ -1443,6 +1474,9 @@
           <string/>
         </type>	
         <optional/>
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
       </attribute>
     </entity_type>
     <entity_type>
@@ -1455,7 +1489,10 @@
         <type>
           <string/>
         </type>
-        <optional/>
+        <optional/>      
+          <xmlRepresentation>
+            <Attribute/>
+          </xmlRepresentation>
       </attribute>
       <group>
         <name>headtail</name>
@@ -1581,7 +1618,14 @@
         </attribute>
 
         <entity_type>
-          <name>td</name>
+          <name>td</name>    
+          <attribute>
+            <name>width</name>
+            <type><string/></type>
+            <xmlRepresentation>
+              <Attribute/>
+            </xmlRepresentation>
+          </attribute>
         </entity_type>
         <entity_type>
           <name>th</name>

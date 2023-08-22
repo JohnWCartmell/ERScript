@@ -22,6 +22,7 @@ CHANGE HISTORY
 -->
 <xsl:transform version="2.0" 
         xmlns="http://www.w3.org/2000/svg"
+        xmlns:svg="http://www.w3.org/2000/svg"
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -71,12 +72,17 @@ CHANGE HISTORY
                 <style>
                     <xsl:value-of select="unparsed-text('../css/erdiagramsvgstyles.css')" 
                               disable-output-escaping="yes"/>
+                    <xsl:value-of select="unparsed-text('../css/erdiagramsvg_hoverstyles.css')" 
+                              disable-output-escaping="yes"/>
                 </style>
               </xsl:when>
               <xsl:otherwise>
                 <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
                        type="text/css"
                        href="/css/erdiagramsvgstyles.css"/>
+                <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
+                       type="text/css"
+                       href="/css/erdiagramsvg_hoverstyles.css"/>
               </xsl:otherwise>
           </xsl:choose>
 
@@ -358,6 +364,7 @@ CHANGE HISTORY
               <tr>
                 <td>
                   <p>
+                    <xsl:attribute name="class" select="'svg'"/>
                     <xsl:value-of select="'In the context of a' || era:indefinite(../name) || ' '"/>
                     <xsl:element name="i"><xsl:value-of select="../name"/></xsl:element>
                     <xsl:value-of select="if (cardinality/ZeroOrOne) then ' there may be' else ' there is'"/>
@@ -380,7 +387,8 @@ CHANGE HISTORY
                   </xsl:call-template>
                 </td>
                 <td>
-                  <p>
+                  <p>                   
+                    <xsl:attribute name="class" select="'svg'"/>
                     <xsl:value-of select="'A' || era:indefinite(../name) || ' '"/>
                     <xsl:element name="i"><xsl:value-of select="../name"/></xsl:element>
                     <xsl:call-template name="posesses_type"/>
@@ -1613,11 +1621,58 @@ CHANGE HISTORY
                                                     "/>
   <xsl:variable name="diagramHeight" as="xs:double" 
                 select="$desty + $boxheight + 0.1"/>
-  <xsl:variable name="diagramWidth" as="xs:double" 
+
+  <xsl:variable name="boxxright" as="xs:double" 
                 select="if (self::reference)
-                        then $destx + $destwidth + 1
-                        else max(($srcx + $srcwidth,$destx + $destwidth)) + 0.1
+                        then $destx + $destwidth
+                        else max(($srcx + $srcwidth,$destx + $destwidth))
                         "/>
+
+  <xsl:variable name="relationships_plus_rolenames"   as="element()*">
+    <xsl:call-template name="relationship_half_line">
+      <xsl:with-param name="startx"  select="$relsrcx"/>
+      <xsl:with-param name="midx"  
+                        select="($relsrcx + $reldestx) div 2"/>
+      <xsl:with-param name="starty" select="$relsrcy"/>            
+      <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
+      <xsl:with-param name="rolename"  select="$rel/name"/>    
+      <xsl:with-param name="is_mandatory" select="$relMandatory"/>
+      <xsl:with-param name="is_manyvalued"  select="$inverseManyValued"/>
+      <xsl:with-param name="is_identifying"  select="exists($rel/identifying)"/>
+      <xsl:with-param name="is_sequence"  select="exists($inverse/sequence)"/>
+    </xsl:call-template>
+
+    <xsl:call-template name="relationship_half_line">
+      <xsl:with-param name="startx" 
+                          select="$reldestx"/>
+      <xsl:with-param name="midx" 
+                        select="($relsrcx + $reldestx) div 2"/>
+      <xsl:with-param name="starty" select="$reldesty"/>            
+      <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
+      <xsl:with-param name="rolename" select="$rel/inverse"/>
+      <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
+      <xsl:with-param name="is_manyvalued"  select="$relManyValued"/>
+      <xsl:with-param name="is_identifying"  select="exists($inverse/identifying)"/>
+      <xsl:with-param name="is_sequence"  select="exists($rel/sequence)"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+<xsl:variable name="precount" as="xs:integer" 
+              select="count($relationships_plus_rolenames[self::svg:text])"/>
+     <xsl:message>xright precount is '<xsl:value-of select="$precount"/>'</xsl:message> 
+
+<xsl:variable name="count" as="xs:integer" 
+              select="count($relationships_plus_rolenames[self::svg:text][@xright])"/>
+     <xsl:message>xright count is '<xsl:value-of select="$count"/>'</xsl:message>            
+  <xsl:variable name="relationship_rolename_xright"
+                as="xs:double"
+                select="max((0,$relationships_plus_rolenames[self::svg:text]/@xright))"/>
+
+  <xsl:message>xright is '<xsl:value-of select="$relationship_rolename_xright"/>'</xsl:message>
+
+  <xsl:variable name="diagramWidth"
+                  as="xs:double"
+                  select="max(($relationship_rolename_xright,$boxxright))+0.5"/>
 
   <xsl:element name="svg">
     <xsl:attribute name="width"  select="format-number($diagramWidth, '#.00') || 'cm'"/>
@@ -1636,39 +1691,12 @@ CHANGE HISTORY
       <xsl:with-param name="width" select="$destwidth"/>
       <xsl:with-param name="label" select="$dest_etname"/>
     </xsl:call-template>
-    
+
     <xsl:element name="svg">
-      <xsl:attribute name="width" select="'11cm'"/>
+      <xsl:attribute name="width" select="format-number($diagramWidth, '#.00') || 'cm'"/>
       <xsl:attribute name="height" select="'4cm'"/>
-      <xsl:attribute name="viewBox" select="'0 0 11 4'"/>
-
-      <xsl:call-template name="relationship_half_line">
-        <xsl:with-param name="startx"  select="$relsrcx"/>
-        <xsl:with-param name="midx"  
-                          select="($relsrcx + $reldestx) div 2"/>
-        <xsl:with-param name="starty" select="$relsrcy"/>            
-        <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
-        <xsl:with-param name="rolename"  select="$rel/name"/>    
-        <xsl:with-param name="is_mandatory" select="$relMandatory"/>
-        <xsl:with-param name="is_manyvalued"  select="$inverseManyValued"/>
-        <xsl:with-param name="is_identifying"  select="exists($rel/identifying)"/>
-        <xsl:with-param name="is_sequence"  select="exists($inverse/sequence)"/>
-      </xsl:call-template>
-
-      <xsl:call-template name="relationship_half_line">
-        <xsl:with-param name="startx" 
-                            select="$reldestx"/>
-        <xsl:with-param name="midx" 
-                          select="($relsrcx + $reldestx) div 2"/>
-        <xsl:with-param name="starty" select="$reldesty"/>            
-        <xsl:with-param name="midy" select="($relsrcy + $reldesty) div 2"/>            
-        <xsl:with-param name="rolename" select="$rel/inverse"/>
-        <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
-        <xsl:with-param name="is_manyvalued"  select="$relManyValued"/>
-        <xsl:with-param name="is_identifying"  select="exists($inverse/identifying)"/>
-        <xsl:with-param name="is_sequence"  select="exists($rel/sequence)"/>
-      </xsl:call-template>
-
+      <xsl:attribute name="viewBox" select="'0 0 ' || $diagramWidth || ' 4'"/>
+      <xsl:copy-of select="$relationships_plus_rolenames"/>
     </xsl:element>  <!-- end inner svg (relationships) -->
   </xsl:element>  <!-- end outer svg -->
 </xsl:template>
@@ -1732,6 +1760,10 @@ CHANGE HISTORY
                         select="if ($startx &lt; $midx) then '0.5' else '1' "/>
         <xsl:attribute name="text-anchor" 
                       select="if ($startx &lt; $midx) then 'start' else 'end'"/>
+        <xsl:attribute name="xright" 
+                      select="if ($startx &lt; $midx) 
+                              then $startx + 0.1 + diagram:stringwidth($rolename,1)
+                              else $startx - 0.1 "/>
       </xsl:if>
       <xsl:if test="self::composition">
         <xsl:attribute name="x" 
@@ -1740,6 +1772,10 @@ CHANGE HISTORY
                         select="if ($starty &lt; $midy) then $starty + 0.25 else $starty - 0.12 "/>
         <xsl:attribute name="text-anchor" 
                       select="if ($starty &lt; $midy) then 'end' else 'start'"/>
+        <xsl:attribute name="xright" 
+                       select="if ($starty &lt; $midy) 
+                              then $startx - 0.1 
+                              else $startx + diagram:stringwidth($rolename,1)"/>
       </xsl:if>
       <xsl:value-of select="$rolename"/>
     </xsl:element>

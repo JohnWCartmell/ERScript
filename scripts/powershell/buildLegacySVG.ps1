@@ -7,7 +7,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$filenameOrFilenamePrefix,
    [Parameter(Mandatory=$False)]
-       [string]$svgOutputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'),
+       [string]$svgOutputFolder,
    [Parameter(Mandatory=$False)]
        [switch]$logical,
    [Parameter(Mandatory='')]
@@ -38,10 +38,9 @@ Param(
  )
 
 
-
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-echo ('outputFolder ' + $outputFolder)
+echo ('svg outputFolder ' + $svgOutputFolder)
 
 . ($commandFolder +'\set_path_variables.ps1')
 
@@ -93,7 +92,9 @@ if ($physicalType -ne '')
 
     java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator xpath=$(If ($xpath){'y'}Else{'n'}) debug=$(If ($debugswitch){'y'}Else{'n'})
 
+
     #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    echo ('***svg output folder is ' + $svgOutputFolder)
 
     powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource"  `
                     + ' -outputFilename ' + "$physicalSVGfilename"               `

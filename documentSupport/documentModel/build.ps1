@@ -7,6 +7,7 @@ echo ("*** SOURCE is  $SOURCE ***")
 $SOURCEDOCSUPPORT = $SOURCE + '\documentSupport'
 $SOURCEMODEL = $SOURCEDOCSUPPORT + '\documentModel'
 $TARGETXML = $TARGET + '\documentModel\xml'
+$TARGETDOCS = $TARGET + '\documentModel\docs'
 
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
@@ -19,12 +20,12 @@ If(!(test-path -PathType container $TARGETXML))
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEMODEL\*.xml -Destination $TARGETXML
 attrib +R $TARGETXML\*.xml
-attrib -R $TARGETXML\*..physical.xml  # these generated and therefore need be overwriteable 
+attrib -R $TARGETXML\*.hierarchical.xml  # these generated and therefore need be overwriteable 
 
 $TARGETXSLTFOLDER = $TARGET + '\xslt'
 $TARGETSCHEMAFOLDER = $TARGET + '\documentModel\schemas'
 pushd $TARGETXML
-. $TARGET\scripts\buildLegacySVG.ps1 documentERModel -animate -physicalType hs -longSeparator _ -shortSeparator _ -rng_folder_path $TARGETSCHEMAFOLDER -elaboration_xslt_folder_path $TARGETXSLTFOLDER
+. $TARGET\scripts\buildLegacySVG.ps1 documentERModel.xml -svgOutputFolder $TARGETDOCS -logical -animate -physicalType hs -longSeparator _ -shortSeparator _ -rng_folder_path $TARGETSCHEMAFOLDER -elaboration_xslt_folder_path $TARGETXSLTFOLDER
 
 if ($false)
 {

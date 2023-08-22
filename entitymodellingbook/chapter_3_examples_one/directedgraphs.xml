@@ -45,8 +45,7 @@
 	<subsection>
 		<title>ER Models of Directed Graph</title>
 
-		<para> Viewing figures <figref>loveRelationship2</figref> and following on from figure <figref>loveRelationship2</figref> we see that there are two 
-        further ways of modelling directed graphs. These are shown in figure <figref>directedGraph1</figref> and <figref>directedGraph2</figref>.
+		<para> There are two further ways of modelling directed graphs. These are shown in figures <figref>directedGraph1</figref> and <figref>directedGraph2</figref>.
 		</para>
 
 		<figuregroup>

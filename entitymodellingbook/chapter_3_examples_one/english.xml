@@ -15,12 +15,11 @@
     </para> 
 
     <figureOfPictureWithNote>
-      <pictureName>brintonSimpleSentenceStructure</pictureName>
+      <pictureName>brintonSimpleSentenceStructure..diagram</pictureName>
       <framewidth>6cm</framewidth>
       <width>16cm</width>
-      <imgwidth>5cm</imgwidth>
-      <imgheight>5cm</imgheight>
-      <href>../svg/brintonSimpleSentenceStructure.svg</href>
+      <imgscale>0.3</imgscale>
+      <href>../svg/brintonSimpleSentenceStructure..diagram.html</href>
       <note><width>8cm</width><para> <itemize>
             <item>
               if you know already entity modelling then use this model as a means to explore formal grammars and the structure of English
@@ -32,7 +31,7 @@
         </para></note>
       <caption>Structure of Simple Sentences - Based on Phrase Structure 
         Rules given in Brinton. Click
-        <a href="../svg/brintonSimpleSentenceStructure.svg">here</a> to browse the model in a new window.
+        <a href="../svg/brintonSimpleSentenceStructure..diagram.html">here</a> to browse the model in a new window.
       </caption>
     </figureOfPictureWithNote>
     <newline/>
@@ -484,9 +483,9 @@ constituent parts - referred to as `sentence constituents'.}
       in table <tableref>typesofverbphrase</tableref>. Alternatively the rules summarised 
       in table <tableref>typesofverbphrase</tableref> can be expressed by combining all the different rules 
       into the entity model of a verb phrase shown in figure  
-      <figref>brintonVerbPhrase</figref> in which types <q>noun phrase</q> and <q>prepositional phrase</q> are yet to be described.
-      while `adjectival phrase' was described earlier in section 
-      <refsection><label><section>furtherexamples</section></label></refsection>.
+      <figref>brintonVerbPhrase</figref> in which types <q>noun phrase</q> and <q>prepositional phrase</q> are yet to be described
+      whilst `adjectival phrase' was described earlier in section 
+      <refsection><label><section>generalisation</section></label></refsection>.
     </para>
 
     <!--

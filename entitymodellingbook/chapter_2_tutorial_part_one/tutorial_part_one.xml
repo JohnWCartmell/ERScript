@@ -2200,20 +2200,32 @@
 
 			<para> This construction by which a new relationship is defined from two others joined end to end 
 				is known simply as a <emph>join</emph> and the constructed relationship, the <emph>definiendum</emph> <q>maternal grandfather</q>, is said to be a join of the other two <emdash/> in this case the join of the <q>mother</q> relationship with the <q>father</q> relationship. 
-				In definitions like this we shall put together <emph>definiendum</emph> and <emph>definiens</emph> is a single diagram:  
-
-
+				In definitions like this we shall put together <emph>definiendum</emph> and <emph>definiens</emph> is a single diagram as shown in figure <figref>kinship.individual.maternalgrandfather</figref>.
+		<figureOfPicture>
+			<pictureName>kinship.individual.maternalgrandfather</pictureName>
+			<!--<width>??%</width>-->
+			<caption>A formal graphical representation of the `maternal grandfather' construction.</caption>
+		</figureOfPicture>
+<!--
 				<er_center>
 					<filename>kinship.individual.maternalgrandfather</filename>
 				</er_center>
-
+-->
 
 			</para>
 
-			<para> There is no limit to the numbers of relationships which can be joined together, for example:
+			<para> There is no limit to the numbers of relationships which can be joined together.
+			A further example is shown in figure <figref>kinship.individual.maternalgrandfathersmother</figref>
+		<figureOfPicture>
+			<pictureName>kinship.individual.maternalgrandfathersmother</pictureName>
+			<!--<width>??%</width>-->
+			<caption>A formal representation of the `maternal grandfather's mother'  construction.</caption>
+		</figureOfPicture>
+		<!--
 				<er_center>
 					<filename>kinship.individual.maternalgrandfathersmother</filename>
 				</er_center>
+			-->
 			</para>
 		</subsection>
 

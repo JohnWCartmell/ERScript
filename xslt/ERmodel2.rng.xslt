@@ -207,7 +207,7 @@ ERmodel2.rng.xslt
       <xsl:variable name="representation">
          <xsl:choose>
             <xsl:when test="xmlRepresentation">
-               <xsl:value-of select="xmlRepresentation"/>
+               <xsl:value-of select="xmlRepresentation/*/name()"/>
             </xsl:when>
             <xsl:otherwise>Element</xsl:otherwise>
          </xsl:choose>
@@ -260,10 +260,9 @@ ERmodel2.rng.xslt
 <xsl:template name="attrs_and_rels_of_entity_type_core_definitions" match="entity_type|absolute">
         <xsl:if test="ancestor-or-self::entity_type/attribute/
                       xmlRepresentation[text()='Anonymous' or child::Anonymous] and
-                      count(ancestor-or-self::entity_type/attribute) > 1">
+                      count(ancestor-or-self::entity_type/attribute[not(xmlRepresentation/Attribute)]) > 1">
           <xsl:message terminate="no">
-            Entity '<xsl:value-of select="name"/>' has more than one attribute
-            which is not allowed when an attribute has xmlRepresentation Anonymous 
+            Entity '<xsl:value-of select="name"/>' has more than one attribute that isn't represented by an xml attribute which is not allowed when an attribute has xmlRepresentation Anonymous 
           </xsl:message>
         </xsl:if>
         <xsl:for-each select="ancestor-or-self::entity_type/attribute|attribute">
@@ -347,7 +346,7 @@ ERmodel2.rng.xslt
   <xsl:variable name="representation">
      <xsl:choose>
         <xsl:when test="xmlRepresentation">
-           <xsl:value-of select="xmlRepresentation"/>
+           <xsl:value-of select="xmlRepresentation/*/name()"/>
         </xsl:when>
         <xsl:otherwise>
            <xsl:value-of select="$defaultAttributeRepresentation"/>
@@ -357,15 +356,19 @@ ERmodel2.rng.xslt
 
   <xsl:choose>
     <xsl:when test="$representation='Anonymous'">
-      <!-- We'd like to use the following but Relax-NG can't handle
-           data definitions in interleave so we are forced to use <text/>.
-        <xsl:call-template name="attribute_body"/> -->  
+      <!-- We'd like to use the following 
+        <xsl:call-template name="attribute_body"/> 
+        but Relax-NG can't handle
+           data definitions in interleave so we are forced to use <text/>.-->  
       <text/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="element_name" select="if ($representation='Element') then 'element' 
-                                                else if ($representation='Attribute') then 'attribute' 
+      <xsl:variable name="element_name" select="if ($representation eq'Element') then 'element' 
+                                                else if ($representation eq'Attribute') then 'attribute' 
                                                 else 'ERROR'"/>
+      <xsl:if test="$element_name eq 'ERROR'">
+        <xsl:message> ******* ERROR: Mandatory attribute <xsl:value-of select="name"/> has  xml representation '<xsl:value-of select="$representation"/>'</xsl:message>
+      </xsl:if>
       <xsl:element name="{$element_name}">
         <name>
           <xsl:value-of select="name"/>

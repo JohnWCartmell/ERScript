@@ -14,6 +14,7 @@ If(!(test-path -PathType container $TARGETTEMP))
       New-Item -ItemType Directory -Path $TARGETTEMP
 }
 
+
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETWWW))
 {

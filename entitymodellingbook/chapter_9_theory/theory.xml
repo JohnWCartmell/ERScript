@@ -34,7 +34,7 @@ composition relationships model dependencies between types of things. (a), (b) a
 
     <para>  
     In addition here are some  relatively recent notes on 
-    the <i>generalised algebraic theory</i> of <i>contextual categories</i>:
+    the <emph>generalised algebraic theory</emph> of <emph>contextual categories</emph>:
       <a  href="..\downloads\theGATofCCs_5Jul2018.pdf" target="_blank"
                         onclick="ga('send', 'event', 'PDF', 'Download', this.href);">
                               theGATofCCs.pdf</a>. I wrote these after having learnt of the definition of C-system given

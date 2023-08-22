@@ -1,0 +1,22 @@
+
+        .eteven:hover{
+          fill: #FFFF77;
+        }
+        .etodd:hover{
+          fill: lightgrey
+        }
+
+        .relationshiphitarea:hover {
+          stroke: yellow ; 
+          stroke-opacity:0.5;
+        }
+
+        .attrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+
+        .idattrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }

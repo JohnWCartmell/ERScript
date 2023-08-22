@@ -1,5 +1,7 @@
-<xsl:transform version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <?xml-stylesheet type="text/xsl" href="ERModel2HTML.xslt"?>
+<xsl:transform version="2.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"           
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- <?xml-stylesheet type="text/xsl" href="ERModel2HTML.xslt"?>  WHAT THE HECK WAS THIS DOING HERE-->
 
   <xsl:include href="symbols2.html.xslt"/>
   <xsl:include href="tables2.html.xslt"/>
@@ -123,14 +125,15 @@
           <link rel="stylesheet" type="text/css" href="/css/print.css"           media="print" />
           <link rel="stylesheet" type="text/css" href="/css/printmenustyles.css" media="print" />
   <!-- start new 2 aug 2023 -->
-          <link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>
+  <!--<link rel="stylesheet" type="text/css" href="/css/ersvgdiagramwrapper.css"/>-->
           <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/css/erdiagramsvgstyles.css"/>
-          <script src="/js/ersvgdiagraminteraction.js">
+    <!--      <script src="/js/ersvgdiagraminteraction.js">
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
           </script>
           <script src="/js/draggable.js">
             This here text is here in order to prevent the enclosing script tag from self-closing. If the script tag is allowed to self close then it seems that it breaks the page (in Chrome at least).
            </script>   
+         -->
               <svg>
                  <defs>
                     <marker id="crowsfoot"
@@ -167,7 +170,7 @@
               </svg>
   <!-- end new 2nd Aug 2023 -->               
           <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"/>
-          <script src="/script.js"/>
+          <script src="/js/w3c_script.js"/>
           <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -204,6 +207,9 @@
             </div>
           </div>
         </body>
+        <script>
+          includeHTML();
+        </script>
       </html>
     </xsl:result-document>
   </xsl:template>
@@ -617,6 +623,7 @@
   </xsl:template>
 
   <xsl:template match="figure">
+    <xsl:message>figure label <xsl:value-of select="label"/></xsl:message>
     <xsl:element name="div">
       <xsl:attribute name="class" select="'displayfigure'"/>
       <xsl:if test="width">
@@ -724,9 +731,21 @@
     <xsl:if test="$svg=''">
       <xsl:message> Filename <xsl:value-of select="concat($svgFolder,pictureName,'.svg')"/> not found </xsl:message>
     </xsl:if>
-    <xsl:variable name="imgwidth" select="if (imgwidth) then imgwidth else $svg/(*:svg)/@width" />
-    <xsl:variable name="imgheight" select="if (imgheight) then imgheight else $svg/(*:svg)/@height" />
+    <xsl:variable name="svgimgwidthcms" 
+                  as="xs:double" 
+                  select="number(substring-before($svg/(*:svg)/@width,'cm'))" />
+    <xsl:variable name="svgimgheightcms" 
+                  as="xs:double"
+                  select="number(substring-before($svg/(*:svg)/@height,'cm'))" />
 
+    <xsl:variable name="imgwidthcms"  select="if (imgscale) 
+                                              then $svgimgwidthcms * imgscale
+                                              else $svgimgwidthcms" />
+    <xsl:variable name="imgheightcms" select="if (imgscale) 
+                                              then $svgimgheightcms * imgscale 
+                                              else $svgimgheightcms" />
+    <xsl:variable name="imgwidth"  select="format-number($imgwidthcms, '#.00') || 'cm'"/>
+    <xsl:variable name="imgheight"  select="format-number($imgheightcms, '#.00') || 'cm'"/>
 
     <xsl:variable name="width">
       <xsl:value-of select="if (width) then width else '90%'"/>
@@ -745,24 +764,16 @@
             'padding:0.1cm;',
             if (framewidth) then concat('width:',framewidth) else ''
             )"/>
+
+
         <xsl:element name="div">
           <xsl:attribute name="class" select="'er'"/>
-          <xsl:attribute name="style" select="concat('margin:auto;
-              width:',$imgwidth
-              )"/>
+          <xsl:attribute name="style" select="'margin:auto'"/>
           <xsl:element name="a">
             <xsl:attribute name="href" select="href"/>
             <xsl:attribute name="target" select="'_blank'"/>
 
-<!-- 
-            <xsl:element name="img" >
-              <xsl:attribute name="class" select="'er'"/>
-              <xsl:if test="imgwidth">
-                <xsl:attribute name="style" select="concat('width:',imgwidth)"/>
-              </xsl:if>
-              <xsl:attribute name="src" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
-            </xsl:element>
- -->
+<!--
             <xsl:element name="object">
               <xsl:attribute name="id" select="'svg-object'"/>
               <xsl:attribute name="class" select="'er'"/>
@@ -773,12 +784,31 @@
               <xsl:attribute name="type" select="'image/svg+xml'"/>
               <xsl:text>filler to stop contraction of this xml element</xsl:text>
             </xsl:element>
-
-
-          </xsl:element>
-        </xsl:element>
-      </xsl:element>
-
+   -->
+            
+              <xsl:choose>
+                <xsl:when test="imgscale">                  
+                  <xsl:element name="svg">
+                    <xsl:attribute name="width" select="$imgwidth"/>
+                    <xsl:attribute name="height" select="$imgheight"/>
+                    <xsl:element name="g">
+                      <xsl:attribute name="w3-include-html" 
+                                     select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
+                      <xsl:attribute name="transform" 
+                                     select="'scale(' || imgscale || ' ' || imgscale || ')'"/>
+                    </xsl:element>
+                  </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:element name="div">
+                    <xsl:attribute name="w3-include-html" 
+                                   select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
+                  </xsl:element>
+                </xsl:otherwise>
+              </xsl:choose>
+          </xsl:element>  <!-- </a>  -->
+        </xsl:element>   <!-- </div> -->
+      </xsl:element>  <!-- </div> -->
 
       <xsl:variable name="note" >
         <xsl:element name="div">
@@ -800,8 +830,7 @@
         <xsl:otherwise>
           <xsl:element name="div">
             <xsl:attribute name="class" select="'middlingContainer'"/>
-            <xsl:attribute name="style" select="concat('height:',$imgheight
-                )"/>
+            <xsl:attribute name="style" select="'height:' || $imgheight"/>
             <xsl:copy-of select="$note"/>
           </xsl:element>
         </xsl:otherwise>

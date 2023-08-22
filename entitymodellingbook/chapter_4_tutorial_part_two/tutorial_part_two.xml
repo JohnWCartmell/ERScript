@@ -856,7 +856,7 @@
         The diagram doesn't specify the rule so that will need to be documented separately.
         <figureOfPictureWithNote>
           <pictureName>chemicalElements3.hierarchical</pictureName>
-          <imgheight>6.5cm</imgheight>
+          <!-- <imgheight>6.5cm</imgheight> -->
           <muchtext/>
           <note>
             <width>7.5cm</width>
@@ -1043,7 +1043,15 @@
         relationships depicted a commuting triangle or not.  
       </para>
       <para>
-        Previously, in section <refsection></refsection>, we described how the scopes of reference relationships
+        Previously, in section 
+
+        <refsection>
+           <label>
+              <chapter>tutorialone</chapter>
+              <section>scopediagrams</section>
+            </label>
+        </refsection>, 
+        we described how the scopes of reference relationships
         can be documented on entity modelling diagrams. Provided that we document these scopes then
         reference attributes are implicit i.e. can be algorithmically generated  and therefore do not have to be included in the model. 
         The following diagram with scope specified implicitly defines the right hand message structure from the two diagrams above:
@@ -1470,10 +1478,10 @@
             </tr>
             <tr>
               <td>
-                MARTIN</td><td><table><tr>
+                MARTIN</td><td><table>
                     <tr><td>GEORGIE</td></tr>                                    
                     <tr><td>HONOR</td></tr>
-                    <td width="75px">PALMER</td></tr>
+                    <tr><td width="75px">PALMER</td></tr>
                 </table> 
               </td>
             </tr>
@@ -1613,15 +1621,12 @@
       <figure>
         <label>loveRelationshipLocal3</label>  
         <width>15cm</width>
-        <table>
-          <class>borderless</class>
+        <table class="borderless">
           <columnstyles>
-            <col>
-              <class>rightborder</class>
+            <col class="rightborder">
             </col>
           </columnstyles>
-          <thead>
-            <class>lowerborder</class>
+          <thead class="lowerborder">
             <tr>
               <td/>
               <td>ANTONIO</td>
@@ -1715,11 +1720,10 @@
   </section>
 
   <section>
-    <leader>    <para>
+    <leader> 
         Historically, as used for data specification,  an ER model will often be 
         said to be <emph>logical</emph> or <emph>physical</emph> or to constitute a <emph>data model</emph>; I
         will use  the terms somewhat differently as explained in the final section which finishes with an example from Chen.
-      </para>
     </leader> 
     <title>Logical and Physical</title>
     <trailer>. For now at least, this brings us to the end of this tutorial. </trailer> 

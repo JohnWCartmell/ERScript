@@ -79,9 +79,138 @@ Rename this one `erstyles.css.forreasonunknown`. [x]
 - for each file should sequentially call `latex`, `dvisps`, `ps2pdf`, and `convert` as per generated buildAll.bat that is currently used.
 - the final step - the convert - should place the constructed png  into `www.entitymodelling.org/images`
 
+15. The fact that we now embedd svgs using `<object>` gives a problem for the brinton example and future large examples where we want a scaled down diagram as a thumbnail. I cannot find a way of scaling these objects. However I can find a way
+	if I include the svg inline using w3c-include-html and an svg transform as follows:
+```
+	<a href="../svg/brintonSimpleSentenceStructure.html" target="_blank">
+                           <svg width="$imgwidth" height="$imgheight">
+                              <g  w3-include-html="../svg/brintonSimpleSentenceStructure.svg" 
+                                  transform="scale(0.25 0.25)"/>
+                            </svg>
+                         </a>
+```
+where `$imgWidth` and `$imgHeight` are calculated from the width and the height of the svg image optionally scaled.
+
+Change `document2html.xslt` to generate such a structure and to generate required java scripting.
+It is the following source that is being generated:
+```
+ <figureOfPictureWithNote>
+      <pictureName>brintonSimpleSentenceStructure</pictureName>
+      <framewidth>6cm</framewidth>
+      <width>16cm</width>
+      <imgwidth>5cm</imgwidth>
+      <imgheight>5cm</imgheight>
+      ...
+```
+Change this source to
+```
+ <figureOfPictureWithNote>
+      <pictureName>brintonSimpleSentenceStructure</pictureName>
+      <framewidth>6cm</framewidth>
+      <width>16cm</width>
+      <imgscale>0.3</imgscale>
+      ...
+```
+
+Change the document er model accordingly replacing `imgwidth` and `imgheight` by `imgscale`.
+
+- documentERModel.xml [x]
+- englishsentence.xml [x]
+- document2html.xslt [x]
+
+16. Change the brinton example to build directly into www.entitymodelling.org/svg.
+- change buildExampleSVG.ps1 to have svgOutputFolder parameter [x]
+- change brinton build.ps to specify svgOutputFolder           [x]
+- change index.html to reference new location                  [x]
+
+17. Both `document2html.xslt` and `ERmodel2svg.xslt` generate link to `erdiagramsvgstyles.css`.
+Therefore remove the hover styles from the file `erdiagramsvgstyles.css` and move into a new file
+`erdiagramsvg_hoverstyles.css` and change `ERmodel2svg.xslt` to additionally link to this new file.
+
+The hover styles are
+```
+
+        .eteven:hover{
+          fill: #FFFF77;
+        }
+        .etodd:hover{
+          fill: lightgrey
+        }
+        .relationshiphitarea:hover {
+          stroke: yellow ; 
+          stroke-opacity:0.5;
+        }
+        .attrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+        .idattrname:hover {
+          font-weight:bold;
+          font-size: 12px ;
+        }
+```  
+18. Address ERROR elements generated during generation of documentERmodel.rng by changing
+    `class` attribute of `MajorElement` to be represented by an xml attribute.
+    - change documentERModel.xml             [x]
+    - change tutorial_part_two.xml           [x]
+    - change document2html                   [x]
+
+    Along the way had to debug since use of column style to specify class already broken with bug showing up (at least) in figure loveRelationshipLocal3 on live www.entitymodlling.org.
+
+19. Address ERROR elements generated during generation of documentERmodel.rng by fixing bug
+in the handling of xmlRepresentatuion for mandatory attributes in
+     - ERmodel2.rng.xslt  [x]
+
+20. Address error messages given during generation of documentERmodel.rng Fix the following test condition in `ERmodel2.rng.xslt` 
+```
+        <xsl:if test="ancestor-or-self::entity_type/attribute/
+                      xmlRepresentation[text()='Anonymous' or child::Anonymous] and
+                      count(ancestor-or-self::entity_type/attribute) > 1">
+          <xsl:message terminate="no">
+            Entity '<xsl:value-of select="name"/>' has more than one attribute
+            which is not allowed when an attribute has xmlRepresentation Anonymous 
+          </xsl:message>
+        </xsl:if>
+```
+to test that in the presence of an anonymous attributes there must be no more than one attribute with the exception of those represented by xml attributes. Change to:
+```
+        <xsl:if test="ancestor-or-self::entity_type/attribute/
+                      xmlRepresentation[text()='Anonymous' or child::Anonymous] and
+                      count(ancestor-or-self::entity_type/attribute[not(xmlRepresentation/Attribute)]) > 1">
+          <xsl:message terminate="no">
+            Entity '<xsl:value-of select="name"/>' has more than one attribute that isn't represemnted by an xml attribute
+            which is not allowed when an attribute has xmlRepresentation Anonymous 
+          </xsl:message>
+        </xsl:if>
+```
+     - ERmodel2.rng.xslt  [x]
+21. Fix schema errors raised when checking book source in `whole.xml` against docvument model rng.
+     - add entity type `block` to the document model as a subtype of `divlike` with optional `width` attribute [x]
+     - change one of `class` attribute of MajorElement to be optional [x]
+     - change `width` attribute of `hspace` to be represented as an xml attribute [x]
+     - likewise `class` attribute of `tablelevel` to be represented as an xml attribute [x]
+     - likewise `class` attribute of `col` to be represented as an xml attribute [x]
+     - likewise `height` attribute of `vspace` [x]
+     - add `width` attribute of `td` represented as an xml attribute [x]
+     - add `target` and `onclick` attributes entity type  `a` and represent as  xml attributes [x]
+     - fix faulty tutorial two `tr` nesting. [x]
+     - remove unnecessary `imgheight` specifications (no longer required).[x]
+
+22. Fix whatever is giving the following warnings and errors
+```
+WARNING:  No such figure as referenced: 'kinship.individual.maternalgrandfather' (2)     [x]
+WARNING:  No such figure as referenced: 'kinship.individual.maternalgrandfathersmother'  [x]
+Broken reference to section 'furtherexamples' from section examplesone.englishsentence   [x]
+WARNING:  No such figure as referenced: 'loveRelationship2' (2)                          [x]
+Broken reference to section '' from section tutorialtwo.referenceattributes              [x]
+```
+The third of these, at least, is a bug in live www.entitymodelling.org.
+
 ### Testing
 From within Sublime Text, build local copy of www.entitymodelling.org nested within build of ERScript. 
 Fully review local copy. Make simple change to wording as suits.  Rebuild. Review and deploy live. See separate change note for how deployment is carried out.
+
+
 
 ### Completion Date
 

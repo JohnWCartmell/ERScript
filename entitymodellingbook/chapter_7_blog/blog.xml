@@ -9,9 +9,6 @@
   <preface>This chapter contains a scattering of further thoughts on data modelling, entity modelling and logic.
   </preface>
 
-
-  
-
   <section>
     <leader>On the importance of questions of commutativity to how data is represented</leader> 
     <title>Questions of Commutativity</title>
@@ -53,7 +50,7 @@
     </para>
     <para>
       Scope diagrams of mandatory relationships are examples of near commuting diagrams, techically they only commute if the relationships whose scope they describe is specifed to be mandatory i.e cardinality One rather than Zero Or One. For instance there are examples of such commuting scope diagrams here:
-      <a href="../tutorialtwo/scope.html">The Scope Concept</a>.
+      <a href="../tutorialone/scope.html">The Scope Concept</a>.
     </para>
     <para> 
       The questions that are important for how data is represented concern the commutativity of diagrams of relationships - which diagrams commute -

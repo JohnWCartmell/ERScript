@@ -21,17 +21,16 @@ Param(
        [switch]$relids
 )
 
-
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-echo ('pathtosourcefile' + $pathToSourceXMLfile)
+echo ('genSVG.ps1: pathtosourcefile' + $pathToSourceXMLfile)
 
 $filenamebase=(Get-Item $pathToSourceXMLfile).Basename
 $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
 
-echo ('outputFolder ' + $outputFolder)
+echo ('genSVG.ps1: outputFolder ' + $outputFolder)
 If(!(test-path -PathType container $outputFolder))
 {
       New-Item -ItemType Directory -Path $outputFolder
@@ -42,7 +41,7 @@ if ($outputFilename -eq ''){
 } else {
     $svgFilename = $outputFilename
 }
-echo ('svgFilename ' + $svgFilename)
+echo ('genSVG.ps1: svgFilename ' + $svgFilename)
 
 . ($commandFolder +'\set_path_variables.ps1')
 

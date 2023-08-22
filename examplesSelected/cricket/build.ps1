@@ -31,7 +31,7 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 }
 
 echo 'Cricket Example'
-. $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs -shortSeparator NA -longSeparator NA -debugSwitch
+. $TARGET\scripts\buildExampleSVG.ps1 cricketMatch -animate -physicalType hs -shortSeparator NA -longSeparator NA 
 
 
 if ($false)

@@ -3,16 +3,10 @@
           stroke: black;
           stroke-width: 1
         }
-        .eteven:hover{
-          fill: #FFFF77;
-        }
         .etodd {
           fill: white;
           stroke: black;
           stroke-width: 1
-        }
-        .etodd:hover{
-          fill: lightgrey
         }
 
         .outertitlebox {
@@ -82,11 +76,6 @@
           stroke: black;
           stroke-opacity:0;  
         }
-        .relationshiphitarea:hover {
-          stroke: yellow ; 
-          stroke-opacity:0.5;
-        }
-
         .relationshipMouseOver {
           stroke: yellow ; 
           stroke-opacity:0.5;
@@ -145,20 +134,12 @@
           font-size: 11px ;
           font-style: italic;
         }
-        .attrname:hover {
-          font-weight:bold;
-          font-size: 12px ;
-        }
         .idattrname {       
           cursor: pointer;
           fill: black;
           font-size: 11px ;
           font-style: italic ;
           text-decoration: underline ;
-        }
-        .idattrname:hover {
-          font-weight:bold;
-          font-size: 12px ;
         }
         .surfaceattrnameeven {
           fill: black;
