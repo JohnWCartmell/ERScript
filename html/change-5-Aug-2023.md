@@ -206,11 +206,12 @@ Broken reference to section '' from section tutorialtwo.referenceattributes     
 ```
 The third of these, at least, is a bug in live www.entitymodelling.org.
 
+23. Fix error in `cssmenustyle.css` by removing references to `icon_plus.png` and `icon_minus.png`.
+`
+
 ### Testing
 From within Sublime Text, build local copy of www.entitymodelling.org nested within build of ERScript. 
 Fully review local copy. Make simple change to wording as suits.  Rebuild. Review and deploy live. See separate change note for how deployment is carried out.
-
-
 
 ### Completion Date
 

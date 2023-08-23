@@ -135,6 +135,7 @@
            </script>   
          -->
               <svg>
+                 <xsl:attribute name="style" select="'display:none'"/>
                  <defs>
                     <marker id="crowsfoot"
                              markerWidth="10"

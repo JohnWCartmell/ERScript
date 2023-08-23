@@ -1809,6 +1809,7 @@ CHANGE HISTORY
 
 <xsl:template name="svg_defs">
       <svg>
+      <xsl:attribute name="style" select="'display:none'"/>
       <defs>
       <marker id="crowsfoot"
                    markerWidth="10"
