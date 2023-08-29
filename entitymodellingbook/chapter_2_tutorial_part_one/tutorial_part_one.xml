@@ -1,12 +1,13 @@
          <chapter>
 	<title>Tutorial Part One</title>
 	<label>tutorialone</label> 
-	<subtitle> The  Entity Modelling Tutorial Part One <emdash/> Entities, Relationships and Attributes</subtitle>
+	<subtitle> Entity Relationship (ER) Modelling Tutorial</subtitle>
 	<explanation> which introduces from first principles  a good part of the basic notation.
 	</explanation>
 	<preface>
 		<para>
-			This chapter is a tutorial on the use of entity modelling notation. 
+			This chapter is a tutorial on the use of ER entity modelling notation.
+		    This tutorial is then extended in part two which completes the description of Entity, Relationship, Attribute (ERA) modelling as a techniqwue for modelling data that may be relational or hierarchical.
 			<!--
       For programmers, code follows concepts 
 	     and a good part of this chapter is about modelling the concepts.

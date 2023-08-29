@@ -19,6 +19,29 @@
   position: relative;
 }
 
+/* Tooltip text */
+ .tooltiptext {
+  visibility: hidden;
+/*  width: 120px;*/
+  white-space:nowrap;
+  background-color: #ECEEF6;
+  color: #283769;
+  text-align: center;
+  padding: 5px 20px;
+  border-radius: 3px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+a:hover .tooltiptext {
+  visibility: visible;
+}
+
 #cssmenu {
   width: 250px;
   background: #fff;
@@ -36,7 +59,7 @@
   background: #5064AE; 
   /* border: 1px solid #000; */
 }
-#cssmenu > ul > li > a > span {
+#cssmenu > ul > li > a {
   display: block;
   padding: 6px 10px;
   /* font-weight: bold; */
@@ -53,17 +76,17 @@
   color: #fff; 
   /* border: 1px solid #79980d; */
 }
-#cssmenu > ul > li.active > a span {
+#cssmenu > ul > li.active > a  {
   background-color: green; /*ineffective */
   /border: 1px solid #97be10;
 }
 
-#cssmenu > ul > li.has-sub > a span {
+/*#cssmenu > ul > li.has-sub > a span {
   background: url(images/icon_plus.png)  no-repeat 98% center; 
-}
+}*/
 
-#cssmenu ul > li.has-sub.active > a span {
-  background-image: url(images/icon_minus.png) 98% center no-repeat;
+#cssmenu ul > li.has-sub.active > a {
+/*  background-image: url(images/icon_minus.png) 98% center no-repeat;*/
   background-color:red
 }
 

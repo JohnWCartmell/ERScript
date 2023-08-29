@@ -1,9 +1,9 @@
 
 <chapter>
   <title>Tutorial Part Two</title>
-  <subtitle>Entity Modelling Tutorial Part Two - Representing Data</subtitle>
+  <subtitle>Entity Relationship Attribute (ERA) Modelling and The Specification of Data Structure</subtitle>
   <label>tutorialtwo</label>
-  <explanation> which is a tutorial describing use of the notation for data modelling. 
+  <explanation> which is described the representation of attribute and describing use of the notation for data modelling. 
   </explanation>
 
   <preface>

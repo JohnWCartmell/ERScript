@@ -183,6 +183,11 @@
       <xsl:value-of select="."/>
     </text>
   </xsl:template>
+    <xsl:template match="section/subtitle/text()">
+    <text>
+      <xsl:value-of select="."/>
+    </text>
+  </xsl:template>
 
 
   <xsl:template match="caption/text()">

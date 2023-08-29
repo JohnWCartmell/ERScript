@@ -272,12 +272,14 @@ h2{
 	text-align:left;
 	font-size:1.35em;
 	}
-  
 h3{
 	color:#777777;
 	text-align:left
 	}
 img.inline{
+	vertical-align:middle
+	}
+object.inline{
 	vertical-align:middle
 	}
 

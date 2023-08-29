@@ -76,8 +76,10 @@
   <xsl:template match="chapter" mode="sidebar">
     <li class='has-sub'>
       <a id="{label}" href="{concat($rootprefix,label,'/overview.html')}">
+        <xsl:value-of select="title"/>
         <span>
-          <xsl:value-of select="title"/>
+          <xsl:attribute name="class" select="'tooltiptext'"/>
+          <xsl:apply-templates select="subtitle"/>
         </span>
       </a>
       <xsl:if test="section">
@@ -88,6 +90,10 @@
               <a id="{concat($chapterlabel,'.',label)}"
                   href="{concat($rootprefix,$chapterlabel,'/',label,'.html')}">
                 <xsl:value-of select="title"/>
+                <span>
+                  <xsl:attribute name="class" select="'tooltiptext'"/>
+                  <xsl:value-of select="subtitle"/>
+                </span>
               </a>
             </li>
           </xsl:for-each>
@@ -1130,7 +1136,13 @@
   <xsl:template match="section/title">
     <xsl:element name="h2">
       <xsl:value-of select="."/>
+      <xsl:text>&#8212;</xsl:text><!-- emdash -->
+      <xsl:value-of select="../subtitle"/>
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="section/subtitle">
+     <!-- intentionaly left blank -->
   </xsl:template>
 
   <xsl:template match="small">

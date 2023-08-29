@@ -73,6 +73,21 @@
       </diagram>
       <sequence/>
     </composition>
+      <composition>
+        <name>subtitle</name>
+        <type>MinorElement</type>
+        <cardinality>
+          <ZeroOneOrMore/>
+        </cardinality>
+        <diagram>
+          <path>
+            <align>
+              <ToSrc/>
+            </align>
+          </path>
+        </diagram>
+        <sequence/>
+      </composition>
     <entity_type>
       <name>chapter</name>
       <presentation>
@@ -95,21 +110,6 @@
             <destarmlen>0.5</destarmlen>
           </path>
         </diagram>
-      </composition>
-      <composition>
-        <name>subtitle</name>
-        <type>MinorElement</type>
-        <cardinality>
-          <ZeroOneOrMore/>
-        </cardinality>
-        <diagram>
-          <path>
-            <align>
-              <ToSrc/>
-            </align>
-          </path>
-        </diagram>
-        <sequence/>
       </composition>
       <composition>
         <type>sectionlike</type>
