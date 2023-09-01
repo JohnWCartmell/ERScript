@@ -62,7 +62,10 @@
       relate to other meta-conceptual systems. 
       We extend the notation from that commonly used in the 
       development of information systems 
-      by the introduction of additional meta-conceptual machinary. This is done in a way strongly influenced 
+      by the introduction of additional meta-conceptual machinary. 
+      XXXXXXXXXXXXXXXXX  TO MANY META CONCEPTUALS XXXXXXXXXXXX
+
+      This is done in a way strongly influenced 
       by consideration of conceptual patterns brought to the fore in the branch of mathematics known as category theory. The extended notation has significant benefits for information systems development.
     </para>
 
@@ -112,12 +115,26 @@
       model is little more than a structured list of such things.
     </para>
 
-    <div>
+    <!-- <div>
       <padding>0.5cm</padding>
       <er_center>
         <filename>entityModelAsList</filename>
       </er_center>
-    </div>
+    </div> -->
+     <figureOfPictureWithNote>
+      <pictureName>entityModelAsList</pictureName>
+      <note>
+        <itemize>
+            <item>an <entity>entity model</entity> defines one or more <entity>entity type</entity>s,
+              <entity>relationship</entity>s and <entity>attribute</entity>s,
+            </item>
+        </itemize>
+      </note>
+      <caption>
+        The three primary concepts within entity modelling are those of <entity>entity type</entity>,
+              <entity>relationship</entity> and <entity>attribute</entity>.
+      </caption> 
+    </figureOfPictureWithNote>
     <newline/>
     <para> The premises of Entity Modelling have in them a pragmatic answer to the question what is knowledge? 
       Knowledge, according to the premises of Entity Modelling, is knowledge about things. For any <q>thing</q> the 
@@ -129,6 +146,33 @@
       a pragmatic view of what knowledge is <emdash/> it is that which can be represented as information in a structured 
       form suitable for representation in a computer system.
     </para>
+
+    <para>
+      There are some differences of notation and concept between different authors and a range of different diagram styles for representing the three principle components of entity (E), relationship (R) and attribute (A). The E R A terms themselves were introduced in a very influential paper by  Chen in 1976.<footnote>
+        <bibentry>Chen1976</bibentry>
+      </footnote> I come back to this in a later section but here we use and promote a  style of diagram that is different to Chen's. Most notably we do not use diamond 
+      shaped boxes in the representation of relationships and even what we mean by the term relationship is significantly shifted. The style we use evolved in the past from Chen's style and is a further evolution from that found in 
+      SSADM<footnote>
+              <bibentry>SSADM</bibentry>
+            </footnote> 
+     and in the Barker book.<footnote>
+              <bibentry>RichardBarkerBook</bibentry>
+            </footnote>      
+     </para>
+     <para>
+      ER diagrams and ERA diagrams, whatever the style, are the first point of contact and the recongisable face of entity modelling but it is in the definitions behind such diagrams that
+      lie the fundamentals and it is from these definitions that code in the form of database schemas, languiage-specific data specifications and data access and management code is compiled.  
+      Though the definitions are definitions of types and collectively form a system of types, the subject entity model, they are themselves in turn instances of other types which collectively form a higher level system of types which is said to be the (entity modelling) meta-model. 
+      The entity modelling meta-model is presented in section       
+      <refsection>
+        <label>
+          <chapter>???</chapter>
+          <section>metamodel</section>
+        </label>
+        <title>ER MetaModel</title>
+      </refsection> and one way to navigate this book for a reader already familiar with  basic ER notation to is to start from this meta-model.
+     </para>
+
   </section>
 
   <section>
