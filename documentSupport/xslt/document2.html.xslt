@@ -776,23 +776,8 @@
         <xsl:element name="div">
           <xsl:attribute name="class" select="'er'"/>
           <xsl:attribute name="style" select="'margin:auto'"/>
-          <xsl:element name="a">
-            <xsl:attribute name="href" select="href"/>
-            <xsl:attribute name="target" select="'_blank'"/>
 
-<!--
-            <xsl:element name="object">
-              <xsl:attribute name="id" select="'svg-object'"/>
-              <xsl:attribute name="class" select="'er'"/>
-              <xsl:if test="imgwidth">
-                <xsl:attribute name="style" select="concat('width:',imgwidth)"/>
-              </xsl:if>
-              <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,pictureName,'.svg')"/>
-              <xsl:attribute name="type" select="'image/svg+xml'"/>
-              <xsl:text>filler to stop contraction of this xml element</xsl:text>
-            </xsl:element>
-   -->
-            
+          <xsl:variable name="content" as="element()">
               <xsl:choose>
                 <xsl:when test="imgscale">                  
                   <xsl:element name="svg">
@@ -813,7 +798,19 @@
                   </xsl:element>
                 </xsl:otherwise>
               </xsl:choose>
-          </xsl:element>  <!-- </a>  -->
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="href">
+              <xsl:element name="a">
+                <xsl:attribute name="href" select="href"/>
+                <xsl:attribute name="target" select="'_blank'"/>
+                <xsl:copy-of select="$content"/>
+              </xsl:element>  <!-- </a>  -->
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:element>   <!-- </div> -->
       </xsl:element>  <!-- </div> -->
 
@@ -1133,16 +1130,21 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="section/title">
+  <xsl:template match="section[not(subtitle)]/title">
     <xsl:element name="h2">
       <xsl:value-of select="."/>
-      <xsl:text>&#8212;</xsl:text><!-- emdash -->
-      <xsl:value-of select="../subtitle"/>
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="section[subtitle]/title">
+         <!-- intentionaly left blank -->
+         <!-- will be headed by subtitle alone -->
+  </xsl:template>
+
   <xsl:template match="section/subtitle">
-     <!-- intentionaly left blank -->
+    <xsl:element name="h2">
+      <xsl:value-of select="."/>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="small">

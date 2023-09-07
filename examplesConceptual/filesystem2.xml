@@ -7,39 +7,62 @@
          <deltaw>0.6</deltaw>
       </diagram>
    </presentation>
+   <absolute>
+      <name>xxx</name>
+      <composition>
+         <type>drive</type>
+         <cardinality><OneOrMore/></cardinality>
+         <inverse></inverse>
+      </composition>
+   </absolute>
    <entity_type>
       <name>drive</name>
+      <dependency>
+         <name></name>
+         <type>xxx</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse_of></inverse_of>
+      </dependency>
       <composition>
+         <name>root</name>
          <type>folder</type>
+         <cardinality><ExactlyOne/></cardinality>
          <diagram>
-            <path/>
+            <path>
+               <srcarmlen>0</srcarmlen>
+               <destarmlen>0.75</destarmlen>
+            </path>
          </diagram>
       </composition>
       <presentation>
          <x>2.8</x>
-         <y>0.1</y>
+         <y>1.0</y>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>Entry</name>
+      <name>entry</name>
       <presentation>
          <below>drive</below>
          <x>0.25</x>
+         <y>0.6</y>
          <deltaw>0.5</deltaw>
       </presentation>
       <entity_type>
          <name>file</name>
+         <presentation>
+            <y>0.2</y>
+         </presentation>
       </entity_type>
       <entity_type>
          <name>folder</name>
          <composition>
-            <type>Entry</type>
+            <type>entry</type>
             <cardinality>
                <ZeroOneOrMore/>
             </cardinality>
             <diagram>
                <path>
-                  <srcattach>0.5</srcattach>
+                  <srcattach>0.4</srcattach>
                   <srcarmlen>1.0</srcarmlen>
                   <destarmlen>0.6</destarmlen>
                   <destattach>0.25</destattach>
@@ -61,10 +84,12 @@
             <rightOf>folder</rightOf>
          </presentation>
          <reference>
-            <type>Entry</type>
+            <type>entry</type>
             <name>to</name>
+            <cardinality><ExactlyOne/></cardinality>
             <diagram>
                <path>
+                  <destattach>0.3</destattach>
                   <hstep>
                      <absdim>
                         <src>0.1</src>

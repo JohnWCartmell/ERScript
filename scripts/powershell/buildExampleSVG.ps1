@@ -81,8 +81,8 @@ if ($physicalType -ne '')
 
     #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource `
-               -outputFolder $svgOutputFolder " `
+    powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource" `
+               + ' -outputFolder ' + $svgOutputFolder   `
                + "$animateOption"                     `
                + $debugswitchOption)
 

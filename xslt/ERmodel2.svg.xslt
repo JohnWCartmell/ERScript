@@ -1,9 +1,3 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/src/ERmodel2.svg.xslt 
-****************************************************************
-
--->
 
 <!-- 
 *****************
@@ -1659,16 +1653,16 @@ CHANGE HISTORY
 
 <xsl:variable name="precount" as="xs:integer" 
               select="count($relationships_plus_rolenames[self::svg:text])"/>
-     <xsl:message>xright precount is '<xsl:value-of select="$precount"/>'</xsl:message> 
+     <!-- <xsl:message>xright precount is '<xsl:value-of select="$precount"/>'</xsl:message>  -->
 
 <xsl:variable name="count" as="xs:integer" 
               select="count($relationships_plus_rolenames[self::svg:text][@xright])"/>
-     <xsl:message>xright count is '<xsl:value-of select="$count"/>'</xsl:message>            
+     <!-- <xsl:message>xright count is '<xsl:value-of select="$count"/>'</xsl:message>             -->
   <xsl:variable name="relationship_rolename_xright"
                 as="xs:double"
                 select="max((0,$relationships_plus_rolenames[self::svg:text]/@xright))"/>
 
-  <xsl:message>xright is '<xsl:value-of select="$relationship_rolename_xright"/>'</xsl:message>
+  <!-- <xsl:message>xright is '<xsl:value-of select="$relationship_rolename_xright"/>'</xsl:message> -->
 
   <xsl:variable name="diagramWidth"
                   as="xs:double"

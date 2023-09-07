@@ -35,7 +35,11 @@ and `identifier` > `identifying_feature`     [x]
 #### Examples One
 #### Tutorial Two - ERA
 #### Blog
-
+##### Section "ER Meta Models"
+1. Change `ERScript/metaModel/build.ps` to use `www.entitymodelling.org/svg` as the docs folder (for all svgs resulting from build.)[]
+2. Change `ERScript/index.html` to pick the meta model digrams from from here.                   []
+3. Add the meta model diagram ERA..diagram.html to the ER Meta Models section of Blog.           []
+4. Review possibilities of othe variant meta models.                                             []
 
 ### Testing
 From within Sublime Text, build local copy of www.entitymodelling.org nested within build of ERScript. 

@@ -71,7 +71,7 @@
    </entity_type>
 
    <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <composition>
          <cardinality>
             <ZeroOrOne/>
@@ -91,7 +91,7 @@
    </entity_type>
 
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <composition>
          <name>diagram</name>
          <type>path</type>
@@ -211,7 +211,7 @@
       </composition>
       <reference>
          <name>rightOf</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -224,7 +224,7 @@
       </reference>
       <reference>
          <name>below</name>
-         <type>ENTITY_TYPE</type>
+         <type>entity type like</type>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -273,7 +273,7 @@
          </cardinality>
       </composition>
       <composition>
-         <type>step</type>
+         <type>path_step</type>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
@@ -331,7 +331,7 @@
             <name>relative</name>
             <reference>
                <name>to</name>
-               <type>ENTITY_TYPE</type>
+               <type>entity type like</type>
                <cardinality>
                   <ExactlyOne/>
                </cardinality>
@@ -440,7 +440,7 @@
          </entity_type>
       </entity_type>
       <entity_type>
-         <name>step</name>
+         <name>path_step</name>
          <dependency_group/>
          <entity_type>
             <name>vstep</name>
@@ -452,7 +452,7 @@
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
-            <type>step</type>
+            <type>path_step</type>
          </composition>
          <composition>
             <cardinality>

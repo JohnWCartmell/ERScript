@@ -43,6 +43,7 @@ Would want to change entity modelling book likewise.
 
  INSTEAD
  - rename `component` to `step` [x]
+ - also need change the abstract `step` in `ERA_diagrammed_logical` and `ERA_diagrammed_presentation` to `path_step` [x]
 
 11. Rename the relationship `rel` of `component`/`step` to be `direction`.
 12. Change `implementationOf` entity type:

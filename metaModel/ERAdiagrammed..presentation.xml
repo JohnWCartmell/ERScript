@@ -14,11 +14,11 @@
    <entity_type>
       <name>defaults</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <rightOf>diagram</rightOf>
+         <rightOf>entity type like</rightOf>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>ENTITY_TYPE</name>
+      <name>entity type like</name>
       <composition>
          <type>presentation</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
@@ -30,8 +30,14 @@
          </diagram>
       </composition>
    </entity_type>
-
    
+   <entity_type>
+      <name>dependency_group</name>
+      <presentation>
+         <below>entity type like</below>
+      </presentation>
+   </entity_type>
+
    <entity_type>
       <name>dependency_group</name>
       <composition>
@@ -46,13 +52,8 @@
    </entity_type>
 
 
-
-
-
-
-
    <entity_type>
-      <name>Relationship</name>
+      <name>directional relationship</name>
       <composition>
          <name>diagram</name>
          <type>path</type>
@@ -244,13 +245,13 @@
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <xl>
             <relative>
-               <to>Relationship</to>
+               <to>directional relationship</to>
                <d>-1.7</d>
             </relative>
          </xl>
          <yt>
             <relative>
-               <to>Relationship</to>
+               <to>directional relationship</to>
                <ratio>1</ratio>
                <d>0.9</d>
             </relative>
@@ -339,7 +340,7 @@
    <entity_type>
       <name>path</name>
       <composition>
-         <type>step</type>
+         <type>path_step</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <srcattach>0.9</srcattach>
@@ -464,9 +465,6 @@
       </presentation>
    </entity_type>
 
-
-
-
    <group>
       <name>path_children</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
@@ -524,14 +522,14 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name>step</name>
+      <name>path_step</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
          <rightOf>src_or_dest</rightOf>
          <x>0.5</x>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>step</name>
+      <name>path_step</name>
       <dependency_group>
          <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
             <x>0.75</x>
@@ -547,9 +545,9 @@
       </presentation>
    </entity_type>
    <entity_type>
-      <name>step</name>
+      <name>path_step</name>
       <composition>
-         <type>step</type>
+         <type>path_step</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
             <path>
                <destattach>0.35</destattach>
@@ -564,7 +562,7 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>step</name>
+      <name>path_step</name>
       <composition>
          <type>dimension</type>
          <diagram xmlns:era="http://www.entitymodelling.org/ERmodel">
@@ -579,7 +577,7 @@
    <entity_type>
       <name>dimension</name>
       <presentation xmlns:era="http://www.entitymodelling.org/ERmodel">
-         <below>step</below>
+         <below>path_step</below>
       </presentation>
    </entity_type>
    <entity_type>

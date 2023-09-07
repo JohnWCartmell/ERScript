@@ -167,6 +167,7 @@
       This tutuorial proceeds as follows. 
       First we introduce the fundamentals of the notation and give some examples:
     </leader>
+
     <title>Attributes</title>
     <trailer>
     </trailer>
@@ -1726,7 +1727,13 @@
         will use  the terms somewhat differently as explained in the final section which finishes with an example from Chen.
     </leader> 
     <title>Logical and Physical</title>
-    <trailer>. For now at least, this brings us to the end of this tutorial. </trailer> 
+    <trailer>
+      . For now at least, this brings us to the end of this tutorial. 
+I have tried to articulate entity modelling and the business of representation 
+of the world in data  from first principles without reliance on  any particular technology - neither any programming language nor any database system.
+If you have followed this tutorial to the end view I hope that you view this business 
+a little  differently to before. 
+    </trailer> 
     <label>physicalERmodels</label>
     <subsection>
       <title>Definitions</title>
@@ -2002,6 +2009,21 @@
       </figure> 
     </subsection>
   </section>
+
+<section>
+    <leader> 
+        Notes needing incorpartion elsewhere.
+    </leader> 
+    <title>Notes</title>
+    <subtitle>For incorpoation elsewhere.</subtitle>
+    <para>
+      In a relational model, all relationships are represented by attributes and the term attribute is synonomous with column.
+      Identifying sets iof features are therefore identifying sets of columns.
+      In a hierarchical non-relational model this is not so. Physical features in a non-relational model comprise a mix of contextual relationships and attributes
+      and in general identifying sets have as their elements a mix of such elements.  
+    </para>
+</section>
+
   <!--
   <section>
     <title>Messaging Matrices</title>

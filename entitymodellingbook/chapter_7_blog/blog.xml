@@ -212,6 +212,50 @@
         An ER model showing the three principle components of ER modelling.
       </caption>
     </figureOfPictureWithNote>
+
+<subsection>
+  <title>ERA..logical.xml</title>
+  <para>
+  <figureOfPictureWithNote>
+    <pictureName>ERA..diagram</pictureName>
+    <framewidth>11cm</framewidth>
+    <width>16cm</width>
+    <imgscale>0.3</imgscale>
+    <href>../svg/ERA..diagram.html</href>
+    <note>
+      <width>2cm</width>
+      <para>
+      </para>
+    </note>
+    <muchtext/>
+    <caption>This is a logical ERA model of ER modelling. Click
+      <a href="../svg/ERA..diagram.html">here</a> to browse the model in a new window.
+    </caption>
+  </figureOfPictureWithNote>
+  </para>
+
+
+  <para>
+      <figureOfPictureWithNote>
+    <pictureName>ERA..physical..diagram</pictureName>
+    <framewidth>11cm</framewidth>
+    <width>16cm</width>
+    <imgscale>0.3</imgscale>
+    <href>../svg/ERA..physical..diagram.html</href>
+    <note>
+      <width>2cm</width>
+      <para>
+      </para>
+    </note>
+    <muchtext/>
+    <caption>This is a physical ERA model of ER modelling. Click
+      <a href="../svg/ERA..physical..diagram.html">here</a> to browse the model in a new window.
+    </caption>
+  </figureOfPictureWithNote>
+  </para>
+</subsection>
+
+
   </section>
 <!--
   <section>
@@ -279,7 +323,7 @@
         The starting point for this example is the example given 
         in section <a href="logicalhorizons.html">Commutative Diagrams</a>  of a model of data presented in tabular form i.e in rows and columns. 
         The right hand side diamond is just that earlier the physical hierarchical model  with
-        ascending relationships relabelled as <q>..</q> (a familiar notation and one used for eaxmple in xpath).
+        ascending relationships relabelled as <q>..</q> (a familiar notation and one used for example in xpath).
       </caption>
     </figureOfPicture>
 

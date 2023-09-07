@@ -14,7 +14,6 @@ If(!(test-path -PathType container $TARGETTEMP))
       New-Item -ItemType Directory -Path $TARGETTEMP
 }
 
-
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETWWW))
 {
@@ -22,10 +21,8 @@ If(!(test-path -PathType container $TARGETWWW))
       New-Item -ItemType Directory -Path $TARGETWWW
 }
 
-
 echo "copy .htaccess.txt"
 copy .htaccess.txt $TARGETWWW\.htaccess.txt
-
 
 pushd $TARGETWWW
 

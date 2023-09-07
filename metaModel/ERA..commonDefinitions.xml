@@ -107,7 +107,7 @@
          </reference>
       </entity_type>
       <entity_type name="identity"></entity_type>
-         <entity_type name="theabsolute"></entity_type>
+      <entity_type name="theabsolute"></entity_type>
       <reference name="src" type="entity_type?"/>
       <reference name="dest" type="entity_type?"/>
    </entity_type>

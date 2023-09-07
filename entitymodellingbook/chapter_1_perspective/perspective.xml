@@ -45,7 +45,7 @@
     <leader>        
     In this chapter we start out by asking the question</leader> 
     <title>What is Entity Modelling?</title>
-    <subtitle>Two reasons for entity modelling.</subtitle>
+    <subtitle>What is Entity Modelling and Why do it?</subtitle>
     <trailer></trailer>
     <label>knowledgeframework</label>
     <para> 
@@ -62,9 +62,7 @@
       relate to other meta-conceptual systems. 
       We extend the notation from that commonly used in the 
       development of information systems 
-      by the introduction of additional meta-conceptual machinary. 
-      XXXXXXXXXXXXXXXXX  TO MANY META CONCEPTUALS XXXXXXXXXXXX
-
+      by the introduction of an addition system of constraints.
       This is done in a way strongly influenced 
       by consideration of conceptual patterns brought to the fore in the branch of mathematics known as category theory. The extended notation has significant benefits for information systems development.
     </para>
@@ -172,16 +170,15 @@
         <title>ER MetaModel</title>
       </refsection> and one way to navigate this book for a reader already familiar with  basic ER notation to is to start from this meta-model.
      </para>
-
+        <include><filename>data_modelling.xml</filename></include>
   </section>
 
   <section>
     <leader>and that because entity modelling is a practical discipline used in engineering systems and yet is concerned with all manner of describable things it involves a </leader>
-    <title>Tangible Metaphysics</title>
-    <subtitle>What question does entity modelling seek to answer?</subtitle>
+    <title>Types of Things</title>
+    <subtitle>Metaphysics and the Types of Things</subtitle>
     <trailer>.</trailer>
     <label>tangiblemetaphysics</label>
-
 
     <para> Entity modelling has the questions <q>What is?</q> and <q>What can be said of it?</q> at its heart.
       We can define it to be the process of defining what can be predicated of entities and it necessarily 
@@ -223,120 +220,9 @@
     <para> Though Metaphysics has ancient origins, there is an intersection of concerns via data modelling between it and the most practical and modern disciplines of software engineering and the programming of computer based systems. The overlap exists because metaphysics has as its subject matter what is most general about things in general <emdash/> not just physical properties of physical things <emdash/> and the software development discipline starts with the representation of the very same generalities. So whereas most computer programs have as their subjects, everyday if not concrete and physical things, things such as people, accounts, orders, contracts, airline bookings, and so on; other computer programs have as their subjects the structures of molecules, languages, stellar processes or
     programs themselves, or such as mathematical propositions, relationships in general, not particular, types of things as distinct from the things themselves, and so on.
     </para>
-<!--
-    <para> The ontology of computer data is myriad: computer databases hold data, but also data about data, and data about data about data; the referentially rich, and it sometimes seems, tottering, structures of data involved in real working software can seem unreal; as to can the arguments made by metaphysicians and the positions they hold to. Distinctions are made in the modelling of data, for the most practical purposes and to achieve the ends of programming, which rendered in metaphysical discussion could be comfortably described as esoteric.
-    </para>
-  -->
-  </section>
-
-  <section>
-    <leader>Entity models cover specific areas, chosen perspectives, in the words of Culler, which in other contexts might be described as</leader>
-    <title>Domains of Discourse</title>
-    <subtitle>The scoping of entity models and the whole world assumption.</subtitle>
-    <label>domainsofdiscourse</label>
-    <para> We earlier said that entity modelling concerns itelf with <q>what is</q> in the 
-      world but of course any particular entity model does not and cannot address the whole world.
-      In essence an individual entity model establishes, or at very least proposes, a domain of discourse. 
-      The domain can be relatively familiar consisting of entities such as <q>house</q>, <q>street</q>, <q>person</q> etc. 
-      or can be technical, consisting of entities such as constituent parts of grammar, for example <q>noun phrase</q> and  
-      <q>verb phrase</q> and so on, or constituent parts of chemical structure such as <q>atom</q> and <q>covalent bond</q>. 
-      The primary function of entity modelling is to define and present such domains of discourse and to do so in a way that 
-      eliminates error and ambiguity. 
-    </para>
-
-    <figureOfPictureWithNote>
-      <pictureName>molecule0</pictureName>
-      <framewidth>5cm</framewidth>
-      <note>
-        <width>9cm</width>
-        <itemize>
-          <item>In chemistry, molecule, element, atom and bond are types of thing: 
-            molecules consist of many atoms and atoms have one 
-            or more bonds with other atoms. Each atom is an instance of an element 
-            within the periodic table.
-          </item>
-        </itemize>
-      </note>
-      <caption>
-        Some Types of Chemical Entity.
-      </caption>
-    </figureOfPictureWithNote>
-
-    <figureOfPictureWithNote>
-      <pictureName>brintonAlternateTransitiveRepresentation</pictureName>
-      <framewidth>5cm</framewidth> 
-      <note>
-        <width>9cm</width>
-        <itemize>
-          <item>In lingustics, there are things which may be classified as verbs, verb phrases and noun phrases: verb phrases always 
-            have a head which is a verb and they may have direct and/or indirect objects; these are noun phrases.  
-          </item>
-        </itemize>
-      </note>
-      <caption>
-        Some Types of Lingustic Entity.
-      </caption>
-    </figureOfPictureWithNote>
 
 
-    <para> Sometimes the domain of discourse can be abstract such as when we use a metaphor based language term such as 
-      <q>network</q> in the noun phrase <q>social network</q> and by which means we seek to identify a conceptual pattern 
-      and bring to mind imagery of points and lines independently of what the points represent <emdash/> whether that be social entities, 
-      railway stations or atoms.  It is one of the functions of entity modelling to present and propose such deliberately 
-      abstract domains of discourse. In this one mentioned the principal entities will be named <q>point</q> and <q>line</q>
-      or <q>node</q> and <q>edge</q> or some such. 
-      Breakthrough abstractions in science often move into language as metaphor and this is just because abstractions 
-      have a metaphorical shape which gives them utility beyond their origins; by virtue of being abstract they are 
-      reusable and ever applicable in new situations. As diagrams of concepts, entity models give visual shape to 
-      this metaphorical shape of our abstractions. The point is made by the database pioneer Charles W. Bachman in his 1969 paper "Data Structure Diagrams" when he draws in outline a diagram representing a manufacturing system with 39 interrelated types of entity and having previously described to us these certain patterns asks of us
-      <q>Can you...find a five-level hierarchy? Two
-        simple networks? Five compound networks?</q> and, of course, we can.
-    </para>
-
-
-    <figureOfPictureWithNote>
-      <pictureName>proteinCodon</pictureName>
-      <framewidth>7cm</framewidth>
-      <note>
-        <width>7cm</width>
-        <itemize>
-          <item>In biology, codons code for amino acids and each codon consists of three nucleotuides <emdash/> either G, C, U or A.   
-          </item>
-        </itemize>
-      </note>
-      <caption>
-        Biological Coding.
-      </caption>
-    </figureOfPictureWithNote>
-
-
-    <figureOfPictureWithNote>
-      <pictureName>morseCode0</pictureName>
-      <framewidth>7cm</framewidth>
-      <note>
-        <width>7cm</width>
-        <itemize>
-          <item>In telegraphic communication, each morse code codes for a letter of the alphabet as a sequence of dots and dashes.  
-          </item>
-        </itemize>
-      </note>
-      <caption>
-        Telegraphic Coding.
-      </caption>
-    </figureOfPictureWithNote>
-
-
-  </section>
-
-
-  <section>
-    <leader>and within these perspectives the main focus of an entity model is on the</leader>
-    <title>Types of Things</title>
-    <subtitle>Entity modelling and the types of things</subtitle>
-    <trailer> <emdash/> the deliberation of which is of course a concern with a long history. </trailer>
-    <label>types</label>
-
-    <subsection>
+        <subsection>
       <title>Aristotles Categories</title>
       <para> In the statement <q>man and the apes are descendent from a common ancestor</q> <emdash/> 
         it is clear that singular <q>man</q> is being used to denote a specific type which in biology, 
@@ -384,7 +270,7 @@
     </subsection>
 
     <subsection>
-      <title>An example from Physics</title>
+      <title>Types of Particles in Physics</title>
       <para> A more technical example is given by the types of particle discussed in Feynman's Lecture Notes on Physics:
       </para>
       <quotation>
@@ -400,18 +286,13 @@
         In diagramming this in an entity model, instead of retaining the plural form, so to speak, 
         we may capitalise the genera and so arrive this diagram:
       </para>
-
-
       <er_center>
         <filename>feynmanParticle</filename>
       </er_center>
-
     </subsection>
 
-
-
     <subsection>
-      <title>Linguistics</title>
+      <title>Types of Words in Linguistics</title>
       <label>typesOfWord</label>
       <para> In linguistics the entity type <q>word</q> is generally represented as a generalisation 
         of more specific types often referred to as word classes. These include <emph>noun</emph>, <emph>verb</emph>, 
@@ -545,14 +426,10 @@
         </caption>
       </figureOfPictureWithNote>
 
-
-
     </subsection>
 
-
     <subsection>
-      <title>Aristotle <emdash/> Equivocal Naming</title>
-
+      <title>On Naming of Types</title>
 
       <para> In biological nomenclature the species name alone is not always enough to uniquely identify a type of thing less it be used alongside of the genus name <emdash/> this system of naming, using the genus name alongside the species name, being called binomial and having been introduced by Linnaeus. Resonant and antecedent to this can be seen in the very first section of Aristotle's Categories which is the about the proper delineation of the of types of things: 
       </para>
@@ -569,7 +446,6 @@
       <para> The appropriate diagram to fit Aristotle's text would seem to be this:
       </para>
 
-
       <er_center>
         <filename>equivocalNaming</filename>
       </er_center>
@@ -582,6 +458,161 @@
     </subsection>
   </section>
 
+  <section>
+    <leader>Entity models cover specific areas, chosen perspectives, in the words of Culler, which in other contexts might be described as</leader>
+    <title>Domains of Discourse</title>
+    <subtitle>Entity Models as Domains of Discourse and Depicting the Absolute Whole</subtitle>
+    <label>domainsofdiscourse</label>
+    <para> We earlier said that entity modelling concerns itelf with <q>what is</q> in the 
+      world but of course any particular entity model does not and cannot address the whole world.
+      In essence an individual entity model establishes, or at very least proposes, a domain of discourse. 
+      The domain can be relatively familiar consisting of entities such as <q>house</q>, <q>street</q>, <q>person</q> etc. 
+      or can be technical, consisting of entities such as constituent parts of grammar, for example <q>noun phrase</q> and  
+      <q>verb phrase</q> and so on, or constituent parts of chemical structure such as <q>atom</q> and <q>covalent bond</q>. 
+      The primary function of entity modelling is to define and present such domains of discourse and to do so in a way that 
+      eliminates error and ambiguity. 
+    </para>
+
+    <figureOfPictureWithNote>
+      <pictureName>molecule0</pictureName>
+      <framewidth>5cm</framewidth>
+      <note>
+        <width>9cm</width>
+        <itemize>
+          <item>In chemistry, molecule, element, atom and bond are types of thing: 
+            molecules consist of many atoms and atoms have one 
+            or more bonds with other atoms. Each atom is an instance of an element 
+            within the periodic table.
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Some Types of Chemical Entity.
+      </caption>
+    </figureOfPictureWithNote>
+
+    <figureOfPictureWithNote>
+      <pictureName>brintonAlternateTransitiveRepresentation</pictureName>
+      <framewidth>5cm</framewidth> 
+      <note>
+        <width>9cm</width>
+        <itemize>
+          <item>In lingustics, there are things which may be classified as verbs, verb phrases and noun phrases: verb phrases always 
+            have a head which is a verb and they may have direct and/or indirect objects; these are noun phrases.  
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Some Types of Lingustic Entity.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+    <para> Sometimes the domain of discourse can be abstract such as when we use a metaphor based language term such as 
+      <q>network</q> in the noun phrase <q>social network</q> and by which means we seek to identify a conceptual pattern 
+      and bring to mind imagery of points and lines independently of what the points represent <emdash/> whether that be social entities, 
+      railway stations or atoms.  It is one of the functions of entity modelling to present and propose such deliberately 
+      abstract domains of discourse. In this one mentioned the principal entities will be named <q>point</q> and <q>line</q>
+      or <q>node</q> and <q>edge</q> or some such. 
+      Breakthrough abstractions in science often move into language as metaphor and this is just because abstractions 
+      have a metaphorical shape which gives them utility beyond their origins; by virtue of being abstract they are 
+      reusable and ever applicable in new situations. As diagrams of concepts, entity models give visual shape to 
+      this metaphorical shape of our abstractions. The point is made by the database pioneer Charles W. Bachman in his 1969 paper "Data Structure Diagrams" when he draws in outline a diagram representing a manufacturing system with 39 interrelated types of entity and having previously described to us these certain patterns asks of us
+      <q>Can you...find a five-level hierarchy? Two
+        simple networks? Five compound networks?</q> and, of course, we can.
+    </para>
+
+
+<subsection>
+  <title>The Top Down Diagram Style</title>
+    <para>
+      In cases where we wish to distinguish composition relationships from reference relationships then we draw the diagram top down: an anonymous
+      root entity type (the <q>absolute</q>) is introduced at the top of
+      the diagram, relationships leaving the lower edges of boxes are composition relationships and 
+      they always meet the top edge of the box 
+      representing the dependent type, reference relationships meet boxes from one side or the other. 
+      We note that there is a structural resemblance
+      to diagrams drawn by Bachman. To summarise, for composition relationships the crows feet point down; at this point the notation converges with that of SSADM for which  one explanation says: <q>there are no dead crows</q>. Our diagrams also have reference relationships and for these the crows feet are pointing sideways (the crows, presumably, at rest). 
+      The entity types which have the least numbers of instances occur at the top of our diagrams whereas in what seems an odd choice they occur to the bottom right in the diagrams style promoted in Barker's Entity Modelling book.
+    </para>
+    <figureOfPicture>
+      <pictureName>entityRelationalMetaModel1</pictureName>
+      <caption>
+        A simple version of the logical ER model of a logical ER model.
+      </caption> 
+    </figureOfPicture>
+</subsection>
+
+<subsection>
+  <title>First two entity models </title>
+    <figureOfPictureWithNote>
+      <pictureName>proteinCodon</pictureName>
+      <framewidth>7cm</framewidth>
+      <note>
+        <width>7cm</width>
+        <itemize>
+          <item>In biology, codons code for amino acids and each codon consists of three nucleotuides <emdash/> either G, C, U or A.   
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Biological Coding.
+      </caption>
+    </figureOfPictureWithNote>
+
+
+    <figureOfPictureWithNote>
+      <pictureName>morseCode0</pictureName>
+      <framewidth>7cm</framewidth>
+      <note>
+        <width>7cm</width>
+        <itemize>
+          <item>In telegraphic communication, each morse code codes for a letter of the alphabet as a sequence of dots and dashes.  
+          </item>
+        </itemize>
+      </note>
+      <caption>
+        Telegraphic Coding.
+      </caption>
+    </figureOfPictureWithNote>
+</subsection>
+
+
+<subsection>
+  <title>The Absolute</title>
+        <para>
+      We use the term <q>the Absolute</q>, which has a varied history in metaphysical writing, to mean the whole of everything and, equally, the context for everything. In giving two meanings we are following a rich tradition <emdash/> for definitions abound. The term was central to much of the philosophy of G.W.F Hegel <emdash/> in Shorter Logic section 87, among a number of other definitions, we find:
+    </para>
+
+    <quotation>
+      ...the Absolute is the Nought...The Nothing which the Buddhists make the universal principle, as well as the final aim and goal of everything, is the same abstraction.
+    </quotation>
+
+    <para> whereas in Phenomonology of Spirit in section 20 we find:
+    </para>
+
+    <quotation>
+      The True is the whole.
+    </quotation>
+    <newline/>
+    <para> and in section 75 of the same we find:
+    </para>
+
+    <quotation>
+      ...the Absolute alone is true, truth alone is absolute.
+    </quotation>
+    <newline/>
+    <para> Some sense can be made of these statements when we consider from a logical perpective and from the point of view of information theory. We can illustrate by considering the seemingly puzzling fact that in some programming languages (such as ML) there is an in-built concept with the name <q>Unit</q> and described as a singleton type, whereas  in some other earlier programming languages (Algol68, C)  the name given to the very same concept has been <q>void</q>. The apparently striking disparity in naming, the one versus the zero, has come  about as a  result of the concept being named on the one hand on the basis of the number of things predicated by the type (i.e the number of things we can say are of that type), which is exactly one, and on the other hand based on the number of bits (binary digits) of information carried in communicating a member of the type, which is precisely zero. We get the name <q>unit</q> from one point of view and the name <q>void</q> from the other. In this way we can say of the Absolute that it is the whole of everything. From it being the whole we can say there is only one of the type. From there being only one of the type we can say that it's information content is zero. If you present to me the absolute you present me with nothing. Like the true it can be assumed in all contexts for it carries nothing new with it. This is the logic of the absolute. 
+    </para>
+
+    <para> The whole of a modelling situation can be considered a single composite and this is both <q>the ultimate whole</q> when considered as a composite and equally <q>the absolute</q> when considered as a context. If what we have said above can be summarised as saying that there is a duality between context and composition then in this duality <q>the whole</q> and <q>the absolute</q> are duals: they are the same logical entities. 
+    </para>
+
+    <para> Aside: Another useage that we have, is to speak of concepts that are absolute. What we usually mean by saying of a concept that it is abolute is that 
+      it does not vary <emdash/> that it is not relative to the context in which it appears. As we seek to construct models of usage and thereby a conceptual model we can expect to find a dichotomy of relative and absolute terms: some terms, such as father, daughter, length, colour, that vary in so much as they reference different items in different contexts; and terms, such as the earth, the pole star, the London Times that are absolute or constant in what they reference. Whereas relative terms are conceptualised as relationships or as quantitative or adjectival attributes of subject entities, absolute terms cannot be so interpreted unless we posit the existence of a singular entity and then interpret the absolute terms as relational to or as attributive to this singular entity. In this way the matter is finessed for we can say of a relative term such as father that it varies as the person varies <emdash/> different subject persons having different fathers <emdash/> and we can say of an absolute term pole star that it varies depending on the singular entity <emdash/> the Absolute <emdash/> which is to say that it does not vary at all. 
+    </para>
+</subsection>
+  </section>
 
 
   <section>
@@ -590,9 +621,9 @@
 The view of entity modelling which we present reveals 
       a specific recurring pattern in conceptual thought which we describe in the section</leader>
 
-    <title>Context Composition Duality</title>
+    <title>Context <emdash/> Composition <emdash/> Scope</title>
 
-    <subtitle>Why Composition and Context are two halfs of the same coin.</subtitle>
+    <subtitle>How it is that context, composition, and scope are intimately related.</subtitle>
     <trailer></trailer>
 
     <para> In entity modelling we shall see that two seeming different aspects of representing what is:
@@ -643,7 +674,6 @@ The view of entity modelling which we present reveals
       In summary, reference relationships have defined scopes and composition relationships do not.
     </para>
 
-
     <para> Entity models enable representation of the contexts within which things exist
       and it would be hard not to agree with Gilbert Ryle that context is most important to 
       the meaning of things both said and written:
@@ -658,12 +688,15 @@ The view of entity modelling which we present reveals
 
     <para> If you are familiar with computer programming you will be aware that computer instructions 
       require context for their execution and of the fact that they perform according to data within 
-      the contexts of their execution. Likewise, if we were to note the inferences that we make in 
-      reading a novel, say,  to construct an opening scene and its characters and 
-      to place the narrator, then, focusing in this way on these mental steps, it would seem that 
+      the contexts of their execution. Likewise
+      reading a novel to construct an opening scene and its characters, say,  
+      <!--then, focusing in this way on these mental steps, it would seem that 
       novelists ask a lot of us the readers to construct a novel's opening context <emdash/> that they make 
       us work. Give it some thought, for a moment, 
-      or consider the opening lines from James Joyce's <q>Portrait of the Artist as a Young Man</q>.
+      or considerand 
+      to place the narrator. 
+      -->
+      as in the opening lines from James Joyce's <q>Portrait of the Artist as a Young Man</q>.
     </para>
 
     <quotation>
@@ -675,16 +708,16 @@ The view of entity modelling which we present reveals
     <para> When computer programs are written then context is represented explicitly <emdash/> 
       variables, i.e. individuals, are introduced explicitly <emdash/> the moocow and the nicens little boy 
       named tuckoo <emdash/> and must be used consistently otherwise the software doesn't work. 
-      So computer programs are long and heavy on detail and they are in a style which is the 
-      antithesis of literary. 
     </para>
 
     <para> Contexts contain individual persons, and times (once upon a time) and places (the road)
       and they are modelled and represented as data in both computer programs and in novels. In both 
-      storytelling and programming, individuals from one context become inaccessible from others <emdash/> they 
-      become <q>out of scope</q> to use a programming term <emdash/> so by the second paragraph quoted above the 
+      storytelling and programming, individuals from one context become inaccessible from others
+       <emdash/> they  become <q>out of scope</q> to use a programming term.
+      <!--<emdash/> so by the second paragraph quoted above the 
       individuals of the first paragraph, in and by themselves, are <q>out of scope</q> <emdash/> to be replaced
       by the first paragraph itself, which, in its totality, is <q>in scope</q> as a story.
+    -->
     </para>
 
     <para> To introduce a real number as an unknown into a mathematical discussion is no different 
@@ -699,56 +732,25 @@ The view of entity modelling which we present reveals
       <q>Moocow</q>, <q>baby</q> and <q>Real number</q>
       are types of individual. Man, ox, animal, tree, plant <emdash/> large proportions of our vocabularies 
       comprise words for types of things. Entity modelling is a tool enabling the expression of types 
-      (of entity) but also dependencies between individuals, types and contexts.
+      (of entity) but also dependencies between individuals, types and contexts. AND TO  DOCUMENT
+      SCOPES AND SCOPE CONSTRAINTS. 
+
+      I haven't understood a novel unless I understand the scoping and an entity model doesn't explain a situation properly unless it documents scopes and scope constraints.
+
+      Othello cannot be in coversation with Gloucester because they are characters from different plays.
+
+
     </para>
-
-  </section>
-
-  <section>
-    <leader> and in which we can recognise the philosophical concept of</leader>
-    <title>The Absolute</title>
-    <subtitle>On the whole of a modelling situation and the logic of the absolute.</subtitle>
-    <label>theabsolute</label>
     <para>
-      We use the term <q>the Absolute</q>, which has a varied history in metaphysical writing, to mean the whole of everything and, equally, the context for everything. In giving two meanings we are following a rich tradition <emdash/> for definitions abound. The term was central to much of the philosophy of G.W.F Hegel <emdash/> in Shorter Logic section 87, among a number of other definitions, we find:
+      WHAT GOES HERE TO FINISH WITH
+      The concepts of composition i.e. compositional structure, context and scope are intimately related.
+
     </para>
 
-    <quotation>
-      ...the Absolute is the Nought...The Nothing which the Buddhists make the universal principle, as well as the final aim and goal of everything, is the same abstraction.
-    </quotation>
+  <!-- </section>   -->
 
-    <para> whereas in Phenomonology of Spirit in section 20 we find:
-    </para>
-
-    <quotation>
-      The True is the whole.
-    </quotation>
-    <newline/>
-    <para> and in section 75 of the same we find:
-    </para>
-
-    <quotation>
-      ...the Absolute alone is true, truth alone is absolute.
-    </quotation>
-    <newline/>
-    <para> Some sense can be made of these statements when we consider from a logical perpective and from the point of view of information theory. We can illustrate by considering the seemingly puzzling fact that in some programming languages (such as ML) there is an in-built concept with the name <q>Unit</q> and described as a singleton type, whereas  in some other earlier programming languages (Algol68, C)  the name given to the very same concept has been <q>void</q>. The apparently striking disparity in naming, the one versus the zero, has come  about as a  result of the concept being named on the one hand on the basis of the number of things predicated by the type (i.e the number of things we can say are of that type), which is exactly one, and on the other hand based on the number of bits (binary digits) of information carried in communicating a member of the type, which is precisely zero. We get the name <q>unit</q> from one point of view and the name <q>void</q> from the other. In this way we can say of the Absolute that it is the whole of everything. From it being the whole we can say there is only one of the type. From there being only one of the type we can say that it's information content is zero. If you present to me the absolute you present me with nothing. Like the true it can be assumed in all contexts for it carries nothing new with it. This is the logic of the absolute. 
-    </para>
-
-    <para> The whole of a modelling situation can be considered a single composite and this is both <q>the ultimate whole</q> when considered as a composite and equally <q>the absolute</q> when considered as a context. If what we have said above can be summarised as saying that there is a duality between context and composition then in this duality <q>the whole</q> and <q>the absolute</q> are duals: they are the same logical entities. 
-    </para>
-
-    <para> Another useage that we have, is to speak of concepts that are absolute. What we usually mean by saying of a concept that it is abolute is that 
-      it does not vary <emdash/> that it is not relative to the context in which it appears. As we seek to construct models of usage and thereby a conceptual model we can expect to find a dichotomy of relative and absolute terms: some terms, such as father, daughter, length, colour, that vary in so much as they reference different items in different contexts; and terms, such as the earth, the pole star, the London Times that are absolute or constant in what they reference. Whereas relative terms are conceptualised as relationships or as quantitative or adjectival attributes of subject entities, absolute terms cannot be so interpreted unless we posit the existence of a singular entity and then interpret the absolute terms as relational to or as attributive to this singular entity. In this way the matter is finessed for we can say of a relative term such as father that it varies as the person varies <emdash/> different subject persons having different fathers <emdash/> and we can say of an absolute term pole star that it varies depending on the singular entity <emdash/> the Absolute <emdash/> which is to say that it does not vary at all. 
-    </para>
-  </section>
-
-
-  <section>
-    <leader>which is functionally reincarnated, so to speak, in the table DUAL familar to Oracle programmers. 
-    We borrow from the language of Gilbert Ryle, to argue that entity modelling is an aid to logical analysis and assists avoidance of </leader>
-    <title>Howlers and Other Violations</title>
-    <subtitle>On the scope of relationships and the avoidance of error.</subtitle>
-    <trailer>.</trailer>
+  <subsection>
+    <title>Howlers and Other Violations - On the scope of relationships and the avoidance of error.</title>
 
     <label>howlers</label>
 
@@ -800,14 +802,13 @@ The view of entity modelling which we present reveals
     software. We return to the topic in 
     <refsection><label><section>scope</section></label></refsection> section later.
     </para>
+  </subsection>
   </section>
 
   <section>
-
     <leader>Finally, we present  some thoughts about the foundations of data modelling in</leader>
-    <title>Foundations of Data</title>
-
-    <subtitle>Thinking carefully about why data is like it is for it to be in a corresdpondence with the real wworld.</subtitle>
+    <title>Identifying Features</title>
+    <subtitle>Identifying Features and Having Data Correspond to the Real World.</subtitle>
     <label>foundations</label>
     <para>
       Studies of the foundations of a subject should reveal something 
@@ -1336,6 +1337,7 @@ The view of entity modelling which we present reveals
       </para>
     </subsection>
   </section>
+  <!--
   <section>
     <leader>and some historical notes in a section on</leader>
     <title>Data Modelling</title>
@@ -1501,7 +1503,6 @@ The view of entity modelling which we present reveals
     <newline/>
     <para>
       Following PCTE<footnote> 
-        <!--Boudier1988,ECMA-149-->
         <bibentry>Boudier1988</bibentry>
       </footnote> 
       we use the term <entity>composition relationship</entity> for Chen's <emph>binary relationships
@@ -1565,6 +1566,7 @@ The view of entity modelling which we present reveals
 
 
   </section>
+-->
 </chapter>
 
 
