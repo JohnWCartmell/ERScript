@@ -178,12 +178,12 @@
       <xsl:value-of select="."/>
     </text>
   </xsl:template>
-  <xsl:template match="chapter/subtitle/text()">
+  <xsl:template match="chapter/shorttitle/text()">
     <text>
       <xsl:value-of select="."/>
     </text>
   </xsl:template>
-    <xsl:template match="section/subtitle/text()">
+    <xsl:template match="section/shorttitle/text()">
     <text>
       <xsl:value-of select="."/>
     </text>

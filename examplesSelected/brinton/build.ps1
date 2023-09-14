@@ -7,7 +7,7 @@ echo ("*** building from  $SOURCE brinton folder")
 $SOURCEXML = $SOURCE + '\examplesSelected\brinton'
 $TARGETXML = $TARGET + '\examplesSelected\brinton\xml'
 $TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
-
+$TARGETTEXFOLDER = $TARGET + '\docs\images'
 
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
@@ -29,7 +29,9 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
 
 echo 'Brinton Example'
-. $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure -svgOutputFolder $TARGETSVGFOLDER `
+. $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
                              -physicalType hs -animate -shortSeparator NA -longSeparator NA
 
 echo 'Run ER.instanceValidation.xslt on physical model'

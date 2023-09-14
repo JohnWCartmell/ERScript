@@ -1,7 +1,7 @@
          <chapter>
-	<title>Tutorial Part One</title>
+	<shorttitle>Tutorial Part One</shorttitle>
 	<label>tutorialone</label> 
-	<subtitle> Entity Relationship (ER) Modelling Tutorial</subtitle>
+	<title> Entity Relationship (ER) Modelling Tutorial</title>
 	<explanation> which introduces from first principles  a good part of the basic notation.
 	</explanation>
 	<preface>

@@ -1,11 +1,12 @@
 \documentclass[10pt,a4paper]{article}
-\usepackage {scrpage}
+%\usepackage {scrpage}
 
-\input{../../SharedMacros/ermacros}
-%\input{../notation/EntityModellingMacros}
-\input{../../SharedMacros/erdiagram}
-\input{../../SharedMacros/syntaxmacros}
-\renewcommand{\erpictureFolder}[0]{../../SharedPictures}
+\newcommand{\Theory}[0]{../../../../Theory}
+\newcommand{\SharedMacros}[0]{\Theory/SharedMacros}
+\input{\SharedMacros/ermacros}
+\input{\SharedMacros/erdiagram}
+\input{\SharedMacros/syntaxmacros}
+\renewcommand{\erpictureFolder}[0]{\Theory/SharedPictures}
 \usepackage[font=small,labelfont=bf]{caption}
 \setlength{\captionmargin}{2cm}
 

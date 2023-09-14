@@ -74,7 +74,7 @@
       <sequence/>
     </composition>
       <composition>
-        <name>subtitle</name>
+        <name>shorttitle</name>
         <type>MinorElement</type>
         <cardinality>
           <ZeroOneOrMore/>

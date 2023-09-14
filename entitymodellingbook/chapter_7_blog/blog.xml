@@ -1,7 +1,7 @@
 
 <chapter>
-  <title>Blog</title>
-  <subtitle> Data Modelling, Entity Modelling and Logic</subtitle>
+  <shorttitle>Blog</shorttitle>
+  <title> Data Modelling, Entity Modelling and Logic</title>
   <label>blog</label>
   <explanation> Some further thoughts on data modelling, entity modelling and logic.
   </explanation>
@@ -312,12 +312,10 @@
       Other of the commuting diagrams can be expressed as key constraints. From the combined declarations of scope and of key constraint, a physical design which are redundancy 
       free can be  generated - in this way, using these insights from category theory, the normalisation stage is rendered unnecessary.
     </para>
-
-    <figureOfPicture>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX TEMPORARY OMISSION -->
+ <!--    <figureOfPicture>
       <pictureName>tableAhPresentation.hierarchical</pictureName>
       <muchtext/>
-
-
       <caption>
         A physical hierarchical  ER model illusrating the double-diamond pattern. Assume, as the narrative for this extended model, a situation where there are many tablular data tables and many different ways of presenting that data. All the multiple data tables and all the multiple presentations are described by the model.
         The starting point for this example is the example given 
@@ -325,8 +323,7 @@
         The right hand side diamond is just that earlier the physical hierarchical model  with
         ascending relationships relabelled as <q>..</q> (a familiar notation and one used for example in xpath).
       </caption>
-    </figureOfPicture>
-
+    </figureOfPicture> 
     <figureOfPicture>
       <pictureName>tableAhPresentation.hierarchical.rightend</pictureName>
       <caption>
@@ -375,7 +372,7 @@
         associating a <entity>cellp</entity> to its associated  <entity>columnp</entity>.
         This diagram is a pullback diagram.
       </caption>
-    </figureOfPicture>
+    </figureOfPicture> -->
 
     <para> the 1st, 2nd, 3rd, 4th and 6th diagrams are pullback diagrams by defintion. 
       The fifth diagram is a pullback by implication. The former are scope constraints. the latter a key constraint.

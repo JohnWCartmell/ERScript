@@ -1,7 +1,6 @@
 <chapter>
-  <title>Examples One</title>
-
-  <subtitle> Examples and applications of the notation of Tutorial One</subtitle>
+  <shorttitle>Examples One</shorttitle>
+  <title> Examples and applications of the notation of Tutorial One</title>
   <explanation> which contains various examples of modelling using the notation introduced upto this point.</explanation>
 
   <label>examplesone</label>

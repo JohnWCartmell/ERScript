@@ -12,7 +12,8 @@ $TEXSOURCEFOLDERNAME='tex_source'
 
 $SOURCETEX = $SOURCE  +  '\entitymodellingbook\' + $TEXSOURCEFOLDERNAME
 
-$TARGETTEX = $TARGET + '\TEMP\images'
+$TARGETPNGTEX = $TARGET + '\temp\images'
+$TARGETTEX = $TARGET + '\docs\images'
 $TARGETWWW = $TARGET + '\www.entitymodelling.org'
 $TARGETPNG = $TARGETWWW + '\images'
 
@@ -22,10 +23,10 @@ echo ('extension is:' + $file.Extension)
 echo ('location: ' + (Get-Location) )
 
 # CREATE target tex folder if it doesn't already exist
-If(!(test-path -PathType container $TARGETTEX))
+If(!(test-path -PathType container $TARGETPNGTEX))
 {
-      echo ('CREATING target folder ' + $TARGETTEX)
-      New-Item -ItemType Directory -Path $TARGETTEX
+      echo ('CREATING target folder ' + $TARGETPNGTEX)
+      New-Item -ItemType Directory -Path $TARGETPNGTEX
 }
 
 # CREATE target png images folder if it doesn't already exist
@@ -41,10 +42,10 @@ function Wrap-TexFile {
         $FileName
     )
     echo('Wrapping ' +  $FileName)
-    Get-Content ambles/preamble.txt, $Filename, ambles/postamble.txt | Set-Content $TARGETTEX\$Filename
+    Get-Content ambles/preamble.txt, $Filename, ambles/postamble.txt | Set-Content $TARGETPNGTEX\$Filename
 }
 
-# This function called from temp build folder 
+# This function called from $TARGETPNGTEX folder 
 function Build-File {
     param (
         $FileName
@@ -68,17 +69,19 @@ echo ('filename is ' + $filename)
 if ($PSBoundParameters.ContainsKey('filename') -and ($file.Extension -eq '.tex')){
     echo 'copy and wrap single tex file'
     Wrap-TexFile -FileName $filename
+    copy-item -Path $filename -Destination $TARGETTEX
 } else { 
         echo 'copying and wrapping all'
         get-ChildItem -Path *.tex  | Foreach-Object {
             echo ('need build from ' + $_.Name)
             Wrap-TexFile -FileName $_.Name
+            copy-item -Path $_.Name -Destination $TARGETTEX
         }
         echo 'done copying and wrapping all'
 }
 
 
-pushd $TARGETTEX
+pushd $TARGETPNGTEX
 echo ('*********** location: ' + (Get-Location) )
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
     echo ('need build from' + $filename)

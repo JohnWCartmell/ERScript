@@ -2,14 +2,33 @@
 ## 22 August 2023
 Review and revise entity modelling book.
 
-### Rationale
+### Issues/Rationale/Ideas
+0. What is my big message? How can I phrase it so as not to sound pompous?
+1. Should I start refering to Structured Entity Modelling? In lots of places I say 'as described here', 'as promoted here' etc maybe I better just come up with the title 'Structured Entity Modelling'.  
+
+2. Shouldn't I start refering to chapters and sections to give some feeling of structure - to help the reader around. I am sure I should because it will help me. 
+
+3. I should get rid of the leading and trailing text and write more cogent summaries of the sections with a chapter.
+
+4. Table of chapters:
+
+| Menu Short Title    | Chapter Title                                                                  |
+| --------------------|--------------------------------------------------------------------------------|
+| 1. Introduction     | Introduction to Structured Entity Modelling                                    |
+| 2. Guide to ER      | Guide to Concept Modelling using Structured Entity-Relationship Models         |
+| 3. Examples         | Examples of Structured ER Models                                               |
+| 4. Guide to ERA     | Guide to Data Modelling using Structured Entity-Relationship-Attribute Models  |
+| 5. Further Examples | Examples of Structured ERA Models                                              |
+
+5. How much of the Theory of Data should I include here? Where even am I up to the the Theory of Data?
 
 
 ### Summary
 
 
 ### Proposal
-#### Perspective
+#### Introduction to Structured Entity Modelling
+0. This is the Perspectives Chapter renamed.
 
 1. Restructure.
 - consider merging first three subsections of perspective i.e. `knowledgeframework`, `tangi

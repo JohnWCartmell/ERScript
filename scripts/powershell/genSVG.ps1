@@ -4,7 +4,9 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'),
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'),    
+   [Parameter(Mandatory=$False)]
+       [string]$texOutputFolder = '',
    [Parameter(Mandatory=$False)]
        [string]$outputFilename,
    [Parameter(Mandatory=$False)]
@@ -56,3 +58,25 @@ java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                        trace=$(If ($trace){'y'}Else{'n'}) `
                        scopes=$(If ($scopes){'y'}Else{'n'}) `
                        relids=$(If ($relids){'y'}Else{'n'})
+
+if ($outputFilename -eq ''){
+    $texFilename = ($filenamebase + '.tex')
+} else {
+    if ($outputFilename.EndsWith(".svg"))
+    {
+        $texFilename = $outputFilename.substring(0,$outputFilename.Length-4) + '.tex'
+    }
+    else
+    {
+        $texFilename = $outputFilename + '.tex'
+    }
+}
+
+if($texOutputFolder -ne '')
+    {
+        echo ('*** tex output folder is ' + $texOutputFolder)
+        java -jar $SAXON_JAR -s:$pathToSourceXMLfile             `
+                             -xsl:$ERHOME\xslt\ERmodel2.tex.xslt `
+                             -o:$texOutputFolder\$texFilename    `
+                             filestem=$filenamebase 
+    }

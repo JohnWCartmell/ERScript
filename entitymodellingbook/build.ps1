@@ -5,6 +5,7 @@ echo ("*** building from  $SOURCE entity modelling book folder")
 $SOURCEXML = $SOURCE + '\entitymodellingbook'
 $TARGETTEMP = $TARGET + '\temp'
 $TARGETWWW = $TARGET + '\www.entitymodelling.org'
+$TARGETDOCS = $TARGET + '\docs'
 $TARGETXSLT = $TARGET + '\documentSupport\xslt'
 
 # CREATE target temp folder if it doesn't already exist
@@ -24,17 +25,17 @@ If(!(test-path -PathType container $TARGETWWW))
 echo "copy .htaccess.txt"
 copy .htaccess.txt $TARGETWWW\.htaccess.txt
 
-pushd $TARGETWWW
-
+if ($false)
+{
+}
 java -jar $SAXON_JAR -s:$SOURCEXML\whole.xml -xsl:$TARGET\xslt\documentERmodel.elaboration.xslt -o:$TARGETTEMP\whole.elaborated.xml
 
 java -jar $SAXON_JAR -s:$TARGETTEMP\whole.elaborated.xml -xsl:$TARGETXSLT\documentERmodel.complete.xslt -o:$TARGETTEMP\whole.completed.xml
 
 java -jar $JING_PATH\jing.jar -f $TARGET\documentModel\schemas\documentERmodel.rng $TARGETTEMP\whole.completed.xml
 
-java -jar $SAXON_JAR -s:$TARGETTEMP\whole.completed.xml -xsl:$TARGETXSLT\document2.html.xslt -o:whole.html rootfolder=.
+java -jar $SAXON_JAR -s:$TARGETTEMP\whole.completed.xml -xsl:$TARGETXSLT\document2.html.xslt -o:$TARGETWWW/whole.html rootfolder=.
 
-popd 
-
+java -jar $SAXON_JAR -s:$TARGETTEMP\whole.completed.xml -xsl:$TARGETXSLT\document2.tex.xslt -o:$TARGETDOCS/whole.tex docrootfolder=.
 
 

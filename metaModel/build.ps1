@@ -5,6 +5,7 @@ echo ("*** building from  $SOURCE metaModel folder")
 $SOURCEXML = $SOURCE + '\metaModel'
 $TARGETXML = $TARGET + '\metaModel\xml'
 $TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
+$TARGETTEXFOLDER = $TARGET + '\docs\images'
 
 
 # CREATE target folder if it doesn't already exist
@@ -23,14 +24,14 @@ attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be ov
 pushd $TARGETXML
 
 echo 'ERA.surface'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -svgOutputFolder $TARGETSVGFOLDER -animate -physicalType hs -longSeparator ... -shortSeparator .
+. $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -svgOutputFolder $TARGETSVGFOLDER  -animate -physicalType hs -longSeparator ... -shortSeparator .
 
 
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 ERA.surface..logical.xml -outputFolder ..\docs
 
 echo 'ERA'
-. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -svgOutputFolder $TARGETSVGFOLDER -physicalType hs -longSeparator ... -shortSeparator . 
+. $TARGET\scripts\buildExampleSVG.ps1 ERA -animate -svgOutputFolder $TARGETSVGFOLDER -texOutputFolder $TARGETTEXFOLDER -physicalType hs -longSeparator ... -shortSeparator . 
 
 echo 'ERScript'
 . $TARGET\scripts\buildExampleSVG.ps1 ERScript -svgOutputFolder $TARGETSVGFOLDER -animate -physicalType hs -longSeparator ... -shortSeparator . 

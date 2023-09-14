@@ -1,7 +1,7 @@
 
 <chapter>
-  <title>Tutorial Part Two</title>
-  <subtitle>Entity Relationship Attribute (ERA) Modelling and The Specification of Data Structure</subtitle>
+  <shorttitle>Tutorial Part Two</shorttitle>
+  <title>Entity Relationship Attribute (ERA) Modelling and The Specification of Data Structure</title>
   <label>tutorialtwo</label>
   <explanation> which is described the representation of attribute and describing use of the notation for data modelling. 
   </explanation>
@@ -2014,8 +2014,8 @@ a little  differently to before.
     <leader> 
         Notes needing incorpartion elsewhere.
     </leader> 
-    <title>Notes</title>
-    <subtitle>For incorpoation elsewhere.</subtitle>
+    <shorttitle>Notes</shorttitle>
+    <title>Notes for incorpoation elsewhere.</title>
     <para>
       In a relational model, all relationships are represented by attributes and the term attribute is synonomous with column.
       Identifying sets iof features are therefore identifying sets of columns.

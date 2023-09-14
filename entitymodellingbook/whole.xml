@@ -1,9 +1,9 @@
 <document xmlns:era="http://www.entitymodelling.org/ERmodel">
   <preface>
     <chapter>
-      <title>Preface</title>
+      <shorttitle>Preface</shorttitle>
       <label>home</label>
-      <subtitle>Preface</subtitle>
+      <title>Preface</title>
       <preface> 
         <para>
           This website is an online book, part written as yet, in which entity modelling

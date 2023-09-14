@@ -9,6 +9,8 @@ Param(
    [Parameter(Mandatory=$False)]
        [string]$svgOutputFolder,
    [Parameter(Mandatory=$False)]
+       [string]$texOutputFolder,
+   [Parameter(Mandatory=$False)]
        [switch]$logical,
    [Parameter(Mandatory='')]
         [ValidateSet('', 'r','h','hs')]
@@ -81,9 +83,9 @@ $debugswitchOption = if($debugswitch){'-debugswitch'}{''}
 
 if ($logical)
 {
-powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ' +  "$svgOutputFolder" + ' ' + "$animateOption" + $debugswitchOption)
+    powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" + ' -outputFolder ' +  "$svgOutputFolder" + ' ' + ' -texOutputFolder ' +  "$texOutputFolder" + ' ' + "$animateOption" + $debugswitchOption )
 
-java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:$svgOutputFolder\$filenamePrefix..report.html
+    java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:$svgOutputFolder\$filenamePrefix..report.html
 }
 
 if ($physicalType -ne '')
@@ -97,8 +99,10 @@ if ($physicalType -ne '')
     echo ('***svg output folder is ' + $svgOutputFolder)
 
     powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource"  `
-                    + ' -outputFilename ' + "$physicalSVGfilename"               `
-                    + ' -outputFolder ' +  "$svgOutputFolder" + ' ' + "$animateOption")
+                    + ' -outputFilename ' + "$physicalSVGfilename"             `
+                    + ' -outputFolder ' +  "$svgOutputFolder"                  `
+                    + ' -texOutputFolder ' +  "$texOutputFolder"               `
+                    + ' ' + "$animateOption")
 
     java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
 

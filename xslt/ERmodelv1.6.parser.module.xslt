@@ -6,7 +6,7 @@
                xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
                xmlns="http://www.entitymodelling.org/ERmodel">
                
-<xsl:output method="xml" indent="yes"/>
+<!-- <xsl:output method="xml" indent="yes"/> Can we maneg without this 11 Sept 2023 -->
 
 <!-- Enhancement request.  Create a matching composition relationship if a context cannot be matched to any incoming composition. -->
 

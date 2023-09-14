@@ -413,9 +413,10 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
       <!-- no action - no hit area representation  in tex -->
    </xsl:template>
                    
-  <xsl:template name="render_half_of_relationship" match="constructed_relationship|composition|reference">
+  <xsl:template name="render_half_of_relationship" 
+                match="constructed_relationship|composition|reference">
       <xsl:param name="line" as="element(line)"/>
-      <xsl:param name="p_ismandatory"/>
+      <xsl:param name="is_mandatory"/>
 <xsl:message>render_half</xsl:message>
       <xsl:for-each select="$line/point[exists(following-sibling::point)]">
       	<xsl:message> call line_section</xsl:message>
@@ -424,7 +425,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 					<xsl:with-param name="y0cm" select="substring(y,1,5)"/>
 					<xsl:with-param name="x1cm" select="substring(following-sibling::point[1]/x,1,5)" />
 					<xsl:with-param name="y1cm" select="substring(following-sibling::point[1]/y,1,5)"/>
-					<xsl:with-param name="p_ismandatory" select="$p_ismandatory"/>
+					<xsl:with-param name="p_ismandatory" select="is_mandatory"/>
 				</xsl:call-template>
       </xsl:for-each>
       <xsl:message>end render_half</xsl:message>

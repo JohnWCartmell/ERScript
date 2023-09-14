@@ -16,6 +16,7 @@ $TARGETXML = $TARGET + '\' + $EXAMPLEFOLDERNAME +'\xml'
 $TARGETWWW = $TARGET + '\www.entitymodelling.org'
 $TARGETSVG = $TARGETWWW + '\svg'
 $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
+$TARGETTEX = $TARGET + '\docs\images'
 
 $file=Get-Item $filename
 echo ('basename is:' + $file.Basename) 
@@ -54,16 +55,32 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
 }
 
 
+# This function called from temp build folder 
+function Build-File {
+    param (
+        $FileName
+    )
+    echo('Building ' +  $FileName)
+
+   . $TARGET\scripts\genSVG $filename -outputFolder $TARGETSVG  -texOutputFolder $TARGETTEX
+
+}
+
+
+
 pushd $TARGETXML
+echo ('*********** location: ' + (Get-Location) )
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
-. $TARGET\scripts\genSVG $filename -outputFolder $TARGETSVG
+    echo ('need build from' + $filename)
+    Build-File -FileName $filename
 }else{
     echo 'building all'
     get-ChildItem -Path *.xml  | Foreach-Object {
       echo 'building ' + $_.Name
-      . $TARGET\scripts\genSVG $_.Name -outputFolder $TARGETSVG
+      Build-File -FileName $_.Name
     }
     echo 'done building all'
 }
 popd 
+
 

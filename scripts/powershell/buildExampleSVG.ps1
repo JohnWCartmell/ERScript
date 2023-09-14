@@ -8,6 +8,8 @@ Param(
        [string]$filenameOrFilenamePrefix,
    [Parameter(Mandatory=$False)]
        [System.String]$svgOutputFolder = '..\docs',
+   [Parameter(Mandatory=$False)]
+       [string]$texOutputFolder = '',
    [Parameter(Mandatory=$False)] 
        [switch]$logical,  
    [Parameter(Mandatory='')]
@@ -63,11 +65,13 @@ echo ('buildExampleSVG.ps1: diagram source is' + $diagramSource)
 
 #  LOGICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+$texOutputFolderOption = if($TEXOUTPUTFOLDER -ne ''){' -texOutputFolder '}{''}
 $animateOption = if($animate){' -animate '}{''}
 $debugswitchOption = if($debugswitch){' -debugswitch'}{''}
 
 powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" `
                + ' -outputFolder ' + $svgOutputFolder `
+               + "$texOutputFolderOption" + $texOutputFolder `
                + "$animateOption"                     `
                + $debugswitchOption)
 
@@ -83,6 +87,7 @@ if ($physicalType -ne '')
 
     powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource" `
                + ' -outputFolder ' + $svgOutputFolder   `
+               + "$texOutputFolderOption" + $texOutputFolder `
                + "$animateOption"                     `
                + $debugswitchOption)
 
