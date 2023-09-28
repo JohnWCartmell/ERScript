@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg:svg xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xlink="http://www.w3.org/TR/xlink"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         width="6.5cm"
+         height="2.4cm">
+   <svg:defs>
+      <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
+         <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1"/>
+         <svg:stop offset="100%" style="stop-color:white;stop-opacity:1"/>
+      </svg:linearGradient>
+      <svg:filter x="0" y="0" width="1" height="1" id="surfaceattreven">
+         <svg:feFlood flood-color="white"/>
+         <svg:feComposite in="SourceGraphic"/>
+      </svg:filter>
+      <svg:filter x="0" y="0" width="1" height="1" id="surfaceattrodd">
+         <svg:feFlood flood-color="#FFFFCC"/>
+         <svg:feComposite in="SourceGraphic"/>
+      </svg:filter>
+      <svg:style type="text/css">
+          
+        .eteven {
+          fill: #FFFFCC;
+          stroke: black;
+          stroke-width: 1
+        }
+        .etodd {
+          fill: white;
+          stroke: black;
+          stroke-width: 1
+        }
+        .outertitlebox {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titlebox {
+          fill: #FCFCFC;
+          stroke: black;
+          stroke-width: 1;
+        }
+        .titletext {
+        fill: black;
+        font-size: 30px;
+        }
+        .group {
+          fill: url(#topdowngrey);
+        }
+        .groupannotation {
+          fill: grey;
+          font-size: 11px ;
+        }
+        .attrmarker {
+          fill:black;
+          stroke: black;
+          stroke-width: 1
+        }
+        .surfaceattrmarker {
+          fill-opacity: 0;
+          stroke: black;
+          stroke-width: 1
+        }
+	      .deprecatedattrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic;
+          text-decoration: line-through;
+        }
+        .mandatoryrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .optionalrelationshipline {
+          stroke: black;
+          stroke-width: .02;
+          stroke-dasharray: 0.07 0.07;
+          fill: none
+        }
+        .relationshipbackground {
+          stroke: #FFFFCC;
+          stroke-width: .20;
+          fill: none
+        }
+        .arrow {
+          stroke: red;
+          stroke-width: .02;
+          fill: none
+        }
+        .crowsfoot {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .arc {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .squiggle {
+          stroke: black;
+          stroke-width: .02;
+          fill: none
+        }
+        .etname {
+          fill: black;
+          font-size: 11px ;
+        }
+        .attrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic
+        }
+        .idattrname {
+          fill: black;
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .surfaceattrnameeven {
+          fill: black;
+          filter: url(#surfaceattreven);
+          font-size: 11px ;
+          font-style: italic
+        }
+        .surfaceidattrnameeven {
+          fill: black;
+          filter: url(#surfaceattreven);
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .surfaceattrnameodd {
+          fill: black;
+          filter: url(#surfaceattrodd);
+          font-size: 11px ;
+          font-style: italic
+        }
+        .surfaceidattrnameodd {
+          fill: black;
+          filter: url(#surfaceattrodd);
+          font-size: 11px ;
+          font-style: italic ;
+          text-decoration: underline
+        }
+        .popupInfoBox {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal ;
+          visibility: hidden
+        }
+        .popupBoundingBox {
+          fill: white;
+          stroke: black;
+          stroke-width: 2
+        }
+        .popupHeadingText {
+          fill: black;
+          font-size: 12px ;
+          font-style: normal
+        }
+        .popupDetailText {
+          fill: black;
+          font-size: 10px ;
+          font-style: normal
+        }
+        .relname {
+          fill: black ;
+          font-size: .25px ;
+          font-style: italic
+        }
+        .reletname {
+          fill: black ;
+          font-size: .30px ;
+          font-style: italic
+        }
+		    .scope {
+          fill: black ;
+          font-size: .275px ;
+        }
+      
+        </svg:style>
+   </svg:defs>
+   <svg:svg width="6.4cm" height="2.3cm" viewBox="0 0 6.4 2.3">
+      <svg:path xmlns="http://www.entitymodelling.org/ERmodel"
+                class="mandatoryrelationshipline"
+                d="M0.1,0.65L3.2,0.65"/>
+      <svg:path xmlns="http://www.entitymodelling.org/ERmodel"
+                class="mandatoryrelationshipline"
+                d="M3.2,0.65L6.300000000000001,0.65"/>
+      <svg:path xmlns="http://www.entitymodelling.org/ERmodel"
+                class="mandatoryrelationshipline"
+                d="M0.1,0.30000000000000004L0.1,1"/>
+      <svg:text xmlns="http://www.entitymodelling.org/ERmodel"
+                class="reletname"
+                x="0.05"
+                y="0.20000"
+                text-anchor="start">individual</svg:text>
+      <svg:path xmlns="http://www.entitymodelling.org/ERmodel"
+                class="mandatoryrelationshipline"
+                d="M6.300000000000001,0.30000000000000004L6.300000000000001,1"/>
+      <svg:text xmlns="http://www.entitymodelling.org/ERmodel"
+                class="reletname"
+                x="6.350000000000"
+                y="0.20000"
+                text-anchor="end">individual</svg:text>
+      <svg:text xmlns="http://www.entitymodelling.org/ERmodel"
+                class="relname"
+                x="0.30000000000000004"
+                y="0.55"
+                text-anchor="start">maternalgrandfather</svg:text>
+      <svg:text xmlns="http://www.entitymodelling.org/ERmodel"
+                class="relname"
+                x="6.1000000000000005"
+                y="0.95"
+                text-anchor="end">daughterschild</svg:text>
+   </svg:svg>
+</svg:svg>
