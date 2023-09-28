@@ -1,0 +1,1 @@
+The source files in this folder are generated svg and tex files that have been hand edited.
