@@ -2177,17 +2177,15 @@
 			<para> In the definition of <q>maternal grandfather</q> as <q>mother's father</q> the <emph>definiendum</emph> is a relationship between invididuals: 
 
 				<er_center>
-					<filename>maternalgrandfatherdefiniendum</filename>
+					<filename>kinship.individual.maternalgrandfatherdefiniendum</filename>
 				</er_center>
 
 
 			</para>
 
 			<para> whereas the <emph>definiens</emph> is a phrasing which joins two relationships end to end:
-
-
 				<er_center>
-					<filename>maternalgrandfatherdefiniens</filename>
+					<filename>kinship.individual.maternalgrandfatherdefiniens</filename>
 				</er_center>
 			</para>
 
