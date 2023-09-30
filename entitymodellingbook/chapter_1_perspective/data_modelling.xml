@@ -4,11 +4,8 @@
     <para>
       The term <q>Data Modelling</q> we use to cover both database 
       design and also the specification of the structure of messages in quite a broad sense. 
-      Entity modelling is most commonly positioned as a precursor to relational data modelling but in fact is equally suitable as method of specifying  
-      hierarchical data structures <emdash/> and it is significant that supporting relational, hierarchical and network models of
-      data from a single specification  was the <emph>raison d'etre</emph> of 
-      the notation as originally proposed by 
-      Chen in the seminal paper <q>Unified Model of Data</q> 
+      Entity modelling is most commonly positioned as a precursor to relational data modelling but in fact is equally suitable as method of specifying hierarchical data structures <emdash/> and it is significant that supporting relational, hierarchical and network models of data from a single specification  was the big idea  behind 
+      the notation as originally proposed by Chen in the seminal paper <q>Unified Model of Data</q> 
       in 1976.<footnote>
         <bibentry>Chen1976</bibentry>
       </footnote>
@@ -31,15 +28,9 @@
       At the third and most prescriptive level, that of a physical model, an entity model is precisely an abstract data model and such models can be classified as relational or hierarchical;
       most significantly, and in accord with the proposal of Chen, one of each can be generated algorithmically 
       from a well-formulated logical model.   
-      Looking back, it seemed that hierarchical structured data took an intellectual back seat for a while during
-      the theoretical development 
-      and popularisation of the relational model of data but it has made a come back subsequently
-      through widespread adoption of the structured markup language XML. Via appropriate physical models 
-      both relational Data Definition Language (DDL) and hierarchical XML schemas (DTD, XSD or the like) can be generated 
-      automatically from a single logical ER model<footnote>We will return to this theme later 
-      but it has been said that relational data models generated in this way will
-      naturally tend to be well-formulated data models (i.e. to be in normal form). This is definitely not the case unless 
-      account is taken of reference scope constraints  as described here in later sections.</footnote>.
+      Looking back, it seemed that hierarchical structured data took a back seat for a while during
+      the theoretical development and popularisation of the relational model of data but it has made a come back subsequently through widespread adoption of the structured markup language XML. Via appropriate physical models  both relational Data Definition Language (DDL) and hierarchical XML schemas (DTD, XSD or the like) can be generated automatically from a single logical ER model<footnote>We will return to this theme later but it has been said that relational data models generated in this way will
+      naturally tend to be well-formulated data models (i.e. to be in normal form). This is definitely not the case unless  account is taken of reference scope constraints  as described here in later sections.</footnote>.
       A logical ER model is agnostic between hierarchical and relational.
     </para>
 
@@ -148,6 +139,8 @@
     It is noteworthy  that in these methodologies the normalisation step is present in order to achieve the goodness of the physical data model as prescribed by Codd in his normal form prescriptions. In the methodology described in this book we achieve the goodness of the final physical design, i.e. Codd's normal forms, by enabling suitable and pertinent real world conditions to be expressed at the logical level and supporting an automatic transformation to physical models that take advantage of these conditions so as to be able to meet the goodness prescriptions.<footnote>We also describe the features of the logical model that determine whether in addition to Codd's third normal form the goodness condition known as the Boyce-Codd normal form is also be met by the physical model.</footnote> 
   </para>
 </subsection>
+
+<!--
 <subsection>
   <title>Dependent Entities <emdash/> Distinguishing Composition and Reference</title>
     
@@ -173,7 +166,7 @@
 
     <para>
       Following PCTE<footnote> 
-        <!--Boudier1988,ECMA-149-->
+       
         <bibentry>Boudier1988</bibentry>
       </footnote> 
       we use the term <entity>composition relationship</entity> for Chen's <emph>binary relationships
@@ -204,8 +197,7 @@
       a crucial goal within these specifications of enabling the modelling of a typical computer file system within a database framework, see figure <figref>filesystem2</figref> for example. 
 
       <figureOfPictureWithNote> 
-        <pictureName>filesystem2</pictureName><!-- 
-        <width>7cm</width> -->
+        <pictureName>filesystem2</pictureName>
         <note>
           <width>7cm</width>
           <itemize>
@@ -245,14 +237,7 @@
         </caption>
       </figureOfPictureWithNote> 
     </para>
-<!--
-    <para> 
-      Note that in the version of the ER notation promoted in this book we shall not assume that all composition relationships are identifying nor, vice-versa, that only composition relationships
-      may be identifying. To depict ER-schemas we use a variant of the Barker-Ellis notation. Figure <figref>entityRelationalMetaModel1</figref> is a 
-      simplified meta-model of this notation <emdash/> it is an ER schema describing ER schemas.
-      We give an all singing and dancing version of this <a href="TBD_metamodel_TBD">later</a>.
-    </para>
-  -->
 </subsection>
+-->
 
 </holder>

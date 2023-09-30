@@ -23,23 +23,26 @@
         you cannot hope to attain an absolute or God-like view of things but must choose a perspective
         ... within this perspective objects are defined by their relations with one another rather than by essences of some kind.
       </quotation>
-      For me this summary perfectly frames entity modelling.
-      Entity modelling is a methodology  of the data specification which is at the core of data and application engineering and as such its nature is technical but as in metaphysics the heart of the subject is the concept of concept.
-      It is important to me at least that entity modelling is a new spin and a new application of on an ancient discipline.
+      This summary perfectly frames our subject in this book which is the technique, the notation and the philosophy of entity modelling.
+      Entity modelling is a methodology  for the construction and presentation of such data and message specifications as are at the core of data and application engineering and as such entity modelling is technical in nature but as in metaphysics the heart of the subject is the concept of concept.
+      Entity modelling, then, is a new spin on, and a new application of, on an ancient discipline.
+    </para>
+
+    <para> In this book Culler's <emph>relations between objects</emph> are of two kinds. Relations of the first kind are relations between particulars and are referred to as relationships. Relations of the second kind are relations between particulars and universals are referred to as attributes. The particulars themselves are referred to as entities. 
     </para>
     
     <para> An entity model may simply handwave a set of concepts  or it may be more detailed; sufficiently and appropriately detailed entity models, we call them physical entity models, are 
-    pretty much the same thing as 
-    Information System's data models and hence data modelling, at least  as written of here,  is a special case of entity modelling. 
-    We try to approach it from first principles and in places extend the notation and therefore the expressive power of the notation. These extensions are not arbitrary but are driven by in part by consideration of requirements for the goodness of data specifications as first described in the context of relational data specifications by E.F. Codd
-    and in part for the purose that I have here of making entity modelling sufficiently expressive and abstract to cover data specification in a range of contexts from 
-    the modelling of relational database structure to the modelling of the hierarchical structures found in the family of specification languages known as interface definition languages (IDLs) as well as in the family of XML schema defintion languages that include XSD and rng.
-    It is significant that data is as it is not just held in databases but as communicated in messages. 
+    pretty much the same thing as Information System's data models and hence data modelling, at least  as written of here,  is a special case of entity modelling. 
+    We describe the technique of entity modelling from first principles and in places extend the notation thereby giving it greater the expressive power. 
+    These extensions are not arbitrary but are driven by consideration of requirements for the goodness of data specifications as first described in the context of relational data specifications by E.F. Codd
+    The particular variant of entity modelling that is described (structured entity modelling) is
+    designed or chosen so as to be sufficiently expressive and abstract to cover data specification in a range of contexts from the modelling of relational database structure to the modelling of the hierarchical structures found in the family of specification languages known as interface definition languages (IDLs) as well as in the family of XML schema defintion languages that include XSD and rng.
+    It is significant that data is as it is <emdash/> not just as it is held in databases but also as it is represented in software and communicated in formal message structures and everyday language. 
     The structure of data and criteria of goodness apply to messages that are formally embedded in computer systems and networks but equally are reflected in our everyday use of language.
   </para>
   <para>
     Underlying these considerations is a theory of data which is more abstract and fundamental than 
-    relational data theory and applicabl;e across all data domains. 
+    relational data theory and applicable across all data domains. 
   </para>
 
   </preface>
@@ -57,16 +60,12 @@
       world and we set out to present it here from first principles.  
       More usually, a narower view, its purpose is the  structuring of
       data to be stored in information systems; we extend the notation and describe this use in information systems development but we do not to take this use
-      as the starting point for the presentation nor as a subsequent <emph>raison d'etre</emph> because to do either  would be to obscure the wider  view  that the purpose 
-      of an entity model is to provide a framework for knowledge and that entity modelling is a form of conceptual 
-      modelling <emdash/> a technique for the elaboration of concepts. 
-      We describe the technique from first principles and 
-      relate to other meta-conceptual systems. 
-      We extend the notation from that commonly used in the 
-      development of information systems 
-      by the introduction of an addition system of constraints.
-      This is done in a way strongly influenced 
-      by consideration of conceptual patterns brought to the fore in the branch of mathematics known as category theory. The extended notation has significant benefits for information systems development.
+      as the starting point for the presentation nor as a subsequent <emph>raison d'etre</emph> because to do either  would be to obscure the wider  view  that the purpose of an entity model is to provide a framework for knowledge and that entity modelling is a form of conceptual modelling <emdash/> a technique for the elaboration of concepts. 
+      We describe the technique from first principles and relate to other meta-conceptual systems. 
+      We extend the notation from that commonly used in the  development of information systems 
+      by the introduction of various kinds of constraints.
+      This is done in a way strongly influenced by consideration of conceptual patterns brought to the fore in the branch of mathematics known as category theory. 
+      We shall demonstarte that the extended notation has significant benefits for information systems development.
     </para>
 
     <para>
@@ -76,15 +75,9 @@
       contextual meanings, but which patterns and meanings are unfamiliar to us. 
       In so reading we are drawn into a 
       systematic and iterative arrangement and a classification of the unfamiliar terms; 
-      in this process we will 
-      likely distinguish terms for individual things, for types or classes of things, for 
-      relations between things 
-      and also quantitative and adjectival terms. The mental process we follow will build for us a conceptual model. 
-      Entity modelling is a particular technique for expressing such models and, indeed, it is a technique and a 
-      notation used by information scientists seeking to represent and computerise the sometimes unfamiliar domains 
-      in which they work. When asked whether they understand 
-      a particular topic, an entity modeller might well affirm they do only if they can sketch an entity model that 
-      frames the topic.
+      in this process we will likely distinguish terms for individual things, for types or classes of things, for  relations between things   and also quantitative and adjectival terms. The mental process we follow will build for us a conceptual model. 
+      Entity modelling is a particular technique for expressing such models and, indeed, it is a technique and a notation used by information scientists seeking to represent and computerise the sometimes unfamiliar domains in which they work. 
+      When asked whether they understand a particular topic, an entity modeller might well affirm they do so only if they can sketch an entity model that frames the topic.
     </para>
 
     <figureOfPictureWithNote>
@@ -106,10 +99,13 @@
       </caption>
     </figureOfPictureWithNote>
 
-
     <para> Thinking about understanding a new area and its language, though <q>things themselves</q> 
       are the subjects of the text, the language is of the types of things, the relations among 
       the different types of things and the properties that can meaningfully be attributed to them.
+       It can be quite difficult to find language for describing types of things. Talking about instances leads us to talking about types and vice-versa as in this passage from John Gribbin descring different types of stars:
+       <quotation>
+        ????a
+       </quotation>
       This brings us to the 
       three core elements of an entity model: entity types, relationships and attributes. In fact an entity 
       model is little more than a structured list of such things.
@@ -137,18 +133,22 @@
     </figureOfPictureWithNote>
     <newline/>
     <para> The premises of Entity Modelling have in them a pragmatic answer to the question what is knowledge? 
-      Knowledge, according to the premises of Entity Modelling, is knowledge about things. For any <q>thing</q> the 
-      knowledge that we can have of it is a sum of elementary pieces each of which is either the fact of an attribution, 
+      Knowledge, according to the premises of Entity Modelling, is knowledge about things. 
+      For any <q>thing</q> the  knowledge that we can have of it is a sum of elementary pieces each of which is either the fact of an attribution, 
       by which is meant a property a thing has inherent in itself, or else the fact of a relationship with another thing.  
-      More precisely, we can have knowledge of the type of a thing and knowing its type is to know both the kind of 
-      attributions which may be made of it and the relationships in which it may participate. This is the theory of 
-      knowledge according to the entity modeller;  it is also the basis of information modelling and therefore it is 
-      a pragmatic view of what knowledge is <emdash/> it is that which can be represented as information in a structured 
-      form suitable for representation in a computer system.
+      More precisely, we can have knowledge of the type of a thing and knowing its type is to know both the kind of  attributions which may be made of it and the relationships in which it may participate. This is the theory of knowledge according to the entity modeller;  it is also the basis of information modelling and therefore it is a pragmatic view of what knowledge is <emdash/> it is that which can be represented as information in a structured form suitable for representation in a computer system or in a single computer program.
     </para>
 
     <para>
-      There are some differences of notation and concept between different authors and a range of different diagram styles for representing the three principle components of entity (E), relationship (R) and attribute (A). The E R A terms themselves were introduced in a very influential paper by  Chen in 1976.<footnote>
+    Frequently, computer systems and individual computer programs have as their subjects, everyday if not concrete and physical things, things such as people, accounts, orders, contracts, airline bookings, and so on; other computer programs have as their subjects the structures of molecules, languages, stellar processes or even programs themselves, or such as mathematical propositions, relationships in general, not particular, types of things as distinct from the things themselves, and so on.
+    These are the sorts of entities that we are concerned with in this book and various points each such type appear as an entity type within an entity model for illustrative purposes in this book. Other entity types we present in models will include knots within quipus, atioms within molecular structures, adjectives within the sentence structure of the English.   
+    In this book all these types of things appear in specific entity models
+    and each entity model describes a particular domain of discourse. This domain of discourse is the 
+    <emph>perspective</emph> within which there are types of things <emph>entity types</emph> defined by the <emph>relations between one another</emph>. In illustrative fragments we also have chickens and their eggs and bicycles and their wheels. In some cases we lift examples from the literature of relational data theory and understand them better by looking at them through the lens of entity relationship modelling. 
+    </para>
+
+    <para>
+      There are some differences of notation and concept between different authors and a range of different diagram styles for representing the three principle components of entity type(E), relationship (R) and attribute (A). The E R A terms themselves were introduced in a very influential paper by  Chen in 1976.<footnote>
         <bibentry>Chen1976</bibentry>
       </footnote> I come back to this in a later section but here we use and promote a  style of diagram that is different to Chen's. Most notably we do not use diamond 
       shaped boxes in the representation of relationships and even what we mean by the term relationship is significantly shifted. The style we use evolved in the past from Chen's style and is a further evolution from that found in 
@@ -161,8 +161,8 @@
      </para>
      <para>
       ER diagrams and ERA diagrams, whatever the style, are the first point of contact and the recongisable face of entity modelling but it is in the definitions behind such diagrams that
-      lie the fundamentals and it is from these definitions that code in the form of database schemas, languiage-specific data specifications and data access and management code is compiled.  
-      Though the definitions are definitions of types and collectively form a system of types, the subject entity model, they are themselves in turn instances of other types which collectively form a higher level system of types which is said to be the (entity modelling) meta-model. 
+      lie the fundamentals and it is from these definitions that code in the form of database schemas, language-specific data specifications and data access and management code is compiled.  
+      Though the definitions are definitions of types and collectively form a system of types, i.e.  the subject entity model, they are themselves in turn instances of other types which collectively form a higher level system of types which is said to be the (entity modelling) meta-model. 
       The entity modelling meta-model is presented in section       
       <refsection>
         <label>
@@ -218,8 +218,15 @@
       entity types.<footnote>The other genera of being (quantity, quality, relation, place, time, position, state, action, affection) 
       are properties inherent in the primary <emph>ousia</emph>.</footnote> 
     </para>
-    <para> Though Metaphysics has ancient origins, there is an intersection of concerns via data modelling between it and the most practical and modern disciplines of software engineering and the programming of computer based systems. The overlap exists because metaphysics has as its subject matter what is most general about things in general <emdash/> not just physical properties of physical things <emdash/> and the software development discipline starts with the representation of the very same generalities. So whereas most computer programs have as their subjects, everyday if not concrete and physical things, things such as people, accounts, orders, contracts, airline bookings, and so on; other computer programs have as their subjects the structures of molecules, languages, stellar processes or
+    <para> Though Metaphysics has ancient origins, there is an intersection of concerns via data modelling between it and the most practical and modern disciplines of software engineering and the programming of computer based systems. The overlap exists because metaphysics has as its subject matter what is most general about things in general <emdash/> not just physical properties of physical things <emdash/> and the software development discipline starts with the representation of the very same generalities.
+    
+    XXXXXXXXXXXXXXX   marked as X1   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+     So whereas most computer programs have as their subjects, everyday if not concrete and physical things, things such as people, accounts, orders, contracts, airline bookings, and so on; other computer programs have as their subjects the structures of molecules, languages, stellar processes or
     programs themselves, or such as mathematical propositions, relationships in general, not particular, types of things as distinct from the things themselves, and so on.
+
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     </para>
   <subsection>
       <title>Aristotle's Categories</title>
@@ -245,12 +252,12 @@
       <para> In Aristotle's description both the individual man and the species man are predicated by the genus animal, and so to, by example, the species ox is predicated by the genus animal. From what we have already said this we will represent thus:
       </para>
 
-
       <er_center>
         <filename>animal</filename>
       </er_center>
-
-      <newline/>
+      <para>
+      In entity modelling the term <emph>entity type</emph> is used for both genera and species <emdash/> <emph>ox</emph>, <emph>man</emph> and <emph>animal</emph> are all entity types as shown in the fragment above.
+      </para>
 
       <para> In some ways, such diagrams as these show similarity to Venn diagrams. This one can be so interpreted as showing the set of men and the set of oxen included in the set of animals. However, to the entity modeller, there is no set of all men, nor of all oxen, nor of all animals for the question is not <q>what exists?</q> but <q>what types of things exist and what can be said of them?</q>. The diagram can be interpreted as saying <q>what can be said of animal</q> can be said of <q>man</q> and of <q>ox</q> also.
       </para>
@@ -261,14 +268,14 @@
       </quotation>
       </para>
 
-      <para> Subsequently, after the time of Aristotle, used in biological nomenclature the term genus adopted a more specific meaning, in contradistinction to use of the term species for the lowest rank in the system <emdash/> individuals of the same species varying in minor ways and able to interbreed <emdash/> the term genus became used for a group of related species, the genera strictly forming just the second rank in a multi-ranked system. For the purposes of entity modelling we do not use the genus in its specific taxonomic sense but nonetheless have recourse to a convention from taxonomy by which the names of species are written with a leading lower case letter (e.g. sapiens) and the name of the genus is written with a leading upper case letter (e.g. Homo). For us the names of general types of things will be capitalised or have a leading capital letter whereas the names of the most specific types of things will be written entirely with lower letters.
+      <para> Subsequently, after the time of Aristotle, used in biological nomenclature the term genus adopted a more specific meaning, in contradistinction to use of the term species for the lowest rank in the system <emdash/> individuals of the same species varying in minor ways and able to interbreed <emdash/> the term genus became used for a group of related species, the genera strictly forming just the second rank in a multi-ranked system. 
       </para>
 
     </subsection>
 
     <subsection>
       <title>Types of Particles in Physics</title>
-      <para> A more technical example is given by the types of particle discussed in Feynman's Lecture Notes on Physics:
+      <para> Another example is given by the types of particle discussed in Feynman's Lecture Notes on Physics:
       </para>
       <quotation>
         Particles which interfere with a positive sign are called Bose particles and those which 
@@ -447,13 +454,121 @@
         <filename>equivocalNaming</filename>
       </er_center>
 
-      <newline/>
       <para> With such a configuration of types you might suppose a trinomial notation is 
         required <emdash/> or... simply a diagram and the ability to point at it. And this is the point of such 
         diagrams or at least a very good part of it.
       </para>
     </subsection>
   </section>
+
+
+
+<section>
+    <shorttitle>Relationships</shorttitle>
+    <title>Relationships, Binary, Directed</title>
+
+
+
+<subsection>
+  <title>Dependent Entities <emdash/> Distinguishing Composition and Reference</title>
+    
+    <para> 
+      Chen's paper introduced the idea of entities being dependent on binary relationships 
+      with others for both their identification and their existence:
+
+      <quotation>
+        Theoretically, any kind of relationship may be used to identify entities. For
+        simplicity, we shall restrict ourselves to the use of only one kind of relationship:
+        the binary relationships with 1:n mapping in which the existence of the n entities
+        on one side of the relationship depends on the existence of one entity on the other
+        side of the relationship. For example, one employee may have n ( = 0, 1, 2, . . .)
+        dependants, and the existence of the dependants depends on the existence of the
+        corresponding employee.
+        This method of identification of entities by relationships with other entities can
+        be applied recursively until the entities which can be identified by their own attribute
+        values are reached. For example, the primary key of a department in a
+        company may consist of the department number and the primary key of the
+        division, which in turn consists of the division number and the name of the company.
+      </quotation>
+    </para>
+
+    <para>
+      Following PCTE<footnote> 
+       
+        <bibentry>Boudier1988</bibentry>
+      </footnote> 
+      we use the term <entity>composition relationship</entity> for Chen's <emph>binary relationships
+        with 1:n mapping in which the existence of the n entities
+        on one side ... depends on the existence of one entity on the other side</emph>
+      and we use the term <entity>reference relationship</entity> for binary 
+      relationships which are neither composition relationships nor their inverses. We shall also describe the inverses of composition relationships 
+      as being <entity>dependency relationships</entity>. 
+      Previous to the writing of the PCTE specification the distinction 
+      had been made by the designers of the CAIS<footnote>
+        <bibentry>Oberndorf88</bibentry>
+      </footnote>
+      specification in which the two kinds of relationship were distinguished as primary 
+      and secondary <emdash/> for the designers of CAIS the rationale for the distinction
+      was as follows:<footnote>
+        <bibentry>Munck1988</bibentry>
+      </footnote>
+      <quotation>[Entities] and relationships may form a general 
+        graph or bowl of spaghetti. However, this raises various practical
+        problems of deletion and garbage collection, long term
+        naming, and unconnected sub-graphs. CAIS
+        therefore designates certain relationships as primary
+        (and all others as secondary) and requires that all [Entities]
+        and primary relationships in the database form a single
+        tree structure.
+      </quotation>
+      This distinction between composition and reference made by both CAIS and then PCTE served  
+      a crucial goal within these specifications of enabling the modelling of a typical computer file system within a database framework, see figure <figref>filesystem2</figref> for example. 
+
+      <figureOfPictureWithNote> 
+        <pictureName>filesystem2</pictureName>
+        <note>
+          <width>7cm</width>
+          <itemize>
+            <item>
+              there is a set of <entity>drive</entity>s, 
+            </item>
+            <item>
+              each <entity>drive</entity> has a <emph>root</emph> and the 
+              the root of a <entity>drive</entity> is a <entity>folder</entity>,
+            </item>
+            <item>
+              each <entity>folder</entity> is composed of zero, one of more <entity>entry</entity>s,
+            </item>
+            <item>
+              each <entity>entry</entity> is either a <entity>file</entity>, a <entity>folder</entity>
+               or a <entity>shortcut</entity>,
+            </item>
+            <item>
+              each <entity>shortcut</entity> make references <emph>to</emph> exactly one <entity>entry</entity>.
+            </item>
+          </itemize>
+        </note>
+        <muchtext/>
+        <caption>
+            An ER model of folder system modelling the hierarchical structure as a recursive composition relationship
+            and shortcuts as reference relationships.
+          <para>
+            We use a variant of the Barker-Ellis notation in which
+            we distinguish composition relationships from reference relationships. We draw the diagram top down: 
+            the anonymous root entity type (the <q>absolute</q>) is shown at the top of
+            the diagram, relationships leaving the lower edges of boxes are composition relationships and 
+            they always meet the top edge of the box 
+            representing the dependent type, 
+            reference relationships connect with the sides of boxes 
+            left or right as convenient for the drawing.
+          </para>
+        </caption>
+      </figureOfPictureWithNote> 
+    </para>
+</subsection>
+
+</section>
+
 
   <section>
     <leader>Entity models cover specific areas, chosen perspectives, in the words of Culler, which in other contexts might be described as</leader>
