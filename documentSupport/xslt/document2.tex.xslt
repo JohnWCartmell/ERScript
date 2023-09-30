@@ -249,42 +249,12 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="er_center">
-<!--     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'),.)"/>  
-    </xsl:variable>
-    <xsl:if test="$svg=''">
-      <xsl:message> Filename <xsl:value-of select="concat($svgFolder,filename,'.svg')"/> not found </xsl:message>
-    </xsl:if>
-    <xsl:element name="div">
-      <xsl:attribute name="style" select="'width:100%;padding:0.5cm'"/>
-      <xsl:element name="div">
-        <xsl:attribute name="style" select="concat('display:block;margin:0 auto; width:',$svg/(*:svg)/@width)"/>
-
-        <xsl:element name="object">
-          <xsl:attribute name="id" select="'svg-object'"/>
-          <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
-          <xsl:attribute name="type" select="'image/svg+xml'"/>
-          <xsl:text>filler to stop contraction of this xml element</xsl:text>
-        </xsl:element>
-      </xsl:element>
-    </xsl:element> --> 
+  <xsl:template match="er_center"> 
+    <xsl:value-of select="'\ercenterPicture{' || filename || '}'"/>
   </xsl:template>
 
   <xsl:template match="er_inline">
-<!--     <xsl:variable name="svg">
-      <xsl:sequence select="document(concat($svgFolder,filename,'.svg'),.)"/>
-    </xsl:variable>
-    <xsl:if test="$svg=''">
-      <xsl:message> Filename <xsl:value-of select="concat($svgFolder,filename,'.svg')"/> not found </xsl:message>
-    </xsl:if>
-    <xsl:element name="object">
-      <xsl:attribute name="id" select="'svg-object'"/>
-      <xsl:attribute name="class" select="'inline'"/>
-      <xsl:attribute name="data" select="concat($runtimepathtosvgfiles,filename,'.svg')"/>
-      <xsl:attribute name="type" select="'image/svg+xml'"/>
-      <xsl:text>filler to stop contraction of this xml element</xsl:text>
-    </xsl:element> -->
+    <xsl:value-of select="'\erinlinePicture{' || filename || '}'"/>
   </xsl:template>
 
   <xsl:template match="explanation">
