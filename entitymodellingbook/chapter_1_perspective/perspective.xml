@@ -25,7 +25,7 @@
       </quotation>
       This summary perfectly frames our subject in this book which is the technique, the notation and the philosophy of entity modelling.
       Entity modelling is a methodology  for the construction and presentation of such data and message specifications as are at the core of data and application engineering and as such entity modelling is technical in nature but as in metaphysics the heart of the subject is the concept of concept.
-      Entity modelling, then, is a new spin on, and a new application of, on an ancient discipline.
+      Entity modelling, in the modern age, is a new spin on, and a new application of, an ancient discipline.
     </para>
 
     <para> In this book Culler's <emph>relations between objects</emph> are of two kinds. Relations of the first kind are relations between particulars and are referred to as relationships. Relations of the second kind are relations between particulars and universals are referred to as attributes. The particulars themselves are referred to as entities. 
@@ -44,16 +44,21 @@
     Underlying these considerations is a theory of data which is more abstract and fundamental than 
     relational data theory and applicable across all data domains. 
   </para>
-
   </preface>
+
   <section>
-    <leader>        
-    In this chapter we start out by asking the question</leader> 
-    <shorttitle>What is Entity Modelling?</shorttitle>
-    <title>What is Entity Modelling and Why do it?</title>
-    <trailer></trailer>
+    <shorttitle>Introduction to E, R, A</shorttitle>
+    <title>Introduction to Entities, Relationships and Attributes</title>
+    <label>introERA</label>
+    <include><filename>introduction_to_era.xml</filename></include>
+  </section>
+  <section>
+    <shorttitle>The Twin Purposes</shorttitle>
+    <title>Conceptual Modelling and Data Modelling <emdash/>The Twin Purposes of Entity Modelling</title>
     <label>knowledgeframework</label>
-    <para> 
+    <subsection>
+      <title>Conceptual Modelling</title>
+      <para>
       At its broadest,
       entity modelling is a technique and a notation for describing and 
       communicating <emph>what is</emph> in the 
@@ -102,36 +107,15 @@
     <para> Thinking about understanding a new area and its language, though <q>things themselves</q> 
       are the subjects of the text, the language is of the types of things, the relations among 
       the different types of things and the properties that can meaningfully be attributed to them.
-       It can be quite difficult to find language for describing types of things. Talking about instances leads us to talking about types and vice-versa as in this passage from John Gribbin descring different types of stars:
-       <quotation>
-        ????a
-       </quotation>
-      This brings us to the 
-      three core elements of an entity model: entity types, relationships and attributes. In fact an entity 
-      model is little more than a structured list of such things.
+       It can be quite difficult to find language for describing types of things. 
     </para>
 
-    <!-- <div>
-      <padding>0.5cm</padding>
-      <er_center>
-        <filename>entityModelAsList</filename>
-      </er_center>
-    </div> -->
-     <figureOfPictureWithNote>
-      <pictureName>entityModelAsList</pictureName>
-      <note>
-        <itemize>
-            <item>an <entity>entity model</entity> defines one or more <entity>entity type</entity>s,
-              <entity>relationship</entity>s and <entity>attribute</entity>s,
-            </item>
-        </itemize>
-      </note>
-      <caption>
-        The three primary concepts within entity modelling are those of <entity>entity type</entity>,
-              <entity>relationship</entity> and <entity>attribute</entity>.
-      </caption> 
-    </figureOfPictureWithNote>
-    <newline/>
+    <para>
+      This brings us to the 
+      three core elements of an entity model: entity types, relationships and attributes. 
+
+    </para>
+
     <para> The premises of Entity Modelling have in them a pragmatic answer to the question what is knowledge? 
       Knowledge, according to the premises of Entity Modelling, is knowledge about things. 
       For any <q>thing</q> the  knowledge that we can have of it is a sum of elementary pieces each of which is either the fact of an attribution, 
@@ -146,40 +130,14 @@
     and each entity model describes a particular domain of discourse. This domain of discourse is the 
     <emph>perspective</emph> within which there are types of things <emph>entity types</emph> defined by the <emph>relations between one another</emph>. In illustrative fragments we also have chickens and their eggs and bicycles and their wheels. In some cases we lift examples from the literature of relational data theory and understand them better by looking at them through the lens of entity relationship modelling. 
     </para>
+    </subsection>
 
-    <para>
-      There are some differences of notation and concept between different authors and a range of different diagram styles for representing the three principle components of entity type(E), relationship (R) and attribute (A). The E R A terms themselves were introduced in a very influential paper by  Chen in 1976.<footnote>
-        <bibentry>Chen1976</bibentry>
-      </footnote> I come back to this in a later section but here we use and promote a  style of diagram that is different to Chen's. Most notably we do not use diamond 
-      shaped boxes in the representation of relationships and even what we mean by the term relationship is significantly shifted. The style we use evolved in the past from Chen's style and is a further evolution from that found in 
-      SSADM<footnote>
-              <bibentry>SSADM</bibentry>
-            </footnote> 
-     and in the Barker book.<footnote>
-              <bibentry>RichardBarkerBook</bibentry>
-            </footnote>      
-     </para>
-     <para>
-      ER diagrams and ERA diagrams, whatever the style, are the first point of contact and the recongisable face of entity modelling but it is in the definitions behind such diagrams that
-      lie the fundamentals and it is from these definitions that code in the form of database schemas, language-specific data specifications and data access and management code is compiled.  
-      Though the definitions are definitions of types and collectively form a system of types, i.e.  the subject entity model, they are themselves in turn instances of other types which collectively form a higher level system of types which is said to be the (entity modelling) meta-model. 
-      The entity modelling meta-model is presented in section       
-      <refsection>
-        <label>
-          <chapter>???</chapter>
-          <section>metamodel</section>
-        </label>
-        <title>ER MetaModel</title>
-      </refsection> and one way to navigate this book for a reader already familiar with  basic ER notation to is to start from this meta-model.
-     </para>
-        <include><filename>data_modelling.xml</filename></include>
+    <include><filename>data_modelling.xml</filename></include>
   </section>
 
   <section>
-    <leader>and that because entity modelling is a practical discipline used in engineering systems and yet is concerned with all manner of describable things it involves a </leader>
-    <shorttitle>Types of Things</shorttitle>
-    <title>Metaphysics and the Types of Things</title>
-    <trailer>.</trailer>
+    <shorttitle>Entity Types</shorttitle>
+    <title>Types of Entity Specific and General</title>
     <label>tangiblemetaphysics</label>
 
     <para> Entity modelling has the questions <q>What is?</q> and <q>What can be said of it?</q> at its heart.
@@ -229,7 +187,7 @@
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     </para>
   <subsection>
-      <title>Aristotle's Categories</title>
+      <title>Generic types <emdash/> Aristotle's Categories</title>
       <para> In the statement <q>man and the apes are descendent from a common ancestor</q> <emdash/> 
         it is clear that singular <q>man</q> is being used to denote a specific type which in biology, 
         and as far back as Aristotle's Categories, is termed a species, and that plural <q>apes</q> is 
@@ -464,11 +422,8 @@
 
 
 <section>
-    <shorttitle>Relationships</shorttitle>
-    <title>Relationships, Binary, Directed</title>
-
-
-
+    <shorttitle>Relationship Classes</shorttitle>
+    <title>Relationships <emdash/>Distinguishing Composition and Reference</title>
 <subsection>
   <title>Dependent Entities <emdash/> Distinguishing Composition and Reference</title>
     

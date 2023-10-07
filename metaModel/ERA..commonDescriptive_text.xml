@@ -7,7 +7,8 @@
       <description>
          <p> 
             This entity model is an <i>entity model of entity models</i>.
-            Because of its unique and self-descriptive nature it is sometimes described as a meta-model.
+            Because of their unique and self-descriptive nature such models
+            as thiis are sometimes described as meta-models.
          </p>
          <p>
             This entity model was developed to support software development and it is coded in ERScript software. It is instanced in all the ER diagrams presented in my online
@@ -16,11 +17,10 @@
              ER diagrams are just one a way of presenting the information contained in a typical entity model. 
          </p>
          <p> 
-            The entity models described by this model may be physical or logical and this distinction we should
-            summarise here. 
-            In brief, a physical model is populated with attributes that are required to describe the implementation of relationships and is saturated with such for the purposes of either hierarchical or relational implementation 
+            The entity models described by this model may be physical or logical and this distinction we should summarise here. 
+            In brief, a physical model is populated with referential attributes that are required to describe the implementation of relationships and is saturated with such for the purposes of either hierarchical or relational implementation 
             (the latter generally requiring more attributes than the former).
-            A logical model has no such attributes. Those models that are physical may be hierarchically-physical or relationally-physical. 
+            A logical model has no such referential attributes. Those models that are physical may be hierarchically-physical or relationally-physical. 
          </p>
          <p>
           For more on the distinction between logical and physical models see section
@@ -115,7 +115,7 @@
       <name>attribute</name>
       <description>
          <p>
-            A part of the structure of an entity type. 
+            An attribute occurs in the context of an entity type said to be the host entity type. 
          </p>
          <p>
             An attribute is a named property that may be attributed 
@@ -124,7 +124,7 @@
             as the values of attributes of entities.
          </p>
          <p>
-            In a physical model, attributes may be present to implement relationships 
+            In a physical model, referential attributes may be present to implement relationships 
             and  any such attributes will be distinguished from purely logical attributes  by 
             the presence of <i>reference_constraint</i> substructure.
          </p> 
@@ -372,7 +372,7 @@
          <name>composition</name>
          <description>
             <p>
-               The name of this meta-type, <i>composition</i>, is a shortened form
+               WE use the term <i>composition</i>, as a shortened form
                of <i>composition relationship</i>.
             </p>
             <p>

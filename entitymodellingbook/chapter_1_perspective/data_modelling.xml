@@ -33,9 +33,7 @@
       naturally tend to be well-formulated data models (i.e. to be in normal form). This is definitely not the case unless  account is taken of reference scope constraints  as described here in later sections.</footnote>.
       A logical ER model is agnostic between hierarchical and relational.
     </para>
-
-    </subsection>
-    <subsection>
+    <subsubsection>
       <title>Historical Persepective</title>
     <para>
       Historically, E.F.Codd's meta theory that was presented as the relational model of data 
@@ -119,9 +117,9 @@
       Finkelstein and James Martin's Information Engineering,  
       and in IDEF. 
     </para>
-</subsection>
+  </subsubsection>
 
-<subsection>
+  <subsubsection>
     <title>Logical, Physical and Normalisation</title>
     <para>
       In some instances, software methodologies and supporting CASE tools introduced an intermediate step between the ER model and the
@@ -138,106 +136,8 @@
     <para>
     It is noteworthy  that in these methodologies the normalisation step is present in order to achieve the goodness of the physical data model as prescribed by Codd in his normal form prescriptions. In the methodology described in this book we achieve the goodness of the final physical design, i.e. Codd's normal forms, by enabling suitable and pertinent real world conditions to be expressed at the logical level and supporting an automatic transformation to physical models that take advantage of these conditions so as to be able to meet the goodness prescriptions.<footnote>We also describe the features of the logical model that determine whether in addition to Codd's third normal form the goodness condition known as the Boyce-Codd normal form is also be met by the physical model.</footnote> 
   </para>
+  </subsubsection>
 </subsection>
 
-<!--
-<subsection>
-  <title>Dependent Entities <emdash/> Distinguishing Composition and Reference</title>
-    
-    <para> 
-      Chen's paper introduced the idea of entities being dependent on binary relationships 
-      with others for both their identification and their existence:
-
-      <quotation>
-        Theoretically, any kind of relationship may be used to identify entities. For
-        simplicity, we shall restrict ourselves to the use of only one kind of relationship:
-        the binary relationships with 1:n mapping in which the existence of the n entities
-        on one side of the relationship depends on the existence of one entity on the other
-        side of the relationship. For example, one employee may have n ( = 0, 1, 2, . . .)
-        dependants, and the existence of the dependants depends on the existence of the
-        corresponding employee.
-        This method of identification of entities by relationships with other entities can
-        be applied recursively until the entities which can be identified by their own attribute
-        values are reached. For example, the primary key of a department in a
-        company may consist of the department number and the primary key of the
-        division, which in turn consists of the division number and the name of the company.
-      </quotation>
-    </para>
-
-    <para>
-      Following PCTE<footnote> 
-       
-        <bibentry>Boudier1988</bibentry>
-      </footnote> 
-      we use the term <entity>composition relationship</entity> for Chen's <emph>binary relationships
-        with 1:n mapping in which the existence of the n entities
-        on one side ... depends on the existence of one entity on the other side</emph>
-      and we use the term <entity>reference relationship</entity> for binary 
-      relationships which are neither composition relationships nor their inverses. We shall also describe the inverses of composition relationships 
-      as being <entity>dependency relationships</entity>. 
-      Previous to the writing of the PCTE specification the distinction 
-      had been made by the designers of the CAIS<footnote>
-        <bibentry>Oberndorf88</bibentry>
-      </footnote>
-      specification in which the two kinds of relationship were distinguished as primary 
-      and secondary <emdash/> for the designers of CAIS the rationale for the distinction
-      was as follows:<footnote>
-        <bibentry>Munck1988</bibentry>
-      </footnote>
-      <quotation>[Entities] and relationships may form a general 
-        graph or bowl of spaghetti. However, this raises various practical
-        problems of deletion and garbage collection, long term
-        naming, and unconnected sub-graphs. CAIS
-        therefore designates certain relationships as primary
-        (and all others as secondary) and requires that all [Entities]
-        and primary relationships in the database form a single
-        tree structure.
-      </quotation>
-      This distinction between composition and reference made by both CAIS and then PCTE served  
-      a crucial goal within these specifications of enabling the modelling of a typical computer file system within a database framework, see figure <figref>filesystem2</figref> for example. 
-
-      <figureOfPictureWithNote> 
-        <pictureName>filesystem2</pictureName>
-        <note>
-          <width>7cm</width>
-          <itemize>
-            <item>
-              there is a set of <entity>drive</entity>s, 
-            </item>
-            <item>
-              each <entity>drive</entity> has a <emph>root</emph> and the 
-              the root of a <entity>drive</entity> is a <entity>folder</entity>,
-            </item>
-            <item>
-              each <entity>folder</entity> is composed of zero, one of more <entity>entry</entity>s,
-            </item>
-            <item>
-              each <entity>entry</entity> is either a <entity>file</entity>, a <entity>folder</entity>
-               or a <entity>shortcut</entity>,
-            </item>
-            <item>
-              each <entity>shortcut</entity> make references <emph>to</emph> exactly one <entity>entry</entity>.
-            </item>
-          </itemize>
-        </note>
-        <muchtext/>
-        <caption>
-            An ER model of folder system modelling the hierarchical structure as a recursive composition relationship
-            and shortcuts as reference relationships.
-          <para>
-            We use a variant of the Barker-Ellis notation in which
-            we distinguish composition relationships from reference relationships. We draw the diagram top down: 
-            the anonymous root entity type (the <q>absolute</q>) is shown at the top of
-            the diagram, relationships leaving the lower edges of boxes are composition relationships and 
-            they always meet the top edge of the box 
-            representing the dependent type, 
-            reference relationships connect with the sides of boxes 
-            left or right as convenient for the drawing.
-          </para>
-        </caption>
-      </figureOfPictureWithNote> 
-    </para>
-</subsection>
--->
 
 </holder>
