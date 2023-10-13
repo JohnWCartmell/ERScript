@@ -33,8 +33,10 @@
       naturally tend to be well-formulated data models (i.e. to be in normal form). This is definitely not the case unless  account is taken of reference scope constraints  as described here in later sections.</footnote>.
       A logical ER model is agnostic between hierarchical and relational.
     </para>
+    <!--
     <subsubsection>
       <title>Historical Persepective</title>
+    -->
     <para>
       Historically, E.F.Codd's meta theory that was presented as the relational model of data 
       by Codd in 1970,<footnote>
@@ -117,10 +119,11 @@
       Finkelstein and James Martin's Information Engineering,  
       and in IDEF. 
     </para>
-  </subsubsection>
+    
+<!--   </subsubsection>
 
   <subsubsection>
-    <title>Logical, Physical and Normalisation</title>
+    <title>Logical, Physical and Normalisation</title> -->
     <para>
       In some instances, software methodologies and supporting CASE tools introduced an intermediate step between the ER model and the
       relational model naming the intermediary model the physical design model to contrast with the logically descriptive model that precedes  it in the software development life-cycle.
@@ -135,8 +138,8 @@
     <newline/>
     <para>
     It is noteworthy  that in these methodologies the normalisation step is present in order to achieve the goodness of the physical data model as prescribed by Codd in his normal form prescriptions. In the methodology described in this book we achieve the goodness of the final physical design, i.e. Codd's normal forms, by enabling suitable and pertinent real world conditions to be expressed at the logical level and supporting an automatic transformation to physical models that take advantage of these conditions so as to be able to meet the goodness prescriptions.<footnote>We also describe the features of the logical model that determine whether in addition to Codd's third normal form the goodness condition known as the Boyce-Codd normal form is also be met by the physical model.</footnote> 
-  </para>
-  </subsubsection>
+  </para><!-- 
+  </subsubsection> -->
 </subsection>
 
 

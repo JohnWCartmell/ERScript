@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>_DEPARTMENT</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.4</y>    
+         <w>2.3</w>
+         <h>1.5</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>employs</name>
+         <type>_EMPLOYEE</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>is employed_within</inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>_EMPLOYEE</name>
+      <presentation>
+         <rightOf>_DEPARTMENT</rightOf>
+         <x>3.3</x>    
+         <w>2.3</w>
+         <h>1.5</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>is employed_within</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>_DEPARTMENT</type>
+         <inverse>employs</inverse>
+      </reference>
+   </entity_type>
+</entity_model>

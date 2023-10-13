@@ -53,8 +53,8 @@
     <include><filename>introduction_to_era.xml</filename></include>
   </section>
   <section>
-    <shorttitle>The Twin Purposes</shorttitle>
-    <title>Conceptual Modelling and Data Modelling <emdash/>The Twin Purposes of Entity Modelling</title>
+    <shorttitle>Concept and Data</shorttitle>
+    <title>Modelling Concept and Modelling Data<emdash/> The Twin Faces of Entity Modelling</title>
     <label>knowledgeframework</label>
     <subsection>
       <title>Conceptual Modelling</title>
@@ -423,7 +423,7 @@
 
 <section>
     <shorttitle>Relationship Classes</shorttitle>
-    <title>Relationships <emdash/>Distinguishing Composition and Reference</title>
+    <title>Relationships <emdash/> Distinguishing Composition and Reference</title>
 <subsection>
   <title>Dependent Entities <emdash/> Distinguishing Composition and Reference</title>
     

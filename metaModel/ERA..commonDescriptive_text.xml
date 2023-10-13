@@ -382,7 +382,7 @@
                (the <i>type</i> of the relationship). 
             </p>
             <p> 
-               In this meta model composition relationships are classifed as directional relationships and are distiguished from reference relationships and  dependency relationships.
+               In this meta model composition relationships are classified as directional relationships and are distiguished from reference relationships and  dependency relationships.
                Dependency relationships are, by definition, the inverses to composition relationships.
                For the distiction between composition and reference see
                <a href="http://www.entitymodelling.org/tutorialone/compositionvreference.html">

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.4</deltah>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>_EMPLOYEE</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.4</y>
+         <w>2.1</w>
+         <h>1.5</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>works on</name>
+         <type>_PROJECT</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>has as_workers</inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>_PROJECT</name>
+      <presentation>
+         <rightOf>_EMPLOYEE</rightOf>
+         <x>3.1</x>     
+         <w>2.1</w>
+         <h>1.5</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>has as_workers</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>EMPLOYEE</type>
+         <inverse>works on</inverse>
+      </reference>
+   </entity_type>
+</entity_model>
