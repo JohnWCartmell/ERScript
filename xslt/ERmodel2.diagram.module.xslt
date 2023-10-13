@@ -3519,13 +3519,19 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                 select="if (inverse) 
                         then (
                              if (self::composition)
-                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse)) 
+                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
                              else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
-                             )[current()/../name = type]
+                             )
                         else ()" />
-  <xsl:variable  name="inverseMandatory" as="xs:boolean"
-                  select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
 
+                        <!-- there was a final condition [current()/../name = type] in above
+                           but I don't see why? It was causing a problem but I don't see why that either.  Removed 12/10/2023.
+                           -->
+   <xsl:variable  name="inverseMandatory" as="xs:boolean"
+                  select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
+<xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
+<xsl:message>$inverse is '<xsl:copy-of select="$inverse"/>'</xsl:message>               
+<xsl:message>$inverseMandatory is '<xsl:value-of select="$inverseMandatory"/>'</xsl:message>
     <!-- change to call render_half_of_relationship (in 2svg) -->
     <xsl:call-template name="render_half_of_relationship">
       <xsl:with-param name="line" select="$source_to_midpoint"/>

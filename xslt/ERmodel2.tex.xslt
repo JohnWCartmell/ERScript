@@ -416,8 +416,8 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
   <xsl:template name="render_half_of_relationship" 
                 match="constructed_relationship|composition|reference">
       <xsl:param name="line" as="element(line)"/>
-      <xsl:param name="is_mandatory"/>
-<xsl:message>render_half</xsl:message>
+      <xsl:param name="is_mandatory" as="xs:boolean"/>
+<xsl:message>render_half  is_mandatory'<xsl:value-of select="$is_mandatory"/>'</xsl:message>
       <xsl:for-each select="$line/point[exists(following-sibling::point)]">
       	<xsl:message> call line_section</xsl:message>
 	      <xsl:call-template name="line_section">
@@ -425,7 +425,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 					<xsl:with-param name="y0cm" select="substring(y,1,5)"/>
 					<xsl:with-param name="x1cm" select="substring(following-sibling::point[1]/x,1,5)" />
 					<xsl:with-param name="y1cm" select="substring(following-sibling::point[1]/y,1,5)"/>
-					<xsl:with-param name="p_ismandatory" select="is_mandatory"/>
+					<xsl:with-param name="p_ismandatory" select="$is_mandatory"/>
 				</xsl:call-template>
       </xsl:for-each>
       <xsl:message>end render_half</xsl:message>
@@ -436,7 +436,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:param name="y0cm"/>
 		<xsl:param name="x1cm"/>
 		<xsl:param name="y1cm"/>
-		<xsl:param name="p_ismandatory"/>
+		<xsl:param name="p_ismandatory" as="xs:boolean"/>
 		<xsl:text>\errelarm{</xsl:text>	
 		<xsl:value-of select="round(number($x0cm) *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
@@ -449,7 +449,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:value-of select="-round(number($y1cm) *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
 		<xsl:choose>
-			<xsl:when test="$p_ismandatory = 'true'">1</xsl:when>
+			<xsl:when test="$p_ismandatory">1</xsl:when>
 			<xsl:otherwise>0</xsl:otherwise>
 		</xsl:choose>
 		<xsl:text>}{</xsl:text>
@@ -468,6 +468,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:param name="y1cm"/>
 		<xsl:param name="p_ismandatory"/>
 		<xsl:param name="p_isconstructed"/>
+		<xsl:message>template "line"</xsl:message>
 		<xsl:text>\errelarm{</xsl:text>
 		<xsl:value-of select="round($x0cm *1000) div 1000"/>
 		<xsl:text>}{</xsl:text>
