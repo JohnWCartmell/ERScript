@@ -399,7 +399,7 @@
               <ul>
                 <li>
                   <a href="{concat($pathtoroot,'/',../label,'/',label,'.html')}">
-                    <xsl:value-of select="lower-case(title)"/>
+                    <xsl:apply-templates select="title/*"/>
                   </a>
                   <xsl:apply-templates select="trailer"/>
                 </li>
@@ -432,12 +432,11 @@
       <a>
         <xsl:attribute name="href" select="concat($pathtoroot,'/',label,'/overview.html')"/>
         <xsl:value-of select="title"/>
-      </a> 
+      </a>
       <xsl:text> &#8212;</xsl:text>
       <em>
-        <xsl:apply-templates select="title"/>
+        <xsl:apply-templates select="explanation"/>
       </em>
-      <xsl:apply-templates select="explanation"/>
     </xsl:element>
   </xsl:template>
 
@@ -1127,7 +1126,8 @@
 
   <xsl:template match="section/title">
     <xsl:element name="h2">
-      <xsl:value-of select="."/>
+      <!-- <xsl:value-of select="."/> -->
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
