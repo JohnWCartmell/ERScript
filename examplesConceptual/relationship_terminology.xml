@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>relationship</name>
+      <entity_type>
+         <name>unary relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>binary relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>ternary relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>n-ary relationship_ n > 3</name>
+      </entity_type>
+   </entity_type>
+
+   <entity_type>
+      <name>directed relationship</name>
+      <presentation>
+         <rightOf>relationship</rightOf>
+      </presentation>
+      <entity_type>
+         <name>one-one relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>many-one relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>one-many relationship</name>
+      </entity_type>
+      <entity_type>
+         <name>many-many relationship</name>
+      </entity_type>
+   </entity_type>
+</entity_model>
