@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>relationship</name>
+      <presentation>
+         <y>0.2</y>
+         <deltaw>1.5</deltaw>
+         <deltah>0.1</deltah>
+      </presentation>
+      <entity_type>
+         <name>unary relationship</name>
+         <presentation>
+            <x>0.7</x>
+            <w>3.0</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>binary relationship</name>
+         <presentation>
+            <below>unary relationship</below>
+            <w>3.0</w>
+         </presentation>
+         <reference>
+            <name>consists of (2)</name>
+            <type>directional relationship</type>
+            <cardinality><OneOrMore/></cardinality>
+            <inverse>is one_view of</inverse>
+            <diagram>
+               <path>
+                  <align><ToSrc/></align>
+                  <label>
+                     <name><Split/></name>
+                     <position><Upside/></position>
+                  </label>          
+                  <inverse>
+                     <label>
+                        <name><Split/></name>
+                        <position><Downside/></position>
+                     </label>   
+                  </inverse>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>ternary relationship</name>
+         <presentation>
+            <below>binary relationship</below>
+            <w>3.0</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>other n-ary relationship</name>
+         <presentation>
+            <below>ternary relationship</below>
+            <w>3.7</w>
+            <name><Split/></name>
+         </presentation>
+      </entity_type>
+   </entity_type>
+
+   <entity_type>
+      <name>directional relationship</name>
+      <presentation>
+         <rightOf>relationship</rightOf>
+         <x>2.0</x>
+         <y>-0.2</y>
+         <deltaw>0.4</deltaw>
+         <deltah>0.1</deltah>
+      </presentation>
+      <reference>
+         <name>is one_view of</name>
+         <type>binary relationship</type>
+         <inverse>consists of (2)</inverse>
+         <cardinality><ExactlyOne></ExactlyOne></cardinality>
+      </reference>
+      <entity_type>
+         <name>one-one relationship</name>
+         <presentation>
+            <x>0.7</x>
+            <w>3.3</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>many-one relationship</name>
+         <presentation>
+            <below>one-one relationship</below>
+            <w>3.3</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>one-many relationship</name>
+         <presentation>
+            <below>many-one relationship</below>
+            <w>3.3</w>
+         </presentation>
+      </entity_type>
+      <entity_type>
+         <name>other directional_relationship</name>
+         <presentation>
+            <below>one-many relationship</below>
+            <name><Split/></name>
+            <w>3.3</w>
+         </presentation>
+      </entity_type>
+   </entity_type>
+</entity_model>
