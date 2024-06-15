@@ -16,12 +16,12 @@
          <name><Split/></name>
       </presentation>
       <reference>
-         <name>employs</name>
+         <name>employing</name>
          <type>_EMPLOYEE</type>
          <cardinality>
-            <OneOrMore/>
+            <ZeroOneOrMore/>
          </cardinality>
-         <inverse>is employed_within</inverse>
+         <inverse>employed by</inverse>
          <diagram>
             <path>
                <label>
@@ -50,12 +50,12 @@
          <name><Split/></name>
       </presentation>
       <reference>
-         <name>is employed_within</name>
+         <name>employed by</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
          <type>_DEPARTMENT</type>
-         <inverse>employs</inverse>
+         <inverse>employing</inverse>
       </reference>
    </entity_type>
 </entity_model>

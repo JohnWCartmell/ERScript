@@ -16,12 +16,12 @@
          <name><Split/></name>
       </presentation>
       <reference>
-         <name>works on</name>
+         <name>assigned to</name>
          <type>_PROJECT</type>
          <cardinality>
-            <OneOrMore/>
+            <ZeroOneOrMore/>
          </cardinality>
-         <inverse>has as_workers</inverse>
+         <inverse>assigned</inverse>
          <diagram>
             <path>
                <label>
@@ -50,12 +50,12 @@
          <name><Split/></name>
       </presentation>
       <reference>
-         <name>has as_workers</name>
+         <name>assigned</name>
          <cardinality>
-            <OneOrMore/>
+            <ZeroOneOrMore/>
          </cardinality>
          <type>EMPLOYEE</type>
-         <inverse>works on</inverse>
+         <inverse>assigned to</inverse>
       </reference>
    </entity_type>
 </entity_model>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <absolute>
+      <composition type="department*"/>
+      <composition type="project*"/>
+      <composition type="part*"/>
+      <composition type="supplier*"/>
+   </absolute>
+      <entity_type name="department">
+         <composition name="employing" type="employee*" inverse="employed by"/>
+      </entity_type>
+      <entity_type name="employee">
+         <composition name="depended on by" type="dependent*" inverse="depending on"/>
+         <reference name="managing" type="project*" inverse="managed by"/>
+       <composition name="subject_of"
+                       type="project_worker_assignment*"
+                       inverse="assignment_of"/>
+      </entity_type>
+      <entity_type name="dependent">
+      </entity_type>
+      <entity_type name="project">
+         <composition  name="resourced_by" type="project_worker_assignment*" inverse="assignment_to"/>
+         <composition name="requires" type="part used_on project*" inverse="use by"/>
+         <reference name="managed by" type="employee" inverse="managing"/>
+      </entity_type>
+      <entity_type name="project_worker_assignment">
+         <context name="assignment_of"/>
+      </entity_type>
+      <entity_type name="part used_on project">
+         <composition name="able to be_sourced via" type="part supply option*" inverse="option for_supply of"/>
+      </entity_type>
+      <entity_type name="part supply option">
+      </entity_type>
+      <entity_type name="part">
+         <composition name = "subject_of" type="part used_on project*" inverse="use of"/>
+      </entity_type>
+      <entity_type name="supplier">
+            <composition name="able to_satisfy" type="part supply option*" inverse="option to_aquire from"/>
+      </entity_type>
+</entity_model>
