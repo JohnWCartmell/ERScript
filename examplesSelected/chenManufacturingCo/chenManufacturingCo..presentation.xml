@@ -198,7 +198,7 @@
    <entity_type> 
       <name>supplier</name>
       <composition>
-            <name>able to_satisfy</name>
+            <name>able to_provide</name>
             <type>part supply option</type>
             <diagram>
                <path>
