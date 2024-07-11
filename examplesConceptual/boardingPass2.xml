@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>1.0</deltaw>
+      </diagram>
+   </presentation>
+<!--    <absolute>
+      <composition>
+         <type>airline route</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+      </composition>
+      <composition>
+         <type>aircraft</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+      </composition>
+   </absolute> -->
+   <entity_type>
+      <name>airline route</name>
+      <presentation>
+         <x>0.5</x>
+         <y>1.2</y>
+         <w>2.6</w>
+         <h>1.0</h>
+      </presentation>
+      <attribute>
+         <name>flight number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>scheduled_as</name>
+         <type>flight</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>of</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>flight</name>
+      <presentation>
+         <below>airline route</below>
+         <y>0.5</y>
+         <w>2.6</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>of</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>airline route</type>
+         <inverse>scheduled as</inverse>
+      </dependency>
+      <attribute>
+         <name>date of departure</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>boarded_using</name>
+         <type>boarding pass</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>issued for</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+      <reference>
+         <name>scheduled_against</name>
+         <type>aircraft</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <inverse>allocated to</inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>aircraft</name>
+      <presentation>
+         <rightOf>flight</rightOf>
+         <x>2.4</x>
+         <w>3.0</w>
+         <h>1.0</h>
+      </presentation>
+      <attribute>
+         <name>registration number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <reference>
+         <name>allocated to</name>
+         <type>flight</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>scheduled against</inverse>
+      </reference>
+      <composition>
+         <name>made up of</name>
+         <type>seat</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>on</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <inverse>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>boarding pass</name>
+      <presentation>
+         <below>flight</below>
+         <y>0.5</y>
+         <w>2.6</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>issued for</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>flight</type>
+         <inverse>boarded_using</inverse>
+      </dependency>
+      <reference>
+         <name>issued for</name>
+         <type>seat</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>used via</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>seat</name>
+      <presentation>
+         <rightOf>boarding pass</rightOf>
+         <below>aircraft</below>
+         <w>2.0</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>on</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>aircraft</type>
+         <inverse>made up of</inverse>
+      </dependency>
+      <attribute>
+         <name>number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <reference>
+         <name>used via</name>
+         <type>seat</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>issued for</inverse>
+      </reference>
+   </entity_type>
+</entity_model>
