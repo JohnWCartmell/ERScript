@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.1</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>catalogue of maps</name>
+      <presentation>
+         <x>0.1</x>
+         <y>-0.15</y>
+         <w>3.2</w>
+         <h>0.4</h>
+      </presentation>
+      <composition>
+         <type>map</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse></inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>map</name>
+      <presentation>
+         <below>catalogue of maps</below>
+         <y>0.5</y>
+         <w>2.4</w>
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>map</type>
+      </dependency>
+      <attribute>
+         <name>title</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>scale</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
+         <name>pinpoints</name>
+         <type>spot height</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>depicted on</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>spot height</name>
+      <presentation>
+         <below>map</below>
+         <y>0.5</y>
+         <w>2.4</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>depicted on</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>map</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>latitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>longitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>altitude</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>

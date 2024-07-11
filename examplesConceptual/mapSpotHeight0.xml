@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation><!-- 
+      <diagram>
+         <deltaw>1.0</deltaw>
+      </diagram> -->
+   </presentation>
+   <entity_type>
+      <name>map</name>    
+      <presentation>
+         <x>0.1</x>
+         <y>-0.15</y>
+         <w>2.8</w>
+         <h>0.4</h>
+      </presentation>
+      <composition>
+         <!-- <name></name> -->
+         <type>spot height</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse></inverse>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>spot height</name>
+      <presentation>
+         <below>map</below>
+         <y>0.5</y>
+         <w>2.4</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>map</type>
+      </dependency>
+      <attribute>
+         <name>latitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>longitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>altitude</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>
