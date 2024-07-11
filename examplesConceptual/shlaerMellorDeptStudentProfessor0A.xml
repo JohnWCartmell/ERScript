@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.2</deltah>
+      </diagram>
+   </presentation>
+      <entity_type>
+         <name>student</name>
+            <presentation>
+            <x>0.1</x>
+            <y>0.2</y>
+            <deltaw>0.2</deltaw>
+         </presentation>
+         <reference>
+            <name>advised by</name>
+            <type>professor</type>
+            <inverse>advises</inverse>
+            <cardinality>
+               <ZeroOrOne/>
+            </cardinality>
+            <diagram>
+               <path>
+                  <srcarmlen>0.5</srcarmlen>
+                  <destarmlen>0.5</destarmlen>
+                  <label>
+                     <name>
+                        <Split/>
+                     </name>
+                     <position>
+                        <Upside/>
+                     </position>
+                  </label>
+                  <inverse>
+                     <label>
+                        <position>
+                           <Downside/>
+                        </position>
+                     </label>
+                  </inverse>
+                  <scope>
+                     <label>
+                        <xAdjustment>-1.0</xAdjustment>
+                     </label>
+                  </scope>
+               </path>
+            </diagram>
+         </reference>
+      </entity_type>
+      <entity_type>
+         <name>professor</name>
+         <presentation>
+            <rightOf>student</rightOf>
+            <x>2.5</x>
+            <deltaw>0.2</deltaw>
+         </presentation>
+         <reference>
+            <name>advises</name>
+            <type>student</type>
+            <cardinality><ZeroOneOrMore/></cardinality>
+            <inverse>advised by</inverse>
+         </reference>
+      </entity_type>
+</entity_model>
