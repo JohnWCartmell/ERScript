@@ -7,17 +7,17 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>_DEPARTMENT</name>
+      <name>department</name>
       <presentation>
          <x>0.1</x>
          <y>0.4</y>    
-         <w>2.3</w>
-         <h>1.5</h>
+         <w>2.0</w>
+         <!-- <h>1.5</h> -->
          <name><Split/></name>
       </presentation>
       <reference>
          <name>employing</name>
-         <type>_EMPLOYEE</type>
+         <type>employee</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
@@ -41,12 +41,12 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>_EMPLOYEE</name>
+      <name>employee</name>
       <presentation>
-         <rightOf>_DEPARTMENT</rightOf>
+         <rightOf>department</rightOf>
          <x>3.3</x>    
-         <w>2.3</w>
-         <h>1.5</h>
+         <w>2.0</w>
+         <!-- <h>1.5</h> -->
          <name><Split/></name>
       </presentation>
       <reference>
@@ -54,7 +54,7 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>_DEPARTMENT</type>
+         <type>department</type>
          <inverse>employing</inverse>
       </reference>
    </entity_type>

@@ -7,12 +7,12 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>_EMPLOYEE</name>
+      <name>employee</name>
       <presentation>
          <x>0.1</x>
          <y>0.4</y>
          <w>2.1</w>
-         <h>1.3</h>
+         <!-- <h>1.3</h> -->
          <name><Split/></name>
       </presentation> 
       <reference>
@@ -20,16 +20,16 @@
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <type>PROJECT_WORKER_ASSIGNMENT</type>
+         <type>project assignment</type>
       </reference>
    </entity_type>
    <entity_type>
-      <name>PROJECT_WORKER_ASSIGNMENT</name>
+      <name>project assignment</name>
       <presentation>
-         <rightOf>_EMPLOYEE</rightOf>
-         <x>3.1</x>     
-         <w>2.1</w>
-         <h>1.3</h>
+         <rightOf>employee</rightOf>
+         <x>2.5</x>     
+         <deltaw>0.1</deltaw>
+         <!-- <h>1.3</h> -->
          <name><Split/></name>
       </presentation>
       <reference>
@@ -37,7 +37,7 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>_EMPLOYEE</type>
+         <type>employee</type>
          <inverse>subject of</inverse>
          <diagram>
             <path>
@@ -47,15 +47,22 @@
                      <Upside/>
                   </position>
                </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
       <reference>
-         <name>to</name>
+         <name>to work on</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>_PROJECT</type>
+         <type>project</type>
          <inverse>resourced by</inverse>
          <diagram>
             <path>
@@ -65,17 +72,24 @@
                      <Upside/>
                   </position>
                </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
    <entity_type>
-      <name>_PROJECT</name>
+      <name>project</name>
       <presentation>
-         <rightOf>PROJECT_WORKER_ASSIGNMENT</rightOf>
-         <x>3.1</x>     
+         <rightOf>project assignment</rightOf>
+         <x>2.5</x>     
          <w>2.1</w>
-         <h>1.3</h>
+         <!-- <h>1.3</h> -->
          <name><Split/></name>
       </presentation>
       <reference>
@@ -83,7 +97,7 @@
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <type>PROJECT_WORKER_ASSIGNMENT</type>
+         <type>project assignment</type>
       </reference>
    </entity_type>
 </entity_model>

@@ -7,11 +7,11 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>EMPLOYEE</name>
+      <name>employee</name>
       <presentation>
          <x>0.1</x>
          <y>0.4</y>
-         <w>2.5</w>
+         <w>2.0</w>
          <h>1.5</h>
          <name><Split/></name>
       </presentation> 
@@ -20,33 +20,35 @@
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <type>PROJECT-_WORKER-_ASSIGNMENT</type>
+         <type>project-_worker-_assignment</type>
       </reference>
       <attribute>
-        <name>EMP#</name>
+        <name>emp-no</name>
+        <type>
+          <string/>
+        </type>
+        <identifying/>
+      </attribute>
+      <attribute>
+        <name>emp-name</name>
         <type>
           <string/>
         </type>
       </attribute>
       <attribute>
-        <name>EMP-NAME</name>
-        <type>
-          <string/>
-        </type>
-      </attribute>
-      <attribute>
-        <name>AGE</name>
+        <name>age</name>
         <type>
           <string/>
         </type>
       </attribute>
    </entity_type>
    <entity_type>
-      <name>PROJECT-_WORKER-_ASSIGNMENT</name>
+      <name>project assignment</name>
       <presentation>
-         <rightOf>EMPLOYEE</rightOf>
-         <x>3.1</x>
-         <w>3.0</w>
+         <rightOf>employee</rightOf>
+         <x>2.5</x>
+         <deltaw>0.2</deltaw>
+         <!-- <w>3.0</w> -->
          <h>1.5</h>
          <name><Split/></name>
       </presentation>
@@ -55,7 +57,8 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>EMPLOYEE</type>
+         <type>employee</type> 
+         <identifying/>
          <inverse>subject of</inverse>
          <diagram>
             <path>
@@ -65,15 +68,23 @@
                      <Upside/>
                   </position>
                </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
       <reference>
-         <name>to</name>
+         <name>to work on</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>PROJECT</type>
+         <type>project</type> 
+         <identifying/>
          <inverse>resourced by</inverse>
          <diagram>
             <path>
@@ -83,22 +94,29 @@
                      <Upside/>
                   </position>
                </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>
       <attribute>
-        <name>STARTING-DATE</name>
+        <name>starting-date</name>
         <type>
           <string/>
         </type>
       </attribute>
    </entity_type>
    <entity_type>
-      <name>PROJECT</name>
+      <name>project</name>
       <presentation>
-         <rightOf>PROJECT-_WORKER-_ASSIGNMENT</rightOf>
-         <x>3.1</x>
-         <w>2.5</w>
+         <rightOf>project assignment</rightOf>
+         <x>2.5</x>
+         <w>2.0</w>
          <h>1.5</h>
          <name><Split/></name>
       </presentation> 
@@ -107,16 +125,17 @@
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <type>PROJECT-_WORKER-_ASSIGNMENT</type>
+         <type>project-_worker-_assignment</type>
       </reference>
       <attribute>
-        <name>PROJ#</name>
+        <name>proj-no</name>
         <type>
           <string/>
         </type>
+        <identifying/>
       </attribute>
       <attribute>
-        <name>BUDGET</name>
+        <name>budget</name>
         <type>
           <string/>
         </type>

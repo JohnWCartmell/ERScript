@@ -7,17 +7,17 @@
       </diagram>
    </presentation>
    <entity_type>
-      <name>_EMPLOYEE</name>
+      <name>employee</name>
       <presentation>
          <x>0.1</x>
          <y>0.4</y>
-         <w>2.1</w>
-         <h>1.5</h>
-         <name><Split/></name>
+         <w>2.0</w>
+         <!-- <h>1.5</h> -->
+         <!-- <name><Split/></name> -->
       </presentation>
       <reference>
          <name>assigned to</name>
-         <type>_PROJECT</type>
+         <type>project</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
@@ -41,12 +41,12 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>_PROJECT</name>
+      <name>project</name>
       <presentation>
-         <rightOf>_EMPLOYEE</rightOf>
+         <rightOf>employee</rightOf>
          <x>3.1</x>     
-         <w>2.1</w>
-         <h>1.5</h>
+         <w>2.0</w>
+         <!-- <h>1.5</h> -->
          <name><Split/></name>
       </presentation>
       <reference>
@@ -54,7 +54,7 @@
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <type>EMPLOYEE</type>
+         <type>employee</type>
          <inverse>assigned to</inverse>
       </reference>
    </entity_type>
