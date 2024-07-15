@@ -9,8 +9,23 @@
       <composition>
          <type>customer</type>
          <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>xxx</inverse>
+      </composition>
+      <composition>
+         <type>local_office</type>
+         <cardinality>
             <OneOrMore/>
          </cardinality>
+         <inverse>xxx</inverse>
+      </composition>
+      <composition>
+         <type>vehicle_category</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>xxx</inverse>
       </composition>
    </absolute>
    <entity_type>
@@ -21,6 +36,10 @@
          <h>0.92</h>
          <w>2.0</w>
       </presentation>
+      <dependency>
+         <name>xxx</name>
+         <cardinality><ExactlyOne/></cardinality>
+      </dependency>
       <composition>
          <name>sender of</name>
          <type>payment</type>
@@ -160,10 +179,12 @@
          <inverse>start and end of</inverse>
          <diagram>
             <path>
-               <srcarmlen>0.7</srcarmlen>
+               <srcarmlen>0.9</srcarmlen>
                <srcattach>0.35</srcattach>
                <label>
                   <position><Upside/></position>
+                  <xAdjustment>-0.05</xAdjustment>
+                  <yAdjustment>0.075</yAdjustment>
                </label>
                <inverse>
                   <label>
@@ -179,17 +200,19 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <inverse>used for</inverse>
+         <inverse>used_for</inverse>
          <diagram>
             <path>
                <srcarmlen>1.0</srcarmlen>
                <srcattach>0.575</srcattach>
                <label>
                   <position><Downside/></position>
+                     <yAdjustment>-0.075</yAdjustment>
                </label>
                <inverse>
                   <label>
                      <position><Upside/></position>
+                     <xAdjustment>0.075</xAdjustment>
                   </label>
                </inverse>
             </path>
@@ -204,12 +227,13 @@
          <inverse>required_for</inverse>
          <diagram>
             <path>
-               <srcattach>0.8</srcattach>
+               <srcattach>0.85</srcattach>
                <srcarmlen>2.0</srcarmlen>
                <destarmlen>1.75</destarmlen>
                <destattach>0.75</destattach>
                <label>
                   <position><Downside/></position>
+                  <yAdjustment>-0.075</yAdjustment>
                </label>
                <inverse>
                   <label>
@@ -230,6 +254,10 @@
          <h>0.92</h>
          <name><Split/></name>
       </presentation>
+      <dependency>
+         <name>xxx</name>
+         <cardinality><ExactlyOne/></cardinality>
+      </dependency>
       <reference>
          <name>start and end of</name>
          <cardinality>
@@ -238,15 +266,27 @@
          <type>booking_/invoice</type>
          <inverse>to and from</inverse>
       </reference>
+      <composition>
+         <type>vehicle</type>
+         <name>base of</name> 
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>based at</inverse>
+      </composition>
    </entity_type>
    <entity_type>
       <name>vehicle_category</name>
       <presentation>
          <rightOf>booking_/invoice</rightOf>
          <x>6.0</x>
-         <h>1.42</h>
+         <h>1.6</h>
          <name><Split/></name>
       </presentation>
+      <dependency>
+         <name>xxx</name>
+         <cardinality><ExactlyOne/></cardinality>
+      </dependency>
       <reference>
          <name>required_for</name>
          <cardinality>
@@ -268,10 +308,19 @@
       <name>vehicle</name>
       <presentation>
          <below>local_office</below>
-         <y>0.8</y>
+         <rightOf>booking_/invoice</rightOf>
+         <!-- <y>0.2</y> -->
          <h>1.02</h>
          <name><Split/></name>
       </presentation>
+      <dependency>
+         <name>based at</name>
+         <type>local_office</type>
+         <inverse>base of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
       <reference>
          <name>classified by</name>
          <type>vehicle_category</type>
@@ -282,7 +331,7 @@
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
-               <destattach>0.3</destattach>
+               <align><ToSrc/></align>
                <srcarmlen>0.5</srcarmlen>
                <destarmlen>0.5</destarmlen>
                <label>
@@ -297,7 +346,7 @@
          </diagram>
       </reference>
       <reference>
-         <name>used for</name>
+         <name>used_for</name>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
