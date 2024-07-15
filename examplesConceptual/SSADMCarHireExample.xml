@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+      </diagram>
+   </presentation>
+   <absolute>
+      <composition>
+         <type>customer</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>customer</name>
+      <presentation>
+         <x>1.6</x>
+         <y>1.0</y>
+         <h>0.92</h>
+         <w>2.0</w>
+      </presentation>
+      <composition>
+         <name>sender of</name>
+         <type>payment</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>sent by</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.25</srcattach>
+               <label>
+                  <position><Left/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>maker of</name>
+         <type>booking_/invoice</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>made by</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.75</srcattach>
+               <destattach>0.4</destattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>payment</name>
+      <dependency>
+         <name>sent by</name>
+         <type>customer</type>
+         <inverse>sender of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <composition>
+         <name>split into</name>
+         <type>allocated_payment</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>part of</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0</srcarmlen>
+               <destarmlen>0</destarmlen>
+               <label>
+                  <position><Left/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <presentation>
+         <below>customer</below>
+         <x>-1.5</x>
+         <y>0.6</y>
+         <h>1.02</h>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>allocated_payment</name>
+      <dependency>
+         <name>part of</name>
+         <type>payment</type>
+         <inverse>split into</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <reference>
+         <name>made to</name>
+         <type>booking_/invoice</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>paid_for by</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>payment</below>
+         <y>0.6</y>
+         <h>0.92</h>
+         <name><Split/></name>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>booking_/invoice</name>
+      <presentation>
+         <rightOf>payment</rightOf>
+         <x>1.6</x>
+         <w>1.7</w>
+         <h>2.2</h>
+         <name><Split/></name>
+      </presentation>
+      <dependency>
+         <name>made by</name>
+         <type>customer</type>
+         <inverse>maker of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <reference>
+         <name>paid_for by</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>allocated_payment</type>
+         <inverse>made to</inverse>
+      </reference>
+      <reference>
+         <name>from_and to</name>
+         <type>local_office</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>start and end of</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0.7</srcarmlen>
+               <srcattach>0.35</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Topside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>user of</name>
+         <type>vehicle</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>used for</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>1.0</srcarmlen>
+               <srcattach>0.575</srcattach>
+               <label>
+                  <position><Downside/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Upside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>requiring</name>
+         <type>vehicle_category</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>required_for</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.8</srcattach>
+               <srcarmlen>2.0</srcarmlen>
+               <destarmlen>1.75</destarmlen>
+               <destattach>0.75</destattach>
+               <label>
+                  <position><Downside/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Downside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>local_office</name>
+      <presentation>
+         <rightOf>customer</rightOf>
+         <x>3.75</x>
+         <y>0.3</y>
+         <h>0.92</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>start and end of</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>booking_/invoice</type>
+         <inverse>to and from</inverse>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle_category</name>
+      <presentation>
+         <rightOf>booking_/invoice</rightOf>
+         <x>6.0</x>
+         <h>1.42</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>required_for</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>booking_/invoice</type>
+         <inverse>requiring</inverse>
+      </reference>
+      <reference>
+         <name>classifier of</name>
+         <type>vehicle</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>classified by</inverse>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle</name>
+      <presentation>
+         <below>local_office</below>
+         <y>0.8</y>
+         <h>1.02</h>
+         <name><Split/></name>
+      </presentation>
+      <reference>
+         <name>classified by</name>
+         <type>vehicle_category</type>
+         <inverse>classifier of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <destattach>0.3</destattach>
+               <srcarmlen>0.5</srcarmlen>
+               <destarmlen>0.5</destarmlen>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Downside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>used for</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>booking_/invoice</type>
+         <inverse>user of</inverse>
+      </reference>
+   </entity_type>
+</entity_model>
