@@ -151,7 +151,7 @@
          <rightOf>payment</rightOf>
          <x>1.6</x>
          <w>1.7</w>
-         <h>2.2</h>
+         <h>3.2</h>
          <name><Split/></name>
       </presentation>
       <dependency>
@@ -180,7 +180,8 @@
          <diagram>
             <path>
                <srcarmlen>0.9</srcarmlen>
-               <srcattach>0.35</srcattach>
+               <srcattach>0.175</srcattach>
+               <destarmlen>0.75</destarmlen>
                <label>
                   <position><Upside/></position>
                   <xAdjustment>-0.05</xAdjustment>
@@ -195,6 +196,30 @@
          </diagram>
       </reference>
       <reference>
+         <name>driven by</name>
+         <type>driver</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>driver_for</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>1.5</srcarmlen>
+               <srcattach>0.3525</srcattach>
+               <label>
+                  <position><Downside/></position>
+                  <xAdjustment>-0.05</xAdjustment>
+                  <yAdjustment>-0.075</yAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Upside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
          <name>user of</name>
          <type>vehicle</type>
          <cardinality>
@@ -203,7 +228,6 @@
          <inverse>used_for</inverse>
          <diagram>
             <path>
-               <srcarmlen>1.0</srcarmlen>
                <srcattach>0.575</srcattach>
                <label>
                   <position><Downside/></position>
@@ -227,7 +251,7 @@
          <inverse>required_for</inverse>
          <diagram>
             <path>
-               <srcattach>0.85</srcattach>
+               <align><ToDest/></align>
                <srcarmlen>2.0</srcarmlen>
                <destarmlen>1.75</destarmlen>
                <destattach>0.75</destattach>
@@ -244,14 +268,14 @@
          </diagram>
       </reference>
    </entity_type>
-
    <entity_type>
       <name>local_office</name>
       <presentation>
          <rightOf>customer</rightOf>
-         <x>3.75</x>
-         <y>0.3</y>
-         <h>0.92</h>
+         <x>3.75</x><!-- 
+         <y>0.3</y> -->
+         <w>2.9</w>
+         <h>0.86</h>
          <name><Split/></name>
       </presentation>
       <dependency>
@@ -267,19 +291,51 @@
          <inverse>to and from</inverse>
       </reference>
       <composition>
+         <type>driver</type>
+         <name>employer_of</name> 
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>employed_at</inverse>
+         <diagram>
+            <path>
+               <destattach>0.45</destattach>
+               <align><ToDest/></align>
+               <label>
+                  <position><Left/></position>
+                  <xAdjustment>0.05</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <xAdjustment>-0.05</xAdjustment>
+                     <yAdjustment>0.1</yAdjustment>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
          <type>vehicle</type>
          <name>base of</name> 
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <inverse>based at</inverse>
+         <inverse>based_at</inverse>
+         <diagram>
+            <path>
+               <destattach>0.6</destattach>
+               <align><ToDest/></align>
+            </path>
+         </diagram>
       </composition>
    </entity_type>
    <entity_type>
       <name>vehicle_category</name>
       <presentation>
-         <rightOf>booking_/invoice</rightOf>
-         <x>6.0</x>
+         <rightOf>vehicle</rightOf>
+         <x>1.65</x>
+         <y>0.15</y>
          <h>1.6</h>
          <name><Split/></name>
       </presentation>
@@ -305,16 +361,44 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>vehicle</name>
+      <name>driver</name>
       <presentation>
          <below>local_office</below>
          <rightOf>booking_/invoice</rightOf>
-         <!-- <y>0.2</y> -->
-         <h>1.02</h>
+         <x>-0.9</x>
+         <w>1.1</w>
+         <h>0.75</h>
          <name><Split/></name>
       </presentation>
       <dependency>
-         <name>based at</name>
+         <name>employed_at</name>
+         <type>local_office</type>
+         <inverse>employer_of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <reference>
+         <name>driver_for</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>booking_/invoice</type>
+         <inverse>driven by</inverse>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle</name>
+      <presentation>
+         <rightOf>driver</rightOf>
+         <x>0.1</x>
+         <y>1.45</y>
+         <w>1.1</w>
+         <h>0.75</h>
+         <name><Split/></name>
+      </presentation>
+      <dependency>
+         <name>based_at</name>
          <type>local_office</type>
          <inverse>base of</inverse>
          <cardinality>
@@ -331,7 +415,7 @@
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
-               <align><ToSrc/></align>
+               <destattach>0.4</destattach>
                <srcarmlen>0.5</srcarmlen>
                <destarmlen>0.5</destarmlen>
                <label>
