@@ -14,9 +14,9 @@
             <deltaw>0.2</deltaw>
          </presentation>
          <reference>
-            <name>majors_in</name>
+            <name>majoring_in</name>
             <type>department</type>
-            <inverse>provides_specialization_for</inverse>
+            <inverse>providing_specialization_for</inverse>
             <cardinality>
                <ExactlyOne/>
             </cardinality>
@@ -56,10 +56,10 @@
             <deltaw>0.2</deltaw>
          </presentation>
          <reference>
-            <name>provides_specialization_for</name>
+            <name>providing_specialization_for</name>
             <type>student</type>
             <cardinality><ZeroOneOrMore/></cardinality>
-            <inverse>majors_in</inverse>
+            <inverse>majoring_in</inverse>
          </reference>
       </entity_type>
 </entity_model>

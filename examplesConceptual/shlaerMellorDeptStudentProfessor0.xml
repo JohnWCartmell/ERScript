@@ -10,17 +10,17 @@
    <entity_type>
       <name>department</name>
       <presentation>
-         <x>2.6</x>
+         <x>3.0</x>
          <y>0.1</y>
          <deltaw>0.2</deltaw>
       </presentation>
       <composition>
-         <name>provides specialization for</name>
+         <name>providing specialization for</name>
          <type>student</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <inverse>majors in</inverse>
+         <inverse>majoring in</inverse>
          <diagram>
             <path>
                <label>
@@ -58,15 +58,15 @@
       <entity_type>
          <name>student</name>
          <dependency>
-            <name>majors in</name>
+            <name>majoring in</name>
             <type>department</type>
-            <inverse_of>provides specialization for</inverse_of>
+            <inverse_of>providing specialization for</inverse_of>
             <cardinality><ExactlyOne/></cardinality>
          </dependency>
          <reference>
             <name>advised by</name>
             <type>professor</type>
-            <inverse>advises</inverse>
+            <inverse>advising</inverse>
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
@@ -118,7 +118,7 @@
             <cardinality><ExactlyOne/></cardinality>
          </dependency>
          <reference>
-            <name>advises</name>
+            <name>advising</name>
             <type>student</type>
             <cardinality><ZeroOneOrMore/></cardinality>
             <inverse>advised by</inverse>
