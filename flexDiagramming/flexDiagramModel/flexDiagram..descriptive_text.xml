@@ -812,9 +812,7 @@
          <description>.</description>
       </composition>
    </entity_type>
-   <group>
-      <name>xxx</name>
-      <description>A generalisation of the types text_decoration, font_style and font_weight..</description>
+
       <entity_type>
          <name>text_decoration</name>
          <description>A generalisation of the types underline, overline and line-through..</description>
@@ -867,5 +865,4 @@
             <description>An entity type..</description>
          </entity_type>
       </entity_type>
-   </group>
 </entity_model>

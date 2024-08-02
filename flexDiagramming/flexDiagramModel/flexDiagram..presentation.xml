@@ -1012,8 +1012,20 @@
       <name>xxx</name>
       <presentation>
          <below>text_style</below>
-      </presentation>
+      </presentation>   
+      <entity_type><name>text_decoration</name></entity_type>
+      <entity_type><name>font_style</name></entity_type>
+      <entity_type><name>font_weight</name></entity_type>
    </group>
+
+   
+
+   <entity_type>
+      <name>underline</name>
+      <presentation>
+         <x>0.2</x>
+      </presentation>
+   </entity_type>
    <entity_type>
       <name>overline</name>
       <presentation>
@@ -1032,6 +1044,12 @@
          <rightOf>text_decoration</rightOf>
       </presentation>
    </entity_type>
+      <entity_type>
+      <name>normal(1)</name>
+      <presentation>
+         <x>0.2</x>
+      </presentation>
+   </entity_type>
    <entity_type>
       <name>italic</name>
       <presentation>
@@ -1048,6 +1066,12 @@
       <name>font_weight</name>
       <presentation>
          <rightOf>font_style</rightOf>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>normal(2)</name>
+      <presentation>
+         <x>0.2</x>
       </presentation>
    </entity_type>
    <entity_type>

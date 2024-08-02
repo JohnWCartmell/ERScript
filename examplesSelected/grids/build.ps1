@@ -6,6 +6,8 @@ echo ("*** building from  $SOURCE css folder")
 
 $SOURCEXML = $SOURCE + '\examplesSelected\grids'
 $TARGETXML = $TARGET + '\examplesSelected\grids\xml'
+$TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
+$TARGETTEXFOLDER = $TARGET + '\docs\images'
 
 
 # CREATE target folder if it doesn't already exist
@@ -28,16 +30,19 @@ echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
 
 echo 'build physical model'
-. $TARGET\scripts\buildExampleSVG.ps1 grids -animate -physicalType hs -shortSeparator _ -longSeparator _
+. $TARGET\scripts\buildExampleSVG.ps1 grids `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                              -animate -physicalType hs -shortSeparator _ -longSeparator _
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs
 
-if ($false)
-{
+#if ($false)
+#{
 echo 'grids Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 grids..logical.xml -animate
-}
+#}
 
 popd 
 

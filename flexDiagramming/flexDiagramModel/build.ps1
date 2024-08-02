@@ -21,8 +21,9 @@ attrib -R $TARGETXML\*..physical.xml  # these generated and therefore need be ov
 
 pushd $TARGETXML
 . $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -physicalType hs
+#. $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -debugswitch
 
 #echo 'Flex version'
-#. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 flexDiagram..logical.xml -animate
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 flexDiagram..logical.xml -animate
 
 popd 

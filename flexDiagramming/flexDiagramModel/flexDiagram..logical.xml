@@ -262,22 +262,22 @@
       <attribute name="font-size" type="positiveInteger"/>
       <attribute name="font-family" type="string"/>
    </entity_type>
-   <group name="xxx">
-      <entity_type name="text_decoration">
-         <entity_type name="underline"/>
-         <entity_type name="overline"/>
-         <entity_type name="line-through"/>
-      </entity_type>
-      <entity_type name="font_style">
-         <entity_type name="normal(1)"/>
-         <entity_type name="italic"/>
-         <entity_type name="oblique"/>
-      </entity_type>
-      <entity_type name="font_weight">
-         <entity_type name="normal(2)"/>
-         <entity_type name="bold"/>
-         <entity_type name="bolder"/>
-         <entity_type name="ligher"/>
-      </entity_type>
-   </group>
+
+   <entity_type name="text_decoration">
+      <entity_type name="underline"/>
+      <entity_type name="overline"/>
+      <entity_type name="line-through"/>
+   </entity_type>
+   <entity_type name="font_style">
+      <entity_type name="normal(1)"/>
+      <entity_type name="italic"/>
+      <entity_type name="oblique"/>
+   </entity_type>
+   <entity_type name="font_weight">
+      <entity_type name="normal(2)"/>
+      <entity_type name="bold"/>
+      <entity_type name="bolder"/>
+      <entity_type name="ligher"/>
+   </entity_type>
+      
 </entity_model>

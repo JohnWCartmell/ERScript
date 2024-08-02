@@ -4,7 +4,7 @@
       <name>sentence</name>
       <description>
          <p>
-				This type represents the structure of simple sentences. Simple sentences have both a subject and a predicate. 
+				This type represents the structure of a simple sentence. Simple sentences have both a subject and a predicate. 
 			</p>
          <p>
 				In the example sentence "the young athelete set a new record" the subject is "the young athelete" and the phrase "set a new record" is the predicate.
