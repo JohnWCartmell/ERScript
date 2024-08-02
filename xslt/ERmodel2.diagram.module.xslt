@@ -748,9 +748,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	     LOCAL i.e. relative to the parent i
 	  or ABSOLUTE  i.e. is the y position on the diagram as a whole
    -->
-   <!--
+   <!-- 
    <xsl:message> et_xFromRelative <xsl:value-of select="concat(name(), ':' , name)"/></xsl:message> 
-   -->
+    -->
    <xsl:variable name="width">
       <xsl:call-template name="et_width"/>
    </xsl:variable>
@@ -3510,7 +3510,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
     <xsl:param name="source_to_midpoint" as="element(line)"/> 
     <xsl:param name="midpoint_to_destination" as="element(line)"/> 
     <xsl:param name="relationship_element_id" as="xs:string"/>
-
+<!-- 
+   <xsl:message> In render_path </xsl:message>
+   <xsl:message> Rel name <xsl:value-of select="name"/> which is a <xsl:value-of select="name()"/></xsl:message>
+   <xsl:message>  having inverse <xsl:value-of select="inverse"/> </xsl:message>
+   <xsl:message> host entity type name is '<xsl:value-of select="../name"/>' </xsl:message>
+   <xsl:message> host node name is '<xsl:value-of select="../name()"/>' </xsl:message>
+ -->
    <xsl:variable  name="relMandatory" as="xs:boolean"
                   select="exists(cardinality/(ExactlyOne | OneOrMore))
                  "/>
@@ -3520,9 +3526,24 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                         then (
                              if (self::composition)
                              then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
+                                                [current()/../name = type]
                              else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
                              )
                         else ()" />
+
+         <!-- Change of 1/08/24 
+                      Change the way the inverse is found.
+                      Necessary following change of 2 June 2023 which, arguably was incomplete.
+                      An additional condition is required so that two dependencies may
+                      have the same name and be distinguished by their destination types.
+                              This is required at least for the flexModel.
+                      Need to deal with the case when the destination of the dependency is the absolute.
+                              Introduce a new key 'DependencyBySrcTypeAndNameAndDestinationTypeName'.
+                      In the case destination is absolute will still use name of absolute
+                              as type of dependency. This is consistent with ERmodelv1.6.parser.module.xslt
+                              which sets type of a dependency from context of a composition to be
+                              parent::*[self::entity_type|self::absolute]/@name
+                           -->
 
                         <!-- there was a final condition [current()/../name = type] in above
                            but I don't see why? It was causing a problem but I don't see why that either.  Removed 12/10/2023.
