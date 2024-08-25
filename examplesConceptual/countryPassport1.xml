@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.1</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>country</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>2.7</w>
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>country</type>
+      </dependency>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>having_issued</name>
+         <type>passport</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>issued by</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>passport</name>
+      <presentation>
+         <below>country</below>
+         <y>0.5</y>
+         <w>2.7</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>issued by</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>country</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>passport number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>date of issue</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute>
+         <name>valid until date</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute>
+         <name>family name</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute>
+         <name>given name</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute>
+         <name>date of birth</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>

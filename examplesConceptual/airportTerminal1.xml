@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.4</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>airport</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>2.7</w>
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>airport</type>
+      </dependency>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>country</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
+         <name>having</name>
+         <type>terminal</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>a facility of</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>terminal</name>
+      <presentation>
+         <below>airport</below>
+         <y>0.5</y>
+         <w>2.7</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>a facility of</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>airport</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>terminal number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+</entity_model>

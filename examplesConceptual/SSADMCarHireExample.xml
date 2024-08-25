@@ -199,7 +199,7 @@
          <name>driven by</name>
          <type>driver</type>
          <cardinality>
-            <ExactlyOne/>
+            <ZeroOrOne/>
          </cardinality>
          <inverse>driver_for</inverse>
          <diagram>
@@ -223,7 +223,7 @@
          <name>user of</name>
          <type>vehicle</type>
          <cardinality>
-            <ExactlyOne/>
+            <ZeroOrOne/>
          </cardinality>
          <inverse>used_for</inverse>
          <diagram>

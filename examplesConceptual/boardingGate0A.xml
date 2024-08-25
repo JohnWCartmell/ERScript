@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.2</deltaw>
+      </diagram>
+   </presentation>
+   <absolute>
+      <name>airline service</name>
+      <composition>
+         <name>scheduled as</name>
+         <type>flight</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <identifying/>
+         <inverse>of</inverse>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>flight</name>
+      <presentation>
+         <y>1.3</y>
+         <w>2.7</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>of</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>airline service</type>
+         <inverse>scheduled as</inverse>
+      </dependency>
+      <attribute>
+         <name>date of departure</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+</entity_model>

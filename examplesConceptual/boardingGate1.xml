@@ -3,29 +3,29 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
       <presentation>
       <diagram>
-         <deltaw>1.0</deltaw>
+         <deltaw>0.2</deltaw>
       </diagram>
    </presentation>
-   <absolute>
+   <!-- <absolute>
       <composition>
-         <type>airline route</type>
+         <type>airline service</type>
          <cardinality>
             <OneOrMore/>
          </cardinality>
       </composition>
       <composition>
-         <type>aircraft</type>
+         <type>airport</type>
          <cardinality>
             <OneOrMore/>
          </cardinality>
       </composition>
-   </absolute> 
+   </absolute>  -->
    <entity_type>
-      <name>airline route</name>
+      <name>airline service</name>
       <presentation>
          <x>0.5</x>
-         <y>1.2</y>
-         <w>2.6</w>
+         <y>0.7</y>
+         <w>2.7</w>
          <h>1.0</h>
       </presentation>
       <attribute>
@@ -35,6 +35,56 @@
          </type>
          <identifying/>
       </attribute>
+      <reference>
+         <name>departing_from</name>
+         <type>airport</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>departure_airport_for</inverse>
+         <diagram>
+            <path>
+               <align><ToSrc/></align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Upside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>going_to</name>
+         <type>airport</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>arrival_airport_for</inverse>
+         <diagram>
+            <path>
+               <align><ToSrc/></align>
+               <label>
+                  <position>
+                     <Downside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
       <composition>
          <name>scheduled_as</name>
          <type>flight</type>
@@ -45,6 +95,7 @@
          <identifying/>
          <diagram>
             <path>
+               <alignTo>Src</alignTo>
                <label>
                   <position>
                      <Left/>
@@ -57,9 +108,9 @@
    <entity_type>
       <name>flight</name>
       <presentation>
-         <below>airline route</below>
+         <below>airline service</below>
          <y>0.5</y>
-         <w>2.6</w>
+         <w>2.7</w>
          <h>1.0</h>
       </presentation>
       <dependency>
@@ -67,7 +118,7 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>airline route</type>
+         <type>airline service</type>
          <inverse>scheduled as</inverse>
       </dependency>
       <attribute>
@@ -77,31 +128,14 @@
          </type>
          <identifying/>
       </attribute>
-      <composition>
-         <name>boarded_using</name>
-         <type>boarding pass</type>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <inverse>issued for</inverse>
-         <identifying/>
-         <diagram>
-            <path>
-               <label>
-                  <position>
-                     <Left/>
-                  </position>
-               </label>
-            </path>
-         </diagram>
-      </composition>
       <reference>
-         <name>scheduled_against</name>
-         <type>aircraft</type>
+         <name>leaving_from</name>
+         <type>gate</type>
          <cardinality>
             <ZeroOrOne/>
          </cardinality>
-         <inverse>allocated to</inverse>
+         <inverse>used by</inverse>
+         <identifying/>
          <diagram>
             <path>
                <label>
@@ -121,35 +155,43 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>aircraft</name>
+      <name>airport</name>
       <presentation>
-         <rightOf>flight</rightOf>
-         <x>2.4</x>
-         <w>3.0</w>
+         <rightOf>airline service</rightOf>
+         <x>3.0</x>
+         <w>2.7</w>
          <h>1.0</h>
       </presentation>
       <attribute>
-         <name>registration number</name>
+         <name>name</name>
          <type>
             <string/>
          </type>
          <identifying/>
       </attribute>
       <reference>
-         <name>allocated to</name>
-         <type>flight</type>
+         <name>departure_airport_for</name>
+         <type>airline service</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <inverse>scheduled against</inverse>
+         <inverse>departing_from</inverse>
+      </reference>
+      <reference>
+         <name>arrival_airport_for</name>
+         <type>airline service</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>going_to</inverse>
       </reference>
       <composition>
-         <name>made up of</name>
-         <type>seat</type>
+         <name>having</name>
+         <type>gate</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <inverse>on</inverse>
+         <inverse>at</inverse>
          <identifying/>
          <diagram>
             <path>
@@ -165,62 +207,20 @@
       </composition>
    </entity_type>
    <entity_type>
-      <name>boarding pass</name>
+      <name>gate</name>
       <presentation>
-         <below>flight</below>
-         <y>0.5</y>
-         <w>2.6</w>
+         <rightOf>flight</rightOf>
+         <below>airport</below>
+         <w>2.7</w>
          <h>1.0</h>
       </presentation>
       <dependency>
-         <name>issued for</name>
+         <name>at</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>flight</type>
-         <inverse>boarded_using</inverse>
-      </dependency>
-      <reference>
-         <name>issued for</name>
-         <type>seat</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <inverse>used via</inverse>
-         <identifying/>
-         <diagram>
-            <path>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-               </label>
-               <inverse>
-                  <label>
-                     <position>
-                        <Downside/>
-                     </position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name>seat</name>
-      <presentation>
-         <rightOf>boarding pass</rightOf>
-         <below>aircraft</below>
-         <w>2.0</w>
-         <h>1.0</h>
-      </presentation>
-      <dependency>
-         <name>on</name>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-         <type>aircraft</type>
-         <inverse>made up of</inverse>
+         <type>airport</type>
+         <inverse>having</inverse>
       </dependency>
       <attribute>
          <name>number</name>
@@ -230,12 +230,12 @@
          <identifying/>
       </attribute>
       <reference>
-         <name>used via</name>
-         <type>seat</type>
+         <name>used by</name>
+         <type>flight</type>
          <cardinality>
             <ZeroOneOrMore/>
          </cardinality>
-         <inverse>issued for</inverse>
+         <inverse>leaving_from</inverse>
       </reference>
    </entity_type>
 </entity_model>

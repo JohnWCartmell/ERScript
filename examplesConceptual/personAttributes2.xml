@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <entity_type>
+      <name>person</name>
+      <presentation>
+         <x>0</x>
+         <y>0</y>
+         <w>3.0</w>
+      </presentation>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>address</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>date of birth</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>nationality</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <attribute>
+         <name>passport number</name>
+         <type>
+            <string/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute>
+         <name>is married</name>
+         <type>
+            <boolean/>
+         </type>
+         <optional/>
+      </attribute>
+      <attribute>
+         <name>height</name>
+         <type>
+            <float/>
+         </type>
+         <optional/>
+      </attribute>
+   </entity_type>
+</entity_model>

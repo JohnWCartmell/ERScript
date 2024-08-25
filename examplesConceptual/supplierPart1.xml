@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.4</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>supplier</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>2.4</w>
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>supplier</type>
+      </dependency>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>address</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
+         <name>supplying</name>
+         <type>part</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>supplied by</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>part</name>
+      <presentation>
+         <below>supplier</below>
+         <y>0.5</y>
+         <w>2.4</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>supplied by</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>supplier</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>part number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>description</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>

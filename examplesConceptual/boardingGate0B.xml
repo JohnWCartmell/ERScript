@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0</deltaw>
+      </diagram>
+   </presentation>
+   <!-- <absolute>
+      <composition>
+         <type>airline service</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+      </composition>
+   </absolute>  -->
+   <entity_type>
+      <name>airline service</name>
+      <presentation>
+         <x>0</x>
+         <y>0.1</y>
+         <w>2.7</w>
+         <h>1.0</h>
+      </presentation>
+      <attribute>
+         <name>flight number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+</entity_model>
