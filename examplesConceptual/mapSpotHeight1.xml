@@ -3,11 +3,11 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
       <presentation>
       <diagram>
-         <deltaw>0.1</deltaw>
+         <deltaw>0.4</deltaw>
       </diagram>
    </presentation>
 
-   <entity_type>
+   <!-- <entity_type>
       <name>catalogue of maps</name>
       <presentation>
          <x>0.1</x>
@@ -31,21 +31,21 @@
             </path>
          </diagram>
       </composition>
-   </entity_type>
+   </entity_type> -->
    <entity_type>
       <name>map</name>
-      <presentation>
-         <below>catalogue of maps</below>
-         <y>0.5</y>
+      <presentation><!-- 
+         <below>catalogue of maps</below> -->
+         <y>0.1</y>
          <w>2.4</w>
       </presentation>
-      <dependency>
+      <!-- <dependency>
          <name></name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
          <type>map</type>
-      </dependency>
+      </dependency> -->
       <attribute>
          <name>title</name>
          <type>
@@ -60,7 +60,7 @@
          </type>
       </attribute>
       <composition>
-         <name>pinpoints</name>
+         <name>depicts</name>
          <type>spot height</type>
          <cardinality>
             <ZeroOneOrMore/>
