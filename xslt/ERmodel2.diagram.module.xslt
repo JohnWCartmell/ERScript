@@ -193,6 +193,18 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:variable name="conrel_height" select="0.7"/>
 <xsl:variable name="conrel_width" select="3.0"/>
 
+<!-- 04/09/2024 introduce variables for precise positioning and height of top rail
+   that represents the absolute. The design i sunchanged but the dimensions
+   are changed to accomadate text containing name of absolute in the top rail.
+   The design is that an et box is position outside of the diagram so that
+   only a rail (the bottom part of the box is visible)
+-->
+<xsl:variable name="absolute_box_placement_y" select="-0.25"/>
+                                         <!-- was 0.3 prior to 04/09/2024 -->
+<xsl:variable name="absolute_box_height" select="0.5"/>
+<xsl:variable name="absolute_text_y" select="0.2"/>
+<!-- end new variables 04/09/2024 -->
+
 <!-- ******************** -->
 <!-- ******************** -->
     <xsl:template match="@*|node()" mode="copyme">
@@ -354,6 +366,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
           <xsl:with-param name="p_grp_iseven" select="fn:false()"/>
        </xsl:call-template>
    </xsl:for-each>
+
+   <!-- 04/09/2024 I messed with the following then put back the way that it was -->
    <xsl:if test="absolute/presentation">
        <xsl:call-template name="titlebox">
           <xsl:with-param name="xcm" select="absolute/presentation/x"/>
@@ -363,9 +377,12 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
           <xsl:with-param name="title" select="concat('Model: ',absolute/name)"/>
        </xsl:call-template>
    </xsl:if>
+
    <xsl:for-each select="absolute">
        <xsl:call-template name="absolute"/>
    </xsl:for-each>
+ 
+
    <xsl:call-template name="wrap_relationships">
       <xsl:with-param name="relationships">
          <xsl:call-template name="relationship_content"/>
@@ -396,14 +413,28 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
              <xsl:with-param name="isgroup" select="false()"/>
              <xsl:with-param name="iseven" select="true()"/>
              <xsl:with-param name="xcm" select="0" />
-             <xsl:with-param name="ycm" select="-0.3" />
+             <xsl:with-param name="ycm" select="$absolute_box_placement_y" />
+                                                         <!-- 02/09/2024 -->
+                                                         <!-- changed from -0.3 -->
              <xsl:with-param name="wcm" select="$diagramWidth" />
-             <xsl:with-param name="hcm" select="0.5" />
+             <xsl:with-param name="hcm" select="0.5" />  
              <!--<xsl:with-param name="shape" select="nonesuchthingy" />-->
           </xsl:call-template>
       </xsl:with-param>
    </xsl:call-template>
-</xsl:template>
+   <!-- added 04/09/2024 -->
+   <xsl:variable name="width_of_name">
+      <xsl:value-of select="string-length(name) * $charlen"/> 
+   </xsl:variable>
+    <xsl:call-template name="ERtext">
+       <xsl:with-param name="x" select="($diagramWidth div 2) - ($width_of_name div 2)"/>
+       <xsl:with-param name="y" select="$absolute_text_y"/>
+       <xsl:with-param name="xsign" select="1"/>
+       <xsl:with-param name="pText" select="name"/>
+       <xsl:with-param name="class" select="'etname'"/>
+    </xsl:call-template>
+    <!-- end added -->
+</xsl:template>                                         
 
 <xsl:template name="relationship_content" match="entity_model">   
   <xsl:for-each select="//entity_type|absolute">
@@ -1001,7 +1032,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:value-of select="presentation/h"/>
       </xsl:when>
       <xsl:when test="name()='absolute'">
-	 <xsl:value-of select="0.5"/>
+	 <xsl:value-of select="$absolute_box_height"/>  
+                           <!-- was literally 0.5 before 04/09/2024 -->
       </xsl:when>
       <xsl:when test="entity_type|group">  
 	 <xsl:variable name="yLowerArray" as="xs:double *">
@@ -1193,10 +1225,11 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	     <xsl:choose>
 		<xsl:when test="presentation/(yt|ym|yl)/relative/d">
 		   <xsl:value-of select="presentation/(yt|ym|yl)/relative/d + $relativisinget_y + ($height * $srcRatio)"/>
-                                                                                        <!--  15 Aug was $destRatio -->
+                               <!--  15 Aug was $destRatio-->
 		</xsl:when>
 		<xsl:otherwise>
-		   <xsl:value-of select="$relativisinget_y - ($height * $srcRatio)"/>    <!-- 15 Aug was $destRatio -->
+		   <xsl:value-of select="$relativisinget_y - ($height * $srcRatio)"/>
+                             <!-- 15 Aug was $destRatio -->
 		</xsl:otherwise>
 	    </xsl:choose>
 	 </xsl:when>
@@ -1288,7 +1321,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:if>
    <xsl:choose>
       <xsl:when test="name()='absolute'">
-	 <xsl:value-of select="-0.3"/>
+	 <xsl:value-of select="-0.25"/>  <!-- ??? changed from -0.3 ??? 04/09/2024-->
       </xsl:when>
       <xsl:when test="presentation/yt/abs">
 	 <xsl:if test="$scheme='LOCAL' and (parent::entity_type | parent::group)">
