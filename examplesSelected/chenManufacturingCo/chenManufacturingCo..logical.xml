@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
-   <absolute>
+   <absolute name="Chen '76 Manufacturing Company">
       <composition type="department*"/>
       <composition type="project*"/>
       <composition type="part*"/>

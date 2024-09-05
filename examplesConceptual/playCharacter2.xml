@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.4</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>2.7</w>
+      </presentation>
+      <dependency>
+         <name></name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>play</type>
+      </dependency>
+      <attribute>
+         <name>title</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <composition>
+         <name>having</name>
+         <type>character</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>within</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <below>play</below>
+         <y>0.5</y>
+         <w>2.7</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>within</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>play</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+</entity_model>

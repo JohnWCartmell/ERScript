@@ -6,6 +6,7 @@
       </diagram>
    </presentation>
    <absolute>
+      <name>a car hire company</name>
       <composition>
          <type>customer</type>
          <cardinality>

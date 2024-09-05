@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <absolute>
-      <name>Chen 76 Manufacturing Company</name>
+      <name>Chen '76 Manufacturing Company</name>
       <composition>
          <cardinality>
             <OneOrMore/>

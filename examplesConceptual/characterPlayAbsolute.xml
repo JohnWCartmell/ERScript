@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <!-- <deltaw>0.1</deltaw> -->
+      </diagram>
+   </presentation>
+   <absolute>
+      <name>playwright</name>
+      <composition>
+         <name>author of</name>
+         <type>play</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <identifying/>
+         <inverse>context</inverse>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <y>1.3</y>
+         <w>2.7</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>context</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>playwright</type>
+         <inverse>author of</inverse>
+      </dependency>
+      <composition>
+         <name>having</name>
+         <type>character</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <identifying/>
+         <inverse>within</inverse>
+      </composition>
+      <attribute>
+         <name>title</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <below>play</below>
+         <w>2.7</w>
+         <h>1.0</h>
+      </presentation>
+      <dependency>
+         <name>within</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>play</type>
+         <inverse>having</inverse>
+      </dependency>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+</entity_model>
