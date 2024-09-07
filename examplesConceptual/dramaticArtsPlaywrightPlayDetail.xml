@@ -7,34 +7,39 @@
       </diagram>
    </presentation>
    <absolute>
-      <name>play</name>
+      <name>playwright</name>
       <composition>
-         <name>having</name>
-         <type>character</type>
+         <name>writer_of</name>
+         <type>play</type>
          <cardinality>
-            <ZeroOneOrMore/>
+            <OneOrMore/>
          </cardinality>
          <identifying/>
-         <inverse>within</inverse>
+         <inverse>written_by</inverse>
+         <diagram>
+            <path>
+               <label><position><Left/></position></label>
+            </path>
+         </diagram>
       </composition>
    </absolute>
    <entity_type>
-      <name>character</name>
+      <name>play</name>
       <presentation>
-         <y>1.3</y>
+         <y>1.4</y>
          <w>2.7</w>
          <h>1.0</h>
       </presentation>
       <dependency>
-         <name>within</name>
+         <name>written_by</name>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-         <type>play</type>
-         <inverse>having</inverse>
+         <type>playwright</type>
+         <inverse>writer_of</inverse>
       </dependency>
       <attribute>
-         <name>name</name>
+         <name>title</name>
          <type>
             <string/>
          </type>
