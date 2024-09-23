@@ -39,18 +39,19 @@
          </cardinality>
          <type>employee</type>
          <inverse>subject of</inverse>
+         <identifying/>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
                <label>
                   <position>
-                     <Upside/>
+                     <Downside/>
                   </position>
                </label>
                <inverse>
                   <label>
                      <position>
-                        <Downside/>
+                        <Upside/>
                      </position>
                   </label>
                </inverse>
@@ -64,18 +65,19 @@
          </cardinality>
          <type>project</type>
          <inverse>resourced by</inverse>
+         <identifying/>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
                <label>
                   <position>
-                     <Upside/>
+                     <Downside/>
                   </position>
                </label>
                <inverse>
                   <label>
                      <position>
-                        <Downside/>
+                        <Upside/>
                      </position>
                   </label>
                </inverse>

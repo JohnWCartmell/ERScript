@@ -24,17 +24,23 @@
          <reference name="managed by" type="employee" inverse="managing"/>
       </entity_type>
       <entity_type name="project_worker_assignment">
-         <context name="assignment_of" type="employee"/>
-         <context name="assignment_to" type="project"/>
+         <identifying>
+            <context name="assignment_of" type="employee"/>
+            <context name="assignment_to" type="project"/>
+         </identifying>
       </entity_type>
       <entity_type name="part used_on project">
          <composition name="able to be_sourced via" type="part supply option*" inverse="option for_supply of"/>
-         <context name="use by" type="project"/>
-         <context name="use of" type="part"/>   
+         <identifying>
+            <context name="use by" type="project"/>
+            <context name="use of" type="part"/>
+         </identifying>   
       </entity_type>
       <entity_type name="part supply option">
-         <context name="option for_supply of" type="part used_on project"/> 
-         <context name="option to_aquire from" type="supplier"/>
+         <identifying>
+            <context name="option for_supply of" type="part used_on project"/> 
+            <context name="option to_aquire from" type="supplier"/>
+         </identifying>
       </entity_type>
       <entity_type name="part">
          <composition name = "subject_of" type="part used_on project*" inverse="use of"/>

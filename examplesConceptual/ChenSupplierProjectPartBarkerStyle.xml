@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <defaults>
+      <et_width>1.6</et_width>
+      <et_y_separation>0.6</et_y_separation>
+   </defaults>
+   <entity_type>
+      <name>project</name>
+      <presentation>
+         <x>0.4</x>
+         <y>0.2</y>
+      </presentation>
+      <composition>
+         <!-- <name></name> -->
+         <inverse></inverse>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>supp-proj_-part</type>
+         <diagram><path><!-- <srcarmlen>0.1</srcarmlen> --></path></diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>supplier</name>
+      <presentation>
+         <rightOf>project</rightOf>
+         <x>1.4</x>
+         <y>0.8</y>
+      </presentation>
+   </entity_type>
+      <entity_type>
+      <name>part</name>
+      <presentation>
+         <rightOf>supplier</rightOf>
+         <x>0.85</x>
+         <y>0.7</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>supp-proj_-part</name>
+      <presentation>
+         <below>project</below>
+         <name><Split/></name>
+         <y>1.0</y>     <!-- good value 0.4 0.5 -->
+         <deltah>0.2</deltah>
+      </presentation>
+      <dependency>
+        <!--  <name></name> -->
+         <inverse></inverse>
+         <type>project</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <identifying/>
+      </dependency>
+      <reference>
+         <type>supplier</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <srcarmlen>0.5</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <type>part</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.7</srcattach>
+               <srcarmlen>1.75</srcarmlen>
+               <destarmlen>0.75</destarmlen>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+
+</entity_model>
