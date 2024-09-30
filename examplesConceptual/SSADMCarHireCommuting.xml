@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>0.3</deltaw>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>customer</name>
+      <presentation>
+         <x>1.5</x>
+         <y>0.1</y>
+         <h>0.6</h>
+         <w>2.0</w>
+         <shape><Top/></shape>
+      </presentation>
+      <dependency>
+         <name>xxx</name>
+         <cardinality><ExactlyOne/></cardinality>
+      </dependency>
+      <composition>
+         <!-- <name>sender of</name> -->
+         <type>payment</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>sent by</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.25</srcattach>
+               <label>
+                  <position><Left/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <type>booking_/invoice</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>made by</inverse>
+         <diagram>
+            <path>
+               <srcattach>0.75</srcattach>
+               <destarmlen>2.0</destarmlen>
+               <!-- <destattach>0.4</destattach> -->
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>payment</name>
+      <dependency>
+         <name>sent by</name>
+         <type>customer</type>
+         <!-- <inverse>sender of</inverse> -->
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <composition>
+         <!-- <name>split into</name> -->
+         <type>allocated_payment</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>part of</inverse>
+         <diagram>
+            <path>
+               <srcarmlen>0</srcarmlen>
+               <destarmlen>0</destarmlen>
+               <label>
+                  <position><Left/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Left/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+      <presentation>
+         <below>customer</below>
+         <x>-1.5</x>
+         <y>0.6</y>
+         <h>0.6</h>
+         <shape><MiddleLeft/></shape>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>allocated_payment</name>
+      <dependency>
+         <name>part of</name>
+         <type>payment</type>
+         <!-- <inverse>split into</inverse> -->
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+      <reference>
+         <name>made to</name>
+         <type>booking_/invoice</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <srcarmlen>0.3</srcarmlen>
+            </path>
+         </diagram>
+      </reference>
+      <presentation>
+         <below>payment</below>
+         <y>0.6</y>
+         <h>0.92</h>
+         <name><Split/></name>
+         <shape><BottomLeft/></shape>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>booking_/invoice</name>
+      <presentation>
+         <rightOf>allocated_payment</rightOf>
+         <x>1.6</x>
+         <w>1.7</w>
+         <!-- <h>3.2</h> -->
+         <name><Split/></name>
+         <shape><BottomRight/></shape>
+      </presentation>
+      <dependency>
+         <name>made by</name>
+         <type>customer</type>
+         <inverse>maker of</inverse>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+   </entity_type>
+</entity_model>

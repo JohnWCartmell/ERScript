@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.1</deltah>
+      </diagram>
+   </presentation> <entity_type>
+      <name>play</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.3</y>
+         <h>0.9</h>
+      </presentation>
+      <!-- <attribute><name>title</name><type><string/></type><identifying/></attribute> -->
+      <reference>
+         <name>given_in</name>
+         <type>play</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>of</inverse>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>production</name>
+      <presentation>
+         <rightOf>play</rightOf>
+         <x>1.7</x>
+         <h>0.9</h>
+      </presentation>
+      <attribute><name>season</name><type><string/></type><identifying/></attribute>
+      <reference>
+         <name>of</name>
+         <type>play</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>given_in</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label><position><Upside/></position></label>
+               <inverse>
+                  <label><position><Upside/></position></label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>at</name>
+         <type>venue</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>the_location_of</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label><position><Upside/></position></label>
+               <inverse>
+                  <label><position><Upside/></position></label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>venue</name>
+      <presentation>
+         <rightOf>production</rightOf>
+         <x>1.65</x>
+         <h>0.9</h>
+      </presentation>
+      <!-- <attribute><name>name</name><type><string/></type><identifying/></attribute> -->
+      <reference>
+         <name>the_location_of</name>
+         <type>production</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>at</inverse>
+      </reference>
+   </entity_type>
+
+</entity_model>

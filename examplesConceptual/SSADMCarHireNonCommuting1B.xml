@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltaw>0.5</deltaw>
+         <deltah>0.1</deltah>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>local_office</name>
+      <presentation>
+         <x>5.0</x>
+         <y>0.1</y>
+         <h>0.86</h>
+         <name><Split/></name>
+         <shape><Top/></shape>
+      </presentation>
+      <composition>
+         <type>vehicle</type> 
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>based_at</inverse>
+         <diagram>
+            <path>
+               <destattach>0.45</destattach>
+               <align><ToDest/></align>
+               <label>
+                  <position><Left/></position>
+                  <xAdjustment>0.05</xAdjustment>
+                  <yAdjustment>-0.1</yAdjustment>
+               </label>
+               <inverse>
+                  <label>
+                     <xAdjustment>-0.05</xAdjustment>
+                     <!-- <yAdjustment>0.1</yAdjustment> -->
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>booking_/invoice</name>
+      <presentation>
+         <x>0.1</x>
+         <y>2.7</y>
+         <w>1.7</w>
+         <h>0.86</h>
+         <name><Split/></name>
+         <shape><BottomLeft/></shape>
+      </presentation>
+      <reference>
+         <name>from_and to</name>
+         <type>local_office</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <srcarmlen>1.25</srcarmlen>
+               <srcattach>0.3</srcattach>
+               <destarmlen>0.2</destarmlen>
+               <label>
+                  <position><Upside/></position>
+                  <!-- <xAdjustment>-0.05</xAdjustment> -->
+                  <!-- <yAdjustment>0.1</yAdjustment> -->
+               </label>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>user of</name>
+         <type>vehicle</type>
+         <cardinality>
+            <ZeroOrOne/>
+         </cardinality>
+         <diagram>
+            <path>
+               <!-- <srcarmlen>1.5</srcarmlen> -->
+               <srcattach>0.7</srcattach>
+               <align><ToSrc/></align>
+               <label>
+                  <position><Downside/></position>
+                  <!-- <xAdjustment>-0.05</xAdjustment> -->
+                  <!-- <yAdjustment>-0.075</yAdjustment> -->
+               </label>>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle</name>
+      <presentation>
+         <below>local_office</below>
+         <rightOf>booking_/invoice</rightOf>
+         <y>0.2</y>
+         <h>0.66</h>
+         <name><Split/></name>
+         <shape><BottomRight/></shape>
+      </presentation>
+      <dependency>
+         <name>based_at</name>
+         <type>local_office</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+      </dependency>
+   </entity_type>
+</entity_model>
