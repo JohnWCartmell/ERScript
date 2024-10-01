@@ -2,7 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
               ERScriptVersion="1.6"
               metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
-   <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different.
+   <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different. 01/10/2024 Modify cardinalities of all compositions to be OneOrMore.
    </description>
    <absolute name="cricket">
       <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?">
@@ -14,8 +14,8 @@
       <identifying>
          <attribute name="id" type="string"/>
       </identifying>
-      <composition type="innings*"/>
-      <composition type="side*" />
+      <composition type="innings+"/>
+      <composition type="side+" />
    </entity_type>
 
    <entity_type name="innings">
@@ -23,7 +23,7 @@
          <context type="match"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <composition type="over*"/>
+      <composition type="over+"/>
       <reference name="battingSide" type="side" diagonal=".." riser=".."/>
       <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
    </entity_type>
@@ -32,7 +32,7 @@
          <context type="match"/>
          <attribute name="name" type="string"/>
       </identifying>
-      <composition type="player*"/>
+      <composition type="player+"/>
    </entity_type>
 
    <entity_type name="over">
@@ -40,7 +40,7 @@
          <context type="innings"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <composition type="delivery*"/>
+      <composition type="delivery+"/>
       <reference name="bowler" type="player" diagonal="../fieldingSide" riser=".."/>
    </entity_type>
    <entity_type name="player">
