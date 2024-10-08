@@ -115,8 +115,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
 
-
-
 <xsl:template name="physical_enrichment">
    <xsl:param name="document"/>
    <xsl:message>In ERmodel2.physical_enrichment.module.xslt </xsl:message>
@@ -146,7 +144,6 @@ CR20616 BA  18-Jul-2017 Do not copy xmlRepresentation in implementing attributes
 </xsl:template>
 
             
-
 <xsl:template match="@*|node()" mode="first_physical_pass">
     <xsl:if test="self::Anonymous">
         <xsl:message>Copy Anon first physical pass <xsl:value-of select="@*"/></xsl:message>

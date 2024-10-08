@@ -49,7 +49,7 @@
             id:string             # defined as id of inverse composition
 
      reference =>
-            id:string             # a short id of form S<n> for some n
+            id:string             # a short id of form p<n> for some n, some prefix p
             scope_display_text : string r,;
                                  # text presentation of the scope constraint
                                  # using ~/<riser text>=<diag text>
@@ -164,7 +164,7 @@
         <xsl:variable name="numeric">
             <xsl:choose>
                 <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
-                    <xsl:number count="composition|reference" level="any" />
+                    <xsl:number count="composition|reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]" level="any" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:number count="composition" level="any" />
@@ -191,8 +191,13 @@
 </xsl:template>
 
 
+<!-- a reference and its inverse need be given the same id -->
+<!-- first allocate id to a reference that precedes its inverse in the document -->
+<!-- in the next pass allocate an id equal to the id of the inverse -->
 <xsl:template match="reference
-                     [not(id)]" 
+                     [not(id)]
+                     [. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]
+                     " 
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
@@ -205,10 +210,10 @@
         <xsl:variable name="numeric">
             <xsl:choose>
                 <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
-                    <xsl:number count="composition|reference" level="any" />
+                    <xsl:number count="composition|(reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))])" level="any" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:number count="reference" level="any" />
+                    <xsl:number count="reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]" level="any" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -217,6 +222,21 @@
        </id>
     </xsl:copy>
 </xsl:template>
+
+<!-- This  will be the second pass -->
+<xsl:template match="reference
+                     [not(id)]
+                     [key('ReferenceBySrcTypeAndName',concat(type,':',inverse))/id]
+                    "
+              mode="documentation_enrichment_recursive"  priority="1">
+   <xsl:copy>
+       <id>
+          <xsl:value-of select="key('ReferenceBySrcTypeAndName',concat(type,':',inverse))/id"/>
+       </id>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+    </xsl:copy>
+</xsl:template>
+
 
 <xsl:template match="attribute
                      [not(id)]" 

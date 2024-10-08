@@ -3,8 +3,6 @@
    <presentation>
       <diagram>
          <deltah>0.5</deltah>
-         <dependency_relid_prefix>d</dependency_relid_prefix>
-         <reference_relid_prefix>r</reference_relid_prefix>
       </diagram>
    </presentation>
    <entity_type>

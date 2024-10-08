@@ -46,8 +46,11 @@ and when relids switch is passed in
  9. I notice there appears to be gaps in the allocations of numbers to reference relationships. 
  This come about because numbers afre being allocated to the inverses of reference relationships which are of course themselves reference relationships. Not sure if these relids to inverses ever get used.
  It would be good if we could get rid of thes gaps. In a physical model can rely on which references have
- implementations by reference attributes. There can be one-to-one relationships in which cardinality doesn't decide which end id which. There must be some logic in logical2physical that breaks this tie.
- Perhaps should get the tie broken once in enrichment and then used in logical2phsyical and also in allocation of numbers to relids.
+ implementations by reference attributes. There can be one-to-one relationships in which cardinality doesn't decide which end id which. There doesnt seem to be any logic in logical2physical that breaks this tie and this might come back to bite us at some point.
+ The answer from the relids point of view is to give a reference relationship the same relid as its inverse.
+
+
+10. Note that at the time relids are being generated then there is no information as to how or which ones will be presented on any subsequent diagram. We cannot expect that the ones shown on the diagram will be nicely numbered R1,R2,R3,.. or whatever. One way around this is to specify relids in the logical model for those that we know we intend to display on the diagram.
 
 ### Proposal 
 1. Modify buildExampleSVG.ps1 to pass all switches through to genSVG.ps1.
@@ -80,32 +83,20 @@ and when relids switch is passed in
     - implement the relid_condition  in template "render_relid"
       of ERmodel2.diagram.module.xslt.
 9. Generation of relids, where absent, implement support for reference_relid_prefix and dependency_relid_prefix in  ERmodel2.documentation_enrichment.module.xslt to implement the above when generating relids.
-   - Note that at the time relids are being generated then there is no information as to how or which ones will be presented on any subsequent diagram. We cannot expect that the ones shown on the diagram will be nicely numbered R1,R2,R3,.. or whatever. One way around this is to specify relids in the logical model for those that we know we intend to display on the diagram.
+Add logic to give the same id to reference relationships and inverses.
+Warning: This means relationship ids will never be identifying. 
 
 ### Testing
 
-1. Build goodlandSSADMcarHire example with relids. In presentation specify
+1. Build goodlandSSADMcarHire example with relids. 
+Unit test by specifying all the various different options.
 
-2. Recode the chromatogram analysis record (car) example to have two distinct presentations 
-    one for the logical model and one for the phsyical model.
-    Specify the logical model to have  
+2. Return the example back to default with no conditions specified.
 
-        reference_relid_condition = AllInvolvedInScopes
-        reference_relid_prefix = 'r'
-        dependency_relid_condition = AllInvolvedInScopes
-        dependency_relid_prefix = 'd'
-    Specify the physical model to have  
+2. Get on writing the book and see how the new look works in practice.
 
-        reference_relid_condition = All
-        reference_relid_prefix = 'R'
-        dependency_relid_condition = None
-        dependency_relid_prefix = 'na'
+### Completion Date.
+8 October 2024
 
-    * Test that we get lower 'r' in logical and upper 'R' in physical.
-    * note that upper case R looks better I think for these parenthetics next to referential attributes.
-2. Print out this diagram to see that relids look ok on printed page.
-3. Get on writing the book and see how the new look works in practice.
-
-### Completion Date
 
 
