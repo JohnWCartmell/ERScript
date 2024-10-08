@@ -18,7 +18,7 @@
             id:string             # a short id of form R<n> for some n
 
     attribute => 
-            id:string             # a short id of form R<n> for some n
+            id:string             # a short id of form A<n> for some n
 -->
 
 <xsl:transform version="2.0" 
@@ -155,9 +155,24 @@
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
-       <id>
-          <xsl:text>S</xsl:text>  <!-- S for structure -->
-          <xsl:number count="composition" level="any" />
+        <xsl:variable name="dependency_relid_prefix" as="xs:string" 
+                     select="if(/entity_model/presentation/diagram/dependency_relid_prefix) 
+                             then /entity_model/presentation/diagram/dependency_relid_prefix else 'd'"/>
+       <xsl:variable name="reference_relid_prefix" as="xs:string" 
+                     select="if(/entity_model/presentation/diagram/reference_relid_prefix) 
+                             then /entity_model/presentation/diagram/reference_relid_prefix else 'r'"/>
+        <xsl:variable name="numeric">
+            <xsl:choose>
+                <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
+                    <xsl:number count="composition|reference" level="any" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:number count="composition" level="any" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <id>
+          <xsl:value-of select="$dependency_relid_prefix || $numeric"/>        
        </id>
     </xsl:copy>
 </xsl:template>
@@ -181,9 +196,24 @@
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+        <xsl:variable name="dependency_relid_prefix" as="xs:string" 
+                     select="if(/entity_model/presentation/diagram/dependency_relid_prefix) 
+                             then /entity_model/presentation/diagram/dependency_relid_prefix else 'd'"/>
+       <xsl:variable name="reference_relid_prefix" as="xs:string" 
+                     select="if(/entity_model/presentation/diagram/reference_relid_prefix) 
+                             then /entity_model/presentation/diagram/reference_relid_prefix else 'r'"/>
+        <xsl:variable name="numeric">
+            <xsl:choose>
+                <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
+                    <xsl:number count="composition|reference" level="any" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:number count="reference" level="any" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <id>
-          <xsl:text>R</xsl:text>
-          <xsl:number count="reference" level="any" />
+          <xsl:value-of select="$reference_relid_prefix || $numeric"/>        
        </id>
     </xsl:copy>
 </xsl:template>

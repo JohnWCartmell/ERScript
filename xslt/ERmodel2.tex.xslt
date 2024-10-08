@@ -61,7 +61,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 		<xsl:value-of select="$diagramWidth"/>
 		<xsl:text>}</xsl:text>
 		<xsl:call-template name="newline"/>
-		<xsl:if test="$debug!=''">
+		<xsl:if test="$debugOn">
 			<xsl:text>\psgrid</xsl:text>
 			<xsl:call-template name="newline"/>
 		</xsl:if>
@@ -417,9 +417,9 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
                 match="constructed_relationship|composition|reference">
       <xsl:param name="line" as="element(line)"/>
       <xsl:param name="is_mandatory" as="xs:boolean"/>
-<xsl:message>render_half  is_mandatory'<xsl:value-of select="$is_mandatory"/>'</xsl:message>
+<!-- <xsl:message>render_half  is_mandatory'<xsl:value-of select="$is_mandatory"/>'</xsl:message> -->
       <xsl:for-each select="$line/point[exists(following-sibling::point)]">
-      	<xsl:message> call line_section</xsl:message>
+      	<!-- <xsl:message> call line_section</xsl:message> -->
 	      <xsl:call-template name="line_section">
 	      	<xsl:with-param name="x0cm" select="substring(x,1,5)"/>
 					<xsl:with-param name="y0cm" select="substring(y,1,5)"/>
@@ -428,7 +428,7 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 					<xsl:with-param name="p_ismandatory" select="$is_mandatory"/>
 				</xsl:call-template>
       </xsl:for-each>
-      <xsl:message>end render_half</xsl:message>
+      <!-- <xsl:message>end render_half</xsl:message> -->
   </xsl:template>
 
 	<xsl:template name="line_section" match="constructed_relationship|composition|reference">   

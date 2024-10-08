@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <absolute>
+      <composition type="customer*" inverse="xxx"/>
+      <composition type="local_office*" inverse="xxx"/>
+      <composition type="vehicle_category*" inverse="xxx"/>
+   </absolute>
+   <entity_type name="customer">
+      <composition name="sender of" type="payment*" inverse="sent by"/>
+      <composition name="maker of" type="booking_/invoice*" inverse="made by"/>
+   </entity_type>
+   <entity_type name="payment">
+      <composition name="split into" type="allocated_payment*" inverse="part of"/>
+   </entity_type>
+   <entity_type name="allocated_payment">
+      <reference name="made to" type="booking_/invoice" inverse="paid_for by"/>
+   </entity_type>
+   <entity_type name="booking_/invoice">
+      <reference name="paid_for by" type="allocated_payment*" inverse="made to"/>
+      <reference name="from_and to" type="local_office" inverse="start and end of"/>
+      <reference name="driven by" type="driver?" inverse="driver_for"/>
+      <reference name="user of" type="vehicle?" inverse="used_for"/>
+      <reference name="requiring" type="vehicle_category" inverse="required_for"/>
+   </entity_type>
+   <entity_type name="local_office">
+      <composition name="employer_of" type="driver*" inverse="employed_at"/>
+      <composition name="base of" type="vehicle*" inverse="based_at"/>
+      <reference name="start and end of"
+                  type="booking_/invoice*"
+                  inverse="to and from"/>
+   </entity_type>
+   <entity_type name="vehicle_category">
+      <reference name="required_for" type="booking_/invoice*" inverse="requiring"/>
+      <reference name="classifier of" type="vehicle*" inverse="classified by"/>
+   </entity_type>
+   <entity_type name="driver">
+      <reference name="driver_for" type="booking_/invoice*" inverse="driven by"/>
+   </entity_type>
+   <entity_type name="vehicle">
+      <reference name="classified by"
+                  type="vehicle_category"
+                  inverse="classifier of"/>
+      <reference name="used_for" type="booking_/invoice*" inverse="user of"/>
+   </entity_type>
+</entity_model>

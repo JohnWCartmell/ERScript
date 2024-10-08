@@ -93,6 +93,10 @@ CHANGE HISTORY
           <feFlood flood-color="#FFFFCC"/>
           <feComposite in="SourceGraphic" />
         </filter>
+        <filter x="-0.05" y="-0.05" width="1.1" height="1.1" id="border">
+          <feFlood flood-color="gray"/>
+          <feComposite in="SourceGraphic"/>
+        </filter>
       </defs>
       <xsl:copy-of select="$content"/>
     </xsl:element>

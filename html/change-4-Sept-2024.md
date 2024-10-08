@@ -1,5 +1,5 @@
 
-## 1 August 2024
+## 4 September 2024
 Change ER2.diagram to render the name of absolute (the name of the model therefore) in the rail respresenting absolute at the top of a diagram.
 
 ### Rationale

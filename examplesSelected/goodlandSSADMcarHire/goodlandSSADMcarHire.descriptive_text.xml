@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <absolute>
+      <name>a car hire company</name>
+      <description>An entity type..</description>
+      <composition>
+         <type>customer</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>local_office</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <type>vehicle_category</type>
+         <description>.</description>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>customer</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>xxx</name>
+         <description>.</description>
+      </dependency>
+      <composition>
+         <name>sender of</name>
+         <type>payment</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>maker of</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>payment</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>sent by</name>
+         <type>customer</type>
+         <description>.</description>
+      </dependency>
+      <composition>
+         <name>split into</name>
+         <type>allocated_payment</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>allocated_payment</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>part of</name>
+         <type>payment</type>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>made to</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>booking_/invoice</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>made by</name>
+         <type>customer</type>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>paid_for by</name>
+         <type>allocated_payment</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>from_and to</name>
+         <type>local_office</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>driven by</name>
+         <type>driver</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>user of</name>
+         <type>vehicle</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>requiring</name>
+         <type>vehicle_category</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>local_office</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>xxx</name>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>start and end of</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </reference>
+      <composition>
+         <name>employer_of</name>
+         <type>driver</type>
+         <description>.</description>
+      </composition>
+      <composition>
+         <name>base of</name>
+         <type>vehicle</type>
+         <description>.</description>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>vehicle_category</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>xxx</name>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>required_for</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>classifier of</name>
+         <type>vehicle</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>driver</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>employed_at</name>
+         <type>local_office</type>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>driver_for</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle</name>
+      <description>An entity type..</description>
+      <dependency>
+         <name>based_at</name>
+         <type>local_office</type>
+         <description>.</description>
+      </dependency>
+      <reference>
+         <name>classified by</name>
+         <type>vehicle_category</type>
+         <description>.</description>
+      </reference>
+      <reference>
+         <name>used_for</name>
+         <type>booking_/invoice</type>
+         <description>.</description>
+      </reference>
+   </entity_type>
+</entity_model>

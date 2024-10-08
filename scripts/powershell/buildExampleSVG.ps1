@@ -3,6 +3,8 @@
 
 # run this from the folder which has the src xml file
 
+# 01/10/2024 Complete the implementation of the flags $xpath, $bundle, $trace, $scopes, $relids
+
 Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$filenameOrFilenamePrefix,
@@ -66,14 +68,24 @@ echo ('buildExampleSVG.ps1: diagram source is' + $diagramSource)
 #  LOGICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $texOutputFolderOption = if($TEXOUTPUTFOLDER -ne ''){' -texOutputFolder '}{''}
+$xpathOption = if($xpath){' -xpath '}{''}
+$bundleOption = if($bundle){' -bundle '}{''}
 $animateOption = if($animate){' -animate '}{''}
 $debugswitchOption = if($debugswitch){' -debugswitch'}{''}
+$traceOption = if($trace){' -trace '}{''}
+$scopesOption = if($scopes){' -scope '}{''}
+$relidsOption = if($relids){' -relids '}{''}
 
 powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" `
                + ' -outputFolder ' + $svgOutputFolder `
                + "$texOutputFolderOption" + $texOutputFolder `
-               + "$animateOption"                     `
-               + $debugswitchOption)
+               + $xpathOption                         `
+               + $bundleOption                        `
+               + $animateOption                     `
+               + $debugswitchOption                  `
+               + $traceOption                         `
+               + $scopesOption                        `
+               + $relidsOption)                         
 
 java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..report.html
 

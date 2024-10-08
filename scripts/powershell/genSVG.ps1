@@ -78,5 +78,9 @@ if($texOutputFolder -ne '')
         java -jar $SAXON_JAR -s:$pathToSourceXMLfile             `
                              -xsl:$ERHOME\xslt\ERmodel2.tex.xslt `
                              -o:$texOutputFolder\$texFilename    `
-                             filestem=$filenamebase 
+                             filestem=$filenamebase              `
+                             debug=$(If ($debugswitch){'y'}Else{'n'}) `
+                             trace=$(If ($trace){'y'}Else{'n'})  `
+                             scopes=$(If ($scopes){'y'}Else{'n'}) `
+                             relids=$(If ($relids){'y'}Else{'n'})
     }

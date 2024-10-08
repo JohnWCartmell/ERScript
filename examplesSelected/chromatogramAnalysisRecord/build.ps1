@@ -38,6 +38,7 @@ echo 'build physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 chromatogram_analysis_record `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
+                             -relids -scope                    `
                               -animate -physicalType h -longSeparator _ -shortSeparator _ 
 
 echo 'Run ER.instanceValidation.xslt on physical model'

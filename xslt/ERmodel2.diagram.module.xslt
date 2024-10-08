@@ -1,11 +1,3 @@
-<!-- 
-****************************************************************
-ERmodel_v1.2/src/ERmodel2.diagram.module.xslt 
-****************************************************************
-
-****************************************************************
--->
-
 <!--
 ****************************
 ERmodel2.diagram.module.xslt
@@ -155,6 +147,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:variable name="relLabelxSeparation" select="0.15"/>  <!-- 06/02/2019 What if .. changed from 0.1 -->
 <xsl:variable name="relLabelySeparation" select="0.15"/>  <!-- 06/02/2019 What if .. changed from 0.1 -->
 <xsl:variable name="relLabelLineHeight" select="0.3"/>
+<xsl:variable name="relIdTextHeight" select="0.18"/>
 <xsl:variable name="arcDefaultWidthRatio" select="0.8"/>
 <xsl:variable name="arcDefaultOffset" select="0.2"/>
 <xsl:variable name="arcHeight" select="0.2"/>
@@ -3583,9 +3576,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                            -->
    <xsl:variable  name="inverseMandatory" as="xs:boolean"
                   select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
-<xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
+<!-- <xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
 <xsl:message>$inverse is '<xsl:copy-of select="$inverse"/>'</xsl:message>               
-<xsl:message>$inverseMandatory is '<xsl:value-of select="$inverseMandatory"/>'</xsl:message>
+<xsl:message>$inverseMandatory is '<xsl:value-of select="$inverseMandatory"/>'</xsl:message> -->
     <!-- change to call render_half_of_relationship (in 2svg) -->
     <xsl:call-template name="render_half_of_relationship">
       <xsl:with-param name="line" select="$source_to_midpoint"/>
@@ -3640,50 +3633,45 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:param name="midpointx"/>
       <xsl:param name="midpointy"/>
       <xsl:param name="sign"/>
-        <xsl:variable name="rel_id" 
+      <xsl:message>In "render_relid"</xsl:message>
+      <xsl:variable name="rel_id" 
               select="(ancestor::reference|ancestor::composition|.)/id" />
-     <xsl:if test="not($rel_id='') and key('whereImplemented',concat(ancestor-or-self::reference/concat(../name,':',name),
-                                                                     ancestor-or-self::composition/concat(type,':',inverse)
-                                                                    )
-                                          )">
-      <!-- <xsl:message>render_relid ... rel of type '<xsl:value-of select="type"/>'  midpointx '<xsl:value-of select="$midpointx"/>'</xsl:message> -->
-        <xsl:call-template name="drawText">
-             <xsl:with-param name="text" select="$rel_id"/>
-             <xsl:with-param name="class" select="'relid'"/>  
-             <xsl:with-param name="px" select="$midpointx"/>
-             <xsl:with-param name="py" select="$midpointy"/>
-             <xsl:with-param name="xsign" select="$sign"/>
-             <xsl:with-param name="xAdjustment">
-                     <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/xAdjustment"/>
-             </xsl:with-param>
-             <xsl:with-param name="ysignDefault" select="-1"/>
-             <xsl:with-param name="yPosition"
-                             select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/position"/>
-             <xsl:with-param name="yAdjustment">
-                     <xsl:value-of select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/yAdjustment"/>
-            </xsl:with-param>
-             <xsl:with-param name="presentation"
-                             select="(ancestor::reference|ancestor::composition|.)/diagram/path/id/label/presentation"/>
-        </xsl:call-template>
+      <xsl:message> rel_id is `<xsl:value-of select="$rel_id"/>'</xsl:message>
+      <xsl:variable name="render_relid"
+                    as="xs:boolean"
+                    select="not($rel_id='')
+                            and  (exists(key('whereImplemented',
+                                     concat(ancestor-or-self::reference/concat(../name,':',name),
+                                            ancestor-or-self::composition/concat(type,':',inverse)
+                                           )
+                                             )
+                                          )
+                                          and not(exists(/entity_model/presentation/diagram/relid_condition/None))
+                                  or 
+                                  exists(/entity_model/presentation/diagram/relid_condition/All)
+                                 )
+                           "/>
+      <xsl:if test="$render_relid">
+         <xsl:message>render_relid ... rel of type '<xsl:value-of select="type"/>'  midpointx '<xsl:value-of select="$midpointx"/>'</xsl:message>
+
+         <xsl:variable name="xAdjustment" as="xs:double"
+                        select="if (diagram/path/id/label/xAdjustment)
+                                then diagram/path/id/label/xAdjustment
+                                else 0"/>
+         <xsl:variable name="yAdjustment" as="xs:double"
+                        select="if (diagram/path/id/label/yAdjustment)
+                                then diagram/path/id/label/yAdjustment
+                                else 0"/>
+         <xsl:variable name="x" select="$midpointx + $xAdjustment"/>
+         <xsl:call-template name="ERtext">
+             <xsl:with-param name="x" select="$midpointx + $xAdjustment"/>
+             <xsl:with-param name="y" select="$midpointy + $yAdjustment + ($relIdTextHeight div 2)"/>
+             <xsl:with-param name="xsign" select="0"/>
+             <xsl:with-param name="pText" select="$rel_id"/>
+             <xsl:with-param name="class" select="'relid'"/>
+         </xsl:call-template>
      </xsl:if>
    </xsl:template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </xsl:transform>
 
