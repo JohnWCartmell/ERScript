@@ -40,12 +40,18 @@ and rename as follows:
     * SSADMcarHireNonCommuting1B..diagram
     * SSADMcarHireNonCommuting1C..diagram
     * SSADMcarHireNonCommuting2..diagram
-2. Edit each file to be presentation only and to include model goodlandSSADMcarHire..logical.xml
-3. Change the build to build eacgh of the above.
-4. At this point each of these diagrams should look like existing examples except that the relationships will be labelled with inverse.
-5. Add to the meta model support for a mode in which inverse names are not rendered on the diagram. 
-6. Implement support for the mode in ERmodel2.diagram.module.xslt.
-7. Create new diagrams in the same style containing individual paths rendered horizontally.
+2. Modify build.ps1 to build the above.
+2. Edit each file 
+    * to be presentation only 
+    * to include model goodlandSSADMcarHire..logical.xml
+    * to supress relationship labels as described above
+    * to contain the directive 
+           <absolute><presentation><None/></presentation></absolute>
+3. Implement changes to ERmodel2.diagram.module.xslt.
+    * Not to render absolute if <presentation><None/></presentation> as above.
+    * Not to render an entity type unless it has a presentation or is a child entity type.
+    * not to render a relationship unless host entity type and destination entity type
+      are being rendered.
 
 ### Testing
 
@@ -53,5 +59,5 @@ and rename as follows:
 in the draft "Introduction to Entity Modelling Book.
 
 ### Completion Date.
-
+9th October 2024.
 
