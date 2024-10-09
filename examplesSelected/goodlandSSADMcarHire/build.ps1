@@ -24,6 +24,7 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
+
 echo 'goodlandSSADMcarHire Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 goodlandSSADMcarHire..logical.xml -outputFolder ..\docs
@@ -33,7 +34,40 @@ echo 'goodland SSADM carHire'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA 
+                             
+echo 'goodland SSADM carHire annotated with rel ids'
+. $TARGET\scripts\buildExampleSVG.ps1 goodlandSSADMcarHire.annotate       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA 
+echo 'goodland SSADM carHire Commuting Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireCommuting    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
 
+echo 'goodland SSADM carHire NonCommuting1A Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireNonCommuting1A    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
+echo 'goodland SSADM carHire NonCommuting1B Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireNonCommuting1B    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
+
+echo 'goodland SSADM carHire NonCommuting1C Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireNonCommuting1C    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
+                             
+echo 'goodland SSADM carHire NonCommuting2 Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireNonCommuting2    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
 if ($false)
 {
 echo 'goodland SSADM carHire Flex version'

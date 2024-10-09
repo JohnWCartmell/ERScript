@@ -5,6 +5,9 @@
       <diagram>
          <deltah>0.5</deltah>
          <deltaw>0.75</deltaw>
+         <relid_condition><All/></relid_condition>
+         <reference_relid_prefix>r</reference_relid_prefix>
+         <dependency_relid_prefix>r</dependency_relid_prefix>
       </diagram>
    </presentation>
    <entity_type>
@@ -24,6 +27,7 @@
             <ZeroOneOrMore/>
          </cardinality>
          <inverse>majoring in</inverse>
+         <id>r1</id>
          <diagram>
             <path>
                <label>
@@ -48,6 +52,7 @@
             <OneOrMore/>
          </cardinality>
          <inverse>on staff of</inverse>
+         <id>r3</id>
          <diagram>
             <path/>
          </diagram>
@@ -79,6 +84,7 @@
             <cardinality>
                <ZeroOrOne/>
             </cardinality>
+            <id>r2</id>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
@@ -90,7 +96,8 @@
                      <position>
                         <Upside/>
                      </position>
-                  </label><!-- 
+                  </label>
+                  <id><label><yAdjustment>0.15</yAdjustment></label></id><!-- 
                   <scope>
                      <label>
                         <xAdjustment>-1.0</xAdjustment>

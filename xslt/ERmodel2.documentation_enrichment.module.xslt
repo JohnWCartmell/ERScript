@@ -576,11 +576,11 @@
       <rel_id_csl>
         
         
-        <xsl:message>src is <xsl:value-of select="src"/> rel is <xsl:value-of select="rel"/></xsl:message>
+<!--         <xsl:message>src is <xsl:value-of select="src"/> rel is <xsl:value-of select="rel"/></xsl:message>
         <xsl:message>retreived id is <xsl:value-of select="key('AllRelationshipBySrcTypeAndName',
                                             era:packArray((src,rel)))/id"/> </xsl:message>
         <xsl:message>cardinality <xsl:value-of select="count(key('AllRelationshipBySrcTypeAndName',
-                                            era:packArray((src,rel))))"/> </xsl:message>
+                                            era:packArray((src,rel))))"/> </xsl:message> -->
         
 
          <xsl:value-of select="concat('''',

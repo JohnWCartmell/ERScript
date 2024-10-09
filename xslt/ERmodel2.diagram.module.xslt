@@ -347,7 +347,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="diagram_content" match="entity_model">
-
    <xsl:for-each select="entity_type|group">
        <xsl:if test="$traceOn">
           <xsl:text>\ertrace{</xsl:text>
@@ -361,7 +360,10 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:for-each>
 
    <!-- 04/09/2024 I messed with the following then put back the way that it was -->
-   <xsl:if test="absolute/presentation">
+   <!-- Change of 9-Oct-2024 the /x added below to make it absolute/presentation/x since
+        it is now the case that absolute can have presentation/None 
+   -->
+   <xsl:if test="absolute/presentation/x">
        <xsl:call-template name="titlebox">
           <xsl:with-param name="xcm" select="absolute/presentation/x"/>
           <xsl:with-param name="ycm" select="absolute/presentation/y"/>
@@ -375,7 +377,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
        <xsl:call-template name="absolute"/>
    </xsl:for-each>
  
-
    <xsl:call-template name="wrap_relationships">
       <xsl:with-param name="relationships">
          <xsl:call-template name="relationship_content"/>
@@ -400,21 +401,27 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:variable name="diagramWidth">   
         <xsl:call-template name="getDiagramWidth"/>
    </xsl:variable>
-   <xsl:call-template name="wrap_entity_type">
-      <xsl:with-param name="content">
-          <xsl:call-template name="entity_type_box">
-             <xsl:with-param name="isgroup" select="false()"/>
-             <xsl:with-param name="iseven" select="true()"/>
-             <xsl:with-param name="xcm" select="0" />
-             <xsl:with-param name="ycm" select="$absolute_box_placement_y" />
-                                                         <!-- 02/09/2024 -->
-                                                         <!-- changed from -0.3 -->
-             <xsl:with-param name="wcm" select="$diagramWidth" />
-             <xsl:with-param name="hcm" select="0.5" />  
-             <!--<xsl:with-param name="shape" select="nonesuchthingy" />-->
-          </xsl:call-template>
-      </xsl:with-param>
-   </xsl:call-template>
+   <xsl:variable name="render_absolute" as="xs:boolean"
+                 select="not(presentation/None)"/>
+   <xsl:message> ****************render absolute is <xsl:value-of select="$render_absolute"/></xsl:message>
+   <xsl:if test="$render_absolute">
+      <!-- this xsl:if test added to part implement change logged as 9-Oct-2024 -->
+      <xsl:call-template name="wrap_entity_type">
+         <xsl:with-param name="content">
+             <xsl:call-template name="entity_type_box">
+                <xsl:with-param name="isgroup" select="false()"/>
+                <xsl:with-param name="iseven" select="true()"/>
+                <xsl:with-param name="xcm" select="0" />
+                <xsl:with-param name="ycm" select="$absolute_box_placement_y" />
+                                                            <!-- 02/09/2024 -->
+                                                            <!-- changed from -0.3 -->
+                <xsl:with-param name="wcm" select="$diagramWidth" />
+                <xsl:with-param name="hcm" select="0.5" />  
+                <!--<xsl:with-param name="shape" select="nonesuchthingy" />-->
+             </xsl:call-template>
+         </xsl:with-param>
+      </xsl:call-template>
+   </xsl:if>
    <!-- added 04/09/2024 -->
    <xsl:variable name="width_of_name">
       <xsl:value-of select="string-length(name) * $charlen"/> 
@@ -430,7 +437,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>                                         
 
 <xsl:template name="relationship_content" match="entity_model">   
-  <xsl:for-each select="//entity_type|absolute">
+  <xsl:for-each select="//entity_type[parent::group | parent::entity_type|child::presentation]
+                        |absolute[not(presentation/None)]">
+   <!-- above made conditional in change of 6-Oct-2024-->
     <!--
     <xsl:message>Rel content for entity type: <xsl:value-of select="name"/></xsl:message>
     -->
@@ -451,7 +460,10 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
        <xsl:call-template name="et_height"/>
     </xsl:variable>
     <xsl:for-each select="composition">
-       <xsl:call-template name="composition"/>
+       <xsl:if test="key('EntityTypes',type)[parent::entity_type|parent::group|presentation]">
+         <!-- made conditional change of 9-Oct-2024 -->
+         <xsl:call-template name="composition"/>
+       </xsl:if>
     </xsl:for-each>
     <xsl:for-each select="reference|constructed_relationship">
        <xsl:if test="diagram">
@@ -480,15 +492,19 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:template name="entity_type" match="entity_type|group">
   <xsl:param name="p_et_iseven"/>
   <xsl:param name="p_grp_iseven"/>
-  <!--<xsl:message>Entity type: <xsl:value-of select="name"/></xsl:message>  -->
-  <xsl:call-template name="wrap_entity_type">
-    <xsl:with-param name="content">
-      <xsl:call-template name="entity_type_content">
-	 <xsl:with-param name="p_et_iseven" select="$p_et_iseven"/>
-	 <xsl:with-param name="p_grp_iseven" select="$p_grp_iseven"/>
-      </xsl:call-template>
-    </xsl:with-param>
-  </xsl:call-template>
+  <!-- <xsl:message>Entity type: <xsl:value-of select="name"/></xsl:message>  --> 
+  <xsl:if test="(parent::entity_type | parent::group) or presentation"> 
+             <!-- this xsl:if test added to part implement change logged as 9-Oct-2024 -->
+             <!-- do not render top level entitites that do not have presentation information -->
+     <xsl:call-template name="wrap_entity_type">
+       <xsl:with-param name="content">
+         <xsl:call-template name="entity_type_content">
+   	 <xsl:with-param name="p_et_iseven" select="$p_et_iseven"/>
+   	 <xsl:with-param name="p_grp_iseven" select="$p_grp_iseven"/>
+         </xsl:call-template>
+       </xsl:with-param>
+     </xsl:call-template>
+   </xsl:if>
 </xsl:template>
 
 <xsl:template name="entity_type_content" match="entity_type|group">
@@ -501,7 +517,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
        </xsl:if>
   <xsl:variable name= "xabs">
      <xsl:call-template name="et_x">
-	<xsl:with-param name="scheme" select="'ABSOLUTE'"/>
+	     <xsl:with-param name="scheme" select="'ABSOLUTE'"/>
      </xsl:call-template>
   </xsl:variable>
        <xsl:if test="$traceOn">
@@ -866,7 +882,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 		   </xsl:otherwise>
 	       </xsl:choose>
 	 </xsl:when>
-      </xsl:choose>
+   </xsl:choose>
 </xsl:template>
 
 <xsl:template name="et_x" match="entity_type|group" mode="explicit">
@@ -874,57 +890,57 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
            <xsl:variable name="number">
    <xsl:choose>
       <xsl:when test="name()='absolute'">
-	 <xsl:value-of select="0"/>
+	     <xsl:value-of select="0"/>
       </xsl:when>
       <xsl:when test="presentation/xl/abs">
-	 <xsl:if test="$scheme='LOCAL' and (parent::entity_type | parent::group)">
-	     <xsl:message terminate = "yes">
-		  et_x called with scheme LOCAL with abs presentation and having a parent entity type or group
-	     </xsl:message>
-	 </xsl:if>
-	 <xsl:value-of select="presentation/xl/abs/d"/>
+      	 <xsl:if test="$scheme='LOCAL' and (parent::entity_type | parent::group)">
+      	     <xsl:message terminate = "yes">
+      		  et_x called with scheme LOCAL with abs presentation and having a parent entity type or group
+      	     </xsl:message>
+      	 </xsl:if>
+      	 <xsl:value-of select="presentation/xl/abs/d"/>
       </xsl:when>
       <xsl:when test="presentation/(below|rightOf|((xl|xc|xr)/relative))">
-	 <xsl:call-template name="et_xFromRelative">
-	    <xsl:with-param name="scheme" select="$scheme"/>
-	 </xsl:call-template>
+      	 <xsl:call-template name="et_xFromRelative">
+      	    <xsl:with-param name="scheme" select="$scheme"/>
+      	 </xsl:call-template>
       </xsl:when>
       <xsl:when test="parent::entity_type or parent::group">
-	 <xsl:variable name="offsetToParent">
-	    <xsl:choose>
-	       <xsl:when test="$scheme='ABSOLUTE'">
-		  <xsl:for-each select="parent::entity_type|parent::group">
-		     <xsl:call-template name="et_x">
-			<xsl:with-param name="scheme" select="'ABSOLUTE'"/>
-		     </xsl:call-template>
-		  </xsl:for-each>
-		</xsl:when>
-		<xsl:otherwise>
-		   <xsl:value-of select="0"/>
-		</xsl:otherwise>
-	    </xsl:choose>
-	 </xsl:variable>
-	 <xsl:choose>
-	    <xsl:when test="presentation/x">
-	       <xsl:value-of select="$offsetToParent + presentation/x"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	       <xsl:choose>
-		  <xsl:when test="parent::group">
-		      <xsl:value-of select="$offsetToParent"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-		      <xsl:value-of select="$offsetToParent + $horizontalMargin"/>
-		  </xsl:otherwise>
-	       </xsl:choose>
-	    </xsl:otherwise>
-	 </xsl:choose>
+      	 <xsl:variable name="offsetToParent">
+      	    <xsl:choose>
+      	       <xsl:when test="$scheme='ABSOLUTE'">
+      		  <xsl:for-each select="parent::entity_type|parent::group">
+      		     <xsl:call-template name="et_x">
+      			<xsl:with-param name="scheme" select="'ABSOLUTE'"/>
+      		     </xsl:call-template>
+      		  </xsl:for-each>
+      		</xsl:when>
+      		<xsl:otherwise>
+      		   <xsl:value-of select="0"/>
+      		</xsl:otherwise>
+      	    </xsl:choose>
+      	 </xsl:variable>
+      	 <xsl:choose>
+      	    <xsl:when test="presentation/x">
+      	       <xsl:value-of select="$offsetToParent + presentation/x"/>
+      	    </xsl:when>
+      	    <xsl:otherwise>
+      	       <xsl:choose>
+      		  <xsl:when test="parent::group">
+      		      <xsl:value-of select="$offsetToParent"/>
+      		  </xsl:when>
+      		  <xsl:otherwise>
+      		      <xsl:value-of select="$offsetToParent + $horizontalMargin"/>
+      		  </xsl:otherwise>
+      	       </xsl:choose>
+      	    </xsl:otherwise>
+      	 </xsl:choose>
       </xsl:when>
       <xsl:when test="presentation/x">
-	 <xsl:value-of select="presentation/x"/>
+	     <xsl:value-of select="presentation/x"/>
       </xsl:when>
       <xsl:otherwise>
-	 <xsl:value-of select="0"/>
+	        <xsl:value-of select="0"/>
       </xsl:otherwise>
    </xsl:choose>
    </xsl:variable>
@@ -3633,10 +3649,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:param name="midpointx"/>
       <xsl:param name="midpointy"/>
       <xsl:param name="sign"/>
-      <xsl:message>In "render_relid"</xsl:message>
       <xsl:variable name="rel_id" 
               select="(ancestor::reference|ancestor::composition|.)/id" />
-      <xsl:message> rel_id is `<xsl:value-of select="$rel_id"/>'</xsl:message>
       <xsl:variable name="render_relid"
                     as="xs:boolean"
                     select="not($rel_id='')
@@ -3652,7 +3666,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                                  )
                            "/>
       <xsl:if test="$render_relid">
-         <xsl:message>render_relid ... rel of type '<xsl:value-of select="type"/>'  midpointx '<xsl:value-of select="$midpointx"/>'</xsl:message>
 
          <xsl:variable name="xAdjustment" as="xs:double"
                         select="if (diagram/path/id/label/xAdjustment)

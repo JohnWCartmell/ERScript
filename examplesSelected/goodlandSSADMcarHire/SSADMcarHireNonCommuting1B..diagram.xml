@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="goodlandSSADMcarHire..logical.xml"/>
    <presentation>
       <diagram>
-         <deltaw>0.9</deltaw>
+         <deltaw>0.5</deltaw>
          <deltah>0.1</deltah>
       </diagram>
    </presentation>
-
+   <absolute><presentation><None/></presentation></absolute>
    <entity_type>
-      <name>vehicle_category</name>
+      <name>local_office</name>
       <presentation>
          <x>5.0</x>
          <y>0.1</y>
@@ -18,20 +19,13 @@
          <shape><Top/></shape>
       </presentation>
       <composition>
+         <name>base of</name>
          <type>vehicle</type> 
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <inverse>classified by</inverse>
          <diagram>
             <path>
                <destattach>0.45</destattach>
                <align><ToDest/></align>
-               <label>
-                  <position><Left/></position>
-                  <xAdjustment>0.05</xAdjustment>
-                  <yAdjustment>-0.1</yAdjustment>
-               </label>
+               <label><name><None/></name></label>
                <inverse>
                   <label>
                      <xAdjustment>-0.05</xAdjustment>
@@ -52,11 +46,8 @@
          <shape><BottomLeft/></shape>
       </presentation>
       <reference>
-         <name>requiring</name>
-         <type>vehicle_category</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
+         <name>from_and to</name>
+         <type>local_office</type>
          <diagram>
             <path>
                <srcarmlen>1.25</srcarmlen>
@@ -64,28 +55,22 @@
                <destarmlen>0.2</destarmlen>
                <label>
                   <position><Upside/></position>
-                  <!-- <xAdjustment>-0.05</xAdjustment> -->
-                  <!-- <yAdjustment>0.1</yAdjustment> -->
                </label>
+               <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
       </reference>
       <reference>
          <name>user of</name>
          <type>vehicle</type>
-         <cardinality>
-            <ZeroOrOne/>
-         </cardinality>
          <diagram>
             <path>
-               <!-- <srcarmlen>1.5</srcarmlen> -->
                <srcattach>0.7</srcattach>
                <align><ToSrc/></align>
                <label>
                   <position><Downside/></position>
-                  <!-- <xAdjustment>-0.05</xAdjustment> -->
-                  <!-- <yAdjustment>-0.075</yAdjustment> -->
                </label>
+               <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
       </reference>
@@ -93,19 +78,12 @@
    <entity_type>
       <name>vehicle</name>
       <presentation>
-         <below>vehicle_category</below>
+         <below>local_office</below>
          <rightOf>booking_/invoice</rightOf>
          <y>0.2</y>
          <h>0.66</h>
          <name><Split/></name>
          <shape><BottomRight/></shape>
       </presentation>
-      <dependency>
-         <name>classified by</name>
-         <type>vehicle_category</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
    </entity_type>
 </entity_model>

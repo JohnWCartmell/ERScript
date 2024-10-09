@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="goodlandSSADMcarHire..logical.xml"/>
    <presentation>
       <diagram>
          <deltaw>0.3</deltaw>
       </diagram>
    </presentation>
+   <absolute><presentation><None/></presentation></absolute>
    <entity_type>
       <name>customer</name>
       <presentation>
@@ -15,22 +17,14 @@
          <w>2.0</w>
          <shape><Top/></shape>
       </presentation>
-      <dependency>
-         <name>xxx</name>
-         <cardinality><ExactlyOne/></cardinality>
-      </dependency>
       <composition>
-         <!-- <name>sender of</name> -->
+         <name>sender of</name>
          <type>payment</type>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <inverse>sent by</inverse>
          <diagram>
             <path>
                <srcattach>0.25</srcattach>
                <label>
-                  <position><Left/></position>
+                  <name><None/></name>
                </label>
                <inverse>
                   <label>
@@ -39,45 +33,32 @@
                </inverse>
             </path>
          </diagram>
-      </composition>
+      </composition> 
       <composition>
+         <name>maker of</name>
          <type>booking_/invoice</type>
-         <cardinality>
-            <OneOrMore/>
-         </cardinality>
-         <inverse>made by</inverse>
          <diagram>
             <path>
                <srcattach>0.75</srcattach>
                <destarmlen>2.0</destarmlen>
-               <!-- <destattach>0.4</destattach> -->
+               <label>
+                  <name><None/></name>
+               </label>
             </path>
          </diagram>
       </composition>
    </entity_type>
    <entity_type>
       <name>payment</name>
-      <dependency>
-         <name>sent by</name>
-         <type>customer</type>
-         <!-- <inverse>sender of</inverse> -->
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
       <composition>
-         <!-- <name>split into</name> -->
+         <name>split into</name>
          <type>allocated_payment</type>
-         <cardinality>
-            <ZeroOneOrMore/>
-         </cardinality>
-         <inverse>part of</inverse>
          <diagram>
             <path>
                <srcarmlen>0</srcarmlen>
                <destarmlen>0</destarmlen>
                <label>
-                  <position><Left/></position>
+                  <name><None/></name>
                </label>
                <inverse>
                   <label>
@@ -97,23 +78,13 @@
    </entity_type>
    <entity_type>
       <name>allocated_payment</name>
-      <dependency>
-         <name>part of</name>
-         <type>payment</type>
-         <!-- <inverse>split into</inverse> -->
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
       <reference>
          <name>made to</name>
          <type>booking_/invoice</type>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
          <diagram>
             <path>
                <srcarmlen>0.3</srcarmlen>
+               <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
       </reference>
@@ -135,13 +106,5 @@
          <name><Split/></name>
          <shape><BottomRight/></shape>
       </presentation>
-      <dependency>
-         <name>made by</name>
-         <type>customer</type>
-         <inverse>maker of</inverse>
-         <cardinality>
-            <ExactlyOne/>
-         </cardinality>
-      </dependency>
    </entity_type>
 </entity_model>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+         <dependency_relid_prefix>xd</dependency_relid_prefix>
+         <reference_relid_prefix>xr</reference_relid_prefix>
+      </diagram>
+   </presentation>
+   <absolute>
+      <composition>
+         <type>customer</type>
+         <id></id>
+      </composition>
+      <composition>
+         <type>local_office</type>
+         <id></id>
+      </composition>
+      <composition>
+         <type>vehicle_category</type>
+         <id></id>
+      </composition>
+   </absolute>
+   <entity_type>
+      <name>customer</name>
+      <composition>
+         <name>sender of</name>
+         <type>payment</type>
+         <id>d1</id>
+      </composition>
+      <composition>
+         <name>maker of</name>
+         <type>booking_/invoice</type>
+         <id>d2</id>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>payment</name>
+      <composition>
+         <name>split into</name>
+         <type>allocated_payment</type>
+         <id>r1</id>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>allocated_payment</name>
+      <reference>
+         <name>made to</name>
+         <type>booking_/invoice</type>
+         <id>r2</id>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>booking_/invoice</name>
+      <reference>
+         <name>from_and to</name>
+         <type>local_office</type>
+         <id>r3</id>
+      </reference>
+      <reference>
+         <name>driven by</name>
+         <type>drivere</type>
+         <id>r4</id>
+      </reference>
+      <reference>
+         <name>user of</name>
+         <type>vehicle</type>
+         <id>r5</id>
+      </reference>
+      <reference>
+         <name>requiring</name>
+         <type>vehicle_category</type>
+         <id>r7</id>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>vehicle</name>
+      <reference>
+         <name>classified by</name>
+         <type>vehicle_category</type>
+         <id>r6</id>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>local_office</name>
+      <composition>
+         <name>employer_of</name>
+         <type>driver</type>
+         <id>d4</id>
+      </composition>
+      <composition>
+         <name>base of</name>
+         <type>vehicle</type>
+         <id>d5</id>
+      </composition>
+   </entity_type>
+</entity_model>
