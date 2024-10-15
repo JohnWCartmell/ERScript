@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+      </diagram>
+   </presentation>
+   <absolute><presentation><None/></presentation></absolute>
+      <entity_type>
+      <name>allocated_payment</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.1</y>
+         <w>1.5</w>
+         <h>0.92</h>
+         <name><Split/></name>
+         <!-- <shape><BottomLeft/></shape> -->
+      </presentation>
+      <reference>
+         <name>part of</name>
+         <type>payment</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <id>r1</id>
+         <diagram>
+            <path>
+               <label>
+                  <position><Upside/></position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>payment</name>
+      <presentation>
+         <rightOf>allocated_payment</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <!-- <shape><MiddleLeft/></shape> -->
+      </presentation>
+      <reference>
+         <name>sent by</name>
+         <type>customer</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <id>d1</id>
+         <diagram>
+            <path>
+               <label>
+                  <position><Upside/></position>
+               </label>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>customer</name>
+      <presentation>
+         <rightOf>payment</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <!-- <shape><Top/></shape> -->
+      </presentation>
+   </entity_type>
+
+</entity_model>

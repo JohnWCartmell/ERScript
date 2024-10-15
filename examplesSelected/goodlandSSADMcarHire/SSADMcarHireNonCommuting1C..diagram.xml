@@ -2,6 +2,7 @@
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <include_model filename="goodlandSSADMcarHire..logical.xml"/>
+   <include_model filename="goodlandSSADMcarHire.annotate..presentation.xml"/>
    <presentation>
       <diagram>
          <deltaw>0.5</deltaw>

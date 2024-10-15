@@ -24,7 +24,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-
+if ($false)
+{
 echo 'goodlandSSADMcarHire Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 goodlandSSADMcarHire..logical.xml -outputFolder ..\docs
@@ -62,14 +63,28 @@ echo 'goodland SSADM carHire NonCommuting1C Diagram'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA
-                             
+}                             
 echo 'goodland SSADM carHire NonCommuting2 Diagram'
 . $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHireNonCommuting2    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -relids -shortSeparator NA -longSeparator NA
+                             -animate -relids -shortSeparator NA -longSeparator NA                             
+
 if ($false)
 {
+                        
+echo 'goodland SSADM carHire Path1 Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHirePath1    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
+
+echo 'goodland SSADM carHire Path2 Diagram'
+. $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHirePath2    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -relids -shortSeparator NA -longSeparator NA
+
 echo 'goodland SSADM carHire Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate
 }
