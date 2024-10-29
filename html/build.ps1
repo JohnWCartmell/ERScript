@@ -24,3 +24,5 @@ attrib -R $TARGET\*.html
 copy-item $SOURCE\html\*.html -Destination $TARGETHTML
 attrib +R $TARGET\*.html
 
+. 2023/build.ps1
+

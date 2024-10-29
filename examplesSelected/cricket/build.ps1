@@ -33,15 +33,12 @@ echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch   `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
- -animate -physicalType hs -shortSeparator NA -longSeparator NA 
-
-echo 'Run ER.instanceValidation.xslt on physical model'
-. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs -debugSwitch
+ -animate  -physicalType hs -shortSeparator NA -longSeparator NA 
 
 if ($false)
 {
-      echo 'if you need to switch off for testing purposes'
-}
+echo 'Run ER.instanceValidation.xslt on physical model'
+. $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..physical.xml -outputFolder ..\docs -debugSwitch
 
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validCricketInstance.xml -outputFolder ..\docs
@@ -50,7 +47,9 @@ echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 invalidCricketInstance.xml -outputFolder ..\docs
 
 echo 'Cricket Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate 
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate -debugswitch
+}
+
 
 popd 
 

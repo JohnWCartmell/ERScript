@@ -1,3 +1,12 @@
+
+/* Maintenance Box
+
+25-Oct-2024 Changes to how relationship data used in animation is accessed.
+            Changes to how elements having Information Boxes are recognised.
+
+/* 
+
+
 /* Global */
 var svgDoc ;
 
@@ -12,7 +21,7 @@ var counter = 1;
 //Wait for document load
 if (document.readyState === 'loading') {  // Loading hasn't finished yet
   console.log("Adding initialiseInteraction event listener")
-  document.addEventListener('DOMContentLoaded', initialiseDocumentInteraction);
+   document.addEventListener('DOMContentLoaded', initialiseDocumentInteraction);
 } else {  // `DOMContentLoaded` has already fired
   initialiseDragging();
 }
@@ -38,7 +47,6 @@ function initialiseSvgInteraction(){
    console.info('initialising svg interaction');
    const svgObject = document.getElementById('svg-object');
    svgDoc = svgObject.contentDocument; 
-
    const svgElements = svgDoc.querySelectorAll(".eteven,.etodd,.idattrname,.attrname");
    console.log("Number of svgElements",svgElements.length)
    for (let i = 0; i < svgElements.length; i++) {
@@ -80,12 +88,27 @@ function positionInfoboxAtCursor(e,offsetX,offsetY){
    infoboxDivElement.style.zIndex = ++counter;
 };
 
+function getRootSVGElement(elmnt)
+{
+   let currentElement = elmnt; // Start from any  SVG element 
+   /*Navigate up the tree as far as is possible*/
+   while (currentElement.ownerSVGElement) {
+     currentElement = currentElement.ownerSVGElement;
+   }
+   return currentElement;
+};
 
 function clickRelationshipAtCursor(e){
    console.log('myevent ',e);
    console.log('pos: ',e.pageX,e.pageY);
    e = e || window.event;
    const elmnt = e.currentTarget; /* may be svg element or button element*/
+   const rootSvgForThisClickedElement = getRootSVGElement(elmnt);
+   const methodData = rootSvgForThisClickedElement.dataset.methodData;
+ /*  console.log("XXXXX method data ", methodData)*/
+   const methodDataObj = JSON.parse(methodData);
+/*   console.log("XXXXXX diagonal_elements is", methodDataObj.diagonal_elements) ;*/
+
    const relid = elmnt.getAttribute('data-relid');
    console.log('rel id',relid) ;
    resetDisplay();
@@ -103,20 +126,22 @@ function clickRelationshipAtCursor(e){
      
       var hitAreaElement = svgDoc.getElementById(relid + "_hitarea");
       hitAreaElement.classList.add("relationshippopped");
-      animateRelationship(relid) ;
+      animateRelationship(methodDataObj,relid) ;
    }
 };
 
 
-function animateRelationship(id){   
+function animateRelationship(methodDataObj, id){   
    var rel_ids = [];
    var colours = [];
    var directions = [];
+   console.log('methodData is', methodDataObj)
+   console.log('id is', id)
    // diagonal
-   const diagonal_ids = diagonal_elements[id] ;
+   const diagonal_ids = methodDataObj.diagonal_elements[id] ;
    if (diagonal_ids !== undefined){
       rel_ids = rel_ids.concat(diagonal_ids) ;
-      directions = directions.concat(diagonal_element_directions[id]) ;
+      directions = directions.concat(methodDataObj.diagonal_element_directions[id]) ;
       colours=colours.concat(diagonal_ids.map(id => 'red')) ;
    };
    // now for subject rel itself
@@ -124,10 +149,10 @@ function animateRelationship(id){
    directions = directions.concat([1]) ;
    colours = colours.concat(['#15D4FA']) ;
    //riser 
-   const riser_ids = riser_elements[id] ;
+   const riser_ids = methodDataObj.riser_elements[id] ;
    if (riser_ids !== undefined) {
       rel_ids = rel_ids.concat(riser_ids) ;
-      directions = directions.concat(riser_element_directions[id]) ;
+      directions = directions.concat(methodDataObj.riser_element_directions[id]) ;
       colours = colours.concat(riser_ids.map(id => '#15D4FA')) ;
    } ;
 

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+         <deltaw>0.4</deltaw>
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>map</name>
+      <presentation>
+         <y>0.1</y>
+         <w>2.4</w>
+      </presentation>
+      <attribute>
+         <name>title</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>scale</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <composition>
+         <name>depicts</name>
+         <type>spot height</type>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <inverse>depicted on</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Left/>
+                  </position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>spot height</name>
+      <presentation>
+         <below>map</below>
+         <y>0.5</y>
+         <w>2.4</w>
+         <!-- <h>1.0</h> -->
+      </presentation>
+      <dependency>
+         <name>depicted on</name>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <type>map</type>
+         <!-- <inverse>scheduled as</inverse> -->
+      </dependency>
+      <attribute>
+         <name>latitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>longitude</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>altitude</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+   </entity_type>
+</entity_model>

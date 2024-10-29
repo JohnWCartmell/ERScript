@@ -47,6 +47,7 @@ CHANGE HISTORY
 		<xsl:variable name="state">
 			<diagram:diagram>
 				<xsl:namespace name=""  select="'http://www.entitymodelling.org/diagram'"/>
+				<method>era</method>
 				<xsl:variable name="path" select="replace(concat($ERHOME,'/flexDiagramming/methods/era/xml')
 					                                         ,'\\'
 					                                         ,'/')"/>

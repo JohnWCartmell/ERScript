@@ -164,7 +164,10 @@
         <xsl:variable name="numeric">
             <xsl:choose>
                 <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
-                    <xsl:number count="composition|reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]" level="any" />
+                    <xsl:number count="composition
+                                      |reference[not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
+                                                  or
+                                                  (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))]" level="any" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:number count="composition" level="any" />
@@ -196,9 +199,13 @@
 <!-- in the next pass allocate an id equal to the id of the inverse -->
 <xsl:template match="reference
                      [not(id)]
-                     [. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]
+                     [ not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
+                       or
+                       (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))
+                     ]
                      " 
               mode="documentation_enrichment_recursive"  priority="1">
+              <xsl:message>Adding id to reference <xsl:value-of select="name"/></xsl:message>
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
         <xsl:variable name="dependency_relid_prefix" as="xs:string" 
@@ -210,10 +217,18 @@
         <xsl:variable name="numeric">
             <xsl:choose>
                 <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
-                    <xsl:number count="composition|(reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))])" level="any" />
+                    <xsl:number count="composition
+                                       |(reference[
+                                            not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
+                                                  or
+                                            (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))
+                                                  ])" level="any" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:number count="reference[. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse))]" level="any" />
+                    <xsl:number count="reference[not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
+                                                  or
+                                                 (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))
+                                                ]" level="any" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -583,17 +598,17 @@
                                             era:packArray((src,rel))))"/> </xsl:message> -->
         
 
-         <xsl:value-of select="concat('''',
+         <xsl:value-of select="concat('&quot;',
                                       key('AllRelationshipBySrcTypeAndName',
                                             era:packArray((src,rel)))/id,
-                                      '''')"/>
+                                      '&quot;')"/>
       </rel_id_csl>
       <rel_inv_csl>
-         <xsl:value-of select="concat('''',
+         <xsl:value-of select="concat('&quot;',
                                       key('AllRelationshipBySrcTypeAndName',
                                             era:packArray((src,rel)))/
                                                (if(self::dependency) then -1 else 1),
-                                      '''')"/>
+                                      '&quot;')"/>
       </rel_inv_csl>
    </xsl:copy>
 </xsl:template>

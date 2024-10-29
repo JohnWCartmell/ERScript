@@ -45,13 +45,13 @@ DESCRIPTION
 
     <xsl:copy>
 	   <xsl:for-each select="$state/diagram">
-			<xsl:call-template name="entity_model_diagram"/>
+			<xsl:call-template name="the_wrapped_diagram"/>
 		</xsl:for-each>
 	</xsl:copy>
 </xsl:template>
 
-	<xsl:template name="entity_model_diagram" match="/diagram" mode="explicit">
-		<xsl:message> entity_model_diagram </xsl:message>
+	<xsl:template name="the_wrapped_diagram" match="/diagram" mode="explicit">
+		<xsl:message> the_wrapped_diagram </xsl:message>
 		<xsl:call-template name="wrap_diagram">
 			<xsl:with-param name="acting_filestem" select="$filestem"/>
 			<xsl:with-param name="content">

@@ -61,6 +61,9 @@ CHANGE HISTORY
         <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
       <xsl:attribute name="height">
         <xsl:value-of select="$diagramHeight + 0.1"/>cm</xsl:attribute>
+        <xsl:attribute name="data-methodData">
+          <xsl:call-template name="plant_json_scope_rel_id_arrays"/>
+        </xsl:attribute>
           <xsl:choose>
               <xsl:when test="$bundleOn">
                 <style>
@@ -146,9 +149,9 @@ CHANGE HISTORY
               </xsl:otherwise>
           </xsl:choose>
           </script>
-          <script>
+<!--           <script> removed - change of 25-Oct-2024
                <xsl:call-template name="plant_javascript_scope_rel_id_arrays"/>
-          </script>
+          </script> -->
           </xsl:if>
           <link xmlns="http://www.w3.org/1999/xhtml"
             rel="stylesheet"
@@ -225,54 +228,47 @@ CHANGE HISTORY
     </div>
   </xsl:template>
 
-  <xsl:template name="plant_javascript_scope_rel_id_arrays"
+  <xsl:template name="plant_json_scope_rel_id_arrays"
                 match="entity_model"
                 mode="explicit">
-    <xsl:text>
-        const diagonal_elements = {</xsl:text>
+    <!-- Modified change log 25-Oct-2024 --> 
+    <xsl:text>{ "diagonal_elements" : {</xsl:text>
     <xsl:for-each select="descendant::reference">
-        <xsl:text>
-        "</xsl:text>
+        <xsl:text>"</xsl:text>
         <xsl:value-of select="id"/>
         <xsl:text>":[</xsl:text>
         <xsl:value-of select="diagonal/*/rel_id_csl"/>
-        <xsl:text>],</xsl:text>
+        <xsl:text>]</xsl:text>
+        <xsl:if test="not(position()=last())"><xsl:text>,</xsl:text></xsl:if>
     </xsl:for-each>
-    <xsl:text>} ;</xsl:text>
-    <xsl:text>
-        const diagonal_element_directions = {</xsl:text>
+    <xsl:text>},"diagonal_element_directions" : {</xsl:text>
     <xsl:for-each select="descendant::reference">
-        <xsl:text>
-        "</xsl:text>
+        <xsl:text>"</xsl:text>
         <xsl:value-of select="id"/>
         <xsl:text>":[</xsl:text>
         <xsl:value-of select="diagonal/*/rel_inv_csl"/>
-        <xsl:text>],</xsl:text>
+        <xsl:text>]</xsl:text>
+        <xsl:if test="not(position()=last())"><xsl:text>,</xsl:text></xsl:if>
     </xsl:for-each>
-    <xsl:text>} ;</xsl:text>
-        <xsl:text>
-        const riser_elements = {</xsl:text>
+    <xsl:text>}, "riser_elements" : {</xsl:text>
     <xsl:for-each select="descendant::reference">
-        <xsl:text>
-        "</xsl:text>
+        <xsl:text>"</xsl:text>
         <xsl:value-of select="id"/>
         <xsl:text>":[</xsl:text>
         <xsl:value-of select="riser/*/rel_id_csl"/>
-        <xsl:text>],</xsl:text>
+        <xsl:text>]</xsl:text>
+        <xsl:if test="not(position()=last())"><xsl:text>,</xsl:text></xsl:if>
     </xsl:for-each>
-    <xsl:text>} ;</xsl:text>
-    <xsl:text>
-        const riser_element_directions = {</xsl:text>
+    <xsl:text>},"riser_element_directions" : {</xsl:text>
     <xsl:for-each select="descendant::reference">
-        <xsl:text>
-        "</xsl:text>
+        <xsl:text>"</xsl:text>
         <xsl:value-of select="id"/>
         <xsl:text>":[</xsl:text>
         <xsl:value-of select="riser/*/rel_inv_csl"/>
-        <xsl:text>],</xsl:text>
+        <xsl:text>]</xsl:text>
+        <xsl:if test="not(position()=last())"><xsl:text>,</xsl:text></xsl:if>
     </xsl:for-each>
-    <xsl:text>} ;
-    </xsl:text>
+    <xsl:text>}}</xsl:text>
   </xsl:template>
 
   <xsl:template name="infoboxGenerate" 
