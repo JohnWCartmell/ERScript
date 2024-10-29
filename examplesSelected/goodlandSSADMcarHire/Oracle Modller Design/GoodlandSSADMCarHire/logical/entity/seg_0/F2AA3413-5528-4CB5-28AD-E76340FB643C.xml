@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F2AA3413-5528-4CB5-28AD-E76340FB643C" name="vehicle category">
+<createdBy>John</createdBy>
+<createdTime>2024-10-17 12:22:12 UTC</createdTime>
+<ownerDesignName>GoodlandSSADMCarHire</ownerDesignName>
+<engineerTo>
+<item key="313D317C-BFD1-1BC0-189C-1F4B581738E0" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+</Entity>

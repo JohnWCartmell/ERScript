@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="GoodlandSSADMCarHire" id="4D37B681-6450-1180-9CC7-04FB3F7E125E" version="3.5">
+<createdBy>John</createdBy>
+<createdTime>2024-10-16 21:04:47 UTC</createdTime>
+<ownerDesignName>oraclelogicaldesign</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>4D37B681-6450-1180-9CC7-04FB3F7E125E</designId>
+</OSDM_Design>
