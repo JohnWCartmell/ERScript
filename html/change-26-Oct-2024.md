@@ -1,5 +1,5 @@
 
-## 25 October 2024
+## 26 October 2024
 Flex diagramming -- Rationalise interaction/animation javascript/css and supporting svg attributes.   
 
 ### Rationale

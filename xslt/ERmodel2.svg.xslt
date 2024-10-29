@@ -22,6 +22,7 @@ CHANGE HISTORY
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
         xmlns:xlink="http://www.w3.org/TR/xlink" 
+        xmlns:random="http://exslt.org/math"
         xmlns:diagram="http://www.entitymodelling.org/diagram" 
         xmlns:era="http://www.entitymodelling.org/ERmodel"
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel"
@@ -55,8 +56,10 @@ CHANGE HISTORY
     <xsl:param name="content"/>
     <xsl:param name="diagramHeight"/>
     <xsl:param name="diagramWidth"/>
+
     <!-- <xsl:result-document href="{concat($acting_filestem,'.svg')}"> -->
     <xsl:element name="svg">
+      <xsl:attribute name="id" select="current-dateTime()"/>
       <xsl:attribute name="width">
         <xsl:value-of select="$diagramWidth + 0.1"/>cm</xsl:attribute>
       <xsl:attribute name="height">
@@ -189,9 +192,10 @@ CHANGE HISTORY
                   <object>
                     <xsl:message>acting filestem is <xsl:value-of select="$acting_filestem"/>
                     </xsl:message>
-                    <xsl:attribute name="id" select="'svg-object'"/>
+                    <xsl:attribute name="id" select="current-dateTime()"/> <!-- see change 25-Oct-2024 -->
                     <xsl:attribute name="data" select="concat($acting_filestem,'.svg')"/>
                     <xsl:attribute name="type" select="'image/svg+xml'"/>
+                    <xsl:attribute name="data-type" select="'ERmodel'"/>
                     <xsl:text>filler to stop contraction of this xml element</xsl:text>
                   </object>
                   <!--<object id ="svg-object" data="cricketMatch.svg" type="image/svg+xml"></object>-->
@@ -325,11 +329,13 @@ CHANGE HISTORY
             <xsl:attribute name="class" select="'closecontainer'"/>
             <button>
               <xsl:attribute name="class" select="'close'"/>
+              <xsl:attribute name="onClick" select="'closePopUp(this)'"/>
+              <!-- 25-Oct-2024  
               <xsl:attribute name="onClick" >
                 <xsl:text>closePopUp('</xsl:text>
                 <xsl:value-of select="id"/>       
                 <xsl:text>');</xsl:text>
-              </xsl:attribute>
+              </xsl:attribute> -->
               <xsl:text>x</xsl:text>
             </button> 
           </div>

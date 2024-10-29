@@ -8,7 +8,6 @@
 
 
 /* Global */
-var svgDoc ;
 
 var popupboxContainerOffsetX ;
 var popupboxContainerOffsetY ;
@@ -32,7 +31,7 @@ window.addEventListener("load",initialiseSvgInteraction);
 function initialiseDocumentInteraction() {
    console.info('initialising Document interaction');
    const popupboxContainer = document.querySelector(".svganddivcontainer");
-   console.log("conatiner",popupboxContainer);
+   console.log("container",popupboxContainer);
    popupboxContainerOffsetX = popupboxContainer.getBoundingClientRect().x + window.pageXOffset;
    popupboxContainerOffsetY = popupboxContainer.getBoundingClientRect().y + window.pageYOffset;
    console.log('popupboxContainerOffsetX',popupboxContainerOffsetX)
@@ -45,48 +44,24 @@ function initialiseDocumentInteraction() {
 
 function initialiseSvgInteraction(){
    console.info('initialising svg interaction');
-   const svgObject = document.getElementById('svg-object');
-   svgDoc = svgObject.contentDocument; 
-   const svgElements = svgDoc.querySelectorAll(".eteven,.etodd,.idattrname,.attrname");
-   console.log("Number of svgElements",svgElements.length)
-   for (let i = 0; i < svgElements.length; i++) {
-      svgElements[i].onclick=showInfoboxAtCursorFromSVG;
+   /*const svgObject = document.getElementById('svg-object');*/
+
+   const modelObjects = document.querySelectorAll('object[data-type="ERmodel"]');
+   console.log("Number of objects of type ERmodel",modelObjects.length)
+   for (let i = 0; i < modelObjects.length; i++) {
+      let svgDoc = modelObjects[i].contentDocument; 
+      let svgElements = svgDoc.querySelectorAll(".eteven,.etodd,.idattrname,.attrname");
+      console.log("Number of svgElements",svgElements.length)
+      for (let i = 0; i < svgElements.length; i++) {
+         svgElements[i].onclick=showInfoboxAtCursorFromSVG;
+      };
+      let relHitAreaElements = svgDoc.querySelectorAll(".relationshiphitarea");
+      console.log("Number of relationships",relHitAreaElements.length)
+      for (let i = 0; i < relHitAreaElements.length; i++) {
+         relHitAreaElements[i].onclick=clickRelationshipAtCursor;
+      };
    };
-
-   const relHitAreaElements = svgDoc.querySelectorAll(".relationshiphitarea");
-   console.log("Number of relationships",relHitAreaElements.length)
-   for (let i = 0; i < relHitAreaElements.length; i++) {
-      relHitAreaElements[i].onclick=clickRelationshipAtCursor;
-   };
 } ;
-
-function closePopUp(id){
-   console.log('close call')
-   const divElement = document.getElementById(id + "_text");
-   divElement.style.visibility = 'hidden';
-   divElement.style.pointerEvents = 'none';
-
-  } ;
-
-function showInfoboxAtCursorFromSVG(e){
-   positionInfoboxAtCursor(e, 0, 0);
-} ;
-
-function showInfoboxAtCursorFromInfobox(e){
-   positionInfoboxAtCursor(e,popupboxContainerOffsetX, popupboxContainerOffsetY);
-} ;
-
-function positionInfoboxAtCursor(e,offsetX,offsetY){
-   e = e || window.event;
-   const elmnt = e.currentTarget; /* may be svg element or button element*/
-   const id = elmnt.id;
-   const infoboxDivElement = document.getElementById(id + "_text");
-   infoboxDivElement.style.left=e.pageX - offsetX; 
-   infoboxDivElement.style.top=e.pageY - offsetY;  
-   infoboxDivElement.style.visibility = 'visible';
-   infoboxDivElement.style.pointerEvents = 'auto';
-   infoboxDivElement.style.zIndex = ++counter;
-};
 
 function getRootSVGElement(elmnt)
 {
@@ -98,6 +73,59 @@ function getRootSVGElement(elmnt)
    return currentElement;
 };
 
+function infoboxElementFromGivenSvgElementFromId(svgElmnt, id)
+{
+   /* root svg element has been given same id as the containing svg <object/> element -- 25-Oct-2024 */
+   const rootSvgElement = getRootSVGElement(svgElmnt);
+   const parentHTMLelement = document.getElementById(rootSvgElement.id)
+   console.log("parentElement", parentHTMLelement, "nodename", parentHTMLelement.nodeName) ;
+   const greatgrandParentHTMLelement = parentHTMLelement.parentNode.parentNode ;
+   console.log("greatgrandParentElement", greatgrandParentHTMLelement, "class", greatgrandParentHTMLelement.class) ;
+   const selector = '#' + id + '_text' ;
+   console.log("selector", selector);
+   const infoboxDivElement = greatgrandParentHTMLelement.querySelector(selector);
+   return infoboxDivElement;
+}
+
+function infoboxElementFromGivenSvgElement(svgElmnt)
+{
+   return infoboxElementFromGivenSvgElementFromId(svgElmnt, svgElmnt.id);
+}
+function showInfoboxAtCursorFromSVG(e){
+   positionInfoboxAtCursor(e, 0, 0);
+} ;
+
+function showInfoboxAtCursorFromInfobox(e){
+   positionInfoboxAtCursor(e,popupboxContainerOffsetX, popupboxContainerOffsetY);
+} ;
+
+function positionInfoboxAtCursor(e,offsetX,offsetY){
+   e = e || window.event;
+   const elmnt = e.currentTarget; /* may be svg element or button element*/
+   const infoboxDivElement = infoboxElementFromGivenSvgElement(elmnt) ;
+   infoboxDivElement.style.left=e.pageX - offsetX; 
+   infoboxDivElement.style.top=e.pageY - offsetY;  
+   infoboxDivElement.style.visibility = 'visible';
+   infoboxDivElement.style.pointerEvents = 'auto';
+   infoboxDivElement.style.zIndex = ++counter;
+};
+
+/*function closePopUp(id){
+   console.log('close call')
+   const divElement = document.getElementById(id + "_text");
+   divElement.style.visibility = 'hidden';
+   divElement.style.pointerEvents = 'none';
+  } ;*/
+
+function closePopUp(button){
+   console.log('close call')
+   const divElement = button.parentNode.parentNode.parentNode;
+   console.log("divElement",divElement) ;
+   divElement.style.visibility = 'hidden';
+   divElement.style.pointerEvents = 'none';
+  } ;
+
+
 function clickRelationshipAtCursor(e){
    console.log('myevent ',e);
    console.log('pos: ',e.pageX,e.pageY);
@@ -105,33 +133,31 @@ function clickRelationshipAtCursor(e){
    const elmnt = e.currentTarget; /* may be svg element or button element*/
    const rootSvgForThisClickedElement = getRootSVGElement(elmnt);
    const methodData = rootSvgForThisClickedElement.dataset.methodData;
- /*  console.log("XXXXX method data ", methodData)*/
    const methodDataObj = JSON.parse(methodData);
-/*   console.log("XXXXXX diagonal_elements is", methodDataObj.diagonal_elements) ;*/
-
    const relid = elmnt.getAttribute('data-relid');
    console.log('rel id',relid) ;
-   resetDisplay();
+   resetDisplay(rootSvgForThisClickedElement);
    if (currentlySelectedRelationshipId ==relid) {
       currentlySelectedRelationshipId = undefined ;
       // do nothing so that click on currently selected relationship deselects
    } else {
-      currentlySelectedRelationshipId = relid 
-      const infoboxDivElement = document.getElementById(relid + "_text");
+      currentlySelectedRelationshipId = relid ;
+      const infoboxDivElement = infoboxElementFromGivenSvgElementFromId(elmnt, relid) ;
+      /*const infoboxDivElement = document.getElementById(relid + "_text");*/
       infoboxDivElement.style.left=e.pageX;
       infoboxDivElement.style.top=e.pageY;
       infoboxDivElement.style.visibility = 'visible';
       infoboxDivElement.style.pointerEvents = 'auto';
       infoboxDivElement.style.zIndex = ++counter;
      
-      var hitAreaElement = svgDoc.getElementById(relid + "_hitarea");
+      var hitAreaElement = rootSvgForThisClickedElement.getElementById(relid + "_hitarea");
       hitAreaElement.classList.add("relationshippopped");
-      animateRelationship(methodDataObj,relid) ;
+      animateRelationship(rootSvgForThisClickedElement,methodDataObj,relid) ;
    }
 };
 
 
-function animateRelationship(methodDataObj, id){   
+function animateRelationship(svgRoot,methodDataObj, id){   
    var rel_ids = [];
    var colours = [];
    var directions = [];
@@ -139,6 +165,8 @@ function animateRelationship(methodDataObj, id){
    console.log('id is', id)
    // diagonal
    const diagonal_ids = methodDataObj.diagonal_elements[id] ;
+   console.log("methodDataObj.diagonal_elements",methodDataObj.diagonal_elements)
+   console.log("diagonal_ids",diagonal_ids)
    if (diagonal_ids !== undefined){
       rel_ids = rel_ids.concat(diagonal_ids) ;
       directions = directions.concat(methodDataObj.diagonal_element_directions[id]) ;
@@ -156,14 +184,16 @@ function animateRelationship(methodDataObj, id){
       colours = colours.concat(riser_ids.map(id => '#15D4FA')) ;
    } ;
 
-   animatePath(rel_ids,
+   animatePath(svgRoot,
+               rel_ids,
                directions,
                colours
                );
 } ;
 
-function animatePath(pathElementIds,pathElementDirections,colourArray){
-   const pathComponentElements = pathElementIds.map(id => svgDoc.getElementById(id + "_hitarea"));
+function animatePath(svgRoot, pathElementIds,pathElementDirections,colourArray){
+   console.log("animatePath pathElementIds",pathElementIds) ;
+   const pathComponentElements = pathElementIds.map(id => svgRoot.getElementById(id + "_hitarea"));
    //console.log(pathComponentElements);
    const pathComponentLengths = pathComponentElements.map(pathElement => pathElement.getTotalLength());
    //console.log(pathComponentLengths);
@@ -189,13 +219,13 @@ function animatePath(pathElementIds,pathElementDirections,colourArray){
 var pathVelocity = 20; // meaning 3 units (cm?) per second
 
 
-function resetDisplay () {
-   resetArray.forEach(id => resetRelationship(id));
+function resetDisplay (svgRoot) {
+   resetArray.forEach(id => resetRelationship(svgRoot,id));
    resetArray = [];
 } ;
 
-function resetRelationship(id){
-   var relHitArea = svgDoc.getElementById(id + "_hitarea");
+function resetRelationship(svgRoot,id){
+   var relHitArea = svgRoot.getElementById(id + "_hitarea");
 // see https://www.petercollingridge.co.uk/tutorials/svg/interactive/mouseover-effects/
    relHitArea.style.strokeOpacity = "" ;
    relHitArea.style.stroke="" ;
@@ -205,6 +235,7 @@ function resetRelationship(id){
 
 function animateRel(relHitArea,timing,length,duration,direction,colour){
    // direction is either 1 for animate forward along path or -1 for animate in reverse direction
+   console.log("animateRel")
    relHitArea.style.strokeWidth = 0.2 ;
    relHitArea.style.strokeOpacity = 0.5 ;
    relHitArea.style.stroke=colour ;
@@ -217,12 +248,10 @@ function animateRel(relHitArea,timing,length,duration,direction,colour){
    //console.log(animation) ;
 } ;
 
-/* This below will need changing to new display,visibility scheme if used in future */
+
 function closeallinfoboxes(){
    const textboxes = document.getElementsByClassName("infobox");
    for(var i=0; i<textboxes.length; i++){
              textboxes[i].style.display='none';
    }  
-   const infolist = document.getElementById("infolist");
-   infolist.style.display = 'none';
 } ;
