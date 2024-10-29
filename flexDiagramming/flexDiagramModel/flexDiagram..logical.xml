@@ -5,6 +5,7 @@
 9 -Jan-2022 -  Enumeration types removed since not actually used.
  -->
    <absolute>
+      <attribute name="method" type="string"/>
       <attribute name="h" type="float"/>
       <attribute name="w" type="float"/>
       <attribute name="margin" type="float"/>

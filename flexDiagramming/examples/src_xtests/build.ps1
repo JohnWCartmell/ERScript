@@ -15,9 +15,7 @@ $SOURCEXML = $SOURCE + '\flexDiagramming\examples\' +  $EXAMPLEFOLDERNAME
 $TARGETXML = $TARGET + '\flexDiagramming\examples\' +  $EXAMPLEFOLDERNAME
 $TARGETDOCS = $TARGET + '\flexDiagramming\examples\' +  $EXAMPLEFOLDERNAME + '\docs'
 
-$file=Get-Item $filename
-echo ('basename is:' + $file.Basename) 
-echo ('extension is:' + $file.Extension)
+
 
 # CREATE target xml folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
@@ -38,6 +36,9 @@ If(!(test-path -PathType container $TARGETDOCS))
 attrib -R $TARGETXML\*.xml
 echo ('filename is ' + $filename)
 if ($PSBoundParameters.ContainsKey('filename') -and ($file.Extension -eq '.xml')){
+$file=Get-Item $filename
+echo ('basename is:' + $file.Basename) 
+echo ('extension is:' + $file.Extension)
 echo 'copy single xml file'
 copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
 } else {
@@ -45,8 +46,9 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
       echo 'copy single html file'
       copy-item -Path $SOURCEXML\$filename -Destination $TARGETDOCS
       } else {
-      #copy all files 
+      echo 'copy all xml files'
       copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
+      echo 'copy all html files'
       copy-item -Path $SOURCEXML\*.html -Destination $TARGETDOCS
       }
 }
@@ -61,15 +63,41 @@ If(!(test-path -PathType container $TARGETSHAREDXML))
       New-Item -ItemType Directory -Path $TARGETSHAREDXML
 }
 
-# COPY xml files
+# COPY shareed xml files
 attrib -R $TARGETSHAREDXML\*.xml
 copy-item -Path $SOURCESHAREDXML\*.xml -Destination $TARGETSHAREDXML
 attrib +R $TARGETSHAREDXML\*.xml
 
+#pushd $TARGETXML
+#if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
+#. $TARGET\flexDiagramming\scripts\flex2svg.ps1 $filename -debugswitch -animate
+#}else{
+#????
+#}
+#popd
+
+# This function called from temp build folder 
+function Build-File {
+    param (
+        $FileName
+    )
+    echo('Building ' +  $FileName)
+   . $TARGET\flexDiagramming\scripts\flex2svg.ps1 $filename -debugswitch -animate
+}
+
+
+
 pushd $TARGETXML
+echo ('*********** location: ' + (Get-Location) )
 if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
-. $TARGET\flexDiagramming\scripts\buildexample $filename
+    echo ('need build from' + $filename)
+    Build-File -FileName $filename
 }else{
-. $TARGET\flexDiagramming\scripts\buildAllExamples
+    echo 'building all'
+    get-ChildItem -Path *.xml  | Foreach-Object {
+      echo 'building ' + $_.Name
+      Build-File -FileName $_.Name
+    }
+    echo 'done building all'
 }
 popd 

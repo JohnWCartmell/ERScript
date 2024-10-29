@@ -17,7 +17,7 @@ echo "***"
 echo "================================================================= end $foldername ====================="
 echo "."
 }
-buildFolder src_instruction
+buildFolder src_enclosures
 buildFolder src_paths
 buildFolder src_routes
 buildFolder src_text_tests

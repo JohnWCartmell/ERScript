@@ -8,7 +8,7 @@
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
 <!--  Maintenance Box 
-24-Oct-2024  No longer create of noOfSlots here. See change note 24-Oct-2024. 
+24-Oct-2024  Created. See change note 24-Oct-2024. 
  -->
  
  <!-- <xsl:include href="diagram.functions.module.xslt"/> -->
@@ -17,38 +17,34 @@
 
 
 <!-- ************************************* -->
-<!-- route/source/bottom_edge  +deltax  -->
+<!-- route/source/bottom_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /source[slotNo][key('Enclosure',id)/w]/bottom_edge
-                     [noOfSlots]    
-					      [not(deltax)]
+                     /source[key('Enclosure',id)/w]/bottom_edge    
+					 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
               priority="42">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <deltax>
-		  <xsl:value-of select="(key('Enclosure',../id)/w)  *  (../slotNo + 1) div (noOfSlots + 1)"/>
-      </deltax>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('bottom_edge_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
    </xsl:copy>
 </xsl:template>
 
 <!-- ************************************* -->
-<!-- route/destination/top_edge  +deltax  -->
+<!-- route/destination/top_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /destination[slotNo][key('Enclosure',id)/w]/top_edge
-                     [noOfSlots]        
-					      [not(deltax)]
+                     /destination[key('Enclosure',id)/w]/top_edge    
+					 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
               priority="42">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <deltax>
-        <xsl:value-of select="(key('Enclosure',../id)/w)  *  (../slotNo + 1) div (noOfSlots + 1)"/>
-      </deltax>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('top_edge_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
    </xsl:copy>
 </xsl:template>
 

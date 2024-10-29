@@ -64,6 +64,7 @@
 <xsl:include href="diagram...route.node-+specific_edge.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node-+slotNo.xslt"/>            <!--priority 40 -->
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
+<xsl:include href="diagram...route.node.specific_edge-+noOfSlots.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  200  -->         <!-- see also diagram.route.path.xslt ABOVE -->
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
