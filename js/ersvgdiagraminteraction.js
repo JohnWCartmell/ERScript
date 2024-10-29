@@ -12,8 +12,8 @@
 var popupboxContainerOffsetX ;
 var popupboxContainerOffsetY ;
 
-var resetArray = [] ;
-var currentlySelectedRelationshipId = undefined;
+/*var resetArray = [] ;
+var currentlySelectedRelationshipId = undefined;*/
 
 var counter = 1;
 
@@ -78,11 +78,11 @@ function infoboxElementFromGivenSvgElementFromId(svgElmnt, id)
    /* root svg element has been given same id as the containing svg <object/> element -- 25-Oct-2024 */
    const rootSvgElement = getRootSVGElement(svgElmnt);
    const parentHTMLelement = document.getElementById(rootSvgElement.id)
-   console.log("parentElement", parentHTMLelement, "nodename", parentHTMLelement.nodeName) ;
+   /*console.log("parentElement", parentHTMLelement, "nodename", parentHTMLelement.nodeName) ;*/
    const greatgrandParentHTMLelement = parentHTMLelement.parentNode.parentNode ;
-   console.log("greatgrandParentElement", greatgrandParentHTMLelement, "class", greatgrandParentHTMLelement.class) ;
+   /*console.log("greatgrandParentElement", greatgrandParentHTMLelement, "class", greatgrandParentHTMLelement.class) ;*/
    const selector = '#' + id + '_text' ;
-   console.log("selector", selector);
+   /*console.log("selector", selector);*/
    const infoboxDivElement = greatgrandParentHTMLelement.querySelector(selector);
    return infoboxDivElement;
 }
@@ -136,12 +136,14 @@ function clickRelationshipAtCursor(e){
    const methodDataObj = JSON.parse(methodData);
    const relid = elmnt.getAttribute('data-relid');
    console.log('rel id',relid) ;
-   resetDisplay(rootSvgForThisClickedElement);
-   if (currentlySelectedRelationshipId ==relid) {
-      currentlySelectedRelationshipId = undefined ;
-      // do nothing so that click on currently selected relationship deselects
+   /*resetDisplay(rootSvgForThisClickedElement);*/
+   var hitAreaElement = rootSvgForThisClickedElement.getElementById(relid + "_hitarea");
+   console.log("pre: hit area class list",hitAreaElement.classList) ;
+   if (hitAreaElement.classList.contains("relationshippopped")) {
+      // do nothing but resetDisplay so that click on currently selected relationship deselects
+      resetDisplay(rootSvgForThisClickedElement);
    } else {
-      currentlySelectedRelationshipId = relid ;
+      resetDisplay(rootSvgForThisClickedElement);
       const infoboxDivElement = infoboxElementFromGivenSvgElementFromId(elmnt, relid) ;
       /*const infoboxDivElement = document.getElementById(relid + "_text");*/
       infoboxDivElement.style.left=e.pageX;
@@ -149,10 +151,9 @@ function clickRelationshipAtCursor(e){
       infoboxDivElement.style.visibility = 'visible';
       infoboxDivElement.style.pointerEvents = 'auto';
       infoboxDivElement.style.zIndex = ++counter;
-     
-      var hitAreaElement = rootSvgForThisClickedElement.getElementById(relid + "_hitarea");
-      hitAreaElement.classList.add("relationshippopped");
       animateRelationship(rootSvgForThisClickedElement,methodDataObj,relid) ;
+      hitAreaElement.classList.add("relationshippopped");
+      console.log("post: hit area class list",hitAreaElement.classList) ;
    }
 };
 
@@ -212,7 +213,7 @@ function animatePath(svgRoot, pathElementIds,pathElementDirections,colourArray){
                  colourArray[i]);
       proportionSoFar += proportionThisComponent ;
       } 
-   resetArray = pathElementIds;
+/*   resetArray = pathElementIds;*/
 } ;
 
 // Globals
@@ -220,18 +221,25 @@ var pathVelocity = 20; // meaning 3 units (cm?) per second
 
 
 function resetDisplay (svgRoot) {
-   resetArray.forEach(id => resetRelationship(svgRoot,id));
-   resetArray = [];
+/*   resetArray.forEach(id => resetRelationship(svgRoot,id));
+   resetArray = [];*/
+
+   let relHitAreaElements = svgRoot.querySelectorAll(".relationshiphitarea");
+   console.log("Number of relationships",relHitAreaElements.length)
+   for (let i = 0; i < relHitAreaElements.length; i++) {
+      resetRelationship(relHitAreaElements[i]);
+   };
 } ;
 
-function resetRelationship(svgRoot,id){
-   var relHitArea = svgRoot.getElementById(id + "_hitarea");
-// see https://www.petercollingridge.co.uk/tutorials/svg/interactive/mouseover-effects/
+/*function resetRelationship(svgRoot,id){*/
+/*   var relHitArea = svgRoot.getElementById(id + "_hitarea");*/
+   function resetRelationship(relHitArea)
+   {
+   // see https://www.petercollingridge.co.uk/tutorials/svg/interactive/mouseover-effects/
    relHitArea.style.strokeOpacity = "" ;
    relHitArea.style.stroke="" ;
    relHitArea.classList.remove("relationshippopped");
 } ;
-
 
 function animateRel(relHitArea,timing,length,duration,direction,colour){
    // direction is either 1 for animate forward along path or -1 for animate in reverse direction
