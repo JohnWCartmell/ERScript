@@ -4,7 +4,7 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 echo ("*** building from  $SOURCE css folder")
 
-$SOURCECSS = $SOURCE + '\flexDiagramming\methods\era\css'
+$SOURCECSS = $SOURCE + '\flexDiagramming\methods\test\css'
 $TARGETCSS = $TARGET + '\css'
 
 echo ('SOURCECSS ' + $SOURCECSS)

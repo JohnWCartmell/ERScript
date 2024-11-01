@@ -132,7 +132,7 @@
   }
 
   .entity_type_outline{;
-    stroke: red;
+    stroke: blue;
     stroke-width: 1;
     fill-opacity: 0
   }

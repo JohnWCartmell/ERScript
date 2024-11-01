@@ -53,18 +53,18 @@ CHANGE HISTORY
       <xsl:variable name="method" select="if (exists(method)) then method else 'test'"/>
       <!-- css file -->
       <xsl:variable name="filename" 
-                          select="concat($method,'FlexDiagramInteractionsvg.css')"/>
+                          select="concat($method,'FlexDiagramming.svg.css')"/>
       <xsl:choose>
           <xsl:when test="$bundleOn">
             <svg:style>
-                <xsl:value-of select="unparsed-text('../../flexDiagramming/' || $method || '.css/' || $filename')" 
+                <xsl:value-of select="unparsed-text('../../flexDiagramming/' || $method || '.css/' || $filename)" 
                           disable-output-escaping="yes"/>
             </svg:style>
           </xsl:when>
           <xsl:otherwise>
             <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet"
                    type="text/css"
-                   href="'/css/' || $filename"/>
+                   href="/css/{$filename}"/>
           </xsl:otherwise>
       </xsl:choose>
 
