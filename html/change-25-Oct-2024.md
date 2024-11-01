@@ -66,7 +66,7 @@ then access, as needed,
 'methodData.riser_elements',
 'methodData.riser_element_directions'.
 7. Change ERmodel2.svg.xslt so that the <object/> generated with the diagram svg as content
-has is given by
+has attribute 'id' with value given by
 ```
 <xsl:value-of select="current-dateTime()"/>
 ```

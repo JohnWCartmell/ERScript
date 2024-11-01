@@ -43,11 +43,11 @@ echo "***"
 echo "=============================== end cricket ====================="
 
 echo "."
-echo "=============================== begin goodlandsSSADMcarHire ==================="
+echo "=============================== begin goodlandSSADMcarHire ==================="
 echo "***"
-& $EXAMPLESSOURCE\goodlandsSSADMcarHire\build.ps1  
+& $EXAMPLESSOURCE\goodlandSSADMcarHire\build.ps1  
 echo "***"
-echo "=============================== end goodlandsSSADMcarHire ====================="
+echo "=============================== end goodlandSSADMcarHire ====================="
 
 echo "."
 echo "=============================== begin grids ==================="
