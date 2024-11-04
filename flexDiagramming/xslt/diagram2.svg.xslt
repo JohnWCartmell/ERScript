@@ -560,7 +560,7 @@ CHANGE HISTORY
     <xsl:variable name="xpenultimatecm" select="path/point[$pointcount - 1]/x/abs"/>
     <xsl:variable name="ypenultimatecm" select="path/point[$pointcount - 1]/y/abs"/>
 
-    <xsl:for-each select="destination/endline">
+    <xsl:for-each select="destination/endline"> <!-- see comments above for an explanation -->
       <svg:path>
         <xsl:attribute name="class"><xsl:value-of select="$deststyle"/></xsl:attribute>
         <xsl:attribute name="d">
