@@ -29,7 +29,7 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Enclosure A has route specified from rhs of A to lhs of B.</text>
+			<text>Enclosure A has route specified from bottom_edge of A to lhs of B.</text>
 		</label>
 		<enclosure>
 			<id>A</id>
