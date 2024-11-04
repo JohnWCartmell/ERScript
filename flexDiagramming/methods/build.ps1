@@ -17,7 +17,6 @@ echo "================================================================= end $fol
 echo "."
 }
 
-buildFolder css
 buildFolder js
 buildFolder xml
 

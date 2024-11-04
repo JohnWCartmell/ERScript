@@ -25,6 +25,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 pushd $TARGETXML
 
 echo 'Brinton Example'
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
 
@@ -33,7 +35,7 @@ echo 'Brinton Example'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-
+}
 # if ($false)
 #{
 echo 'Brinton Flex version'

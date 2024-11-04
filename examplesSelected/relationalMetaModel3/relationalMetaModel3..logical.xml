@@ -22,10 +22,11 @@
    <!-- <group name="table_children"> -->
       <entity_type name="primary key entry">
          <identifying>
-            <context name="of" type="table"/>
-            <reference name="column" type="column" inverse="in_primary_key" diagonal="of" riser="of"/>
+            <context name="of" type="table"/>  
+            <reference name="column" type="column" inverse="in_primary_key" diagonal="of" riser="of"/> 
          </identifying>
       </entity_type>
+
       <entity_type name="column">
          <identifying>
             <context name="of" type="table"/>
@@ -45,7 +46,7 @@
    <entity_type name="foreign key entry">
       <identifying>
          <context name="partof" type="foreign key"/>
-         <reference name="to" type="primary key entry" diagonal="partof/to_table" riser="of"/>
+         <reference name="to" type="primary key entry" diagonal="partof/to_table" riser="of"/> 
       </identifying>
       <reference name="from_column" type="column" diagonal="partof/of" riser="of"/>
    </entity_type>

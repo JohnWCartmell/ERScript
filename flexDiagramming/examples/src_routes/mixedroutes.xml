@@ -62,7 +62,7 @@
 						<id>A1</id>
 						<annotation>link_to_a2</annotation>
 						<linestyle>solidline</linestyle>
-						<endlinestyle>crowsfoot</endlinestyle>
+						<endline><style>crowsfoot</style></endline>
 				</source>
 				<destination>
 						<left_side>
@@ -71,6 +71,7 @@
 						</left_side>
 						<id>A2</id>
 						<annotation>a1</annotation>
+						<endline><style>crowsfoot</style></endline>
 				</destination>
 			</route>	
 			<route>

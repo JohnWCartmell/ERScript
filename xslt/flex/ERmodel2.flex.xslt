@@ -1,4 +1,4 @@
-<!-- 
+ <!-- 
 
 -->
 
@@ -54,20 +54,8 @@ CHANGE HISTORY
 				<include>
 					<filename><xsl:text>file:///</xsl:text>
 						        <xsl:value-of select="$path"/>
-					          <xsl:text>/text_style_definitions.xml</xsl:text>
+					          <xsl:text>/eraFlexStyleDefinitions.xml</xsl:text>
 				 </filename>
-				</include>
-				<include>
-					<filename><xsl:text>file:///</xsl:text>
-						        <xsl:value-of select="$path"/>
-					          <xsl:text>/shape_style_definitions.xml</xsl:text>
-					</filename>
-				</include>
-				<include>
-					<filename><xsl:text>file:///</xsl:text>
-						        <xsl:value-of select="$path"/>
-					          <xsl:text>/endline_style_definitions.xml</xsl:text>
-					</filename>
 				</include>
 				<default>
 					<hmin>0.5</hmin>
@@ -143,7 +131,7 @@ CHANGE HISTORY
 		<xsl:message>passzero</xsl:message>
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
-			<shape_style>entity_type_outline</shape_style>
+			<shape_style>eteven</shape_style>
 			<w>15</w> <!--temporary measures!!!!!!!!!!!!!!!!!***************>-->
 			<rx>0.25</rx>
 			<ry>0.25</ry>
@@ -151,45 +139,53 @@ CHANGE HISTORY
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
+<!--
+Where the heck did this come from?
+ 	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
+		<xsl:message terminate="yes"> entity type has diagram:enclosure eh?</xsl:message>
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
-			<shape_style>entity_type_outline</shape_style>
-			<rx>0.25</rx>  <!-- cheap and cheerful -->
+			<shape_style>eteven</shape_style>
+			<rx>0.25</rx>  
 			<ry>0.25</ry>
 			<label/>
 			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
-	</xsl:template>
-	
+	</xsl:template> -->
+<!-- 	was
 	<xsl:template match="entity_type[not(diagram:enclosure)]" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
-			<shape_style>entity_type_outline</shape_style>
-			<rx>0.25</rx>  <!-- cheap and cheerful -->
+			<shape_style>eteven</shape_style>
+			<rx>0.25</rx>  
 			<ry>0.25</ry>
 			<label/>
 			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
-	<xsl:template match="group[diagram:enclosure]" mode="passzero">
+<!-- cleaned up and upgraded change 28-Oct-2024 -->
+	<xsl:template match="entity_type" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
-			<shape_style>codedfor_group_outline</shape_style>
-			<!-- <label/>  -->
-			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
-			<xsl:copy-of select="diagram:enclosure/*"/>
+			<xsl:variable name="nestingDepth" as="xs:integer" select="count(ancestor-or-self::entity_type)-1"/>
+			<xsl:variable name="iseven" as="xs:boolean" select="($nestingDepth mod 2)=0"/>
+			<xsl:variable name="shapestyle" as="xs:string" select="if ($iseven) then 'eteven' else 'etodd'"/>"
+			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
+			<rx>0.25</rx>  
+			<ry>0.25</ry>
+			<label/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 		</xsl:element>
 	</xsl:template>
-	
+
+<!-- PROBABLY NOT REQUIRED -->
 		<xsl:template match="group[not(diagram:enclosure)]" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
 			<shape_style>group_outline</shape_style>
-			<!-- <label/>  -->
 			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
@@ -228,8 +224,12 @@ CHANGE HISTORY
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="@inverse"/></annotation>
+
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- need calculate and plant linestyle here I would think -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 				<xsl:if test="(substring(@type,string-length(@type))='*')
-					 		               or (substring(@type,string-length(@type))='+')"> 		
+					 		               or (substring(@type,string-length(@type))='+')"> 
 					<endline>
 						<style>
 						 		<xsl:text>crowsfoot</xsl:text>
@@ -275,7 +275,7 @@ CHANGE HISTORY
          <annotate_low/>
       </right_side>
 
-				<id><xsl:value-of select="../@name"/></id>
+				<id><xsl:value-of select="../(if (self::identifying) then ../@name else @name)"/></id>
 				<annotation><xsl:value-of select="@name"/></annotation>
 				<linestyle>
 					 <xsl:choose>
@@ -309,7 +309,7 @@ CHANGE HISTORY
          <deltay>0.5</deltay>
          <annotate_low/>
       </left_side>
-
+<!-- would like to plant linestyle here I would think --> 
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="@inverse"/></annotation>
 			</destination>			

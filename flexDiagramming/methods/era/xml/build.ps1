@@ -15,7 +15,11 @@ If(!(test-path -PathType container $TARGETXML))
       New-Item -ItemType Directory -Path $TARGETXML
 }
 
-# COPY js file
+# COPY xml file
 attrib -R $TARGETXML\*.xml
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
 attrib +R $TARGETXML\*.xml
+
+pushd $TARGETXML
+. $TARGET\flexDiagramming\scripts\styles2css.ps1 eraFlexStyleDefinitions.xml -outputFolder ../../../../css
+popd

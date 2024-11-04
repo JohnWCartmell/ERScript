@@ -26,6 +26,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 pushd $TARGETXML
 
 echo 'Relational Meta Model Example'
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 relationalMetaModel3..logical.xml -outputFolder ..\docs
 
@@ -37,7 +39,7 @@ echo 'Build physical (relational) model'
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 relationalMetaModel3..physical.xml -outputFolder ..\docs -debugSwitch
-
+}
 #if ($false)
 #{
 echo 'Relational Meta Model Flex version'

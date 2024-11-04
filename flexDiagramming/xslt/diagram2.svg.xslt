@@ -53,7 +53,7 @@ CHANGE HISTORY
       <xsl:variable name="method" select="if (exists(method)) then method else 'test'"/>
       <!-- css file -->
       <xsl:variable name="filename" 
-                          select="concat($method,'FlexDiagramming.svg.css')"/>
+                          select="concat($method,'FlexStyleDefinitions.css')"/>
       <xsl:choose>
           <xsl:when test="$bundleOn">
             <svg:style>
