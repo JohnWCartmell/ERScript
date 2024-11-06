@@ -141,6 +141,11 @@ CHANGE HISTORY
 
 <!--
 Where the heck did this come from?
+xxxThis commented out Oct2024. B
+xxxProbable wrongly! The idea must be that can put
+xxxenclosure information inside a logical model 
+xxxto copy through
+
  	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
 		<xsl:message terminate="yes"> entity type has diagram:enclosure eh?</xsl:message>
 		<xsl:element name="enclosure">
@@ -166,7 +171,8 @@ Where the heck did this come from?
 		</xsl:element>
 	</xsl:template> -->
 
-<!-- cleaned up and upgraded change 28-Oct-2024 -->
+<!-- cleaned up and upgraded change 28-Oct-2024 -->  <!-- except see comment above -->
+
 	<xsl:template match="entity_type" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="@name"/></id>
@@ -180,6 +186,7 @@ Where the heck did this come from?
 			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 		</xsl:element>
 	</xsl:template>
+
 
 <!-- PROBABLY NOT REQUIRED -->
 		<xsl:template match="group[not(diagram:enclosure)]" mode="passzero">

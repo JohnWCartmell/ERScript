@@ -49,6 +49,15 @@
               priority="40P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:if test="some $label in label satisfies not( label/xP/relative/offset[1] castable as xs:double)">
+        <xsl:for-each select="label">
+        <xsl:message terminate="yes">in wlP  offset is not numeric all label x's 
+                          <xsl:value-of select="xP/relative/offset[1]"/>
+                          count of offsets <xsl:value-of select="count(xP/relative/offset)"/>
+                          copy of label <xsl:copy-of select="."/>
+                         </xsl:message>
+        </xsl:for-each>
+      </xsl:if>
       <wlP>
 	     <xsl:value-of select="- min((label/xP/relative/offset[1] ,
 		                            0

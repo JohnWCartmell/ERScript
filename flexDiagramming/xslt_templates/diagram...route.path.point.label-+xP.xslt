@@ -25,12 +25,13 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+			<xsl:message>endline/style <xsl:value-of select="../../../source/endline/style"/></xsl:message>
 			<xP>
 			  <local>
-				<xsl:value-of select="-key('endline_style',../../../source/endline_style)/label_long_offset"/>
+				<xsl:value-of select="-key('endline_style',../../../source/endline/style)/label_long_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>
@@ -43,12 +44,12 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<xP>
 			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline_style)/label_long_offset"/>
+				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_long_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>
@@ -66,12 +67,12 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<xP>
 			  <local>
-				<xsl:value-of select="-wP - key('endline_style',../../../source/endline_style)/label_long_offset"/>
+				<xsl:value-of select="-wP - key('endline_style',../../../source/endline/style)/label_long_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>
@@ -84,12 +85,12 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<xP>
 			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline_style)/label_long_offset"/>
+				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_long_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>
@@ -108,12 +109,13 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+			<xsl:message>source endline style <xsl:value-of select="../../../source/endline/style"/></xsl:message>
 			<xP>
 			  <local>
-				<xsl:value-of select="-key('endline_style',../../../source/endline_style)/label_lateral_offset
+				<xsl:value-of select="-key('endline_style',../../../source/endline/style)/label_lateral_offset
 				                      - wP"/>
 			  </local>
 			</xP>
@@ -127,12 +129,13 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+			<xsl:message>source endline style BB<xsl:value-of select="../../../source/endline/style"/></xsl:message>
 			<xP>
 			  <local>
-				<xsl:value-of select="key('endline_style',../../../source/endline_style)/label_lateral_offset"/>
+				<xsl:value-of select="key('endline_style',../../../source/endline/style)/label_lateral_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>
@@ -149,12 +152,13 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+			<xsl:message>destination endline style <xsl:value-of select="../../../destination/endline/style"/></xsl:message>
 			<xP>
 			  <local>
-				<xsl:value-of select="-key('endline_style',../../../destination/endline_style)/label_lateral_offset
+				<xsl:value-of select="-key('endline_style',../../../destination/endline/style)/label_lateral_offset
 				                      - wP"/>
 			  </local>
 			</xP>
@@ -168,12 +172,13 @@
 					   [not(xP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="140P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+			<xsl:message>destination endline style XX<xsl:value-of select="../../../destination/endline/style"/></xsl:message>
 			<xP>
 			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline_style)/label_lateral_offset"/>
+				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_lateral_offset"/>
 			  </local>
 			</xP>
 		</xsl:copy>

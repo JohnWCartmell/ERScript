@@ -41,22 +41,22 @@
 <xsl:include href="diagram.label.x.xslt"/>               
 <xsl:include href="diagram.label.y.xslt"/>
 -->            
-<xsl:include href="diagram...box-+x.xslt"/>             <!-- priority  50  -->
+<xsl:include href="diagram...box-+x.xslt"/>             <!-- priority  50,52 -->
 <xsl:include href="diagram...box-+y.xslt"/>             <!-- priority  48  -->
 
-<xsl:include href="diagram...box-+x_outer_upper_offset.xslt"/>   <!-- priority  50 -->
-<xsl:include href="diagram...box-+y_outer_upper_offset.xslt"/>   <!-- priority  50 -->
-<xsl:include href="diagram...box-+x_outer_lower_offset.xslt"/>   <!-- priority  50 -->
-<xsl:include href="diagram...box-+y_outer_lower_offset.xslt"/>   <!-- priority  50 -->
+<xsl:include href="diagram...box-+x_outer_upper_offset.xslt"/>   <!-- priority  50.1 -->
+<xsl:include href="diagram...box-+y_outer_upper_offset.xslt"/>   <!-- priority  50.1 -->
+<xsl:include href="diagram...box-+x_outer_lower_offset.xslt"/>   <!-- priority  50.2 -->
+<xsl:include href="diagram...box-+y_outer_lower_offset.xslt"/>   <!-- priority  50.2 -->
 
 <xsl:include href="diagram.x-+relative.offset.xslt"/>   <!-- priority  50 - 51 -->
 <xsl:include href="diagram.y-+relative.offset.xslt"/>   <!-- priority  48 - 49 -->
 <xsl:include href="diagram.wl.xslt"/>                   <!-- priority  40  -->
 <xsl:include href="diagram.wr.xslt"/>                   <!-- priority  42  -->
-<xsl:include href="diagram.w.xslt"/>                    <!-- priority  42  -->
-<xsl:include href="diagram.h.xslt"/>                    <!-- priority  43  -->
+<xsl:include href="diagram.w.xslt"/>                    <!-- priority  42.1  -->
+<xsl:include href="diagram.h.xslt"/>                    <!-- priority  43.1  -->
 <xsl:include href="diagram.ht.xslt"/>                   <!-- priority  41  -->
-<xsl:include href="diagram.hb.xslt"/>                   <!-- priority  43 -->
+<xsl:include href="diagram.hb.xslt"/>                   <!-- priority  43.1 -->
 
 <!-- No longer reqd I think
 <xsl:include href="diagram...edge-+id.xslt"/>  -->           <!-- priority  40  -->
@@ -66,7 +66,7 @@
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
 <xsl:include href="diagram...route.node.specific_edge-+noOfSlots.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
-<xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  200  -->         <!-- see also diagram.route.path.xslt ABOVE -->
+<xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  250 -->         <!-- see also diagram.route.path.xslt ABOVE -->
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
 <xsl:include href="diagram...path.point-+x.xslt"/>        <!-- priority  55, 56  -->
 <xsl:include href="diagram...path.point-+y.xslt"/>        <!-- priority  55, 56  -->
@@ -82,9 +82,9 @@
 
 <xsl:include href="diagram...path-+point.endpoint+ew.xslt"/>    <!-- priority  41  -->
 <xsl:include href="diagram...path-+point.endpoint+ns.xslt"/>    <!-- priority  41  -->
-<xsl:include href="diagram...route.path.point.label-+text.xslt"/>    <!-- priority  40  -->
-<xsl:include href="diagram...route.path.point.label-+x.xslt"/>    <!-- priority  40  -->
-<xsl:include href="diagram...route.path.point.label-+y.xslt"/>    <!-- priority  40  -->
+<xsl:include href="diagram...route.path.point.label-+text.xslt"/>    <!-- priority  40 .1 -->
+<xsl:include href="diagram...route.path.point.label-+x.xslt"/>    <!-- priority  140.1  -->
+<xsl:include href="diagram...route.path.point.label-+y.xslt"/>    <!-- priority  140.2  -->
 <xsl:include href="diagram...path.cardinal-+startx.xslt"/>      <!-- priority  60  -->
 <xsl:include href="diagram...path.cardinal-+starty.xslt"/>      <!-- priority  61  -->
 <xsl:include href="diagram...path.cardinal-+deltax.xslt"/>      <!-- priority  55,56  -->

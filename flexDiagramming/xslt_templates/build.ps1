@@ -29,12 +29,16 @@ function ReplacexPwithxetc
                 -creplace 'deltayP', 'deltay' `
                       -creplace '40P', '40' `
                       -creplace '42P',   '42' `
+                      -creplace '42.1P',   '42.1' `
                       -creplace '50P',   '50' `
+                      -creplace '50.1P',   '50.1' `
+                      -creplace '50.2P',   '50.2' `
                       -creplace '51P',   '51' `
                       -creplace '52P',   '52' `
                       -creplace '55P',   '55' `
                       -creplace '56P',   '56' `
                       -creplace '60P',   '60' `
+                      -creplace '140P', '140.1' `
                       -creplace '169P', '169' `
                       -creplace '170P', '170' `
                       -creplace '171P', '171' `
@@ -73,12 +77,16 @@ function ReplacexPwithyetc
                     -creplace 'deltayP', 'deltax' `
                       -creplace '40P', '41' `
                       -creplace '42P', '43' `
+                      -creplace '42.1P', '43.1' `
                       -creplace '50P', '48' `
+                      -creplace '50.1P', '48.1' `
+                      -creplace '50.2P', '48.2' `
                       -creplace '51P', '49' `
                       -creplace '52P', '53' `
                       -creplace '55P', '57' `
                       -creplace '56P', '58' `
                       -creplace '60P', '61' `
+                      -creplace '140P', '140.2' `
                       -creplace '169P', '179' `
                       -creplace '170P', '180' `
                       -creplace '171P', '181' `

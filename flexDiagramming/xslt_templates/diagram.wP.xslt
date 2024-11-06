@@ -56,7 +56,7 @@
                               ]
                     "
                mode="recursive_diagram_enrichment"
-                             priority="42P">
+                             priority="42.1P">
 
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
@@ -102,7 +102,7 @@
                             
                     " 
                   mode="recursive_diagram_enrichment"
-                  priority="42P">
+                  priority="42.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wP>
@@ -123,7 +123,7 @@
                       [not(wP)]
                     " 
                   mode="recursive_diagram_enrichment"
-                  priority="42P">
+                  priority="42.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wP>0</wP>
@@ -139,7 +139,7 @@
                           [text_style]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="42P">
+              priority="42.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <!--

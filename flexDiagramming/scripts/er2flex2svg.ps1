@@ -59,6 +59,7 @@ java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
 
 java -jar $SAXON_JAR -s:$tempFolder\$filenamebase.flex.xml `
                       -xsl:$ERHOME\flexDiagramming\xslt\diagram2.svg.xslt `
+                       -warnings:silent `
                        -o:$outputFolder\$filenamebase.flex.svg `
                        filestem=$filenamebase.flex `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `

@@ -42,6 +42,7 @@ If(!(test-path -PathType container $outputFolder))
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
                       -xsl:$ERHOME\flexDiagramming\xslt\diagram2.svg.xslt `
                        -o:$outputFolder\$filenamebase.svg `
+                       -warnings:fatal `
                        filestem=$filenamebase `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `
                        animate=$(If ($animate){'y'}Else{'n'}) `

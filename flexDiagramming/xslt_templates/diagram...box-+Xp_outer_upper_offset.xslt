@@ -24,7 +24,7 @@
 					 [wrP]
 					 [padding]
                     " mode="recursive_diagram_enrichment"
-              priority="50P">
+              priority="50.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <xP_outer_upper_offset>
@@ -41,7 +41,7 @@
 					 [wP]
 					 [padding]
                     " mode="recursive_diagram_enrichment"
-              priority="50P">
+              priority="50.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <xP_outer_upper_offset>
@@ -58,7 +58,7 @@
 <xsl:template match="*[self::path|self::ns|self::ew|self::ramp]
                      [not(xP_outer_upper_offset)]
                     " mode="recursive_diagram_enrichment"
-              priority="50P">
+              priority="50.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <xP_outer_upper_offset>

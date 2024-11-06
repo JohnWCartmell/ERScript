@@ -23,13 +23,14 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40">		  
+			priority="40.1">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<text><xsl:value-of select="../../..[self::route]/source/annotation"/></text>
 		</xsl:copy>
 	</xsl:template>
 	
+	<!-- I think this is causing a crash at a later point 
 	<xsl:template match="route
 		[not(source/annotation)]
 		/path/point[startpoint]
@@ -43,6 +44,7 @@
             <text/>
 		</xsl:copy>
 	</xsl:template>
+-->
 	
 
 	<!-- ******************************** -->
@@ -56,13 +58,14 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40">		  
+			priority="40.1">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<text><xsl:value-of select="../../..[self::route]/destination/annotation"/></text>
 		</xsl:copy>
 	</xsl:template>
 	
+	<!-- I think this is causing a crash at a later point 
 	<xsl:template match="route
 		[not(destination/annotation)]
 		/path/point[endpoint]
@@ -76,7 +79,7 @@
 			<text/>
 		</xsl:copy>
 	</xsl:template>
-	
+	-->
 
 </xsl:transform>
 
