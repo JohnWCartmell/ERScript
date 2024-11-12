@@ -38,7 +38,7 @@ DESCRIPTION
 
    <xsl:if test="$debugOn">
       <xsl:message>putting out recursive enrichment <xsl:value-of select="$state/name()"/></xsl:message>
-      <xsl:result-document href="recursive_diagram_enrichment.xml" method="xml">
+      <xsl:result-document href="{$filestem}.recursive_diagram_enrichment.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>

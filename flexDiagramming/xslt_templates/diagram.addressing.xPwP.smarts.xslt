@@ -98,15 +98,19 @@ CHANGE HISTORY
   
   
 
-  <!-- Add defaults for at aspect                      -->
-  <!-- enclosure/xP[place[leftP]/at/leftP    - edge    --> 
-  <!-- enclosure/xP[place[leftP]/at/rightP   - outer   --> 
-  <!-- enclosure/xP[place[rightP]/at/leftP   - outer   --> 
-  <!-- enclosure/xP[place[rightP]/at/rightP  - edge    -->  
-  <!-- xP/at/(centreP|xP)                    - edge    -->
+  <!-- Add defaults for at aspect                              -->
+  <!-- */xP[place[leftP]/at/leftP[of|predecessor]    - edge    --> 
+  <!-- */xP[place[leftP]/at/rightP[of|predecessor]   - outer   --> 
+  <!-- */xP[place[rightP]/at/leftP[of|predecessor]   - outer   --> 
+  <!-- */xP[place[rightP]/at/rightP[of|predecessor]  - edge    -->  
+  <!-- */xP/at[centreP|xP]                           - edge    -->
+  <!-- *[parent::enclosure|parent::diagram]/xP/at[rightP|leftP][parent]       - margin  -->
+  <!-- *[not(parent::enclosure|parent::diagram)]/xP/at[rightP|leftP][parent]  - edge    -->
+
+
   
   <!-- 17 June 2019 modifed precondition for outer from [of] to [of|predecessor] -->
-  
+
   <xsl:template match="*
                         [not(self::label and (parent::point/startpoint or parent::point/endpoint))] 
                         /xP[place/leftP]/at[not(margin|edge|outer)]
@@ -135,7 +139,7 @@ CHANGE HISTORY
     </xsl:copy>
   </xsl:template>
   
-    <xsl:template match="*
+  <xsl:template match="*
                          [not(self::label and (parent::point/startpoint or parent::point/endpoint))] 
                          /xP[place/rightP]/at[not(margin|edge|outer)]
                                      [leftP]
@@ -163,12 +167,10 @@ CHANGE HISTORY
     </xsl:copy>
   </xsl:template>
   
- 
-  
   <xsl:template match="*
                         [not(self::label and (parent::point/startpoint or parent::point/endpoint))] 
                         /xP/at[not(margin|edge|outer)]
-                                    [centreP]
+                                    [centreP|xP]
                     " 
               mode="recursive_diagram_enrichment"
               priority="170P">
@@ -178,8 +180,22 @@ CHANGE HISTORY
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*
+<!--   merged into previous template
+   <xsl:template match="*
                         [not(self::label and (parent::point/startpoint or parent::point/endpoint))] 
+                        /xP/at[not(margin|edge|outer)]
+                                       [xP]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="170P">
+    <xsl:copy>
+         <edge/>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+    </xsl:copy>
+  </xsl:template> -->
+
+  <xsl:template match="*[parent::enclosure|parent::diagram]
+                        [not(self::label and (parent::point/startpoint or parent::point/endpoint))]
                         /xP/at[not(margin|edge|outer)]
                                      [rightP|leftP]
                                      [parent]
@@ -191,12 +207,12 @@ CHANGE HISTORY
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
     </xsl:copy>
   </xsl:template>
-  
-  
-    <xsl:template match="*
+
+  <xsl:template match="*[not(parent::enclosure|parent::diagram)]
                         [not(self::label and (parent::point/startpoint or parent::point/endpoint))] 
                         /xP/at[not(margin|edge|outer)]
-                                       [xP]
+                                     [rightP|leftP]
+                                     [parent]
                     " 
               mode="recursive_diagram_enrichment"
               priority="170P">
@@ -206,6 +222,14 @@ CHANGE HISTORY
     </xsl:copy>
   </xsl:template>
 
+<!-- safety check change of 10-Nov-2024 -->
+  <xsl:template match="*[not(self::enclosure|self::diagram)]
+                     /xP/at/margin"
+              priority="1000">
+     <xsl:message terminate="yes">Should not be placing anything at the margin of anything other than an enclosure or the diagram as a whole. <xsl:copy-of select="."/></xsl:message>
+  </xsl:template>
+
+  
   
   <!-- Add defaults for place    aspect               -->
   <!-- enclosure/xP[at/rightP]/place/(leftP)   - outer   -->  <!-- modifed 29th July 2019 -->
@@ -295,9 +319,7 @@ CHANGE HISTORY
     </xsl:copy>
   </xsl:template>
   
-  
- 
-  
+
       
   <!-- Rules for effective_ratio attribute of xanchor -->
   <!-- where xanchor ::= leftP | centreP | rightP | xP(3) -->
@@ -833,6 +855,7 @@ CHANGE HISTORY
           <xsl:value-of select="at/offset - place/offset + (if (parent::enclosure) then ../wlP else 0) + ../padding + ../ancestor::enclosure[1]/margin "/>  
         -->
                                <!-- I question this +wlP ditto +margin maybe restructure around here in fact just broke centrePd label-->
+                               <xsl:message><xsl:copy-of select="."/></xsl:message>
           <xsl:variable name="offset" as="xs:double"  select="at/offset - place/offset"/> 
           <xsl:value-of select="$offset"/>
         </offset>

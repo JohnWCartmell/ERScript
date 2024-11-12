@@ -38,28 +38,32 @@
 <!-- *************** -->
 <!-- point + wlP     -->
 <!-- *************** -->
-
+<!-- padding of labels taken account of in change of 11-Nov-2024 -->
   <xsl:template match="point
                         [not(wlP)]
 						[every $label in label
                                satisfies $label/xP/relative/*[1][self::offset]
+                                         and $label/padding
                         ]
                     " 
               mode="recursive_diagram_enrichment"
               priority="40P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <xsl:if test="some $label in label satisfies not( label/xP/relative/offset[1] castable as xs:double)">
+      <xsl:if test="some $label in label satisfies not( $label/xP/relative/offset[1] castable as xs:double)">
         <xsl:for-each select="label">
-        <xsl:message terminate="yes">in wlP  offset is not numeric all label x's 
+        <xsl:message>about to bomb win wlP  offset is not numeric all label xP's 
                           <xsl:value-of select="xP/relative/offset[1]"/>
                           count of offsets <xsl:value-of select="count(xP/relative/offset)"/>
                           copy of label <xsl:copy-of select="."/>
                          </xsl:message>
         </xsl:for-each>
+
+        <xsl:message terminate="yes">in wlP  offset is not numeric all label x's 
+                         </xsl:message>
       </xsl:if>
       <wlP>
-	     <xsl:value-of select="- min((label/xP/relative/offset[1] ,
+	     <xsl:value-of select="- min((label/(xP/relative/offset[1]-padding) ,
 		                            0
 		                          ))"/>
 	  </wlP>

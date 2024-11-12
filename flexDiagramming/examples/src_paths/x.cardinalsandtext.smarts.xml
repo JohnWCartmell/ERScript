@@ -79,5 +79,32 @@
       </label>
 
    </enclosure>
+    
+  <point>
+      <default><padding>0.1</padding></default>
+      <padding>0.2</padding>
+      <x><local>3</local></x>
+      <y><local>3</local></y>
+    <label>
+      <text>n</text>
+      <x><place><centre/></place><at><parent/></at></x>
+      <y><place><bottom/></place><at><parent/><offset>-1</offset></at></y>
+    </label>
+    <label>
+      <text>e</text>
+      <x><place><left/></place><at><parent/><offset>1</offset></at></x>
+      <y><place><middle/></place><at><parent/></at></y>
+    </label>
+    <label>
+      <text>s</text>
+      <x><place><centre/></place><at><parent/></at></x>
+      <y><place><top/></place><at><parent/><offset>1</offset></at></y>
+    </label>
+    <label>
+      <text>w</text>
+      <x><place><right/></place><at><parent/><offset>-1</offset></at></x>
+      <y><place><middle/></place><at><parent/></at></y>
+    </label>
+  </point> 
 
 </diagram>

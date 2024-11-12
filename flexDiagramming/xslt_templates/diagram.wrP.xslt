@@ -28,21 +28,23 @@
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wrP>
-	     <xsl:value-of select="max((key('right_sideP_is_endpoint_of',id)[annotation]/x_upper_boundP,
+	       <xsl:value-of select="max((key('right_sideP_is_endpoint_of',id)[annotation]/x_upper_boundP,
 		                            wP
 		                           )) - wP"/>
-	  </wrP>
+	   </wrP>
     </xsl:copy>
   </xsl:template>
   
 <!-- ************** -->
 <!-- point  +wrP    -->
 <!-- ************** -->
-
+<!-- 11-Nov-2024 take account of padding on a label -->
   <xsl:template match="point
                         [not(wrP)]
 						[every $label in label
-                               satisfies $label/wP  and $label/xP/relative/*[1][self::offset]
+                               satisfies $label/wP  
+                                     and $label/padding
+                                     and $label/xP/relative/*[1][self::offset]
                         ]
                     " 
               mode="recursive_diagram_enrichment"
@@ -50,7 +52,7 @@
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wrP>
-	     <xsl:value-of select="max((label/(wP + xP/relative/offset[1]) ,
+	     <xsl:value-of select="max((label/(wP + padding + xP/relative/offset[1]) ,
 		                            0
 		                          ))"/>
 	  </wrP>

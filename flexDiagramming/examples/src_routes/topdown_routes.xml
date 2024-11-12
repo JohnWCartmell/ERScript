@@ -19,8 +19,9 @@
 		<packing>horizontal</packing>
 		<text_style>normal</text_style>
 		<shape_style>outline</shape_style>
+		<line_style>testline</line_style>
+		<end_marker>testline</end_marker>
 		<debug-whitespace>false</debug-whitespace>
-		<end_style>testline</end_style>
 	</default>
 	<enclosure>
 		<y><abs>2.0</abs></y>
@@ -202,10 +203,12 @@
 			<source>
 				<id>F</id>
 				<annotation>down_to_G3</annotation>
+				<linestyle>testline</linestyle>
 			</source>
 			<destination>
 				<id>G3</id>
 				<annotation>up_to_F</annotation>
+				<linestyle>testline</linestyle>
 			</destination>
 		</route>		
 		<route>

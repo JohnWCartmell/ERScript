@@ -14,16 +14,17 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- ********************** -->
-<!-- node    +endline_style -->
+<!-- node    +line_style -->
 <!-- ********************** -->
 <xsl:template match="*[self::source|self::destination]
-                      [not(endline_style)]
+                      [not(line_style)]
                     " 
               mode="recursive_diagram_enrichment"
               priority="38">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <endline_style><xsl:value-of select="(ancestor-or-self::*/default/end_style)[last()]"/></endline_style>
+<!--       <endline_style><xsl:value-of select="(ancestor-or-self::*/default/end_style)[last()]"/></endline_style> --> <!-- change 5-Nov-2024 -->
+       <line_style><xsl:value-of select="(ancestor-or-self::*/default/line_style)[last()]"/></line_style>
    </xsl:copy>
 </xsl:template>
 

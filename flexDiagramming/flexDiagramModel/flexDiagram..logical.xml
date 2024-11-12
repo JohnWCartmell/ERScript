@@ -13,8 +13,8 @@
       <composition type="box*" inverse=".."/>
       <composition type="route*" inverse=".."/>
       <composition type="default" inverse=".."/>
-      <composition type="shape_style*" inverse=".."/>
-      <composition type="endline_style*" inverse=".."/>
+      <composition type="graphic_style*" inverse=".."/>
+      <composition type="line_marker*" inverse=".."/>
       <composition type="text_style*" inverse=".."/>
    </absolute>
    <entity_type name="box">
@@ -67,6 +67,7 @@
          </include>
          <composition type="box*" inverse=".."/>
          <composition type="route*" inverse=".."/>
+         <attribute name="margin" type="float"/>
          <attribute name="ht" type="float"/>
          <attribute name="hb" type="float"/>
          <attribute name="wl" type="float"/>
@@ -76,7 +77,6 @@
       </entity_type>
       <attribute name="h" type="float"/>
       <attribute name="w" type="float"/>
-      <attribute name="margin" type="float"/>
       <attribute name="padding" type="float"/>
       <attribute name="depth" type="positiveInteger"/>
    </entity_type>
@@ -99,8 +99,8 @@
       <reference name="text_style" type="text_style?"/>
       <reference name="shape_style" type="shape_style?"/>
       <reference name="line_style" type="shape_style?"/>
-      <reference name="start_style" type="endline_style?"/>
-      <reference name="end_style" type="endline_style?"/>
+      <reference name="start_marker" type="line_marker?"/>
+      <reference name="end_marker" type="line_marker?"/>
       <attribute name="hmin" type="float"/>
       <attribute name="wmin" type="float"/>
       <attribute name="margin" type="float"/>
@@ -195,12 +195,14 @@
       <composition type="endline*" inverse=".."/>
       <reference name="id" type="enclosure"/>
       <reference name="escape" type="enclosure?"/>
-      <reference name="linestyle" type="shape_style?"/>
+      <reference name="line_style" type="line_style?"/>
       <attribute name="destRelPos" type="float"/>
       <attribute name="angleToOtherEnd" type="float"/>
       <attribute name="ratio" type="float"/>
       <attribute name="slotNo" type="float"/>
-      <attribute name="annotation" type="string"/>
+      <attribute name="annotation" type="string?"/>
+      <attribute name="label_lateral_offset" type="float?"/>
+      <attribute name="label_long_offset" type="float?"/>
    </entity_type>
    <!-- end of node(2) -->
    <entity_type name="specific_edge">
@@ -218,7 +220,7 @@
       </entity_type>
    </entity_type>
    <entity_type name="endline">
-      <reference name="style" type="endline_style"/>
+      <reference name="marker" type="line_marker"/>
    </entity_type>
    <entity_type name="annotate_leftright">
       <entity_type name="annotate_left"/>
@@ -228,7 +230,7 @@
       <entity_type name="annotate_high"/>
       <entity_type name="annotate_low"/>
    </entity_type>
-   <entity_type name="shape_style">
+   <entity_type name="graphic_style">
       <identifying>
          <attribute name="id" type="string"/>
       </identifying>
@@ -238,19 +240,22 @@
       <attribute name="stroke-dasharray" type="string"/>
       <attribute name="fill-opacity" type="string"/>
       <attribute name="fill-rule" type="string"/>
+       <entity_type name="shape_style"/>
+       <entity_type name="line_style">
+         <attribute name="label_long_offset" type="float"/>
+         <attribute name="label_lateral_offset" type="float"/>
+         <attribute name="lateral_extent" type="float"/>
+         <attribute name="long_extent" type="float"/>
+      </entity_type>
    </entity_type>
-   <entity_type name="endline_style">
+   <entity_type name="line_marker">
       <identifying>
          <attribute name="id" type="string"/>
       </identifying>
-      <attribute name="stroke" type="string"/>
-      <attribute name="stroke-width" type="float"/>
-      <attribute name="stroke-dasharray" type="string"/>
-      <attribute name="label_long_offset" type="string"/>
-      <attribute name="label_lateral_offset" type="float"/>
-      <attribute name="lateral_extent" type="float"/>
-      <attribute name="long_extent" type="float"/>
-      <attribute name="minarmlen" type="float"/>
+      <attribute name="label_long_offset" type="float?"/>
+      <attribute name="label_lateral_offset" type="float?"/>
+      <attribute name="lateral_extent" type="float?"/>
+      <attribute name="long_extent" type="float?"/>
    </entity_type>
    <entity_type name="text_style">
       <identifying>

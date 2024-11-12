@@ -87,9 +87,5 @@ CR18720 JC  16-Nov-2016 Created
     </xsl:variable>
     <xsl:value-of select="era:packArray($prefixedelements)"/>
 </xsl:function>
-<!--
-</xsl:transform>
--->
-
 <!-- end of file: ERmodel_v1.2/src/ERmodel.functions.fragment.xslt--> 
 

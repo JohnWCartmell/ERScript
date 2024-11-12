@@ -8,7 +8,7 @@
      <default>
       <hmin>1.0</hmin>
       <wmin>2.0</wmin>
-      <margin>0.2</margin>  
+      <margin>0.15</margin>  
       <padding>0.1</padding> 
       <packing>horizontal</packing>
       <text_style>normal</text_style>
@@ -23,41 +23,58 @@
     <text_style>title</text_style>
   </label>
 
-<enclosure>
+  <enclosure>
     <x><relative><offset>1.0</offset></relative></x>
     <y><relative><offset>2.0</offset></relative></y>
     <w>20</w>
     <shape_style>gradient</shape_style>
-	<debug-whitespace>false</debug-whitespace>
+    <debug-whitespace>false</debug-whitespace>
     <margin>0.3</margin>
-    <padding>0</padding>
-	
-  <enclosure>
-            <x><relative><offset>12.0</offset></relative></x>
-            <y><relative><offset>1.0</offset></relative></y>
-            <h>6</h>
-			<w>6</w>
-			<padding>0.1</padding>
-           <point>
-     		   <x><at><centre/><edge/><parent/></at></x>
-	           <y><at><middle/><edge/><parent/></at></y>
-			   <label>
-			        <text>P</text>
-					<x><local>0.1</local></x>
-					<y><local>0.2</local></y>
-				</label>
-		   </point>
-           <point>
-		       <x><at><centre/><edge/><parent/></at></x>
-     		   <y><place><top/><outer/></place><at><bottom/><outer/><predecessor/></at></y>
-			   <label>
-			        <text>Q</text>
-					<x><local>0.2</local></x>
-					<y><local>-0.1</local></y>
-				</label>
-		   </point>
-  </enclosure>
-
+    <padding>0</padding> 
+    <enclosure>
+      <x><relative><offset>3.0</offset></relative></x>
+      <y><relative><offset>1.0</offset></relative></y>
+      <h>6</h>
+      <w>6</w>
+      <padding>0.1</padding>
+      <point>
+        <x><at><centre/><edge/><parent/></at></x>
+        <y><at><top/><parent/></at></y>
+        <label>
+         <text>qqqq</text>
+         <x><local>0</local></x>
+         <y><local>0.2</local></y>
+        </label>
+       </point>
+       <point>
+         <x><at><centre/><edge/><parent/></at></x>
+         <y><place><top/><outer/></place><at><bottom/><outer/><predecessor/></at></y>
+         <label>
+           <text>qqqq</text>
+           <x><local>0</local></x>
+           <y><local>-0.1</local></y>
+         </label>
+       </point>
+       <point>
+         <x><at><centre/><edge/><parent/></at></x>
+         <y><place><top/><outer/></place><at><bottom/><outer/><predecessor/></at></y>
+         <label>
+            <text>qqqq</text>
+            <x><place><right/><edge/></place><at><parent/></at></x>
+            <y><local>-0.1</local></y>
+          </label>
+        </point>
+        <point>
+         <x><place><centre/><edge/></place><at><centre/><edge/><parent/></at></x>
+         <y><place><top/><outer/></place><at><bottom/><outer/><predecessor/></at></y>
+         <label>
+          <padding>0.5</padding>
+            <text>qqqq</text>
+            <x><place><left/><outer/></place><at><parent/></at></x>
+            <y><place><top/><outer/></place><at><parent/></at></y>
+          </label>
+        </point>
+      </enclosure>
 </enclosure>
 
 

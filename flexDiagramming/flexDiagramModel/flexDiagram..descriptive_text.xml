@@ -32,10 +32,6 @@
          <description>.</description>
       </composition>
       <composition>
-         <type>shape_style</type>
-         <description>.</description>
-      </composition>
-      <composition>
          <type>endline_style</type>
          <description>.</description>
       </composition>
@@ -58,10 +54,6 @@
       <attribute>
          <name>w</name>
          <description>An attribute of typefloat.</description>
-      </attribute>
-      <attribute>
-         <name>margin</name>
-         <description>separation of border from content</description>
       </attribute>
       <attribute>
          <name>padding</name>
@@ -212,6 +204,10 @@
          <attribute>
             <name>ht</name>
             <description>An attribute of typefloat.</description>
+         </attribute>        
+         <attribute>
+            <name>margin</name>
+            <description>separation of border from content</description>
          </attribute>
          <attribute>
             <name>hb</name>
@@ -597,8 +593,8 @@
          <description>.</description>
       </reference>
       <reference>
-         <name>linestyle</name>
-         <type>shape_style</type>
+         <name>line_style</name>
+         <type>line_style</type>
          <description>.</description>
       </reference>
       <reference>
@@ -630,7 +626,29 @@
       </attribute>
       <attribute>
          <name>annotation</name>
-         <description>An attribute of typestring.</description>
+         <description>An optional attribute of type string.
+                      The content that is to be presented in a label
+                      at this end of the parent route. 
+                      If present then the value is carried forward into text of a label on the start or end point of the route. 
+         </description>
+      </attribute>
+      <attribute>
+         <name>label_long_offset</name>
+         <description>An attribute of type float.
+                      This specifies the distance along the first arm of the route at which the label, if there is one, is to be positioned. This is the distance to the nearest part of the label, whatever the orientation. The label may include padding and so this 
+                      label_long_offset distance is not required to include padding. 
+                      This value is carried forward into the x, y value of the label, as appropraite, unless
+                      the x,y values of the label are explicitly specified.
+         </description>
+      </attribute>
+      <attribute>
+         <name>label_lateral_offset</name>
+         <description>An attribute of type float.
+                      This specifies the distance away the first arm of the route at which the label, if there is one, is to be positioned. This is the distance to the nearest part of the label, whatever the orientation. The label may include padding and so this 
+                      label_long_offset distance is not required to include padding. 
+                      This value is carried forward into the x, y value of the label, as appropraite, unless
+                      the x,y values of the label are explicitly specified.
+         </description>
       </attribute>
       <composition>
          <type>specific_edge</type>
@@ -706,35 +724,35 @@
       </entity_type>
    </entity_type>
    <entity_type>
-      <name>shape_style</name>
+      <name>graphic_style</name>
       <description>An entity type..</description>
       <attribute>
          <name>id</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>fill</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>stroke</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>stroke-width</name>
-         <description>An attribute of typefloat.</description>
+         <description>An attribute of type float.</description>
       </attribute>
       <attribute>
          <name>stroke-dasharray</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>fill-opacity</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>fill-rule</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
    </entity_type>
    <entity_type>
@@ -742,19 +760,19 @@
       <description>An entity type..</description>
       <attribute>
          <name>id</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>stroke</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>stroke-width</name>
-         <description>An attribute of typefloat.</description>
+         <description>An attribute of type float.</description>
       </attribute>
       <attribute>
          <name>stroke-dasharray</name>
-         <description>An attribute of typestring.</description>
+         <description>An attribute of type string.</description>
       </attribute>
       <attribute>
          <name>label_long_offset</name>

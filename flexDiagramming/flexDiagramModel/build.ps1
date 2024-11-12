@@ -20,10 +20,15 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml  # these generated and therefore need be overwriteable 
 
 pushd $TARGETXML
+if ($false)
+{
 . $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -physicalType hs
-#. $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -debugswitch
-
+}
+. $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate
+if ($false)
+{
 #echo 'Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 flexDiagram..logical.xml -animate
+}
 
 popd 

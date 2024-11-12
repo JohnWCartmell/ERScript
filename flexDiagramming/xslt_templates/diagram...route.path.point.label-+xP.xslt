@@ -7,183 +7,119 @@
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
-	<!--  Maintenance Box 
-
+<!--  Maintenance Box 
+	Rewritten in change of 5-Nov-2024.
  -->
 
-	<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
 
 
-	<!-- ********************************************** -->
-	<!-- route/path[lhs]/point[startpoint]/label   +xP  -->
-	<!-- ********************************************** -->
+<!-- ********************************************** -->
+<!-- route/path[source/lhs]/point[startpoint|endpoint]/label   +xP  -->
+<!-- ********************************************** -->
 
-	<!-- source is left_sideP -->
-	<xsl:template match="route
-                       [source/left_sideP]
-					   /path/point[startpoint]/label
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>endline/style <xsl:value-of select="../../../source/endline/style"/></xsl:message>
-			<xP>
-			  <local>
-				<xsl:value-of select="-key('endline_style',../../../source/endline/style)/label_long_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-    <!-- source is right_sideP -->
-	<xsl:template match="route
-                       [source/right_sideP]
-					   /path/point[startpoint]/label
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xP>
-			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_long_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-	<!-- ********************************************** -->
-	<!-- route/path/point[endpoint]/label   +xP  -->
-	<!-- ********************************************** -->
+<!-- source is left_sideP -->
+<xsl:template match="route
+                   [(source|destination)[label_long_offsetP]/left_sideP]
+				   /path/point[startpoint|endpoint]/label
+				   [not(xP)]
+				   " 
+          mode="recursive_diagram_enrichment"
+          priority="140P">		  
+	<xsl:copy>
+		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xP>
+		  <place>
+		  	<rightP/><edge/>
+		  </place>
+		  <at>
+		  	<parent/>
+		  	<offset>
+		  		<xsl:value-of select="- ../../../(source|destination)/label_long_offsetP"/>
+		  	</offset>
+			</at>
+		</xP>
+	</xsl:copy>
+</xsl:template>
 
-	<!-- destination is left_sideP -->
-	<xsl:template match="route
-                       [destination/left_sideP]
-					   /path/point[endpoint]/label
-					   [wP]
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xP>
-			  <local>
-				<xsl:value-of select="-wP - key('endline_style',../../../source/endline/style)/label_long_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-    <!-- destination is right_sideP -->
-	<xsl:template match="route
-                       [destination/right_sideP]
-					   /path/point[endpoint]/label
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xP>
-			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_long_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-	
-	
-	<!-- ******************************** -->
-	<!-- path/point[startpoint]   +xP  -->
-	<!-- ******************************** -->
+<!-- source is right_sideP -->
+<xsl:template match="route
+                   [(source|destination)[label_long_offsetP]/right_sideP]
+				   /path/point[startpoint|endpoint]/label
+				   [not(xP)]
+				   " 
+          mode="recursive_diagram_enrichment"
+          priority="140P">		  
+	<xsl:copy>
+		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xP>
+		  <place>
+		  	<leftP/><edge/>
+		  </place>
+		  <at>
+		  	<parent/>
+		  	<offset>
+		  		<xsl:value-of select="../../../(source|destination)/label_long_offsetP"/>
+		  	</offset>
+			</at>
+		</xP>
+	</xsl:copy>
+</xsl:template>
 
-	<!-- source annotation  is annotate_leftQ-->
-	<xsl:template match="route
-                       [source/*/annotate_leftQ]
-					   /path/point[startpoint]/label[wP]
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>source endline style <xsl:value-of select="../../../source/endline/style"/></xsl:message>
-			<xP>
-			  <local>
-				<xsl:value-of select="-key('endline_style',../../../source/endline/style)/label_lateral_offset
-				                      - wP"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-		<!-- source annotation is  annotate_rightQ -->
-	<xsl:template match="route
-                       [source/*/annotate_rightQ]
-					   /path/point[startpoint]/label
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>source endline style BB<xsl:value-of select="../../../source/endline/style"/></xsl:message>
-			<xP>
-			  <local>
-				<xsl:value-of select="key('endline_style',../../../source/endline/style)/label_lateral_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-		<!-- ******************************** -->
-	<!-- path/point[endpoint]   +xP  -->
-	<!-- ******************************** -->
-	
-	<!-- destination annotation  is annotate_leftQ-->
-	<xsl:template match="route
-                       [destination/*/annotate_leftQ]
-					   /path/point[endpoint]/label[wP]
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>destination endline style <xsl:value-of select="../../../destination/endline/style"/></xsl:message>
-			<xP>
-			  <local>
-				<xsl:value-of select="-key('endline_style',../../../destination/endline/style)/label_lateral_offset
-				                      - wP"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
-		<!-- destination annotation is annotate_rightQ-->
-	<xsl:template match="route
-                       [destination/*/annotate_rightQ]
-					   /path/point[endpoint]/label
-					   [not(xP)]
-					   " 
-              mode="recursive_diagram_enrichment"
-              priority="140P">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>destination endline style XX<xsl:value-of select="../../../destination/endline/style"/></xsl:message>
-			<xP>
-			  <local>
-				<xsl:value-of select="key('endline_style',../../../destination/endline/style)/label_lateral_offset"/>
-			  </local>
-			</xP>
-		</xsl:copy>
-	</xsl:template>
-	
+
+
+<!-- ******************************** -->
+<!-- path/point[startpoint]   +xP  -->
+<!-- ******************************** -->
+
+<!-- annotate_leftQ-->
+<xsl:template match="route
+                   [(source|destination)[label_lateral_offsetP]/*/annotate_leftQ]
+				   /path/point[startpoint|endpoint]/label
+				   [not(xP)]
+				   " 
+          mode="recursive_diagram_enrichment"
+          priority="140P">		  
+	<xsl:copy>
+		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xP>
+		  <place>
+		  	<rightP/><edge/>
+		  </place>
+		  <at>
+		  	<parent/>
+		  	<offset>
+		  		<xsl:value-of select="- ../../../(source|destination)/label_lateral_offsetP"/>
+		  	</offset>
+			</at>
+		</xP>
+	</xsl:copy>
+</xsl:template>
+
+<!--   annotate_rightQ -->
+<xsl:template match="route
+                   [(source|desination)[label_lateral_offsetP]/*/annotate_rightQ]
+				   /path/point[startpoint|endpoint]/label
+				   [not(xP)]
+				   " 
+          mode="recursive_diagram_enrichment"
+          priority="140P">		  
+	<xsl:copy>
+		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xP>
+		  <place>
+		  	<leftP/><edge/>
+		  </place>
+		  <at>
+		  	<parent/>
+		  	<offset>
+		  		<xsl:value-of select="../../../(source|destination)/label_lateral_offsetP"/>
+		  	</offset>
+			</at>
+		</xP>
+	</xsl:copy>
+</xsl:template>
+
 
 </xsl:transform>
 

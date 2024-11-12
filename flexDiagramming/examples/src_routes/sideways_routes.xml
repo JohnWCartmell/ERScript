@@ -2,13 +2,7 @@
 		xmlns:diagram="http://www.entitymodelling.org/diagram"
 	    xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<include>
-		<filename>../src_xtests/shared/text_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/shape_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/endline_style_definitions.xml</filename>
+		<filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
 	</include>
 	<default>
 		<hmin>1.0</hmin>
@@ -18,8 +12,8 @@
 		<packing>horizontal</packing>
 		<text_style>normal</text_style>
 		<shape_style>outline</shape_style>
+		<line_style>testline</line_style>
 		<debug-whitespace>true</debug-whitespace>
-		<end_style>testline</end_style>
 	</default>
 	<enclosure>
 		<x><local>0</local></x>
@@ -69,7 +63,7 @@
 			</destination>
 		</route>	
 	</enclosure>
-	<enclosure>
+	<!-- <enclosure>
 		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
@@ -77,13 +71,7 @@
 		<label>
 			<text>Enclosure A has route specified from rhs of C to rhs of D.</text>
 		</label>
-		<!--
-	  <label>
-		<text><![CDATA[
-		  yyy
-		]]></text>
-	  </label>
-	  -->
+
 		<enclosure>
 			<id>C</id>
 			<x><local>11</local></x>
@@ -113,5 +101,5 @@
 					<annotation>back_to_c</annotation>
 			</destination>
 		</route>	
-	</enclosure>
+	</enclosure> -->
 </diagram>

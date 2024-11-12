@@ -66,6 +66,8 @@
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
 <xsl:include href="diagram...route.node.specific_edge-+noOfSlots.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
+<xsl:include href="diagram...route.node-+label_long_offset.xslt"/>   <!-- priority  260,262  -->
+
 <xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  250 -->         <!-- see also diagram.route.path.xslt ABOVE -->
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
 <xsl:include href="diagram...path.point-+x.xslt"/>        <!-- priority  55, 56  -->
@@ -95,12 +97,14 @@
 <xsl:include href="diagram...node-+y_lower_bound.xslt"/>       <!-- priority 40 -->
 <xsl:include href="diagram...node-+x_upper_bound.xslt"/>       <!-- priority 40 -->
 <xsl:include href="diagram...node-+y_upper_bound.xslt"/>       <!-- priority 40 -->        
-<xsl:include href="diagram.endpoint.endline_style.xslt"/> <!-- priority  38  -->
+<xsl:include href="diagram...route.node-+line_style.xslt"/>    <!-- priority  38  -->
 
 <xsl:key name="Enclosure" match="enclosure" use="id"/>
 <xsl:key name="box" match="path|label|point|ns|ew|ramp|enclosure" use="id"/>
 <xsl:key name="text_style" match="diagram:text_style" use="id"/>
 <xsl:key name="endline_style" match="endline_style" use="id"/>
+<xsl:key name="line_style" match="line_style" use="id"/>
+<xsl:key name="shape_style" match="shape_style" use="id"/>
 <xsl:key name="right_side_is_endpoint_of" match="*[self::source|self::destination][right_side]" use="id"/> 
 <xsl:key name="left_side_is_endpoint_of" match="*[self::source|self::destination][left_side]" use="id"/> 
 <xsl:key name="top_edge_is_endpoint_of" match="*[self::source|self::destination][top_edge]" use="id"/> 

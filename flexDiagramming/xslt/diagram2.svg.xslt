@@ -423,7 +423,7 @@ CHANGE HISTORY
        <xsl:for-each select="//enclosure">
             <xsl:call-template name="render_enclosure_margins"/>
       </xsl:for-each>
-	  <xsl:for-each select="//point">
+	   <xsl:for-each select="//*[self::point|self::label]">
             <xsl:call-template name="render_padding"/>
       </xsl:for-each>
        <xsl:copy-of select="$relationships"/>
@@ -528,6 +528,7 @@ CHANGE HISTORY
       <xsl:for-each select="path/point[count(preceding-sibling::point) &gt; 0]
                                       [count(preceding-sibling::point) &lt; ($pointcount div 2) ]
                             ">
+          <xsl:message>Point <xsl:value-of select="count(preceding-sibling::point)"/></xsl:message>
           <xsl:variable name="x"  as="xs:double" select="x/abs"/>
           <xsl:variable name="y"  as="xs:double" select="y/abs"/>
            <xsl:value-of select="concat('L',concat($x,',',$y))"/>
@@ -601,7 +602,7 @@ CHANGE HISTORY
 </xsl:template>
 
 <xsl:template name="point" match="point">
-  <!--
+ 
   <svg:line>
     <xsl:attribute name="class"><xsl:value-of select="'point'"/></xsl:attribute>
 	<xsl:attribute name="x1"><xsl:value-of select="x/abs - 0.1"/>cm</xsl:attribute>
@@ -616,7 +617,7 @@ CHANGE HISTORY
 	<xsl:attribute name="x2"><xsl:value-of select="x/abs - 0.1"/>cm</xsl:attribute>
 	<xsl:attribute name="y2"><xsl:value-of select="y/abs - 0.1"/>cm</xsl:attribute>
   </svg:line>
--->
+
 </xsl:template>
 
 

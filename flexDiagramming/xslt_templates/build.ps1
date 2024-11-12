@@ -27,6 +27,8 @@ function ReplacexPwithxetc
                 -creplace 'annotate_rightQ', 'annotate_right' `
                 -creplace 'annotate_leftQ', 'annotate_left' `
                 -creplace 'deltayP', 'deltay' `
+                -creplace 'label_lateral_offsetP', 'label_lateral_offset' `
+                -creplace 'label_long_offsetP', 'label_long_offset' `
                       -creplace '40P', '40' `
                       -creplace '42P',   '42' `
                       -creplace '42.1P',   '42.1' `
@@ -43,7 +45,9 @@ function ReplacexPwithxetc
                       -creplace '170P', '170' `
                       -creplace '171P', '171' `
                       -creplace '172P', '172' `
-                      -creplace '173P', '173' 
+                      -creplace '173P', '173' `
+                      -creplace '260P', '260' `
+                      -creplace '262P', '262' 
 }
 
 function ReplacexPwithyetc
@@ -75,6 +79,8 @@ function ReplacexPwithyetc
                     -creplace 'annotate_rightQ', 'annotate_low' `
                     -creplace 'annotate_leftQ', 'annotate_high' `
                     -creplace 'deltayP', 'deltax' `
+                -creplace 'label_lateral_offsetP', 'label_long_offset' `
+                -creplace 'label_long_offsetP', 'label_lateral_offset' `
                       -creplace '40P', '41' `
                       -creplace '42P', '43' `
                       -creplace '42.1P', '43.1' `
@@ -91,7 +97,9 @@ function ReplacexPwithyetc
                       -creplace '170P', '180' `
                       -creplace '171P', '181' `
                       -creplace '172P', '182' `
-                      -creplace '173P', '183' 
+                      -creplace '173P', '183' `
+                      -creplace '260P', '261' `
+                      -creplace '262P', '262' 
 }
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path

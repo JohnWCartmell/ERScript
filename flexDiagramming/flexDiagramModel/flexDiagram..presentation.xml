@@ -32,7 +32,7 @@
    </absolute>
    <absolute>
       <composition>
-         <type>endline_style</type>
+         <type>line_marker</type>
          <diagram>
             <path>
                <destattach>0.75</destattach>
@@ -436,31 +436,7 @@
    <entity_type>
       <name>default</name>
       <reference>
-         <name>start_style</name>
-         <diagram>
-            <path>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-                  <name>
-                     <NoSplit/>
-                  </name>
-               </label>
-               <hstep>
-                  <absdim>
-                     <src>0.4</src>
-                  </absdim>
-               </hstep>
-               <destattach>0.2</destattach>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name>default</name>
-      <reference>
-         <name>end_style</name>
+         <name>start_marker</name>
          <diagram>
             <path>
                <label>
@@ -474,6 +450,30 @@
                <hstep>
                   <absdim>
                      <src>0.5</src>
+                  </absdim>
+               </hstep>
+               <destattach>0.4</destattach>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>default</name>
+      <reference>
+         <name>end_marker</name>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+                  <name>
+                     <NoSplit/>
+                  </name>
+               </label>
+               <hstep>
+                  <absdim>
+                     <src>0.6</src>
                   </absdim>
                </hstep>
             </path>
@@ -821,14 +821,14 @@
          <x>1.5</x>
          <y>2.0</y>
          <deltaw>1.0</deltaw>
-         <deltah>0.2</deltah>
+         <deltah>1.2</deltah>
       </presentation>
    </entity_type>
    <entity_type>
       <name>source</name>
       <presentation>
-         <x>2.5</x>
-         <y>0</y>
+         <x>2.7</x>
+         <y>-1.5</y>
       </presentation>
    </entity_type>
    <entity_type>
@@ -875,14 +875,14 @@
    <entity_type>
       <name>node(2)</name>
       <reference>
-         <name>linestyle</name>
+         <name>line_style</name>
          <diagram>
             <path>
                <srcsign>1</srcsign>
                <srcattach>0.5</srcattach>
                <hstep>
                   <absdim>
-                     <src>4.1</src>
+                     <src>2.5</src>
                   </absdim>
                </hstep>
                <destattach>0.75</destattach>
@@ -964,17 +964,17 @@
    <entity_type>
       <name>endline</name>
       <reference>
-         <name>style</name>
+         <name>marker</name>
          <diagram>
             <path>
                <srcsign>1</srcsign>
                <!--<srcattach>0.5</srcattach>-->
                <hstep>
                   <absdim>
-                     <src>4.4</src>
+                     <src>8.0</src>
                   </absdim>
                </hstep>
-               <destattach>0.5</destattach>
+               <destattach>0.7</destattach>
             </path>
          </diagram>
       </reference>
@@ -982,17 +982,24 @@
 
 
    <entity_type>
-      <name>shape_style</name>
+      <name>graphic_style</name>
       <presentation>
          <rightOf>default</rightOf>
          <x>2.5</x>
-         <y>-10.5</y>
+         <y>-9</y>
       </presentation>
    </entity_type>
    <entity_type>
-      <name>endline_style</name>
+      <name>line_style</name>
       <presentation>
          <below>shape_style</below>
+         <x>0.5</x>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>line_marker</name>
+      <presentation>
+         <below>graphic_style</below>
          <x>1.0</x>
          <y>1</y>
          <deltaw>0.4</deltaw>
@@ -1003,7 +1010,7 @@
       <presentation>
          <rightOf>shape_style</rightOf>
          <x>2.5</x>
-         <y>-3</y>
+         <y>-4.5</y>
          <deltah>2</deltah>
          <deltaw>4.0</deltaw>
       </presentation>
