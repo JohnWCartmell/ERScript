@@ -216,7 +216,7 @@ xxxto copy through
 			<source>
 				<id><xsl:value-of select="../@name"/></id>
 				<annotation><xsl:value-of select="@name"/></annotation>
-				<linestyle>
+				<line_style>
 					 <xsl:choose>
 					 	<xsl:when test="(substring(@type,string-length(@type))='*')
 					 		               or (substring(@type,string-length(@type))='?')">
@@ -226,7 +226,7 @@ xxxto copy through
 					 		<xsl:text>solidline</xsl:text>
 					 	</xsl:otherwise>
 					 </xsl:choose>
-				</linestyle>
+				</line_style>
 			</source>
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
@@ -235,33 +235,34 @@ xxxto copy through
 				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 				<!-- need calculate and plant linestyle here I would think -->
 				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<line_style><xsl:text>solidline</xsl:text></line_style> <!-- NEED LOGIC HERE XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 				<xsl:if test="(substring(@type,string-length(@type))='*')
 					 		               or (substring(@type,string-length(@type))='+')"> 
 					<endline>
-						<style>
+						<marker>
 						 		<xsl:text>crowsfoot</xsl:text>
-						 	</style>
+						 	</marker>
 					</endline>
         </xsl:if>
         <xsl:if test="pullback">
         	<endline>
-						<style>
+						<marker>
 						 		<xsl:text>pullback</xsl:text>
-						 	</style>
+						 	</marker>
 					</endline>
 				</xsl:if>
         <xsl:if test="//identifying/context/../../@name=$type">
         	<endline>
-						<style>
+						<marker>
 						 		<xsl:text>identifying</xsl:text>
-						 	</style>
+						 	</marker>
 					</endline>
 				</xsl:if>
 				<xsl:if test="sequence">
         	<endline>
-						<style>
+						<marker>
 						 		<xsl:text>squiggle</xsl:text>
-						 	</style>
+						 	</marker>
 					</endline>
 				</xsl:if>
 
@@ -284,7 +285,7 @@ xxxto copy through
 
 				<id><xsl:value-of select="../(if (self::identifying) then ../@name else @name)"/></id>
 				<annotation><xsl:value-of select="@name"/></annotation>
-				<linestyle>
+				<line_style>
 					 <xsl:choose>
 					 	<xsl:when test="(substring(@type,string-length(@type))='*')
 					 		               or (substring(@type,string-length(@type))='?')">
@@ -294,19 +295,19 @@ xxxto copy through
 					 		<xsl:text>solidline</xsl:text>
 					 	</xsl:otherwise>
 					 </xsl:choose>
-				</linestyle>
+				</line_style>
 				<xsl:if test="parent::identifying">
         	<endline>
-						<style>
+						<marker>
 						 		<xsl:text>identifying</xsl:text>
-						</style>
+						</marker>
 				   </endline>
 			  </xsl:if>
 			  <xsl:if test="//composition/pullback[projection_rel=current()/id]"> <!-- type check needed also -->
         	<endline>
-						<style>
+						<marker>
 						 		<xsl:text>pullback</xsl:text>
-						 	</style>
+						</marker>
 					</endline>
 				</xsl:if>
 			</source>
@@ -315,8 +316,10 @@ xxxto copy through
 			<left_side>
          <deltay>0.5</deltay>
          <annotate_low/>
-      </left_side>
-<!-- would like to plant linestyle here I would think --> 
+      </left_side> 
+        <line_style>
+						 		<xsl:text>solidline</xsl:text>  <!-- LOGIC REQUIRED HERE XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+        </line_style>
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="@inverse"/></annotation>
 			</destination>			

@@ -46,7 +46,7 @@
                           + ($no_of_m          * 1.7)
                           + ($no_of_w          * 1.605)
                           + ($no_of_space      * 0.575 )
-                          + ($no_of_underscore * 1.2)"/> <!-- changed from 1.1 -->
+                          + ($no_of_underscore * 1.1)"/> 
     <xsl:value-of select="$noOfCharsAdjusted * $sizefactorwrt11point * 0.1325"/>
   </xsl:function>
 

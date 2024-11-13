@@ -520,7 +520,7 @@ CHANGE HISTORY
 
   <!-- source half of route -->  
   <xsl:variable name="sourcemarker"
-                   select="if (source/endline/style) then source/endline/style else 'none'"/>
+                   select="if (source/endline/marker) then source/endline/marker else 'none'"/>
   <svg:path>
     <xsl:attribute name="class"><xsl:value-of select="$sourcestyle"/></xsl:attribute>
     <xsl:attribute name="d">
@@ -542,7 +542,7 @@ CHANGE HISTORY
 
   <!-- destination half of route -->
   <!-- I draw the half route  path and then (since I cant add multiple markers to a path in svg (i think))
-       for every endline/style I draw the last line segment again and specify the endline style as a marker
+       for every endline/marker I draw the last line segment again and specify the endline style as a marker
   -->
 
     <svg:path>
@@ -568,7 +568,7 @@ CHANGE HISTORY
           <xsl:value-of select="concat('M',$xpenultimatecm, ',', $ypenultimatecm,
                                        'L',$xendcm,         ',', $yendcm)"/>
         </xsl:attribute>
-        <xsl:attribute name="marker-end" select="concat('url(#', style, ')')"/>
+        <xsl:attribute name="marker-end" select="concat('url(#', marker, ')')"/>
       </svg:path>
     </xsl:for-each>
 

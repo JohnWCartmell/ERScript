@@ -53,21 +53,6 @@ copy-item -Path $SOURCEXML\$filename -Destination $TARGETXML
       }
 }
 
-$SOURCESHAREDXML = $SOURCEXML + '\shared'
-$TARGETSHAREDXML = $TARGETXML + '\shared'
-
-# CREATE shared folder if it doesn't already exist
-If(!(test-path -PathType container $TARGETSHAREDXML))
-{
-      echo ('CREATING shared target  folder ' + $TARGETSHAREDXML)
-      New-Item -ItemType Directory -Path $TARGETSHAREDXML
-}
-
-# COPY shareed xml files
-attrib -R $TARGETSHAREDXML\*.xml
-copy-item -Path $SOURCESHAREDXML\*.xml -Destination $TARGETSHAREDXML
-attrib +R $TARGETSHAREDXML\*.xml
-
 #pushd $TARGETXML
 #if ($PSBoundParameters.ContainsKey('filename')-and ($filename -ne 'build.ps1')){
 #. $TARGET\flexDiagramming\scripts\flex2svg.ps1 $filename -debugswitch -animate
