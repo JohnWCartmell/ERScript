@@ -90,14 +90,13 @@
 
 <line_style>
    <id>testline</id>
-   <stroke>black</stroke> 
-   <stroke-width>1</stroke-width>
+   <stroke>red</stroke> 
+   <stroke-width>0.02</stroke-width>
    <stroke-dasharray>.025 .025</stroke-dasharray>
    <fill>none</fill>
-   <label_long_offset>0.1</label_long_offset>
-   <label_lateral_offset>0.1</label_lateral_offset>
+   <label_long_offset>0.3</label_long_offset>
+   <label_lateral_offset>0.15</label_lateral_offset>
    <lateral_extent>0.1</lateral_extent>
-   <long_extent>0.1</long_extent>
    <minarmlen>0.5</minarmlen>
 </line_style>
 
@@ -109,7 +108,6 @@
    <label_long_offset>0.1</label_long_offset>
    <label_lateral_offset>0.1</label_lateral_offset>
    <lateral_extent>0.1</lateral_extent>
-   <long_extent>0.1</long_extent>
    <minarmlen>0.5</minarmlen>
 </line_style>
 
@@ -121,7 +119,6 @@
     <label_long_offset>0.1</label_long_offset>
     <label_lateral_offset>0.1</label_lateral_offset>
     <lateral_extent>0.1</lateral_extent>
-    <long_extent>0.1</long_extent>
     <minarmlen>0.5</minarmlen>
  </line_style>
  <line_style>
@@ -133,7 +130,6 @@
     <label_long_offset>0.1</label_long_offset>
     <label_lateral_offset>0.1</label_lateral_offset>
     <lateral_extent>0.1</lateral_extent>
-    <long_extent>0.1</long_extent>
     <minarmlen>0.5</minarmlen>
  </line_style>
 
@@ -141,31 +137,35 @@
 <text_style>
   <id>title</id>
   <fill>black</fill>
-  <font-size>20</font-size>
+  <font-size>20px</font-size>
   <font-weight><bold/></font-weight>
   <font-style><normal/></font-style>
   <text-decoration><underline/></text-decoration>
+  <font-family>Arial, sans-serif</font-family>
 </text_style>
 
 <text_style>
   <id>normal</id>
   <fill>black</fill>
-  <font-size>11</font-size>
+  <font-size>11px</font-size>
   <font-weight><normal/></font-weight>
   <font-style><normal/></font-style>
+  <font-family>Arial, sans-serif</font-family>
 </text_style>
 <text_style>
   <id>italic</id>
   <fill>black</fill>
-  <font-size>11</font-size>
+  <font-family>Arial, sans-serif</font-family>
+  <font-size>11px</font-size>
   <font-weight><normal/></font-weight>
   <font-style><italic/></font-style>
 </text_style>
 <text_style>
   <id>bold</id>
   <fill>black</fill>
-  <font-size>11</font-size>
+  <font-size>11px</font-size>
   <font-weight><bold/></font-weight>
   <font-style><normal/></font-style>
+  <font-family>Arial, sans-serif</font-family>
 </text_style>
 </all>

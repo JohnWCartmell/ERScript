@@ -3,8 +3,9 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		>
 
-	<include><filename>shared/text_style_definitions.xml</filename></include>
-	<include><filename>shared/shape_style_definitions.xml</filename></include>
+    <include>
+        <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+    </include>
 
 	<default>
 		<hmin>1.0</hmin>

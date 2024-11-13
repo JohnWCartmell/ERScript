@@ -245,7 +245,7 @@
          <attribute name="label_long_offset" type="float"/>
          <attribute name="label_lateral_offset" type="float"/>
          <attribute name="lateral_extent" type="float"/>
-         <attribute name="long_extent" type="float"/>
+         <attribute name="minarmlen" type="float"/>
       </entity_type>
    </entity_type>
    <entity_type name="line_marker">

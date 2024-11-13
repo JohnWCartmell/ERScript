@@ -25,7 +25,7 @@
 					   [not(yP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="240">		  
 		<xsl:copy>
 				<yP> 
 					<at>
@@ -44,7 +44,7 @@
 					   [not(yP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="240">		  
 		<xsl:copy>
 				<yP> 
 					<at>

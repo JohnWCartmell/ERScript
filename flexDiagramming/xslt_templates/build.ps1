@@ -46,8 +46,11 @@ function ReplacexPwithxetc
                       -creplace '171P', '171' `
                       -creplace '172P', '172' `
                       -creplace '173P', '173' `
+                      -creplace '240P', '240' `
                       -creplace '260P', '260' `
-                      -creplace '262P', '262' 
+                      -creplace '262P', '262' `
+                      -creplace '340P', '340' `
+                      -creplace '350P', '350' 
 }
 
 function ReplacexPwithyetc
@@ -98,8 +101,11 @@ function ReplacexPwithyetc
                       -creplace '171P', '181' `
                       -creplace '172P', '182' `
                       -creplace '173P', '183' `
+                      -creplace '240P', '241' `
                       -creplace '260P', '261' `
-                      -creplace '262P', '262' 
+                      -creplace '262P', '262' `
+                      -creplace '340P', '341' `
+                      -creplace '350P', '351' 
 }
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path

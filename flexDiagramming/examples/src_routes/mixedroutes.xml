@@ -1,13 +1,7 @@
 <diagram xmlns="http://www.entitymodelling.org/diagram" xmlns:diagram="http://www.entitymodelling.org/diagram" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<include>
-		<filename>../src_xtests/shared/text_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/shape_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/endline_style_definitions.xml</filename>
-	</include>
+    <include>
+        <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+    </include>
 	<default>
 		<hmin>1.0</hmin>
 		<wmin>1.0</wmin>
@@ -17,7 +11,7 @@
 		<text_style>normal</text_style>
 		<shape_style>outline</shape_style>
 		<debug-whitespace>false</debug-whitespace>
-		<end_style>testline</end_style>
+		<line_style>testline</line_style>
 	</default>
 	<enclosure>
 		<x><local>0</local></x>

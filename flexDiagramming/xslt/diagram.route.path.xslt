@@ -30,7 +30,7 @@
 	<!-- ***************************** -->
 	<xsl:template match="route
 						[source/right_side]
-						[source/endline_style]
+						[source/line_style]
 						[key('box',source/id)/wr]
 						/path/ew[startarm]
 						[not(deltax)]
@@ -40,7 +40,7 @@
 		<xsl:copy>
 			<deltax>
 				<xsl:value-of select="max((
-					key('endline_style',../../source/endline_style)/minarmlen ,
+					key('line_style',../../source/line_style)/minarmlen ,
 					key('box', ../../source/id)/wr
 					))"/>
 			</deltax>
@@ -54,7 +54,7 @@
 	<!-- ************************** -->
 	<xsl:template match="route
 						[source/left_side]
-						[source/endline_style]
+						[source/line_style]
 						[key('box',source/id)/wl]
 						/path/ew[startarm]
 						[not(deltax)]
@@ -64,7 +64,7 @@
 		<xsl:copy>
 			<deltax>
 				<xsl:value-of select="max((
-					key('endline_style',../../source/endline_style)/minarmlen ,
+					key('line_style',../../source/line_style)/minarmlen ,
 					key('box', ../../source/id)/wl
 					))"/>
 			</deltax>
@@ -80,7 +80,7 @@
 	<xsl:template match="route
 						[destination/left_side]
 						[destination/id]
-						[destination/endline_style]
+						[destination/line_style]
 						[key('box',destination/id)/wl]
 						/path/ew[endarm] 
 						[not(deltax)]
@@ -91,7 +91,7 @@
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>
 				<xsl:value-of select="max((
-					key('endline_style',../../destination/endline_style)/minarmlen ,
+					key('line_style',../../destination/line_style)/minarmlen ,
 					key('box',../../destination/id)/wl
 					))"/>
 			</deltax>
@@ -104,7 +104,7 @@
 	<!-- ************************** -->
 	<xsl:template match="route
 						[destination/right_side]
-						[destination/endline_style]
+						[destination/line_style]
 						[key('box',destination/id)/wr]
 						/path/ew[endarm]
 						[not(deltax)]
@@ -115,7 +115,7 @@
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>
 				<xsl:value-of select="- max((
-					key('endline_style',../destination/endline_style)/minarmlen ,
+					key('line_style',../destination/line_style)/minarmlen ,
 					key('box',../../destination/id)/wr
 					))"/>
 			</deltax>
@@ -130,7 +130,7 @@
 	<xsl:template match="route
 						[source/bottom_edge/noOfSlots]
 						[source/slotNo]
-						[source/endline_style]
+						[source/line_style]
 						[key('box',source/id)/hb]
 						/path/ns[startarm]
 						[not(deltay)]
@@ -141,7 +141,7 @@
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltay>
 				<xsl:value-of select="max((
-					key('endline_style',../../source/endline_style)/minarmlen
+					key('line_style',../../source/line_style)/minarmlen
 					         + ../../source/((bottom_edge/noOfSlots div 2 - abs(bottom_edge/noOfSlots div 2 - slotNo)) * 0.1), 
 					key('box',../../source/id)/hb
 					))"/>
@@ -157,7 +157,7 @@
 	<xsl:template match="route
 						[destination/top_edge/noOfSlots]
 						[destination/slotNo]
-						[destination/endline_style]
+						[destination/line_style]
 						[key('box',destination/id)/ht]
 						/path/ns[endarm]
 						[not(deltay)]
@@ -167,7 +167,7 @@
 		<xsl:copy>
 			<deltay>
 				<xsl:value-of select="max((
-					key('endline_style',../../destination/endline_style)/minarmlen 
+					key('line_style',../../destination/line_style)/minarmlen 
 					           + ../../destination/((top_edge/noOfSlots div 2 - abs(top_edge/noOfSlots div 2 - slotNo)) * 0.1),
 					key('box',../../destination/id)/ht
 					))"/>

@@ -20,14 +20,27 @@
 
 <!-- source is left_sideP -->
 <xsl:template match="route
-                   [(source|destination)[label_long_offsetP]/left_sideP]
-				   /path/point[startpoint|endpoint]/label
+				     /path/point
+				     [.[startpoint]
+				            [../../source[label_long_offsetP]/left_sideP]
+				      | 
+				      .[endpoint]
+				            [../../destination[label_long_offsetP]/left_sideP]
+				     ]
+				    /label
 				   [not(xP)]
 				   " 
           mode="recursive_diagram_enrichment"
-          priority="140P">		  
+          priority="140P">	
+          <xsl:message>Firing at left_sideP to plant xP</xsl:message>	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xsl:variable name="label_offset" as="xs:double"
+		              select="if (../startpoint) 
+		                      then ../../../source/label_long_offsetP
+		                      else ../../../destination/label_long_offsetP
+		              "/>
+        <xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message>
 		<xP>
 		  <place>
 		  	<rightP/><edge/>
@@ -35,7 +48,7 @@
 		  <at>
 		  	<parent/>
 		  	<offset>
-		  		<xsl:value-of select="- ../../../(source|destination)/label_long_offsetP"/>
+		  		<xsl:value-of select="- $label_offset"/>
 		  	</offset>
 			</at>
 		</xP>
@@ -44,14 +57,28 @@
 
 <!-- source is right_sideP -->
 <xsl:template match="route
-                   [(source|destination)[label_long_offsetP]/right_sideP]
-				   /path/point[startpoint|endpoint]/label
+				     /path/point
+				     [.[startpoint]
+				            [../../source[label_long_offsetP]/right_sideP]
+				      | 
+				      .[endpoint]
+				            [../../destination[label_long_offsetP]/right_sideP]
+				     ]
+				    /label
 				   [not(xP)]
 				   " 
           mode="recursive_diagram_enrichment"
-          priority="140P">		  
+          priority="140P">		
+
+          <xsl:message>Firing at right_sideP to plant xP</xsl:message>	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xsl:variable name="label_offset" as="xs:double"
+		              select="if (../startpoint) 
+		                      then ../../../source/label_long_offsetP
+		                      else ../../../destination/label_long_offsetP
+		              "/>
+	<xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message>
 		<xP>
 		  <place>
 		  	<leftP/><edge/>
@@ -59,13 +86,13 @@
 		  <at>
 		  	<parent/>
 		  	<offset>
-		  		<xsl:value-of select="../../../(source|destination)/label_long_offsetP"/>
+		  		<xsl:attribute name="trace" select="'5-Nov-2024'"/>
+		  		<xsl:value-of select="$label_offset"/>
 		  	</offset>
 			</at>
 		</xP>
 	</xsl:copy>
 </xsl:template>
-
 
 
 <!-- ******************************** -->
@@ -74,14 +101,26 @@
 
 <!-- annotate_leftQ-->
 <xsl:template match="route
-                   [(source|destination)[label_lateral_offsetP]/*/annotate_leftQ]
-				   /path/point[startpoint|endpoint]/label
+				     /path/point
+				     [.[startpoint]
+				        [../../source[label_long_offsetP]/*/annotate_leftQ]
+				      | 
+				      .[endpoint]
+				        [../../destination[label_long_offsetP]/*/annotate_leftQ]
+				     ]
+				    /label
 				   [not(xP)]
 				   " 
           mode="recursive_diagram_enrichment"
-          priority="140P">		  
+          priority="140P">	
+<xsl:message>firing at annotate_leftQ to plant xP</xsl:message>
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+	    <xsl:variable name="label_offset" as="xs:double"
+		              select="if (../startpoint) 
+		                      then ../../../source/label_long_offsetP
+		                      else ../../../destination/label_long_offsetP
+		              "/>
 		<xP>
 		  <place>
 		  	<rightP/><edge/>
@@ -89,7 +128,7 @@
 		  <at>
 		  	<parent/>
 		  	<offset>
-		  		<xsl:value-of select="- ../../../(source|destination)/label_lateral_offsetP"/>
+		  		<xsl:value-of select="- $label_offset"/>
 		  	</offset>
 			</at>
 		</xP>
@@ -97,15 +136,26 @@
 </xsl:template>
 
 <!--   annotate_rightQ -->
-<xsl:template match="route
-                   [(source|desination)[label_lateral_offsetP]/*/annotate_rightQ]
-				   /path/point[startpoint|endpoint]/label
+<xsl:template match="route/path/point
+				     [.[startpoint]
+				        [../../source[label_long_offsetP]/*/annotate_rightQ]
+				      | 
+				      .[endpoint]
+				        [../../destination[label_long_offsetP]/*/annotate_rightQ]
+				     ]
+				     /label
 				   [not(xP)]
 				   " 
           mode="recursive_diagram_enrichment"
-          priority="140P">		  
+          priority="140P">	
+          <xsl:message>firing at annotate_rightQ to plant xP</xsl:message>	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+	    <xsl:variable name="label_offset" as="xs:double"
+		              select="if (../startpoint) 
+		                      then ../../../source/label_long_offsetP
+		                      else ../../../destination/label_long_offsetP
+		              "/>
 		<xP>
 		  <place>
 		  	<leftP/><edge/>
@@ -113,7 +163,7 @@
 		  <at>
 		  	<parent/>
 		  	<offset>
-		  		<xsl:value-of select="../../../(source|destination)/label_lateral_offsetP"/>
+		  		<xsl:value-of select="$label_offset"/>
 		  	</offset>
 			</at>
 		</xP>

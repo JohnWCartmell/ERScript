@@ -47,7 +47,7 @@
     <!-- deliberately left empty -->
   </xsl:template>
   
-  <xsl:template match="shape_style|text_style|endline_style" priority="8">
+  <xsl:template match="shape_style|text_style|line_style" priority="8">
     <xsl:text>.</xsl:text>
     <xsl:value-of select="id"/>
     <xsl:text> {</xsl:text>

@@ -21,7 +21,7 @@
                       [not(debug-whitespace)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="55">
+              priority="20.1">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <debug-whitespace><xsl:value-of select="(ancestor-or-self::*/default/debug-whitespace)[last()]"/></debug-whitespace>

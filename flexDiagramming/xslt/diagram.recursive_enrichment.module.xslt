@@ -36,7 +36,7 @@
 <xsl:include href="diagram.padding.xslt"/>              <!-- priority  78  -->
 <xsl:include href="diagram.shape_style.xslt"/>          <!-- priority  79  -->
 <xsl:include href="diagram.text.xslt" />                <!-- priority  20  -->
-<xsl:include href="diagram.debug_whitespace.xslt"/>     <!-- priority  55  -->
+<xsl:include href="diagram.debug_whitespace.xslt"/>     <!-- priority  20.1  -->
 <!--
 <xsl:include href="diagram.label.x.xslt"/>               
 <xsl:include href="diagram.label.y.xslt"/>
@@ -77,8 +77,8 @@
 <xsl:include href="diagram...path-+point.startpoint+ew.xslt"/>  <!-- priority  40  -->
 <xsl:include href="diagram...path-+point.startpoint+ns.xslt"/>  <!-- priority  40  -->
 
-<xsl:include href="diagram...path.point_startpoint_-+x.xslt"/>  <!-- priority  40  -->
-<xsl:include href="diagram...path.point_startpoint_-+y.xslt"/>  <!-- priority  40  -->
+<xsl:include href="diagram...path.point_startpoint_-+x.xslt"/>  <!-- priority  241  -->
+<xsl:include href="diagram...path.point_startpoint_-+y.xslt"/>  <!-- priority  240  -->
 <xsl:include href="diagram...path.point_endpoint_-+x.xslt"/>    <!-- priority  40  -->
 <xsl:include href="diagram...path.point_endpoint_-+y.xslt"/>    <!-- priority  40  -->
 
@@ -93,15 +93,15 @@
 <xsl:include href="diagram...path.cardinal-+deltay.xslt"/>      <!-- priority  57,58  -->
 <xsl:include href="diagram...path.cardinal-+endx.xslt"/>      <!-- priority  40  -->
 <xsl:include href="diagram...path.cardinal-+endy.xslt"/>      <!-- priority  40  -->
-<xsl:include href="diagram...node-+x_lower_bound.xslt"/>       <!-- priority 40 -->
-<xsl:include href="diagram...node-+y_lower_bound.xslt"/>       <!-- priority 40 -->
-<xsl:include href="diagram...node-+x_upper_bound.xslt"/>       <!-- priority 40 -->
-<xsl:include href="diagram...node-+y_upper_bound.xslt"/>       <!-- priority 40 -->        
+<xsl:include href="diagram...node-+x_lower_bound.xslt"/>       <!-- priority 340 -->
+<xsl:include href="diagram...node-+y_lower_bound.xslt"/>       <!-- priority 341 -->
+<xsl:include href="diagram...node-+x_upper_bound.xslt"/>       <!-- priority 350 -->
+<xsl:include href="diagram...node-+y_upper_bound.xslt"/>       <!-- priority 351 -->        
 <xsl:include href="diagram...route.node-+line_style.xslt"/>    <!-- priority  38  -->
 
 <xsl:key name="Enclosure" match="enclosure" use="id"/>
 <xsl:key name="box" match="path|label|point|ns|ew|ramp|enclosure" use="id"/>
-<xsl:key name="text_style" match="diagram:text_style" use="id"/>
+<xsl:key name="text_style" match="text_style" use="id"/>
 <xsl:key name="endline_style" match="endline_style" use="id"/>
 <xsl:key name="line_style" match="line_style" use="id"/>
 <xsl:key name="shape_style" match="shape_style" use="id"/>

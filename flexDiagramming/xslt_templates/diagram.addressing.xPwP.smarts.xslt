@@ -855,7 +855,7 @@ CHANGE HISTORY
           <xsl:value-of select="at/offset - place/offset + (if (parent::enclosure) then ../wlP else 0) + ../padding + ../ancestor::enclosure[1]/margin "/>  
         -->
                                <!-- I question this +wlP ditto +margin maybe restructure around here in fact just broke centrePd label-->
-                               <xsl:message><xsl:copy-of select="."/></xsl:message>
+          <!-- <xsl:message><xsl:copy-of select="."/></xsl:message>  -->
           <xsl:variable name="offset" as="xs:double"  select="at/offset - place/offset"/> 
           <xsl:value-of select="$offset"/>
         </offset>

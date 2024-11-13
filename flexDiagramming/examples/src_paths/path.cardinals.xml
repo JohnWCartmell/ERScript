@@ -1,10 +1,7 @@
 <diagram xmlns="http://www.entitymodelling.org/diagram" xmlns:diagram="http://www.entitymodelling.org/diagram" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<include>
-		<filename>shared/text_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>shared/shape_style_definitions.xml</filename>
-	</include>
+    <include>
+        <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+    </include>
 	<default>
 		<hmin>3.0</hmin>
 		<wmin>3.0</wmin>

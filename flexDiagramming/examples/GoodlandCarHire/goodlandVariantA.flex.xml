@@ -9,15 +9,9 @@
                   xmlns:xlink="http://www.w3.org/TR/xlink"
                   xmlns:xs="http://www.w3.org/2001/XMLSchema">
    <method>era</method>
-   <include>
-      <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/text_style_definitions.xml</filename>
-   </include>
-   <include>
-      <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/shape_style_definitions.xml</filename>
-   </include>
-   <include>
-      <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/endline_style_definitions.xml</filename>
-   </include>
+    <include>
+        <filename>../../methods/era/xml/eraFlexStyleDefinitions.xml</filename>
+    </include>
    <default>
       <hmin>0.5</hmin>
       <wmin>0.05</wmin>

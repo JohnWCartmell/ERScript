@@ -3,13 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns="http://www.entitymodelling.org/diagram">
 	<include>
-		<filename>../src_xtests/shared/text_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/shape_style_definitions.xml</filename>
-	</include>
-	<include>
-		<filename>../src_xtests/shared/endline_style_definitions.xml</filename>
+		<filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
 	</include>
 	<default>
 		<hmin>1.0</hmin>
@@ -20,7 +14,6 @@
 		<text_style>normal</text_style>
 		<shape_style>outline</shape_style>
 		<line_style>testline</line_style>
-		<end_marker>testline</end_marker>
 		<debug-whitespace>false</debug-whitespace>
 	</default>
 	<enclosure>
@@ -53,6 +46,7 @@
 			<label/>
 			<x><at><centre/><of>A</of></at><delta>1.0</delta></x>
 			<y><at><bottom/><of>A</of></at><delta>1.0</delta></y>
+			<!--place edge AND AT edge added so that don't get in a circularity with position of label -->
 		</enclosure>
 		<route>
 		    <top_down/>

@@ -14,18 +14,16 @@
 	<xsl:output method="xml" indent="yes"/>
 
 	<!-- ************************************************************** -->
-	<!-- route/source[left_side | right_side]  +label_long_offset  -->
-	<!--                        AND                                     -->
-	<!-- route/source[top_edge | bottom_edge]  +label_long_offset  -->
+	<!-- route/(source|destination) +label_lateral_offset  -->
 	<!-- ************************************************************** -->
                                  
-	<xsl:template match="route/source
+	<xsl:template match="route/*[self::source|self::destination]
                          [line_style]
-	                     [*[self::left_side | self::right_side]]
 					     [not(label_lateral_offset)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="260">		  
+              priority="260">		
+
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<xsl:message>linestyle <xsl:value-of select="linestyle"/></xsl:message>
@@ -41,14 +39,11 @@
 	</xsl:template>
 
 	<!-- ************************************************************** -->
-	<!-- route/source[left_side | right_side]  +label_long_offset  -->
-	<!--                        AND                                     -->
-	<!-- route/source[top_edge | bottom_edge]  +label_long_offset  -->
+	<!-- route/(source|destination)  +label_long_offset  -->
 	<!-- ************************************************************** -->                             
 
-	<xsl:template match="route/source
+	<xsl:template match="route/*[self::source|self::destination]
                          [line_style]
-	                     [*[self::left_side | self::right_side]]
 					     [not(label_long_offset)]
 					   " 
               mode="recursive_diagram_enrichment"

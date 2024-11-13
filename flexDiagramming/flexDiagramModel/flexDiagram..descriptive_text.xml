@@ -756,24 +756,28 @@
       </attribute>
    </entity_type>
    <entity_type>
-      <name>endline_style</name>
+      <name>line_style</name>
       <description>An entity type..</description>
       <attribute>
-         <name>id</name>
-         <description>An attribute of type string.</description>
+         <name>label_long_offset</name>
+         <description>How far along the line to start the label.</description>
       </attribute>
       <attribute>
-         <name>stroke</name>
-         <description>An attribute of type string.</description>
+         <name>label_lateral_offset</name>
+         <description>How far away from the line to start the label.</description>
       </attribute>
       <attribute>
-         <name>stroke-width</name>
+         <name>lateral_extent</name>
+         <description>How far away from the line the endstyle extends.</description>
+      </attribute>
+      <attribute>
+         <name>minarmlen</name>
          <description>An attribute of type float.</description>
       </attribute>
-      <attribute>
-         <name>stroke-dasharray</name>
-         <description>An attribute of type string.</description>
-      </attribute>
+   </entity_type>
+      <entity_type>
+      <name>line_marker</name>
+      <description>An entity type..</description>
       <attribute>
          <name>label_long_offset</name>
          <description>How far along the line to start the label.</description>
@@ -788,11 +792,7 @@
       </attribute>
       <attribute>
          <name>long_extent</name>
-         <description>How far along the line the endstyle extends.</description>
-      </attribute>
-      <attribute>
-         <name>minarmlen</name>
-         <description>An attribute of typefloat.</description>
+         <description>Minimum arm length for an arm with this marker.</description>
       </attribute>
    </entity_type>
    <entity_type>

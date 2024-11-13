@@ -92,7 +92,7 @@ to being 'line_marker', which by the way is vectorial. Introduce a supertype of 
   line_style => label_long_offset (optional), 
                 label_lateral_offset(opptional),
                 lateral_extent,
-                long_extent;
+                minarmlen;
   ```
   + add to type 'node(2)' new attributes  label_lateral_offset and label_long_offset 
   + change the linestyle reference relationship of node(2) to be called line_style and to be of type line_style.

@@ -19,7 +19,7 @@ DESCRIPTION
                        [not(x_upper_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="199">
+              priority="350">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	  <x_upper_boundP>
@@ -34,7 +34,7 @@ DESCRIPTION
                        [not(x_upper_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="199">
+              priority="350">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	  <x_upper_boundP>

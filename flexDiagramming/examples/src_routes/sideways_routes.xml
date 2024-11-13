@@ -18,20 +18,12 @@
 	<enclosure>
 		<x><local>0</local></x>
 		<y><abs>2.0</abs></y>
-		<!-- <h>6.5</h>  -->
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
 			<text>Enclosure A has route specified from rhs of A to lhs of B.</text>
 		</label>
-		<!--
-	  <label>
-		<text><![CDATA[
-		  yyy
-		]]></text>
-	  </label>
-	  -->
 		<enclosure>
 			<id>A</id>
 			<x><local>11</local></x>
@@ -63,13 +55,13 @@
 			</destination>
 		</route>	
 	</enclosure>
-	<!-- <enclosure>
+	<enclosure>
 		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Enclosure A has route specified from rhs of C to rhs of D.</text>
+			<text>Enclosure C has route specified from rhs of C to rhs of D.</text>
 		</label>
 
 		<enclosure>
@@ -101,5 +93,5 @@
 					<annotation>back_to_c</annotation>
 			</destination>
 		</route>	
-	</enclosure> -->
+	</enclosure>
 </diagram>
