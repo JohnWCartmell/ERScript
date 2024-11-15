@@ -440,9 +440,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
   <xsl:for-each select="//entity_type[parent::group | parent::entity_type|child::presentation]
                         |absolute[not(presentation/None)]">
    <!-- above made conditional in change of 6-Oct-2024-->
-    <!--
-    <xsl:message>Rel content for entity type: <xsl:value-of select="name"/></xsl:message>
-    -->
+
     <xsl:variable name="srcbasex">
        <xsl:call-template name="et_x">
           <xsl:with-param name="scheme" select="'ABSOLUTE'"/>
@@ -2068,6 +2066,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="reference" match="reference|constructed_relationship">
+
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
@@ -2319,9 +2318,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
     </xsl:call-template>
   </xsl:if>
-  <xsl:if test="not(inverse) 
-		 or  $inverse/cardinality/ZeroOneOrMore 
-		 or  $inverse/cardinality/OneOrMore ">
+
+  <xsl:if test="not(injective='true')">
      <xsl:call-template name="crowsfoot_across">
 	 <xsl:with-param name="xcm" select="$srcx"/>
 	 <xsl:with-param name="ycm" select="$srcy"/>
@@ -3032,6 +3030,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <xsl:param name="destx"/>
    <xsl:param name="rely"/>
    <xsl:param name="ylower"/>
+     <xsl:message>Hello from draw relationship</xsl:message>
   <drawing>
   <xsl:variable name="inverse">
      <xsl:if test='inverse'>
@@ -3048,10 +3047,12 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                             or cardinality/OneOrMore "/>
   </xsl:variable>
   <xsl:variable  name="destMandatory">
-      <xsl:value-of select="not($inverse/cardinality) 
+<!--       <xsl:value-of select="not($inverse/cardinality) 
                             or  $inverse/cardinality/ExactlyOne 
-                            or $inverse/cardinality/OneOrMore "/>
+                            or $inverse/cardinality/OneOrMore "/> -->
+      <xsl:value-of select="surjective"/>
   </xsl:variable>
+         <xsl:message>New surjective Code firing XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<xsl:value-of select="surjective"/>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xsl:message> 
 
    <!-- horizontal relationship line -->
    <!-- KEEP AS LINE -->
@@ -3590,21 +3591,29 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                         <!-- there was a final condition [current()/../name = type] in above
                            but I don't see why? It was causing a problem but I don't see why that either.  Removed 12/10/2023.
                            -->
+
    <xsl:variable  name="inverseMandatory" as="xs:boolean"
-                  select="exists($inverse/cardinality/(ExactlyOne | OneOrMore))"/>
-<!-- <xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
+                  select="exists($inverse/cardinality[ExactlyOne | OneOrMore])"/>
+
+   <xsl:variable name="reflexive" as="xs:boolean" select=".=$inverse"/>
+   <!--
+<xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
+<xsl:message>reflexive '<xsl:value-of select="$reflexive"/>'</xsl:message>
 <xsl:message>$inverse is '<xsl:copy-of select="$inverse"/>'</xsl:message>               
-<xsl:message>$inverseMandatory is '<xsl:value-of select="$inverseMandatory"/>'</xsl:message> -->
-    <!-- change to call render_half_of_relationship (in 2svg) -->
+<xsl:message>$inverseMandatory is '<xsl:value-of select="$inverseMandatory"/>'</xsl:message>               
+<xsl:message>$relMandatory is '<xsl:value-of select="$relMandatory"/>'</xsl:message> 
+-->
+
     <xsl:call-template name="render_half_of_relationship">
       <xsl:with-param name="line" select="$source_to_midpoint"/>
       <xsl:with-param name="is_mandatory" select="$relMandatory"/>
     </xsl:call-template>
-    <!-- change to call render_half_of_relationship (in 2svg) -->
-    <xsl:call-template name="render_half_of_relationship">
-      <xsl:with-param name="line" select="$midpoint_to_destination"/>   
-      <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
-    </xsl:call-template>
+    <xsl:if test="not($reflexive)">  <!-- change of 14-Nov-2024 -->
+       <xsl:call-template name="render_half_of_relationship">
+         <xsl:with-param name="line" select="$midpoint_to_destination"/>   
+         <xsl:with-param name="is_mandatory" select="$inverseMandatory"/>
+       </xsl:call-template> 
+    </xsl:if>
     <!-- now for the hit area -->
     <xsl:call-template name="render_hitarea">
       <xsl:with-param name="rel_id" select="$relationship_element_id"/>

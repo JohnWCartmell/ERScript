@@ -1,11 +1,11 @@
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder + '\..\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE flexDiagramming methods folder")
+echo ("*** building from  $SOURCE flexDiagramming methods era folder")
 
-$SOURCEERAMETHODFOLDER = ($SOURCE + '\flexDiagramming\methods')
+$SOURCEERAMETHODFOLDER = ($SOURCE + '\flexDiagramming\methods\era')
 
 function buildFolder {
 	param ( [string] $foldername)
@@ -17,6 +17,6 @@ echo "================================================================= end $fol
 echo "."
 }
 
-buildFolder era
-buildFolder test
+buildFolder js
+buildFolder xml
 

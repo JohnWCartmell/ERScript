@@ -1187,7 +1187,7 @@ CHANGE HISTORY
     <xsl:param name="y0cm"/>
     <xsl:param name="x1cm"/>
     <xsl:param name="y1cm"/>
-    <xsl:param name="p_ismandatory"/>
+    <xsl:param name="p_ismandatory" as="xs:string"/>
     <xsl:param name="p_isconstructed"/>
     <xsl:variable name="class">
       <xsl:choose>

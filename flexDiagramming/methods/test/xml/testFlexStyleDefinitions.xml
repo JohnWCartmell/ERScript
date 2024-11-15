@@ -141,7 +141,7 @@
   <font-weight><bold/></font-weight>
   <font-style><normal/></font-style>
   <text-decoration><underline/></text-decoration>
-  <font-family>Arial, sans-serif</font-family>
+  <font-family>"Times New Roman", Times, serif</font-family>
 </text_style>
 
 <text_style>
@@ -150,12 +150,12 @@
   <font-size>11px</font-size>
   <font-weight><normal/></font-weight>
   <font-style><normal/></font-style>
-  <font-family>Arial, sans-serif</font-family>
+  <font-family>"Times New Roman", Times, serif</font-family>
 </text_style>
 <text_style>
   <id>italic</id>
   <fill>black</fill>
-  <font-family>Arial, sans-serif</font-family>
+  <font-family>"Times New Roman", Times, serif</font-family>
   <font-size>11px</font-size>
   <font-weight><normal/></font-weight>
   <font-style><italic/></font-style>
@@ -166,6 +166,6 @@
   <font-size>11px</font-size>
   <font-weight><bold/></font-weight>
   <font-style><normal/></font-style>
-  <font-family>Arial, sans-serif</font-family>
+  <font-family>"Times New Roman", Times, serif</font-family>
 </text_style>
 </all>

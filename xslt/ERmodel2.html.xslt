@@ -145,6 +145,8 @@
       <th> Name </th>
       <th> Cardinality </th>
       <th> Destination </th>
+      <th> Injective </th>
+      <th> Surjective </th>
       <th> Description </th>
     </tr>
     <xsl:for-each select="//entity_type">
@@ -163,10 +165,15 @@
  	 <xsl:value-of select="name"/>
        </td>
        <td>
-	 <xsl:value-of select="cardinality/name()"/>
+	 <xsl:value-of select="cardinality/*/name()"/>
        </td>
        <td>
 	 <xsl:value-of select="type"/>
+       </td>
+       <td>
+   <xsl:value-of select="injective"/>
+       </td>       <td>
+   <xsl:value-of select="surjective"/>
        </td>
        <td>
          <xsl:value-of select="description"/>
@@ -185,6 +192,8 @@
       <th> Name </th>
       <th> Cardinality </th>
       <th> Type </th>
+      <th> Injective </th>
+      <th> Surjective </th>
       <th> Description </th>
     </tr>
     <xsl:for-each select="//entity_type">
@@ -203,10 +212,15 @@
  	 <xsl:value-of select="name"/>
        </td>
        <td>
-	 <xsl:value-of select="cardinality/name()"/>
+	 <xsl:value-of select="cardinality/*/name()"/>
        </td>
        <td>
 	 <xsl:value-of select="type"/>
+       </td>
+       <td>
+   <xsl:value-of select="injective"/>TBD
+       </td>       <td>
+   <xsl:value-of select="surjective"/>TBD
        </td>
        <td>
          <xsl:value-of select="description"/>

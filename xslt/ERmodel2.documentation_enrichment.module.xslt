@@ -44,9 +44,13 @@
      composition => 
             id:string             # a short id of form S<n> for some n
             display_text: string  # is <relname>:<dest et name> {|?|+|*}
+            injective : boolean,  # change of 14-Nov-2024
+            surjective : boolean  # change of 14-Nov-2024
 
       dependency => 
             id:string             # defined as id of inverse composition
+            injective : boolean,  # change of 14-Nov-2024
+            surjective : boolean  # change of 14-Nov-2024
 
      reference =>
             id:string             # a short id of form p<n> for some n, some prefix p
@@ -55,6 +59,8 @@
                                  # using ~/<riser text>=<diag text>
                                  # using D:<riser text>=S:<diag text>
             display_text: string  # is <relname>:<dest et name> {|?|+|*}
+            injective : boolean,  # change of 14-Nov-2024
+            surjective : boolean  # change of 14-Nov-2024
 
       navigation ::= identity | theabsolute | join | aggregate | component
       
@@ -194,6 +200,8 @@
 </xsl:template>
 
 
+
+
 <!-- a reference and its inverse need be given the same id -->
 <!-- first allocate id to a reference that precedes its inverse in the document -->
 <!-- in the next pass allocate an id equal to the id of the inverse -->
@@ -205,7 +213,6 @@
                      ]
                      " 
               mode="documentation_enrichment_recursive"  priority="1">
-              <xsl:message>Adding id to reference <xsl:value-of select="name"/></xsl:message>
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
         <xsl:variable name="dependency_relid_prefix" as="xs:string" 
@@ -251,6 +258,55 @@
        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
     </xsl:copy>
 </xsl:template>
+
+<!-- a reference and its inverse need be given the same id -->
+<!-- first allocate id to a reference that precedes its inverse in the document -->
+<!-- in the next pass allocate an id equal to the id of the inverse -->
+<xsl:template match="(reference|composition)
+                     [not(injective)][not(surjective)]
+                     " 
+              mode="documentation_enrichment_recursive"  priority="100">
+              <!-- SHOULD include dependencies as well !!!!!!!!!!!-->
+   <xsl:copy>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+
+  <xsl:variable name="inverse" 
+                as="element()?"
+                select="if (inverse) 
+                        then (
+                             if (self::composition)
+                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
+                                                [current()/../name = type]
+                             else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                             )
+                        else ()" />  <!-- explained change of 1-Aug-2024 -->
+    <xsl:variable name="injective" as="xs:boolean"
+                select="$inverse
+                       and ($inverse/cardinality/ZeroOrOne
+                            or $inverse/cardinality/ExactlyOne
+                            )" />
+
+    <!-- below is rather odd incase no inverse specified but is transcribed
+        from the preexisting logic in ERmodel2.diagram.xslt 
+        Seems particularly strange for reference relationships
+        Are we wedded to it?
+    -->
+    <xsl:variable name="surjective" as="xs:boolean"
+                select="not($inverse/cardinality)
+                        or $inverse/cardinality/ExactlyOne
+                        or $inverse/cardinality/OneOrMore
+                       " />
+
+
+       <injective>
+           <xsl:value-of select="$injective"/>
+       </injective>
+       <surjective>
+           <xsl:value-of select="$surjective"/>
+       </surjective>
+    </xsl:copy>
+</xsl:template>
+           
 
 
 <xsl:template match="attribute

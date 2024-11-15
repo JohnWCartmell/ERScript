@@ -23,7 +23,7 @@
    <x><at><left/></at></x>
    <y><at><top/></at></y>
    <label> 
-        <text>Boxed Text (This is a title in Bold Font 20 Arial)</text>
+        <text>Boxed Text (This is a title in Bold Font 20 Times New Roman)</text>
         <text_style>title</text_style>
     </label>
 </enclosure>
@@ -50,7 +50,7 @@
     <enclosure>
 	    <id>colheader</id>
 		<label>
-        <text>This column is in normal font Arial font-size 11.</text>
+        <text>This column is in normal font Time New Roman font-size 11px.</text>
 		</label>
 		<x><at><left/></at></x>
         <y><at><top/></at></y>
@@ -135,7 +135,7 @@
    <enclosure>
 	    <id>col2header</id>
 		<label>
-           <text>This column is in italic font Arial font-size 11.</text>
+           <text>This column is in italic font Time New Roman  font-size 11px.</text>
 		</label>
 		<x><at><left/></at></x>
         <y><at><top/></at></y>
@@ -219,7 +219,7 @@
    <enclosure>
 	    <id>col3header</id>
 		<label>
-        <text>This column is in bold font Arial font-size 11.</text>
+        <text>This column is bold font Time New Roman  font-size 11px.</text>
 		</label>
 		<x><at><left/></at></x>
         <y><at><top/></at></y>
