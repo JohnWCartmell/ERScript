@@ -3562,7 +3562,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
  -->
    <xsl:variable  name="relMandatory" as="xs:boolean"
                   select="exists(cardinality/(ExactlyOne | OneOrMore))
-                 "/>
+                 "/> 
   <xsl:variable name="inverse" 
                 as="element()?"
                 select="if (inverse) 
@@ -3593,7 +3593,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                            -->
 
    <xsl:variable  name="inverseMandatory" as="xs:boolean"
-                  select="exists($inverse/cardinality[ExactlyOne | OneOrMore])"/>
+                  select="surjective"/> <!-- see change of 14-Noc-2024 -->
 
    <xsl:variable name="reflexive" as="xs:boolean" select=".=$inverse"/>
    <!--
