@@ -32,7 +32,7 @@
 				   " 
           mode="recursive_diagram_enrichment"
           priority="140P">	
-          <xsl:message>Firing at left_sideP to plant xP</xsl:message>	  
+         <!--  <xsl:message>Firing at left_sideP to plant xP</xsl:message> -->	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		<xsl:variable name="label_offset" as="xs:double"
@@ -40,7 +40,7 @@
 		                      then ../../../source/label_long_offsetP
 		                      else ../../../destination/label_long_offsetP
 		              "/>
-        <xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message>
+        <!-- <xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message> -->
 		<xP>
 		  <place>
 		  	<rightP/><edge/>
@@ -70,7 +70,7 @@
           mode="recursive_diagram_enrichment"
           priority="140P">		
 
-          <xsl:message>Firing at right_sideP to plant xP</xsl:message>	  
+          <!-- <xsl:message>Firing at right_sideP to plant xP</xsl:message> -->	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		<xsl:variable name="label_offset" as="xs:double"
@@ -78,7 +78,7 @@
 		                      then ../../../source/label_long_offsetP
 		                      else ../../../destination/label_long_offsetP
 		              "/>
-	<xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message>
+	<!-- <xsl:message>label offset <xsl:value-of select="$label_offset"/></xsl:message> -->
 		<xP>
 		  <place>
 		  	<leftP/><edge/>
@@ -113,7 +113,7 @@
 				   " 
           mode="recursive_diagram_enrichment"
           priority="140P">	
-<xsl:message>firing at annotate_leftQ to plant xP</xsl:message>
+<!-- <xsl:message>firing at annotate_leftQ to plant xP</xsl:message> -->
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	    <xsl:variable name="label_offset" as="xs:double"
@@ -148,7 +148,7 @@
 				   " 
           mode="recursive_diagram_enrichment"
           priority="140P">	
-          <xsl:message>firing at annotate_rightQ to plant xP</xsl:message>	  
+          <!-- <xsl:message>firing at annotate_rightQ to plant xP</xsl:message> -->	  
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	    <xsl:variable name="label_offset" as="xs:double"

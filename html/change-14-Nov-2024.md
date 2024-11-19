@@ -2,6 +2,8 @@
 ## 14 November 2024
 ERmodel code restructure  - derive injective and surjective attributes.
 
+### WARNING THIS NOTE OUT OF DATE - THIS AREA RESTRUCTURED IN CHANGE 16-Nov-2024.
+
 ### Problem
 There is code in various places to derive the cardinality of an inverse to a relationship including the defaults when not specified explicitly. 
 

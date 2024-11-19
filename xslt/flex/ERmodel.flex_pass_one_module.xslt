@@ -66,36 +66,4 @@
 		</xsl:copy>
 	</xsl:template>
 
-
-<!-- I (wrongly) moved these from the recursive_structure pass
-Subsequenlty I dont think that depthOfNesting is required 
-	<xsl:template match="enclosure
-                     [not(parent::enclosure)]
-                     [not(depthOfNesting)]
-                    " 
-              mode="passone">
-   <xsl:copy>
-      <depthOfNesting>
-         <xsl:value-of select="0"/>
-      </depthOfNesting>
-      <xsl:apply-templates mode="passone"/>
-   </xsl:copy>
-</xsl:template>
-
-<xsl:template match="enclosure
-                     [parent::enclosure/depthOfNesting]
-                     [not(depthOfNesting)]
-                    " 
-              mode="passone">
-   <xsl:copy>
-      <depthOfNesting>
-         <xsl:value-of select="parent::enclosure/depthOfNesting + 1"/>
-      </depthOfNesting>
-      <xsl:apply-templates mode="passone"/>
-   </xsl:copy>
-</xsl:template>
-
--->
-
-
 </xsl:transform>

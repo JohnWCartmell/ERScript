@@ -62,6 +62,8 @@
       <entity_type name="possible_identifying_feature">
          <entity_type name="reference_or_context">
             <attribute name="physical_prefix" type="string?"/>
+            <attribute name="injective"  type="boolean?"/>
+            <attribute name="surjective"  type="boolean?"/>
             <entity_type name="context">
                <attribute name="inverse_of" type="string?"/>
             </entity_type>
@@ -92,6 +94,7 @@
          <composition type="sequence?"/>
          <composition type="initialiser?" inverse=".."/>  
          <attribute name="inverse"  type="string?"/>
+         <attribute name="surjective"  type="boolean?"/>
       </entity_type>
       <attribute name="description" type="string?"/>
    </entity_type>

@@ -35,7 +35,7 @@
 -->
    <xsl:param name="interim"/>
    <xsl:param name="depth"/>
-   <xsl:message> in recursive structure enrichment        - depth <xsl:value-of select="$depth"/> </xsl:message>
+   <xsl:message> in recursive structure enrichment        - depth <xsl:value-of select="$depth"/>  interim child node name <xsl:value-of select="$interim/*/name()"/></xsl:message>
    <xsl:variable name ="next">
       <xsl:for-each select="$interim">
          <xsl:message>initiating recursive structure enrichment from <xsl:value-of select="name()"/></xsl:message>

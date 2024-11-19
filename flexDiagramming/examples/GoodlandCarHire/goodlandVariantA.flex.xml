@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagram:diagram xmlns="http://www.entitymodelling.org/diagram"
-                  xmlns:diagram="http://www.entitymodelling.org/diagram"
-                  xmlns:era="http://www.entitymodelling.org/ERmodel"
-                  xmlns:file="http://expath.org/ns/file"
-                  xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                  xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-                  xmlns:svg="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/TR/xlink"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                 xmlns:diagram="http://www.entitymodelling.org/diagram"
+                 xmlns:era="http://www.entitymodelling.org/ERmodel"
+                 xmlns:file="http://expath.org/ns/file"
+                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                 xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+                 xmlns:svg="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/TR/xlink"
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema">
    <method>era</method>
-    <include>
-        <filename>../../methods/era/xml/eraFlexStyleDefinitions.xml</filename>
-    </include>
+   <include>
+      <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/eraFlexStyleDefinitions.xml</filename>
+   </include>
    <default>
       <hmin>0.5</hmin>
       <wmin>0.05</wmin>
@@ -23,271 +23,195 @@
       <debug-whitespace>false</debug-whitespace>
       <end_style>testline</end_style>
    </default>
+
    <enclosure>
-      <compositionalDepth>0</compositionalDepth>
-      <id/>
+      <id>allocated_payment</id>
+         <shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <w>2.8</w>
+      <x><abs>0.5</abs></x>
+      <y><abs>0.1</abs></y>
+   </enclosure>
+
+   <enclosure>
+      <id>payment</id>
+         <shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <x>
+         <place><left/><edge/></place>
+         <at>
+            <right/> <edge/>
+            <of>allocated_payment</of>
+         </at>
+         <delta>2.2</delta>
+      </x>
+      <y>
+         <at>
+            <top/>
+            <of>allocated_payment</of>
+         </at>
+      </y>
+   </enclosure>
+
+   <enclosure>
+      <id>customer</id>
+		<shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <w>1.65</w>
+      <x>
+         <place><right/><edge/></place>
+         <at>
+            <right/> <edge/>
+            <of>booking_/invoice</of>
+         </at>
+         <!-- <delta>2.2</delta> -->
+      </x>
+      <y>
+         <at>
+            <top/>
+            <of>payment</of>
+         </at>
+      </y>
+   </enclosure>
+   <enclosure>
+      <id>booking_/invoice</id>
+		<shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <w>10.5</w>
+      <x>
+         <place><left/></place>
+         <at><left/><of>allocated_payment</of></at>
+      </x>
+      <y>
+         <place>
+            <top/>
+         </place>
+         <at>
+            <bottom/>
+            <of>allocated_payment</of>
+         </at>
+      </y>
+   </enclosure>
+
+   <enclosure>
+      <id>vehicle_category</id>
+			<shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <w>2.5</w>
+      <x>
+         <place>
+            <left/>
+         </place>
+         <at>
+            <left/>
+            <of>booking_/invoice</of>
+         </at>
+      </x>
+      <y>
+         <place>
+            <top/>
+         </place>
+         <at>
+            <bottom/>
+            <of>booking_/invoice</of>
+         </at>
+         <!-- <delta>1</delta> -->
+      </y>
+   </enclosure>
+   <enclosure>
+      <id>local_office</id>
       <shape_style>eteven</shape_style>
-      <w>15</w>
       <rx>0.25</rx>
       <ry>0.25</ry>
       <label/>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>1</compositionalDepth>
-      <id>customer</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
+      <w>3.6</w>
+      <x>
+         <at><right/><of>vehicle_category</of></at>
+         <delta>1.75</delta>
+      </x>
       <y>
-         <passtwoA/>
+         <at>
+            <top/>
+            <of>vehicle_category</of>
+         </at>
+      </y>
+   </enclosure>
+
+   <enclosure>
+      <id>vehicle</id>
+         <shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <x>
+         <place><left/></place>
+         <at><left/><of>vehicle_category</of></at>
+      </x>
+      <y>
          <place>
             <top/>
          </place>
          <at>
             <bottom/>
-            <of/>
+            <of>vehicle_category</of>
          </at>
-         <delta>1</delta>
       </y>
-      <x rule="passfour">
-         <passfour/>
-         <place>
-            <left/>
-         </place>
+      <w>6.0</w>
+   </enclosure>
+
+   <enclosure>
+      <id>driver</id>
+			<shape_style>eteven</shape_style>
+      <rx>0.25</rx>
+      <ry>0.25</ry>
+      <label/>
+      <w>3.8</w>
+      <x>
+         <place><right/><edge/></place>
          <at>
-            <left/>
-            <of/>
+            <right/> <edge/>
+            <of>booking_/invoice</of>
          </at>
       </x>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>2</compositionalDepth>
-      <id>payment</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
       <y>
-         <passtwoA/>
-         <place>
+         <at>
             <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of>customer</of>
+            <of>vehicle</of>
          </at>
-         <delta>1</delta>
-      </y>
-      <x rule="passfour">
-         <passfour/>
-         <place>
-            <left/>
-         </place>
-         <at>
-            <left/>
-            <of>customer</of>
-         </at>
-      </x>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>3</compositionalDepth>
-      <id>allocated_payment</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of>payment</of>
-         </at>
-         <delta>1</delta>
-      </y>
-      <x rule="passfour">
-         <passfour/>
-         <place>
-            <left/>
-         </place>
-         <at>
-            <left/>
-            <of>payment</of>
-         </at>
-      </x>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>2</compositionalDepth>
-      <id>booking_/invoice</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of>customer</of>
-         </at>
-         <delta>1</delta>
-      </y>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>1</compositionalDepth>
-      <id>local_office</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of/>
-         </at>
-         <delta>1</delta>
-      </y>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>1</compositionalDepth>
-      <id>vehicle_category</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of/>
-         </at>
-         <delta>1</delta>
-      </y>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>2</compositionalDepth>
-      <id>driver</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of>local_office</of>
-         </at>
-         <delta>1</delta>
-      </y>
-      <x rule="passfour">
-         <passfour/>
-         <place>
-            <left/>
-         </place>
-         <at>
-            <left/>
-            <of>local_office</of>
-         </at>
-      </x>
-   </enclosure>
-   <enclosure>
-      <compositionalDepth>2</compositionalDepth>
-      <id>vehicle</id>"
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
-      <label/>
-      <y>
-         <passtwoA/>
-         <place>
-            <top/>
-         </place>
-         <at>
-            <bottom/>
-            <of>local_office</of>
-         </at>
-         <delta>1</delta>
       </y>
    </enclosure>
    <route>
-      <top_down/>
-      <source>
-         <id/>
-         <annotation/>
-         <linestyle>dashedline</linestyle>
-         <abstract/>
-      </source>
-      <destination>
-         <id>customer</id>
-         <annotation>xxx</annotation>
-         <endline>
-            <style>crowsfoot</style>
-         </endline>
-         <abstract>customer</abstract>
-      </destination>
-   </route>
-   <route>
-      <top_down/>
-      <source>
-         <id/>
-         <annotation/>
-         <linestyle>dashedline</linestyle>
-         <abstract/>
-      </source>
-      <destination>
-         <id>local_office</id>
-         <annotation>xxx</annotation>
-         <endline>
-            <style>crowsfoot</style>
-         </endline>
-         <abstract>local_office</abstract>
-      </destination>
-   </route>
-   <route>
-      <top_down/>
-      <source>
-         <id/>
-         <annotation/>
-         <linestyle>dashedline</linestyle>
-         <abstract/>
-      </source>
-      <destination>
-         <id>vehicle_category</id>
-         <annotation>xxx</annotation>
-         <endline>
-            <style>crowsfoot</style>
-         </endline>
-         <abstract>vehicle_category</abstract>
-      </destination>
-   </route>
-   <route>
-      <top_down/>
+      <sideways/>
       <source>
          <id>customer</id>
          <annotation>sender of</annotation>
-         <linestyle>dashedline</linestyle>
+         <left_side>
+            <deltay>0.5</deltay>
+            <annotate_low/>
+         </left_side>
+         <line_style>solidline</line_style>
          <abstract>customer</abstract>
       </source>
       <destination>
          <id>payment</id>
          <annotation>sent by</annotation>
+         <right_side>
+            <deltay>0.5</deltay>
+            <annotate_high/>
+         </right_side>
+         <line_style>solidline</line_style>
          <endline>
-            <style>crowsfoot</style>
+            <marker>crowsfoot</marker>
          </endline>
          <abstract>payment</abstract>
       </destination>
@@ -296,32 +220,50 @@
       <top_down/>
       <source>
          <id>customer</id>
+         <bottom_edge>
+            <annotate_right/>
+            <deltax>0.825</deltax>
+         </bottom_edge>
          <annotation>maker of</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>solidline</line_style>
          <abstract>customer</abstract>
       </source>
       <destination>
          <id>booking_/invoice</id>
+         <top_edge>
+            <annotate_left/>
+            <deltax>9.675</deltax>  <!-- is width of booking/invoice (10.5) minus 0.825 -->
+         </top_edge>
          <annotation>made by</annotation>
+         <line_style>solidline</line_style>
          <endline>
-            <style>crowsfoot</style>
+            <marker>crowsfoot</marker>
          </endline>
          <abstract>booking_/invoice</abstract>
       </destination>
    </route>
    <route>
-      <top_down/>
+      <sideways/>
       <source>
          <id>payment</id>
+         <left_side>
+            <deltay>0.5</deltay>
+            <annotate_low/>
+         </left_side>
          <annotation>split into</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>solidline</line_style>
          <abstract>payment</abstract>
       </source>
       <destination>
          <id>allocated_payment</id>
+         <right_side>
+            <deltay>0.5</deltay>
+            <annotate_high/>
+         </right_side>
          <annotation>part of</annotation>
+         <line_style>solidline</line_style>
          <endline>
-            <style>crowsfoot</style>
+            <marker>crowsfoot</marker>
          </endline>
          <abstract>allocated_payment</abstract>
       </destination>
@@ -330,298 +272,203 @@
       <top_down/>
       <source>
          <id>local_office</id>
+        <bottom_edge>
+            <deltax>2.75</deltax>  <!-- w local office - 0.85 = 3.6-0.85  xxx -->
+            <annotate_right/>
+         </bottom_edge>
          <annotation>employer_of</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>solidline</line_style>
          <abstract>local_office</abstract>
       </source>
+      <path><ns/></path>
       <destination>
          <id>driver</id>
+         <top_edge>
+            <!-- <deltax>0.75</deltax> -->   
+            <annotate_right/>
+         </top_edge>
          <annotation>employed_at</annotation>
+         <line_style>solidline</line_style>
          <endline>
-            <style>crowsfoot</style>
+            <marker>crowsfoot</marker>
          </endline>
          <abstract>driver</abstract>
       </destination>
    </route>
    <route>
-      <top_down/>
       <source>
          <id>local_office</id>
+        <bottom_edge>
+            <deltax>0.85</deltax>
+            <annotate_left/>
+         </bottom_edge>
          <annotation>base of</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>solidline</line_style>
          <abstract>local_office</abstract>
       </source>
+      <path><ns/></path>
       <destination>
          <id>vehicle</id>
+         <top_edge>
+           <!--  <deltax>0.75</deltax> -->
+            <annotate_left/>
+         </top_edge>
          <annotation>based_at</annotation>
+         <line_style>solidline</line_style>
          <endline>
-            <style>crowsfoot</style>
+            <marker>crowsfoot</marker>
          </endline>
          <abstract>vehicle</abstract>
       </destination>
    </route>
    <route>
-      <sideways/>
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
+         <bottom_edge>
+            <deltax>1.4</deltax>
+            <annotate_left/>
+         </bottom_edge>
          <id>allocated_payment</id>
          <annotation>made to</annotation>
-         <linestyle>solidline</linestyle>
+         <line_style>solidline</line_style>
+         <endline>
+            <marker>crowsfoot</marker>
+         </endline>
          <abstract>allocated_payment</abstract>
       </source>
       <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <top_edge>
+            <deltax>1.4</deltax>
+            <annotate_right/>
+         </top_edge>
+         <line_style>dashedline</line_style>
          <id>booking_/invoice</id>
          <annotation>paid_for by</annotation>
          <abstract>booking_/invoice</abstract>
       </destination>
    </route>
+
    <route>
-      <sideways/>
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>booking_/invoice</id>
-         <annotation>paid_for by</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>booking_/invoice</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>allocated_payment</id>
-         <annotation>made to</annotation>
-         <abstract>allocated_payment</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
+         <bottom_edge>
+            <annotate_right/>
+         </bottom_edge>
+         <slotNo>2</slotNo>
          <id>booking_/invoice</id>
          <annotation>from_and to</annotation>
-         <linestyle>solidline</linestyle>
+         <line_style>solidline</line_style>
+         <endline>
+            <marker>crowsfoot</marker>
+         </endline>
          <abstract>booking_/invoice</abstract>
       </source>
+      <path><ns/></path>
       <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <top_edge>
+            <annotate_right/>
+         </top_edge>
+         <line_style>dashedline</line_style>
          <id>local_office</id>
          <annotation>start and end of</annotation>
          <abstract>local_office</abstract>
       </destination>
    </route>
    <route>
-      <sideways/>
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
+         <bottom_edge>
+            <deltax>9.675</deltax>
+            <annotate_left/>
+         </bottom_edge>
          <id>booking_/invoice</id>
          <annotation>driven by</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>dashedline</line_style>
+         <endline>
+            <marker>crowsfoot</marker>
+         </endline>
          <abstract>booking_/invoice</abstract>
       </source>
+      <path><ns/></path>
       <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <top_edge>
+            <annotate_right/>
+         </top_edge>
+         <line_style>dashedline</line_style>
          <id>driver</id>
          <annotation>driver_for</annotation>
          <abstract>driver</abstract>
       </destination>
+    
    </route>
+
    <route>
-      <sideways/>
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>booking_/invoice</id>
-         <annotation>user of</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>booking_/invoice</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>vehicle</id>
-         <annotation>used_for</annotation>
-         <abstract>vehicle</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
+         <bottom_edge>
+            <deltax>1.0</deltax>
+            <annotate_left/>
+         </bottom_edge>
          <id>booking_/invoice</id>
          <annotation>requiring</annotation>
-         <linestyle>solidline</linestyle>
+         <line_style>solidline</line_style>
+         <endline>
+            <marker>crowsfoot</marker>
+         </endline>
          <abstract>booking_/invoice</abstract>
       </source>
       <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <top_edge>
+            <deltax>1.0</deltax>
+            <annotate_right/>
+         </top_edge>
+         <line_style>dashedline</line_style>
          <id>vehicle_category</id>
          <annotation>required_for</annotation>
          <abstract>vehicle_category</abstract>
       </destination>
    </route>
    <route>
-      <sideways/>
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>local_office</id>
-         <annotation>start and end of</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>local_office</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>booking_/invoice</id>
-         <annotation>to and from</annotation>
-         <abstract>booking_/invoice</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>vehicle_category</id>
-         <annotation>required_for</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>vehicle_category</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>booking_/invoice</id>
-         <annotation>requiring</annotation>
-         <abstract>booking_/invoice</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
+         <bottom_edge>
+            <!-- <deltax>0.5</deltax> -->
+            <annotate_right/>
+         </bottom_edge>
+         <slotNo>0</slotNo>
          <id>vehicle_category</id>
          <annotation>classifier of</annotation>
-         <linestyle>dashedline</linestyle>
+         <line_style>dashedline</line_style>
          <abstract>vehicle_category</abstract>
       </source>
+      <path><ns/></path>
       <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <top_edge>
+            <!-- <deltax>0.5</deltax> -->
+            <annotate_left/>
+         </top_edge>
+         <line_style>solidline</line_style>
          <id>vehicle</id>
          <annotation>classified by</annotation>
          <abstract>vehicle</abstract>
       </destination>
    </route>
-   <route>
-      <sideways/>
+
+   <route>  <!-- this was causing a problem --> <!-- so swap aource and destination -->
       <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>driver</id>
-         <annotation>driver_for</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>driver</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>booking_/invoice</id>
-         <annotation>driven by</annotation>
-         <abstract>booking_/invoice</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>vehicle</id>
-         <annotation>classified by</annotation>
-         <linestyle>solidline</linestyle>
-         <abstract>vehicle</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
-         <id>vehicle_category</id>
-         <annotation>classifier of</annotation>
-         <abstract>vehicle_category</abstract>
-      </destination>
-   </route>
-   <route>
-      <sideways/>
-      <source>
-         <right_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </right_side>
-         <id>vehicle</id>
-         <annotation>used_for</annotation>
-         <linestyle>dashedline</linestyle>
-         <abstract>vehicle</abstract>
-      </source>
-      <destination>
-         <left_side>
-            <deltay>0.5</deltay>
-            <annotate_low/>
-         </left_side>
+         <bottom_edge>
+            <deltax>3.2</deltax>
+            <annotate_left/>
+         </bottom_edge>
+         <line_style>dashedline</line_style>
          <id>booking_/invoice</id>
          <annotation>user of</annotation>
          <abstract>booking_/invoice</abstract>
+      </source>
+      <destination>
+         <top_edge>
+            <deltax>3.2</deltax>
+            <annotate_left/>
+         </top_edge>
+         <id>vehicle</id>
+         <annotation>used_for</annotation>
+         <line_style>dashedline</line_style>
+         <abstract>vehicle</abstract>
       </destination>
    </route>
 </diagram:diagram>

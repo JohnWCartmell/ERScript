@@ -26,7 +26,7 @@
 
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>linestyle <xsl:value-of select="linestyle"/></xsl:message>
+			<!-- <xsl:message>linestyle <xsl:value-of select="line_style"/></xsl:message> -->
 			<!-- TBD max out with endline/style -->
 			<xsl:variable name="linestyle" 
 			              as="element()"
@@ -50,7 +50,7 @@
               priority="261">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>linestyle <xsl:value-of select="line_style"/></xsl:message>
+			<!-- <xsl:message>linestyle <xsl:value-of select="line_style"/></xsl:message> -->
 			<xsl:variable name="linestyle" 
 			              as="element()"
 			              select="key('line_style',line_style)"/>

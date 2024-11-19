@@ -167,8 +167,10 @@
          <xsl:value-of select="$type"/>
       </xsl:element>
       <xsl:if test="   ((self::reference or self::constructed_relationship) and parent::identifying)
-                    (: or (self::composition and //identifying/context/../../@name=$type) :)
-                    ">    
+                    or (self::composition and //identifying/context/../../@name=$type)
+                    ">  
+                    <!-- this above had the compostion code commented out
+                          I have reinstated this logic as part of change 16-Nov-2024 --> 
          <xsl:element name="identifying"/>
       </xsl:if>
       <xsl:apply-templates select="@xpath_evaluate" mode="parse__main_pass"/>

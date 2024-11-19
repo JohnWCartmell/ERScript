@@ -62,8 +62,8 @@
 			mode="recursive_diagram_enrichment"
 			priority="250">		  
 		<xsl:copy>
-			<deltax>
-				<xsl:value-of select="max((
+			<deltax> <!-- 18- Nov 2024 put a miunus sign in below -->
+				<xsl:value-of select="-max((
 					key('line_style',../../source/line_style)/minarmlen ,
 					key('box', ../../source/id)/wl
 					))"/>
@@ -89,8 +89,8 @@
 			priority="251">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<deltax>
-				<xsl:value-of select="max((
+			<deltax>  <!-- 18- Nov 2024 put a miunus sign in below -->
+				<xsl:value-of select="-max((
 					key('line_style',../../destination/line_style)/minarmlen ,
 					key('box',../../destination/id)/wl
 					))"/>
