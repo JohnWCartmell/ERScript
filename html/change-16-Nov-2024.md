@@ -64,12 +64,7 @@ the flex2svg rendering.[]
 2. In the flex of brinton rendering pay atttention to line styling of surjective relationships.[x] 
 3. Check that the routes representing five reference relationships in flex rendering of cricket all now have crows feet. [x]
 4. In the rendering of relationalMetaModel3 check both renderings of the column relationship of column:primary key entity -> column. This is an injective reference relationship. [x]
-5. Also check the ERmodel2svg renderings of
-+ shlaerMellorDeptStudentProfessor0B.xml example which has a single surjective non-injective reference relationship.[]
-+ individualIsMarried which has a partial injective (reflexive) reference relationship.
-This actually turned up a problem with an earlier code change -- see change of 15-Nov-2024.[]
-+ recursiveManyMany example  which has a many-valued surjective  reference relationship.[]
-+ relationalMetaModel4 example which has a partial injective reference relationship.[]
+
 
 ### Completion Date 
-
+Complete (sometime before) 22 November 2024

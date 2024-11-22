@@ -25,16 +25,14 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 echo 'Cricket Example'
-if ($false)
-{
+
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..logical.xml -outputFolder ..\docs
 echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch   `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
- -animate  -physicalType hs -shortSeparator NA -longSeparator NA 
-}
+ -animate  -bundle -physicalType hs -shortSeparator NA -longSeparator NA 
 
 if ($false)
 {
