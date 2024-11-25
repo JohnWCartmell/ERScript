@@ -46,7 +46,7 @@
 					</at>
 				</yP>
 				-->
-				<label/>
+				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
 			</point>
 		</xsl:copy>
 	</xsl:template>
@@ -78,7 +78,7 @@
 					</at>
 				</yP>
 				-->
-				<label/>
+				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
 			</point>
 		</xsl:copy>
 	</xsl:template>

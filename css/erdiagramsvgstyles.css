@@ -131,39 +131,39 @@
         .attrname {
           cursor: pointer;
           fill: black;
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic;
         }
         .idattrname {       
           cursor: pointer;
           fill: black;
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic ;
           text-decoration: underline ;
         }
         .surfaceattrnameeven {
           fill: black;
           filter: url(#surfaceattreven);
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic
         }
         .surfaceidattrnameeven {
           fill: black;
           filter: url(#surfaceattreven);
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic ;
           text-decoration: underline
         }
         .surfaceattrnameodd {
           fill: black;
           filter: url(#surfaceattrodd);
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic
         }
         .surfaceidattrnameodd {
           fill: black;
           filter: url(#surfaceattrodd);
-          font-size: 11px ;
+          font-size: 10px ;
           font-style: italic ;
           text-decoration: underline
         }
@@ -191,24 +191,24 @@
         .relname {
           cursor: pointer;
           fill: black ;
-          font-size: .25px ;
+          font-size: .265px ;
           font-style: italic
         }
         .relid {
           filter: url(#surfaceattrodd) url(#border);
           cursor: pointer;
           fill: black ;
-          font-size: .25px ;  
+          font-size: .265px ;  
           font-style: italic;
         }
         .reletname {
           fill: black ;
-          font-size: .30px ;
+          font-size: .35px ;   #equivalent of 10pt
           font-style: italic
         }
 		    .scope {
           cursor: pointer;
           fill: black ;
-          font-size: .25px ;  
+          font-size: .265px ;  
 		      font-style: italic
         }

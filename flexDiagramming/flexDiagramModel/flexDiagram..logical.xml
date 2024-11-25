@@ -89,6 +89,7 @@
       <composition type="destination"/>
       <composition type="default?" inverse=".."/>
       <composition type="path?"/>
+      <reference name="text_style" type="text_style?"/>
       <attribute name="label" type="string"/>
    </entity_type>
    <entity_type name="scheme">

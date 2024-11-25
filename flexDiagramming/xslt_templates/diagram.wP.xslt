@@ -142,32 +142,10 @@
               priority="42.1P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <!--
-      <xsl:message>Calculating wP of <xsl:value-of select="text"/> using <xsl:value-of select="text_style"/></xsl:message>
-       <xsl:message>Font-size is <xsl:value-of select="count(key('text_style',text_style))"/> </xsl:message>
-       -->
-      <!-- <xsl:message>text_style id'<xsl:value-of select="text_style"/>'</xsl:message> -->
       <xsl:variable name="textstyle" as="element()"
                     select="key('text_style',text_style)"/>
-      <!-- <xsl:message>text_style element ===<xsl:copy-of select="$textstyle"/>'===</xsl:message> -->               
-      <xsl:variable name="fontsize" as="xs:string"
-                    select="$textstyle/font-size"/>
-    <!--   <xsl:message>font size '<xsl:value-of select="$fontsize"/>'</xsl:message>
-      <xsl:message>font size units'<xsl:value-of select="substring($fontsize,string-length($fontsize)-1)"/>'</xsl:message> -->
-      <xsl:if test="substring($fontsize,string-length($fontsize)-1)!='px'">
-         <xsl:message terminate="yes">Font size in style file needs to be in units of px</xsl:message>
-      </xsl:if>
-
-      <xsl:variable name="fontsize_as_numeric" as="xs:double"
-                    select="number(substring-before($fontsize,'px'))"/>
-      <xsl:variable name="wP" as="xs:double"
-                  select="diagram:stringwidthP(text, $fontsize_as_numeric div 11) 
-                                                        * (if (key('text_style',text_style)/font-weight/*[self::bold|self::bolder])
-                                                           then 1.07
-                                                            else 1 
-                                                          )"/>
       <wP>
-         <xsl:value-of select="$wP"/>
+         <xsl:value-of select="diagram:stringwidth_from_text_styleP(text,$textstyle)"/>
       </wP>
    </xsl:copy>
 </xsl:template>

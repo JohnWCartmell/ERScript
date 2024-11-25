@@ -65,6 +65,34 @@
    </line_style>
 
    <text_style>
+     <id>etname</id>
+     <fill>black</fill>
+     <font-size>11px</font-size>
+     <font-weight><normal/></font-weight>
+     <font-style><normal/></font-style>
+     <font-family>"Times New Roman", Times, serif</font-family>
+   </text_style>
+
+   <text_style>
+     <id>relname</id>
+     <fill>black</fill>
+     <font-size>10px</font-size>
+     <font-weight><normal/></font-weight>
+     <font-style><italic/></font-style>
+     <font-family>"Times New Roman", Times, serif</font-family>
+   </text_style>
+
+   <text_style>
+     <id>attrname</id>
+     <fill>black</fill>
+     <font-size>10px</font-size>
+     <font-weight><normal/></font-weight>
+     <font-style><italic/></font-style>
+     <font-family>"Times New Roman", Times, serif</font-family>
+   </text_style>
+
+
+   <text_style>
      <id>title</id>
      <fill>black</fill>
      <font-size>20px</font-size>

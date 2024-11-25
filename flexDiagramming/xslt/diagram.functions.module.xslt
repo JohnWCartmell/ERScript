@@ -9,11 +9,42 @@
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
 <!--  Maintenance Box 
+  See change of 21-Nov-2022 
+-->
 
- -->
-   <xsl:function name="diagram:stringwidth">
-    <xsl:param name="given_string"/>
-    <xsl:param name="sizefactorwrt11point"/>
+
+   <xsl:function name="diagram:stringwidth_from_text_style">
+      <xsl:param name="given_string" as="xs:string"/>
+      <xsl:param name="textstyle" as="element()"/>
+        <xsl:variable name="fontsize" as="xs:string"
+                    select="$textstyle/font-size"/>
+        <xsl:if test="substring($fontsize,string-length($fontsize)-1)!='px'">
+          <xsl:message terminate="yes">Font size in style file needs to be in units of px</xsl:message>
+        </xsl:if>
+        <xsl:variable name="fontsize_in_pixels" as="xs:double"
+                    select="number(substring-before($fontsize,'px'))"/>
+        <xsl:variable name="is_bold_text" as="xs:boolean"
+                      select="exists($textstyle/font-weight/*[self::bold|self::bolder])"/>
+        <xsl:value-of select="diagram:stringwidth_from_font_size_in_pixels
+                                    ($given_string,
+                                     $fontsize_in_pixels,
+                                     $is_bold_text
+                                      )"/>
+    </xsl:function>
+
+   <xsl:function name="diagram:stringwidth_from_font_size_in_pixels">
+      <xsl:param name="given_string" as="xs:string"/>
+      <xsl:param name="font_size_in_pixels" as="xs:double"/>
+      <xsl:param name="is_bold_text" as="xs:boolean"/>
+      <xsl:variable name="sizefactorwrt11pixels"
+                    as="xs:double" 
+                    select="$font_size_in_pixels div 11 * (if ($is_bold_text) then 1.07 else 1)"/>
+      <xsl:value-of select="diagram:stringwidth_from_size_factor($given_string,$sizefactorwrt11pixels)"/>
+    </xsl:function>
+
+   <xsl:function name="diagram:stringwidth_from_size_factor">
+    <xsl:param name="given_string" as="xs:string"/>
+    <xsl:param name="sizefactorwrt11pixels"/>
     <xsl:variable name="given_but_wo_i" select="translate($given_string, 'i', '')"/>
     <xsl:variable name="no_of_i" select="string-length($given_string)- string-length($given_but_wo_i)"/> 
 
@@ -47,13 +78,42 @@
                           + ($no_of_w          * 1.605)
                           + ($no_of_space      * 0.575 )
                           + ($no_of_underscore * 1.1)"/> 
-    <xsl:value-of select="$noOfCharsAdjusted * $sizefactorwrt11point * 0.1325"/>
+    <xsl:value-of select="$noOfCharsAdjusted * $sizefactorwrt11pixels * 0.1325"/>
   </xsl:function>
 
-  <xsl:function name="diagram:stringheight">
+   <xsl:function name="diagram:stringheight_from_text_style">
+      <xsl:param name="given_string" as="xs:string"/>
+      <xsl:param name="textstyle" as="element()"/>
+        <xsl:variable name="fontsize" as="xs:string"
+                    select="$textstyle/font-size"/>
+        <xsl:if test="substring($fontsize,string-length($fontsize)-1)!='px'">
+          <xsl:message terminate="yes">Font size in style file needs to be in units of px</xsl:message>
+        </xsl:if>
+        <xsl:variable name="fontsize_in_pixels" as="xs:double"
+                    select="number(substring-before($fontsize,'px'))"/>
+        <xsl:variable name="is_bold_text" as="xs:boolean"
+                      select="exists($textstyle/font-weight/*[self::bold|self::bolder])"/>
+        <xsl:value-of select="diagram:stringheight_from_font_size_in_pixels
+                                    ($given_string,
+                                     $fontsize_in_pixels,
+                                     $is_bold_text
+                                      )"/>
+    </xsl:function>
+
+   <xsl:function name="diagram:stringheight_from_font_size_in_pixels">
+      <xsl:param name="given_string" as="xs:string"/>
+      <xsl:param name="font_size_in_pixels" as="xs:double"/>
+      <xsl:param name="is_bold_text" as="xs:boolean"/>
+      <xsl:variable name="sizefactorwrt11pixels"
+                    as="xs:double" 
+                    select="$font_size_in_pixels div 11 * (if ($is_bold_text) then 1.07 else 1)"/>
+      <xsl:value-of select="diagram:stringheight_from_size_factor($given_string,$sizefactorwrt11pixels)"/>
+    </xsl:function>
+
+  <xsl:function name="diagram:stringheight_from_size_factor">
     <xsl:param name="given_string"/>
-    <xsl:param name="sizefactorwrt11point"/>
-    <xsl:value-of select=" $sizefactorwrt11point * 0.3"/>
+    <xsl:param name="sizefactorwrt11pixels"/>
+    <xsl:value-of select=" $sizefactorwrt11pixels * 0.3"/>
   </xsl:function>
 
 <!-- angle to y axis      -->

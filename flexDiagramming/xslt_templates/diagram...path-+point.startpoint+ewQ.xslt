@@ -43,7 +43,7 @@
 					</at>
 				</yP>
 				-->
-				<label/>
+				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
 			</point>
 			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
@@ -75,7 +75,7 @@
 					</at>
 				</yP>
 				-->
-				<label/>
+				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
 			</point>
 			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>

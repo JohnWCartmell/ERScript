@@ -88,6 +88,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
 since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt (17 Nov 2022) -->
 <!-- 
 -->
+<xsl:include href="../flexDiagramming/xslt/diagram.functions.module.xslt"/>  <!-- change of 22-Nov-2024 -->
 
 <xsl:key name="EntityTypes" 
          match="entity_type|group" 

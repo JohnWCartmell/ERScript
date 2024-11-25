@@ -67,7 +67,6 @@ CHANGE HISTORY
                    href="/css/{$filename}"/>
           </xsl:otherwise>
       </xsl:choose>
-
       <svg:defs>
         <svg:linearGradient id="topdowngrey" x1="0%" y1="0%" x2="0%" y2="100%">
           <svg:stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
@@ -195,7 +194,7 @@ CHANGE HISTORY
         <xsl:attribute name="class" select="'infobox'"/>       
         <!--<xsl:attribute name="style" select="concat('left:',$popUpxPos,'cm;top:',$popUpyPos,'cm')"/>-->
         <div>
-                <xsl:attribute name="class" select="'infoboxHeader'"/>
+          <xsl:attribute name="class" select="'infoboxHeader'"/>
           <div>
             <xsl:attribute name="class" select="'metatype'"/>
             <xsl:choose>
@@ -400,15 +399,11 @@ CHANGE HISTORY
     </svg:path>
   </xsl:template>
   
-  
-  
 <xsl:template name="clearleft">
    <div>
       <xsl:attribute name="style" select="'clear:left'"/>
    </div>
 </xsl:template>
-
-
 
 <xsl:template name="wrap_relationships" match="diagram">   
   <xsl:param name="relationships"/>
@@ -601,7 +596,6 @@ CHANGE HISTORY
 
 <xsl:template name="text_element" match="label">
   <svg:text>
-
      <xsl:attribute name="class" select="text_style"/>
      <xsl:choose>
         <xsl:when test="false()">
@@ -620,7 +614,6 @@ CHANGE HISTORY
 </xsl:template>
 
 <xsl:template name="point" match="point">
- 
   <svg:line>
     <xsl:attribute name="class"><xsl:value-of select="'point'"/></xsl:attribute>
 	<xsl:attribute name="x1"><xsl:value-of select="x/abs - 0.1"/>cm</xsl:attribute>
@@ -635,7 +628,6 @@ CHANGE HISTORY
 	<xsl:attribute name="x2"><xsl:value-of select="x/abs - 0.1"/>cm</xsl:attribute>
 	<xsl:attribute name="y2"><xsl:value-of select="y/abs - 0.1"/>cm</xsl:attribute>
   </svg:line>
-
 </xsl:template>
 
 

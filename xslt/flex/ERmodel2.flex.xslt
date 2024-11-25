@@ -1,8 +1,4 @@
  <!-- 
-
--->
-
-<!-- 
 *****************
 ERmodel2.diagram.xslt
 *****************
@@ -230,7 +226,6 @@ xxxto copy through
 	</xsl:template> -->
 
 <!-- cleaned up and upgraded change 28-Oct-2024 -->  <!-- except see comment above -->
-
 	<xsl:template match="entity_type" mode="passzero">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
@@ -240,7 +235,7 @@ xxxto copy through
 			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
 			<rx>0.25</rx>  
 			<ry>0.25</ry>
-			<label/>
+			<label><text_style>etname</text_style></label>
 			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 		</xsl:element>
 	</xsl:template>
@@ -264,6 +259,7 @@ xxxto copy through
         	      	<xsl:text>?</xsl:text>
         	      </xsl:if>
         	</text>
+        	<text_style>attrname</text_style>
       </label>
   </xsl:template>
 	
@@ -271,6 +267,7 @@ xxxto copy through
 		<xsl:variable name="type" select="era:typeFromExtendedType(type)"/>
 		<!--XXXX -->
 		<route>
+			<text_style>relname</text_style>
 			<top_down/>
 			<source>
 				<id><xsl:value-of select="../name"/></id>
@@ -335,6 +332,7 @@ xxxto copy through
 	<xsl:template match="reference" mode="passzero">
 		<!-- <xsl:variable name="type" select="era:typeFromExtendedType(type)"/> -->
 		<route>
+			<text_style>relname</text_style>
 			<sideways/>
 			<source>
 
