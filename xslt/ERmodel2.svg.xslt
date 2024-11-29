@@ -29,7 +29,8 @@ CHANGE HISTORY
         exclude-result-prefixes="fn math xs xsl xlink diagram era">
 
   <xsl:include href="ERmodel2.diagram.module.xslt"/>
-  <xsl:include href="../flexDiagramming/xslt/diagram.functions.module.xslt"/>
+  <!-- 24-Nov-2024 -->
+ <!--  <xsl:include href="../flexDiagramming/xslt/diagram.functions.module.xslt"/> -->
 
   <xsl:output method="xml" indent="yes" />
 
@@ -1554,9 +1555,11 @@ CHANGE HISTORY
   <xsl:param name="rel" as="element((:reference|composition:))"/>
 
   <xsl:variable name="src_etname" as="xs:string" select="$rel/../name"/>
-  <xsl:variable name="srcwidth" select="diagram:stringwidth($src_etname,1) + 0.5"/>
+  <xsl:variable name="srcwidth" select="diagram:stringwidth_from_font_size_in_pixels
+                                          ($src_etname,$etnameFontSizeInPixels,false()) + 0.5"/>
   <xsl:variable name="dest_etname" as="xs:string" select="$rel/type"/>
-  <xsl:variable name="destwidth" select="diagram:stringwidth($dest_etname,1) + 0.5"/> 
+  <xsl:variable name="destwidth" select="diagram:stringwidth_from_font_size_in_pixels
+                                          ($dest_etname,$etnameFontSizeInPixels,false()) + 0.5"/> 
   <xsl:variable name="relname" as="xs:string?" select="$rel/name"/>
   <xsl:variable name="inverse_name" as="xs:string?" select="$rel/inverse"/>
   <xsl:variable name="relationship_half_length" as="xs:float" select="1.5"/>
@@ -1751,34 +1754,48 @@ CHANGE HISTORY
          <xsl:attribute name="marker-start" select="'url(#squiggle)'"/>
        </xsl:element>             
     </xsl:if>
-    <xsl:element name="text">
-      <xsl:attribute name="class" select="'relname'"/>
-      <xsl:if test="self::reference">
-        <xsl:attribute name="x" 
-                      select="if ($startx &lt; $midx) then $startx + 0.1 else $startx - 0.1"/>
-        <xsl:attribute name="y"   
-                        select="if ($startx &lt; $midx) then '0.5' else '1' "/>
-        <xsl:attribute name="text-anchor" 
-                      select="if ($startx &lt; $midx) then 'start' else 'end'"/>
-        <xsl:attribute name="xright" 
-                      select="if ($startx &lt; $midx) 
-                              then $startx + 0.1 + diagram:stringwidth($rolename,1)
-                              else $startx - 0.1 "/>
-      </xsl:if>
-      <xsl:if test="self::composition">
-        <xsl:attribute name="x" 
-                      select="if ($starty &lt; $midy) then $startx - 0.1 else $startx + 0.1"/>
-        <xsl:attribute name="y"   
-                        select="if ($starty &lt; $midy) then $starty + 0.25 else $starty - 0.12 "/>
-        <xsl:attribute name="text-anchor" 
-                      select="if ($starty &lt; $midy) then 'end' else 'start'"/>
-        <xsl:attribute name="xright" 
-                       select="if ($starty &lt; $midy) 
-                              then $startx - 0.1 
-                              else $startx + diagram:stringwidth($rolename,1)"/>
-      </xsl:if>
-      <xsl:value-of select="$rolename"/>
-    </xsl:element>
+    <if test="exists($rolename)">
+      <xsl:element name="text">
+        <xsl:attribute name="class" select="'relname'"/>
+        <xsl:if test="self::reference">
+          <xsl:attribute name="x" 
+                        select="if ($startx &lt; $midx) then $startx + 0.1 else $startx - 0.1"/>
+          <xsl:attribute name="y"   
+                          select="if ($startx &lt; $midx) then '0.5' else '1' "/>
+          <xsl:attribute name="text-anchor" 
+                        select="if ($startx &lt; $midx) then 'start' else 'end'"/>
+          <xsl:attribute name="xright" 
+                        select="if ($startx &lt; $midx) 
+                                then $startx + 0.1 + 
+                                (if ($rolename) then diagram:stringwidth_from_font_size_in_pixels
+                                                         ($rolename,$relnameFontSizeInPixels,false())
+                                 else 0
+                                 )
+                                else $startx - 0.1 "/><!-- I get a saxon error during laxy evaluation if i dont include
+                                               this re-test of rolename (it surely shouldn't be required)
+                                             -->
+        </xsl:if>
+        <xsl:if test="self::composition">
+          <xsl:attribute name="x" 
+                        select="if ($starty &lt; $midy) then $startx - 0.1 else $startx + 0.1"/>
+          <xsl:attribute name="y"   
+                          select="if ($starty &lt; $midy) then $starty + 0.25 else $starty - 0.12 "/>
+          <xsl:attribute name="text-anchor" 
+                        select="if ($starty &lt; $midy) then 'end' else 'start'"/>
+          <xsl:attribute name="xright" 
+                         select="if ($starty &lt; $midy) 
+                                then $startx - 0.1 
+                                else $startx + 
+                                     (if ($rolename) then diagram:stringwidth_from_font_size_in_pixels
+                                               ($rolename,$relnameFontSizeInPixels,false())
+                                      else 0
+                                      )"/> <!-- I get a saxon error during laxy evaluation if i dont include
+                                               this re-test of rolename (it surely shouldn't be required)
+                                             -->
+        </xsl:if>
+        <xsl:value-of select="$rolename"/>
+      </xsl:element>
+    </if>
 </xsl:template>
 
 <xsl:template name="labelled_box_of_given_width">

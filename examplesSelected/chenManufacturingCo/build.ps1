@@ -30,11 +30,11 @@ echo 'chenManufacturingCo Example'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
 
- #if ($false)
-#{
+if ($false)
+{
 echo 'chenManufacturingCo Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 chenManufacturingCo..logical.xml -animate
-#}
+}
 
 popd 
 

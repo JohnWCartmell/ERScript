@@ -55,6 +55,7 @@ CR-20614 TE  18-Jul-2017 Bow-tie notation for pullbacks
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
         xmlns:xlink="http://www.w3.org/TR/xlink"
+        xmlns:diagram="http://www.entitymodelling.org/diagram" 
         xpath-default-namespace="http://www.entitymodelling.org/ERmodel" >
 
 <xsl:param name="filestem" as="xs:string"/>
@@ -159,10 +160,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <xsl:variable name="horizontalMargin" select="0.25"/>
 <xsl:variable name="verticalMargin" select="0.25"/>
 <xsl:variable name="attribute_xpos_offset" select="0.2"/>
-<xsl:variable name="charlen" select="0.1275"/>  <!-- was 0.125 --> <!-- after which was 0.11 -->  
-                                               <!--make it 0.120 based on latex diags and long attr names-->
-                                               <!-- 10 Dec 2015 increased to 0.1275 and modified 10px svg to 11px svg-->
-<xsl:variable name="titlecharlen" select="$charlen div 11 * 30"/>
+<!-- change 22 Nov-2024 
+<xsl:variable name="charlen" select="0.1275"/>  
+<xsl:variable name="titlecharlen" select="$charlen div 11 * 30"/>  
+-->
+<xsl:variable name="titleFontSizeInPixels" select="30"/>
+<xsl:variable name="etnameFontSizeInPixels" select="11"/>
+<xsl:variable name="relnameFontSizeInPixels" select="10"/>
+<xsl:variable name="attrnameFontSizeInPixels" select="10"/>
+
+
 <xsl:variable name="etname_y_offset" select="0.35"/>
 <xsl:variable name="attribute_ypos_offset" select="$etname_y_offset"/>  <!-- was + 0.3 -->
 <xsl:variable name="seq_y_offset" select="0.4"/>
@@ -186,6 +193,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <!--<xsl:variable name="conrel_height" select="0.5"/> -->
 <xsl:variable name="conrel_height" select="0.7"/>
 <xsl:variable name="conrel_width" select="3.0"/>
+
 
 <!-- 04/09/2024 introduce variables for precise positioning and height of top rail
    that represents the absolute. The design i sunchanged but the dimensions
@@ -364,13 +372,18 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    <!-- Change of 9-Oct-2024 the /x added below to make it absolute/presentation/x since
         it is now the case that absolute can have presentation/None 
    -->
+   <xsl:variable name="titleText" select="concat('Model: ',absolute/name)"/>
    <xsl:if test="absolute/presentation/x">
        <xsl:call-template name="titlebox">
           <xsl:with-param name="xcm" select="absolute/presentation/x"/>
           <xsl:with-param name="ycm" select="absolute/presentation/y"/>
           <xsl:with-param name="hcm" select="2"/>
+<!--  24-Nov-2024      
           <xsl:with-param name="wcm" select="((string-length(absolute/name)+ 7) * $titlecharlen )+ 1"/>
-          <xsl:with-param name="title" select="concat('Model: ',absolute/name)"/>
+ -->
+          <xsl:with-param name="wcm" select="diagram:stringwidth_from_font_size_in_pixels
+                                                 ($titleText,$titleFontSizeInPixels,true())"/>
+          <xsl:with-param name="title" select="$titleText"/>
        </xsl:call-template>
    </xsl:if>
 
@@ -423,19 +436,24 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          </xsl:with-param>
       </xsl:call-template>
    </xsl:if>
-   <!-- added 04/09/2024 -->
-   <xsl:variable name="width_of_name">
-      <xsl:value-of select="string-length(name) * $charlen"/> 
-   </xsl:variable>
-    <xsl:call-template name="ERtext">
-       <xsl:with-param name="x" select="($diagramWidth div 2) - ($width_of_name div 2)"/>
-       <xsl:with-param name="y" select="$absolute_text_y"/>
-       <xsl:with-param name="xsign" select="1"/>
-       <xsl:with-param name="pText" select="name"/>
-       <xsl:with-param name="class" select="'etname'"/>
-    </xsl:call-template>
-    <!-- end added -->
-</xsl:template>                                         
+    <!-- name of absolute rendered in change of 04/09/2024 -->
+    <!-- modified 24-Nov-2024                              -->
+   <xsl:if test="name">   
+      <xsl:variable name="width_of_name">
+         <!-- 24-Nov-2024 -->
+         <xsl:value-of select=
+                "diagram:stringwidth_from_font_size_in_pixels(name,$etnameFontSizeInPixels,false())"/>
+      </xsl:variable>
+       <xsl:call-template name="ERtext">
+          <xsl:with-param name="x" select="($diagramWidth div 2) - ($width_of_name div 2)"/>
+          <xsl:with-param name="y" select="$absolute_text_y"/>
+          <xsl:with-param name="xsign" select="1"/>
+          <xsl:with-param name="pText" select="name"/>
+          <xsl:with-param name="class" select="'etname'"/>
+       </xsl:call-template>
+    </xsl:if>
+</xsl:template>   
+
 
 <xsl:template name="relationship_content" match="entity_model">   
   <xsl:for-each select="//entity_type[parent::group | parent::entity_type|child::presentation]
@@ -712,36 +730,59 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:if>
 </xsl:template>
 
-<xsl:template name="maxNoOfCharsInEntityTypeName"> 
+<xsl:template name="maxWidthOfEntityTypeName"> 
    <xsl:choose>
-      <xsl:when test="presentation/name/Split">   
-	 <xsl:call-template name="maxCharsWhenSplitLines">
-	    <xsl:with-param name="pText" select="name"/>
-	 </xsl:call-template>
+      <xsl:when test="not(name)">
+         <xsl:value-of select="0"/>
+      </xsl:when>
+      <xsl:when test="presentation/name/Split">  
+           <!-- ??? it would be simple to implement value of split being the character to split on  ... currently we split on each underscore (_) so could default to underscore.-->
+      	 <xsl:call-template name="maxWidthWhenSplitLines">
+      	    <xsl:with-param name="pText" select="name"/>
+             <xsl:with-param name="font_size_in_pixels"
+                             select="$etnameFontSizeInPixels"/>
+      	 </xsl:call-template>
       </xsl:when>
       <xsl:otherwise> 
-	  <xsl:value-of select="string-length(name)"/>
+	       <xsl:value-of select="diagram:stringwidth_from_font_size_in_pixels
+                                       (name,
+                                        $etnameFontSizeInPixels,
+                                        false()
+                                        )"/>
       </xsl:otherwise> 
    </xsl:choose>
 </xsl:template>
 
-<xsl:template name="maxCharsWhenSplitLines">
+
+
+<xsl:template name="maxWidthWhenSplitLines">  
    <xsl:param name="pText"/>
+   <xsl:param name="font_size_in_pixels"/>
    <xsl:choose>
       <xsl:when test="contains($pText,'_')">
-	 <xsl:variable name="countRecursive" as="xs:double"> 
-	    <xsl:call-template name="maxCharsWhenSplitLines">
-	       <xsl:with-param name="pText" 
-			    select= "substring-after($pText, '_')"/>
-	    </xsl:call-template>
-	 </xsl:variable>
-	 <xsl:variable name="countFirstpart" as="xs:double">
-	    <xsl:value-of select="string-length(substring-before($pText,'_'))"/>
-	 </xsl:variable>
-	 <xsl:value-of select="max(($countRecursive,$countFirstpart))"/>
+      	 <xsl:variable name="trailingWidth" as="xs:double"> 
+      	    <xsl:call-template name="maxWidthWhenSplitLines">
+      	       <xsl:with-param name="pText" 
+      			               select= "substring-after($pText, '_')"/>
+                <xsl:with-param name="font_size_in_pixels"
+                              select="$font_size_in_pixels"/>
+      	    </xsl:call-template>
+      	 </xsl:variable>
+      	 <xsl:variable name="widthFirstpart" as="xs:double">
+      	    <xsl:value-of select="diagram:stringwidth_from_font_size_in_pixels
+                                       (substring-before($pText,'_'),
+                                        $font_size_in_pixels,
+                                        false()
+                                        )"/>
+      	 </xsl:variable>
+      	 <xsl:value-of select="max(($trailingWidth,$widthFirstpart))"/>
       </xsl:when>
       <xsl:otherwise>
-	  <xsl:value-of select="string-length($pText)"/>
+	        <xsl:value-of select="diagram:stringwidth_from_font_size_in_pixels
+                                 ($pText,
+                                  $font_size_in_pixels,
+                                  false()
+                                  )"/>
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
@@ -953,10 +994,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 
 
 <xsl:template name="attribute_xRight_relative_to_parent" match="attribute" mode="explicit">
-   <xsl:variable name="annotation">
+   <xsl:variable name="annotation" as="xs:string*">
        <xsl:call-template name="annotation"/>
    </xsl:variable>
-   <xsl:value-of select="$attribute_xpos_offset + (string-length(name)+string-length($annotation)) * $charlen"/> 
+   <!-- change of 24-Nov-2024 -->
+   <xsl:variable name="attr_text" select="concat(name,string-join($annotation))"/>
+   <xsl:variable name="attr_text_length" 
+                 select="diagram:stringwidth_from_font_size_in_pixels($attr_text,
+                                                           $attrnameFontSizeInPixels,
+                                                           false())"/>
+   <xsl:value-of select="$attribute_xpos_offset + $attr_text_length"/> 
 </xsl:template>
 
 
@@ -1080,11 +1127,16 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
-  <xsl:variable name="maxNoOfCharsInEntityTypeName">
-     <xsl:call-template name="maxNoOfCharsInEntityTypeName"/>
+  <xsl:variable name="maxWidthOfEntityTypeName" as="xs:double">
+     <xsl:call-template name="maxWidthOfEntityTypeName"/>
   </xsl:variable>
   <xsl:variable name="width_for_et_name">
-     <xsl:value-of select="$maxNoOfCharsInEntityTypeName * $charlen * 1.1"/> <!-- leave room for x offset of name -->
+    <!-- 24-Nov-2024 -->
+   <xsl:value-of select=
+             "$maxWidthOfEntityTypeName* 1.1"/>
+                                       <!-- fudge factor 1.1 to leave space for appearances sake
+                                            (et names are horizontaly centred) -->
+
   </xsl:variable>
    <xsl:variable name="widthIncrement">
       <xsl:choose>

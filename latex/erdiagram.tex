@@ -18,7 +18,10 @@
 % 23/09/2022 Add a representation \errelid. Share body with \errelname.
 %            See also  erdiagram.beamer.renewals.tex.
 % 11/10/2022 Add erAttribute so that display of core attributes can be 'switched off'.
+% 25/08/2024 Try changing symbols for attributes using circle and half circle for
+%            mandatory and optional and solid for core and hoolow for derivative.
 % ***********************************************************
+% 22-Nov-2024 Fontsizes modified so as to converge with svg. See change note.
  \usepackage{anyfontsize}             % 29/01/2019 
   
 %\begin{erdiagram}{#1 height}{#2 width} 
@@ -48,41 +51,44 @@
 \newcommand {\erettop}[4]
 {
 %\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)(#3,#4)
 }
 
 % et bottom 
 \newcommand {\eretbtm}[4]
 {
 %\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#1,#4)(#3,#4)(#3,#2)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#1,#4)(#3,#4)(#3,#2)
 }
 
 % et bottom left
 \newcommand {\eretbl}[4]
 {
-%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#3,#4)(#3,#2)
+%psframe reinstated 8 October 2024 (to fill background colour light yellow)
+\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#4)(#3,#4)(#3,#2)
 }
 
 % et middle left
 \newcommand {\eretml}[4]
 {
 %\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)(#1,#4)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)(#1,#4)
 }
 
 % et top left
 \newcommand {\erettl}[4]
 {
-%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)
+%psframe reinstated 8 October 2024 (to fill background colour light yellow)
+\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)
 }
 
 % et bottom right
 \newcommand {\eretbr}[4]
 {
-%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+%psframe reinstated 8 October 2024 (to fill background colour light yellow)
+\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
 \psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#1,#4)(#3,#4)
 }
 
@@ -90,16 +96,18 @@
 \newcommand {\eretmr}[4]
 {
 %\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#3,#4)(#1,#4)(#1,#2)(#3,#2)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#3,#4)(#1,#4)(#1,#2)(#3,#2)
 }
 
 % et top right
 \newcommand {\erettr}[4]
 {
-\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)
+%psframe deployed 8 October 2024 (to fill background colour light yellow)
+\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=solid,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)
 }
 
-% \ergradient{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill} %was \ergrp
+% \ergrp{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
 % #5 corner radius is unused!
 \newcommand {\ergrp}[6]
 { 
@@ -108,28 +116,21 @@
 {\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
 }
 
-% \erbox{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
-\newcommand {\erbox}[6]
-{ 
-\ifthenelse{\equal{#6}{1}}
-{\psframe[fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)}
-{\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
-}
-
 
 % \ertext{#1 text}
-% 15/03/2019
+% 15/03/2019            
 \newcommand {\erextrasmallitalictext}[1]
-{\fontsize{7}{9}\selectfont \textit{#1}}
+{\fontsize{6}{8}\selectfont \textit{#1}}  %See change of 22-Nov-2024x
+%{\fontsize{7.5}{9}\selectfont \textit{#1}}
 
 % 29/01/2019  
 \newcommand {\ersmallitalictext}[1]
-{\fontsize{8}{10}\selectfont \textit{#1}}
+{\fontsize{7}{8}\selectfont \textit{#1}}
 
 \newcommand {\ermediumitalictext}[1]
 {\fontsize{10}{12}\selectfont \textit{#1}}
 
-% \eretname {#1 x left of text} {#2 y top of text} {#3 text}
+% \olderetname {#1 x left of text} {#2 y top of text} {#3 text}
 \newcommand {\olderetname}[3]
 {
 %shift down 0.1 for height of text the anchor at baseline (B)
@@ -201,7 +202,7 @@
 % \ertext {#1 x} {#2 y} {#3 text anchor} {#4 text}  PRIVATE
 \newcommand {\ertext}[4]
 {
-\rput[B#3]{0}(#1,#2){\fontsize{8}{10}\selectfont #4}
+\rput[B#3]{0}(#1,#2){\fontsize{6.6}{8.4}\selectfont #4} %Change of 22-Nov-2024
 }
 
 % \eretname {#1 x} {#2 y} {#3 text anchor} {#4 text} 
@@ -225,7 +226,8 @@
 %private
 \newcommand {\errelidbody}[4]
 {
-\rput[B#3]{0}(#1,#2){\erextrasmallitalictext{#4}}
+%\rput*[B]{0}(#1,#2){\erextrasmallitalictext{#4}}
+\rput*[B]{0}(#1,#2){\psframebox[fillstyle=solid,fillcolor=lightyellow,boxsep=false,framesep=2pt,linewidth=0]{\erextrasmallitalictext{#4}}}
 }
 
 % \errelid {#1 x} {#2 y} {#3 text anchor} {#4 text} 
@@ -233,8 +235,6 @@
 {
 \errelidbody{#1}{#2}{#3}{#4}    
 }
-
-
 
 
 %private
@@ -268,13 +268,17 @@
 {
 }
 \newcommand {\erattrmarkermand}
-{\fontsize{6}{8}\selectfont $\blacksquare$}
+{\fontsize{6}{8}\selectfont $\CIRCLE$}
+%{\fontsize{6}{8}\selectfont $\blacksquare$}
 \newcommand {\erattrmarkeropt}
-{\fontsize{6}{8}\selectfont \CIRCLE}
+{\fontsize{6}{8}\selectfont \RIGHTCIRCLE} %package wasysym
+%{\fontsize{6}{8}\selectfont \CIRCLE} %package wasysym
 \newcommand {\erderattrmarkermand}
-{\fontsize{6}{8}\selectfont $\square$}
+{\fontsize{6}{8}\selectfont $\circle$}
+%{\fontsize{6}{8}\selectfont $\square$}
 \newcommand {\erderattrmarkeropt}
-{\fontsize{8}{10}\selectfont $\circ$}
+{\fontsize{8}{10}\selectfont $\rightcircle$}
+%{\fontsize{8}{10}\selectfont $\circ$}
 
 % \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 text}
 \newcommand {\erattr}[5]
@@ -292,8 +296,8 @@
 \newcommand {\erdattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
-{\rput[l]{0}(#1,#2){\erderattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
-{\rput[l]{0}(#1,#2){\erderattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkermand \erextrasmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkeropt \erextrasmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 }
 
 %\erHierarchicalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
@@ -312,13 +316,9 @@
 \newcommand {\erRelorHierAttribute}[6]
 {
 \ifthenelse{\equal{#3}{1}}
-{\rput[l]{0}(#1,#2){\erderattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
-{\rput[l]{0}(#1,#2){\erderattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkermand \erextrasmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkeropt \erextrasmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
 }
-
-
-
-
 
 
 % \erarc {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 x3} {#8 y3}

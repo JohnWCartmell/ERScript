@@ -26,8 +26,7 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 pushd $TARGETXML
 
 echo 'grid Example'
-if ($false)
-{
+
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
 
@@ -39,7 +38,6 @@ echo 'build physical model'
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs
-}
 
 #if ($false)
 #{
