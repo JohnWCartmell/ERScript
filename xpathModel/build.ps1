@@ -38,11 +38,11 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 xpath..physical.xml -outputFolder ..\docs
 
 
-if ($false)
-{
+#if ($false)
+#{
  . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 xpath..logical.xml -animate -debugswitch
 
-}
+#}
 
 popd 
 
