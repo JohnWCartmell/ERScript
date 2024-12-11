@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <entity_type name="department">
+      <composition name="providing specialization for"
+                    type="student*"
+                    inverse="majoring in"/>
+      <composition name="staffed by" type="professor*" inverse="on staff of"/>
+   </entity_type>
+      <entity_type name="student">
+         <reference name="advised by" type="professor?" inverse="advising"/>
+      </entity_type>
+      <entity_type name="professor">
+         <reference name="advising" type="student*" inverse="advised by"/>
+      </entity_type>
+</entity_model>
