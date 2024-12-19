@@ -10,6 +10,7 @@
       <presentation>
          <x>0.1</x>
          <y>0.3</y>
+         <w>1.4</w>
          <h>0.9</h>
       </presentation>
       <!-- <attribute><name>title</name><type><string/></type><identifying/></attribute> -->
@@ -19,6 +20,13 @@
          <cardinality><ZeroOneOrMore/></cardinality>
          <inverse>of</inverse>
       </reference>
+      <group>
+         <annotation>...</annotation>
+         <presentation>
+            <x>0.35</x>
+            <y>-0.05</y>
+         </presentation>
+      </group>
    </entity_type>
 
    <entity_type>
@@ -72,6 +80,7 @@
       <presentation>
          <rightOf>production</rightOf>
          <x>1.65</x>
+         <w>1.4</w>
          <h>0.9</h>
       </presentation>
       <!-- <attribute><name>name</name><type><string/></type><identifying/></attribute> -->
@@ -81,6 +90,13 @@
          <cardinality><ZeroOneOrMore/></cardinality>
          <inverse>at</inverse>
       </reference>
+      <group>
+         <annotation>...</annotation>
+         <presentation>
+            <x>0.375</x>
+            <y>-0.05</y>
+         </presentation>
+      </group>
    </entity_type>
 
 </entity_model>

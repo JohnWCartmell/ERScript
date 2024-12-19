@@ -67,7 +67,6 @@ echo 'goodland SSADM carHire NonCommuting2 Diagram'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA                             
-
                         
 echo 'goodland SSADM carHire Path1 Diagram'
 . $TARGET\scripts\buildExampleSVG.ps1 SSADMcarHirePath1    `
@@ -80,7 +79,6 @@ echo 'goodland SSADM carHire Path2 Diagram'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA
-
 echo 'goodland SSADM carHire Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate
 

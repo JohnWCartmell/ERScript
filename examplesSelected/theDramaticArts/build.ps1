@@ -2,10 +2,10 @@ $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 . ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE shlaer-lang folder")
+echo ("*** building from  $SOURCE theDramaticArts folder")
 
-$SOURCEXML = $SOURCE + '\examplesSelected\shlaer-lang'
-$TARGETXML = $TARGET + '\examplesSelected\shlaer-lang\xml'
+$SOURCEXML = $SOURCE + '\examplesSelected\theDramaticArts'
+$TARGETXML = $TARGET + '\examplesSelected\theDramaticArts\xml'
 $TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
 $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
@@ -24,19 +24,17 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-echo 'shlaer-lang Example'
-echo 'Run surface ER.instanceValidation.xslt on logical model'
-. $TARGET\scripts\ER.instanceValidation.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -outputFolder ..\docs
 
-echo 'shlaer-lang Example'
-. $TARGET\scripts\buildExampleSVG.ps1 shlaerMellorDeptStudentProfessor0       `
+
+echo 'theDramaticArts Example'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArts1       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
 #if ($false)
 #{
-echo 'shlaer-lang Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -animate
+echo 'theDramaticArts Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 dramaticArts1..logical.xml -animate
 #}
 
 popd 

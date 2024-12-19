@@ -13,6 +13,7 @@
          <x>0.1</x>
          <y>2.5</y>
          <h>0.9</h>
+         <w>1.8</w>
       </presentation>
       <!-- <attribute><name>name</name><type><string/></type><identifying/></attribute> -->
       <reference>
@@ -23,6 +24,13 @@
          </cardinality>
          <inverse>the_portrayal_of</inverse>
       </reference>
+      <group>
+         <annotation>...</annotation>
+         <presentation>
+            <x>0.6</x>
+            <y>-0.05</y>
+         </presentation>
+      </group>
    </entity_type>
 
    <entity_type>
@@ -31,6 +39,7 @@
          <rightOf>character</rightOf>
          <x>1.7</x>
          <y>-2.5</y>
+         <w>1.8</w>
          <h>0.9</h>
       </presentation>
       <!-- <attribute><name>season</name><type><string/></type><identifying/></attribute> -->
@@ -50,6 +59,13 @@
             </path>
          </diagram>
       </composition>
+      <group>
+         <annotation>...</annotation>
+         <presentation>
+            <x>0.6</x>
+            <y>-0.05</y>
+         </presentation>
+      </group>
    </entity_type>
 
    <entity_type>
@@ -57,7 +73,8 @@
       <presentation>
          <below>production</below>
          <rightOf>character</rightOf>
-         <x>0.2</x>
+         <!-- <x>0.2</x> -->
+         <w>1.8</w>
          <h>0.9</h>
          <name>
             <Split/>
