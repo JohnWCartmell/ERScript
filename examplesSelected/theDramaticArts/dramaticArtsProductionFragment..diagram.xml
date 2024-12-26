@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <presentation>
       <diagram>
          <deltah>0.1</deltah>
       </diagram>
-   </presentation> <entity_type>
+   </presentation>
+   <absolute><presentation><None/></presentation></absolute>
+    <entity_type>
       <name>play</name>
       <presentation>
          <x>0.1</x>

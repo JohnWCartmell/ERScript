@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1..presentation.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
+</entity_model>

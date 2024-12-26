@@ -1,48 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <presentation>
       <diagram>
-         <deltah>0.5</deltah>
+         <deltah>0.6</deltah>
       </diagram>
    </presentation>
+   <absolute><presentation><None/></presentation></absolute>
    <entity_type>
-      <name>playwright</name>
+      <name>play</name>
       <presentation>
          <x>0.1</x>
-         <y>1.5</y>
-         <deltaw>-0.1</deltaw>
+         <y>0.5</y>
       </presentation>
    </entity_type>
-   <entity_type>
-      <name>play</name>
-      <presentation>
-         <rightOf>playwright</rightOf>
-         <x>1.8</x>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name>play</name>
-      <reference>
-         <name>written_by</name>
-         <diagram>
-            <path>
-               <srcattach>0.5</srcattach>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-               </label>
-               <inverse>
-                  <label>
-                     <position>
-                        <Downside/>
-                     </position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
+
    <entity_type>
       <name>play</name>
       <composition>
@@ -115,29 +88,6 @@
       </reference>
    </entity_type>
    <entity_type>
-      <name>production</name>
-      <reference>
-         <name>at</name>
-         <diagram>
-            <path>
-               <srcattach>0.5</srcattach>
-               <label>
-                  <position>
-                     <Upside/>
-                  </position>
-               </label>
-               <inverse>
-                  <label>
-                     <position>
-                        <Upside/>
-                     </position>
-                  </label>
-               </inverse>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
       <name>dramatic_role</name>
       <presentation>
          <below>production</below>
@@ -188,33 +138,5 @@
             </path>
          </diagram>
       </reference>
-   </entity_type>
-   <entity_type>
-      <name>dramatic_role</name>
-      <reference>
-         <name>played_by</name>
-         <diagram>
-            <path>
-               <destattach>0.5</destattach>
-               <align>
-                  <ToDest/>
-               </align>
-            </path>
-         </diagram>
-      </reference>
-   </entity_type>
-   <entity_type>
-      <name>venue</name>
-      <presentation>
-         <rightOf>production</rightOf>
-         <x>1.65</x>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name>actor</name>
-      <presentation>
-         <rightOf>dramatic_role</rightOf>
-         <x>2.4</x>
-      </presentation>
    </entity_type>
 </entity_model>

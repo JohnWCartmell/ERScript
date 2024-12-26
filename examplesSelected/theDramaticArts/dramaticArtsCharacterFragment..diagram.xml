@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <presentation>
       <diagram>
          <deltaw>0.1</deltaw>
          <deltah>0.1</deltah>
       </diagram>
    </presentation>
+   <absolute><presentation><None/></presentation></absolute>
    <entity_type>
       <name>playwright</name>
       <presentation>
@@ -37,6 +39,18 @@
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
             </path>
          </diagram>
       </reference>

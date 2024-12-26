@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+      </diagram>
+   </presentation>
+   <absolute><presentation><None/></presentation></absolute>
+      <entity_type>
+      <name>dramatic_role</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.75</y>
+         <w>1.5</w>
+         <h>0.92</h>
+         <name><Split/></name>
+         <!-- <shape><BottomLeft/></shape> -->
+      </presentation>
+      <reference>
+         <name>the_portrayal_of</name>
+         <type>character</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse>xxx</inverse>
+         <id>r4</id>
+         <diagram>
+            <path>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <rightOf>dramatic_role</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+      <reference>
+         <name>in</name>
+         <type>play</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse>yyy</inverse>
+         <id>d1</id>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>xxx</name>
+         <type>dramatic_role</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>of</inverse>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <rightOf>character</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <!-- <shape><Top/></shape> -->
+      </presentation>
+
+      <reference>
+         <name>yyy</name>
+         <type>character</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>in</inverse>
+      </reference>
+   </entity_type>
+
+</entity_model>

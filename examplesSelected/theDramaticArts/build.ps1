@@ -24,18 +24,66 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-
-
+if ($false)
+{
 echo 'theDramaticArts Example'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArts1       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-#if ($false)
-#{
+
+echo 'theDramaticArts Annotated '
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArts1.annotate       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+
+echo 'theDramaticArts Character Fragment'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacterFragment       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+
+echo 'theDramaticArts Dramatic Role Fragment'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsDramaticRoleFragment       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+
+echo 'theDramaticArts Production Fragment'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProductionFragment      `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA      
+echo 'theDramaticArts dramaticArtsPortrayalScopeFragment'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPortrayalScopeFragment     `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA    
+                  
+echo 'theDramaticArts dramaticArtsPortrayalScope'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPortrayalScope     `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+}                       
+
+echo 'theDramaticArts dramaticArtsPath1'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPath1     `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA      
+
+echo 'theDramaticArts dramaticArtsPath2'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPath2     `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+if ($false)
+{
 echo 'theDramaticArts Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 dramaticArts1..logical.xml -animate
-#}
+}
 
 popd 
 
