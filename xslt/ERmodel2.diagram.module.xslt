@@ -2480,7 +2480,9 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          <!-- <xsl:message>drawText</xsl:message> -->
         <xsl:call-template name="spitLines">
            <xsl:with-param name="pText" select="$text"/>
-           <xsl:with-param name="x" select="$px + $xLabelAdjustment"/>
+           <xsl:with-param name="x" select="$px + $xLabelAdjustment + $xsign * $relLabelxSeparation"/>   <!-- FIX BUG WITH SPLIT ET NAMES  
+                                           move relLabelxSeparation here
+                                           from spitLines -->
            <xsl:with-param name="y" select="$y"/>
            <xsl:with-param name="xsign" select="$xsign"/>
            <xsl:with-param name="ysign" select="$ysign"/>
@@ -2553,9 +2555,15 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:with-param name="ysign" select="$ysign"/>
       </xsl:call-template>
    </xsl:variable>
+   <!-- in what follows should only add $relLabelxSeparation for rel names -->
+              <!-- not for et names                 XXXXXXXXXXXXXXXXXXXXXX -->
    <xsl:for-each select="$splitLines/*:line">
       <xsl:call-template name="ERtext">
-	 <xsl:with-param name="x" select="$x + $xsign * $relLabelxSeparation"/>
+	 <xsl:with-param name="x" select="$x"/>
+ <!--    <xsl:with-param name="x" select="$x + $xsign * $relLabelxSeparation"/> -->
+    <!-- FIX BUG WITH SPLIT ET NAMES  
+                                           move relLabelxSeparation from here
+                                           into drawText -->
 	 <xsl:with-param name="y" select="$y + (position()-1) * $relLabelLineHeight * $ysign"/>
 	 <xsl:with-param name="xsign" select="$xsign"/>
 	 <xsl:with-param name="pText" select="."/>
