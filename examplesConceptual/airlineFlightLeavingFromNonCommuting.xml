@@ -5,6 +5,7 @@
       <diagram>
          <deltah>0.4</deltah>
          <deltaw>0.2</deltaw>
+         <relid_condition><All/></relid_condition>
       </diagram>
    </presentation>
    <entity_type>
@@ -23,6 +24,7 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
+         <id>r2</id>
          <diagram>
             <path>
                <align><ToSrc/></align>
@@ -64,7 +66,7 @@
       <name>flight</name>
       <presentation>
          <below>airline service</below>
-         <y>0.5</y>
+         <y>0.8</y>
          <w>2.0</w>
          <shape>
             <BottomLeft/>
@@ -76,6 +78,7 @@
             <ExactlyOne/>
          </cardinality>
          <type>airline service</type>
+         <id>d1</id>
       </dependency>
       <reference>
          <name>leaving_from</name>
@@ -84,6 +87,7 @@
             <ZeroOrOne/>
          </cardinality>
          <identifying/>
+         <id>r3</id>
          <diagram>
             <path>
                <label>
@@ -112,6 +116,7 @@
          </cardinality>
          <inverse>at</inverse>
          <identifying/>
+         <id>d2</id>
          <diagram>
             <path>
                <inverse>

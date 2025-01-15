@@ -4,6 +4,7 @@
       <presentation>
       <diagram>
          <deltaw>0.2</deltaw>
+         <relid_condition><All/></relid_condition>
       </diagram>
    </presentation>
    <!-- <absolute>
@@ -109,7 +110,7 @@
       <name>flight</name>
       <presentation>
          <below>airline service</below>
-         <y>0.5</y>
+         <y>1.0</y>
          <w>2.7</w>
          <h>1.0</h>
       </presentation>

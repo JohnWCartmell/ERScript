@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
+   <presentation>
+      <diagram>
+         <deltaw>0.1</deltaw>
+         <deltah>0.5</deltah>
+      </diagram>
+   </presentation>
+   <absolute><presentation><None/></presentation></absolute>
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.3</y>
+      </presentation>
+      <attribute><name>title</name><type><string/></type><identifying/></attribute>
+      <reference>
+         <name>written_by</name>
+         <type>playwright</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse>the_author_of</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <composition>
+         <name>about</name>
+         <type>character</type>
+         <cardinality>
+            <OneOrMore/>
+         </cardinality>
+         <inverse>in</inverse>
+         <diagram>
+            <path>
+               <label>
+                  <position><Right/></position>
+               </label>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>playwright</name>
+      <presentation>
+         <rightOf>play</rightOf>
+         <x>2.8</x>
+      </presentation>
+      <attribute><name>name</name><type><string/></type><identifying/></attribute>
+      <reference>
+         <name>the_author_of</name>
+         <type>play</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>written_by</inverse>
+      </reference>
+   </entity_type>
+
+
+</entity_model>

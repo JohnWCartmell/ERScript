@@ -37,7 +37,14 @@ echo 'theDramaticArts Annotated '
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-
+}
+echo 'theDramaticArts Play Playwright Relationship'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPlayPlaywright    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+if ($false)
+{
 echo 'theDramaticArts Character Fragment'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacterFragment       `
                              -svgOutputFolder $TARGETSVGFOLDER `
@@ -65,8 +72,7 @@ echo 'theDramaticArts dramaticArtsPortrayalScope'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPortrayalScope     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA
-}                       
+                             -animate -shortSeparator NA -longSeparator NA                     
 
 echo 'theDramaticArts dramaticArtsPath1'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPath1     `
@@ -79,6 +85,7 @@ echo 'theDramaticArts dramaticArtsPath2'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
+}
 if ($false)
 {
 echo 'theDramaticArts Flex version'
