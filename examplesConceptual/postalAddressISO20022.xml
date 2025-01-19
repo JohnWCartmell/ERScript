@@ -124,7 +124,6 @@
          <rightOf>town</rightOf>
          <x>1.0</x>
          <h>1.21</h>
-         <deltaw>0.15</deltaw>
          <name><Split/></name>
       </presentation>
       <attribute>
