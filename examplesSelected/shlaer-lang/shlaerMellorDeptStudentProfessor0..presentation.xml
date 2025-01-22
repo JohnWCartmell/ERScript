@@ -48,7 +48,6 @@
 
    <entity_type>
       <name>student</name>
-
       <reference>
          <name>advised by</name>
          <diagram>

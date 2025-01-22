@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.45</deltah>
+         <relid_condition><All/></relid_condition>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>conjunction</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.45</y>
+         <w>1.75</w>
+         <h>1.0</h>
+      </presentation>
+      <reference>
+         <name>mentioning as_first party</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>planet</type>
+         <inverse>first party_mentioned in</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.25</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                     <position>
+                        <Upside/>
+                     </position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>mentioning as_second party</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>planet</type>
+         <inverse>second party_mentioned in</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <srcattach>0.75</srcattach>
+               <align>
+                  <ToSrc/>
+               </align>
+               <label>
+                     <position>
+                        <Downside/>
+                     </position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+      <attribute>
+              <name>date</name>
+              <type><date/></type>
+              <identifying/>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>planet</name>
+      <presentation>
+         <rightOf>conjunction</rightOf>
+         <x>4.5</x>
+         <w>1.75</w>
+         <h>1.0</h>
+      </presentation>
+      <attribute>
+         <name>name</name>
+         <identifying/>
+      </attribute>
+      <reference>
+         <name>first party_mentioned in</name>
+         <type>conjunction</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>mentioning as_first party</inverse>
+      </reference>
+      <reference>
+         <name>second party_mentioned in</name>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <type>conjunction</type>
+         <inverse>mentioning as_second party</inverse>
+      </reference>
+   </entity_type>
+</entity_model>

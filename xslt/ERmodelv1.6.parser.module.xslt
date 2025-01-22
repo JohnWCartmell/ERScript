@@ -65,6 +65,18 @@
    </xsl:element>
 </xsl:template> 
 
+<xsl:template match="@injective" mode="parse__main_pass">
+   <xsl:element name="injective"> 
+      <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template> 
+
+<xsl:template match="@surjective" mode="parse__main_pass">
+   <xsl:element name="surjective"> 
+      <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template>  
+
 <xsl:template match="@type" mode="parse__main_pass">
    <!-- intentially left blank -->
 </xsl:template>  
@@ -98,9 +110,58 @@
             <xsl:call-template name="create_dependency_from_scratch"/>
          </xsl:if>
       </xsl:if>
+
+      <!-- create absent compositions from contexts types by this current entity type-->
+         <!-- BUG might be identifying/context -->
+      <xsl:for-each 
+           select="//context[era:typeFromExtendedType(@type)=current()/@name]
+                      [not(some $comp 
+                           in current()/composition
+                           satisfies (era:typeFromExtendedType($comp/@type)=
+                                           ancestor-or-self::entity_type[1]/@name)
+                           )]">
+            <xsl:element name="composition">
+               <xsl:if test="@inverse_of">
+                  <xsl:element name="name">
+                     <xsl:value-of select="@inverse_of"/>
+                  </xsl:element>
+               </xsl:if>
+               <xsl:element name="type">
+                  <xsl:value-of select="ancestor-or-self::entity_type[1]/@name"/>
+               </xsl:element>
+               <xsl:element name="inverse">
+                     <xsl:value-of select="if (@name)
+                                           then @name
+                                           else '..'
+                                           "/>
+               </xsl:element>
+               <xsl:element name="cardinality">
+                  <xsl:element name="
+                                    {if (@injective='true')
+                                     then (if (@surjective='true')
+                                           then 'ExactlyOne'
+                                           else 'ZeroOrOne'
+                                          )
+                                     else if (@surjective='true')
+                                          then 'OneOrMore'
+                                          else 'ZeroOneOrMore'
+                                    }
+                                       "/>  
+                                       <!-- this implements the defaults 
+                                                injective false
+                                                surjective false
+                                                (see change of 16-Nov-2024)
+                                       -->
+               </xsl:element>
+            </xsl:element>
+      </xsl:for-each>
    </xsl:copy>
 </xsl:template>
 
+
+  <!-- CODE REVIEW 19 Jan 2025 
+         this template could be reprogrammed and named "create_missing_dependencies"
+  -->
 <xsl:template name="create_dependency_from_scratch" match="entity_type" mode="explicit">
    <!-- <xsl:message>create dependency from scratch for et '<xsl:value-of select="@name"/>'</xsl:message> -->
    <xsl:variable name="cardinality" as="element(cardinality)">
@@ -111,23 +172,17 @@
                                     "/>
       </xsl:element>
    </xsl:variable>
-   <!--
-   <xsl:variable name="dotdotambiguous" 
-                 as="xs:boolean"
-                 select="count(//composition[era:typeFromExtendedType(@type)=current()/@name]
-                                            [not(@inverse) and not(@name)]
-                              ) &gt;=1"
-                 />
-              -->
+
+
    <xsl:for-each select="//composition[era:typeFromExtendedType(@type)=current()/@name]">
       <!-- <xsl:message> Creating from '<xsl:value-of select="@name"/></xsl:message>'' -->
       <xsl:element name="dependency">
-            <xsl:element name="name">
-               <xsl:value-of select="if (@inverse) 
-                                     then @inverse 
-                                     else if (@name) then concat(@name,$postfixForInverseNameConstruction) 
-                                     else '..'" />
-            </xsl:element>
+               <xsl:element name="name">
+                  <xsl:value-of select="if (@inverse) 
+                                        then @inverse 
+                                        else if (@name) then concat(@name,$postfixForInverseNameConstruction) 
+                                        else '..'" />
+               </xsl:element>
          <xsl:copy-of select="$cardinality"/>
          <xsl:element name="type">
             <!-- 29/06/2023 BUT... WHY DID I WRITE IT LIKE THIS PREVIOUSLY?
@@ -166,6 +221,22 @@
       <xsl:element name="type">
          <xsl:value-of select="$type"/>
       </xsl:element>
+
+      <!-- start of change of 21 Jan 2025 -->
+      <xsl:if test="@injective">
+         <!-- <xsl:message>in parser module line 187 injective attribute value is <xsl:value-of select="@injective"/></xsl:message> -->
+         <xsl:element name="injective">
+            <xsl:value-of select="@injective"/>
+         </xsl:element>
+      </xsl:if>
+      <xsl:if test="@surjective">
+         <!-- <xsl:message>in parser module line 187 surjective attribute value is <xsl:value-of select="@surjective"/></xsl:message> -->
+         <xsl:element name="surjective">
+            <xsl:value-of select="@surjective"/>
+         </xsl:element>
+      </xsl:if>
+      <!-- end of change of 21 Jan 2025-->
+
       <xsl:if test="   ((self::reference or self::constructed_relationship) and parent::identifying)
                     or (self::composition and //identifying/context/../../@name=$type)
                     ">  
@@ -213,11 +284,18 @@
    <xsl:element name="dependency">
       <xsl:if test="not(@name)">
          <xsl:variable name="comp" 
-                       as="element(composition)"
+                       as="element(composition)?"
                        select="//composition[era:typeFromExtendedType(@type)=current()/ancestor-or-self::entity_type[1]/@name]"/>
+                       <!-- Note: 21 Jan 2025 changed not to error if no composition and no name -->
+
          <xsl:element name="name">
-               <xsl:value-of select="if ($comp/@inverse) then $comp/@inverse else if ($comp/@name) then concat($comp/@name,$postfixForInverseNameConstruction) else '..'"/>
+               <xsl:value-of select="if ($comp/@inverse) 
+                                    then $comp/@inverse
+                                    else if ($comp/@name) 
+                                    then concat($comp/@name,$postfixForInverseNameConstruction) 
+                                    else '..'"/>
          </xsl:element>
+
       </xsl:if>
       <xsl:apply-templates select="@*" mode="parse__main_pass"/> <!-- process attributes first -->
       <xsl:choose>

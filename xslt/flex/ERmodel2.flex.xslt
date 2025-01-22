@@ -33,7 +33,7 @@ CHANGE HISTORY
 
  <xsl:include href="../ERmodelv1.6.parser.module.xslt"/>
 
- <xsl:include href="../ERmodel.implementation_of_defaults_enrichment.module.xslt"/>
+ <xsl:include href="ERmodel.implementation_of_defaults_enrichment.module.xslt"/>
 
 	<xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
 
@@ -100,13 +100,12 @@ CHANGE HISTORY
       </xsl:result-document>
     </xsl:if>
 
-  <xsl:variable name="state" as="document-node()">
+   <xsl:variable name="state" as="document-node()">
 		<xsl:message>initiating implementation_of_defaults </xsl:message>
 			<xsl:copy>
 				<xsl:apply-templates select="$state" mode="implementation_of_defaults_enrichment"/>
 			</xsl:copy>
 	</xsl:variable>	
-
 	<xsl:variable name="state" as="document-node()">
 		<xsl:message>initiating passzero</xsl:message>
 			<xsl:copy>
@@ -274,9 +273,7 @@ xxxto copy through
 				<annotation><xsl:value-of select="name"/></annotation>
 				<line_style>
 					 <xsl:choose>
-					 	<xsl:when test="(substring(type,string-length(type))='*')
-					 		               or (substring(type,string-length(type))='?')">
-					 		               <!-- XXXXXXXXXXXXXXX  -->
+					 	<xsl:when test="cardinality/(ZeroOrOne|ZeroOneOrMore)">
 					 		<xsl:text>dashedline</xsl:text>
 					 	</xsl:when>
 					 	<xsl:otherwise>
@@ -284,6 +281,18 @@ xxxto copy through
 					 	</xsl:otherwise>
 					 </xsl:choose>
 				</line_style>
+<!-- 				FIXED 21-Jan-2025 BUG INTRODUCED 2024 when v1.6 parser introduced into flex generation. 
+				<line_style>
+					 <xsl:choose>
+					 	<xsl:when test="(substring(type,string-length(type))='*')
+					 		               or (substring(type,string-length(type))='?')">
+					 		<xsl:text>dashedline</xsl:text>
+					 	</xsl:when>
+					 	<xsl:otherwise>
+					 		<xsl:text>solidline</xsl:text>
+					 	</xsl:otherwise>
+					 </xsl:choose>
+				</line_style> -->
 			</source>
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
@@ -304,7 +313,7 @@ xxxto copy through
 					</endline>
         </xsl:if>
 
-        <xsl:if test="pullback">  <!-- IS THGIS RIGHHT??? XXXX-->
+        <xsl:if test="pullback">  <!-- IS THIS RIGHHT??? XXXX-->
         	<endline>
 						<marker>
 						 		<xsl:text>pullback</xsl:text>

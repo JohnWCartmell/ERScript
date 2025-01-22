@@ -66,7 +66,7 @@
             <ZeroOneOrMore/>
          </cardinality>
          <inverse>depicted on</inverse>
-         <identifying/>
+         <!-- <identifying/> -->
          <diagram>
             <path>
                <label>
@@ -92,6 +92,7 @@
             <ExactlyOne/>
          </cardinality>
          <type>map</type>
+         <identifying/>
          <!-- <inverse>scheduled as</inverse> -->
       </dependency>
       <attribute>

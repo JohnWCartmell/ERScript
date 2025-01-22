@@ -161,28 +161,38 @@
               mode="documentation_enrichment_recursive"  priority="1">
    <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
-        <xsl:variable name="dependency_relid_prefix" as="xs:string" 
-                     select="if(/entity_model/presentation/diagram/dependency_relid_prefix) 
-                             then /entity_model/presentation/diagram/dependency_relid_prefix else 'd'"/>
-       <xsl:variable name="reference_relid_prefix" as="xs:string" 
-                     select="if(/entity_model/presentation/diagram/reference_relid_prefix) 
-                             then /entity_model/presentation/diagram/reference_relid_prefix else 'r'"/>
-        <xsl:variable name="numeric">
-            <xsl:choose>
-                <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
-                    <xsl:number count="composition
-                                      |reference[not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
-                                                  or
-                                                  (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))]" level="any" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:number count="composition" level="any" />
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <id>
-          <xsl:value-of select="$dependency_relid_prefix || $numeric"/>        
-       </id>
+        <xsl:variable name="id_specified_for_inverse_dependency" as="xs:string?"
+                      select="key('DependencyBySrcTypeAndName',concat(type,':',inverse))
+                                                [current()/../name = type]/id"/>
+        <xsl:choose>
+            <xsl:when test="$id_specified_for_inverse_dependency">
+                <id><xsl:value-of select="$id_specified_for_inverse_dependency"/></id>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="dependency_relid_prefix" as="xs:string" 
+                             select="if(/entity_model/presentation/diagram/dependency_relid_prefix) 
+                                     then /entity_model/presentation/diagram/dependency_relid_prefix else 'd'"/>
+                <xsl:variable name="reference_relid_prefix" as="xs:string" 
+                             select="if(/entity_model/presentation/diagram/reference_relid_prefix) 
+                                     then /entity_model/presentation/diagram/reference_relid_prefix else 'r'"/>
+                <xsl:variable name="numeric">
+                    <xsl:choose>
+                        <xsl:when test="$dependency_relid_prefix = $reference_relid_prefix">
+                            <xsl:number count="composition
+                                              |reference[not(exists(key('ReferenceBySrcTypeAndName',concat(type,':',inverse))))
+                                                          or
+                                                          (. &lt;&lt; key('ReferenceBySrcTypeAndName',concat(type,':',inverse)))]" level="any" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:number count="composition" level="any" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <id>
+                  <xsl:value-of select="$dependency_relid_prefix || $numeric"/>        
+               </id>
+           </xsl:otherwise>
+        </xsl:choose>
     </xsl:copy>
 </xsl:template>
 
@@ -259,11 +269,9 @@
     </xsl:copy>
 </xsl:template>
 
-<!-- a reference and its inverse need be given the same id -->
-<!-- first allocate id to a reference that precedes its inverse in the document -->
-<!-- in the next pass allocate an id equal to the id of the inverse -->
+
 <xsl:template match="(reference|composition)
-                     [not(injective)][not(surjective)]
+                     [not(injective)]
                      " 
               mode="documentation_enrichment_recursive"  priority="100">
               <!-- SHOULD include dependencies as well !!!!!!!!!!!-->
@@ -285,25 +293,44 @@
                        and ($inverse/cardinality/ZeroOrOne
                             or $inverse/cardinality/ExactlyOne
                             )" />
-
-    <!-- below is rather odd incase no inverse specified but is transcribed
-        from the preexisting logic in ERmodel2.diagram.xslt 
-        Seems particularly strange for reference relationships
-        Are we wedded to it?
-    -->
-    <xsl:variable name="surjective" as="xs:boolean"
-                select="not($inverse/cardinality)
-                        or $inverse/cardinality/ExactlyOne
-                        or $inverse/cardinality/OneOrMore
-                       " />
-
-
        <injective>
            <xsl:value-of select="$injective"/>
        </injective>
-       <surjective>
-           <xsl:value-of select="$surjective"/>
-       </surjective>
+    </xsl:copy>
+</xsl:template>
+
+<xsl:template match="(reference|composition)
+                     [not(surjective)]
+                     " 
+              mode="documentation_enrichment_recursive"  priority="100">
+              <!-- SHOULD include dependencies as well !!!!!!!!!!!-->
+   <xsl:copy>
+       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
+
+  <xsl:variable name="inverse" 
+                as="element()?"
+                select="if (inverse) 
+                        then (
+                             if (self::composition)
+                             then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
+                                                [current()/../name = type]
+                             else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                             )
+                        else ()" />  <!-- explained change of 1-Aug-2024 -->
+
+
+       <xsl:element name="surjective">
+            <xsl:value-of select="if($inverse/cardinality)
+                                  then (
+                                        $inverse/cardinality/ExactlyOne
+                                        or $inverse/cardinality/OneOrMore
+                                        )
+                                  else if (self::composition)
+                                       then 'true'
+                                       else 'false'
+                                "/>
+       </xsl:element>
+       <!-- above implements default values for surjectivity -->
     </xsl:copy>
 </xsl:template>
            

@@ -10,6 +10,6 @@
       <reference name="advised by" type="professor?" inverse="advising"/>
    </entity_type>
    <entity_type name="professor">
-      <reference name="advising" type="student*" inverse="advised by"/>
+      <!-- <reference name="advising" type="student*" inverse="advised by"/> --> <!-- not required removed 20/01/2025 -->
    </entity_type>
 </entity_model>

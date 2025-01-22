@@ -37,14 +37,13 @@ echo 'theDramaticArts Annotated '
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-}
+
 echo 'theDramaticArts Play Playwright Relationship'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPlayPlaywright    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-if ($false)
-{
+
 echo 'theDramaticArts Character Fragment'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacterFragment       `
                              -svgOutputFolder $TARGETSVGFOLDER `
@@ -62,6 +61,7 @@ echo 'theDramaticArts Production Fragment'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA      
+
 echo 'theDramaticArts dramaticArtsPortrayalScopeFragment'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPortrayalScopeFragment     `
                              -svgOutputFolder $TARGETSVGFOLDER `
@@ -85,7 +85,18 @@ echo 'theDramaticArts dramaticArtsPath2'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-}
+
+echo 'theDramaticArts character..identificationScheme'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacter..identificationScheme    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA}
+}                             
+echo 'theDramaticArts production..identificationScheme'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..identificationScheme    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
 if ($false)
 {
 echo 'theDramaticArts Flex version'

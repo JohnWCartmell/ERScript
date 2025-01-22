@@ -34,9 +34,6 @@
                <align>
                   <ToSrc/>
                </align>
-<!--                <label>
-                     <name><None/></name>
-               </label> -->
                <inverse>
                   <label>
                      <position>
@@ -66,6 +63,7 @@
          </cardinality>
          <type>state</type>
          <inverseOf>location_of</inverseOf>
+         <id>xxx</id>
       </dependency>
    </entity_type>
 </entity_model>

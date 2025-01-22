@@ -9,6 +9,7 @@
          <cardinality>
             <ExactlyOne/>
          </cardinality>
+         <injective>true</injective> <!-- added as test of change of 21-Jan-2025 -->
          <inverse>codes_for</inverse>
          <diagram>
             <path>
@@ -45,14 +46,14 @@
          </cardinality>
          <inverse>ExactlyOne</inverse>
          <sequence/>
-      </composition>
+      </composition><!-- removed as test of change of 21-Jan-2025 
       <reference>
          <name>codes_for</name>
          <type>amino acid</type>
          <cardinality>
             <ExactlyOne/>
          </cardinality>
-      </reference>
+      </reference> -->
    </entity_type>
    <entity_type>
       <name>nucleotide</name>

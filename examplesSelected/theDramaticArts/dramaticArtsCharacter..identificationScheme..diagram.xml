@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+      </diagram>
+   </presentation>
+   <absolute><presentation><None/></presentation></absolute>
+
+
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.75</y>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+      <attribute><name>name</name><identifying/></attribute>
+      <reference>
+         <name>in</name>
+         <type>play</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse>yyy</inverse>
+         <identifying/>
+         <id>d1</id>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <rightOf>character</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+      <reference>
+         <name>yyy</name>
+         <type>character</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>in</inverse>
+      </reference>
+      <attribute><name>title</name><identifying/></attribute>
+      <reference>
+         <name>written_by</name>
+         <type>playwright</type>
+         <cardinality><ExactlyOne/></cardinality>
+         <inverse>zzz</inverse>
+         <identifying/>
+         <id>r1</id>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>playwright</name>
+      <presentation>
+         <rightOf>play</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <!-- <shape><Top/></shape> -->
+      </presentation>
+      <attribute><name>name</name><identifying/></attribute>
+      <reference>
+         <name>zzz</name>
+         <type>play</type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>written_by</inverse>
+      </reference>
+   </entity_type>
+
+</entity_model>

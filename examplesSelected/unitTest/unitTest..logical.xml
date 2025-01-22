@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+              ERScriptVersion="1.6"
+              metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
+   <entity_type name="source"/>
+   <entity_type name="sink"/>
+   <entity_type name="injective">
+      <entity_type name="injective_into">
+         <context type="source" injective="true"/>   <!-- test context default is surjective="false" -->
+         <reference name="into" type="sink" injective="true"/>  <!-- test reference default is surjective="false" -->
+      </entity_type>
+      <entity_type name="injective_surjective" >
+         <context type="source" injective="true" surjective="true"/>
+         <reference name="onto"  type="sink" injective="true" surjective="true"/>
+      </entity_type>
+   </entity_type>
+   <entity_type name="noninjective">
+      <entity_type name="noninjective_into">           
+         <context type="source"/>    <!-- test context default is injective="false" surjective="false"-->
+         <reference name="into" type="sink"/>  <!-- test reference default is injective="false" surjective="false"-->
+      </entity_type>
+      <entity_type name="noninjective_surjective">
+         <context type="source" injective="false" surjective="true"/>
+         <reference name="onto" type="sink" injective="false" surjective="true"/>
+      </entity_type>
+   </entity_type>
+</entity_model>

@@ -24,5 +24,8 @@ attrib -R $TARGET\*.html
 copy-item $SOURCE\html\*.html -Destination $TARGETHTML
 attrib +R $TARGET\*.html
 
+
+# Build past years folders
 . 2023/build.ps1
+. 2024/build.ps1
 

@@ -20,14 +20,14 @@
       <composition name="columns" type="column*" inverse="..">
          <pullback along="noOfCols" type="ordinal"  projection_rel="index"/>
       </composition>
-      <reference name="noOfRows" type="cardinal"/>
-      <reference name="noOfCols" type="cardinal"/>
+      <reference name="noOfRows" type="cardinal" surjective="false" />
+      <reference name="noOfCols" type="cardinal" surjective="false" />
    </entity_type>
    <!-- <group name="row and column"> -->
       <entity_type name="row">
          <identifying>
             <context type="grid"/>
-            <reference name="index" type="ordinal" diagonal="../noOfRows" riser=".."/>
+            <reference name="index" type="ordinal"  surjective="false" diagonal="../noOfRows" riser=".."/>
          </identifying>
          <composition name="cells" type="cell*" inverse="..">
             <pullback along=".." type="column" projection_rel="col"/>
@@ -36,15 +36,16 @@
       <entity_type name="column">
          <identifying>
             <context type="grid"/>
-            <reference name="index" type="ordinal" diagonal="../noOfCols" riser =".."/>
+            <reference name="index" type="ordinal"  surjective="false" diagonal="../noOfCols" riser =".."/>
          </identifying>
-         <reference name="cells" type="cell*" inverse="col"/>
+         <!-- <reference name="cells" type="cell*" inverse="col"/>  
+                           simplified by adding surjective='false' 20-Jan-2025-->
       </entity_type>
    <!-- </group> -->
    <entity_type name="cell">
       <identifying>
          <context type="row"/>
-         <reference name="col" type="column" inverse="cells" diagonal="../.." riser=".."/>
+         <reference name="col" type="column" surjective="false" inverse="cells" diagonal="../.." riser=".."/>
       </identifying>
    </entity_type>
    <!-- <group name="reuseable"> -->
@@ -52,7 +53,7 @@
          <identifying>
             <attribute name="zno" type="nonNegativeInteger"/>
          </identifying>
-         <composition type="ordinal*"/>
+         <!-- <composition type="ordinal*"/> -->  <!-- removed to test change of 20-Jan-2025 -->
       </entity_type>
       <entity_type name="ordinal">
          <identifying>

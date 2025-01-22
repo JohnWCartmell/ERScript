@@ -597,7 +597,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:choose>
   </xsl:variable>
 
-  <xsl:if test="not(self::group) or ($debugOn) or (exists(presentation/shape))">
+<!--   <xsl:if test="not(self::group) or ($debugOn) or (exists(presentation/shape))"> -->
+   <xsl:if test="not(self::group)  or (exists(presentation/shape))">
     <xsl:call-template name="entity_type_box">
        <xsl:with-param name="isgroup" select="exists(self::group)"/>  
        <xsl:with-param name="iseven" as="xs:boolean">
@@ -2124,7 +2125,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
      <xsl:with-param name="relname" select="name"/>
   </xsl:call-template>
 
-  <xsl:variable name="inverse">
+<!-- change of 21-Nov-2025
+   <xsl:variable name="inverse">
      <xsl:if test='inverse'>
        <xsl:for-each select="key('RelationshipBySrcTypeAndName',
 			       concat(type,':',inverse)
@@ -2132,7 +2134,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	   <xsl:copy-of select="./child::*"/>
        </xsl:for-each>
      </xsl:if>
-  </xsl:variable>
+  </xsl:variable> -->
 
   <xsl:variable name="srcbasex">
     <xsl:for-each select="..">
@@ -2298,13 +2300,13 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
      </xsl:choose>
   </xsl:variable>
 
-
   <xsl:call-template name="relationship_name">
      <xsl:with-param name="srcx" select="$srcx"/>
      <xsl:with-param name="srcy" select="$srcy"/>
      <xsl:with-param name="xsign" select="$srcsign"/>
   </xsl:call-template>
-  <xsl:if test="$inverse/name">
+  <!-- <xsl:if test="$inverse/name"> change of 21-Jan-2025-->
+  <xsl:if test="inverse">
      <xsl:call-template name="inverse_relationship_name"> 
 	<xsl:with-param name="destx" select="$destx"/>
 	<xsl:with-param name="desty" select="$desty"/>
@@ -2371,7 +2373,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
     </xsl:call-template>
   </xsl:if>
-
+<xsl:message>in template reference at line 2373 injective is <xsl:value-of select="injective"/></xsl:message>
   <xsl:if test="not(injective='true')">
      <xsl:call-template name="crowsfoot_across">
 	 <xsl:with-param name="xcm" select="$srcx"/>
@@ -2516,7 +2518,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:call-template>
 </xsl:template>
 
-<xsl:template name="inverse_relationship_name" match="compostion|reference">
+<xsl:template name="inverse_relationship_name" match="composition|reference">
   <xsl:param name="destx"/>
   <xsl:param name="desty"/>
   <xsl:param name="xsign"/>
@@ -3111,7 +3113,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 <!--       <xsl:value-of select="not($inverse/cardinality) 
                             or  $inverse/cardinality/ExactlyOne 
                             or $inverse/cardinality/OneOrMore "/> -->
-      <xsl:value-of select="surjective"/>
+      <xsl:value-of select="surjective='true'"/>
   </xsl:variable>
          <xsl:message>New surjective Code firing XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<xsl:value-of select="surjective"/>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xsl:message> 
 
@@ -3145,9 +3147,12 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
    </xsl:call-template>
   <!-- crowsfoot left hand side -->
+  <!-- change of 25-Jan-2025 
   <xsl:if test="not(inverse) 
                  or  $inverse/cardinality/ZeroOneOrMore 
-                 or  $inverse/cardinality/OneOrMore ">
+                 or  $inverse/cardinality/OneOrMore "> -->
+
+   <xsl:if test="injective='false'">
      <xsl:call-template name="crowsfoot_across">
          <xsl:with-param name="xcm" select="$srcx"/>
          <xsl:with-param name="ycm" select="$rely"/>
@@ -3654,8 +3659,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                            -->
 
    <xsl:variable  name="inverseMandatory" as="xs:boolean"
-                  select="surjective"/> <!-- see change of 14-Noc-2024 -->
-
+                  select="surjective='true'"/> <!-- see change of 14-Noc-2024 -->
+                                               <!-- corrected 20-Jan-2025 -->
    <xsl:variable name="reflexive" as="xs:boolean" select=".=$inverse"/>
    <!--
 <xsl:message>inverse is '<xsl:copy-of select="inverse"/>'</xsl:message>  
