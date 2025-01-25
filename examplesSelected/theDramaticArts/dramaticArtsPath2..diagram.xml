@@ -4,34 +4,36 @@
    <presentation>
       <diagram>
          <relid_condition><All/></relid_condition>
+         <attributes><None/></attributes>
       </diagram>
    </presentation>
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <absolute><presentation><None/></presentation></absolute>
       <entity_type>
       <name>dramatic_role</name>
       <presentation>
          <x>0.1</x>
-         <y>0.75</y>
+         <y>0.05</y>
          <w>1.5</w>
          <h>0.92</h>
          <name><Split/></name>
          <!-- <shape><BottomLeft/></shape> -->
       </presentation>
-      <reference>
+      <dependency>
          <name>in</name>
          <type>production</type>
-         <cardinality><ExactlyOne/></cardinality>
-         <inverse>xxx</inverse>
-         <id>d2</id>
          <diagram>
             <path>
+               <sideways/>
+               <srcattach>0.5</srcattach>
                <label>
                   <position><Upside/></position>
                </label>
                <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
-      </reference>
+      </dependency>
    </entity_type>
 
    <entity_type>
@@ -45,9 +47,6 @@
       <reference>
          <name>of</name>
          <type>play</type>
-         <cardinality><ExactlyOne/></cardinality>
-         <inverse>yyy</inverse>
-         <id>r2</id>
          <diagram>
             <path>
                <srcattach>0.5</srcattach>
@@ -57,12 +56,6 @@
                <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
-      </reference>
-      <reference>
-         <name>xxx</name>
-         <type>dramatic_role</type>
-         <cardinality><ZeroOneOrMore/></cardinality>
-         <inverse>of</inverse>
       </reference>
    </entity_type>
 
@@ -75,13 +68,6 @@
          <h>0.92</h>
          <!-- <shape><Top/></shape> -->
       </presentation>
-
-      <reference>
-         <name>yyy</name>
-         <type>production</type>
-         <cardinality><ZeroOneOrMore/></cardinality>
-         <inverse>of</inverse>
-      </reference>
    </entity_type>
 
 </entity_model>

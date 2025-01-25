@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <absolute>
-      <attribute name="name" type="string"/>
+      <name>the dramatic arts</name>
       <composition type="playwright*"/>
       <composition type="play*"/>
       <composition type="production*"/>
@@ -12,18 +12,17 @@
       <identifying>
          <attribute name="name" type="string"/>
       </identifying>
-      <reference name="the_author_of" type="play*" inverse="written_by"/>
    </entity_type>
    <entity_type name="play">
       <identifying>
          <reference name="written_by" type="playwright" inverse="the_author_of"/>
          <attribute name="title" type="string"/>
       </identifying>
-      <composition name="about" type="character*" inverse="in"/>
-      <reference name="given_in" type="play*" inverse="of"/>
+      <!-- <composition name="about" type="character*" inverse="in"/> -->
    </entity_type>
    <entity_type name="character">
       <identifying>
+         <context name="in" type="play" inverse_of="about" />
          <attribute name="name" type="string"/>
       </identifying>
       <reference name="portrayed_by" type="character*" inverse="the_portrayal_of"/>
@@ -34,10 +33,10 @@
          <reference name="at" type="venue" inverse="the_location_of"/>
          <attribute name="season" type="string"/>
       </identifying>
-      <composition name="cast_with" type="dramatic_role*" inverse="in"/>
    </entity_type>
    <entity_type name="dramatic_role">
       <identifying>
+         <context name="in" type="production" inverse_of="cast_with"/>
          <reference name="the_portrayal_of"
                      type="character"
                      inverse="portrayed_by"
@@ -50,7 +49,6 @@
       <identifying>
          <attribute name="name" type="string"/>
       </identifying>
-      <reference name="the_location_of" type="production*" inverse="at"/>
    </entity_type>
    <entity_type name="actor">
       <identifying>

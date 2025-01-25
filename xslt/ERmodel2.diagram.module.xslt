@@ -435,23 +435,23 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
              </xsl:call-template>
          </xsl:with-param>
       </xsl:call-template>
+       <!-- name of absolute rendered in change of 04/09/2024 -->
+       <!-- modified 24-Nov-2024                              -->
+      <xsl:if test="name">   
+         <xsl:variable name="width_of_name">
+            <!-- 24-Nov-2024 -->
+            <xsl:value-of select=
+                   "diagram:stringwidth_from_font_size_in_pixels(name,$etnameFontSizeInPixels,false())"/>
+         </xsl:variable>
+          <xsl:call-template name="ERtext">
+             <xsl:with-param name="x" select="($diagramWidth div 2) - ($width_of_name div 2)"/>
+             <xsl:with-param name="y" select="$absolute_text_y"/>
+             <xsl:with-param name="xsign" select="1"/>
+             <xsl:with-param name="pText" select="name"/>
+             <xsl:with-param name="class" select="'etname'"/>
+          </xsl:call-template>
+       </xsl:if>
    </xsl:if>
-    <!-- name of absolute rendered in change of 04/09/2024 -->
-    <!-- modified 24-Nov-2024                              -->
-   <xsl:if test="name">   
-      <xsl:variable name="width_of_name">
-         <!-- 24-Nov-2024 -->
-         <xsl:value-of select=
-                "diagram:stringwidth_from_font_size_in_pixels(name,$etnameFontSizeInPixels,false())"/>
-      </xsl:variable>
-       <xsl:call-template name="ERtext">
-          <xsl:with-param name="x" select="($diagramWidth div 2) - ($width_of_name div 2)"/>
-          <xsl:with-param name="y" select="$absolute_text_y"/>
-          <xsl:with-param name="xsign" select="1"/>
-          <xsl:with-param name="pText" select="name"/>
-          <xsl:with-param name="class" select="'etname'"/>
-       </xsl:call-template>
-    </xsl:if>
 </xsl:template>   
 
 
@@ -477,12 +477,20 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
        <xsl:call-template name="et_height"/>
     </xsl:variable>
     <xsl:for-each select="composition">
-       <xsl:if test="key('EntityTypes',type)[parent::entity_type|parent::group|presentation]">
-         <!-- made conditional change of 9-Oct-2024 -->
-         <xsl:call-template name="composition"/>
+        <xsl:if test="not( //dependency 
+                                    [../name=current()/type]
+                                    [name=current()/inverse]
+                                    [type=current()/../name]
+                                            /diagram/path/sideways
+                           )
+                        ">
+          <xsl:if test="key('EntityTypes',type)[parent::entity_type|parent::group|presentation]">
+            <!-- made conditional change of 9-Oct-2024 -->
+            <xsl:call-template name="composition"/>
+          </xsl:if>
        </xsl:if>
     </xsl:for-each>
-    <xsl:for-each select="reference|constructed_relationship">
+    <xsl:for-each select="reference|constructed_relationship|(dependency[diagram/path/sideways])">
        <xsl:if test="diagram">
           <xsl:call-template name="reference"/>
        </xsl:if>
@@ -667,29 +675,23 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <xsl:for-each select="attribute">
-    <xsl:variable name="annotation">
-       <xsl:call-template name="annotation"/>
-    </xsl:variable>
-    <xsl:call-template name="attribute">
-      <xsl:with-param name="xcm" select="$xabs + $attribute_xpos_offset"/>
-      <xsl:with-param name="ycm"  select="$etnameyPos +(0.3 * (position()+$no_linebreaks_in_etname) )"/>
-      <!--       
-       <xsl:with-param name="iseven" as="xs:boolean">
-	        <xsl:choose>
-	          <xsl:when test="exists(self::group)">
-	             <xsl:value-of select="$l_grp_iseven"/>
-	          </xsl:when>
-	          <xsl:otherwise>
-	            <xsl:value-of select="$l_et_iseven"/>
-	          </xsl:otherwise>
-	        </xsl:choose>
-       </xsl:with-param>
-       -->
-      <xsl:with-param name="annotation" select="$annotation"/>
-      <xsl:with-param name="deprecated" select="if (deprecated) then 'yes' else 'no'"/>
-    </xsl:call-template>
-  </xsl:for-each>
+  <xsl:if test="not (/entity_model/presentation/diagram/attributes/None)">
+      <xsl:for-each select="attribute
+                  [not(boolean(/entity_model/presentation/diagram/attributes/IdentifyingOnly))
+                    or boolean(identifying)
+                  ]
+                             ">
+       <xsl:variable name="annotation">
+          <xsl:call-template name="annotation"/>
+       </xsl:variable>
+       <xsl:call-template name="attribute">
+         <xsl:with-param name="xcm" select="$xabs + $attribute_xpos_offset"/>
+         <xsl:with-param name="ycm"  select="$etnameyPos +(0.3 * (position()+$no_linebreaks_in_etname) )"/>
+         <xsl:with-param name="annotation" select="$annotation"/>
+         <xsl:with-param name="deprecated" select="if (deprecated) then 'yes' else 'no'"/>
+       </xsl:call-template>
+      </xsl:for-each>
+   </xsl:if>
   <xsl:for-each select="entity_type|group">
       <xsl:call-template name="entity_type">
 	<xsl:with-param name="p_et_iseven" select="$l_et_iseven"/>
@@ -1451,10 +1453,19 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 <xsl:template name="offset_to_ets" match="entity_type|group" mode="explicit">
-   <xsl:variable name="numberOfparentAttributes">
-      <xsl:value-of select="count(parent::entity_type/attribute)
-				+count(parent::entity_type/choice)"/>
-   </xsl:variable>   
+   <!-- modified in change of 22-Jan-2025 to implement
+        /entity_model/presentation/diagram/attributes directives -->
+   <xsl:variable name="numberOfparentAttributes" as="xs:integer">   
+      <xsl:variable name="numberOfparentAttributesIsh" as="xs:integer?"> 
+         <xsl:for-each select="parent::entity_type">
+            <xsl:call-template name="no_of_attributes_to_present"/>
+         </xsl:for-each>
+      </xsl:variable>
+      <xsl:value-of select="if ($numberOfparentAttributesIsh)
+                            then $numberOfparentAttributesIsh
+                            else 0" />
+   </xsl:variable>
+     
    <xsl:variable name="no_linebreaks_in_etname">
       <xsl:choose>
 	 <xsl:when test="parent::entity_type/presentation/name/Split">
@@ -1466,7 +1477,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 </xsl:otherwise>
       </xsl:choose>
    </xsl:variable>
-   <xsl:variable name="result">
+   <xsl:variable name="result" as="xs:float">
       <xsl:value-of select="$attribute_ypos_offset 
 			      + (($numberOfparentAttributes + $no_linebreaks_in_etname) * 0.3)"/>
    </xsl:variable>
@@ -1479,10 +1490,22 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 </xsl:template>
 
 
+<!-- introduced in change of 22-Jan-2025 to implement
+        /entity_model/presentation/diagram/attributes directives -->
+<xsl:template name="no_of_attributes_to_present" 
+              match="entity_type|group" mode="explicit">
+   <xsl:value-of select="
+         if (/entity_model/presentation/diagram/attributes/None)
+         then 0
+         else if (/entity_model/presentation/diagram/attributes/IdentifyingOnly)
+         then count(self::entity_type/attribute/identifying)
+         else count(self::entity_type/attribute)"/>
+</xsl:template>    
+
 <xsl:template name="self_offset_to_ets" match="entity_type|group" mode="explicit">
-   <xsl:variable name="numberOfAttributes">
-      <xsl:value-of select="count(self::entity_type/attribute)
-				+count(self::entity_type/choice)"/>
+   <!-- modified change of 24-Jan-2025 -->
+   <xsl:variable name="numberOfAttributes" as="xs:integer">
+      <xsl:call-template name="no_of_attributes_to_present"/>
    </xsl:variable>   
    <xsl:variable name="no_linebreaks_in_etname">
       <xsl:choose>
@@ -1623,7 +1646,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	  name '<xsl:value-of select="name"/>'
 	 type  '<xsl:value-of select="type"/>' 
    </xsl:message> -->
-
 
   <xsl:if test="not(type)">
     <xsl:value-of select="error(QName('http://www.entitymodelling.org/ERmodel', 'compositionn rel mising type'), name)"/>
@@ -2119,7 +2141,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    </xsl:call-template>
 </xsl:template>
 
-<xsl:template name="reference" match="reference|constructed_relationship">
+<xsl:template name="reference" match="reference|constructed_relationship|(dependency[diagram/path/sideways])">
 
   <xsl:call-template name="start_relationship">
      <xsl:with-param name="relname" select="name"/>

@@ -7,23 +7,23 @@
    </presentation>
    <absolute>
       <composition>
-         <type>playwright</type>
+         <type>playwright*</type>
          <id></id>
       </composition>
       <composition>
-         <type>play</type>
+         <type>play*</type>
          <id></id>
       </composition>
       <composition>
-         <type>production</type>
+         <type>production*</type>
          <id></id>
       </composition>
       <composition>
-         <type>venue</type>
+         <type>venue*</type>
          <id></id>
       </composition>
       <composition>
-         <type>actor</type>
+         <type>actor*</type>
          <id></id>
       </composition>
    </absolute> 

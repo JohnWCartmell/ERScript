@@ -4,14 +4,17 @@
    <presentation>
       <diagram>
          <relid_condition><All/></relid_condition>
+         <attributes><None/></attributes>
       </diagram>
    </presentation>
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <absolute><presentation><None/></presentation></absolute>
       <entity_type>
       <name>dramatic_role</name>
       <presentation>
          <x>0.1</x>
-         <y>0.75</y>
+         <y>0.55</y>
          <w>1.5</w>
          <h>0.92</h>
          <name><Split/></name>
@@ -20,11 +23,9 @@
       <reference>
          <name>the_portrayal_of</name>
          <type>character</type>
-         <cardinality><ExactlyOne/></cardinality>
-         <inverse>xxx</inverse>
-         <id>r4</id>
          <diagram>
             <path>
+               <srcattach>0.5</srcattach>
                <label>
                   <position><Upside/></position>
                </label>
@@ -42,14 +43,12 @@
          <w>1.5</w>
          <h>0.92</h>
       </presentation>
-      <reference>
+      <dependency>
          <name>in</name>
          <type>play</type>
-         <cardinality><ExactlyOne/></cardinality>
-         <inverse>yyy</inverse>
-         <id>d1</id>
          <diagram>
             <path>
+               <sideways/>
                <srcattach>0.5</srcattach>
                <label>
                   <position><Upside/></position>
@@ -57,13 +56,7 @@
                <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
-      </reference>
-      <reference>
-         <name>xxx</name>
-         <type>dramatic_role</type>
-         <cardinality><ZeroOneOrMore/></cardinality>
-         <inverse>of</inverse>
-      </reference>
+      </dependency>
    </entity_type>
 
    <entity_type>
@@ -72,16 +65,9 @@
          <rightOf>character</rightOf>
          <x>2.9</x>
          <w>1.5</w>
-         <h>0.92</h>
+         <h>0.92</h> 
          <!-- <shape><Top/></shape> -->
       </presentation>
-
-      <reference>
-         <name>yyy</name>
-         <type>character</type>
-         <cardinality><ZeroOneOrMore/></cardinality>
-         <inverse>in</inverse>
-      </reference>
    </entity_type>
 
 </entity_model>

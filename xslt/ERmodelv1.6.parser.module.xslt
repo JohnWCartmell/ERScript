@@ -85,6 +85,10 @@
    <!-- intentially left blank -->
 </xsl:template>  
 
+<xsl:template match="@inverse_of" mode="parse__main_pass">
+   <!-- intentially left blank -->  <!-- 24/01/2025 -->
+</xsl:template>  
+
 <xsl:template  match="group" mode="parse__main_pass">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="parse__main_pass"/> 
