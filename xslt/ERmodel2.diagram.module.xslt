@@ -646,8 +646,11 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
     <xsl:value-of select="$yabs +  $etname_y_offset"/>
   </xsl:variable>
   <xsl:if test="not(presentation/name/None) and not(self::group)">
+      <xsl:variable name="noOfAttributesToPresent" as="xs:integer">
+         <xsl:call-template name="no_of_attributes_to_present"/>
+      </xsl:variable>
      <xsl:choose>
-   	<xsl:when test="not(entity_type|attribute)">
+   	<xsl:when test="not(entity_type or ($noOfAttributesToPresent gt 0))">  <!-- change of 24-Jan-2025 -->
    	   <!-- center the text in the box -->
    	   <xsl:call-template name="entity_type_name"> 
    	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
