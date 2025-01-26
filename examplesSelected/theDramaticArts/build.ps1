@@ -24,7 +24,6 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-
 if ($false)
 {
 echo 'theDramaticArts Example'
@@ -32,6 +31,7 @@ echo 'theDramaticArts Example'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
+
 echo 'theDramaticArts Annotated '
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArts1.annotate       `
                              -svgOutputFolder $TARGETSVGFOLDER `
@@ -72,31 +72,32 @@ echo 'theDramaticArts dramaticArtsPortrayalScope'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPortrayalScope     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA                     
+                             -animate -shortSeparator NA -longSeparator NA   
+
 echo 'theDramaticArts dramaticArtsPath1'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPath1     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA `
-                             -debugSwitch     
+                             -animate -shortSeparator NA -longSeparator NA 
+   
 echo 'theDramaticArts dramaticArtsPath2'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPath2     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA `
-                             -debugSwitch
+                             -animate -shortSeparator NA -longSeparator NA 
+
 echo 'theDramaticArts Character..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacter..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA             
+                             -animate -shortSeparator NA -longSeparator NA   
+          
 echo 'theDramaticArts production..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
 }
-
 echo 'theDramaticArts role..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsRole..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `

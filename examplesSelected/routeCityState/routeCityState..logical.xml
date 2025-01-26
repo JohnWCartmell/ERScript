@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <entity_type name="state">
+      <identifying>
+         <attribute name="name"/>
+      </identifying>
+      <!-- <composition name="location_of" type="city*" inverse="located_within"/> -->
+   </entity_type>
+   <entity_type name="city">
+      <identifying>
+         <context name="located_within" type="state" inverse_of="location_of"/>
+         <attribute name="name"/>
+      </identifying>
+<!--       <composition name="start_of" type="route*" inverse="from"/>
+      <composition name="end_of" type="route*" inverse="to"/> -->
+   </entity_type>
+   <entity_type name="route">
+      <identifying>
+         <context name="from" type="city" inverse_of="start_of"/>
+         <context name="to" type="city" inverse_of="end_of"/>
+      </identifying>
+   </entity_type>
+</entity_model>

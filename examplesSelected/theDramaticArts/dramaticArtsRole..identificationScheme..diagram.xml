@@ -17,8 +17,9 @@
       <presentation>
          <x>0.1</x>
          <y>0.9</y>
-         <w>1.5</w>
-         <h>0.92</h>
+         <!-- <w>1.5</w> -->
+         
+         <h>1.2</h>
          <name><Split/></name>
       </presentation>
       <reference>
@@ -30,6 +31,7 @@
                <srcarmlen>0.55</srcarmlen>
                <label>
                   <position><Upside/></position>
+                  <yAdjustment>-0.1</yAdjustment>
                </label>
                <inverse><label><name><None/></name></label></inverse>
             </path>
@@ -56,7 +58,7 @@
       <name>character</name>
       <presentation>
          <rightOf>dramatic_role</rightOf>
-         <x>2.9</x>
+         <x>2.01</x>
          <y>-0.75</y>
          <w>1.5</w>
          <h>0.92</h>
@@ -121,12 +123,12 @@
       <presentation>
          <rightOf>character</rightOf>
          <y>0.75</y>
-         <x>2.9</x>
+         <x>2.01</x>
       </presentation>
       <entity_type>
          <name>play</name>
          <presentation>
-            <w>1.5</w>
+            <w>1.3</w>
             <h>1.2</h>
          </presentation>
          <reference>
@@ -135,6 +137,7 @@
             <diagram>
                <path>
                   <srcattach>0.5</srcattach>
+                  <srcarmlen>0.55</srcarmlen>
                   <label>
                      <position><Upside/></position>
                   </label>
@@ -149,8 +152,8 @@
       <presentation>
          <rightOf>play</rightOf>
          <y>0.148</y>
-         <x>2.9</x>
-         <w>1.5</w>
+         <x>1.9</x>
+         <!-- <w>1.5</w> -->
          <h>0.92</h>
          <!-- <shape><Top/></shape> -->
       </presentation>
@@ -159,8 +162,8 @@
          <name>venue</name>
          <presentation>
             <below>play</below>
-            <w>1.5</w>
-            <h>0.92</h>
+            <w>1.3</w>
+            <h>1.0</h>
          </presentation>
       </entity_type>
    </group>
