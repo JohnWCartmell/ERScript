@@ -654,7 +654,8 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    	   <!-- center the text in the box -->
    	   <xsl:call-template name="entity_type_name"> 
    	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
-   	     <xsl:with-param name="ycm" select="$etnameyPos"/>
+   	     <xsl:with-param name="ycm" select="$yabs + ($height div 2) + 0.05"/>  
+                     <!-- <xsl:with-param name="ycm" select="$etnameyPos"/>  --> 
    	     <xsl:with-param name="xsign" select="0"/>
    	   </xsl:call-template>
    	</xsl:when>

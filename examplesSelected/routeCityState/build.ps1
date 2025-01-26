@@ -24,8 +24,6 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 
-if ($false)
-{
 echo 'routeCityState Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 routeCityState..logical.xml -outputFolder ..\docs
@@ -34,23 +32,26 @@ echo 'routeCityState Example topdown'
 . $TARGET\scripts\buildExampleSVG.ps1 routeCityState..topdown       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA      
 
 echo 'routeCityState Example leftright'
 . $TARGET\scripts\buildExampleSVG.ps1 routeCityState..leftright       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA
-}
 
 echo 'routeCityState Example comparablePaths topdown'
-. $TARGET\scripts\buildExampleSVG.ps1 routeCityStatePaths       `
+. $TARGET\scripts\buildExampleSVG.ps1 routeCityCityState..topdown       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA
+
+echo 'routeCityState Example comparablePaths leftright'
+. $TARGET\scripts\buildExampleSVG.ps1 routeCityCityState..leftright       `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+
 if ($false)
 {
 echo 'routeCityState Flex version'
