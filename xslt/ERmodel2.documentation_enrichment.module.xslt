@@ -302,7 +302,7 @@
 <xsl:template match="(reference|composition)
                      [not(surjective)]
                      " 
-              mode="documentation_enrichment_recursive"  priority="100">
+              mode="documentation_enrichment_recursive"  priority="100.1">
               <!-- SHOULD include dependencies as well !!!!!!!!!!!-->
    <xsl:copy>
        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
@@ -649,7 +649,7 @@
                      [not(rel_id_csl)]
                      [every $component in component satisfies $component/rel_id_csl]
                      "
-                     priority="10"
+                     priority="10.1"
                      mode="documentation_enrichment_recursive">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
@@ -667,7 +667,7 @@
                      [key('AllRelationshipBySrcTypeAndName',
                                             era:packArray((src,rel)))/id]
                      [not(rel_id_csl)]" 
-                     priority="11"
+                     priority="11.1"
                      mode="documentation_enrichment_recursive">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
