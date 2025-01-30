@@ -129,6 +129,9 @@ ERmodel_v1.2/src/ERmodel2.tex.xslt
 			<xsl:when test="$shape/Bottom">
 				<xsl:value-of select="'\eretbtm{'"/>
 			</xsl:when>
+			<xsl:when test="$shape/SidesOnly">
+				<xsl:value-of select="'\eretsides{'"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="'\eret{'"/>
 			</xsl:otherwise>

@@ -85,25 +85,27 @@ echo 'theDramaticArts dramaticArtsPath2'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
-
+}
 echo 'theDramaticArts Character..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacter..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA   
-          
+
 echo 'theDramaticArts production..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
-}
+
+if ($false)
+{         
 echo 'theDramaticArts role..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsRole..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
-
+}
 if ($false)
 {
 }

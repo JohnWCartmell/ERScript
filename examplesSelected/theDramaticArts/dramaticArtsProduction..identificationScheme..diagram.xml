@@ -4,7 +4,7 @@
    <presentation>
       <diagram>
          <relid_condition><All/></relid_condition>
-         <attributes>IdentifyingOnly</attributes>
+         <attributes><None/></attributes>
       </diagram>
    </presentation>
    <include_model filename="dramaticArts1..logical.xml"/>
@@ -13,18 +13,18 @@
    <entity_type>
       <name>production</name>
       <presentation>
-         <x>0.1</x>
-         <y>1.1</y>
+         <y>0.2</y>
          <w>1.5</w>
-         <h>1.2</h>
+         <h>2.8</h>
+         <shape><SidesOnly/></shape>
       </presentation>
       <reference>
          <name>of</name>
          <type>play</type>
          <diagram>
             <path>
-               <srcattach>0.3</srcattach>
-               <srcarmlen>0.75</srcarmlen>
+               <srcattach>0.34</srcattach>
+               <align><ToSrc/></align>
                <label>
                   <position><Upside/></position>
                </label>
@@ -37,8 +37,8 @@
          <type>venue</type>
          <diagram>
             <path>
-               <srcarmlen>0.75</srcarmlen>
-               <srcattach>0.7</srcattach>
+               <destattach>0.5</destattach>
+               <align><ToDest/></align>
                <label>
                   <position><Downside/></position>
                </label>
@@ -48,51 +48,105 @@
       </reference>
    </entity_type>
 
-   <group>
+   <entity_type>
+      <name>play</name>
       <presentation>
          <rightOf>production</rightOf>
-         <y>-0.75</y>
-         <x>2.9</x>
+         <x>2.0</x>
+         <w>0.9</w>
+         <h>1.725</h>
+         <deltaw>-0.2</deltaw>
+         <shape><SidesOnly/></shape>
       </presentation>
-      <entity_type>
-         <name>play</name>
-         <presentation>
-            <w>1.5</w>
-            <h>0.92</h>
-         </presentation>
-         <reference>
-            <name>written_by</name>
-            <type>playwright</type>
+      <reference>
+         <name>written_by</name>
+         <type>playwright</type>
+         <diagram>
+            <path>
+               <destattach>0.5</destattach>
+               <align><ToDest/></align>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+      <reference>
+         <name>title</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
             <diagram>
                <path>
-                  <srcattach>0.5</srcattach>
-                  <label>
-                     <position><Upside/></position>
-                  </label>
-                  <inverse><label><name><None/></name></label></inverse>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+                  <srcattach>0.8</srcattach>
                </path>
             </diagram>
-         </reference>
-      </entity_type>
+      </reference>
+   </entity_type>
 
    <entity_type>
       <name>playwright</name>
       <presentation>
          <rightOf>play</rightOf>
-         <x>2.9</x>
+         <x>2.0</x>
          <w>1.5</w>
-         <h>0.92</h>
+         <h>1.0</h>
+         <shape><SidesOnly/></shape>
          <!-- <shape><Top/></shape> -->
       </presentation>
+      <reference>
+         <name>name</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
+            <diagram>
+               <path>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+               </path>
+            </diagram>
+      </reference>
    </entity_type>
-      <entity_type>
-         <name>venue</name>
-         <presentation>
-            <below>play</below>
-            <w>1.5</w>
-            <h>0.92</h>
-         </presentation>
-      </entity_type>
-   </group>
+
+   <entity_type>
+      <name>venue</name>
+      <presentation>
+         <rightOf>production</rightOf>
+         <x>2.0</x>
+         <y>1.8</y>
+         <w>0.9</w>
+         <h>1.0</h>
+         <shape><SidesOnly/></shape>
+      </presentation>
+      <reference>
+         <name>name</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
+            <diagram>
+               <path>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+               </path>
+            </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>*</name>
+      <presentation>
+         <rightOf>playwright</rightOf>
+         <x>2.0</x>
+         <h>2.8</h>
+         <deltaw>-0.1</deltaw>
+         <shape><SidesOnly/></shape>
+         <name><Split/></name>
+      </presentation>
+   </entity_type>
+
+
 
 </entity_model>
