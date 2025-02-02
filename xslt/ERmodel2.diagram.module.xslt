@@ -2223,7 +2223,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
       <xsl:value-of select="$destbasey + $destbaseh*0.1"/>
   </xsl:variable>
   <xsl:variable name="yDestMax">
-      <xsl:value-of select="$destbasey + $destbaseh*0.9"/>
+      <xsl:value-of select="$destbasey + $destbaseh*0.95"/>  <!-- Changed from 0.9 on 2 Feb 2025 -->
   </xsl:variable>
   <xsl:variable name="ydestAttach">
     <xsl:if test="diagram/path/destattach">

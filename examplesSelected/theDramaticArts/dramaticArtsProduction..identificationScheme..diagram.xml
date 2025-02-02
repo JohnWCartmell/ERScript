@@ -15,7 +15,7 @@
       <presentation>
          <x>0.6</x>
          <y>0.8</y>
-         <h>3.6</h>
+         <h>4.1</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
          <shape><SidesOnly/></shape>
@@ -25,7 +25,7 @@
          <type>play</type>
          <diagram>
             <path>
-               <srcattach>0.34</srcattach>
+               <srcattach>0.275</srcattach>
                <align><ToSrc/></align>
                <label>
                   <position><Upside/></position>
@@ -33,6 +33,20 @@
                <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
+      </reference>
+      <reference>
+         <name>season</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <id>a4</id>
+         <identifying/>
+            <diagram>
+               <path>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+                  <srcattach>0.625</srcattach>
+               </path>
+            </diagram>
       </reference>
       <reference>
          <name>at</name>
@@ -122,7 +136,7 @@
       <presentation>
          <rightOf>production</rightOf>
          <x>2.0</x>
-         <y>2.6</y>
+         <y>3.1</y>
          <h>1.0</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
@@ -148,7 +162,7 @@
       <presentation>
          <rightOf>playwright</rightOf>
          <x>2.0</x>
-         <h>3.6</h>
+         <h>4.1</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
          <shape><SidesOnly/></shape>

@@ -16,7 +16,7 @@
       <presentation>
          <x>1.0</x>
          <y>0.9</y>
-         <h>6.0</h>
+         <h>6.3</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
       </presentation>
@@ -41,7 +41,7 @@
          <diagram>
             <path>
                <sideways/>
-               <destattach>0.5</destattach>
+               <destattach>0.35</destattach>
                <align><ToDest/></align>
                <label>
                   <position><Downside/></position>
@@ -101,7 +101,7 @@
          <rightOf>dramatic_role</rightOf>
          <x>2.0</x>
          <y>3.2</y>
-         <h>2.6</h>
+         <h>3.1</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
          <shape><SidesOnly/></shape>
@@ -111,7 +111,7 @@
          <type>play</type>
          <diagram>
             <path>
-               <srcattach>0.225</srcattach>
+               <srcattach>0.195</srcattach>
                <align><ToSrc/></align>
                <label>
                   <position><Upside/></position>
@@ -119,6 +119,20 @@
                <inverse><label><name><None/></name></label></inverse>
             </path>
          </diagram>
+      </reference>
+      <reference>
+         <name>season</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <id>a4</id>
+         <identifying/>
+            <diagram>
+               <path>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+                  <srcattach>0.5</srcattach>
+               </path>
+            </diagram>
       </reference>
       <reference>
          <name>at</name>
@@ -210,7 +224,7 @@
       <presentation>
          <rightOf>production</rightOf>
          <x>2.0</x>
-         <y>1.5</y>
+         <y>2.0</y>
          <h>1.1</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
@@ -226,7 +240,6 @@
                <path>
                   <align><ToSrc/></align>
                   <label><position><Upside/></position></label>
-                  <align><ToSrc/></align>
                </path>
             </diagram>
       </reference>
@@ -238,7 +251,7 @@
          <rightOf>playwright</rightOf>
          <x>2.0</x>
          <y>-2.5</y>
-         <h>6.0</h>
+         <h>6.3</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
          <shape><SidesOnly/></shape>
