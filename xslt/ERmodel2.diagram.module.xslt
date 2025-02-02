@@ -650,6 +650,15 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
          <xsl:call-template name="no_of_attributes_to_present"/>
       </xsl:variable>
      <xsl:choose>
+       <!-- Change of 01-Feb-2025 Support for identification scheme diagrams-->
+       <xsl:when test="presentation/label/position/Upside">
+         <!-- place text outside and above entity type box -->
+         <xsl:call-template name="entity_type_name"> 
+           <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
+           <xsl:with-param name="ycm" select="$yabs - 0.05"/>  
+           <xsl:with-param name="xsign" select="0"/>  <!-- rooted at middle of text in x axis -->
+         </xsl:call-template>
+      </xsl:when>
    	<xsl:when test="not(entity_type or ($noOfAttributesToPresent gt 0))">  <!-- change of 24-Jan-2025 -->
    	   <!-- center the text in the box -->
    	   <xsl:call-template name="entity_type_name"> 

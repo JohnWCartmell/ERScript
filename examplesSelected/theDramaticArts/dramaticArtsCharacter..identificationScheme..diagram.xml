@@ -16,9 +16,11 @@
    <entity_type>
       <name>character</name>
       <presentation>
-         <x>0.1</x>
+         <x>0.6</x>
          <y>0.35</y>
-         <h>2.5</h>
+         <w>0.05</w>
+         <h>2.7</h>
+         <label><position><Upside/></position></label>
          <deltaw>-0.2</deltaw>
          <shape><SidesOnly/></shape>
       </presentation>
@@ -41,6 +43,7 @@
          <name>name</name>
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
+         <id>a1</id>
          <identifying/>
             <diagram>
                <path>
@@ -57,9 +60,10 @@
       <presentation>
          <rightOf>character</rightOf>
          <x>2.0</x>
-         <h>1.725</h>
-         <w>0.9</w>
+         <w>0.05</w>
+         <h>2.1</h>
          <shape><SidesOnly/></shape>
+         <label><position><Upside/></position></label>
       </presentation>
       <reference>
          <name>written_by</name>
@@ -79,6 +83,7 @@
          <name>title</name>
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
+         <id>a2</id>
          <identifying/>
             <diagram>
                <path>
@@ -95,15 +100,17 @@
       <presentation>
          <rightOf>play</rightOf>
          <x>2.0</x>
-         <w>1.5</w>
-         <h>1.0</h>
+         <w>0.05</w>
+         <h>1.3</h>
          <shape><SidesOnly/></shape>
-         <!-- <shape><Top/></shape> -->
+         <label><position><Upside/></position></label>
+         <!-- <shape><Up/></shape> -->
       </presentation>
       <reference>
          <name>name</name>
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
+         <id>a3</id>
          <identifying/>
             <diagram>
                <path>
@@ -118,11 +125,13 @@
       <name>*</name>
       <presentation>
          <rightOf>playwright</rightOf>
-         <x>2.0</x>
+         <x>2.0</x>        
+         <w>0.05</w>
          <h>2.5</h>
          <deltaw>-0.1</deltaw>
          <shape><SidesOnly/></shape>
          <name><Split/></name>
+         <label><position><Upside/></position></label>
       </presentation>
    </entity_type>
 

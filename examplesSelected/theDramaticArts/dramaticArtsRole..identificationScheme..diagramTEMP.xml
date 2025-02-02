@@ -4,15 +4,102 @@
    <presentation>
       <diagram>
          <relid_condition><All/></relid_condition>
-         <attributes><None/></attributes>
+         <attributes>IdentifyingOnly</attributes>
       </diagram>
    </presentation>
    <include_model filename="dramaticArts1..logical.xml"/>
    <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <absolute><presentation><None/></presentation></absolute>
+
+    <entity_type>
+      <name>dramatic_role</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.9</y>
+         <h>4.0</h>
+         <w>0.05</w>
+         <h>2.7</h>
+         <label><position><Upside/></position></label>
+      </presentation>
+      <reference>
+         <name>the_portrayal_of</name>
+         <type>character</type>
+         <diagram>
+            <path>
+               <srcattach>0.3</srcattach>
+               <srcarmlen>0.55</srcarmlen>
+               <label>
+                  <position><Upside/></position>
+                  <yAdjustment>-0.1</yAdjustment>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+      <dependency>
+         <name>in</name>
+         <type>production</type>
+         <diagram>
+            <path>
+               <sideways/>
+               <srcattach>0.7</srcattach>
+               <srcarmlen>0.55</srcarmlen>
+               <label>
+                  <position><Downside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </dependency>
+   </entity_type>
+
    <entity_type>
+      <name>character</name>
+      <presentation>
+         <rightOf>dramatic_role</rightOf>
+         <x>0.6</x>
+         <y>0.35</y>
+         <w>0.05</w>
+         <h>2.7</h>
+         <label><position><Upside/></position></label>
+         <deltaw>-0.2</deltaw>
+         <shape><SidesOnly/></shape>
+      </presentation>
+      <dependency>
+         <name>in</name>
+         <type>play</type>
+         <diagram>
+            <path>
+               <sideways/>
+               <srcattach>0.375</srcattach>
+               <align><ToSrc/></align>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </dependency>
+      <reference>
+         <name>name</name>
+         <type>*</type>
+         <cardinality>ExactlyOne</cardinality>
+         <identifying/>
+            <diagram>
+               <path>
+                  <label><position><Upside/></position></label>
+                  <align><ToSrc/></align>
+                  <srcattach>0.85</srcattach>
+               </path>
+            </diagram>
+      </reference>
+   </entity_type>
+
+
+      <entity_type>
       <name>production</name>
       <presentation>
+         <below>character</below>
          <x>0.6</x>
          <y>0.8</y>
          <h>3.6</h>
@@ -79,7 +166,6 @@
          <name>title</name>
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
-         <id>a2</id>
          <identifying/>
             <diagram>
                <path>
@@ -107,7 +193,6 @@
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
          <identifying/>
-         <id>a3</id>
             <diagram>
                <path>
                   <label><position><Upside/></position></label>
@@ -123,7 +208,7 @@
          <rightOf>production</rightOf>
          <x>2.0</x>
          <y>2.6</y>
-         <h>1.0</h>
+         <h>4.0</h>
          <w>0.05</w>
          <label><position><Upside/></position></label>
          <shape><SidesOnly/></shape>
@@ -132,7 +217,6 @@
          <name>name</name>
          <type>*</type>
          <cardinality>ExactlyOne</cardinality>
-         <id>a5</id>
          <identifying/>
             <diagram>
                <path>
@@ -155,7 +239,4 @@
          <name><Split/></name>
       </presentation>
    </entity_type>
-
-
-
 </entity_model>
