@@ -93,8 +93,15 @@ echo 'theDramaticArts Character..identificationScheme'
                              -animate -shortSeparator NA -longSeparator NA   
 }
 
-echo 'theDramaticArts production..identificationScheme'
-. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..identificationScheme    `
+
+echo 'theDramaticArts Character..linearIdentificationScheme'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacter..linearIdentificationScheme    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA 
+
+echo 'theDramaticArts production..linearIdentificationScheme'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..linearIdentificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 

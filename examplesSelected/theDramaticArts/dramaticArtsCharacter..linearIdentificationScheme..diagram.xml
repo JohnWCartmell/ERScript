@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+         <attributes>IdentifyingOnly</attributes>
+      </diagram>
+   </presentation>
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
+   <absolute><presentation><None/></presentation></absolute>
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.35</y>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+      <dependency>
+         <name>in</name>
+         <type>play</type>
+         <diagram>
+            <path>
+               <sideways/>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </dependency>
+   </entity_type>
+
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <rightOf>character</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+      <reference>
+         <name>written_by</name>
+         <type>playwright</type>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><name><None/></name></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>playwright</name>
+      <presentation>
+         <rightOf>play</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <!-- <shape><Top/></shape> -->
+      </presentation>
+   </entity_type>
+
+</entity_model>
