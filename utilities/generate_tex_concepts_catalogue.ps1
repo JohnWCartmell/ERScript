@@ -1,6 +1,9 @@
 
+$commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-$texhead = Get-Content ..\ERmodel_v1.6\latex\texhead.txt
+. ($commandFolder +'\set_path_variables.ps1')
+
+$texhead = Get-Content $ERHOME\latex\texhead.txt
 
 Set-Content latex\catalogue.tex $texhead
 
@@ -21,6 +24,6 @@ Get-ChildItem "src"  -Filter *.xml | `
     Add-Content latex\catalogue.tex "\newline`n" -NoNewLine
 }
   
-$textail = Get-Content ..\ERmodel_v1.6\latex\textail.txt
+$textail = Get-Content $ERHOME\latex\textail.txt
 
 Add-Content latex\catalogue.tex $textail
