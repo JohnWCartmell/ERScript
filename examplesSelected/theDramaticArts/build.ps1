@@ -98,7 +98,14 @@ echo 'theDramaticArts Character..linearIdentificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsCharacter..linearIdentificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA
+
+echo 'theDramaticArts production..identificationScheme'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..identificationScheme    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
+   
 
 echo 'theDramaticArts production..linearIdentificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsProduction..linearIdentificationScheme    `
@@ -106,15 +113,13 @@ echo 'theDramaticArts production..linearIdentificationScheme'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
                              
-if ($false)
-{         
+      
 echo 'theDramaticArts role..identificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsRole..identificationScheme    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 
 
-}
 if ($false)
 {
 echo 'theDramaticArts Flex version'
