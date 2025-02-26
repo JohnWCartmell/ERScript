@@ -3,7 +3,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
       <presentation>
       <diagram>
-         <deltaw>0.4</deltaw>
+         <deltaw>0.6</deltaw>
       </diagram>
    </presentation>
 
@@ -12,7 +12,7 @@
       <presentation>
          <x>0.1</x>
          <y>0.1</y>
-         <w>2.7</w>
+         <w>1.7</w>
       </presentation>
       <dependency>
          <name></name>
@@ -58,7 +58,7 @@
       <presentation>
          <below>airport</below>
          <y>0.5</y>
-         <w>2.7</w>
+         <w>1.7</w>
          <!-- <h>1.0</h> -->
       </presentation>
       <dependency>
@@ -70,7 +70,7 @@
          <!-- <inverse>scheduled as</inverse> -->
       </dependency>
       <attribute>
-         <name>terminal number</name>
+         <name>number</name>
          <type>
             <string/>
          </type>

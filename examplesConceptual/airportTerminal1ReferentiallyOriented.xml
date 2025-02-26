@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <presentation>
+      <diagram>
+        <!--  <deltaw>0.4</deltaw> -->
+      </diagram>
+   </presentation>
+
+   <entity_type>
+      <name>terminal</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.2</y>
+         <w>1.6</w>
+      </presentation>
+      <reference>
+         <name>a facility of</name>
+         <cardinality>
+            <ExactlyOne/>
+         </cardinality>
+         <type>airport</type>
+         <inverse>having</inverse>
+         <identifying/>
+         <diagram>
+            <path>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+      <attribute>
+         <name>number</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+   </entity_type>
+   <entity_type>
+      <name>airport</name>
+      <presentation>
+         <rightOf>terminal</rightOf>
+         <x>2.0</x>
+         <y>-0.15</y>
+         <w>1.6</w>
+      </presentation>
+      <attribute>
+         <name>name</name>
+         <type>
+            <string/>
+         </type>
+         <identifying/>
+      </attribute>
+      <attribute>
+         <name>country</name>
+         <type>
+            <string/>
+         </type>
+      </attribute>
+      <reference>
+         <name>having</name>
+         <type>terminal</type>
+         <cardinality>
+            <ZeroOneOrMore/>
+         </cardinality>
+         <inverse>a facility of</inverse>
+      </reference>
+   </entity_type>
+</entity_model>
