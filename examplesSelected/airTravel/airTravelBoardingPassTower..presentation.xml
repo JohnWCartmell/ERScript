@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <entity_type>
+         <name>airline service</name>
+         <presentation>
+            <w>2.5</w>  
+            <h>1.0</h>
+         </presentation>
+         <composition>
+            <name>instanced_as</name>
+            <diagram>
+               <path>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>flight</name>
+         <presentation>
+            <below>airline service</below>
+            <y>1.0</y>
+            <w>2.5</w>
+            <h>1.0</h>
+         </presentation>
+         <composition>
+            <name>potentially_boarded_using</name>
+            <diagram>
+               <path>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>boarding pass</name>
+         <presentation>
+            <below>flight</below>
+            <y>1.0</y>
+            <w>2.5</w>
+         </presentation>
+      </entity_type>
+</entity_model>

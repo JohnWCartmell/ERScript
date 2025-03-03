@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+      <entity_type>
+         <name>aircraft</name>
+         <presentation>
+            <w>2.7</w>
+            <h>1.0</h>
+         </presentation>
+         <composition>
+            <name>made up of</name>
+            <diagram>
+               <path>
+                  <label>
+                     <position>
+                        <Left/>
+                     </position>
+                  </label>
+               </path>
+            </diagram>
+         </composition>
+      </entity_type>
+      <entity_type>
+         <name>seat</name>
+         <presentation>
+            <below>aircraft</below>
+            <y>1.0</y>
+            <w>2.0</w>
+            <h>1.0</h>
+         </presentation>
+      </entity_type>
+</entity_model>

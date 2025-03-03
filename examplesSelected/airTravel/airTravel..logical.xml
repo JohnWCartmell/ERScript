@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
+   <absolute>
+      <composition type="airline*"/>
+      <composition type="airport*"/>
+      <composition type="passenger*"/>
+   </absolute>
+   <entity_type name="airline">
+      <identifying>
+         <attribute name="code" type="string"/>
+      </identifying>
+      <composition name="operating" type="aircraft*" inverse="operated_by"/>
+      <composition name="providing" type="airline service*" inverse="provided_by"/>
+   </entity_type>
+   <entity_type name="airline service">
+      <identifying>
+         <context name="provided_by" type="airline"/>
+         <attribute name="flight number" type="string"/>
+      </identifying>
+      <reference name="departing_from"
+                  type="airport"
+                  inverse="departure_airport_for"/>
+      <reference name="going_to" type="airport" inverse="arrival_airport_for"/>
+      <composition name="instanced_as" type="flight*" inverse="instance_of"/>
+   </entity_type>
+   <entity_type name="flight">
+      <identifying>
+         <context name="instance_of" type="airline service"/>
+         <attribute name="date of departure" type="string"/>
+      </identifying>
+      <reference name="leaving_from" type="gate?" inverse="used by"/>
+      <composition name="potentially_boarded_using" type="boarding pass*" inverse="issued for"/>
+      <reference name="assigned" type="aircraft?" inverse="assigned_to"/>
+   </entity_type>
+   <entity_type name="aircraft">
+      <identifying>
+         <attribute name="registration number" type="string"/>
+      </identifying>
+      <composition name="made up of" type="seat*" inverse="on"/>
+   </entity_type>
+   <entity_type name="boarding pass">
+      <identifying>
+         <context name="issued for" type="flight"/>
+         <reference name="issued for" type="seat" inverse="potentially_used via"/>
+         <attribute name="date issued"/>
+         <attribute name="time issued"/>
+      </identifying>
+      <reference name="issued to" type="passenger" inverse="issued_with"/>
+   </entity_type>
+   <entity_type name="seat">
+      <identifying>
+         <context name="on" type="aircraft"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <reference name="potentially_used via" type="seat*" inverse="issued for"/>
+   </entity_type>
+
+   <entity_type name="airport">
+      <identifying>
+         <attribute name="name" type="string"/>
+      </identifying>
+      <composition name="having" type="terminal+" inverse="part of"/>
+      <reference name="departure_airport_for"
+                  type="airline service*"
+                  inverse="departing_from"/>
+      <reference name="arrival_airport_for"
+                  type="airline service*"
+                  inverse="going_to"/>
+   </entity_type>
+   <entity_type name="terminal">
+      <identifying>
+         <context name="part of" type="airport"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <composition name="having" type="gate+" inverse="within"/>
+   </entity_type>
+   <entity_type name="gate">
+      <identifying>
+         <context name="within" type="terminal"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <reference name="used by" type="flight*" inverse="leaving_from"/>
+   </entity_type>
+   <entity_type name="passenger">
+      <identifying>
+         <attribute name="name" type="string"/>
+      </identifying>
+   </entity_type>
+</entity_model>

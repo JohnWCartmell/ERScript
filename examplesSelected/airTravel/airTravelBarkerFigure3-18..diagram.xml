@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="airTravel..logical.xml"/>
+   <absolute><presentation><None/></presentation></absolute>
+   <group>
+      <name>boarding pass tower</name>
+      <presentation>
+            <x>0.1</x>
+            <y>0.1</y>
+         </presentation>
+      <include_model filename="airTravelBoardingPassTower..presentation.xml"/>
+   </group>
+   <group>
+      <name>seat tower</name>
+      <presentation>
+            <rightOf>flight</rightOf>
+            <x>2.5</x> 
+      </presentation>
+      <include_model filename="airTravelSeatTower..presentation.xml"/>
+   </group>
+   <!-- references -->
+   <entity_type>
+      <name>flight</name>
+      <reference>
+         <name>assigned</name>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>boarding pass</name>
+      <reference>
+         <name>issued for</name>
+         <diagram>
+            <path>
+               <align><ToDest/></align>
+               <label>
+                  <position>
+                     <Upside/>
+                  </position>
+               </label>
+               <inverse>
+                  <label>
+                     <position>
+                        <Downside/>
+                     </position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+</entity_model>
