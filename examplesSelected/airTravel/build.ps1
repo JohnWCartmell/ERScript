@@ -35,13 +35,13 @@ echo 'airTravel Example'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA      
-if ($false)
-{
 echo 'airTravel Barker Figure 3-18 '
 . $TARGET\scripts\buildExampleSVG.ps1 airTravelBarkerFigure3-18       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
+if ($false)
+{
 echo 'airTravel Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 airTravel..logical.xml -animate
 }

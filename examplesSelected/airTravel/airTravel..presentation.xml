@@ -2,6 +2,7 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
+         <relid_condition><All/></relid_condition>
       </diagram>
    </presentation>
    <entity_type>

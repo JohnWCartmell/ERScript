@@ -31,6 +31,7 @@
             <name>potentially_boarded_using</name>
             <diagram>
                <path>
+                  <srcarmlen>0.4</srcarmlen>
                   <label>
                      <position>
                         <Left/>
@@ -44,7 +45,7 @@
          <name>boarding pass</name>
          <presentation>
             <below>flight</below>
-            <y>1.0</y>
+            <y>1.3</y>
             <w>2.5</w>
          </presentation>
       </entity_type>

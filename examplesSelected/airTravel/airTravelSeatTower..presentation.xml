@@ -10,6 +10,7 @@
             <name>made up of</name>
             <diagram>
                <path>
+                  <srcarmlen>0.4</srcarmlen>
                   <label>
                      <position>
                         <Left/>
@@ -23,7 +24,7 @@
          <name>seat</name>
          <presentation>
             <below>aircraft</below>
-            <y>1.0</y>
+            <y>1.3</y>
             <w>2.0</w>
             <h>1.0</h>
          </presentation>
