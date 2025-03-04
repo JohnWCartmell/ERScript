@@ -59,8 +59,15 @@
    </xsl:element>
 </xsl:template>  
 
+<!-- what the heck is this ??-->
 <xsl:template match="@identifying_relationship" mode="parse__main_pass">
    <xsl:element name="identifying_relationship"> 
+      <xsl:value-of select="."/>
+   </xsl:element>
+</xsl:template> 
+
+<xsl:template match="@id" mode="parse__main_pass">
+   <xsl:element name="id"> 
       <xsl:value-of select="."/>
    </xsl:element>
 </xsl:template> 
@@ -210,7 +217,7 @@
                        ]" 
                     mode="parse__main_pass">
    <xsl:copy>
-      <xsl:apply-templates select="@name|@type|@inverse|@diagonal|@riser|@key" mode="parse__main_pass"/> 
+      <xsl:apply-templates select="@name|@id|@type|@inverse|@diagonal|@riser|@key" mode="parse__main_pass"/> 
       <xsl:element name="cardinality">
          <xsl:element name="{if (substring(@type,string-length(@type))='?')
                                 then 'ZeroOrOne'
