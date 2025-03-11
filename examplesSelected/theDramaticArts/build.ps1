@@ -117,10 +117,16 @@ echo 'theDramaticArts role..identificationScheme'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA  
-}
 
 echo 'theDramaticArts role..linearIdentificationScheme'
 . $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsRole..linearIdentificationScheme    `
+                             -svgOutputFolder $TARGETSVGFOLDER `
+                             -texOutputFolder $TARGETTEXFOLDER `
+                             -animate -shortSeparator NA -longSeparator NA 
+}
+
+echo 'theDramaticArts playedBy Relationship'
+. $TARGET\scripts\buildExampleSVG.ps1 dramaticArtsPlayedByRelationship    `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA 

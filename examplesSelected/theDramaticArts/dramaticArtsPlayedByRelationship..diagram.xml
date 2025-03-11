@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <deltah>0.5</deltah>
+         <relid_condition><All/></relid_condition>
+         <attributes><None/></attributes>
+      </diagram>
+   </presentation>
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
+   <absolute><presentation><None/></presentation></absolute>
+   <entity_type>
+      <name>dramatic_role</name>
+      <presentation>
+         <x>0.1</x>
+         <y>0.3</y>
+         <w>1.5</w>
+         <h>0.92</h>
+         <name><Split/></name>
+         <!-- <shape><BottomLeft/></shape> -->
+      </presentation>
+      <reference>
+         <name>played_by</name>
+         <type>actor</type>
+         <diagram>
+            <path>
+               <srcattach>0.5</srcattach>
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse>
+                  <label>
+                     <position><Downside/></position>
+                  </label>
+               </inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+
+   <entity_type>
+      <name>actor</name>
+      <presentation>
+         <rightOf>dramatic_role</rightOf>
+         <x>2.9</x>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+   </entity_type>
+
+</entity_model>
