@@ -643,7 +643,17 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 </xsl:call-template>
   </xsl:if>
   <xsl:variable name="etnameyPos">
-    <xsl:value-of select="$yabs +  $etname_y_offset"/>
+    <xsl:value-of select="$yabs +  $etname_y_offset"/> 
+  </xsl:variable>
+   <xsl:variable name="no_linebreaks_in_etname">  
+    <xsl:choose>
+      <xsl:when test="presentation/name/Split">
+    <xsl:value-of select="string-length(name) - string-length(replace(name,'_',''))"/>
+     </xsl:when>
+      <xsl:otherwise>
+    <xsl:value-of select="0"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
   <xsl:if test="not(presentation/name/None) and not(self::group)">
       <xsl:variable name="noOfAttributesToPresent" as="xs:integer">
@@ -663,8 +673,11 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    	   <!-- center the text in the box -->
    	   <xsl:call-template name="entity_type_name"> 
    	     <xsl:with-param name="xcm" select="$xabs + ($width div 2)"/>
-   	     <xsl:with-param name="ycm" select="$yabs + ($height div 2) + 0.05"/>  
-                     <!-- <xsl:with-param name="ycm" select="$etnameyPos"/>  --> 
+   	     <xsl:with-param name="ycm" select="$yabs 
+                                              + ($height div 2)
+                                             + 0.05
+                                             - (($no_linebreaks_in_etname div 2) * 0.3)"/>
+                     <!-- 11/03/2025 modified in case of names that are split over many lines -->
    	     <xsl:with-param name="xsign" select="0"/>
    	   </xsl:call-template>
    	</xsl:when>
@@ -678,16 +691,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
    	</xsl:otherwise>
      </xsl:choose>
   </xsl:if>
-  <xsl:variable name="no_linebreaks_in_etname">  
-    <xsl:choose>
-      <xsl:when test="presentation/name/Split">
-	 <xsl:value-of select="string-length(name) - string-length(replace(name,'_',''))"/>
-     </xsl:when>
-      <xsl:otherwise>
-	 <xsl:value-of select="0"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
+
   <xsl:if test="not (/entity_model/presentation/diagram/attributes/None)">
       <xsl:for-each select="attribute
                   [not(boolean(/entity_model/presentation/diagram/attributes/IdentifyingOnly))
