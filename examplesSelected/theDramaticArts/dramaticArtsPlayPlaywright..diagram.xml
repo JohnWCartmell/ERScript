@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <presentation>
       <diagram>
          <deltaw>0.1</deltaw>
          <deltah>0.5</deltah>
+         <relid_condition><All/></relid_condition>
       </diagram>
    </presentation>
    <absolute><presentation><None/></presentation></absolute>

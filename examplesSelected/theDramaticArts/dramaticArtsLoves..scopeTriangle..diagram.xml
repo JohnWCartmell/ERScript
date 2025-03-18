@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <presentation>
+      <diagram>
+         <relid_condition><All/></relid_condition>
+         <attributes><None/></attributes>
+         <deltah>0.2</deltah>
+      </diagram>
+   </presentation>
+   <include_model filename="dramaticArts1..logical.xml"/>
+   <absolute><presentation><None/></presentation></absolute>
+   <entity_type>
+      <name>play</name>
+      <presentation>
+         <x>2.2</x>
+         <y>0.1</y>
+      </presentation>
+      <composition>
+         <name>about</name>
+         <type>character</type>
+         <diagram>
+            <path>
+               <label><position><Left/></position></label>
+               <inverse><label><position><Left/></position></label></inverse>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>about </name>
+         <type>character </type>
+         <inverse>in </inverse>
+         <diagram>
+            <path>
+               <label><position><Right/></position></label>
+               <inverse><label><position><Right/></position></label></inverse>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+
+   <entity_type>
+      <name>character</name>
+      <presentation>
+         <below>play</below>
+         <x>-2.0</x>
+         <y>1.0</y>
+         <w>1.5</w>
+         <h>0.92</h>
+      </presentation>
+
+      <reference>
+         <name>in love_with</name>
+         <type>character </type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>loved_by</inverse>
+         <id>r</id>
+         <diagram>
+            <path>
+               <!-- <srcattach>0.3</srcattach> -->
+               <!-- <srcarmlen>0.55</srcarmlen> -->
+               <label>
+                  <position><Upside/></position>
+               </label>
+               <inverse><label><position><Downside/></position></label></inverse>
+            </path>
+         </diagram>
+      </reference>
+   </entity_type>
+   <entity_type>
+      <name>character </name>
+      <presentation>
+         <rightOf>character</rightOf>
+         <x>2.3</x>
+         <w>1.5</w>
+         <h>0.92</h>
+         <name><Split/></name>
+      </presentation>
+      <dependency>
+         <name>in </name>
+         <type>play</type>
+         <identifying/>
+         <id>d1</id>
+      </dependency>
+   </entity_type>
+
+
+</entity_model>

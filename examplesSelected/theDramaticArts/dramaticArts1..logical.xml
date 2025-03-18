@@ -2,11 +2,11 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" ERScriptVersion="1.6">
    <absolute>
       <name>the dramatic arts</name>
-      <composition type="playwright*"/>
-      <composition type="play*"/>
-      <composition type="production*"/>
-      <composition type="actor*"/>
-      <composition type="venue*"/>
+      <composition type="playwright*" id=""/>
+      <composition type="play*" id=""/>
+      <composition type="production*" id=""/>
+      <composition type="actor*" id=""/>
+      <composition type="venue*" id=""/>
    </absolute>
    <entity_type name="playwright">
       <identifying>
@@ -15,35 +15,38 @@
    </entity_type>
    <entity_type name="play">
       <identifying>
-         <reference name="written_by" type="playwright" inverse="the_author_of"/>
+         <reference name="written_by" type="playwright" inverse="the_author_of" id="r1"/>
          <attribute name="title" type="string"/>
       </identifying>
       <!-- <composition name="about" type="character*" inverse="in"/> -->
    </entity_type>
    <entity_type name="character">
       <identifying>
-         <context name="in" type="play" inverse_of="about" />
+         <context name="in" type="play" inverse_of="about" id="d1"/>
          <attribute name="name" type="string"/>
       </identifying>
-      <reference name="portrayed_by" type="character*" inverse="the_portrayal_of"/>
+      <!-- <reference name="portrayed_by" type="character*" inverse="the_portrayal_of"/> --><!-- 
+      <reference name="loves" type="character*" inverse="loved_by"/>
+      <reference name="inspired_by" type="character*" inverse="inspiration_for"/> -->
    </entity_type>
    <entity_type name="production">
       <identifying>
-         <reference name="of" type="play" inverse="given_in"/>
-         <reference name="at" type="venue" inverse="the_location_of"/>
+         <reference name="of" type="play" inverse="given_in" id="r2"/>
+         <reference name="at" type="venue" inverse="the_location_of" id="r3"/>
          <attribute name="season" type="string"/>
       </identifying>
    </entity_type>
    <entity_type name="dramatic_role">
       <identifying>
-         <context name="in" type="production" inverse_of="cast_with"/>
+         <context name="in" type="production" inverse_of="cast_with" id="d2"/>
          <reference name="the_portrayal_of"
                      type="character"
                      inverse="portrayed_by"
+                     id="r4"
                      diagonal="in/of"
                      riser="in"/>
       </identifying>
-      <reference name="played_by" type="actor" inverse="the_player_of"/>
+      <reference name="played_by" type="actor" inverse="the_player_of" id="r5"/>
    </entity_type>
    <entity_type name="venue">
       <identifying>

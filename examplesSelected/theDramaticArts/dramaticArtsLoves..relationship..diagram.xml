@@ -3,50 +3,48 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
-         <deltah>0.5</deltah>
          <relid_condition><All/></relid_condition>
          <attributes><None/></attributes>
+         <deltah>0.2</deltah>
       </diagram>
    </presentation>
    <include_model filename="dramaticArts1..logical.xml"/>
    <absolute><presentation><None/></presentation></absolute>
    <entity_type>
-      <name>dramatic_role</name>
+      <name>character</name>
       <presentation>
-         <x>0.1</x>
-         <y>0.3</y>
+         <x>0.2</x>
+         <y>0.2</y>
          <w>1.5</w>
          <h>0.92</h>
-         <name><Split/></name>
-         <!-- <shape><BottomLeft/></shape> -->
       </presentation>
       <reference>
-         <name>played_by</name>
-         <type>actor</type>
+         <name>in love_with</name>
+         <type>character </type>
+         <cardinality><ZeroOneOrMore/></cardinality>
+         <inverse>loved_by</inverse>
          <diagram>
             <path>
-               <srcattach>0.5</srcattach>
+               <!-- <srcattach>0.3</srcattach> -->
+               <!-- <srcarmlen>0.55</srcarmlen> -->
                <label>
                   <position><Upside/></position>
                </label>
-               <inverse>
-                  <label>
-                     <position><Downside/></position>
-                  </label>
-               </inverse>
+               <inverse><label><position><Downside/></position></label></inverse>
             </path>
          </diagram>
       </reference>
    </entity_type>
-
    <entity_type>
-      <name>actor</name>
+      <name>character </name>
       <presentation>
-         <rightOf>dramatic_role</rightOf>
-         <x>2.9</x>
+         <rightOf>character</rightOf>
+         <x>2.3</x>
          <w>1.5</w>
          <h>0.92</h>
+         <name><Split/></name>
       </presentation>
    </entity_type>
+
 
 </entity_model>

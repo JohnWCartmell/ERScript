@@ -8,7 +8,6 @@
       </diagram>
    </presentation>
    <include_model filename="dramaticArts1..logical.xml"/>
-   <include_model filename="dramaticArts1.annotate..presentation.xml"/>
    <absolute><presentation><None/></presentation></absolute>
 
     <entity_type>
