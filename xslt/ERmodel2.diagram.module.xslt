@@ -486,7 +486,12 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
                         ">
           <xsl:if test="key('EntityTypes',type)[parent::entity_type|parent::group|presentation]">
             <!-- made conditional change of 9-Oct-2024 -->
-            <xsl:call-template name="composition"/>
+            <xsl:if test="not(//entity_model/presentation/diagram/compositions/SupressPathless)
+                           or diagram/path
+                           ">
+               <!-- addtional condition change of 22-Mar-2024 -->
+               <xsl:call-template name="composition"/>
+            </xsl:if>
           </xsl:if>
        </xsl:if>
     </xsl:for-each>
@@ -2412,7 +2417,7 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 	 <xsl:with-param name="p_isconstructed" select="string(name()='constructed_relationship')"/>
     </xsl:call-template>
   </xsl:if>
-<xsl:message>in template reference at line 2373 injective is <xsl:value-of select="injective"/></xsl:message>
+<!-- <xsl:message>in template reference at line 2373 injective is <xsl:value-of select="injective"/></xsl:message> -->
   <xsl:if test="not(injective='true')">
      <xsl:call-template name="crowsfoot_across">
 	 <xsl:with-param name="xcm" select="$srcx"/>
