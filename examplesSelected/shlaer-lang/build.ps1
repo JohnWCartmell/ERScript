@@ -1,45 +1,86 @@
+
+Param(
+   [Parameter(Mandatory=$False)]
+       [string]$filename
+)
+
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
 . ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
 
-echo ("*** building from  $SOURCE shlaer-lang folder")
+$EXAMPLEFOLDERNAME='examplesSelected\shlaer-lang'
 
-$SOURCEXML = $SOURCE + '\examplesSelected\shlaer-lang'
-$TARGETXML = $TARGET + '\examplesSelected\shlaer-lang\xml'
-$TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
+$SOURCEXML = $SOURCE  +  '\' + $EXAMPLEFOLDERNAME
+$TARGETXML = $TARGET + '\' + $EXAMPLEFOLDERNAME +'\xml'
+$TARGETWWW = $TARGET + '\www.entitymodelling.org'
+$TARGETSVGFOLDER = $TARGETWWW + '\svg'
+# $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
 $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
-# CREATE target folder if it doesn't already exist
+$file=Get-Item $filename
+echo ('basename is:' + $file.Basename) 
+echo ('extension is:' + $file.Extension)
+
+if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.diagram\.xml$')) {
+    throw "Error: Filename must end with '..diagram.xml'. Given: $filename"
+}
+
+
+# CREATE target xml folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
 {
       echo ('CREATING target folder ' + $TARGETXML)
       New-Item -ItemType Directory -Path $TARGETXML
 }
 
-# COPY xml files
+# CREATE target docs folder if it doesn't already exist
+#If(!(test-path -PathType container $TARGETDOCS))
+#{
+ #     echo ('CREATING target folder ' + $TARGETDOCS)
+ #     New-Item -ItemType Directory -Path $TARGETDOCS
+#}
+
+# COPY files
 attrib -R $TARGETXML\*.xml
+#copy all xml files # bit ugly but I don't know which ones needed
 copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
-attrib +R $TARGETXML\*.xml
-attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
-pushd $TARGETXML
 
-echo 'shlaer-lang Example'
-echo 'Run surface ER.instanceValidation.xslt on logical model'
-. $TARGET\scripts\ER.instanceValidation.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -outputFolder ..\docs
-
-echo 'shlaer-lang Example'
-. $TARGET\scripts\buildExampleSVG.ps1 shlaerMellorDeptStudentProfessor0       `
+# This function called from temp build folder 
+function Build-File {
+    param (
+        $FileName
+    )
+    $diagramName = $Filename -replace '\.\.diagram\.xml$', ''
+   Write-Output $prefix
+    echo('Building ' +  $diagramName)
+   . $TARGET\scripts\buildExampleSVG.ps1 $diagramName     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-#if ($false)
-#{
-echo 'shlaer-lang Flex version'
+}
+
+
+pushd $TARGETXML
+echo ('*********** location: ' + (Get-Location) )
+if ($PSBoundParameters.ContainsKey('filename')){
+    echo ('need build from' + $filename)
+    Build-File -FileName $filename
+}else{
+    echo 'building all ..diagram files'
+    get-ChildItem -Path *..diagram.xml  | Foreach-Object {
+      echo 'building ' + $_.Name
+      Build-File -FileName $_.Name
+    }
+    echo 'done building all'
+}
+
+if ($false)
+{
+echo 'theDramaticArts Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -animate
-#}
+}
 
 popd 
-
 
 

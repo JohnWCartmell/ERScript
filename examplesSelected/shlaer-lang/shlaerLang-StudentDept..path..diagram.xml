@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="shlaerLang-DeptStudentProfessor..logical.xml"/>
    <presentation>
       <diagram>
-         <deltah>0.2</deltah>
+         <deltah>0.7</deltah>
+         <relid_condition><All/></relid_condition>
+         <attributes><None/></attributes>
       </diagram>
    </presentation>
       <entity_type>
          <name>student</name>
             <presentation>
             <x>0.1</x>
-            <y>0.2</y>
+            <y>0.35</y>
             <deltaw>0.2</deltaw>
          </presentation>
-         <reference>
-            <name>advised by</name>
-            <type>professor</type>
-            <inverse>advising</inverse>
-            <cardinality>
-               <ZeroOrOne/>
-            </cardinality>
+         <dependency>
+            <name>majoring in</name>
+            <type>department</type>
+            <inverse>providing specialization for</inverse>
             <diagram>
                <path>
+                  <sideways/>
+                  <srcattach>0.5</srcattach>
                   <srcarmlen>0.5</srcarmlen>
                   <destarmlen>0.5</destarmlen>
                   <label>
@@ -39,27 +41,16 @@
                         </position>
                      </label>
                   </inverse>
-                  <scope>
-                     <label>
-                        <xAdjustment>-1.0</xAdjustment>
-                     </label>
-                  </scope>
                </path>
             </diagram>
-         </reference>
+         </dependency>
       </entity_type>
       <entity_type>
-         <name>professor</name>
+         <name>department</name>
          <presentation>
             <rightOf>student</rightOf>
             <x>2.5</x>
             <deltaw>0.2</deltaw>
          </presentation>
-         <reference>
-            <name>advising</name>
-            <type>student</type>
-            <cardinality><ZeroOneOrMore/></cardinality>
-            <inverse>advised by</inverse>
-         </reference>
       </entity_type>
 </entity_model>

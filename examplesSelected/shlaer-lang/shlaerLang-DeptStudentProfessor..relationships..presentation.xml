@@ -49,7 +49,7 @@
    <entity_type>
       <name>student</name>
       <reference>
-         <name>advised by</name>
+         <name>advised_by</name>
          <diagram>
             <path>
                <srcarmlen>0.5</srcarmlen>
@@ -59,13 +59,13 @@
                      <Split/>
                   </name>
                   <position>
-                     <Upside/>
+                     <Downside/>
                   </position>
                </label>
                <inverse>
                   <label>
                      <position>
-                        <Downside/>
+                        <Upside/>
                      </position>
                   </label>
                </inverse>

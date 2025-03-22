@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+
+   <include_model filename="shlaerLang-DeptStudentProfessor..logical.xml"/>
    <presentation>
       <diagram>
-         <deltah>0.6</deltah>
+        <!--  <deltah>0.55</deltah> -->
       </diagram>
    </presentation>
-      <entity_type>
-         <name>student</name>
+   <entity_type>
+         <name>professor</name>
             <presentation>
             <x>0.1</x>
-            <y>0.35</y>
+            <y>0.1</y>
             <deltaw>0.2</deltaw>
          </presentation>
-         <reference>
-            <name>majoring_in</name>
+         <dependency>
+            <name>on staff of</name>
             <type>department</type>
-            <inverse>providing_specialization_for</inverse>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
+            <inverse>staffed by</inverse>
             <diagram>
                <path>
+                  <sideways/>
                   <srcarmlen>0.5</srcarmlen>
                   <destarmlen>0.5</destarmlen>
                   <label>
@@ -39,27 +39,22 @@
                         </position>
                      </label>
                   </inverse>
-                  <scope>
-                     <label>
-                        <xAdjustment>-1.0</xAdjustment>
-                     </label>
-                  </scope>
                </path>
             </diagram>
-         </reference>
+         </dependency>
       </entity_type>
       <entity_type>
          <name>department</name>
          <presentation>
-            <rightOf>student</rightOf>
+            <rightOf>professor</rightOf>
             <x>2.5</x>
             <deltaw>0.2</deltaw>
          </presentation>
-         <reference>
-            <name>providing_specialization_for</name>
-            <type>student</type>
-            <cardinality><ZeroOneOrMore/></cardinality>
-            <inverse>majoring_in</inverse>
-         </reference>
+<!--          <reference>
+            <name>staffed by</name>
+            <type>professor</type>
+            <cardinality><OneOrMore/></cardinality>
+            <inverse>on staff of</inverse>
+         </reference> -->
       </entity_type>
 </entity_model>

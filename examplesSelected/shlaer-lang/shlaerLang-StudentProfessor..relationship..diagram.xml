@@ -3,23 +3,20 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <presentation>
       <diagram>
-         <deltah>0.2</deltah>
+         <deltah>0.1</deltah>
       </diagram>
    </presentation>
       <entity_type>
-         <name>professor</name>
+         <name>student</name>
             <presentation>
             <x>0.1</x>
             <y>0.2</y>
             <deltaw>0.2</deltaw>
          </presentation>
          <reference>
-            <name>on staff of</name>
-            <type>department</type>
-            <inverse>staffed by</inverse>
-            <cardinality>
-               <ExactlyOne/>
-            </cardinality>
+            <name>advised by</name>
+            <type>professor</type>
+            <inverse>advising</inverse>
             <diagram>
                <path>
                   <srcarmlen>0.5</srcarmlen>
@@ -39,27 +36,16 @@
                         </position>
                      </label>
                   </inverse>
-                  <scope>
-                     <label>
-                        <xAdjustment>-1.0</xAdjustment>
-                     </label>
-                  </scope>
                </path>
             </diagram>
          </reference>
       </entity_type>
       <entity_type>
-         <name>department</name>
+         <name>professor</name>
          <presentation>
-            <rightOf>professor</rightOf>
+            <rightOf>student</rightOf>
             <x>2.5</x>
             <deltaw>0.2</deltaw>
          </presentation>
-         <reference>
-            <name>staffed by</name>
-            <type>professor</type>
-            <cardinality><OneOrMore/></cardinality>
-            <inverse>on staff of</inverse>
-         </reference>
       </entity_type>
 </entity_model>

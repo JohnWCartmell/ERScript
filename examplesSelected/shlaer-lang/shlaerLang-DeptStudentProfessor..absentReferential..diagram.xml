@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="shlaerLang-DeptStudentProfessor..logical.xml"/>
+   <include_model filename="shlaerLang-DeptStudentProfessor..relationships..presentation.xml"/>
+   <presentation>
+      <diagram>
+         <attributes><IdentifyingOnly/></attributes>
+         <relid_condition><All/></relid_condition>
+      </diagram>
+   </presentation>
+   <entity_type>
+      <name>professor</name>
+      <dependency>
+         <name>on staff of</name>
+         <type>department</type>
+         <identifying/>
+      </dependency>
+   </entity_type>
+</entity_model>
