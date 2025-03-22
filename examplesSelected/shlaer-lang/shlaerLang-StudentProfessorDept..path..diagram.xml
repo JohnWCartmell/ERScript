@@ -5,6 +5,7 @@
    <presentation>
       <diagram>
          <deltah>0.1</deltah>
+         <attributes><None/></attributes>
          <relid_condition><All/></relid_condition>
          <compositions><SupressPathless/></compositions>
       </diagram>
