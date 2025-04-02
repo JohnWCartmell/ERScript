@@ -75,11 +75,11 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo 'done building all'
 }
 
-if ($false)
-{
+#if ($false)
+#{
 echo 'theDramaticArts Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 dramaticArts1..logical.xml -animate
-}
+#}
 
 popd 
 

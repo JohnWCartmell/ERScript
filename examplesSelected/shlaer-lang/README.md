@@ -35,7 +35,7 @@ There are related diagrams in examples conceptual (currently with names beginnin
    includes just the associated ..logical and the associated ..presentation
 
 (9) shlaerLang-DeptStudentProfessor..attributes..diagram.xml
-   --- similar to (6) but specifies attributes identifying only; 
+   --- similar to (8) but specifies attributes identifying only; 
        and display relationship ids.
 
 (10) shlaerLang-DeptStudentProfessor..absentReferential..diagram.xml
