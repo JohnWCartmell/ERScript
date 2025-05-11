@@ -25,7 +25,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 
 pushd $TARGETXML
 echo 'orderEntry Example'
-
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 orderEntry..logical.xml -outputFolder ..\docs
 
@@ -41,7 +42,7 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validorderEntryInstance.xml -outputFolder ..\docs -debugSwitch
-
+}
 echo 'orderEntry Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 orderEntry..logical.xml -animate 
 

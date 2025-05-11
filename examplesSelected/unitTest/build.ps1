@@ -25,6 +25,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 pushd $TARGETXML
 
 echo 'unitTest Example'
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 unitTest..logical.xml -outputFolder ..\docs
 
@@ -34,6 +36,7 @@ echo 'unitTest Example'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA
+}
 
 echo 'unitTest Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 unitTest..logical.xml -animate

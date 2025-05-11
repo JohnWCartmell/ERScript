@@ -35,15 +35,10 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<!--
-				<yP> 
-					<at>
-						<offset><xsl:value-of select="../source/right_sideP/deltayP"/></offset>
-						<of><xsl:value-of select="../source/id"/></of>					
-					</at>
-				</yP>
-				-->
-				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
+				<label>
+					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
+					<!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->
+				</label>
 			</point>
 			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
@@ -67,15 +62,10 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<!--
-				<yP> 
-					<at>
-						<offset><xsl:value-of select="../source/right_sideP/deltayP"/></offset>
-						<of><xsl:value-of select="../source/id"/></of>					
-					</at>
-				</yP>
-				-->
-				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
+				<label>
+					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
+				    <!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->
+				</label> 
 			</point>
 			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>

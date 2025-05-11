@@ -17,7 +17,7 @@
 <!-- **************** -->
 <!-- label/text_style -->
 <!-- **************** -->
-<xsl:template match="*[self::label]
+<xsl:template match="label
                       [not(text_style)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -28,6 +28,17 @@
    </xsl:copy>
 </xsl:template>
 
+<xsl:template match="route[text_style]
+                      /path/point/label
+                      [not(text_style)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="78.1">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <text_style><xsl:value-of select="../../../text_style"/></text_style>
+   </xsl:copy>
+</xsl:template>
 
 
 </xsl:transform>

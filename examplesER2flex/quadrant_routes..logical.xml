@@ -3,44 +3,50 @@
               xmlns:diagram="http://www.entitymodelling.org/diagram"
  ERScriptVersion="1.6">
    <absolute>
-      <composition type="Q1"/>
-      <composition type="Q2"/>
+      <composition type="Q1*"/>
+      <composition type="Q2*"/>
    </absolute>
    <entity_type name="Q1">
-      <composition type="centre"/>
-      <composition type="centreleft"/>
+      <composition type="centre*"/>
+      <composition type="centreleft*"/>
    </entity_type>
    <entity_type name="Q2">
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-            <wl>2.0</wl>
+            <wl>8.0</wl> <!-- was 2.0 -->
       </diagram:enclosure>
-      <composition type="centre"/>
+      <composition type="centre*"/>
    </entity_type>
    <entity_type name="centreleft">
-      <composition type="Q3"/>
+      <composition type="Q3*"/>
    </entity_type>
    <entity_type name="centre">
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <wl>2.0</wl>
             <w>4.0</w>
       </diagram:enclosure>
-      <composition type="Q3"/>
-      <composition type="lowly"/>
-      <composition type="Q4"/>
-      <composition type="Q44"/>
+      <composition type="Q3*"/>
+      <composition type="lowly*"/>
+      <composition type="Q4*"/>
+      <composition type="Q44*"/>
    </entity_type>
    <entity_type name="Q3">
-      <composition type="centre"/>
+      <composition type="centre*"/>
    </entity_type>
    <entity_type name="lowly">
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
             <wl>2.0</wl>
       </diagram:enclosure>
-      <composition type="centre"/>
+      <composition type="centre*"/>
    </entity_type>
    <entity_type name="Q4">
-      <composition type="centre"/>
+      <composition type="centre*"/>      
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <w>2.0</w>
+            <wl>0.5</wl>
+            <wr>0.5</wr>
+      </diagram:enclosure>
    </entity_type>
    <entity_type name="Q44">
-      <composition type="centre"/>
+      <composition type="centre*"/>
    </entity_type>
 </entity_model>

@@ -15,25 +15,6 @@ Created 16 Jan 2022
 
 
 
-   <!-- ************************** -->
-   <!-- route  +path       -->
-   <!-- ************************** -->
-
-<!--    <xsl:template match="route[top_down]    **** THIS SEEMS TO HAVE BEEN ACCIDENTALY DUPLICATED
-                   [not(path)]
-                  " 
-         mode="recursive_diagram_enrichment"
-         priority="250">        
-      <xsl:copy>
-         <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-         <path>
-            <ew><source_sweep/></ew>
-            <ramp/>
-            <ew><destination_sweep/></ew>
-         </path>
-      </xsl:copy>
-   </xsl:template> -->
-
    <xsl:template match="route[top_down]
                    [not(path)]
                   " 

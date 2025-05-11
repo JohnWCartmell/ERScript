@@ -23,18 +23,20 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
-
+if ($false)
+{
 echo 'chenManufacturingCo Example'
 . $TARGET\scripts\buildExampleSVG.ps1 chenManufacturingCo       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
+}
 
-if ($false)
-{
+#if ($false)
+#{
 echo 'chenManufacturingCo Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 chenManufacturingCo..logical.xml -animate
-}
+#}
 
 popd 
 

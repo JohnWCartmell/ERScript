@@ -23,7 +23,7 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40.1">		  
+			priority="40.1">  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<text><xsl:value-of select="../../..[self::route]/source/annotation"/></text>
@@ -58,7 +58,7 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40.1">		  
+			priority="40.1">	  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<text><xsl:value-of select="../../..[self::route]/destination/annotation"/></text>

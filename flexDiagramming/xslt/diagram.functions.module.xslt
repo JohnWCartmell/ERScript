@@ -124,10 +124,14 @@
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
 	<xsl:value-of select="
-	   if ($xdiff = 0 or $ydiff = 0) then 0
+	   if ($xdiff = 0 and $ydiff = 0) then 0
 	   else if ($xdiff gt 0 and $ydiff gt 0) then math:atan($xdiff div $ydiff)
-	   else if ($xdiff gt 0 and $ydiff lt 0) then math:pi() + math:atan(abs($ydiff div $xdiff))
-	   else if ($xdiff lt 0 and $ydiff lt 0) then - math:pi() - math:atan(abs($ydiff div $xdiff))
+       else if ($xdiff gt 0 and $ydiff = 0) then math:pi() div 2
+	   else if ($xdiff gt 0 and $ydiff lt 0) then (math:pi() div 2) + math:atan(abs($ydiff div $xdiff))
+       else if ($xdiff = 0 and $ydiff gt 0) then 0
+       else if ($xdiff = 0 and $ydiff lt 0) then math:pi()  
+	   else if ($xdiff lt 0 and $ydiff lt 0) then (- math:pi() div 2) - math:atan(abs($ydiff div $xdiff))
+       else if ($xdiff lt 0 and $ydiff = 0) then - math:pi() div 2
 	   else if ($xdiff lt 0 and $ydiff gt 0) then - math:atan(abs($xdiff div $ydiff))
 	   else 'OUT OF SPEC'
 	"/>
@@ -141,7 +145,7 @@
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
     <xsl:value-of select="
-	  if ($xdiff = 0 or $ydiff = 0) then 0
+	  if ($xdiff = 0 and $ydiff = 0) then 0
 	  else (if ($xdiff lt 0) then - 2 * math:pi() else 2 * math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
 	"/>
 </xsl:function>

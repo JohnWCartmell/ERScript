@@ -25,6 +25,8 @@ attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need 
 pushd $TARGETXML
 
 echo 'routeCityState Example'
+if ($false)
+{
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 routeCityState..logical.xml -outputFolder ..\docs
 
@@ -51,12 +53,12 @@ echo 'routeCityState Example comparablePaths leftright'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-
-if ($false)
-{
+}
+#if ($false)
+#{
 echo 'routeCityState Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 routeCityState..logical.xml -animate
-}
+#}
 
 popd 
 

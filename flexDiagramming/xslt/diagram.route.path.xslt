@@ -90,7 +90,8 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>  <!-- 18- Nov 2024 put a miunus sign in below -->
-				<xsl:value-of select="-max((
+				      <!-- remove it on 06/05/2025 -->
+				<xsl:value-of select="max((
 					key('line_style',../../destination/line_style)/minarmlen ,
 					key('box',../../destination/id)/wl
 					))"/>

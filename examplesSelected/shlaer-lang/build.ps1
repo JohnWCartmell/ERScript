@@ -63,6 +63,11 @@ function Build-File {
 
 pushd $TARGETXML
 echo ('*********** location: ' + (Get-Location) )
+
+if ($false)
+{
+
+
 if ($PSBoundParameters.ContainsKey('filename')){
     echo ('need build from' + $filename)
     Build-File -FileName $filename
@@ -75,11 +80,15 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo 'done building all'
 }
 
-if ($false)
-{
+
+}
+
+
+#if ($false)
+#{
 echo 'theDramaticArts Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -animate
-}
+#}
 
 popd 
 

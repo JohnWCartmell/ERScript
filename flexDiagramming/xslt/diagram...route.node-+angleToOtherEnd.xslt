@@ -107,7 +107,9 @@
 		  	             select="$jiggleno * 0.0001" 
 		  	             as="xs:float"/>
 		  <angleToOtherEnd>
-		  	        <xsl:value-of select="diagram:angleToNegativeYaxis($xdiff,$ydiff)
+		  	        <!-- <xsl:value-of select="diagram:angleToNegativeYaxis($xdiff,$ydiff)
+		  	        	                              + $jiggleFactor"/> -->
+		  	        <xsl:value-of select="diagram:angleToYaxis($xdiff,$ydiff)
 		  	        	                              + $jiggleFactor"/>    <!-- jiggle factor added -->
 		  </angleToOtherEnd>
        </xsl:copy>

@@ -75,7 +75,6 @@
    </xsl:copy>
 </xsl:template>
 
-
    <!-- compositionalDepth -->
    <!-- Calculate a compositional depth attribute for all outermost enclosures -->
    <!-- From an outermost enclosure index all other outermost enclosures that can be reached 

@@ -38,15 +38,10 @@
 						<of><xsl:value-of select="../destination/id"/></of>
 					</at>
 				</xP>
-				<!--
-				<yP> 
-					<at>
-						<offset><xsl:value-of select="../destination/left_sideP/deltayP"/></offset>
-						<of><xsl:value-of select="../destination/id"/></of>					
-					</at>
-				</yP>
-				-->
-				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
+				<label>
+					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
+					<!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->
+				</label>
 			</point>
 		</xsl:copy>
 	</xsl:template>
@@ -70,15 +65,10 @@
 						<of><xsl:value-of select="../destination/id"/></of>
 					</at>
 				</xP>
-				<!-- 
-				<yP> 
-					<at>
-						<offset><xsl:value-of select="../destination/right_sideP/deltayP"/></offset>
-						<of><xsl:value-of select="../destination/id"/></of>					
-					</at>
-				</yP>
-				-->
-				<label><text_style><xsl:value-of select="../text_style"/></text_style></label>
+				<label>
+					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
+					<!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->	
+				</label>
 			</point>
 		</xsl:copy>
 	</xsl:template>

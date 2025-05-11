@@ -381,22 +381,28 @@ CHANGE HISTORY
   </xsl:template>
   
   <xsl:template name="render_padding" match="enclosure|point">
-      <svg:path>
-       <xsl:attribute name="class" select="'padding'"/>
-       <xsl:attribute name="data-infoBoxId" select="id"/>
-       <xsl:attribute name="d">
-           <xsl:value-of select="concat(' M',x/abs - wl,      ',',y/abs - ht)"/>  
-           <xsl:value-of select="concat(' L',x/abs + w + wr, ',',y/abs - ht)"/>
-           <xsl:value-of select="concat(' L',x/abs + w + wr,  ',',y/abs + h + hb)"/> 
-           <xsl:value-of select="concat(' L',x/abs - wl,      ',',y/abs + h + hb)"/>
-           <xsl:value-of select="concat(' L',x/abs - wl,      ',',y/abs - ht )"/>
-           <xsl:value-of select="concat(' M',x/abs - wl -  padding,      ',',y/abs - ht - padding   )"/>  <!-- this then needs to be - 2 * padding -->
-           <xsl:value-of select="concat(' L',x/abs + w + wr + padding , ',',y/abs -ht - padding   )"/>
-           <xsl:value-of select="concat(' L',x/abs + w + wr + padding,  ',',y/abs + h + hb + padding)"/>
-           <xsl:value-of select="concat(' L',x/abs - wl - padding,      ',',y/abs + h + hb + padding )"/>
-           <xsl:value-of select="concat(' L',x/abs - wl - padding ,      ',',y/abs - ht - padding   )"/>
-      </xsl:attribute>
-    </svg:path>
+    <xsl:if test="not(self::point and (parent::ns | parent::ew | parent::ramp))">
+        <!-- such points are not rendered...they are partial ... don't have both x and y values -->
+        <xsl:if test="not(x/abs)">
+          <xsl:message>ERROR: No x position for padding of '<xsl:value-of select="name()"/>' child of '<xsl:value-of select="../name()"/>'</xsl:message>
+        </xsl:if>
+        <svg:path>
+         <xsl:attribute name="class" select="'padding'"/>
+         <xsl:attribute name="data-infoBoxId" select="id"/>
+         <xsl:attribute name="d">
+             <xsl:value-of select="concat(' M',x/abs - wl,      ',',y/abs - ht)"/>  
+             <xsl:value-of select="concat(' L',x/abs + w + wr, ',',y/abs - ht)"/>
+             <xsl:value-of select="concat(' L',x/abs + w + wr,  ',',y/abs + h + hb)"/> 
+             <xsl:value-of select="concat(' L',x/abs - wl,      ',',y/abs + h + hb)"/>
+             <xsl:value-of select="concat(' L',x/abs - wl,      ',',y/abs - ht )"/>
+             <xsl:value-of select="concat(' M',x/abs - wl -  padding,      ',',y/abs - ht - padding   )"/>  <!-- this then needs to be - 2 * padding -->
+             <xsl:value-of select="concat(' L',x/abs + w + wr + padding , ',',y/abs -ht - padding   )"/>
+             <xsl:value-of select="concat(' L',x/abs + w + wr + padding,  ',',y/abs + h + hb + padding)"/>
+             <xsl:value-of select="concat(' L',x/abs - wl - padding,      ',',y/abs + h + hb + padding )"/>
+             <xsl:value-of select="concat(' L',x/abs - wl - padding ,      ',',y/abs - ht - padding   )"/>
+        </xsl:attribute>
+      </svg:path>
+    </xsl:if>
   </xsl:template>
   
 <xsl:template name="clearleft">
@@ -459,7 +465,6 @@ CHANGE HISTORY
 <xsl:template name="render_route" match="route" mode="explicit">
    <xsl:variable name="x0cm"  as="xs:double" select="path/point[1]/x/abs"/>
    <xsl:variable name="y0cm"  as="xs:double" select="path/point[1]/y/abs"/>
-
    <xsl:variable name="sourcestyle" as="xs:string"
                    select="if (source/line_style) then source/line_style else 'dashedline'"/>
     <xsl:variable name="deststyle" as="xs:string"
@@ -612,6 +617,7 @@ CHANGE HISTORY
      <xsl:value-of select= "text"/>
   </svg:text>
 </xsl:template>
+
 
 <xsl:template name="point" match="point">
   <svg:line>

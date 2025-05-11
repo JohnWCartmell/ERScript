@@ -72,7 +72,19 @@ DESCRIPTION
 			</xsl:call-template>
 		</xsl:for-each>
 		<xsl:for-each select="//point">
-			<xsl:call-template name="point"/>
+			<!-- points in ew are partial ... they only hold a y value -->
+			<!-- points in ns are also partial ... they only hold an x value -->
+			<!-- points in ramp are also partial ... they have neither x nor y value -->
+			<xsl:if test="not(parent::ns | parent::ew | parent::ramp)">
+				<xsl:if test="not(x/abs)">
+					<xsl:message>ERROR ... point has no abs x value </xsl:message>
+				</xsl:if>
+				<xsl:if test="not(y/abs)">
+					<xsl:message>ERROR ... point has no abs y value </xsl:message>
+					<xsl:message>...parent <xsl:value-of select="../name()"/></xsl:message>
+				</xsl:if>
+				<xsl:call-template name="point"/>
+			</xsl:if>
 		</xsl:for-each>
 		<xsl:call-template name="wrap_relationships">
 			<xsl:with-param name="relationships">
@@ -88,10 +100,22 @@ DESCRIPTION
 	</xsl:template>
 
 	<xsl:template name="entity_type_content" match="enclosure">
+		<xsl:call-template name="check_enclosure"/>
 		<xsl:call-template name="renderenclosure"/>   
 		<xsl:for-each select="enclosure">
 			<xsl:call-template name="enclosure"/>	
 		</xsl:for-each>	
+	</xsl:template>
+
+	<xsl:template name="check_enclosure" match="enclosure" mode="explicit">
+ 		<xsl:if test="not(x/abs)">
+ 			<xsl:message>Enclosure `<xsl:value-of select="id"/>'  is missing an x/abs. It has x as follows</xsl:message>
+ 			<xsl:copy-of select="x/abs"/>
+ 		</xsl:if>
+ 		 <xsl:if test="not(y/abs)">
+ 			<xsl:message>Enclosure `<xsl:value-of select="id"/>'  is missing an y/abs. It has y as follows</xsl:message>
+ 			<xsl:copy-of select="y/abs"/>
+ 		</xsl:if>
 	</xsl:template>
 
 	
@@ -102,8 +126,24 @@ DESCRIPTION
 			</xsl:call-template>
 		</xsl:for-each>
 		<xsl:for-each select="//route">
+			<xsl:call-template name="check_route"/>
 			<xsl:call-template name="render_route"/>
 		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template name="check_route" match="route" mode="explicit">
+ 		<xsl:if test="not(path/point[1]/x/abs)">
+ 				<xsl:message>Route source annotation `<xsl:value-of select="source/annotation"/>' from `<xsl:value-of select="source/id"/>' to `<xsl:value-of select="destination/id"/>' is missing a path/point[1]/x/abs</xsl:message>
+ 		</xsl:if>
+ 		<xsl:if test="not(path/point[1]/y/abs)">
+ 				<xsl:message>Route source annotation `<xsl:value-of select="source/annotation"/>' from `<xsl:value-of select="source/id"/>' to `<xsl:value-of select="destination/id"/>' is missing a path/point[1]/y/abs</xsl:message>
+ 		</xsl:if>
+ 		<xsl:if test="not(path/point[last()]/x/abs)">
+ 				<xsl:message>Route source annotation `<xsl:value-of select="source/annotation"/>' from `<xsl:value-of select="source/id"/>' to `<xsl:value-of select="destination/id"/>' is missing a path/point[last()]/x/abs</xsl:message>
+ 		</xsl:if>
+ 		<xsl:if test="not(path/point[last()]/y/abs)">
+ 				<xsl:message>Route source annotation `<xsl:value-of select="source/annotation"/>' from `<xsl:value-of select="source/id"/>' to `<xsl:value-of select="destination/id"/>' is missing a path/point[1]/y/abs</xsl:message>
+ 		</xsl:if>
 	</xsl:template>
 
 </xsl:transform>

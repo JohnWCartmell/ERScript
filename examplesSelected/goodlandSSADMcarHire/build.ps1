@@ -23,7 +23,8 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
-
+if ($false)
+{
 echo 'goodlandSSADMcarHire Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 goodlandSSADMcarHire..logical.xml -outputFolder ..\docs
@@ -79,6 +80,7 @@ echo 'goodland SSADM carHire Path2 Diagram'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA
+}                           
 echo 'goodland SSADM carHire Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate
 

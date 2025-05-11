@@ -15,6 +15,7 @@
 	<xsl:output method="xml" indent="yes" />
 	
 	<!-- previously keys declared here -->
+	<!-- they are now found in ERmodel.flex_pass_two_module -->
 
 
 	<xsl:template match="*" mode="passtwo">
@@ -24,17 +25,11 @@
 	</xsl:template>
 
 	
-	<!-- y position of an outermost  enclosure with an incoming top down route>-->
-	<xsl:template match="enclosure[key('IncomingTopdownRoute',id)]
+	<!-- y position of an outermost  enclosure with an incoming top down route -->
+	<xsl:template match="enclosure[key('NonRecursiveIncomingTopdownRoute',id)]
 	                     [not(y)]" 
-						 mode="passtwo">
+						 mode="passtwoPRIORTOCHANGEOF7TH MAY">  <!-- TIDY THIS UP LATER-->
 		<xsl:copy>
-			<!--
-			<xsl:message>HERE I AM </xsl:message>
-			<xsl:message> compositionDepth '<xsl:value-of select="exists(compositionalDepth)"/>'</xsl:message>
-			<xsl:message> compositionDepth '<xsl:value-of select="compositionalDepth"/>'</xsl:message>
-		-->
-
 			<xsl:apply-templates mode="passtwo"/>
 			<y> 
 				<passtwoA/>
@@ -44,16 +39,45 @@
 				<at>
 					<bottom/>
 					<of>
-						<xsl:value-of select="key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)
+						<xsl:value-of select="key('OutermostEnclosuresFromWhichNonRecursiveIncomingTopDownRoute',id)
 							                       [compositionalDepth+1=current()/compositionalDepth]
 							                      [1]/id"/>
-							                      <!-- -->
+					   <!-- use compositionalDepth in this way to place beneath one of the enclosures with 
+					        the lowest compositional depth -->
 					</of>
 				</at>
 				<delta>1</delta>   <!-- make room for incoming top down route -->
 			</y>
 		</xsl:copy>
-		<!--<xsl:message>GOING NOW</xsl:message>-->
+	</xsl:template>
+
+	<xsl:template match="enclosure[key('EnteringTopdownRoute',id)]
+	                     [not(y)]" 
+						 mode="passtwo">
+		<xsl:copy>
+			<xsl:apply-templates mode="passtwo"/>
+			<y> 
+				<passtwoA/>
+				<place>
+					<top/>
+				</place>
+				<at>
+					<bottom/>
+					<of>
+						<xsl:value-of select="key('ExitContainersOfEnteringTopdownRoutes',id)
+							                    (: try this   [compositionalDepth+1=current()/compositionalDepth] 
+							                    ???????????????????????????????????????????????????????? :)
+							                      [1]/id"/>
+					   <!-- use compositionalDepth in this way to place beneath one of the enclosures with 
+					        the lowest compositional depth -->
+					        <!-- BUT HAD TO RE$MOVE DURING TESTING 10 May 2025 -->
+					        <!-- IN WHAT FORM TO REINSTATE???????????????????????????????????????????-->
+					        <!-- ???????????????????????????????????????????????????????????????????? -->
+					</of>
+				</at>
+				<delta>1</delta>   <!-- make room for incoming top down route -->
+			</y>
+		</xsl:copy>
 	</xsl:template>
 	
 	<!-- x position of an enclosure which is neither the outermost enclosure into which arrives a top down route 
@@ -63,10 +87,10 @@
     -->
 	<xsl:template match="enclosure
 	                     [not(x)]
-	                     [not(key('IncomingTopdownRoute',id))]
-						 [not(key('TerminatingIncomingTopdownRoute',id))]
+	                     [not(key('EnteringTopdownRoute',id))]
+						 [not(key('ActualIncomingTopdownRoute',id))]
 	                     [preceding-sibling::enclosure]
-	                    " mode="passtwo">
+	                    " mode="passtwo">      
 		<xsl:copy>
 			<xsl:apply-templates mode="passtwo"/>
 			<x> 
@@ -96,7 +120,7 @@
 						 [preceding-sibling::label]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]
-	                    " mode="passthree">
+	                    " mode="passthree"> 
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <x> 
@@ -121,7 +145,7 @@
 						 [not(preceding-sibling::label)]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]		 
-	                    " mode="passthree">
+	                    " mode="passthree"> 
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <y>
@@ -143,7 +167,7 @@
 						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]				 
 						 [preceding-sibling::enclosure]
 						 [not(y)]
-	                    " mode="passthree">
+	                    " mode="passthree">  
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <y>
@@ -168,7 +192,7 @@
 						 [preceding-sibling::label]
 						 [not(preceding-sibling::enclosure)]
 						 [not(y)]
-	                    " mode="passthree">
+	                    " mode="passthree">  
 		<xsl:copy>
 			<xsl:apply-templates mode="passthree"/>
          <x> 
@@ -194,43 +218,80 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<!-- x position of an outermost  enclosure with a top down route in to it whose outermost source does not already
-	                                          have a route emanating from it and ariving into a predecessor outermost enclosure -->
-    <!-- In this context preceding and preceding-sibling will execute interchangeably - bacause imprilcation is outermost -->
+	<!-- x position of an outermost  enclosure with a top down route in to it whose outermost source 
+	    does not already have a route emanating from it and ariving into a predecessor outermost enclosure -->
+    <!-- In this context preceding and preceding-sibling will execute interchangeably - because imprilcation is outermost -->
 	
 	<!-- why does this have to be pass four ?? -->
 	
 	<xsl:template match="enclosure
 	                     [not(x)]
-	                     [key('IncomingTopdownRoute',id)]
+	                     [key('EnteringTopdownRoute',id)]
 						 [not(preceding::enclosure
-						         [(key('IncomingTopdownRoute',id)[1]/source/abstract)
+						         [(key('EnteringTopdownRoute',id)[1]/source/exitContainer)
 								   =
-								   (key('IncomingTopdownRoute',current()/id)[1]/source/abstract)
+								   (key('EnteringTopdownRoute',current()/id)[1]/source/exitContainer)
 								 ]
 							  )
 					      ]
 						   " 
 						 mode="passfour">
-	<!-- the first top down route destination outer aligns at the left. What about subsequent? --> 	
-    <!-- what probably happens is that because of  default smarts they are laid out  horizontally.  -->	
+	<!-- the first top down route destination outer aligns at the left.  -->
+	<!-- See rule passtwoA. That rule will have placed this enclosure beneath the source
+	     of an incoming top down route. This rule lines up this enclosure with lhs of that source.
+	-->
 		<xsl:copy>
 			<xsl:apply-templates mode="passfour"/>
 			<x> 
-				<xsl:attribute name="rule" select="'passfour'"/>
-				<passfour/>
+				<passfourA/>
 				<place>
 					<left/>
 				</place>
 				<at>
 					<left/>
 					<of>
-						<xsl:value-of select="key('IncomingTopdownRoute',id)[1]/source/abstract"/>
+						<xsl:value-of select="key('EnteringTopdownRoute',id)[1]/source/exitContainer"/>
 					</of>
 				</at>
 			</x>
 		</xsl:copy>
 	</xsl:template>
 
+
+	<!-- Question : should preceding below be preceding-sibling ? -->
+   <!-- This rule introduced in change of 7th M<ay 2025. -->
+	<xsl:template match="enclosure
+	                     [not(x)]
+	                     [key('EnteringTopdownRoute',id)]
+						      [preceding::enclosure
+						         [key('EnteringTopdownRoute',id)[1]/source/exitContainer
+								    =
+								    key('EnteringTopdownRoute',current()/id)[1]/source/exitContainer
+								   ]
+					      	]
+						   " 
+						 mode="passfour">
+		<xsl:copy>
+			<xsl:apply-templates mode="passfour"/>
+			<x> 
+				<passfourB/>
+				<place>
+					<left/>
+				</place>
+				<passfourB-7May25/>
+				<at>
+					<right/>
+					<outer/>
+					<of>
+						<xsl:value-of select="preceding::enclosure
+						         [key('EnteringTopdownRoute',id)[1]/source/exitContainer
+								    =
+								    key('EnteringTopdownRoute',current()/id)[1]/source/exitContainer
+								   ][1]/id"/>
+					</of>
+				</at>
+			</x>
+		</xsl:copy>
+	</xsl:template>
 
 </xsl:transform>

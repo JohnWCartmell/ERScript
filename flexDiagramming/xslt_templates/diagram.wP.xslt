@@ -144,6 +144,13 @@
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <xsl:variable name="textstyle" as="element()"
                     select="key('text_style',text_style)"/>
+<!--       <xsl:if test="text_style = ''">
+         <xsl:message>text_style is `<xsl:value-of select="text_style"/>'</xsl:message>
+         <xsl:message>parent is `<xsl:value-of select="../name()"/>'</xsl:message>
+         <xsl:message>grandparent is `<xsl:value-of select="../../name()"/>'</xsl:message>
+
+         <xsl:message>grandparent is `<xsl:copy-of select="../.."/></xsl:message>
+      </xsl:if> -->
       <wP>
          <xsl:value-of select="diagram:stringwidth_from_text_styleP(text,$textstyle)"/>
       </wP>

@@ -4,7 +4,7 @@ Upgrade ERmodel2.diagram.module to be OK with an entity type having multiple dep
 
 ### Rationale
 This is required for the flexDiagramModel and anyhow is required to complete the implementation of the change 
-of [2nd June 2023](change-2-Jun-2023.md)
+of [2nd June 2023](../2023/change-2-Jun-2023.md)
 
 ### Summary
 Change so that the inverse to a composition is found by searching for a dependency by source type, name and destination type.

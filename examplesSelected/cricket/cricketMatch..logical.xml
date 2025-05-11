@@ -27,6 +27,7 @@
       <reference name="battingSide" type="side" diagonal=".." riser=".."/>
       <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
    </entity_type>
+
    <entity_type name="side">
       <identifying>
          <context type="match"/>

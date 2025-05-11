@@ -50,6 +50,11 @@ CHANGE HISTORY
            -  creates a flex diagram structure of enclosures, routes etc.
 + passone  - in source file ERmodel.flex_pass_one_module.xslt
            - derives a derived relationship  abstract : node(2) -> enclosure' derived relationship.
+           A node in sense of node(2) ::= source | destination identifies one or other end of
+           a route. This identified end is an enclosure. This enclosure may be nested. The outermost
+           enclosure in which it is nested. This is what 'abstract' is defined to be.
+           Thus node(2) => abstract : enclosure.
+
 + recursive_structure_enrichment
             - in source file ERmodel.flex_recursive_structure_enrichment 
             - derives an attribute of enclosures called 'compositionalDepth'.
@@ -230,11 +235,14 @@ xxxto copy through
 			<id><xsl:value-of select="name"/></id>
 			<xsl:variable name="nestingDepth" as="xs:integer" select="count(ancestor-or-self::entity_type)-1"/>
 			<xsl:variable name="iseven" as="xs:boolean" select="($nestingDepth mod 2)=0"/>
-			<xsl:variable name="shapestyle" as="xs:string" select="if ($iseven) then 'eteven' else 'etodd'"/>"
+			<xsl:variable name="shapestyle" as="xs:string" select="if ($iseven) then 'eteven' else 'etodd'"/>
 			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
 			<rx>0.25</rx>  
 			<ry>0.25</ry>
 			<label><text_style>etname</text_style></label>
+			<!-- new 4 May 2025 -->
+			<xsl:copy-of select="diagram:enclosure/*"/>
+			<!-- end new -->  
 			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
 		</xsl:element>
 	</xsl:template>
@@ -345,11 +353,11 @@ xxxto copy through
 			<sideways/>
 			<source>
 
-      <!-- temporary measures -->
-      <right_side>
+      <!-- temporary measures --> <!-- REMOVED change of 6th May 2025 -->
+<!--       <right_side>
          <deltay>0.5</deltay>
          <annotate_low/>
-      </right_side>
+      </right_side> -->
 
 				<id><xsl:value-of select="../(if (self::identifying) then ../name else name)"/></id>
 				<annotation><xsl:value-of select="name"/></annotation>
@@ -389,10 +397,10 @@ xxxto copy through
 			</source>
 			<destination>
       <!-- temporary measures -->
-			<left_side>
+<!-- 			<left_side>  REMOVED change of 6th May 2025
          <deltay>0.5</deltay>
          <annotate_low/>
-      </left_side> 
+      </left_side>  -->
 				<line_style>
 					 <xsl:value-of select="if (surjective='true')
 					                       then 'solidline' 

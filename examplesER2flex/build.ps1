@@ -21,9 +21,16 @@ attrib +R $TARGETXML\*.xml
 pushd $TARGETXML
 
 
+
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 simpleRecursion..logical.xml -animate -debugswitch
+if ($false)
+{
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 nestedShieldedDecomposition..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 simpleDecomposition..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shieldedDecomposition..logical.xml -animate -debugswitch
 echo 'Quadrant Route Test'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 quadrant_routes..logical.xml -animate -debugswitch
-
+}
 
 popd 
 

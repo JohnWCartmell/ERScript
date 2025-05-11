@@ -28,7 +28,6 @@ if ($false)
 echo 'airTravel Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 airTravel..logical.xml -outputFolder ..\docs
-}
       
 echo 'airTravel Example'
 . $TARGET\scripts\buildExampleSVG.ps1 airTravel       `
@@ -40,11 +39,12 @@ echo 'airTravel Barker Figure 3-18 '
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-if ($false)
-{
-echo 'airTravel Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 airTravel..logical.xml -animate
 }
+#if ($false)
+#{
+echo 'airTravel Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 airTravel..logical.xml -animate -debugSwitch
+#}
 
 popd 
 

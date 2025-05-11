@@ -54,5 +54,59 @@
 </xsl:template>
 
 
+<xsl:template match="route[sideways]
+                     /source
+                [not(left_side)]
+                [not(right_side)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+
+      <xsl:choose>
+         <xsl:when test="//enclosure[id=current()/id] &lt;&lt; //enclosure[id=current()/../destination/id]">
+            <right_side>
+               <deltay>0.5</deltay>
+               <annotate_low/>
+            </right_side>
+         </xsl:when>
+         <xsl:otherwise>
+            <left_side>
+               <deltay>0.5</deltay>
+               <annotate_low/>
+            </left_side>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="route[sideways]
+                     /destination
+                [not(left_side)]
+                [not(right_side)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:choose>
+         <xsl:when test="//enclosure[id=current()/../source/id] &lt;&lt; //enclosure[id=current()/id]">
+            <left_side>
+               <deltay>0.5</deltay>
+               <annotate_low/>
+            </left_side>
+         </xsl:when>
+         <xsl:otherwise>
+            <right_side>
+               <deltay>0.5</deltay>
+               <annotate_low/>
+            </right_side>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:copy>
+</xsl:template>
+
+
 </xsl:transform>
 

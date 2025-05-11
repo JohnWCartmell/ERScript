@@ -70,7 +70,6 @@
             <right/> <edge/>
             <of>booking_/invoice</of>
          </at>
-         <!-- <delta>2.2</delta> -->
       </x>
       <y>
          <at>
@@ -352,7 +351,6 @@
          <abstract>booking_/invoice</abstract>
       </destination>
    </route>
-
       <route>
       <text_style>relname</text_style>
       <source>
@@ -404,7 +402,6 @@
          <annotation>driver_for</annotation>
          <abstract>driver</abstract>
       </destination>
-    
    </route>
 
       <route>
@@ -437,7 +434,6 @@
       <text_style>relname</text_style>
       <source>
          <bottom_edge>
-            <!-- <deltax>0.5</deltax> -->
             <annotate_right/>
          </bottom_edge>
          <slotNo>0</slotNo>
@@ -449,7 +445,6 @@
       <path><ns/></path>
       <destination>
          <top_edge>
-            <!-- <deltax>0.5</deltax> -->
             <annotate_left/>
          </top_edge>
          <line_style>solidline</line_style>
@@ -460,7 +455,7 @@
    </route>
 
       <route>
-      <text_style>relname</text_style>  <!-- this was causing a problem --> <!-- so swap aource and destination -->
+      <text_style>relname</text_style>  
       <source>
          <bottom_edge>
             <deltax>3.2</deltax>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6"><!-- 
+   <absolute>
+      <composition type="top*"/>
+   </absolute> -->
+   <entity_type name="A">
+      <entity_type name="X">
+         <composition type="Y*"/>
+         <composition type="Z*"/>
+      </entity_type>
+      <entity_type name="Y">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram"><w>2.0</w></diagram:enclosure>
+         <composition type="YY*"/>
+      </entity_type>
+      <entity_type name="YY">
+      </entity_type>
+      <entity_type name="Z">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram"><w>1.3</w></diagram:enclosure>
+      </entity_type>
+   </entity_type>
+</entity_model>
