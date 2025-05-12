@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+   <absolute>
+      <name>abs</name>
+      <composition type="rule_3A_subject*"/>
+      <composition type="rule_3C_subject*"/>
+   </absolute>  
+   <entity_type name="rule_y1_ and x6 subject"> 
+         <entity_type name="rule_3A_subject">
+         </entity_type>
+         <entity_type name="rule_x1_subject">
+         </entity_type> 
+         <entity_type name="rule_3C_subject">
+         </entity_type> 
+   </entity_type>
+</entity_model>

@@ -22,10 +22,12 @@ pushd $TARGETXML
 
 
 
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 simpleRecursion..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 x1Test..logical.xml -animate -debugswitch
 if ($false)
 {
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 nestedShieldedDecomposition..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 complexRecursion..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 simpleRecursion..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 simpleDecomposition..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shieldedDecomposition..logical.xml -animate -debugswitch
 echo 'Quadrant Route Test'

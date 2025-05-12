@@ -14,49 +14,61 @@
 
 	<xsl:output method="xml" indent="yes" />
 	
+   <xsl:variable name="sourcefileName" select="'EREmodel.flex_pass_two_module.xslt'"/>
+
 	<!-- previously keys declared here -->
 	<!-- they are now found in ERmodel.flex_pass_two_module -->
 
-
-	<xsl:template match="*" mode="passtwo">
+   
+	<xsl:template match="@*|node()" mode="passtwo">
 		<xsl:copy>
-			<xsl:apply-templates mode="passtwo"/>
+			<xsl:apply-templates select="@*|node()" mode="passtwo"/>
 		</xsl:copy>
 	</xsl:template>
 
-	
-	<!-- y position of an outermost  enclosure with an incoming top down route -->
-	<xsl:template match="enclosure[key('NonRecursiveIncomingTopdownRoute',id)]
-	                     [not(y)]" 
-						 mode="passtwoPRIORTOCHANGEOF7TH MAY">  <!-- TIDY THIS UP LATER-->
+	<!--     *********** -->
+	<!--       Rule x1   -->
+	<!--     *********** -->
+	<!-- x position of an enclosure which has a preceeding enclosure
+	     and is neither the entry container of a top down route 
+	     nor has a top down route arriving at it 
+		 is placed underneath its predecessor and with its left edge aligned.
+    -->
+	<xsl:template match="enclosure
+	                     [not(x)]
+	                     [not(key('EnteringTopdownRoute',id))]
+						 [not(key('ActualIncomingTopdownRoute',id))]
+	                     [preceding-sibling::enclosure]
+	                    " mode="passtwo">      
 		<xsl:copy>
-			<xsl:apply-templates mode="passtwo"/>
-			<y> 
-				<passtwoA/>
-				<place>
-					<top/>
-				</place>
+			<xsl:apply-templates select="@*|node()"  mode="passtwo"/>
+			<x> 
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule x1'"/>
+				<passtwoB/>
 				<at>
-					<bottom/>
-					<of>
-						<xsl:value-of select="key('OutermostEnclosuresFromWhichNonRecursiveIncomingTopDownRoute',id)
-							                       [compositionalDepth+1=current()/compositionalDepth]
-							                      [1]/id"/>
-					   <!-- use compositionalDepth in this way to place beneath one of the enclosures with 
-					        the lowest compositional depth -->
-					</of>
+					<left/>
+					<predecessor/>
 				</at>
-				<delta>1</delta>   <!-- make room for incoming top down route -->
-			</y>
+			</x>
 		</xsl:copy>
 	</xsl:template>
+	
 
+	<!--     *********** -->
+	<!--       Rule y1   -->
+	<!--     *********** -->
+   <!-- y position of an  enclosure which is the entryContainer 
+        for a top down route -->
+   <!-- position beneath first compositional parent -->
 	<xsl:template match="enclosure[key('EnteringTopdownRoute',id)]
 	                     [not(y)]" 
 						 mode="passtwo">
 		<xsl:copy>
-			<xsl:apply-templates mode="passtwo"/>
-			<y> 
+			<xsl:apply-templates select="@*|node()" mode="passtwo"/>
+			<y>
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule y1'"/>
 				<passtwoA/>
 				<place>
 					<top/>
@@ -80,32 +92,11 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<!-- x position of an enclosure which is neither the outermost enclosure into which arrives a top down route 
-	                                         nor has a top down route arriving at it 
-											 and which has a preceeding enclosure
-					is placed underneath its predecessor and with its left edge aligned.
-    -->
-	<xsl:template match="enclosure
-	                     [not(x)]
-	                     [not(key('EnteringTopdownRoute',id))]
-						 [not(key('ActualIncomingTopdownRoute',id))]
-	                     [preceding-sibling::enclosure]
-	                    " mode="passtwo">      
+
+
+	<xsl:template match="@*|node()" mode="passthree">
 		<xsl:copy>
-			<xsl:apply-templates mode="passtwo"/>
-			<x> 
-				<passtwoB/>
-				<at>
-					<left/>
-					<predecessor/>
-				</at>
-			</x>
-		</xsl:copy>
-	</xsl:template>
-	
-	<xsl:template match="*" mode="passthree">
-		<xsl:copy>
-			<xsl:apply-templates mode="passthree"/>
+			<xsl:apply-templates select="@*|node()" mode="passthree"/>
 		</xsl:copy>
 	</xsl:template>
 	
@@ -114,7 +105,9 @@
 	
 	<!-- if it is the first enclosure  within its parent enclosure and is preceeded by a label 
 	   it is placed beneath the predecessor label to the left of the containing enclosure-->	              
-
+	<!--     ************ -->
+	<!--       Rule 3A    -->
+	<!--     ************ -->
 	<xsl:template match="enclosure/enclosure
 						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]
 						 [preceding-sibling::label]
@@ -122,12 +115,17 @@
 						 [not(y)]
 	                    " mode="passthree"> 
 		<xsl:copy>
-			<xsl:apply-templates mode="passthree"/>
+			<xsl:attribute name="test" select="'3A'"/>
+			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <x> 
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule 3A'"/>
          	<passthreeA/>
 		    	<at><left/><parent/></at>
 		 </x>
          <y>
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule 3A'"/>
          <passthreeA/>
 		    <place><top/><edge/></place>
             <at>
@@ -138,7 +136,10 @@
 		</xsl:copy>
 	</xsl:template>
 	
-    <!-- if it has a non local incoming top down route if it is the first enclosure  within its parent enclosure and but is not preceeded by a label 
+	<!--     *********** -->
+	<!--       Rule 3B   -->
+	<!--     *********** -->
+   <!-- if it has a non local incoming top down route if it is the first enclosure  within its parent enclosure and but is not preceeded by a label 
 	          then it is placed at the top of its parent enclosure    -->
 	<xsl:template match="enclosure/enclosure
 						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]	
@@ -147,8 +148,10 @@
 						 [not(y)]		 
 	                    " mode="passthree"> 
 		<xsl:copy>
-			<xsl:apply-templates mode="passthree"/>
+			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <y>
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule 3B'"/>
          	<passthreeB/>
 		    <place>
 			    <top/>
@@ -162,6 +165,9 @@
 		</xsl:copy>
 	</xsl:template>
 	
+	<!--     *********** -->
+	<!--       Rule 3C   -->
+	<!--     *********** -->
 	    <!-- if it has a non local incoming top down route if it is the not the first enclosure  within its parent enclosure  it is laid to the right of its predecessor -->	              
 	<xsl:template match="enclosure/enclosure
 						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]				 
@@ -169,8 +175,10 @@
 						 [not(y)]
 	                    " mode="passthree">  
 		<xsl:copy>
-			<xsl:apply-templates mode="passthree"/>
+			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <y>
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule 3C'"/>
          	<passthreeC/>
 		    <place>
 			    <top/>
@@ -184,8 +192,10 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	
-	<!-- no incoming non local topdown route, first enclosure within a containing enclosure and preceded by a label -->
+	<!--     *********** -->
+	<!--       Rule x5   -->
+	<!--     *********** -->
+	<!-- nested enclosure with no incoming non local topdown route, first enclosure within a containing enclosure and preceded by a label -->
 	
 	<xsl:template match="enclosure/enclosure
 						 [not(key('TerminatingNonLocalIncomingTopdownRoute',id))]
@@ -194,8 +204,10 @@
 						 [not(y)]
 	                    " mode="passthree">  
 		<xsl:copy>
-			<xsl:apply-templates mode="passthree"/>
+			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <x> 
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule x5'"/>
          	<passthreeD/>
 		    <at><left/><parent/></at>
 		 </x>
@@ -212,17 +224,21 @@
 	</xsl:template>
 
 	
-	<xsl:template match="*" mode="passfour">
+	<xsl:template match="@*|node()" mode="passfour">
 		<xsl:copy>
-			<xsl:apply-templates mode="passfour"/>
+			<xsl:apply-templates select="@*|node()" mode="passfour"/>
 		</xsl:copy>
 	</xsl:template>
 	
-	<!-- x position of an outermost  enclosure with a top down route in to it whose outermost source 
-	    does not already have a route emanating from it and ariving into a predecessor outermost enclosure -->
-    <!-- In this context preceding and preceding-sibling will execute interchangeably - because imprilcation is outermost -->
+	<!--     *********** -->
+	<!--       Rule x6   -->
+	<!--     *********** -->
+	<!-- x position of an entry container with a top down route in to it 
+	     whose exit container does not already have a route emanating from it that arives into a predecessor entry container -->
+    <!-- In  a previous context preceding and preceding-sibling will execute interchangeably - because implication is outermost - no longer so-->
 	
-	<!-- why does this have to be pass four ?? -->
+	<!-- why does this have to be pass four? because a separate pass adds y -->
+	<!-- can there be an x pass and a y pass? -->
 	
 	<xsl:template match="enclosure
 	                     [not(x)]
@@ -241,9 +257,11 @@
 	     of an incoming top down route. This rule lines up this enclosure with lhs of that source.
 	-->
 		<xsl:copy>
-			<xsl:apply-templates mode="passfour"/>
+			<xsl:apply-templates select="@*|node()" mode="passfour"/>
 			<x> 
-				<passfourA/>
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule x6'"/>
+				<passfourAA/>
 				<place>
 					<left/>
 				</place>
@@ -257,9 +275,11 @@
 		</xsl:copy>
 	</xsl:template>
 
-
+	<!--     *********** -->
+	<!--       Rule x7   -->
+	<!--     *********** -->
 	<!-- Question : should preceding below be preceding-sibling ? -->
-   <!-- This rule introduced in change of 7th M<ay 2025. -->
+   <!-- This rule introduced in change of 7th May 2025. -->
 	<xsl:template match="enclosure
 	                     [not(x)]
 	                     [key('EnteringTopdownRoute',id)]
@@ -272,8 +292,10 @@
 						   " 
 						 mode="passfour">
 		<xsl:copy>
-			<xsl:apply-templates mode="passfour"/>
+			<xsl:apply-templates select="@*|node()" mode="passfour"/>
 			<x> 
+				<xsl:attribute name="source" select="$sourcefileName"/>
+				<xsl:attribute name="rule" select="'Rule x7'"/>
 				<passfourB/>
 				<place>
 					<left/>

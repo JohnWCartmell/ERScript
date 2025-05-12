@@ -147,10 +147,10 @@ CHANGE HISTORY
 				</xsl:copy>
 		</xsl:variable>	
 
-			<xsl:copy>
+		<xsl:copy>
 				<xsl:message>initiating passfour</xsl:message>
 				<xsl:apply-templates select="$state" mode="passfour"/>
-			</xsl:copy>
+		</xsl:copy>
 	</xsl:template>
 
 	<xsl:template match="entity_model" mode="passzero">
