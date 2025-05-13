@@ -17,14 +17,10 @@ $TARGETSVGFOLDER = $TARGETWWW + '\svg'
 # $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
 $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
-$file=Get-Item $filename
-echo ('basename is:' + $file.Basename) 
-echo ('extension is:' + $file.Extension)
 
 if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.diagram\.xml$')) {
     throw "Error: Filename must end with '..diagram.xml'. Given: $filename"
 }
-
 
 # CREATE target xml folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
@@ -64,11 +60,14 @@ function Build-File {
 pushd $TARGETXML
 echo ('*********** location: ' + (Get-Location) )
 
-if ($false)
+if ($false)   # CONDITIONED OUT FOR TESTING
 {
 
 
 if ($PSBoundParameters.ContainsKey('filename')){
+    $file=Get-Item $filename
+    echo ('basename is:' + $file.Basename) 
+    echo ('extension is:' + $file.Extension)
     echo ('need build from' + $filename)
     Build-File -FileName $filename
 }else{
@@ -81,7 +80,7 @@ if ($PSBoundParameters.ContainsKey('filename')){
 }
 
 
-}
+}  # END CONDITIONED OUT
 
 
 #if ($false)

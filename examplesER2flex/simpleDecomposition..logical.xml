@@ -6,14 +6,19 @@
       <composition type="top*"/>
    </absolute> -->
    <entity_type name="top">
-      <composition type="A*"/>
-      <composition type="B*"/>
-      <composition type="C*"/>
+      <composition type="rule y1 and x6A*"/>
+      <composition type="rule y1 and x6B*"/>
+      <composition type="also rule y1 and x6B*"/>
    </entity_type>
-   <entity_type name="A">
+   <entity_type name="rule y1 and x6A">
    </entity_type>
-   <entity_type name="B">
+   <entity_type name="also rule y1 and x6A">
    </entity_type>
-   <entity_type name="C">
+   <entity_type name="rule y1 and x6B">
+      <composition type="also rule y1 and x6A*"/>
+   </entity_type>
+   <entity_type name="also rule y1 and x6B">
    </entity_type>
 </entity_model>
+
+

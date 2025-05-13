@@ -1638,7 +1638,6 @@ since scope_display_text moved in ERmodel2.documentation_enrichment.module.xslt 
 		<xsl:when test="/entity_model/presentation/diagram/deltaw">
 		   <xsl:value-of 
 			select="/entity_model/presentation/diagram/deltaw"/>
-<xsl:message> deltaw is <xsl:value-of select="/entity_model/presentation/diagram/deltaw"/> </xsl:message>
 		</xsl:when>
 		<xsl:otherwise>
 		   <xsl:value-of select="0"/>

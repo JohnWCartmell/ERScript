@@ -90,7 +90,6 @@
         Seems particularly strange for reference relationships
         Are we wedded to it?
     -->
-    <xsl:message> Firing surjective default YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</xsl:message>
     <xsl:variable name="surjective" as="xs:boolean"
                 select="$inverse/cardinality/ExactlyOne
                         or $inverse/cardinality/OneOrMore

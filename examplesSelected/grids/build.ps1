@@ -36,12 +36,13 @@ echo 'build logical and physical model'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                               -animate -physicalType hs -shortSeparator _ -longSeparator _
-}
-#if ($false)
-#{
+
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs
+}
 
+#if ($false)
+#{
 echo 'grids Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 grids..logical.xml -animate
 #}

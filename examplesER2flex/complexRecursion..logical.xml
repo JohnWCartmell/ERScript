@@ -4,20 +4,45 @@
  ERScriptVersion="1.6">
    <absolute>
       <name>abs</name>
-      <composition type="x*"/>
-   </absolute>  
-   <entity_type name="A"> 
-      <entity_type name="B">
-         <entity_type name="x">
+      <composition type="NP|AP|PP*"/><!-- 
+      <composition type="VP*"/> -->
+   </absolute> <!--  
+   <entity_type name="VP">
+      <entity_type name="cop">
+         <composition type="NP|AP|PP*"/>
+      </entity_type>
+      <entity_type name="trans">
+         <composition type="np*"/>
+      </entity_type>
+      <entity_type name="prep">
+         <composition type="pp*"/>
+      </entity_type>
+   </entity_type> -->
+  
+   <entity_type name="NP|AP|PP">
+      <entity_type name="ap">
+         <!-- if this "ap" entity type is moved after
+                entity type "NP|AP" then a circularity results
+                and  flex2svg fails
+         --> 
+         <composition type="NP|PP*"/>
+      </entity_type>
+      <entity_type name="NP|PP"> 
+         <entity_type name="np">
          </entity_type>
-         <entity_type name="y">
-            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-               <wl>4.0</wl>
-            </diagram:enclosure>
+         <entity_type name="pp">
+            <composition type="NP|PP*"/>
+               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                  <wl>2.0</wl>
+               </diagram:enclosure>
          </entity_type> 
       </entity_type>
-      <entity_type name="z">
-         <composition type="y*"/>
-      </entity_type>
    </entity_type>
+   <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+      <label>
+         <text>Note: This example fails if "ap" is moved after "NP|AP" in the source file.</text>
+         <x><at><right/><of>NP|AP|PP</of></at></x>
+         <y><at><middle/><of>NP|AP|PP</of></at></y>
+      </label>
+   </diagram:enclosure>
 </entity_model>

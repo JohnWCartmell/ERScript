@@ -23,8 +23,8 @@ attrib +R $TARGETXML\*.xml
 attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
-if ($false)
-{
+#if ($false)
+#{
 echo 'Brinton Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
@@ -35,7 +35,7 @@ echo 'Brinton Example'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA
-}
+#}
 #if ($false)
 #{
 echo 'Brinton Flex version'

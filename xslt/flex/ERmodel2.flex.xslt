@@ -178,6 +178,7 @@ CHANGE HISTORY
 					<end_style>testline</end_style>
 				</default>
 				<xsl:apply-templates select="absolute|entity_type|group" mode="passzero"/>
+				<xsl:copy-of select="diagram:enclosure/*"/>
 				<xsl:apply-templates select="//composition" mode="passzero"/>
 				<xsl:apply-templates select="//reference" mode="passzero"/>
 			</diagram:diagram>
@@ -305,7 +306,6 @@ xxxto copy through
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
 				<annotation><xsl:value-of select="inverse"/></annotation>
-        <xsl:message>Composition Surjective '<xsl:value-of select="surjective"/>'</xsl:message>
 				<line_style>
 					 <xsl:value-of select="if (surjective='true')
 					                       then 'solidline' 
@@ -361,8 +361,6 @@ xxxto copy through
 
 				<id><xsl:value-of select="../(if (self::identifying) then ../name else name)"/></id>
 				<annotation><xsl:value-of select="name"/></annotation>
-				<xsl:message>Reference Surjective '<xsl:value-of select="surjective"/>'</xsl:message>
-        <xsl:message>Reference Injective '<xsl:value-of select="injective"/>'</xsl:message>
 				<line_style>
 					 <xsl:choose>
 					 	<xsl:when test="cardinality/(ZeroOrOne|ZeroOneOrMore)">

@@ -17,9 +17,8 @@ $TARGETSVGFOLDER = $TARGETWWW + '\svg'
 # $TARGETDOCS = $TARGET + '\' + $EXAMPLEFOLDERNAME + '\docs'
 $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
-$file=Get-Item $filename
-echo ('basename is:' + $file.Basename) 
-echo ('extension is:' + $file.Extension)
+
+#was here
 
 if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.diagram\.xml$')) {
     throw "Error: Filename must end with '..diagram.xml'. Given: $filename"
@@ -64,11 +63,15 @@ function Build-File {
 pushd $TARGETXML
 echo ('*********** location: ' + (Get-Location) )
 
-if ($false)
+if ($false)   ## CONDITIONED OUT IN TESTING OF FLEX
 {
 
-
 if ($PSBoundParameters.ContainsKey('filename')){
+
+    $file=Get-Item $filename
+    echo ('basename is:' + $file.Basename) 
+    echo ('extension is:' + $file.Extension)
+
     echo ('need build from' + $filename)
     Build-File -FileName $filename
 }else{
@@ -80,7 +83,7 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo 'done building all'
 }
 
-}
+} #END OUT CONDITIONING
 
 #if ($false)
 #{

@@ -4,15 +4,20 @@
  ERScriptVersion="1.6">
    <absolute>
       <name>abs</name>
-      <composition type="rule_3A_subject*"/>
-      <composition type="rule_3C_subject*"/>
+      <composition type="rule 3A*"/>
+      <composition type="rule 3B*"/>
+      <composition type="rule 3C*"/>
    </absolute>  
-   <entity_type name="rule_y1_ and x6 subject"> 
-         <entity_type name="rule_3A_subject">
+   <entity_type name="rule y1 and x6A"> 
+         <entity_type name="rule 3A">
          </entity_type>
-         <entity_type name="rule_x1_subject">
+         <entity_type name="rule x1 and smarts">
          </entity_type> 
-         <entity_type name="rule_3C_subject">
+         <entity_type name="rule 3C">
          </entity_type> 
    </entity_type>
+   <group>
+      <entity_type name="rule 3B">
+      </entity_type>
+   </group>
 </entity_model>

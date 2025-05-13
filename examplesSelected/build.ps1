@@ -8,6 +8,13 @@ echo ("*** building from  $SOURCE flexDiagramming folder")
 $EXAMPLESSOURCE = $SOURCE + '\examplesSelected'
 
 echo "."
+echo "=============================== begin airTravel ==================="
+echo "***"
+& $EXAMPLESSOURCE\airTravel\build.ps1                # NOTE THAT '&' is the powershell call operator
+echo "***"
+echo "=============================== end airTravel ====================="
+
+echo "."
 echo "=============================== begin brinton ==================="
 echo "***"
 & $EXAMPLESSOURCE\brinton\build.ps1                # NOTE THAT '&' is the powershell call operator
@@ -69,4 +76,32 @@ echo "***"
 & $EXAMPLESSOURCE\relationalMetaModel3\build.ps1  
 echo "***"
 echo "=============================== end relationalMetaModel3 ====================="
+
+echo "."
+echo "=============================== begin routeCityState ==================="
+echo "***"
+& $EXAMPLESSOURCE\routeCityState\build.ps1  
+echo "***"
+echo "=============================== end routeCityState ====================="
+
+echo "."
+echo "=============================== begin shlaer-lang ==================="
+echo "***"
+& $EXAMPLESSOURCE\shlaer-lang\build.ps1  
+echo "***"
+echo "=============================== end shlaer-lang ====================="
+
+echo "."
+echo "=============================== begin theDramaticArts ==================="
+echo "***"
+& $EXAMPLESSOURCE\theDramaticArts\build.ps1  
+echo "***"
+echo "=============================== end theDramaticArts ====================="
+
+echo "."
+echo "=============================== begin unitTest ==================="
+echo "***"
+& $EXAMPLESSOURCE\unitTest\build.ps1  
+echo "***"
+echo "=============================== end unitTest ====================="
 

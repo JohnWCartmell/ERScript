@@ -531,7 +531,6 @@ CHANGE HISTORY
       <xsl:for-each select="path/point[count(preceding-sibling::point) &gt; 0]
                                       [count(preceding-sibling::point) &lt; ($pointcount div 2) ]
                             ">
-          <xsl:message>Point <xsl:value-of select="count(preceding-sibling::point)"/></xsl:message>
           <xsl:variable name="x"  as="xs:double" select="x/abs"/>
           <xsl:variable name="y"  as="xs:double" select="y/abs"/>
            <xsl:value-of select="concat('L',concat($x,',',$y))"/>

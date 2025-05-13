@@ -44,7 +44,7 @@
 					   [not(yP)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		                    <!-- changed from [startpoint] 25/01/2022 -->
+              priority="40.999">		                    <!-- changed from [startpoint] 25/01/2022 -->
 		<xsl:copy>
 				<yP> 
 					<at>

@@ -15,18 +15,12 @@
 	<xsl:output method="xml" indent="yes" />
     <xsl:key name="Enclosure" match="enclosure" use="id"/>
 
-    <!-- enclosure => set of route ... routes down to or into an outermost enclosure -->
-	<!-- <xsl:key name="IncomingTopdownRoute"  match="route[top_down]" use="destination/abstract"/>  -->
+   <!-- Major changes to this file ...change of 7th May 2025 -->
 
 	<!-- enclosure => set of route ... routes down to or into an entry enclosure -->
 	<!-- see change of 7th May2025 -->
 	<xsl:key name="EnteringTopdownRoute"  match="route[top_down]" use="destination/entryContainer"/>
 
-	<!-- enclosure => set of route ... non-recursive routes down to or into an outermost enclosure -->
-	<!-- Introduced for change of 7th 	May 2025 -->
-	<!-- <xsl:key name="NonRecursiveIncomingTopdownRoute"  
-								match="route[top_down][source/abstract != destination/abstract]" 
-	                        	use="destination/abstract"/> -->
 
 	<!-- enclosure => set of route ... routes down from or from within  an outermost enclosure -->
 	<xsl:key name="OutgoingTopdownRoute" match="route[top_down]" use="source/abstract"/>
@@ -80,17 +74,6 @@
 			                          [1]/id"/>
 			 </abstract>
              <!-- change of 7th May 2025 -->
-<!--              <exitContainer>
-             	<xsl:value-of select="
-             	    let $source := //enclosure[id = current()/id],
-    					$dest   := //enclosure[id = current()/../destination/id]
-    				return $source/ancestor-or-self::enclosure
-          				[not(./descendant::enclosure = $dest)
-          				  and 
-          				  not(./self::enclosure  = $dest)
-          				][1]/id
-          				"/>
-             </exitContainer> -->
 
              <xsl:variable name="exitContainer"
           	              as="element(enclosure)?"
