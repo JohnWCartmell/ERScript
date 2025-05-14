@@ -39,7 +39,14 @@
       <stroke-width>0.02</stroke-width>
       <fill-opacity>0.3</fill-opacity>  
    </shape_style>
-
+    <shape_style>
+        <id>group_outline</id>
+        <fill>lightgrey</fill>
+        <stroke>black</stroke>
+        <fill-opacity>0.3</fill-opacity>  
+        <stroke-dasharray>2 2</stroke-dasharray>
+        <stroke-width>1</stroke-width>
+    </shape_style>
    <line_style>
       <id>solidline</id>
       <stroke>black</stroke> 
