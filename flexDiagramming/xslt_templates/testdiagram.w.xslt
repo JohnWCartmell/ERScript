@@ -100,6 +100,7 @@
                   priority="42P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:message> Test rule firing ... but why?</xsl:message>
       <w>
          <xsl:value-of select="max((enclosure/((x/relative/*[position()=1][self::offset])+ w + wr ),
                                     *[not(self::enclosure)]/((x/relative/*[position()=1][self::offset])+ w + padding),

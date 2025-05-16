@@ -14,34 +14,19 @@
  <!-- <xsl:include href="diagram.functions.module.xslt"/> -->
 
 <xsl:output method="xml" indent="yes"/>
-
-
-<!-- *********** -->
-<!-- enclosure/wP -->
-<!-- *********** -->
-<!-- combined below
-<xsl:template match="enclosure[not(wP)]
-                              [not(enclosure|path|stack|label|decoration|point|ns|ew|ramp)]
-                              [ancestor-or-self::*/default/wminP[1]]
-                    " 
-              mode="recursive_diagram_enrichment"
-              priority="42P">
-   <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <wP>
-        <xsl:value-of select="ancestor-or-self::*/default/wminP[1]"/>
-      </wP>
-   </xsl:copy>
-</xsl:template>
--->
+<!-- change of 16 May 2025 Support the wFill and hFill directives -->  
 
 <xsl:template match="enclosure[not(wP)] 
+                              [not(wPFill)]
                               [margin]
                               [ancestor-or-self::*/default/wminP[1]]
-                              [every $e in enclosure|label|point|ns|ew|ramp
-                               satisfies $e/wP  and $e/padding
+                              [every $e in (enclosure|label|point|ns|ew|ramp)
+                               satisfies $e/wPFill
+                                         or(
+                                           $e/wP  and $e/padding
                                and ( $e/xP/relative/*[position()=1][self::offset]
                                      | $e/xP/clocal | $e/xP/rlocal )
+                                           )
                               ]
                               [every $e in enclosure 
                                satisfies $e/wrP  
@@ -59,6 +44,7 @@
                              priority="42.1P">
 
    <xsl:copy>
+      <xsl:message>  modifed wP rule firing '<xsl:value-of select="id"/>'</xsl:message>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	  <!--
 	      Note that xP/clocal + wP = -xP/clocal so both 3rd line and 4th term then match each other
@@ -66,10 +52,10 @@
       <xsl:variable name="wP" as="xs:double"
             select="max((
                          (ancestor-or-self::*/default/wminP)[last()],
-                         enclosure/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
-                           enclosure/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
-                           enclosure/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
-                           enclosure/(-xP/rlocal +  wlP  + padding),
+                         enclosure[not(wPFill)]/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
+                           enclosure[not(wPFill)]/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
+                           enclosure[not(wPFill)]/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
+                           enclosure[not(wPFill)]/(-xP/rlocal +  wlP  + padding),
                            *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
                            *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
                            *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
@@ -86,12 +72,31 @@
    </xsl:copy>
 </xsl:template>
 
+<xsl:template match="enclosure[not(wP)]
+                              [wPFill]
+                              [../wP]
+                              [margin] 
+                    "
+                  mode="recursive_diagram_enrichment"
+                  priority="42.11P">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:message>***** wPFill rule for wP firing '<xsl:value-of select="id"/>'</xsl:message>
+      <wP>
+         <xsl:value-of select="../wP - 2 * margin"/>  <!-- ?????????????????????????? change to subtract margin*2 ????????????-->
+      </wP>
+   </xsl:copy>
+</xsl:template>
+
 <!-- ********* -->
 <!-- diagram/wP -->
 <!-- ********* -->
 <xsl:template match="diagram[not(wP)]
                             [every $e in enclosure|label|point|ns|ew|ramp
-                               satisfies $e/wP  and $e/padding and $e/xP/relative/*[position()=1][self::offset]
+                               satisfies ($e/wPFill
+                                         or
+                                   ($e/wP  and $e/padding and $e/xP/relative/*[position()=1][self::offset])
+                                   )
                               ]
                               [every $e in enclosure 
                                satisfies $e/ wrP  
@@ -106,7 +111,7 @@
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wP>
-         <xsl:value-of select="max((enclosure/((xP/relative/*[position()=1][self::offset])+ wP + wrP ),
+         <xsl:value-of select="max((enclosure[not(wPFill)]/((xP/relative/*[position()=1][self::offset])+ wP + wrP ),
                                     *[not(self::enclosure)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
                                     path/point/xP/abs
                                   )) 

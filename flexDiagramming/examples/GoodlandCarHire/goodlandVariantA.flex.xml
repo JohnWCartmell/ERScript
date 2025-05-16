@@ -27,8 +27,7 @@
    <enclosure>
       <id>allocated_payment</id>
          <shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>2.8</w>
       <x><abs>0.5</abs></x>
@@ -38,8 +37,7 @@
    <enclosure>
       <id>payment</id>
          <shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <x>
          <place><left/><edge/></place>
@@ -60,8 +58,7 @@
    <enclosure>
       <id>customer</id>
 		<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>1.65</w>
       <x>
@@ -81,8 +78,7 @@
    <enclosure>
       <id>booking_/invoice</id>
 		<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>10.5</w>
       <x>
@@ -103,8 +99,7 @@
    <enclosure>
       <id>vehicle_category</id>
 			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>2.5</w>
       <x>
@@ -130,8 +125,7 @@
    <enclosure>
       <id>local_office</id>
       <shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>3.6</w>
       <x>
@@ -149,8 +143,7 @@
    <enclosure>
       <id>vehicle</id>
          <shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <x>
          <place><left/></place>
@@ -170,9 +163,8 @@
 
    <enclosure>
       <id>driver</id>
-			<shape_style>eteven</shape_style>
-      <rx>0.25</rx>
-      <ry>0.25</ry>
+		<shape_style>eteven</shape_style>
+      <framearc>0.2</framearc>
       <label><text_style>etname</text_style></label>
       <w>3.8</w>
       <x>

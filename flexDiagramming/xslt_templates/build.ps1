@@ -32,6 +32,7 @@ function ReplacexPwithxetc
                       -creplace '40P', '40' `
                       -creplace '42P',   '42' `
                       -creplace '42.1P',   '42.1' `
+                      -creplace '42.11P',   '42.11' `
                       -creplace '50P',   '50' `
                       -creplace '50.1P',   '50.1' `
                       -creplace '50.2P',   '50.2' `
@@ -86,6 +87,7 @@ function ReplacexPwithyetc
                       -creplace '40P', '41' `
                       -creplace '42P', '43' `
                       -creplace '42.1P', '43.1' `
+                      -creplace '42.11P', '43.11' `
                       -creplace '50P', '48' `
                       -creplace '50.1P', '48.1' `
                       -creplace '50.2P', '48.2' `

@@ -191,9 +191,10 @@ CHANGE HISTORY
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
-			<w>15</w> <!--temporary measures!!!!!!!!!!!!!!!!!***************>-->
-			<rx>0.25</rx>
-			<ry>0.25</ry>
+			<!-- <w>15</w> --> <!--temporary measure!!!!!!!!!!!!!!!!!***************-->
+			<padding>0</padding>
+			<wFill/>
+			<framearc>0.2</framearc>
 			<label/>
 		</xsl:element>
 	</xsl:template>
@@ -238,8 +239,7 @@ xxxto copy through
 			<xsl:variable name="iseven" as="xs:boolean" select="($nestingDepth mod 2)=0"/>
 			<xsl:variable name="shapestyle" as="xs:string" select="if ($iseven) then 'eteven' else 'etodd'"/>
 			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
-			<rx>0.25</rx>  
-			<ry>0.25</ry>
+			<framearc>0.2</framearc>
 			<label><text_style>etname</text_style></label>
 			<!-- new 4 May 2025 -->
 			<xsl:copy-of select="diagram:enclosure/*"/>

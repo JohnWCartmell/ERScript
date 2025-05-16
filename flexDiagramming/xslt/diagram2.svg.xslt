@@ -99,7 +99,7 @@ CHANGE HISTORY
                    orient="auto-start-reverse">
             <svg:path d="M 1,1 L 1,11"/>
         </svg:marker>
-      <svg:marker id="squiggle"
+        <svg:marker id="squiggle"
                    markerWidth="10"
                    markerHeight="22"
                    refX="28"
@@ -108,7 +108,40 @@ CHANGE HISTORY
                    fill="none"
                    orient="auto-start-reverse">
          <svg:path d="M 0,13 C 3,0 6,22 9,9"/>
-      </svg:marker>
+        </svg:marker>
+        <svg:marker id="hollowDiamond"
+                  markerWidth="20"
+                  markerHeight="12"
+                  refX="20"
+                  refY="6"
+                  stroke-width="1"
+                  stroke="black"
+                  fill="white"
+                  orient="auto-start-reverse">
+              <svg:path d="M 0,6 L 10,0 L 20,6 L 10,12 Z"/>
+          </svg:marker>
+          <svg:marker id="solidDiamond"
+                  markerWidth="20"
+                  markerHeight="12"
+                  refX="20"
+                  refY="6"
+                  stroke-width="1"
+                  stroke="black"
+                  fill="black"
+                  orient="auto-start-reverse">
+              <svg:path d="M 0,6 L 10,0 L 20,6 L 10,12 Z"/>
+          </svg:marker>
+          <svg:marker id="hollowTriangle"
+                  markerWidth="12"
+                  markerHeight="12"
+                  refX="12"
+                  refY="6"
+                  stroke-width="1"
+                  stroke="black"
+                  fill="white"
+                  orient="auto-start-reverse">
+            <svg:path d="M 0,0 L 0,12 L 12,6 Z"/>
+          </svg:marker>
       </svg:defs>
       <xsl:copy-of select="$content"/>
     </svg:svg>

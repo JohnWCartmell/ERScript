@@ -57,6 +57,8 @@
 <xsl:include href="diagram.h.xslt"/>                    <!-- priority  43.1  -->
 <xsl:include href="diagram.ht.xslt"/>                   <!-- priority  41  -->
 <xsl:include href="diagram.hb.xslt"/>                   <!-- priority  43.1 -->
+<xsl:include href="diagram.enclosure.+rx+ry.xslt"/>                   <!-- priority  80.1 -->
+
 
 <!-- No longer reqd I think
 <xsl:include href="diagram...edge-+id.xslt"/>  -->           <!-- priority  40  -->

@@ -35,6 +35,27 @@
     </xsl:copy>
   </xsl:template>
   
+
+<!-- change of 16 May 2025 -->
+<xsl:template match="enclosure
+                        [not(wrP)]
+            [wPFill]
+            [every $edge in key('right_sideP_is_endpoint_of',id)[annotation]
+                               satisfies $edge/x_upper_boundP
+                        ]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42P">
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <wrP>
+         <xsl:value-of select="0"/>
+     </wrP>
+    </xsl:copy>
+  </xsl:template>
+
+
+
 <!-- ************** -->
 <!-- point  +wrP    -->
 <!-- ************** -->
