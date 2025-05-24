@@ -53,8 +53,8 @@
             select="max((
                          (ancestor-or-self::*/default/wminP)[last()],
                          enclosure[not(wPFill)]/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
-                           enclosure[not(wPFill)]/(2 * (xP/clocal + wP  +  wrP  + padding))  + margin,
-                           enclosure[not(wPFill)]/(2 * (-xP/clocal  +  wlP  + padding)) + margin,
+                           enclosure[not(wPFill)]/(2 * (xP/clocal + wP  +  wrP  + padding) + ../margin),
+                           enclosure[not(wPFill)]/(2 * (-xP/clocal  +  wlP  + padding) + ../margin ),
                            enclosure[not(wPFill)]/(-xP/rlocal +  wlP  + padding),
                            *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
                            *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
@@ -62,7 +62,11 @@
                            route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
                          )) + margin
                      "/> 
-      <!--
+                     <!-- 19 May 2025. During the change of 18 May 2025. Fix a bug which results in run time
+                     error if two (or more) child enclosures are centred and therefore have a clocal. 
+                     Fix: in legs 3 and 4 the + margin modified moved inside right parenthesis 
+                     and becomes + ../margin)   -->
+   <!--
       <xsl:message> id <xsl:value-of select="id"/> wminP <xsl:value-of select="(ancestor-or-self::*/default/wminP)[last()]"/> </xsl:message>
    -->
       <wP>
@@ -75,7 +79,7 @@
 <xsl:template match="enclosure[not(wP)]
                               [wPFill]
                               [../wP]
-                              [margin] 
+                              [../margin] 
                     "
                   mode="recursive_diagram_enrichment"
                   priority="42.11P">
@@ -83,7 +87,7 @@
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <xsl:message>***** wPFill rule for wP firing '<xsl:value-of select="id"/>'</xsl:message>
       <wP>
-         <xsl:value-of select="../wP - 2 * margin"/>  <!-- ?????????????????????????? change to subtract margin*2 ????????????-->
+         <xsl:value-of select="../(wP - 2 * margin)"/>  
       </wP>
    </xsl:copy>
 </xsl:template>

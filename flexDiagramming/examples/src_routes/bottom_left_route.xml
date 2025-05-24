@@ -34,7 +34,7 @@
 			<id>B</id>
 			<label/>	
 			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
-			<y><at><predecessor/></at><delta>1.0</delta></y>		  
+			<y><at><predecessor/></at><delta>1.5</delta></y>		  
 		</enclosure>
 		<route>
 			<source>

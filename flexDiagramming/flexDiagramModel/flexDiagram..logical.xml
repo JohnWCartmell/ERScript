@@ -194,6 +194,7 @@
       <entity_type name="destination"/>
       <composition type="specific_edge?" inverse=".."/>
       <composition type="endline*" inverse=".."/>
+      <composition type="annotation*" inverse=".."/>
       <reference name="id" type="enclosure"/>
       <reference name="escape" type="enclosure?"/>
       <reference name="line_style" type="line_style?"/>
@@ -206,6 +207,11 @@
       <attribute name="label_long_offset" type="float?"/>
    </entity_type>
    <!-- end of node(2) -->
+   <entity_type name="annotation">
+      <attribute name="text" type="string">
+         <xmlRepresentation><Anonymous/></xmlRepresentation>
+      </attribute>
+   </entity_type>
    <entity_type name="specific_edge">
       <entity_type name="specific_level">
          <entity_type name="top_edge"/>

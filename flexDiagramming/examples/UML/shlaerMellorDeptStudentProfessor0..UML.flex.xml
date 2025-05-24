@@ -13,8 +13,8 @@
       <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/eraFlexStyleDefinitions.xml</filename>
    </include>
    <default>
-      <hmin>0.5</hmin>
-      <wmin>0.05</wmin>
+      <hmin>0.1</hmin>
+      <wmin>2.0</wmin>
       <margin>0.1</margin>
       <padding>0.15</padding>
       <packing>horizontal</packing>
@@ -31,22 +31,50 @@
       <x><relative><offset>0</offset></relative><abs>0</abs></x>  <!-- OMG need relative addressing to get dfiagram/w calcualted!-->
       <y><relative><offset>0</offset></relative><abs>0</abs></y>
       <h>0.3</h>
-      <wr>0</wr>   <!-- NEED THIS BUT COULD AUTOGENERATE FROM wfill N'EST PAS?-->
-      <wfill/>
+      <wFill/>
    </enclosure>
-
+<enclosure>
+   <id>test outer most xxxx</id>
+   <shape_style>group_outline</shape_style>
+   <x><abs>0</abs></x>
+   <y><abs>1</abs></y>
+   <wr>0</wr>
    <enclosure>
       <compositionalDepth>0</compositionalDepth>
       <id>department</id>
       <shape_style>etodd</shape_style>
+      <margin>0</margin>
       <label>
-         <text_style>etname</text_style>
+         <text_style>classname</text_style>
+         <x><at><centre/><parent/></at></x>
+         <y><at><top/><parent/></at></y>
+         <padding>0.05</padding>
       </label>
-      <label>
-         <text>-name</text>
-         <text_style>attrname</text_style>
-      </label>
-      <x><abs>3.0</abs></x>
+      <enclosure>
+         <id>department_name_stripe</id>
+         <shape_style>box</shape_style>
+         <x><at><offset>0</offset></at></x>
+         <y><at><offset>0</offset></at></y>
+         <h>0.3</h>
+         <padding>0</padding>
+         <margin>0.2</margin>
+         <wFill/>
+      </enclosure>
+      <enclosure>
+         <id>department_attribute_box</id>
+         <shape_style>box</shape_style>
+         <x><at><offset>0</offset></at></x>
+         <padding>0</padding>
+         <margin>0.15</margin>
+         <default><padding>0</padding></default>
+         <label>
+            <text>-name</text>
+            <text_style>attrname</text_style>
+            <x><at><left/><parent/></at></x>
+         </label>
+      </enclosure>
+      <!-- <x><abs>3.0</abs></x> -->
+      <x><at><centre/><parent/></at></x> 
    </enclosure>
    <enclosure>
       <id>container</id>
@@ -71,7 +99,8 @@
          </place>
          <at>
             <centre/>
-            <of>department</of>
+            <!-- <of>department</of> -->
+            <parent/>
          </at>
       </x>
       <enclosure>
@@ -80,40 +109,82 @@
          <shape_style>etodd</shape_style>
          <padding>0.15</padding>
          <margin>0</margin>
-         <enclosure>
-            <id>student_name_stripe</id>
-            <shape_style>group_outline</shape_style>
-            <x><at><offset>0</offset></at></x>
-            <y><at><offset>0</offset></at></y>
-            <h>0.3</h>
-           <padding>0</padding>
-            <margin>0.2</margin>
-            <wr>0</wr> <!-- need this because w of parent depends on wr of child !!-->
-            <wfill/>
-            <!-- <w>3</w> -->
-         </enclosure>
          <label>
-            <text_style>etname</text_style>
-            <x><at><left/><parent/></at></x>
+            <text_style>classname</text_style>
+            <x><at><centre/><parent/></at></x>
             <y><at><top/><parent/></at></y>
             <padding>0.05</padding>
          </label>
-         <label>
-            <text>-name</text>
-            <text_style>attrname</text_style>
-         </label>
+         <enclosure>
+            <id>student_name_stripe</id>
+            <shape_style>box</shape_style>
+            <x><at><offset>0</offset></at></x>
+            <y><at><offset>0</offset></at></y>
+            <h>0.3</h>
+            <padding>0</padding>
+            <margin>0.2</margin>
+            <wFill/>
+         </enclosure>
+         <enclosure>
+            <id>student_attribute_box</id>
+            <shape_style>box</shape_style>
+            <x><at><offset>0</offset></at></x>
+            <padding>0</padding>
+            <margin>0.15</margin>
+            <default><padding>0</padding></default>
+            <label>
+               <text>-name : string</text>
+               <text_style>attrname</text_style>
+            </label>
+         </enclosure>
+         <enclosure>
+            <id>student_methods_box</id>
+            <shape_style>box</shape_style>
+            <x><at><offset>0</offset></at></x>
+            <y><at><bottom/><edge/><parent/></at></y>
+            <h>0.07</h>
+            <padding>0</padding>
+            <margin>0</margin>
+            <wFill/>
+         </enclosure>
       </enclosure>
       <enclosure>
          <compositionalDepth>1</compositionalDepth>
          <id>professor</id>
          <shape_style>etodd</shape_style>
+         <margin>0</margin>
          <label>
-            <text_style>etname</text_style>
+            <text_style>classname</text_style>
+            <x><at><centre/><parent/></at></x>
+            <y><at><top/><parent/></at></y>
+            <padding>0.05</padding>
          </label>
-         <label>
-            <text>-name</text>
-            <text_style>attrname</text_style>
-         </label>
+         <enclosure>
+            <id>professor_name_stripe</id>
+            <shape_style>box</shape_style>
+            <x><at><offset>0</offset></at></x>
+            <y><at><offset>0</offset></at></y>
+            <h>0.3</h>
+            <padding>0</padding>
+            <margin>0.2</margin>
+            <wFill/>
+         </enclosure>
+         <enclosure>
+            <id>professor_attribute_box</id>
+            <shape_style>box</shape_style>
+            <x><at><offset>0</offset></at></x>
+            <padding>0</padding>
+            <margin>0.15</margin>
+            <default><padding>0</padding></default>
+            <label>
+               <text>-nameppp</text>
+               <text_style>attrname</text_style>
+            </label>
+                     <label>
+               <text>-nameqqq</text>
+               <text_style>attrname</text_style>
+            </label>
+         </enclosure>
          <y>
             <passtwoA/>
             <place>
@@ -138,35 +209,72 @@
          </x>
       </enclosure>
    </enclosure>
-
+</enclosure>
    <route>
       <text_style>relname</text_style>
       <top_down/>
       <source>
          <id>department</id>
-         <annotation>required?</annotation>
+         <!-- <annotation>required?</annotation> -->
          <line_style>dashedline</line_style>
          <abstract>department</abstract>
          <exitContainer>department</exitContainer>
          <endline><marker>hollowDiamond</marker></endline>
+         <bottom_edge>
+            <deltax>0.35</deltax>
+            <annotate_left/>
+         </bottom_edge>
       </source>
       <destination>
          <id>student</id>
-         <annotation>majoring in</annotation>
+         <annotation>studentsxx</annotation>
          <line_style>solidline</line_style>
          <abstract>student</abstract>
          <trace>
             <id>student</id>
          </trace>
          <entryContainer>student</entryContainer>
+         <top_edge>
+            <deltax>1.8</deltax>
+            <annotate_left/> 
+         </top_edge>
       </destination>
+       <path>
+         <point>
+            <startpoint/>
+            <y>
+               <at><bottom/><edge/><of>department</of></at>
+            </y>
+            <label>
+               <text>xzzzz</text>
+            </label>
+         </point>
+         <!-- <ns><startarm/></ns> -->
+         <ramp/>
+         <point>
+            <endpoint/>
+            <y>
+               <at><top/><edge/><of>student</of></at>
+            </y>
+            <label>
+               <!-- <text>students</text> --> 
+               <!-- text rule is defined in diagram..route.path.point.label-+text -->
+               <!-- <x><place><right/><edge/></place><at><left/><parent/></at></x> -->
+            </label>
+            <label>
+               <!-- <text>0..*</text> --> <!-- test whether label is duplicated -->
+               <x><place><left/><edge/></place><at><parent/><offset>0.2</offset></at></x>
+               <!-- (strangely) no default for offset therefore need specify -->
+            </label>
+         </point>
+      </path>
    </route>
    <route>
       <text_style>relname</text_style>
       <top_down/>
       <source>
          <id>department</id>
-         <annotation>required?</annotation>
+         <!-- <annotation>required?</annotation> -->
          <line_style>dashedline</line_style>
          <abstract>department</abstract>
          <exitContainer>department</exitContainer>

@@ -185,13 +185,11 @@ CHANGE HISTORY
 	</xsl:template>
 
 
-
 	<xsl:template match="absolute" mode="passzero">
 		<xsl:message>passzero</xsl:message>
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
-			<!-- <w>15</w> --> <!--temporary measure!!!!!!!!!!!!!!!!!***************-->
 			<padding>0</padding>
 			<wFill/>
 			<framearc>0.2</framearc>

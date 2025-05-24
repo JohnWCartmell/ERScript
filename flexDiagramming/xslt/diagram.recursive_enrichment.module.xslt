@@ -14,7 +14,7 @@
 
 <xsl:output method="xml"  indent="yes" cdata-section-elements="sourcecode"/>
 <xsl:param name="maxiter" />
-<xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
+<xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" /> 
 
 
 

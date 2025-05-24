@@ -910,6 +910,14 @@
    <entity_type>
       <name>node(2)</name>
       <composition>
+         <type>annotation</type>
+         <diagram>
+            <path>
+               <srcattach>0.2</srcattach>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
          <type>specific_edge</type>
          <diagram>
             <path>
@@ -920,11 +928,26 @@
             </path>
          </diagram>
       </composition>
+            <composition>
+         <type>endline</type>
+         <diagram>
+            <path>
+               <srcattach>0.8</srcattach>
+            </path>
+         </diagram>
+      </composition>
+   </entity_type>
+   <entity_type>
+      <name>annotation</name>
+      <presentation>
+         <below>node(2)</below>
+         <x>-3.5</x>
+      </presentation>
    </entity_type>
    <entity_type>
       <name>specific_edge</name>
       <presentation>
-         <below>node(2)</below>
+         <rightOf>annotation</rightOf>
       </presentation>
    </entity_type>
    <entity_type>

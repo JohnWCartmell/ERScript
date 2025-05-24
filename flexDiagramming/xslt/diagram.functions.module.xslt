@@ -144,10 +144,16 @@
 <xsl:function name="diagram:angleToNegativeYaxis">
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
+    <!-- bug that was noticed in reading the code corrected 24 May 2025 -->
+    <!-- previously was
     <xsl:value-of select="
 	  if ($xdiff = 0 and $ydiff = 0) then 0
 	  else (if ($xdiff lt 0) then - 2 * math:pi() else 2 * math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
-	"/>
+	"/>  -->
+    <xsl:value-of select="
+      if ($xdiff = 0 and $ydiff = 0) then 0
+      else (if ($xdiff lt 0) then - math:pi() else math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
+    "/>
 </xsl:function>
 
 <!-- tan function given argument in degrees -->

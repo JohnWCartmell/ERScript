@@ -40,7 +40,18 @@
       <fill-opacity>0.3</fill-opacity>  
    </shape_style>
     <shape_style>
+        <id>box</id>
+        <stroke>black</stroke>
+        <stroke-width>1</stroke-width> 
+        <fill-opacity>0</fill-opacity> 
+    </shape_style>
+    <shape_style>
         <id>group_outline</id>
+       <!--  <fill>lightgrey</fill> -->
+        <fill-opacity>0</fill-opacity> 
+    </shape_style>
+    <shape_style>
+        <id>group_outline:hover</id>
         <fill>lightgrey</fill>
         <stroke>black</stroke>
         <fill-opacity>0.3</fill-opacity>  
@@ -98,6 +109,16 @@
      <font-family>"Times New Roman", Times, serif</font-family>
    </text_style>
 
+
+   <text_style>
+     <id>classname</id>
+     <!-- intended for UML class name 19 May 2025 -->
+     <fill>black</fill>
+     <font-size>10px</font-size>
+     <font-weight><normal/></font-weight>
+     <font-style><normal/></font-style>
+     <font-family>"Times New Roman", Times, serif</font-family>
+   </text_style>
 
    <text_style>
      <id>title</id>
