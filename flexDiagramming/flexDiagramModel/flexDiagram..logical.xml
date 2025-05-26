@@ -194,48 +194,44 @@
       <entity_type name="destination"/>
       <composition type="specific_edge?" inverse=".."/>
       <composition type="endline*" inverse=".."/>
-      <composition type="annotation*" inverse=".."/>
+      <!-- <composition type="annotation*" inverse=".."/> -->
       <reference name="id" type="enclosure"/>
       <reference name="escape" type="enclosure?"/>
       <reference name="line_style" type="line_style?"/>
-      <attribute name="destRelPos" type="float"/>
-      <attribute name="angleToOtherEnd" type="float"/>
-      <attribute name="ratio" type="float"/>
-      <attribute name="slotNo" type="float"/>
       <attribute name="annotation" type="string?"/>
-      <attribute name="label_lateral_offset" type="float?"/>
-      <attribute name="label_long_offset" type="float?"/>
-   </entity_type>
-   <!-- end of node(2) -->
-   <entity_type name="annotation">
-      <attribute name="text" type="string">
-         <xmlRepresentation><Anonymous/></xmlRepresentation>
-      </attribute>
+      <attribute name="secondaryAnnotation" type="string?"/>
+      <!-- <attribute name="destRelPos" type="float"/> -->
+      <attribute name="angleToOtherEnd" type="float?"><implementationOf/></attribute>
+      <!-- <attribute name="ratio" type="float"/> -->
+      <attribute name="label_lateral_offset" type="float?"> <implementationOf/></attribute>
+      <attribute name="label_long_offset" type="float?"> <implementationOf/></attribute>
    </entity_type>
    <entity_type name="specific_edge">
+      <composition name="labelPosition" type="orientation?" inverse=".."/>
+      <composition name="secondaryLabelPosition" type="orientation?" inverse=".."/>
+      <attribute name="slotNo" type="nonNegativeInteger?"><implementationOf/></attribute>
       <entity_type name="specific_level">
          <entity_type name="top_edge"/>
          <entity_type name="bottom_edge"/>
-         <composition type="annotate_leftright?"/>
          <attribute name="deltax" type="float"/>
       </entity_type>
       <entity_type name="specific_side">
          <entity_type name="left_side"/>
          <entity_type name="right_side"/>
-         <composition type="annotate_highlow?"/>
          <attribute name="deltay" type="float"/>
       </entity_type>
+      <attribute name="noOfSlots" type="nonNegativeInteger"><implementationOf/></attribute>
    </entity_type>
+   <entity_type name="orientation">
+      <attribute name="xoffset" type="float?"><implementationOf/></attribute>
+      <attribute name="yoffset" type="float?"><implementationOf/></attribute>
+      <entity_type name="clockwise"/>
+      <entity_type name="anti-clockwise"/>
+      <composition type="out?"/>
+   </entity_type>
+   <entity_type name="out"/>
    <entity_type name="endline">
       <reference name="marker" type="line_marker"/>
-   </entity_type>
-   <entity_type name="annotate_leftright">
-      <entity_type name="annotate_left"/>
-      <entity_type name="annotate_right"/>
-   </entity_type>
-   <entity_type name="annotate_highlow">
-      <entity_type name="annotate_high"/>
-      <entity_type name="annotate_low"/>
    </entity_type>
    <entity_type name="graphic_style">
       <identifying>

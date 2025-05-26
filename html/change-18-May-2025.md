@@ -181,42 +181,145 @@ H2a(x) = Ha() + tan(beta) x text_height
 where beta is the angle between the endarm and the vertical and is between -pi/2 and pi/2.
 
 Call these positions the clockwiseOuter and anticlockwiseOuter positions.
+### Implementation
+#### Bug Fix
+From reading the code I can see that there is an error in source `diagram.functions.module.xslt` in this function
+```
+<xsl:function name="diagram:angleToNegativeYaxis">
+    <xsl:param name="xdiff" as="xs:double"/>
+    <xsl:param name="ydiff" as="xs:double"/>
+    <xsl:value-of select="
+     if ($xdiff = 0 and $ydiff = 0) then 0
+     else (if ($xdiff lt 0) then - 2 * math:pi() else 2 * math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
+   "/>
+</xsl:function>
+```
+The code should read
+```
+     if ($xdiff = 0 and $ydiff = 0) then 0
+     else (if ($xdiff lt 0) then -  math:pi() else  math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
+```
 
-### Calculation of angle theta
-Because of the lack of symetry the calculation of theta will deffer for startarm and endarms.
+#### Calculation of angle theta
+
+We will use  the function `diagram:angleToYaxis` defined in source file `diagram.functions.module.xslt`.
+Define a new function as follows:
+```
+<xsl:function name="diagram:noughtToTwoPiAngleToNegativeYaxis">
+    <xsl:param name="xdiff" as="xs:double"/>
+    <xsl:param name="ydiff" as="xs:double"/>
+    <xsl:value-of select="
+     if ($xdiff = 0 and $ydiff = 0) then 0
+     else  math:pi() - diagram:angleToYaxis($xdiff,$ydiff) 
+   "/>
+</xsl:function>
+
+```
+There is a lack of symmetry the calculation of theta will differ for startarm and endarm as follows:
+```
 + startarm
    + ns theta = if starty < endy then 0 else pi
    + ew theta = if startx < endx then pi/2 else 3pi/2
-   + ramp theta = if (delta x > 0) 
-                  then arctan(delta y / delta x)
-                  else pi + arctan(-deltay / deltax)
-+ endarm swap start and end and swap the signs of deltax and deltay
+   + ramp theta = diagram:noughtToTwoPiAngleToNegativeYaxis(endx-startx,endy-starty)
+
++ endarm 
    + ns theta = if starty < endy then pi else 0
    + ew theta = if startx < endx then 3pi/2 else pi/2
-   + ramp theta = arctan -(delta y / delta x)
+   + ramp theta = diagram:noughtToTwoPiAngleToNegativeYaxis(startx-endx,starty-endy)
+```
 
-
-### Implementation
-1. Change the name of file  `diagram...route.node-+label_long_offset.xslt` to be 
+#### Name change
+Change the name of file  `diagram...route.node-+label_long_offset.xslt` to be 
 `diagram...route.node-+label_long_offset+label_lateral_offset.xslt`.
-2. Modify the flex diagram meta model `flexDiagram..logical.xml` and the associated
-`flexDiagram..presentation.xml` : instead of annotation being a text attribute of each 
-specific end of a route. (Rememeber specific_end ::= source | destination).
-Annotation is an entity type with a text attribute defined to be xmLRepresentation Anonomous.
-2. Modify the flex diagram meta model.
-+ remove annotate_left, annotate_right, annotate_high, annotate_low. 
-+ add clockwise and anticlockwise. 
-+ add clockwise_outer and anticlockwise_outer define for top_edge and bottom_edge
-+ maybe add default_main this is clockwise or anticlockwise depending on theta and edge
-+ maybe add default_complementary  this is clockwise or anticlockwise and possible outer depending on theta and on specific edge.
 
-3. No longer create a label as part of creating the endpoints in source 
+#### Changes to the flex diagram model
+1.  Modify the flex diagram meta model `flexDiagram..logical.xml` and the associated
+`flexDiagram..presentation.xml` to document some of the attributes we will be working with. 
+Flag the follwoing attributes of node(2) as derived by adding a cheeky `<implementationOf/>` flag:
++ slotNo
++ label_lateral_offset
++ label_long_offset
++ angleToOtherEnd
+
+2. In the  source file remove the unused attributes of node(2)
++ `ratio`
++ `destRelPos`[x]
+
+3. Add derived attribute noOfSlots to specific_edge.[x]
+
+4. In the same diagram model source files, move slotNo attribute to entity type specific edge.
++ Modify `diagram..route.node-+slotNo.xslt` accordingly and change name of the file to be
+`diagram..route.node.specificEdge-+slotNo.xslt`. [x]
++ Modify `diagram..route.node.specificEdge-+deltax.xslt` accordingly.[x]
++ Modify `diagram.route.path.xslt` accordingly.  
+  Rename this file to be `diagram...path.cardinal-+deltax-+deltay.xslt`  [x]
+
+5. In the same diagram model source files: 
++ add attribute secondary_annotation to node(2). Recall node(2) ::= source | destination.
++ remove annotate_left, annotate_right, annotate_high, annotate_low. 
++ add entity type orientation ::= clockwise | anti-clockwise.
++ add compositions 
+```
+orientation => clockwise | anti-clockwise ;
+specific_edge => labelPosition : orientation, 
+                 secondaryLabelPosition : orientation ;
+
+orientation => :outer(2) ; # an unnamed composition relationship
+
+outer(2) => ;                   # an attributeless entity type
+                                # the second instance of an entity type called outer.
+``` 
+#### Rules for labelPosition
+Implement the following rules in file `diagram...route.specific_edge-+labelPosition.xslt`
++ left side | top edge
+``` 
+if slot no <= noofslots div 2 
+then labelPosition := anti-clockwise
+else labelPosition := clockwise
+```
++ right side | bottom edge
+``` 
+if slot no <= noofslots div 2 
+then labelPosition := clockwise
+else labelPosition := anti-clockwise
+```
+#### Rules for secondaryLabelPosition
+Implement the following rules in file `diagram...route.specific_edge-+secondaryLabelPosition.xslt`
++ top edge
+``` 
+if slot no <= noofslots div 2 
+then secondaryLabelPosition := anti-clockwise/outer
+else secondaryLabelPosition := clockwise/outer
+```
++ bottom edge
+``` 
+if slot no <= noofslots div 2 
+then secondaryLabelPosition := clockwise/outer
+else secondaryLabelPosition := anti-clockwise/outer
+```
++ left side 
+``` 
+if slot no <= noofslots div 2 
+then secondaryLabelPosition := clockwise
+else labelPosition := clockwise
+     secondaryLabelPosition := anti-clockwise
+```
++ right side 
+``` 
+if slot no <= noofslots div 2 
+then secondaryLabelPosition := anti-clockwise
+else secondaryLabelPosition := clockwise
+```
+
+#### Rules for Creating labels
+1. No longer create a label as part of creating the endpoints in source 
 files `diagram...path-+point.endpoint+ewQ.xslt` and `diagram..path-+point.startpoint+ewQ.xslt`.
-4. Introduce a new source file  `diagram..route.path.point-+label.xslt` to create labels on startpoint and endpoint one for each annotation present. 
-5. Add to or modify that rules in  `diagram...route.path.point.label-+xP` and revise 
+2. Introduce a new source file  `diagram..route.path.point-+label.xslt` to create labels on startpoint and endpoint one for each annotation present. Flag each label as `<primary/>` or `<secondary/>`.
+3. Add to or modify that rules in  `diagram...route.path.point.label-+xP` and revise 
  x and y for endpoint labels. In line with the detail specfication where?
 Define x and y for labels for primary and secondary annotations.
 
+#### Using these changes from ER2flex
 6. Modify er2flex ...
 
 ### Testing

@@ -603,27 +603,12 @@
          <description>.</description>
       </reference>
       <attribute>
-         <name>destRelPos</name>
-         <description>Relative position of other end in the axis of allocation when destinations having perverse position in the other axis are reflected.  NOT USED -- Replaced by 'angleToOtherEnd'.
-			</description>
-      </attribute>
-      <attribute>
          <name>angleToOtherEnd</name>
          <description>Angle to the other end wrt the edge from which this end is attached. Used to order 
 			  the endpoints attached to an edge as described by slotNo. Negative angle is anticlockwise.
 			</description>
       </attribute>
-      <attribute>
-         <name>ratio</name>
-         <description>Temporary. Use deltax and deltay instead.
-			</description>
-      </attribute>
-      <attribute>
-         <name>slotNo</name>
-         <description>Typically an integer whose sign reflects the relative position of the destination.
-				If not provided is calculated from 
-			</description>
-      </attribute>
+
       <attribute>
          <name>annotation</name>
          <description>An optional attribute of type string.
@@ -658,6 +643,13 @@
    <entity_type>
       <name>specific_edge</name>
       <description>A generalisation of the types specific_level and specific_side..</description>
+      <attribute>
+         <name>slotNo</name>
+         <description>A non negative integer whose sign reflects the relative position of the opposite end 
+            of a route relative to
+            among other enclosures routed from the same specific edge. Slots are numberd from zero to noOfSlots - 1. 
+         </description>
+      </attribute>
       <entity_type>
          <name>specific_level</name>
          <description>A generalisation of the types top_edge and bottom_edge..</description>
@@ -673,10 +665,7 @@
             <name>bottom_edge</name>
             <description>An entity type..</description>
          </entity_type>
-         <composition>
-            <type>annotate_leftright</type>
-            <description>.</description>
-         </composition>
+
       </entity_type>
       <entity_type>
          <name>specific_side</name>
@@ -693,36 +682,9 @@
             <name>right_side</name>
             <description>An entity type..</description>
          </entity_type>
-         <composition>
-            <type>annotate_highlow</type>
-            <description>.</description>
-         </composition>
       </entity_type>
    </entity_type>
-   <entity_type>
-      <name>annotate_leftright</name>
-      <description>A generalisation of the types annotate_left and annotate_right..</description>
-      <entity_type>
-         <name>annotate_left</name>
-         <description>An entity type..</description>
-      </entity_type>
-      <entity_type>
-         <name>annotate_right</name>
-         <description>An entity type..</description>
-      </entity_type>
-   </entity_type>
-   <entity_type>
-      <name>annotate_highlow</name>
-      <description>A generalisation of the types annotate_high and annotate_low..</description>
-      <entity_type>
-         <name>annotate_high</name>
-         <description>An entity type..</description>
-      </entity_type>
-      <entity_type>
-         <name>annotate_low</name>
-         <description>An entity type..</description>
-      </entity_type>
-   </entity_type>
+
    <entity_type>
       <name>graphic_style</name>
       <description>An entity type..</description>

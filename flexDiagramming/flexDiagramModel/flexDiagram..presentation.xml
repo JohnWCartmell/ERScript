@@ -910,14 +910,6 @@
    <entity_type>
       <name>node(2)</name>
       <composition>
-         <type>annotation</type>
-         <diagram>
-            <path>
-               <srcattach>0.2</srcattach>
-            </path>
-         </diagram>
-      </composition>
-      <composition>
          <type>specific_edge</type>
          <diagram>
             <path>
@@ -937,18 +929,31 @@
          </diagram>
       </composition>
    </entity_type>
-   <entity_type>
-      <name>annotation</name>
-      <presentation>
-         <below>node(2)</below>
-         <x>-3.5</x>
-      </presentation>
-   </entity_type>
+
    <entity_type>
       <name>specific_edge</name>
       <presentation>
-         <rightOf>annotation</rightOf>
+         <below>node(2)</below>
+         <!-- <x>-3.5</x> -->
       </presentation>
+      <composition>
+         <name>labelPosition</name>
+         <diagram>
+            <path>
+               <destattach>0.3</destattach>
+               <align><ToDest/></align>
+            </path>
+         </diagram>
+      </composition>
+      <composition>
+         <name>secondaryLabelPosition</name>
+         <diagram>
+            <path>
+               <destattach>0.7</destattach>
+               <align><ToDest/></align>
+            </path>
+         </diagram>
+      </composition>
    </entity_type>
    <entity_type>
       <name>bottom_edge</name>
@@ -968,30 +973,28 @@
          <below>left_side</below>
       </presentation>
    </entity_type>
-   <entity_type>
-      <name>annotate_leftright</name>
+
+   <entity_type> 
+      <name>orientation</name>
       <presentation>
-         <below>specific_level</below>
+         <below>specific_edge</below>
       </presentation>
+      <entity_type> 
+         <name>anti-clockwise</name>
+         <presentation>
+            <rightOf>clockwise</rightOf>
+         </presentation>
+      </entity_type>
+      <!-- <composition type="outer?"/> -->
    </entity_type>
    <entity_type>
-      <name>annotate_right</name>
+      <name>out</name>
       <presentation>
-         <below>annotate_left</below>
+         <below>orientation</below>
       </presentation>
    </entity_type>
-   <entity_type>
-      <name>annotate_highlow</name>
-      <presentation>
-         <below>specific_side</below>
-      </presentation>
-   </entity_type>
-   <entity_type>
-      <name>annotate_low</name>
-      <presentation>
-         <below>annotate_high</below>
-      </presentation>
-   </entity_type>
+
+
 
    <entity_type>
       <name>endline</name>

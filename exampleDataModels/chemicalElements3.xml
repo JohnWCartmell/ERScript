@@ -27,32 +27,32 @@
 				<ExactlyOne/>
 			</cardinality>
 		</dependency>
-		<value>
+		<attribute>
 			<name>symbol</name>
 			<type>
 				<string/>
 			</type>
 			<identifying/>
-		</value>
-		<value>
+		</attribute>
+		<attribute>
 			<name>name</name>
 			<type>
 				<string/>
 			</type>
-		</value>
-		<value>
+		</attribute>
+		<attribute>
 			<name>atomic number</name>
 			<type>
 				<integer/>
 			</type>
-		</value>
-		<value>
+		</attribute>
+		<attribute>
 			<name>relative atomic mass</name>
 			<type>
 				<float/>
 			</type>
 			<implementationOf/>
-		</value>
+		</attribute>
 		<composition>
 			<type>isotope</type>
 			<cardinality>
@@ -102,25 +102,25 @@
 					<ExactlyOne/>
 				</cardinality>
 			</dependency>
-			<value>
+			<attribute>
 				<name>numberOfNeutrons</name>
 				<type>
 					<integer/>
 				</type>
 				<identifying/>
-			</value>
-			<value>
+			</attribute>
+			<attribute>
 				<name>relative isotopic mass</name>
 				<type>
 					<float/>
 				</type>
-			</value>
-			<value>
+			</attribute>
+			<attribute>
 				<name>abundancy ratio</name>
 				<type>
 					<float/>
 				</type>
-			</value>
+			</attribute>
 		</entity_type>
 
 		<entity_type>
@@ -136,34 +136,34 @@
 					<ExactlyOne/>
 				</cardinality>
 			</dependency>
-			<value>
+			<attribute>
 				<name>name</name>
 				<type>
 					<string/>
 				</type>
 				<identifying/>
-			</value>
-			<value>
+			</attribute>
+			<attribute>
 				<name>melting point</name>
 				<type>
 					<float/>
 				</type>
 				<optional/>
-			</value>
-			<value>
+			</attribute>
+			<attribute>
 				<name>boiling point</name>
 				<type>
 					<float/>
 				</type>
 				<optional/>
-			</value>
-			<value>
+			</attribute>
+			<attribute>
 				<name>density</name>
 				<type>
 					<float/>
 				</type>
 				<optional/>
-			</value>
+			</attribute>
 		</entity_type>
 		<entity_type>
 			<name>valency</name>
@@ -178,13 +178,13 @@
 					<ExactlyOne/>
 				</cardinality>
 			</dependency>
-			<value>
+			<attribute>
 				<name>number</name>
 				<type>
 					<integer/>
 				</type>
 				<identifying/>
-			</value>
+			</attribute>
 		</entity_type>
 	</group>
 

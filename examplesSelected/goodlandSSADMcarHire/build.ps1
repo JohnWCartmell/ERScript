@@ -82,7 +82,7 @@ echo 'goodland SSADM carHire Path2 Diagram'
                              -animate -relids -shortSeparator NA -longSeparator NA
 }                           
 echo 'goodland SSADM carHire Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate -debugSwitch
 
 popd 
 

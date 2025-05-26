@@ -62,15 +62,17 @@
 
 <!-- No longer reqd I think
 <xsl:include href="diagram...edge-+id.xslt"/>  -->           <!-- priority  40  -->
-<xsl:include href="diagram.route.path.xslt"/>             <!-- priority  240,250  -->   <!-- see also diagram..route-+path.xslt BELOW -->
+
 <xsl:include href="diagram...route.node-+specific_edge.xslt"/>   <!-- priority  42  -->
-<xsl:include href="diagram...route.node-+slotNo.xslt"/>            <!--priority 40 -->
+<xsl:include href="diagram...route.node.specific_edge-+slotNo.xslt"/>            <!--priority 40 -->
 <xsl:include href="diagram...route.node-+angleToOtherEnd.xslt"/>   <!--priority 40 -->
 <xsl:include href="diagram...route.node.specific_edge-+noOfSlots.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
+<xsl:include href="diagram...route.node.specific_edge-+deltay.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node-+label_long_offset.xslt"/>   <!-- priority  260,262  -->
 
-<xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  250 -->         <!-- see also diagram.route.path.xslt ABOVE -->
+<xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  250 -->   
+
 <xsl:include href="diagram...path-+point.xslt"/>          <!-- priority  54, 55 ,57 -->
 <xsl:include href="diagram...path.point-+x.xslt"/>        <!-- priority  55, 56  -->
 <xsl:include href="diagram...path.point-+y.xslt"/>        <!-- priority  55, 56  -->
@@ -91,6 +93,7 @@
 <xsl:include href="diagram...route.path.point.label-+y.xslt"/>    <!-- priority  140.2  -->
 <xsl:include href="diagram...path.cardinal-+startx.xslt"/>      <!-- priority  60  -->
 <xsl:include href="diagram...path.cardinal-+starty.xslt"/>      <!-- priority  61  -->
+<xsl:include href="diagram...path.cardinal-+deltax-+deltay.xslt"/>  <!-- priority  240,250  -->  
 <xsl:include href="diagram...path.cardinal-+deltax.xslt"/>      <!-- priority  55,56  -->
 <xsl:include href="diagram...path.cardinal-+deltay.xslt"/>      <!-- priority  57,58  -->
 <xsl:include href="diagram...path.cardinal-+endx.xslt"/>      <!-- priority  40  -->

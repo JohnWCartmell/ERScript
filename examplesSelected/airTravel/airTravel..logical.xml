@@ -58,7 +58,7 @@
          <context name="on" type="aircraft"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <reference name="potentially_used via" type="seat*" inverse="issued for"/>
+      <reference name="potentially_used via" type="boarding pass*" inverse="issued for"/>
    </entity_type>
 
    <entity_type name="airport">

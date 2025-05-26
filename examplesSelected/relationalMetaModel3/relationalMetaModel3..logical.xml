@@ -32,7 +32,7 @@
             <context name="of" type="table"/>
             <attribute name="name" type="string"/>
          </identifying>
-         <reference name="in_primary_key" type="primary key entry?" inverse="column"/>
+         <!-- <reference name="in_primary_key" type="primary key entry?" inverse="column"/> -->
       </entity_type>
       <entity_type name="foreign key">
          <identifying>

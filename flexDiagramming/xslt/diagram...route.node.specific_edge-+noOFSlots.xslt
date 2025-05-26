@@ -48,6 +48,70 @@
    </xsl:copy>
 </xsl:template>
 
+<!-- ************************************* -->
+<!-- route/source/right_side  +noOfSlots  -->
+<!-- ************************************* -->
+<xsl:template match="route
+                     /source[key('Enclosure',id)/w]/right_side    
+                [not(noOfSlots)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('right_side_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
+   </xsl:copy>
+</xsl:template>
+
+<!-- ************************************* -->
+<!-- route/source/left_side  +noOfSlots  -->
+<!-- ************************************* -->
+<xsl:template match="route
+                     /source[key('Enclosure',id)/w]/left_side    
+                [not(noOfSlots)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('left_side_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
+   </xsl:copy>
+</xsl:template>
+
+<!-- ************************************* -->
+<!-- route/destination/left_side  +noOfSlots  -->
+<!-- ************************************* -->
+<xsl:template match="route
+                     /destination[key('Enclosure',id)/w]/left_side    
+                [not(noOfSlots)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('left_side_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
+   </xsl:copy>
+</xsl:template>
+<!-- ************************************* -->
+<!-- route/destination/right_side  +noOfSlots  -->
+<!-- ************************************* -->
+<xsl:template match="route
+                     /destination[key('Enclosure',id)/w]/right_side    
+                [not(noOfSlots)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="42">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <xsl:variable name="noOfSlots" as="xs:integer" select="count((key('right_side_is_endpoint_of',../id)))"/>
+      <noOfSlots><xsl:value-of select="$noOfSlots"/></noOfSlots>
+   </xsl:copy>
+</xsl:template>
+
+
 
 </xsl:transform>
 

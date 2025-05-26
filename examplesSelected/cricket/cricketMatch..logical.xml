@@ -44,13 +44,6 @@
       <composition type="delivery+"/>
       <reference name="bowler" type="player" diagonal="../fieldingSide" riser=".."/>
    </entity_type>
-   <entity_type name="player">
-      <identifying>
-         <context type="side"/>
-         <attribute name="number" type="string"/>
-      </identifying>
-      <attribute name="name" type="string"/>
-   </entity_type>
    <entity_type name="delivery">
       <identifying>
          <context type="over"/>
@@ -58,4 +51,12 @@
       </identifying>
       <reference name="facingBatter" type="player" diagonal="../../battingSide" riser=".."/>
    </entity_type>
+   <entity_type name="player">
+      <identifying>
+         <context type="side"/>
+         <attribute name="number" type="string"/>
+      </identifying>
+      <attribute name="name" type="string"/>
+   </entity_type>
+
 </entity_model>

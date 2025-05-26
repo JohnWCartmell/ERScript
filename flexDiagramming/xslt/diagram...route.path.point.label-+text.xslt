@@ -30,23 +30,6 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<!-- I think this is causing a crash at a later point 
-	<xsl:template match="route
-		[not(source/annotation)]
-		/path/point[startpoint]
-		/label
-		[not(text)]
-		" 
-			mode="recursive_diagram_enrichment"
-			priority="40">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-            <text/>
-		</xsl:copy>
-	</xsl:template>
--->
-	
-
 	<!-- ******************************** -->
 	<!-- path/point[endpoint]   +label  -->
 	<!-- ******************************** -->
@@ -65,21 +48,5 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<!-- I think this is causing a crash at a later point 
-	<xsl:template match="route
-		[not(destination/annotation)]
-		/path/point[endpoint]
-		/label
-		[not(text)]
-		" 
-			mode="recursive_diagram_enrichment"
-			priority="40">		  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>		
-			<text/>
-		</xsl:copy>
-	</xsl:template>
-	-->
-
 </xsl:transform>
 

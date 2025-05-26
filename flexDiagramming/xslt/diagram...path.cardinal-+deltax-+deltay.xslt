@@ -10,15 +10,13 @@
 
 	<!--  Maintenance Box 
 
-    22/01/2022  What are these rules about - are they used ?
-
-    Not to be comfused with diagram...route-+path. Some rules moved from here into there.
-
     22/03/2023 Added logic to increment the start arm lengths of top down relationsships.
                I haven't touched sideways relationships at this point because quite a bit of work needed to 
                calculate slotNos and deltays for sideways relationships. The logic for topdown angles from
                whence slotNos follow is described in daybook September 19th 2021.
                In the absence of this right_side/deltay and left_side deltay are planted with value 0.5 by ERmodel2flex.
+
+    25/05/2025 File renamed as diagram...path.cardinal-+deltax-+deltay.xslt
  -->
 
 	<xsl:output method="xml" indent="yes"/>
@@ -130,7 +128,7 @@
 
 	<xsl:template match="route
 						[source/bottom_edge/noOfSlots]
-						[source/slotNo]
+						[source/bottom_edge/slotNo]
 						[source/line_style]
 						[key('box',source/id)/hb]
 						/path/ns[startarm]
@@ -143,7 +141,7 @@
 			<deltay>
 				<xsl:value-of select="max((
 					key('line_style',../../source/line_style)/minarmlen
-					         + ../../source/((bottom_edge/noOfSlots div 2 - abs(bottom_edge/noOfSlots div 2 - slotNo)) * 0.1), 
+					         + ../../source/((bottom_edge/noOfSlots div 2 - abs(bottom_edge/noOfSlots div 2 - bottom_edge/slotNo)) * 0.1), 
 					key('box',../../source/id)/hb
 					))"/>
 			</deltay>
@@ -157,7 +155,7 @@
 
 	<xsl:template match="route
 						[destination/top_edge/noOfSlots]
-						[destination/slotNo]
+						[destination/top_edge/slotNo]
 						[destination/line_style]
 						[key('box',destination/id)/ht]
 						/path/ns[endarm]
@@ -169,7 +167,7 @@
 			<deltay>
 				<xsl:value-of select="max((
 					key('line_style',../../destination/line_style)/minarmlen 
-					           + ../../destination/((top_edge/noOfSlots div 2 - abs(top_edge/noOfSlots div 2 - slotNo)) * 0.1),
+					           + ../../destination/((top_edge/noOfSlots div 2 - abs(top_edge/noOfSlots div 2 - top_edge/slotNo)) * 0.1),
 					key('box',../../destination/id)/ht
 					))"/>
 			</deltay>
