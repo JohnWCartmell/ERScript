@@ -54,7 +54,7 @@
                         /right_side
                         [not(slotNo)]
 						
-						[every $s in //source[right_side][id = current()/../id]
+						[every $s in //(source|destination)[right_side][id = current()/../id]
                                satisfies $s/angleToOtherEnd
                         ]
                     " 
@@ -68,7 +68,7 @@
 			        of an enclosure. 
 			    -->
 		       <xsl:value-of select="count(
-											//source[right_side][id = current()/../id]
+											//route/(source|destination)[right_side][id = current()/../id]
 													[number(angleToOtherEnd) &lt; number(current()/../angleToOtherEnd) ]
 										  )"/>
 		  </slotNo>
@@ -84,7 +84,7 @@
                         /left_side
                         [not(slotNo)]
 						
-						[every $s in //source[left_side][id = current()/../id]
+						[every $s in //(source|destination)[left_side][id = current()/../id]
                                satisfies $s/angleToOtherEnd
                         ]
                     " 
@@ -98,7 +98,7 @@
 			        of an enclosure. 
 			    -->
 		       <xsl:value-of select="count(
-											//source[left_side][id = current()/../id]
+											//(source|destination)[left_side][id = current()/../id]
 													[number(angleToOtherEnd) &lt; number(current()/../angleToOtherEnd) ]
 										  )"/>
 		  </slotNo>
@@ -147,7 +147,7 @@
                         /left_side
                         [not(slotNo)]
 						
-						[every $s in //destination[left_side][id = current()/../id]
+						[every $s in //(source|destination)[left_side][id = current()/../id]
                                satisfies $s/angleToOtherEnd
                         ]
                     " 
@@ -164,7 +164,7 @@
 			    <!-- try fix this problem by adding a jiggle factor into the calculation angleToOtherEnd -->
 			    <!-- see diagram...route.node-+angleToOtherEnd.xslt -->
 		       <xsl:value-of select="count(
-											//destination[left_side][id = current()/../id]
+											//(source|destination)[left_side][id = current()/../id]
 													[number(angleToOtherEnd) &lt; number(current()/../angleToOtherEnd) ]
 										  )"/>
 		  </slotNo>
@@ -181,7 +181,7 @@
                         /right_side
                         [not(slotNo)]
 						
-						[every $s in //destination[right_side][id = current()/../id]
+						[every $s in //(source|destination)[right_side][id = current()/../id]
                                satisfies $s/angleToOtherEnd
                         ]
                     " 
@@ -198,7 +198,7 @@
 			    <!-- try fix this problem by adding a jiggle factor into the calculation angleToOtherEnd -->
 			    <!-- see diagram...route.node-+angleToOtherEnd.xslt -->
 		       <xsl:value-of select="count(
-											//destination[right_side][id = current()/../id]
+											//(source|destination)[right_side][id = current()/../id]
 													[number(angleToOtherEnd) &lt; number(current()/../angleToOtherEnd) ]
 										  )"/>
 		  </slotNo>
