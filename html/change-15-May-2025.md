@@ -30,5 +30,5 @@ The obvious thing to do is to set it to zero.
 2. Use wFill for a name stripe (or an attribute box?) in the hand coded UML diagram flexDiagramming/examples/UML/shlaerMellorDepStudentProfessor0.UML.flex.xml.
 
 ### Completion Date 
-
+16 May 2025
 

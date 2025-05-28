@@ -117,6 +117,7 @@
   </xsl:function>
 
   <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromYaxis">
+  <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
     <xsl:value-of select="
@@ -133,118 +134,43 @@
     "/>
     </xsl:function>
 
-  <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromXaxis">
+  <xsl:function name="diagram:NoughtToTwoPiAntiClockwiseAngleFromXaxis">
+    <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of select="(diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + math:pi() div 2) 
+    <xsl:value-of select="2 * math:pi()
+                          - 
+                          (diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + math:pi() div 2) 
                               mod
                            (2*math:pi())
                           "/>
    </xsl:function>
 
-  <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis">
+  <xsl:function name="diagram:NoughtToTwoPiAntiClockwiseAngleFromNegativeYaxis">
+    <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of select="(diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + math:pi()) 
+    <xsl:value-of select="2 * math:pi()
+                          - 
+                          (diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + math:pi()) 
                               mod
-                           (2*math:pi())
+                           (2*math:pi()
+                           )
                           "/>
    </xsl:function>
 
    <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis">
+    <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
     <xsl:value-of select="(diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + 3* math:pi() div 2) 
                               mod
-                           (2*math:pi())
+                           (2*math:pi()
+                           )
                           "/>
    </xsl:function>
 
-   <!-- public functions -->
-  <xsl:function name="diagram:convertAngleFromPositiveRangeToPositiveAndNegative">
-    <xsl:param name="angle" as="xs:double"/>
-    <xsl:value-of select="if ($angle &gt; math:pi())
-                            then $angle - 2 * math:pi() 
-                            else $angle 
-                          "/>
-   </xsl:function>
 
-<!-- public functions -->
-<!--   <xsl:function name="diagram:MinusPiToPLusPiClockwiseAngleFromYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of 
-         select="diagram:convertAngleFromPositiveRangeToPositiveAndNegative(
-                               diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff)
-                                                                            )"/>
-   </xsl:function>
-
-   <xsl:function name="diagram:MinusPiToPLusPiClockwiseAngleFromNegativeYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of 
-         select="diagram:convertAngleFromPositiveRangeToPositiveAndNegative(
-                               diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis($xdiff,$ydiff)
-                                                                            )"/>
-   </xsl:function>
-
-   <xsl:function name="diagram:MinusPiToPLusPiClockwiseAngleFromXaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of 
-         select="diagram:convertAngleFromPositiveRangeToPositiveAndNegative(
-                               diagram:NoughtToTwoPiClockwiseAngleFromXaxis($xdiff,$ydiff)
-                                                                            )"/>
-   </xsl:function>
-
-   <xsl:function name="diagram:MinusPiToPLusPiClockwiseAngleFromNegativeXaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of 
-         select="diagram:convertAngleFromPositiveRangeToPositiveAndNegative(
-                               diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis($xdiff,$ydiff)
-                                                                            )"/>
-   </xsl:function> -->
-
-
-<!-- OLD DEFINITIONS -->
-<!-- angle to y axis      -->
-<!-- y-axis points down   -->
-<!-- angles in left hand plane to be considered negative and angles in right half likewise positive -->
-<!-- see notes in day book 19 September 2021 -->
-<!-- <xsl:function name="diagram:angleToYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-	<xsl:value-of select="
-	   if ($xdiff = 0 and $ydiff = 0) then 0
-	   else if ($xdiff gt 0 and $ydiff gt 0) then math:atan($xdiff div $ydiff)
-       else if ($xdiff gt 0 and $ydiff = 0) then math:pi() div 2
-	   else if ($xdiff gt 0 and $ydiff lt 0) then (math:pi() div 2) + math:atan(abs($ydiff div $xdiff))
-       else if ($xdiff = 0 and $ydiff gt 0) then 0
-       else if ($xdiff = 0 and $ydiff lt 0) then math:pi()  
-	   else if ($xdiff lt 0 and $ydiff lt 0) then (- math:pi() div 2) - math:atan(abs($ydiff div $xdiff))
-       else if ($xdiff lt 0 and $ydiff = 0) then - math:pi() div 2
-	   else if ($xdiff lt 0 and $ydiff gt 0) then - math:atan(abs($xdiff div $ydiff))
-	   else 'OUT OF SPEC'
-	"/>
-</xsl:function> -->
-
-<!-- angle to negative y-axis is angle to the upward pointring vertical -->
-<!-- angles in left hand plane to be considered negative and angles in right half likewise positive -->
-<!-- in left half plane angleToNegativey + angleToyaxis = -2pi -->
-<!-- in right half plane angleToNegativey + angleToyaxis = 2pi -->
-<!-- <xsl:function name="diagram:angleToNegativeYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/> 
-    <xsl:value-of select="
-      if ($xdiff = 0 and $ydiff = 0) then 0
-      else (if ($xdiff lt 0) then - math:pi() else math:pi())
-           - diagram:angleToYaxis($xdiff,$ydiff)
-    "/>
-</xsl:function> -->
-
-
-<!-- END OLD DEFINITIONS -->
 <!-- tan function given argument in degrees -->
 <xsl:function 
      name="diagram:tan">

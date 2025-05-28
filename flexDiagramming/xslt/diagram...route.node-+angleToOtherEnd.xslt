@@ -16,14 +16,9 @@
 
 <!-- <xsl:key name="SourcedAtBottomEdgeOf" match="source[bottom_edge]" use="id"/> -->
 
-<!-- the angle in radians between the negative y-axis (i.e. the rising vertical)
- 		and the direction in question. 
-     	+ angles in the right half of the plane are to be positive
- 	   + angles in the left half of the plane are to be negative
- -->
-
- <!-- the direction in question is either source-to-destination or destination-to-source -->
-
+<!-- ************************************************************ -->
+<!-- See change note of 28 May 2025 for rationale for these rules -->
+<!-- ************************************************************ -->
 
 
 <!-- ************************ -->
@@ -50,50 +45,19 @@
 		  <thisEndy>
 		       <xsl:value-of select="key('Enclosure',id)/y/abs"/>
 		  </thisEndy>
-
 	      <otherEndx> 
 		       <xsl:value-of select="../destination/key('Enclosure',id)/x/abs"/>
 		  </otherEndx>
 		  <otherEndy> 
 		       <xsl:value-of select="../destination/key('Enclosure',id)/y/abs"/>
 		  </otherEndy>
-		  <xsl:variable name="xdiff" as="xs:double" 
-		                select="../destination/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
-		  <xsl:variable name="ydiff" as="xs:double" 
-		                select="../destination/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
 
-		  <!-- I am going to add a small amount to the angle so that routes that would otherwsie have identical angles no longer do -->
-        <!-- if i don't do this (or have a morerefined algorithm) then routes with identical source and destination overlap -->
-        <xsl:variable name="jiggleno" 
-        	             as="xs:integer"
-        	             select="parent::route/count(preceding-sibling::route)" /> 
-		  <xsl:variable name="jiggleFactor" 
-		  	             select="$jiggleno * 0.0001" 
-		  	             as="xs:float"/>
-
-		  <angleToOtherEnd>
-		  	        <xsl:choose>
-		  	        	<xsl:when test="top_edge">  
-		  	             <xsl:value-of select="diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff)
-		  	        	                              + $jiggleFactor"/>
-                  </xsl:when>
-		  	        	<xsl:when test="right_side">  
-		  	             <xsl:value-of select="diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis($xdiff,$ydiff)
-		  	        	                              + $jiggleFactor"/>
-                  </xsl:when>
-		  	        	<xsl:when test="left_side">  <!--anticlockwise-->
-		  	             <xsl:value-of select="2 * math:pi() - diagram:NoughtToTwoPiClockwiseAngleFromXaxis($xdiff,$ydiff)
-		  	        	                              + $jiggleFactor"/>
-                  </xsl:when>
-		  	        	<xsl:when test="bottom_edge"> <!--anticlockwise-->
-		  	             <xsl:value-of select="2 * math:pi() - diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis($xdiff,$ydiff)
-		  	        	                              + $jiggleFactor"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-		  	        		<xsl:value-of select="'OUT OF SPEC'"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-		  </angleToOtherEnd>
+		  <xsl:call-template name="plant_angleToOtherEnd">
+		  		<xsl:with-param name="xdiff" 
+		  		                 select="../destination/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
+		  		<xsl:with-param name="ydiff" 
+		  		                select="../destination/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
+		  </xsl:call-template>
        </xsl:copy>
   </xsl:template>
   
@@ -115,21 +79,26 @@
 		  <thisEndy>
 		       <xsl:value-of select="key('Enclosure',id)/y/abs"/>
 		  </thisEndy>
-
 	      <otherEndx> 
 		       <xsl:value-of select="../source/key('Enclosure',id)/x/abs"/>
 		  </otherEndx>
 		  <otherEndy> 
 		       <xsl:value-of select="../source/key('Enclosure',id)/y/abs"/>
 		  </otherEndy>
-		  <xsl:variable name="xdiff" as="xs:double" 
-		                select="../source/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
-		  <xsl:variable name="ydiff" as="xs:double" 
-		                select="../source/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
-		  <!-- in this case I want the angle to be to the negative of the y-axis i.e. to the verical. -->
-		  <!-- I want angles in the right half of the plave to be positive and angles in the left half to be negative -->
 
-        <!-- I am going to add a small amount to the angle so that routes that would otherwsie have identical angles no longer do -->
+		  <xsl:call-template name="plant_angleToOtherEnd">
+		  		<xsl:with-param name="xdiff" 
+		  		                select="../source/key('Enclosure',id)/x/abs - key('Enclosure',id)/x/abs"/>
+		  		<xsl:with-param name="ydiff" 
+		  		                select="../source/key('Enclosure',id)/y/abs - key('Enclosure',id)/y/abs"/>
+		  </xsl:call-template>
+       </xsl:copy>
+  </xsl:template>
+
+  <xsl:template name="plant_angleToOtherEnd" match="source|destination" mode="explicit">
+  	  	<xsl:param name="xdiff" as="xs:double"/>
+    	<xsl:param name="ydiff" as="xs:double"/>
+    	        <!-- I am going to add a small amount to the angle so that routes that would otherwsie have identical angles no longer do -->
         <!-- if i don't do this (or have a morerefined algorithm) then routes with identical source and destination overlap -->
         <xsl:variable name="jiggleno" 
         	             as="xs:integer"
@@ -139,20 +108,20 @@
 		  	             as="xs:float"/>
 		  <angleToOtherEnd>
 		  	        <xsl:choose>
-		  	        	<xsl:when test="top_edge">  
+		  	        	<xsl:when test="top_edge">  <!-- clockwise -->
 		  	             <xsl:value-of select="diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff)
 		  	        	                              + $jiggleFactor"/>
                   </xsl:when>
-		  	        	<xsl:when test="right_side">  
+		  	        	<xsl:when test="right_side">  <!-- clockwise -->
 		  	             <xsl:value-of select="diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis($xdiff,$ydiff)
 		  	        	                              + $jiggleFactor"/>
                   </xsl:when>
-		  	        	<xsl:when test="left_side">   <!--anticlockwise-->
-		  	             <xsl:value-of select="2 * math:pi() - diagram:NoughtToTwoPiClockwiseAngleFromXaxis($xdiff,$ydiff)
+		  	        	<xsl:when test="left_side">  <!--anticlockwise-->
+		  	             <xsl:value-of select="diagram:NoughtToTwoPiAntiClockwiseAngleFromXaxis($xdiff,$ydiff)
 		  	        	                              + $jiggleFactor"/>
                   </xsl:when>
-		  	        	<xsl:when test="bottom_edge">  <!--anticlockwise-->
-		  	             <xsl:value-of select="2 * math:pi() - diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis($xdiff,$ydiff)
+		  	        	<xsl:when test="bottom_edge"> <!--anticlockwise-->
+		  	             <xsl:value-of select="diagram:NoughtToTwoPiAntiClockwiseAngleFromNegativeYaxis($xdiff,$ydiff)
 		  	        	                              + $jiggleFactor"/>
                   </xsl:when>
                   <xsl:otherwise>
@@ -160,7 +129,6 @@
                   </xsl:otherwise>
                </xsl:choose>
 		  </angleToOtherEnd>
-       </xsl:copy>
   </xsl:template>
   
 </xsl:transform>
