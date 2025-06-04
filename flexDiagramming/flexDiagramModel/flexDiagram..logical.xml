@@ -59,8 +59,11 @@
                <attribute name="midy" type="float"/>
                <attribute name="endy" type="float"/>
             </entity_type>
+            <composition type="role"/>
          </entity_type>
       </entity_type>
+
+
       <entity_type name="enclosure">
          <include>
             <filename>enclosure.rules.xml</filename>
@@ -80,6 +83,18 @@
       <attribute name="padding" type="float"/>
       <attribute name="depth" type="positiveInteger"/>
    </entity_type>
+
+   <entity_type name="role">
+      <entity_type name="terminatingArm">
+         <attribute name="bearing" type="float"/>
+         <entity_type name="startarm"/>
+         <entity_type name="endarm"/>
+      </entity_type>
+      <entity_type name="source_sweep"/>
+      <entity_type name="destination_sweep"/>
+      <entity_type name="midarm"/> 
+   </entity_type>
+
    <entity_type name="route">
       <identifying>
          <attribute name="id" type="string"/>

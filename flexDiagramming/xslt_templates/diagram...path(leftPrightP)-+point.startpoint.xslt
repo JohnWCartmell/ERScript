@@ -25,7 +25,9 @@
 					   [not(point/startpoint)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="40P">	
+
+			<xsl:message>Adding startpoint A</xsl:message>	  
 		<xsl:copy>
 			<point>
 				<startpoint/>
@@ -35,12 +37,9 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<label>
-					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
-					<!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->
-				</label>
+				<label><primary/></label> <!-- change of 18 May 2025 -->
+				<label><secondary/></label>
 			</point>
-			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
 	</xsl:template>
@@ -52,7 +51,8 @@
 					   [not(point/startpoint)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40">		  
+              priority="40P">	
+              		<xsl:message>Adding startpoint B</xsl:message>		  
 		<xsl:copy>
 			<point>
 				<startpoint/>
@@ -62,12 +62,9 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<label>
-					<!-- merged into diagram.text_style ... change of 6 May 2025 -->
-				    <!-- <text_style><xsl:value-of select="../text_style"/></text_style> -->
-				</label> 
+				<label><primary/></label> <!-- change of 18 May 2025 -->
+				<label><secondary/></label>
 			</point>
-			<ewQ><startarm/></ewQ>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
 	</xsl:template>

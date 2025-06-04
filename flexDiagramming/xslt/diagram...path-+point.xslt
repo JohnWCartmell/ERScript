@@ -38,7 +38,11 @@
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="path/ramp[not(point)]
+<!-- 
+***************
+	Removed 02/06/2025 because it doesn't seem to be needed 
+***************
+   <xsl:template match="path/ramp[not(point)]
                       "
                                   mode="recursive_diagram_enrichment"
                                   priority="55">
@@ -46,7 +50,9 @@
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<point/>
 		</xsl:copy>
-	</xsl:template>
+	</xsl:template> 
+	*************
+	-->
 
 	<!--  
     Between two successive cardinals a point should be inserted 
@@ -65,7 +71,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
-		<point/>
+		<point>rule ns followed by point</point>
 	</xsl:template>
 
 	<!-- ********* -->
@@ -77,7 +83,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
-		<point/>
+		<point>rule ew followed by point</point>
 	</xsl:template>
 
 	<!-- ********* -->
@@ -89,7 +95,7 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
-		<point/>
+		<point>rule ramp followed by point</point>
 	</xsl:template>
 
 

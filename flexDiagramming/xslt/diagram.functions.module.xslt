@@ -132,7 +132,7 @@
        else if ($xdiff lt 0 and $ydiff gt 0) then math:atan(abs($xdiff div $ydiff))
        else 'OUT OF SPEC'
     "/>
-    </xsl:function>
+  </xsl:function>
 
   <xsl:function name="diagram:NoughtToTwoPiAntiClockwiseAngleFromXaxis">
     <!-- See change note 28 May 2025 -->
@@ -144,7 +144,7 @@
                               mod
                            (2*math:pi())
                           "/>
-   </xsl:function>
+  </xsl:function>
 
   <xsl:function name="diagram:NoughtToTwoPiAntiClockwiseAngleFromNegativeYaxis">
     <!-- See change note 28 May 2025 -->
@@ -157,9 +157,9 @@
                            (2*math:pi()
                            )
                           "/>
-   </xsl:function>
+  </xsl:function>
 
-   <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis">
+  <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromNegativeXaxis">
     <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
     <xsl:param name="ydiff" as="xs:double"/>
@@ -168,22 +168,53 @@
                            (2*math:pi()
                            )
                           "/>
+  </xsl:function>
+
+  <xsl:function name="diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis">
+    <!-- Used to calculate theta ... see change note 18 May 2025 -->
+    <xsl:param name="xdiff" as="xs:double"/>
+    <xsl:param name="ydiff" as="xs:double"/>
+    <xsl:value-of select="(diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) +  math:pi()) 
+                              mod
+                           (2*math:pi()
+                           )
+                          "/>
+  </xsl:function>
+
+  <xsl:function name="diagram:hypoteneuse">
+    <xsl:param name="x" as="xs:double"/>
+    <xsl:param name="y" as="xs:double"/>
+    <!-- by pythagorus -->
+      <xsl:value-of select="math:sqrt( math:pow($x,2) + math:pow($y,2) )"/>
+  </xsl:function>
+
+  <xsl:function name="diagram:xOffsetFromBearingAndDistance ">
+    <xsl:param name="bearing" as="xs:double"/>
+    <xsl:param name="distance" as="xs:double"/>
+    <xsl:value-of select="math:sin($bearing) * $distance"/>
+  </xsl:function>
+
+  <xsl:function name="diagram:yOffsetFromBearingAndDistance ">
+    <xsl:param name="bearing" as="xs:double"/>
+    <xsl:param name="distance" as="xs:double"/>
+    <xsl:value-of select="- math:cos($bearing) * $distance"/>
+      <!-- note the minus sign 
+          (because y increases as we travel south but bearing is compass bearing to due north) -->
    </xsl:function>
 
+  <!-- tan function given argument in degrees -->
+  <xsl:function 
+       name="diagram:tan">
+      <xsl:param name="degrees" as="xs:float"/>
+      <xsl:value-of select="math:tan($degrees div 180 * math:pi())"/>
+  </xsl:function>
 
-<!-- tan function given argument in degrees -->
-<xsl:function 
-     name="diagram:tan">
-    <xsl:param name="degrees" as="xs:float"/>
-    <xsl:value-of select="math:tan($degrees div 180 * math:pi())"/>
-</xsl:function>
-
-<!-- cotan function given argument in degrees -->
-<xsl:function 
-     name="diagram:cotan">
-    <xsl:param name="degrees" as="xs:float"/>
-    <xsl:value-of select="1 div math:tan($degrees div 180 * math:pi())"/>
-</xsl:function>
+  <!-- cotan function given argument in degrees -->
+  <xsl:function 
+       name="diagram:cotan">
+      <xsl:param name="degrees" as="xs:float"/>
+      <xsl:value-of select="1 div math:tan($degrees div 180 * math:pi())"/>
+  </xsl:function>
 
 </xsl:transform>
 

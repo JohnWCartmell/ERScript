@@ -30,6 +30,9 @@ function ReplacexPwithxetc
                 -creplace 'label_lateral_offsetP', 'label_lateral_offset' `
                 -creplace 'label_long_offsetP', 'label_long_offset' `
                       -creplace '40P', '40' `
+                      -creplace '40.1P', '40.1' `
+                      -creplace '40.5P', '40.5' `
+                      -creplace '40.6P', '40.6' `
                       -creplace '42P',   '42' `
                       -creplace '42.1P',   '42.1' `
                       -creplace '42.11P',   '42.11' `
@@ -85,6 +88,9 @@ function ReplacexPwithyetc
                 -creplace 'label_lateral_offsetP', 'label_long_offset' `
                 -creplace 'label_long_offsetP', 'label_lateral_offset' `
                       -creplace '40P', '41' `
+                      -creplace '40.1P', '41.1' `
+                      -creplace '40.5P', '41.5' `
+                      -creplace '40.6P', '41.6' `
                       -creplace '42P', '43' `
                       -creplace '42.1P', '43.1' `
                       -creplace '42.11P', '43.11' `

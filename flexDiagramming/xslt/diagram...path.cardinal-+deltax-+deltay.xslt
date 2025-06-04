@@ -164,6 +164,7 @@
 			mode="recursive_diagram_enrichment"
 			priority="240">
 		<xsl:copy>
+			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltay>
 				<xsl:value-of select="max((
 					key('line_style',../../destination/line_style)/minarmlen 

@@ -76,6 +76,43 @@
       </composition>
    </entity_type>
    <entity_type>
+      <name>role</name>
+      <presentation>
+         <below>box</below>
+         <x>-11.0</x>
+         <y>0.2</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>endarm</name>
+      <presentation>
+         <below>startarm</below>
+         <y>0.1</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>source_sweep</name>
+      <presentation>
+         <below>terminatingArm</below>
+         <y>0.1</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>destination_sweep</name>
+      <presentation>
+         <below>source_sweep</below>
+         <y>0.1</y>
+      </presentation>
+   </entity_type>
+   <entity_type>
+      <name>midarm</name>
+      <presentation>
+         <below>destination_sweep</below>
+         <y>0.1</y>
+      </presentation>
+      <x>2.0</x>
+   </entity_type>
+   <entity_type>
       <name>box</name>
       <composition>
          <type>default</type>
@@ -500,9 +537,9 @@
    <entity_type>
       <name>coordinate</name>
       <presentation>
-         <below>point</below>
-         <x>1.0</x>
-         <y>3.0</y>
+         <below>box</below>
+        <x>-2.5</x>
+         <y>1.5</y>
          <deltah>0.3</deltah>
       </presentation>
    </entity_type>

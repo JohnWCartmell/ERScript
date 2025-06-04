@@ -67,8 +67,8 @@
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wr>
-	     <xsl:value-of select="0"/>
-	  </wr>
+	       <xsl:value-of select="0"/>
+	     </wr>
     </xsl:copy>
   </xsl:template>
 

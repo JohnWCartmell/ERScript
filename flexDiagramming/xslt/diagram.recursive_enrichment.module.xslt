@@ -69,7 +69,8 @@
 <xsl:include href="diagram...route.node.specific_edge-+noOfSlots.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltax.xslt"/>   <!-- priority  42  -->
 <xsl:include href="diagram...route.node.specific_edge-+deltay.xslt"/>   <!-- priority  42  -->
-<xsl:include href="diagram...route.node-+label_long_offset.xslt"/>   <!-- priority  260,262  -->
+<xsl:include href="diagram...route.node.specific_edge-+labelPosition.xslt"/>   <!-- priority  44  -->
+<xsl:include href="diagram...route.node-+label_long_offset-+label_lateral_offset.xslt"/>   <!-- priority  260,262  -->
 
 <xsl:include href="diagram...route-+path.xslt"/>          <!-- priority  250 -->   
 
@@ -78,16 +79,21 @@
 <xsl:include href="diagram...path.point-+y.xslt"/>        <!-- priority  55, 56  -->
 
 
-<xsl:include href="diagram...path-+point.startpoint+ew.xslt"/>  <!-- priority  40  -->
-<xsl:include href="diagram...path-+point.startpoint+ns.xslt"/>  <!-- priority  40  -->
+<xsl:include href="diagram...path(leftright)-+point.startpoint.xslt"/>  <!-- priority  40  -->
+<xsl:include href="diagram...path(topbottom)-+point.startpoint.xslt"/>  <!-- priority  40  -->
+<xsl:include href="diagram...path-+ew.startarm.xslt"/>                  <!-- priority  40.5  -->
+<xsl:include href="diagram...path-+ns.startarm.xslt"/>                  <!-- priority  40.5  -->
+<xsl:include href="diagram...path(leftright)-+point.endpoint.xslt"/>    <!-- priority  41  -->
+<xsl:include href="diagram...path(topbottom)-+point.endpoint.xslt"/>    <!-- priority  41  -->
+<xsl:include href="diagram...path-+ew.endarm.xslt"/>                    <!-- priority  41.5  -->
+<xsl:include href="diagram...path-+ns.endarm.xslt"/>                    <!-- priority  41.5  -->
 
 <xsl:include href="diagram...path.point_startpoint_-+x.xslt"/>  <!-- priority  241  -->
 <xsl:include href="diagram...path.point_startpoint_-+y.xslt"/>  <!-- priority  240  -->
 <xsl:include href="diagram...path.point_endpoint_-+x.xslt"/>    <!-- priority  40  -->
 <xsl:include href="diagram...path.point_endpoint_-+y.xslt"/>    <!-- priority  40  -->
 
-<xsl:include href="diagram...path-+point.endpoint+ew.xslt"/>    <!-- priority  41  -->
-<xsl:include href="diagram...path-+point.endpoint+ns.xslt"/>    <!-- priority  41  -->
+<xsl:include href="diagram...route.path.point-+label.xslt"/>    <!-- priority  40 .2 -->
 <xsl:include href="diagram...route.path.point.label-+text.xslt"/>    <!-- priority  40 .1 -->
 <xsl:include href="diagram...route.path.point.label-+x.xslt"/>    <!-- priority  140.1  -->
 <xsl:include href="diagram...route.path.point.label-+y.xslt"/>    <!-- priority  140.2  -->
@@ -98,6 +104,8 @@
 <xsl:include href="diagram...path.cardinal-+deltay.xslt"/>      <!-- priority  57,58  -->
 <xsl:include href="diagram...path.cardinal-+endx.xslt"/>      <!-- priority  40  -->
 <xsl:include href="diagram...path.cardinal-+endy.xslt"/>      <!-- priority  40  -->
+<xsl:include href="diagram...path.cardinal.terminatingArm-+bearing.xslt"/> 
+                                                               <!-- priority  40.3  -->
 <xsl:include href="diagram...node-+x_lower_bound.xslt"/>       <!-- priority 340 -->
 <xsl:include href="diagram...node-+y_lower_bound.xslt"/>       <!-- priority 341 -->
 <xsl:include href="diagram...node-+x_upper_bound.xslt"/>       <!-- priority 350 -->

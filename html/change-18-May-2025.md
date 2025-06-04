@@ -17,8 +17,8 @@ by creating labels conditionaly.
 + routes are directional they lead from a source enclosure to a destination enclosure,
 + routes follow paths which are sequences of points and line segments,
 + lines segments are cardinals (ns and ew) and ramps,
-+ a route has two terminating points one is flagged as the startpoint the other as the endpoint,
-+ route has to terminal arms one is flagged as the startarm and the other as the endarm,
++ a route has two terminating points one is flagged as the `<startpoint>` the other as the `<endpoint>`,
++ a route has two terminal arms one is flagged as the `<startarm>` and the other as the `<endarm>`,
 + a route currently has two labels. One is attached to the startpoint and one to the endpoint.
 + the text of the labels can be specified as the source/annotation and the destination/annotation and rules 
 then represent the labels on their respective endpoints.
@@ -45,7 +45,8 @@ To achieve this two distances the source and destination of the route
 have attributes `label_lateral_offset` and `label_long_offset`. These attributes are set to contain values determined by the line_style of the route and its endline markers (it would be possible to specify these directly in the diagram if required). The  rules for these attributes are, respectively,
 in the source files `diagram...route.node-+label_long_offset`. There is no need to change to this particular code, by the way, but the filename ought to be changed. It should be `diagram...route.node-+label_long_offset+label_lateral_offset`. 
 
-Proviso: The rules defined in this file don't actually take into account the end markers they simply use the line style --- should improve in the future to implement as I first imagined.
+#### Aside
+ The rules defined in this file don't actually take into account the end markers they simply use the line style --- should improve in the future to implement as I first imagined.
 
 ### Design
 There will be schematic places for positioning labels.
@@ -73,9 +74,12 @@ Terminal arms can radiate out in all 360 degrees from an enclosure. The actual a
 + zero degrees is an endarm heading directly upwards due north,
 + pi/2 is due east i.e. an endarm heading away to the right hand side,
 + pi is due south,
-+ -pi/2 is due west,
-+ -pi + infinitessimal is infinitessimally close to due south. 
++  3 * pi/2 is due west,
++  2 * pi + infinitessimal is infinitessimally close to due south. 
 
+#### Naming
++ ** This angle theta can be represented in the data model as  attribute `bearing`. **
++ Gives the possibility, should we need it in the future, of using the name `back-bearing`.
 ### Preferred Positions for Labels
 #### Preferred Label Position Non-Cardinals - Position of Closest Approach
 
@@ -94,7 +98,8 @@ and is the *anticlockwise* position in the other quadrants
 + north east (3/2 pi < theta < 2pi)
 
 #### Preferred Label Position North-South Cardinals
-For cardinals there is no position of closest approach. One obvious tactic, and one that I have followed
+For cardinals there is no position of closest approach. 
+One obvious tactic, and one that I have followed
 informally, is to annotate north-south endarms left or right depending on whether they connect to the left or right half of the top or bottom edge. WE get the following decision table
 + top left --- anti-clockwise
 + top right --- clockwise
@@ -155,9 +160,10 @@ The formula for the anticlockwise corner Ha are obtained by negating alpha to ge
 Ha.x =  sign(theta) * cos(pi/2 - theta + alpha) * h
 Ha.y =  sin(pi/2 - theta + alpha) * h
 ```
+**These y values need to be negated, in the implementation, to take account of flex downpointing y-axis in the implementation**
 
 ### Secondary label Positions
-If an terminal arm has two labels and one label takes the preferred position then the other label
+If a terminal arm has two labels and one label takes the preferred position then the other label
 must take a secondary position. Let us support just one secondary position.
 
 Looking at an example UML diagram in which cardinality and rolename are represented in labels then
@@ -181,80 +187,17 @@ H2a(x) = Ha() + tan(beta) x text_height
 where beta is the angle between the endarm and the vertical and is between -pi/2 and pi/2.
 
 Call these positions the clockwiseOuter and anticlockwiseOuter positions.
+
 ### Implementation
-#### Bug Fix
-From reading the code I can see that there is an error in source `diagram.functions.module.xslt` in this function
-```
-<xsl:function name="diagram:angleToNegativeYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of select="
-     if ($xdiff = 0 and $ydiff = 0) then 0
-     else (if ($xdiff lt 0) then - 2 * math:pi() else 2 * math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
-   "/>
-</xsl:function>
-```
-The code should read
-```
-     if ($xdiff = 0 and $ydiff = 0) then 0
-     else (if ($xdiff lt 0) then -  math:pi() else  math:pi()) - diagram:angleToYaxis($xdiff,$ydiff)
-```
-
-#### Calculation of angle theta
-
-We will use  the function `diagram:angleToYaxis` defined in source file `diagram.functions.module.xslt`.
-Define a new function as follows:
-```
-<xsl:function name="diagram:noughtToTwoPiAngleToNegativeYaxis">
-    <xsl:param name="xdiff" as="xs:double"/>
-    <xsl:param name="ydiff" as="xs:double"/>
-    <xsl:value-of select="
-     if ($xdiff = 0 and $ydiff = 0) then 0
-     else  math:pi() - diagram:angleToYaxis($xdiff,$ydiff) 
-   "/>
-</xsl:function>
-
-```
-There is a lack of symmetry the calculation of theta will differ for startarm and endarm as follows:
-```
-+ startarm
-   + ns theta = if starty < endy then 0 else pi
-   + ew theta = if startx < endx then pi/2 else 3pi/2
-   + ramp theta = diagram:noughtToTwoPiAngleToNegativeYaxis(endx-startx,endy-starty)
-
-+ endarm 
-   + ns theta = if starty < endy then pi else 0
-   + ew theta = if startx < endx then 3pi/2 else pi/2
-   + ramp theta = diagram:noughtToTwoPiAngleToNegativeYaxis(startx-endx,starty-endy)
-```
-
-#### Name change
-Change the name of file  `diagram...route.node-+label_long_offset.xslt` to be 
-`diagram...route.node-+label_long_offset+label_lateral_offset.xslt`.
 
 #### Changes to the flex diagram model
 1.  Modify the flex diagram meta model `flexDiagram..logical.xml` and the associated
 `flexDiagram..presentation.xml` to document some of the attributes we will be working with. 
-Flag the follwoing attributes of node(2) as derived by adding a cheeky `<implementationOf/>` flag:
-+ slotNo
-+ label_lateral_offset
-+ label_long_offset
-+ angleToOtherEnd
+Flag the following attributes of node(2) as derived by adding a cheeky `<implementationOf/>` flag:
++ label_lateral_offset [x]
++ label_long_offset    [x]
 
-2. In the  source file remove the unused attributes of node(2)
-+ `ratio`
-+ `destRelPos`[x]
-
-3. Add derived attribute noOfSlots to specific_edge.[x]
-
-4. In the same diagram model source files, move slotNo attribute to entity type specific edge.
-+ Modify `diagram..route.node-+slotNo.xslt` accordingly and change name of the file to be
-`diagram..route.node.specificEdge-+slotNo.xslt`. [x]
-+ Modify `diagram..route.node.specificEdge-+deltax.xslt` accordingly.[x]
-+ Modify `diagram.route.path.xslt` accordingly.  
-  Rename this file to be `diagram...path.cardinal-+deltax-+deltay.xslt`  [x]
-
-5. In the same diagram model source files: 
+2. In the same flex diagram model source files: 
 + add attribute secondary_annotation to node(2). Recall node(2) ::= source | destination.
 + remove annotate_left, annotate_right, annotate_high, annotate_low. 
 + add entity type orientation ::= clockwise | anti-clockwise.
@@ -268,7 +211,62 @@ orientation => :outer(2) ; # an unnamed composition relationship
 
 outer(2) => ;                   # an attributeless entity type
                                 # the second instance of an entity type called outer.
-``` 
+```
+Completed  [x]
+
+3. Implement entity types startarm and endarm. Represent theta as attribute `bearing` as follows:
+```
+role ::= terminatingArm | sweep | midarm ;
+
+terminatingArm ::= startarm | endarm ;
+
+sweep ::= source_sweep | destination_sweep ;
+
+terminatingArm => bearing : float;
+```
+Completed [x]
+
+#### Calculation of angle theta as attribute `bearing`.
+
+1. In source file `diagram.functions.module.xslt`
+implement a function `diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis`
+(by using `diagram:NoughtToTwoPiClockwiseAngleFromYaxis`)
+to use 
+
+Completed [x].
+
+2. In new source file `diagram...path.cardinal.terminatingArm-+bearing.xslt`
+implement rules for theta represented as attribute `bearing`
+
+There is a lack of symmetry in the calculation of theta in that calculation will differ for startarm and endarm as follows:
+```
++ startarm
+   + ns theta = if starty < endy then 0 else pi
+   + ew theta = if startx < endx then pi/2 else 3pi/2
+   + ramp theta = diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis(endx-startx,endy-starty)
+
++ endarm 
+   + ns theta = if starty < endy then pi else 0
+   + ew theta = if startx < endx then 3pi/2 else pi/2
+   + ramp theta = diagram:NoughtToTwoPiClockwiseAngleFromNegativeYaxis(startx-endx,starty-endy)
+```
+
+In xslt we will have upto 6 templates such as
+```
+match "path/ns[starty][endy]/startarm[not(bearing)]"
+select "if (../starty &lt; ../endy) then 0 else math:pi()"
+```
+
+Completed [x].
+
+
+#### Name change
+Change the name of file  `diagram...route.node-+label_long_offset.xslt` to be 
+`diagram...route.node-+label_long_offset+label_lateral_offset.xslt`. 
+
+Completed [x].
+
+
 #### Rules for labelPosition
 Implement the following rules in file `diagram...route.specific_edge-+labelPosition.xslt`
 + left side | top edge
@@ -283,6 +281,8 @@ if slot no <= noofslots div 2
 then labelPosition := clockwise
 else labelPosition := anti-clockwise
 ```
+Completed [x]
+
 #### Rules for secondaryLabelPosition
 Implement the following rules in file `diagram...route.specific_edge-+secondaryLabelPosition.xslt`
 + top edge
@@ -310,20 +310,56 @@ if slot no <= noofslots div 2
 then secondaryLabelPosition := anti-clockwise
 else secondaryLabelPosition := clockwise
 ```
+Completed [].
 
 #### Rules for Creating labels
-1. No longer create a label as part of creating the endpoints in source 
+1. Add two new functions to file diagram.functions.module.xslt.
++ xOffsetFromBearingAndDistance (bearing:double, distance:double)
+  = sin(bearing * distance)
++ yOffsetFromBearingAndDistance (bearing:double, distance:double)
+  = - cos(bearing * distance)
+
+The minus sign comes about because bearing is clockwise from north and our y axis is the direction south.
+
+2. Add a function hypoteneuse to file diagram.functions.module.xslt.
+
+3. No longer create a label as part of creating the endpoints in source 
 files `diagram...path-+point.endpoint+ewQ.xslt` and `diagram..path-+point.startpoint+ewQ.xslt`.
-2. Introduce a new source file  `diagram..route.path.point-+label.xslt` to create labels on startpoint and endpoint one for each annotation present. Flag each label as `<primary/>` or `<secondary/>`.
-3. Add to or modify that rules in  `diagram...route.path.point.label-+xP` and revise 
- x and y for endpoint labels. In line with the detail specfication where?
-Define x and y for labels for primary and secondary annotations.
+
+Completed [x].
+
+4. Introduce a new source file  `diagram..route.path.point-+label.xslt` to create labels on startpoint and endpoint one for each annotation present. 
+Flag each label as `<primary/>` or `<secondary/>`.
+
+Completed for primaries [x].
+Completed for secondaries [].
+
+5. Remove file  `diagram...route.path.point.label-+xP`
+Replace by two files
+ + `diagram...route.path.point.label-+x`
+ + `diagram...route.path.point.label-+y`
+
+These generate rules for  x and y for endpoint labels. 
+
+The rule for x will call the function `diagram:xOffsetFromBearingAndDistance`  to get the x offset.
++ the distance to pass is the hypoteneuse `h` described above using pythagorus
+from label_lateral_offset and label_long_offset,
++ clockwise the angle to pass is theta + alpha,
++ anticlockwise the angle to pass is  theta - alpha,
++ alpha is `math:atan(label_lateral_offset/label_long_offset)`.
+
+Similarly the rule for y will  call function `diagram:yOffsetFromBearingAndDistance`.
+
+Start by planting all clockwise labels and check this looks correct.
+Then plant all anti-clockwise and check this. 
 
 #### Using these changes from ER2flex
-6. Modify er2flex ...
+5. Modify er2flex ...
 
 ### Testing
-Test on a new UML example flexDiagraming/examples/UML/shlaerMellorDeptStudentProfessor0..logical.flex.xml.
+1. Test on all selected examples.
+
+
 
 ### Completion Date 
 

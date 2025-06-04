@@ -85,8 +85,8 @@ if ($PSBoundParameters.ContainsKey('filename')){
 
 #if ($false)
 #{
-echo 'theDramaticArts Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -animate
+echo 'shlaer-lang Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerMellorDeptStudentProfessor0..logical.xml -animate -debugSwitch
 #}
 
 popd 

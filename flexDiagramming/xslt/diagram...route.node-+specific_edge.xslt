@@ -29,7 +29,7 @@
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <bottom_edge>
-		  <annotate_left/>
+		 <!--  <annotate_left/> -->
       </bottom_edge>
    </xsl:copy>
 </xsl:template>
@@ -47,7 +47,7 @@
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <top_edge>
-		  <annotate_right/>
+		  <!-- <annotate_right/> -->
       </top_edge>
    </xsl:copy>
 </xsl:template>
@@ -66,12 +66,12 @@
       <xsl:choose>
          <xsl:when test="//enclosure[id=current()/id] &lt;&lt; //enclosure[id=current()/../destination/id]">
             <right_side>
-               <annotate_low/>
+               <!-- <annotate_low/> -->
             </right_side>
          </xsl:when>
          <xsl:otherwise>
             <left_side>
-               <annotate_low/>
+               <!-- <annotate_low/> -->
             </left_side>
          </xsl:otherwise>
       </xsl:choose>
@@ -90,12 +90,12 @@
       <xsl:choose>
          <xsl:when test="//enclosure[id=current()/../source/id] &lt;&lt; //enclosure[id=current()/id]">
             <left_side>
-               <annotate_low/>
+               <!-- <annotate_low/> -->
             </left_side>
          </xsl:when>
          <xsl:otherwise>
             <right_side>
-               <annotate_low/>
+               <!-- <annotate_low/> -->
             </right_side>
          </xsl:otherwise>
       </xsl:choose>

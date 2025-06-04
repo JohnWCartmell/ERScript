@@ -43,7 +43,7 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
 <xsl:template match="*[self::enclosure|self::label|self::point|self::ns|self::ew|self::ramp]
                       [parent::enclosure|parent::point|parent::path|parent::side|parent::ground|parent::ceiling]
                       /xP[count(relative/(offset|tbd)) &lt; count(../ancestor::*[self::enclosure|self::point][1]/xP/relative/offset) + 1]
-                              /relative/offset[count(following-sibling::offset)=0]				  
+                      /relative/offset[count(following-sibling::offset)=0]				  
 					  [
 					      ..[self::relative]
 						  /..[self::xP]

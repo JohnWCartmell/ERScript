@@ -12,12 +12,14 @@
 <xsl:output method="xml" indent="yes"/>
 
 
-<!-- ************************************* -->
-<!-- route/source/right_side +deltay  -->
-<!-- ************************************* -->
+<!-- ********************************************************** -->
+<!-- route/(source|destination)/(right_side|left_side) +deltay  -->
+<!-- ********************************************************** -->
 <xsl:template match="route
-                     /source[key('Enclosure',id)/h]
-                     /right_side[slotNo]
+                     /*[self::source|self::destination]
+                     [key('Enclosure',id)/h]
+                     /*[self::left_side|self::right_side]
+                     [slotNo]
                      [noOfSlots]    
 					      [not(deltay)]
                     " 
@@ -27,64 +29,6 @@
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <deltay>
 		  <xsl:value-of select="(key('Enclosure',../id)/h)  *  (slotNo + 1) div (noOfSlots + 1)"/>
-      </deltay>
-   </xsl:copy>
-</xsl:template>
-
-<!-- ************************************* -->
-<!-- route/source/leftt_side +deltay  -->
-<!-- ************************************* -->
-<xsl:template match="route
-                     /source[key('Enclosure',id)/h]
-                     /left_side[slotNo]
-                     [noOfSlots]    
-                     [not(deltay)]
-                    " 
-              mode="recursive_diagram_enrichment"
-              priority="42">
-   <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <deltay>
-        <xsl:value-of select="(key('Enclosure',../id)/h)  *  (slotNo + 1) div (noOfSlots + 1)"/>
-      </deltay>
-   </xsl:copy>
-</xsl:template>
-
-<!-- ************************************* -->
-<!-- route/destination/right_side  +deltay  -->
-<!-- ************************************* -->
-<xsl:template match="route
-                     /destination[key('Enclosure',id)/h]
-                     /right_side[slotNo]
-                     [noOfSlots]        
-                     [not(deltay)]
-                    " 
-              mode="recursive_diagram_enrichment"
-              priority="42">
-   <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <deltay>
-        <xsl:value-of select="(key('Enclosure',../id)/h)  *  (slotNo + 1) div (noOfSlots + 1)"/>
-      </deltay>
-   </xsl:copy>
-</xsl:template>
-
-
-<!-- ************************************* -->
-<!-- route/destination/left_side  +deltay  -->
-<!-- ************************************* -->
-<xsl:template match="route
-                     /destination[key('Enclosure',id)/h]
-                     /left_side[slotNo]
-                     [noOfSlots]        
-					      [not(deltay)]
-                    " 
-              mode="recursive_diagram_enrichment"
-              priority="42">
-   <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <deltay>
-        <xsl:value-of select="(key('Enclosure',../id)/h)  *  (slotNo + 1) div (noOfSlots + 1)"/>
       </deltay>
    </xsl:copy>
 </xsl:template>

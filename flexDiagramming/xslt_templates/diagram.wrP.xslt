@@ -34,23 +34,11 @@
 	   </wrP>
     </xsl:copy>
   </xsl:template>
-<!-- INVESTIGATE LABEL CENTRING BUG -->
-<!--   <xsl:template match="enclosure
-                        [not(wrP)]
-                    " 
-              mode="recursive_diagram_enrichment"
-              priority="42P">
-    <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <wrP>
-        <xsl:value-of select="0"/>
-     </wrP>
-    </xsl:copy>
-  </xsl:template> -->
+
   
 
 <!-- change of 16 May 2025 -->
-<xsl:template match="enclosure
+<!-- <xsl:template match="enclosure
                         [not(wrP)]
             [wPFill]
             [every $edge in key('right_sideP_is_endpoint_of',id)[annotation]
@@ -65,14 +53,12 @@
          <xsl:value-of select="0"/>
      </wrP>
     </xsl:copy>
-  </xsl:template>
-
+  </xsl:template> -->
 
 
 <!-- ************** -->
 <!-- point  +wrP    -->
 <!-- ************** -->
-<!-- 11-Nov-2024 take account of padding on a label -->
 
   <xsl:template match="point
                         [not(wrP)]
@@ -87,10 +73,10 @@
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <wrP>
-	     <xsl:value-of select="max((label/(wP + padding + xP/relative/offset[1]) ,
+	       <xsl:value-of select="max((label/(wP + padding + xP/relative/offset[1]) ,
 		                            0
 		                          ))"/>
-	  </wrP>
+	     </wrP>
     </xsl:copy>
   </xsl:template>
   
