@@ -44,7 +44,7 @@
 			<source>
 					<right_side>
 						<deltay>0.5</deltay>
-						<annotate_low/>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
 					</right_side>
 					<id>A</id>
 					<annotation>link_to_b</annotation>
@@ -52,10 +52,11 @@
 			<destination>
 					<left_side>
 						<deltay>0.3</deltay>
-						<annotate_high/>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
 					</left_side>
 					<id>B</id>
 					<annotation>back_to_a</annotation>
+					
 			</destination>
 			<path><ns/></path>
 		</route>	
@@ -64,7 +65,7 @@
 			<source>
 					<bottom_edge>
 						<deltax>0.25</deltax>
-						<annotate_left/>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
 					</bottom_edge>
 					<id>A</id>
 					<annotation>down_to_c</annotation>
@@ -72,7 +73,7 @@
 			<destination>
 					<top_edge>
 						<deltax>0.75</deltax>
-						<annotate_right/>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
 					</top_edge>
 					<id>C</id>
 					<annotation>back_to_a</annotation>

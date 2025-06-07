@@ -13,7 +13,7 @@ DESCRIPTION
 
   <xsl:output method="xml" indent="yes"/>
 
-  <xsl:template match="route
+<!--   <xsl:template match="route
                        [path/*[self::ns | self::ew]/endarm]
                        [path/point[startpoint]/xP/at/offset]
                        [path/point[startpoint]/wrP]
@@ -28,9 +28,9 @@ DESCRIPTION
   	       <xsl:value-of select="../path/point[startpoint]/(xP/at/offset + wrP)"/>
   	  </x_upper_boundP>
     </xsl:copy>
-  </xsl:template>
+  </xsl:template> -->
   
-  <xsl:template match="route
+<!--   <xsl:template match="route
                        [path/*[self::ns | self::ew]/endarm]
                        [path/point[endpoint]/xP/at/offset]
                        [path/point[endpoint]/wrP]
@@ -45,7 +45,7 @@ DESCRIPTION
   	       <xsl:value-of select="../path/point[endpoint]/(xP/at/offset + wrP)"/>
   	  </x_upper_boundP>
     </xsl:copy>
-  </xsl:template>
+  </xsl:template> -->
 
    <!-- **************************************************
        2 June ramp rules                           
@@ -56,9 +56,10 @@ DESCRIPTION
        on extent of labels which depends on their position
        ***************************************************
   -->
+  <!-- likewise with ns and ew on 5 June 2025 -->
     <xsl:template match="route
                          [path/point[startpoint]/xP/at/offset]
-                         [path/ramp/startarm]
+                         [path/*/startarm] (: was ramp :)
                          /source
                          [every $label in ../path/point[startpoint]/label satisfies $label/wP]
                          [not(x_upper_boundP)]
@@ -81,7 +82,7 @@ DESCRIPTION
   </xsl:template>
 
   <xsl:template match="route
-                       [path/ramp/endarm]
+                       [path/*/endarm] (:was ramp :)
                        [path/point[endpoint]/xP/at/offset]
                        /destination
                        [every $label in ../path/point[endpoint]/label satisfies $label/wP]

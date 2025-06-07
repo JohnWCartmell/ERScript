@@ -115,8 +115,8 @@
    <stroke>blue</stroke> 
    <stroke-width>0.03</stroke-width>
    <fill>none</fill>
-   <label_long_offset>0.2</label_long_offset>
-   <label_lateral_offset>0.2</label_lateral_offset>
+   <label_long_offset>0.4</label_long_offset>
+   <label_lateral_offset>0.05</label_lateral_offset>
    <lateral_extent>0.1</lateral_extent>
    <minarmlen>0.5</minarmlen>
 </line_style>

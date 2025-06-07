@@ -13,7 +13,7 @@ DESCRIPTION
 
   <xsl:output method="xml" indent="yes"/>
 
-  <xsl:template match="route
+<!--   <xsl:template match="route
                        [path/*[self::ns | self::ew]/startarm]
                        /source
                        [../path/point[startpoint]/xP/at/offset]
@@ -28,9 +28,9 @@ DESCRIPTION
   	       <xsl:value-of select="../path/point[startpoint]/(xP/at/offset - wlP)"/>
   	  </x_lower_boundP>
     </xsl:copy>
-  </xsl:template>
+  </xsl:template> -->
   
-  <xsl:template match="route
+<!--   <xsl:template match="route
                        [path/*[self::ns | self::ew]/endarm]
                        /destination
                        [../path/point[endpoint]/xP/at/offset]
@@ -45,19 +45,22 @@ DESCRIPTION
 	       <xsl:value-of select="../path/point[endpoint]/(xP/at/offset - wlP)"/>
 	  </x_lower_boundP>
     </xsl:copy>
-  </xsl:template>
+  </xsl:template> -->
 
      <!-- **************************************************
        2 June ramp rules                           
        without these rules there is a deadly embrace.
-       becaus elabel psotion depdends on bearing which depends 
+       because label position depdends on bearing which depends 
        on absolute positioning of source and destination enclosures 
        which depends on wr and wl which depends
        on extent of labels which depends on their position
        ***************************************************
   -->
+<!-- 5 JUne 2025 BUT I have a deadly embrace for othogonals also. 
+     Not sure what the outcome will be but comment out above rules and
+     generalise the rules written for ramps to apply to ns and ew also -->
     <xsl:template match="route
-                        [path/ramp/startarm]
+                        [path/*/startarm] (:was ramp :)
                         [path/point[startpoint]/xP/at/offset]
                         /source
                         [every $label in ../path/point[startpoint]/label satisfies $label/wP]
@@ -82,7 +85,7 @@ DESCRIPTION
   </xsl:template>
   
     <xsl:template match="route
-                        [path/ramp/endarm]
+                        [path/*/endarm]  (: was ramp :)
                         [path/point[endpoint]/xP/at/offset]
                         /destination
                         [every $label in ../path/point[endpoint]/label satisfies $label/wP]

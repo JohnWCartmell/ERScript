@@ -39,7 +39,7 @@
 					</at>
 				</xP>
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<label><secondary/></label>
+				<!-- <label><secondary/></label> --> <!-- temp comment out-->
 			</point>
 		</xsl:copy>
 	</xsl:template>
@@ -65,7 +65,7 @@
 					</at>
 				</xP>				
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<label><secondary/></label>
+				<!-- <label><secondary/></label> --> <!-- temp comment out-->
 			</point>
 		</xsl:copy>
 	</xsl:template>

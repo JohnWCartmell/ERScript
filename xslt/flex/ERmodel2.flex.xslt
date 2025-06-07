@@ -191,7 +191,8 @@ CHANGE HISTORY
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
 			<padding>0</padding>
-			<wFill/>
+			<!-- <wFill/> --> <!-- REMOVED PENDING INVESTIGATION OF DEADLY EMBRACE -->
+			<w>3.0</w> <!-- hard coded instead -->
 			<framearc>0.2</framearc>
 			<label/>
 		</xsl:element>

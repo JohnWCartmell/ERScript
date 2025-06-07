@@ -38,7 +38,7 @@
 					</at>
 				</xP>
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<label><secondary/></label>
+				<!-- <label><secondary/></label> --> <!-- temp comment out-->
 			</point>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
@@ -63,7 +63,7 @@
 					</at>
 				</xP>
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<label><secondary/></label>
+				<!-- <label><secondary/></label> --> <!-- temp comment out -->
 			</point>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>

@@ -20,7 +20,7 @@
 <!-- route/source/bottom_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /source[key('Enclosure',id)/w]/bottom_edge    
+                     /source/bottom_edge    
 					 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -36,7 +36,7 @@
 <!-- route/source/top_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /source[key('Enclosure',id)/w]/top_edge    
+                     /source/top_edge    
                 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -53,7 +53,7 @@
 <!-- route/destination/top_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /destination[key('Enclosure',id)/w]/top_edge    
+                     /destination/top_edge    
 					 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -69,7 +69,7 @@
 <!-- route/destination/bottom_edge  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /destination[key('Enclosure',id)/w]/bottom_edge    
+                     /destination/bottom_edge    
                 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -85,7 +85,7 @@
 <!-- route/source/right_side  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /source[key('Enclosure',id)/w]/right_side    
+                     /source/right_side    
                 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
@@ -101,7 +101,7 @@
 <!-- route/source/left_side  +noOfSlots  -->
 <!-- ************************************* -->
 <xsl:template match="route
-                     /source[key('Enclosure',id)/w]/left_side    
+                     /source/left_side    
                 [not(noOfSlots)]
                     " 
               mode="recursive_diagram_enrichment"
