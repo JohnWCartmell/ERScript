@@ -28,7 +28,7 @@
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <labelPosition>
          <xsl:choose>
-            <xsl:when test="slotNo &lt;= (noOfSlots div 2)">
+            <xsl:when test="(slotNo + 1) &lt;= (noOfSlots div 2)">
 		          <anti-clockwise/>
             </xsl:when>
             <xsl:otherwise>
@@ -55,7 +55,7 @@
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <labelPosition>
          <xsl:choose>
-            <xsl:when test="slotNo &lt;= (noOfSlots div 2)">
+            <xsl:when test="(slotNo + 1) &lt;= (noOfSlots div 2)">
                 <clockwise/>
             </xsl:when>
             <xsl:otherwise>

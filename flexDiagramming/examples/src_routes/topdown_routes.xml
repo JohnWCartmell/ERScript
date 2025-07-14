@@ -17,7 +17,17 @@
 		<debug-whitespace>false</debug-whitespace>
 	</default>
 	<enclosure>
-		<y><abs>2.0</abs></y>
+		<y><abs>0.1</abs></y>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>Topdown Routes Test</text>
+		</label>
+	</enclosure>
+
+	<!-- <enclosure>
+		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
 		<margin>0.5</margin>
@@ -46,7 +56,6 @@
 			<label/>
 			<x><at><centre/><of>A</of></at><delta>1.0</delta></x>
 			<y><at><bottom/><of>A</of></at><delta>1.0</delta></y>
-			<!--place edge AND AT edge added so that don't get in a circularity with position of label -->
 		</enclosure>
 		<route>
 		    <top_down/>
@@ -225,6 +234,65 @@
 			<destination>
 				<id>G2</id>
 				<annotation>up_to_F</annotation>
+			</destination>
+		</route>
+	</enclosure> -->
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text> Parallel top down routes</text>
+		</label>
+		<label>
+			<text> Default positioning of labels</text>
+		</label>
+		<enclosure>
+			<id>H</id>
+			<x><local>6</local></x>
+			<y><local>1.0</local></y>
+			<w>6</w>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>I</id>
+			<label/>
+			<x><at><centre/><of>H</of></at></x>
+			<y><at><bottom/><of>H</of></at><delta>1.0</delta></y>
+			<w>6</w>
+		</enclosure>
+		<route>
+		    <top_down/>
+			<source>
+					<id>H</id>
+					<annotation>to_i (1)</annotation>
+			</source>
+			<destination>
+					<id>I</id>
+					<annotation>up_to_h (1)</annotation>
+			</destination>
+		</route>
+		<route>
+		    <top_down/>
+			<source>
+					<id>H</id>
+					<annotation>to_i (2)</annotation>
+			</source>
+			<destination>
+					<id>I</id>
+					<annotation>up_to_h (2)</annotation>
+			</destination>
+		</route>
+		<route>
+		    <top_down/>
+			<source>
+					<id>H</id>
+					<annotation>to_i (3)</annotation>
+			</source>
+			<destination>
+					<id>I</id>
+					<annotation>up_to_h (3)</annotation>
 			</destination>
 		</route>
 	</enclosure>

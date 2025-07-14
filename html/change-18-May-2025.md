@@ -44,9 +44,8 @@ In the current code, labels are positioned so as to avoid conflicting with crows
 To achieve this two distances the source and destination of the route
 have attributes `label_lateral_offset` and `label_long_offset`. These attributes are set to contain values determined by the line_style of the route and its endline markers (it would be possible to specify these directly in the diagram if required). The  rules for these attributes are, respectively,
 in the source files `diagram...route.node-+label_long_offset`. There is no need to change to this particular code, by the way, but the filename ought to be changed. It should be `diagram...route.node-+label_long_offset+label_lateral_offset`. 
-
-#### Aside
- The rules defined in this file don't actually take into account the end markers they simply use the line style --- should improve in the future to implement as I first imagined.
+(Aside:
+ The rules defined in this file don't actually take into account the end markers they simply use the line style --- should improve in the future to implement as I first imagined.)
 
 ### Design
 There will be schematic places for positioning labels.
@@ -54,15 +53,15 @@ There will be schematic places for positioning labels.
 Imagine a wheel with spokes radiating out in all directions.
 Imagine the hub of the wheel as an enclosure and the spokes as possible terminal arms of routes.
 Imagine the spokes to be labelled and that the labels overlay neither the hub nor the spokes.
-Such a label can be said to be postitioned clockwise or anticlockwise depending on its position either
+Such a label can be said to be positioned clockwise or anticlockwise depending on its position either
 earlier or later than the spoke it labels. 
 
-In this way we have explained how the terminal arm of a route can be labelled in a clockwise postion or an anticlockwise position. 
+In this way we have explained how the terminal arm of a route can be labelled in a clockwise position or an anticlockwise position. 
 
 To illustrate this
 + For routes connected to the top edge of an enclosure 
-   + clockwise labels are on left of the endarm
-   + anticlockwise labels are on right
+   + clockwise labels are on right of the endarm
+   + anticlockwise labels are on left
 + For routes connected to the right hand side 
    + clockwise routes are lower than the endarm
    + anticlockwise routes are higher
@@ -70,12 +69,12 @@ To illustrate this
 in a similar manner, routes connected to the bottom edge or the left hand side have a clockwise and anticlockwise label positions. 
 
 ### Angle theta of an terminal arm.
-Terminal arms can radiate out in all 360 degrees from an enclosure. The actual angle of the endarm will be refered to as theta. We follow compass bearings so that 
+Terminal arms can radiate out in all 360 degrees from an enclosure. The actual angle of the endarm will be referred to as theta. We follow compass bearings so that 
 + zero degrees is an endarm heading directly upwards due north,
 + pi/2 is due east i.e. an endarm heading away to the right hand side,
 + pi is due south,
 +  3 * pi/2 is due west,
-+  2 * pi + infinitessimal is infinitessimally close to due south. 
++  2 * pi + infinitesimal is infinitesimally close to due south. 
 
 #### Naming
 + ** This angle theta can be represented in the data model as  attribute `bearing`. **
@@ -100,13 +99,17 @@ and is the *anticlockwise* position in the other quadrants
 #### Preferred Label Position North-South Cardinals
 For cardinals there is no position of closest approach. 
 One obvious tactic, and one that I have followed
-informally, is to annotate north-south endarms left or right depending on whether they connect to the left or right half of the top or bottom edge. WE get the following decision table
+informally, is to annotate north-south endarms left or right depending on whether they connect to the left or right half of the top or bottom edge. We get the following decision table
 + top left --- anti-clockwise
-+ top right --- clockwise
++ top centre --- clockwise  *this is anti-clockwise in topdown_routes test as at 14 July 2025*
++ top right --- clockwise   
 + bottom left --- clockwise
-+ bottom right -- anti-clockwise
++ bottom centre -- clockwise
++ bottom right -- anti-clockwise *this not quite so in topdown_routes test as at 14 July 2025*
 These nicely fit with the non-cardinals.
-
+> Testing: flexDiagramming/examples/src_routes/topdown_routes
+> (need extend this example so that there is an instance of an enclosure with two incoming routes
+>  extend with enclosures H1 and H2 and two top down routes from H1 to H2)
 #### Preferred Label Position East-West Cardinals
 
 Define the preferred label position for all east west cardinals to be the *anti-clockwise* position.
@@ -207,20 +210,17 @@ orientation => clockwise | anti-clockwise ;
 specific_edge => labelPosition : orientation, 
                  secondaryLabelPosition : orientation ;
 
-orientation => :outer(2) ; # an unnamed composition relationship
+orientation => :out(2) ; # an unnamed composition relationship
 
-outer(2) => ;                   # an attributeless entity type
-                                # the second instance of an entity type called outer.
+out(2) => ;                   # an attributeless entity type
 ```
 Completed  [x]
 
 3. Implement entity types startarm and endarm. Represent theta as attribute `bearing` as follows:
 ```
-role ::= terminatingArm | sweep | midarm ;
+role ::= terminatingArm | source_sweep | destination_sweep | midarm ;
 
 terminatingArm ::= startarm | endarm ;
-
-sweep ::= source_sweep | destination_sweep ;
 
 terminatingArm => bearing : float;
 ```
@@ -353,10 +353,16 @@ Similarly the rule for y will  call function `diagram:yOffsetFromBearingAndDista
 Start by planting all clockwise labels and check this looks correct.
 Then plant all anti-clockwise and check this. 
 
+> Blockquote
+
 #### Using these changes from ER2flex
-5. Modify er2flex ...
+5. Modify er2flex ...  ??????????????????? NOT CHANGED AS AT 13 JULY 2025
 
 ### Testing
+1. Testing: flexDiagramming/examples/src_routes/topdown_routes.
+
+> Bug 14 July 2025: top down route from C to D rendered as ramp not orthogonal. ***Go figure***
+
 1. Test on all selected examples.
 
 

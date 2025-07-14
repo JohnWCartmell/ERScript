@@ -146,6 +146,15 @@
                           "/>
   </xsl:function>
 
+  <xsl:function name="diagram:bearingFromAngleToNegativeYaxis">
+    <!-- angle may be negative or greater than 2*pi -->
+    <!-- this function just normalises to bring into the 0 to 2*pi range -->
+    <xsl:param name="angle" as="xs:double"/>
+    <xsl:value-of select="(2*math:pi() + $angle)
+                            mod
+                          (2*math:pi())"/>
+   </xsl:function>
+
   <xsl:function name="diagram:NoughtToTwoPiAntiClockwiseAngleFromNegativeYaxis">
     <!-- See change note 28 May 2025 -->
     <xsl:param name="xdiff" as="xs:double"/>
@@ -154,8 +163,7 @@
                           - 
                           (diagram:NoughtToTwoPiClockwiseAngleFromYaxis($xdiff,$ydiff) + math:pi()) 
                               mod
-                           (2*math:pi()
-                           )
+                           (2*math:pi())
                           "/>
   </xsl:function>
 

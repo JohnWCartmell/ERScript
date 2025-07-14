@@ -76,12 +76,25 @@
                                  -1 for anti-clockwise -->
 		              <!-- Test it anticlockwise 5 May 2025 -->
     <xsl:variable name="alphaAdjustedBearing" as="xs:double"
-                  select="$endarmBearing +
-                            $directionSign *
-                            (: angle alpha :) 
-                            math:atan($label_lateral_offset div $label_long_offset)
+                  select="diagram:bearingFromAngleToNegativeYaxis(
+                                (: call this function to normalise negative angle
+                                      into range 0 to 2*pi :)
+                                 $endarmBearing +
+                                       $directionSign *
+                                        (: angle alpha :) 
+                                       math:atan($label_lateral_offset div $label_long_offset)
+                                                                 )
               "/>
 		<y>
+			<label_lateral_offset>
+				<xsl:value-of select="$label_lateral_offset"/>
+			</label_lateral_offset>
+			<label_long_offset>
+				<xsl:value-of select="$label_long_offset"/>
+			</label_long_offset>
+			<alphaAdjustedBearing>
+				<xsl:value-of select="$alphaAdjustedBearing"/>
+			</alphaAdjustedBearing>
 		  <place>
 		  	<xsl:choose>
 		  		<xsl:when test="$directionSign = number(1)">
