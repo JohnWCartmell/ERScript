@@ -139,9 +139,16 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltay>
-				<xsl:value-of select="max((
+				<xsl:value-of select="
+				let $increment := 0.1,
+				$slotNo := ../../source/bottom_edge/slotNo,
+				$noOfSlots := ../../source/bottom_edge/noOfSlots,
+				$noOfIncrements := if ($slotNo &lt; ($noOfSlots div 2))
+				                   then $slotNo
+				                   else $noOfSlots - $slotNo - 1
+				return max((
 					key('line_style',../../source/line_style)/minarmlen
-					         + ../../source/((bottom_edge/noOfSlots div 2 - abs(bottom_edge/noOfSlots div 2 - bottom_edge/slotNo)) * 0.1), 
+					         + $noOfIncrements * $increment, 
 					key('box',../../source/id)/hb
 					))"/>
 			</deltay>
@@ -166,9 +173,16 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltay>
-				<xsl:value-of select="max((
+				<xsl:value-of select="
+				let $increment := 0.1,
+				$slotNo := ../../destination/top_edge/slotNo,
+				$noOfSlots := ../../destination/top_edge/noOfSlots,
+				$noOfIncrements := if ($slotNo &lt; ($noOfSlots div 2))
+				                   then $slotNo
+				                   else $noOfSlots - $slotNo - 1
+				return max((
 					key('line_style',../../destination/line_style)/minarmlen 
-					           + ../../destination/((top_edge/noOfSlots div 2 - abs(top_edge/noOfSlots div 2 - top_edge/slotNo)) * 0.1),
+					           + $noOfIncrements * $increment,
 					key('box',../../destination/id)/ht
 					))"/>
 			</deltay>

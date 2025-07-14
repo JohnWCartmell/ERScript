@@ -26,7 +26,7 @@
 		</label>
 	</enclosure>
 
-	<!-- <enclosure>
+	<enclosure>
 		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
@@ -157,9 +157,9 @@
 		<label><text>(v) labels on routes down from F overlap.</text></label>
 		<enclosure>
 			<id>F</id>
-			<x><local>10</local></x>
+			<x><local>9</local></x>
 			<y><local>2</local></y>
-			<w>4</w>
+			<w>8</w>
 			<label/>
 		</enclosure>
 		<enclosure>
@@ -236,7 +236,7 @@
 				<annotation>up_to_F</annotation>
 			</destination>
 		</route>
-	</enclosure> -->
+	</enclosure> 
 	<enclosure>
 		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
@@ -250,9 +250,9 @@
 		</label>
 		<enclosure>
 			<id>H</id>
-			<x><local>6</local></x>
+			<x><local>5</local></x>
 			<y><local>1.0</local></y>
-			<w>6</w>
+			<w>7</w>
 			<label/>
 		</enclosure>
 		<enclosure>
@@ -260,7 +260,7 @@
 			<label/>
 			<x><at><centre/><of>H</of></at></x>
 			<y><at><bottom/><of>H</of></at><delta>1.0</delta></y>
-			<w>6</w>
+			<w>7</w>
 		</enclosure>
 		<route>
 		    <top_down/>

@@ -101,15 +101,14 @@ For cardinals there is no position of closest approach.
 One obvious tactic, and one that I have followed
 informally, is to annotate north-south endarms left or right depending on whether they connect to the left or right half of the top or bottom edge. We get the following decision table
 + top left --- anti-clockwise
-+ top centre --- clockwise  *this is anti-clockwise in topdown_routes test as at 14 July 2025*
++ top centre --- clockwise  
 + top right --- clockwise   
 + bottom left --- clockwise
-+ bottom centre -- clockwise
-+ bottom right -- anti-clockwise *this not quite so in topdown_routes test as at 14 July 2025*
++ bottom centre -- anti-clockwise 
++ bottom right -- anti-clockwise 
 These nicely fit with the non-cardinals.
 > Testing: flexDiagramming/examples/src_routes/topdown_routes
-> (need extend this example so that there is an instance of an enclosure with two incoming routes
->  extend with enclosures H1 and H2 and two top down routes from H1 to H2)
+
 #### Preferred Label Position East-West Cardinals
 
 Define the preferred label position for all east west cardinals to be the *anti-clockwise* position.
@@ -361,9 +360,12 @@ Then plant all anti-clockwise and check this.
 ### Testing
 1. Testing: flexDiagramming/examples/src_routes/topdown_routes.
 
+> Extend this example so that there is an instance of an enclosure with two incoming routes
+>  extend with enclosures H and I and two top down routes from H to I.
+
 > Bug 14 July 2025: top down route from C to D rendered as ramp not orthogonal. ***Go figure***
 
-1. Test on all selected examples.
+2. Test on all selected examples.
 
 
 
