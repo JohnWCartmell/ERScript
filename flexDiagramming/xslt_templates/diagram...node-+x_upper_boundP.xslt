@@ -65,7 +65,7 @@ DESCRIPTION
                          [not(x_upper_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="350">
+              priority="350P">
               <!-- was
                          [not(annotation) or exists(../path/point[startpoint]/label/primary)]
               -->
@@ -89,7 +89,7 @@ DESCRIPTION
                        [not(x_upper_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="350">
+              priority="350P">
               <!-- was
                        [not(annotation) or exists(../path/point[endpoint]/label/primary)]
               -->

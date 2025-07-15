@@ -67,13 +67,13 @@ DESCRIPTION
                         [not(x_lower_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="350">
+              priority="340P">
 
               <!-- was 
                         [not(annotation) or exists(../path/point[startpoint]/label/primary)]
               -->
 
-    <xsl:variable name="fudgefactor" as="xs:double" select="10"/>
+    <xsl:variable name="fudgefactor" as="xs:double" select="0.1"/>
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <x_lower_boundP>
@@ -92,7 +92,7 @@ DESCRIPTION
                         [not(x_lower_boundP)]
                     " 
               mode="recursive_diagram_enrichment"
-              priority="350">
+              priority="340P">
 
                 <!-- was 
                         [not(annotation) or exists(../path/point[endpoint]/label/primary)]

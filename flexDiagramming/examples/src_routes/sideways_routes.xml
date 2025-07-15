@@ -25,7 +25,7 @@
 		</label>
 	</enclosure>
 
-	<enclosure>
+<!-- 	<enclosure>
 		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
@@ -156,6 +156,38 @@
 					<right_side/>
 					<id>F</id>
 					<annotation>back_to_f</annotation>
+			</destination>
+		</route>	
+	</enclosure> -->
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label>
+			<text>Enclosure H has route specified back to G.</text>
+		</label>
+		<enclosure>
+			<id>G</id>
+			<x><local>11</local></x>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>H</id>
+			<label/>	
+			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
+			<y><at><predecessor/></at><delta>1.0</delta></y>		  
+		</enclosure>
+		<route>
+			<source>
+					<left_side/>
+					<id>H</id>
+					<annotation>link_to_g</annotation>
+			</source>
+			<destination>
+					<right_side/>
+					<id>G</id>
+					<annotation>back_to_h</annotation>
 			</destination>
 		</route>	
 	</enclosure>
