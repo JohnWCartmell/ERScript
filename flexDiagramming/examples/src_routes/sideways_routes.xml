@@ -16,8 +16,17 @@
 		<debug-whitespace>true</debug-whitespace>
 	</default>
 	<enclosure>
-		<x><local>0</local></x>
-		<y><abs>2.0</abs></y>
+		<y><abs>0.1</abs></y>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>Sideways Routes Test</text>
+		</label>
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
@@ -38,18 +47,12 @@
 		<route>
 			<sideways/>
 			<source>
-				<right_side>
-					<deltay>0.5</deltay>
-					<annotate_low/>
-				</right_side> 
+				<right_side/>
 				<id>A</id>
 				<annotation>link_to_b</annotation>
 			</source>
 			<destination>
-				<left_side>
-						<deltay>0.3</deltay>
-						<annotate_high/>
-				</left_side> 
+				<left_side/> 
 				<id>B</id>
 				<annotation>back_to_a</annotation>
 			</destination>
@@ -61,36 +64,98 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Enclosure C has route specified from rhs of C to rhs of D.</text>
+			<text>Parallel side ways routes.</text>
 		</label>
-
+		<label>
+			<text>Curiously and perhaps inaapropriately:</text>
+		</label>
+		<label>
+			<text>the default positioning is yielding internal labelling.</text>
+		</label>
 		<enclosure>
 			<id>C</id>
 			<x><local>11</local></x>
+			<y><local>1.0</local></y>		  
+			<h>4.5</h>
 			<label/>
 		</enclosure>
 		<enclosure>
 			<id>D</id>
+			<h>4.5</h>
+			<label/>	
+			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
+			<y><at><predecessor/></at><delta>1.0</delta></y>		  
+		</enclosure>
+		<route>
+			<sideways/>
+			<source>
+				<right_side/>
+				<id>C</id>
+				<annotation>link_to_d (1)</annotation>
+			</source>
+			<destination>
+				<left_side/>
+				<id>D</id>
+				<annotation>back_to_c (1)</annotation>
+			</destination>
+		</route>
+		<route>
+			<sideways/>
+			<source>
+				<right_side/>
+				<id>C</id>
+				<annotation>link_to_d (2)</annotation>
+			</source>
+			<destination>
+				<left_side/>
+				<id>D</id>
+				<annotation>back_to_c (2)</annotation>
+			</destination>
+		</route>
+		<route>
+			<sideways/>
+			<source>
+				<right_side/>
+				<id>C</id>
+				<annotation>link_to_d (3)</annotation>
+			</source>
+			<destination>
+				<left_side/>
+				<id>D</id>
+				<annotation>back_to_c (3)</annotation>
+			</destination>
+		</route>	
+	</enclosure>
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label>
+			<text>Enclosure E has route specified from rhs of E to rhs of F.</text>
+		</label>
+
+		<enclosure>
+			<id>E</id>
+			<x><local>11</local></x>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>F</id>
 			<label/>	
 			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
 			<y><at><predecessor/></at><delta>1.0</delta></y>		  
 		</enclosure>
 		<route>
 			<source>
-					<right_side>
-						<deltay>0.25</deltay>
-						<annotate_high/>
-					</right_side>
-					<id>C</id>
-					<annotation>link_to_d</annotation>
+					<right_side/>
+					<id>E</id>
+					<annotation>link_to_e</annotation>
 			</source>
 			<destination>
-					<right_side>
-						<deltay>0.75</deltay>
-						<annotate_low/>
-					</right_side>
-					<id>D</id>
-					<annotation>back_to_c</annotation>
+					<right_side/>
+					<id>F</id>
+					<annotation>back_to_f</annotation>
 			</destination>
 		</route>	
 	</enclosure>

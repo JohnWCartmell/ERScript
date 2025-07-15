@@ -14,18 +14,34 @@
 		<line_style>testline</line_style>
 	</default>
 	<enclosure>
-		<x><local>0</local></x>
-		<y><abs>2.0</abs></y>
-		<!-- <h>6.5</h>  -->
+		<y><abs>0.1</abs></y>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>Orthogonal Routes Test</text>
+		</label>
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
 		<shape_style>gradient</shape_style>
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Two orthogonal routes. I notice that one has ns which obstructs the label. (*** TBD ***)</text>
+			<text>A sideway orthogonal route.</text>
 		</label>
+		<label>
+			<text>Shaped by</text>
+		</label>
+		<label><text><![CDATA[<route>]]></text></label>
+	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
+	    <label><text><![CDATA[<path><ns/></path>]]></text></label>
+		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
 		<enclosure>
 			<id>A</id>
-			<x><local>11</local></x>
+			<x><local>8</local></x>
+			<y><local>0.5</local></y>
 			<label/>
 		</enclosure>
 		<enclosure>
@@ -33,12 +49,6 @@
 			<label/>	
 			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
 			<y><at><predecessor/></at><delta>1.0</delta></y>		  
-		</enclosure>
-		<enclosure>
-			<id>C</id>
-			<label/>
-			<x><at><centre/><of>A</of></at><delta>1.0</delta></x>
-			<y><at><bottom/><of>A</of></at><delta>1.0</delta></y>
 		</enclosure>
 		<route>
 			<source>
@@ -56,30 +66,145 @@
 					</left_side>
 					<id>B</id>
 					<annotation>back_to_a</annotation>
-					
 			</destination>
 			<path><ns/></path>
 		</route>	
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>A top down orthogonal route.</text>
+		</label>
+		<label>
+			<text>In this case I have to be specify two cardinals at least... </text>
+		</label>
+		<label>
+			<text>...the difference from sideways isn't by design but an accident of the precedence of rules. </text>
+		</label>
+		<label>
+			<text>Shaped by</text>
+		</label>
+		<label><text><![CDATA[<route>]]></text></label>
+	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
+	    <label><text><![CDATA[<path><ns/><ew/></path>]]></text></label>
+		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
+
+		<enclosure>
+			<id>C</id>
+			<x><local>12</local></x>
+			<y><local>0.5</local></y>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>D</id>
+			<label/>
+			<x><at><centre/><of>C</of></at><delta>1.0</delta></x>
+			<y><at><bottom/><of>C</of></at><delta>1.0</delta></y>
+		</enclosure>
 		<route>
-			 <top_down/>
+		    <top_down/>
 			<source>
-					<bottom_edge>
-						<deltax>0.25</deltax>
-						<!-- <labelPosition><clockwise/></labelPosition> -->
-					</bottom_edge>
-					<id>A</id>
-					<annotation>down_to_c</annotation>
+					<id>C</id>
+					<annotation>down_to_d</annotation>
 			</source>
 			<destination>
-					<top_edge>
-						<deltax>0.75</deltax>
-						<!-- <labelPosition><clockwise/></labelPosition> -->
-					</top_edge>
-					<id>C</id>
-					<annotation>back_to_a</annotation>
+					<id>D</id>
+					<annotation>back_to_c</annotation>
 			</destination>
-			<path><ew/></path>  
+			<path><ns/><ew/></path>
 		</route>
+	</enclosure>
 
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>A top down orthogonal route.</text>
+		</label>
+		<label>
+			<text>Shaped by</text>
+		</label>
+		<label><text><![CDATA[<route>]]></text></label>
+	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
+	    <label><text><![CDATA[<path><ew/><ns/></path>]]></text></label>
+		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
+		<label>
+			<text>TBD allow control over y value of the ew</text>
+		</label>
+		<enclosure>
+			<id>E</id>
+			<x><local>12</local></x>
+			<y><local>0.5</local></y>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>F</id>
+			<label/>
+			<x><at><centre/><of>E</of></at><delta>1.0</delta></x>
+			<y><at><bottom/><of>E</of></at><delta>1.0</delta></y>
+		</enclosure>
+		<route>
+		    <top_down/>
+			<source>
+					<id>E</id>
+					<annotation>down_to_d</annotation>
+			</source>
+			<destination>
+					<id>F</id>
+					<annotation>back_to_c</annotation>
+			</destination>
+			<path><ew/><ns/></path>
+		</route>
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>A top down orthogonal route.</text>
+		</label>
+		<label>
+			<text>Shaped by</text>
+		</label>
+		<label><text><![CDATA[<route>]]></text></label>
+	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
+	    <label><text><![CDATA[<path><ns><deltay>0.5</deltay></ns><ew/><ns/></path>]]></text></label>
+		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
+		<label>
+			<text>shows allow control over y value of the ew</text>
+		</label>
+		<enclosure>
+			<id>G</id>
+			<x><local>12</local></x>
+			<y><local>0.5</local></y>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>H</id>
+			<label/>
+			<x><at><centre/><of>G</of></at><delta>1.0</delta></x>
+			<y><at><bottom/><of>G</of></at><delta>1.0</delta></y>
+		</enclosure>
+		<route>
+		    <top_down/>
+			<source>
+					<id>G</id>
+					<annotation>down_to_d</annotation>
+			</source>
+			<destination>
+					<id>H</id>
+					<annotation>back_to_c</annotation>
+			</destination>
+			<path><ns><deltay>0.5</deltay></ns><ew/><ns/></path>
+		</route>
 	</enclosure>
 </diagram>

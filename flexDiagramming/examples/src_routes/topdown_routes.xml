@@ -69,49 +69,6 @@
 			</destination>
 		</route>
 	</enclosure>
-	<enclosure>
-		<x><at><predecessor/></at></x>
-		<shape_style>gradient</shape_style>
-		<debug-whitespace>false</debug-whitespace>
-		<margin>0.5</margin>
-		<label>
-			<text> Similarly route specified from C to D following orthogonals ns,ew,ns </text>
-		</label>
-		<label>
-			<text> by specifying within the route node the path and shaping it as follows </text>
-		</label>
-		<label><text><![CDATA[<route>]]></text></label>
-	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...as before with A to B]]></text></label>
-	    <label><text><![CDATA[<path><ew/></path>]]></text></label>
-		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
-		<label>
-			<text>TBD allow control over y value of the ew</text>
-		</label>
-		<enclosure>
-			<id>C</id>
-			<x><local>12</local></x>
-			<y><local>0.5</local></y>
-			<label/>
-		</enclosure>
-		<enclosure>
-			<id>D</id>
-			<label/>
-			<x><at><centre/><of>C</of></at><delta>1.0</delta></x>
-			<y><at><bottom/><of>C</of></at><delta>1.0</delta></y>
-		</enclosure>
-		<route>
-		    <top_down/>
-			<source>
-					<id>C</id>
-					<annotation>down_to_c</annotation>
-			</source>
-			<destination>
-					<id>D</id>
-					<annotation>back_to_a</annotation>
-			</destination>
-			<path><ew/></path>
-		</route>
-	</enclosure>
 
 	<enclosure>
 		<x><at><predecessor/></at></x>

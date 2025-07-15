@@ -96,22 +96,11 @@ and is the *anticlockwise* position in the other quadrants
 + south west (pi/2 < theta < pi)
 + north east (3/2 pi < theta < 2pi)
 
-#### Preferred Label Position North-South Cardinals
-For cardinals there is no position of closest approach. 
-One obvious tactic, and one that I have followed
-informally, is to annotate north-south endarms left or right depending on whether they connect to the left or right half of the top or bottom edge. We get the following decision table
-+ top left --- anti-clockwise
-+ top centre --- clockwise  
-+ top right --- clockwise   
-+ bottom left --- clockwise
-+ bottom centre -- anti-clockwise 
-+ bottom right -- anti-clockwise 
-These nicely fit with the non-cardinals.
-> Testing: flexDiagramming/examples/src_routes/topdown_routes
+
 
 #### Preferred Label Position East-West Cardinals
-
-Define the preferred label position for all east west cardinals to be the *anti-clockwise* position.
+Define the preferred label position for all mid-point connecting east west cardinals 
+ to be the *anti-clockwise* position.
 This is a convention rather than a space saver. The result is that for a simple east west relationship we get the end labelling as follows
 ```
 ------+                   +------
@@ -122,6 +111,39 @@ This is a convention rather than a space saver. The result is that for a simple 
 ```
 (both label1 and label2 are in the anti-clockwise position).
 
+For other east-west cardinals label on the externally rather than internally so that we get
+
+```
+------+                                +------
+      | right-upper       left-upper   |
+      |--------------------------------|                         
+      |                                |
+      |--------------------------------|                         
+      | right-lower       left-lower   |
+------+                                +------
+```
+
+
+Implement as follows:
++ right upper --- anti-clockwise
++ right middle -- anti-clockwise
++ right lower -- clockwise
++ left upper --- clockwise
++ left middle --- anti-clockwise
++ left lower --- anti-clockwise
+> Testing: flexDiagramming/examples/src_routes/sideways_routes
+
+#### Preferred Label Position North-South Cardinals
+For cardinals there is no position of closest approach. 
+The rationale for the specification is similar to that for East-West cardinals.
++ top left --- anti-clockwise 
++ top centre --- clockwise  
++ top right --- clockwise   
++ bottom left --- clockwise
++ bottom centre -- clockwise 
++ bottom right -- anti-clockwise 
+These nicely fit with the non-cardinals.
+> Testing: flexDiagramming/examples/src_routes/topdown_routes
 
 ### Anchor points Hc and Ha.
 Note that these are merely conceptual points --- they are not represented by instances of points in the flex representation of the diagram.
