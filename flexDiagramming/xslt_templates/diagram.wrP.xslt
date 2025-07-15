@@ -37,8 +37,8 @@
 
   
 
-<!-- change of 16 May 2025 -->
-<!-- <xsl:template match="enclosure
+<!-- change of 16 May 2025 --> <!-- breifly commented out ... why ? -->
+<xsl:template match="enclosure
                         [not(wrP)]
             [wPFill]
             [every $edge in key('right_sideP_is_endpoint_of',id)[annotation]
@@ -53,7 +53,7 @@
          <xsl:value-of select="0"/>
      </wrP>
     </xsl:copy>
-  </xsl:template> -->
+  </xsl:template> 
 
 
 <!-- ************** -->

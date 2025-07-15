@@ -113,8 +113,10 @@
 <!-- ***************************************************** -->
 <!-- route/(source|destination)/right_side +labelPosition  -->
 <!-- ***************************************************** -->
+
+<!-- experiment to see of possible to use bearing -->
 <xsl:template match="route
-                     /*[self::source|self::destination]
+                     /*[self::source[../path/*/startarm/bearing]|self::destination]
                      /right_side
                      [slotNo]
                      [noOfSlots]    
@@ -124,6 +126,7 @@
               priority="44">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <bearing><xsl:value-of select="..[self::source]/../path/*/startarm/bearing"/></bearing>
       <labelPosition>
          <xsl:choose>
             <xsl:when test="slotNo = ((noOfSlots - 1) div 2)">

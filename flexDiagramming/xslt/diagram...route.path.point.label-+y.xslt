@@ -97,27 +97,38 @@
 			</alphaAdjustedBearing>
 		  <place>
 		  	<xsl:choose>
-		  		<xsl:when test="$directionSign = number(1)">
-				  	<xsl:choose>
-				  		<xsl:when test="$alphaAdjustedBearing &lt; math:pi()">
-				  			<top/>
-				  		</xsl:when>
-				  		<xsl:otherwise>
-				  			<bottom/>
-				  		</xsl:otherwise>
-				  	</xsl:choose>
-		   		</xsl:when>
-		   		<xsl:otherwise> <!-- anti clockwise -->
-  			  	<xsl:choose>
-				  		<xsl:when test="$alphaAdjustedBearing &lt; math:pi()">
-				  			<bottom/>
-				  		</xsl:when>
-				  		<xsl:otherwise>
-				  			<top/>
-				  		</xsl:otherwise>
-				  	</xsl:choose>
-				  </xsl:otherwise>
-				</xsl:choose>
+      		<xsl:when test="($endarmBearing &gt; (7 * math:pi() div 4 ))
+		                 or
+		                      ($endarmBearing &lt;= (math:pi() div 4 ) )">
+		  			<bottom/>   
+		  		</xsl:when>
+      		<xsl:when test="$endarmBearing &lt;= (3 * math:pi() div 4 )">
+      			<!--     and ($endarmBearing &gt; math:pi() div 4 ) --> 
+      			<xsl:choose>
+			  			<xsl:when test="$directionSign = number(1)"> <!-- clockwise -->
+							  	<top/>
+							</xsl:when>
+		          <xsl:otherwise> <!-- anti clockwise -->   
+		          	  <bottom/>
+		          </xsl:otherwise>
+		        </xsl:choose>
+		  		</xsl:when>
+      		<xsl:when test="($endarmBearing &lt;= (5 * math:pi() div 4 ))">
+      			<!--      and ($endarmBearing &gt; 3 * math:pi() div 4 ) --> 
+		  			<top/>   
+		  		</xsl:when>
+      		<xsl:when test="$endarmBearing &lt;= (7 * math:pi() div 4 )">
+      			<!--     and ($endarmBearing &gt; 5 * math:pi() div 4 ) --> 
+      			<xsl:choose>
+			  			<xsl:when test="$directionSign = number(1)"> <!-- clockwise -->
+							  	<bottom/>
+							</xsl:when>
+		          <xsl:otherwise> <!-- anti clockwise -->   
+		          	  <top/>
+		          </xsl:otherwise>
+		        </xsl:choose>
+		  		</xsl:when>
+		  	</xsl:choose>
 		  	<edge/>
 		  </place>
 		  <at>

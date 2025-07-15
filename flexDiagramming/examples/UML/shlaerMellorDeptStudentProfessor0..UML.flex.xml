@@ -24,7 +24,7 @@
       <end_style>testline</end_style>
    </default>
 
-   <enclosure>
+<enclosure>
       <compositionalDepth>0</compositionalDepth>
       <id>abs</id>
       <shape_style>etodd</shape_style>
@@ -32,7 +32,7 @@
       <y><relative><offset>0</offset></relative><abs>0</abs></y>
       <h>0.3</h>
       <wFill/>
-   </enclosure>
+</enclosure>
 <enclosure>
    <id>test outer most xxxx</id>
    <shape_style>group_outline</shape_style>
@@ -72,9 +72,10 @@
             <text_style>attrname</text_style>
             <x><at><left/><parent/></at></x>
          </label>
-      </enclosure>
-      <!-- <x><abs>3.0</abs></x> -->
-      <x><at><centre/><parent/></at></x> 
+      </enclosure><!-- 
+      <x><abs>3.0</abs></x> -->
+      <y><abs>3.0</abs></y>
+      <x><at><centre/><parent/></at></x>
    </enclosure>
    <enclosure>
       <id>container</id>
@@ -99,7 +100,7 @@
          </place>
          <at>
             <centre/>
-            <!-- <of>department</of> -->
+                   was <of>department</of> endwas
             <parent/>
          </at>
       </x>
@@ -210,12 +211,11 @@
       </enclosure>
    </enclosure>
 </enclosure>
-   <route>
+ <!--   <route>
       <text_style>relname</text_style>
       <top_down/>
       <source>
          <id>department</id>
-         <!-- <annotation>required?</annotation> -->
          <line_style>dashedline</line_style>
          <abstract>department</abstract>
          <exitContainer>department</exitContainer>
@@ -249,23 +249,12 @@
                <text>xzzzz</text>
             </label>
          </point>
-         <!-- <ns><startarm/></ns> -->
          <ramp/>
          <point>
             <endpoint/>
             <y>
                <at><top/><edge/><of>student</of></at>
             </y>
-            <label>
-               <!-- <text>students</text> --> 
-               <!-- text rule is defined in diagram..route.path.point.label-+text -->
-               <!-- <x><place><right/><edge/></place><at><left/><parent/></at></x> -->
-            </label>
-            <label>
-               <!-- <text>0..*</text> --> <!-- test whether label is duplicated -->
-               <x><place><left/><edge/></place><at><parent/><offset>0.2</offset></at></x>
-               <!-- (strangely) no default for offset therefore need specify -->
-            </label>
          </point>
       </path>
    </route>
@@ -274,7 +263,6 @@
       <top_down/>
       <source>
          <id>department</id>
-         <!-- <annotation>required?</annotation> -->
          <line_style>dashedline</line_style>
          <abstract>department</abstract>
          <exitContainer>department</exitContainer>
@@ -311,5 +299,5 @@
          </trace>
          <entryContainer>professor</entryContainer>
       </destination>
-   </route>
+   </route> -->
 </diagram:diagram>

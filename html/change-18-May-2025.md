@@ -123,7 +123,6 @@ For other east-west cardinals label on the externally rather than internally so 
 ------+                                +------
 ```
 
-
 Implement as follows:
 + right upper --- anti-clockwise
 + right middle -- anti-clockwise
@@ -145,7 +144,12 @@ The rationale for the specification is similar to that for East-West cardinals.
 These nicely fit with the non-cardinals.
 > Testing: flexDiagramming/examples/src_routes/topdown_routes
 
-### Anchor points Hc and Ha.
+### Positioning of Labels
+Labels have a preferred position (specified as above) and this then translates into
+the rules for x and y values for labels. Labels are placed relative to an anchor point.
+
+
+#### Anchor points Hc and Ha.
 Note that these are merely conceptual points --- they are not represented by instances of points in the flex representation of the diagram.
 
 Imagine a terminal arm having a rectangular box. 
@@ -163,7 +167,7 @@ Alpha us given by
 alpha = tan^-1(lat/long)
 ```
 
-### Equations for calculating x and y for the point Hc.
+#### Equations for calculating x and y for the point Hc.
 Assume x and y are the usual cartesian coordinates (in particular that, unlike the flex coordinate system, y grows in an upward direction).
 If theta is greater that zero (for endarms leaving from left to right)
 then from h, theta and alpha we can calculate x and y values 
@@ -184,7 +188,23 @@ The formula for the anticlockwise corner Ha are obtained by negating alpha to ge
 Ha.x =  sign(theta) * cos(pi/2 - theta + alpha) * h
 Ha.y =  sin(pi/2 - theta + alpha) * h
 ```
-**These y values need to be negated, in the implementation, to take account of flex downpointing y-axis in the implementation**
+*These y values need to be negated, in the implementation, to take account of flex downpointing y-axis in the implementation*
+
+#### The x and y values for a label
+The `<at>` value for x and y values of a label is the anchor point.
+
+The `place` value for the y value is either the top of bottom of the labels
+as follows:
+```
++ 7π/4 < bearing <= π/4    --- bottom 
++ π/4  < bearing <= 3π/4 
+   + clockwise             --- top
+   + anti-clockwise        --- bottom
++ 3π/4 < bearing <= 5π/4   --- top 
++ 5π/4 < bearing <= 7π/4
+   + clockwise             --- bottom
+   + anti-clockwise        --- top 
+```
 
 ### Secondary label Positions
 If a terminal arm has two labels and one label takes the preferred position then the other label
