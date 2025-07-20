@@ -27,13 +27,15 @@
 				                  [label_long_offset]
 				                  [label_lateral_offset]
 							           	[*/labelPosition]
+							           	[*/secondaryLabelPosition] (: could be less specific :)
 				            ]
 				      | 
 				      .[endpoint]
 				            [../../destination
 				                   [label_long_offset]
 				                   [label_lateral_offset]
-							           	 [*/labelPosition]
+							           	 [*/labelPosition] 
+							           	 [*/secondaryLabelPosition] (: could be less specific :)
 							      ]
 				     ]
 				     [../*/startarm/bearing]
@@ -55,11 +57,24 @@
 		                      then ../../../source/label_lateral_offset
 		                      else ../../../destination/label_lateral_offset
 		              "/>
-		<xsl:variable name="orientation" as="element()"
+<!-- 		<xsl:variable name="orientation" as="element()"
 		              select="if (../startpoint) 
 		                      then ../../../source/*/labelPosition/*
 		                      else ../../../destination/*/labelPosition/*
+		              "/> -->
+
+		<xsl:variable name="orientation" as="element()"
+		              select="if (primary) 
+		                      then
+			                      if (../startpoint) 
+			                       then ../../../source/*/labelPosition/*
+			                       else ../../../destination/*/labelPosition/*	                      
+		                      else 
+			                       if (../startpoint) 
+			                       then ../../../source/*/secondaryLabelPosition/*
+			                       else ../../../destination/*/secondaryLabelPosition/*                 
 		              "/>
+
 		<xsl:variable name="endarmBearing" as="xs:double"
 		              select="if (../startpoint) 
 		                      then ../../*/startarm/bearing

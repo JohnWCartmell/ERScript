@@ -114,9 +114,9 @@
 		<label><text>(v) labels on routes down from F overlap.</text></label>
 		<enclosure>
 			<id>F</id>
-			<x><local>9</local></x>
+			<x><local>9.5</local></x>
 			<y><local>2</local></y>
-			<w>8</w>
+			<w>7</w>
 			<label/>
 		</enclosure>
 		<enclosure>
@@ -209,7 +209,7 @@
 			<id>H</id>
 			<x><local>5</local></x>
 			<y><local>1.0</local></y>
-			<w>7</w>
+			<w>6</w>
 			<label/>
 		</enclosure>
 		<enclosure>
@@ -217,7 +217,7 @@
 			<label/>
 			<x><at><centre/><of>H</of></at></x>
 			<y><at><bottom/><of>H</of></at><delta>1.0</delta></y>
-			<w>7</w>
+			<w>6</w>
 		</enclosure>
 		<route>
 		    <top_down/>

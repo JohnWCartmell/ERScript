@@ -347,9 +347,8 @@
       <text_style>relname</text_style>
       <source>
          <bottom_edge>
-            <annotate_right/>
+            <slotNo>2</slotNo>
          </bottom_edge>
-         <slotNo>2</slotNo>
          <id>booking_/invoice</id>
          <annotation>from_and to</annotation>
          <line_style>solidline</line_style>
@@ -387,7 +386,7 @@
       <path><ns/></path>
       <destination>
          <top_edge>
-            <annotate_right/>
+            <labelPosition><clockwise/></labelPosition>
          </top_edge>
          <line_style>dashedline</line_style>
          <id>driver</id>
@@ -422,13 +421,12 @@
          <abstract>vehicle_category</abstract>
       </destination>
    </route>
-      <route>
+   <route>
       <text_style>relname</text_style>
       <source>
          <bottom_edge>
-            <annotate_right/>
+            <slotNo>0</slotNo>
          </bottom_edge>
-         <slotNo>0</slotNo>
          <id>vehicle_category</id>
          <annotation>classifier of</annotation>
          <line_style>dashedline</line_style>

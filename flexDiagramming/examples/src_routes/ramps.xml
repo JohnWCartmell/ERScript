@@ -25,6 +25,10 @@
 			<text>Single ramp routes. </text>
 			<padding>0.5</padding>
 		</label>
+		<label>
+			<text>Note a scattering of secondary annotations * and ++ </text>
+			<padding>0.5</padding>
+		</label>
 		<enclosure>
 			<id>1</id>
 		    <shape_style>outer</shape_style>
@@ -63,7 +67,7 @@
 				<label/>
 				<x><at><centre/></at></x>
 				<y><local>1.5</local></y>
-				<w>3</w>
+				<w>6</w>
 			    <h>2</h>
 			</enclosure>
 			<enclosure>
@@ -102,13 +106,36 @@
 			<source>
 					<left_side/>
 					<id>B2</id>
-					<annotation>link_to_a1</annotation>
+					<annotation>to_a1 bottom</annotation>
+					<secondaryAnnotation>*</secondaryAnnotation>
+			</source>
+			<destination>
+					<bottom_edge/>
+					<id>A1</id>
+					<annotation>back_to_b2</annotation>
+					<endline><marker>hollowTriangle</marker></endline>
+					<secondaryAnnotation>*</secondaryAnnotation>
+			</destination>
+			<path>
+				<ramp>
+			        <startarm/>
+			        <endarm/>	 
+			    </ramp>
+			</path>
+		</route>
+		<route>
+			<source>
+					<top_edge/>
+					<id>B2</id>
+					<annotation>to a1 right</annotation>
+					<secondaryAnnotation>++</secondaryAnnotation>
 			</source>
 			<destination>
 					<right_side/>
 					<id>A1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
+					<secondaryAnnotation>++</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -121,13 +148,15 @@
 			<source>
 					<top_edge/>
 					<id>B2</id>
-					<annotation>link_to_b1</annotation>
+					<annotation>to b1</annotation>
+					<secondaryAnnotation>*</secondaryAnnotation>
 			</source>
 			<destination>
 					<bottom_edge/>
 					<id>B1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
+					<secondaryAnnotation>*</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -138,12 +167,31 @@
 		</route>
 		<route>
 			<source>
-					<right_side/>
+					<top_edge/>
 					<id>B2</id>
-					<annotation>link_to_c1</annotation>
+					<annotation>to c1 left</annotation>
 			</source>
 			<destination>
 					<left_side/>
+					<id>C1</id>
+					<annotation>back_to_b2</annotation>
+					<endline><marker>hollowTriangle</marker></endline>
+			</destination>
+			<path>
+				<ramp>
+			        <startarm/>
+			        <endarm/>	 
+			    </ramp>
+			</path>
+		</route> 
+		<route>
+			<source>
+					<right_side/>
+					<id>B2</id>
+					<annotation>to c1 bottom</annotation>
+			</source>
+			<destination>
+					<bottom_edge/>
 					<id>C1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
@@ -160,7 +208,7 @@
 			<source>
 					<left_side/>
 					<id>B2</id>
-					<annotation>link_to_a2</annotation>
+					<annotation>to a2</annotation>
 			</source>
 			<destination>
 					<right_side/>
@@ -180,7 +228,7 @@
 			<source>
 					<right_side/>
 					<id>B2</id>
-					<annotation>link_to_c2</annotation>
+					<annotation>to c2</annotation>
 			</source>
 			<destination>
 					<left_side/>
@@ -199,7 +247,26 @@
 			<source>
 					<left_side/>
 					<id>B2</id>
-					<annotation>link_to_a3</annotation>
+					<annotation>to_a3 top</annotation>
+			</source>
+			<destination>
+					<top_edge/>
+					<id>A3</id>
+					<annotation>back_to_b2</annotation>
+					<endline><marker>hollowTriangle</marker></endline>
+			</destination>
+			<path>
+				<ramp>
+			        <startarm/>
+			        <endarm/>	 
+			    </ramp>
+			</path>
+		</route>
+		<route>
+			<source>
+					<bottom_edge/>
+					<id>B2</id>
+					<annotation>to_a3 right</annotation>
 			</source>
 			<destination>
 					<right_side/>
@@ -218,7 +285,7 @@
 			<source>
 					<bottom_edge/>
 					<id>B2</id>
-					<annotation>link_to_b3</annotation>
+					<annotation>to b3</annotation>
 			</source>
 			<destination>
 					<top_edge/>
@@ -235,12 +302,31 @@
 		</route>
 		<route>
 			<source>
-					<right_side/>
+					<bottom_edge/>
 					<id>B2</id>
-					<annotation>link_to_c3</annotation>
+					<annotation>to c3 left</annotation>
 			</source>
 			<destination>
 					<left_side/>
+					<id>C3</id>
+					<annotation>back_to_b2</annotation>
+					<endline><marker>hollowTriangle</marker></endline>
+			</destination>
+			<path>
+				<ramp>
+			        <startarm/>
+			        <endarm/>	 
+			    </ramp>
+			</path>
+		</route> 
+		<route>
+			<source>
+					<right_side/>
+					<id>B2</id>
+					<annotation>to c3 top</annotation>
+			</source>
+			<destination>
+					<top_edge/>
 					<id>C3</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>

@@ -4,6 +4,7 @@
                xmlns="http://www.entitymodelling.org/diagram"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
@@ -11,17 +12,26 @@
 
 <xsl:output method="xml" indent="yes"/>
 <!-- ********************************************************** -->
+<!-- ********************************************************** -->
 <!--                                                            -->
 <!-- See specification and rationale in change note 18 May 2025 -->
 <!--                                                            -->
 <!-- ********************************************************** -->
+<!-- ********************************************************** -->
 
 
-<!-- ***************************************************** -->
-<!-- route/(source|destination)/top_edge +labelPosition  -->
-<!-- ***************************************************** -->
+<!--********************************************************** -->
+<!--    FOUR rules for non-ramps i.e. for cardinal ns and ew   -->
+<!--********************************************************** -->
+
+<!-- ******************************************************** -->
+<!-- 1. route/(source|destination)/top_edge +labelPosition    -->
+<!-- ******************************************************** -->
+
 <xsl:template match="route
-                     /*[self::source|self::destination]
+                     /*[  self::source[not(../path/ramp/startarm)]
+                        | self::destination[not(../path/ramp/endarm)]
+                       ]
                      /top_edge
                      [slotNo]
                      [noOfSlots]    
@@ -48,11 +58,13 @@
    </xsl:copy>
 </xsl:template>
 
-<!-- ***************************************************** -->
-<!-- route/(source|destination)/left_side+labelPosition  -->
-<!-- ***************************************************** -->
+<!-- ****************************************************** -->
+<!-- 2. route/(source|destination)/left_side+labelPosition  -->
+<!-- ****************************************************** -->
 <xsl:template match="route
-                     /*[self::source|self::destination]
+                     /*[  self::source[not(../path/ramp/startarm)]
+                        | self::destination[not(../path/ramp/endarm)]
+                       ]
                      /left_side
                      [slotNo]
                      [noOfSlots]    
@@ -79,11 +91,13 @@
    </xsl:copy>
 </xsl:template>
 
-<!-- ***************************************************** -->
-<!-- route/(source|destination)/bottom_edge +labelPosition  -->
-<!-- ***************************************************** -->
+<!-- ********************************************************* -->
+<!-- 3. route/(source|destination)/bottom_edge +labelPosition  -->
+<!-- ********************************************************* -->
 <xsl:template match="route
-                     /*[self::source|self::destination]
+                     /*[  self::source[not(../path/ramp/startarm)]
+                        | self::destination[not(../path/ramp/endarm)]
+                       ]
                      /bottom_edge
                      [slotNo]
                      [noOfSlots]    
@@ -110,13 +124,15 @@
    </xsl:copy>
 </xsl:template>
 
-<!-- ***************************************************** -->
-<!-- route/(source|destination)/right_side +labelPosition  -->
-<!-- ***************************************************** -->
+<!-- ******************************************************** -->
+<!-- 4. route/(source|destination)/right_side +labelPosition  -->
+<!-- ******************************************************** -->
 
-<!-- experiment to see of possible to use bearing -->
+
 <xsl:template match="route
-                     /*[self::source[../path/*/startarm/bearing]|self::destination]
+                     /*[  self::source[not(../path/ramp/startarm)]
+                        | self::destination[not(../path/ramp/endarm)]
+                       ]
                      /right_side
                      [slotNo]
                      [noOfSlots]    
@@ -126,7 +142,6 @@
               priority="44">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
-      <bearing><xsl:value-of select="..[self::source]/../path/*/startarm/bearing"/></bearing>
       <labelPosition>
          <xsl:choose>
             <xsl:when test="slotNo = ((noOfSlots - 1) div 2)">
@@ -140,6 +155,108 @@
                   <clockwise/>
             </xsl:otherwise>
          </xsl:choose>
+      </labelPosition>
+   </xsl:copy>
+</xsl:template>
+
+<!--********************************************* -->
+<!--              FOUR rules for ramps            -->
+<!--********************************************* -->
+
+<xsl:template match="route
+                     /*[  self::source[../path/ramp/startarm/bearing]
+                        | self::destination[../path/ramp/endarm/bearing]
+                       ]
+                     /top_edge   
+                          [not(labelPosition)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="44">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <labelPosition>
+         <xsl:variable name="defaultLabelPosition" as="xs:string" select="
+              let $bearing := if (..[self::source])
+                              then ../../path/ramp/startarm/bearing
+                              else ../../path/ramp/endarm/bearing
+              return if ($bearing &gt; (3 * math:pi() div 2))
+                     then 'clockwise'
+                     else 'anti-clockwise'
+                              "/>
+        <xsl:element name="{$defaultLabelPosition}"/>        
+      </labelPosition>
+   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="route
+                     /*[  self::source[../path/ramp/startarm/bearing]
+                        | self::destination[../path/ramp/endarm/bearing]
+                       ]
+                     /left_side   
+                          [not(labelPosition)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="44">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <labelPosition>
+         <xsl:variable name="defaultLabelPosition" as="xs:string" select="
+              let $bearing := if (..[self::source])
+                              then ../../path/ramp/startarm/bearing
+                              else ../../path/ramp/endarm/bearing
+              return if ($bearing &lt; (3 * math:pi() div 2))
+                     then 'clockwise'
+                     else 'anti-clockwise'
+                              "/>
+        <xsl:element name="{$defaultLabelPosition}"/> 
+      </labelPosition>
+   </xsl:copy>
+</xsl:template>
+<xsl:template match="route
+                     /*[  self::source[../path/ramp/startarm/bearing]
+                        | self::destination[../path/ramp/endarm/bearing]
+                       ]
+                     /bottom_edge   
+                          [not(labelPosition)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="44">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <labelPosition>
+         <xsl:variable name="defaultLabelPosition" as="xs:string" select="
+              let $bearing := if (..[self::source])
+                              then ../../path/ramp/startarm/bearing
+                              else ../../path/ramp/endarm/bearing
+              return if ($bearing &lt; math:pi()) 
+                     then 'clockwise'
+                     else 'anti-clockwise'
+                              "/>
+        <xsl:element name="{$defaultLabelPosition}"/> 
+      </labelPosition>
+   </xsl:copy>
+</xsl:template>
+<xsl:template match="route
+                     /*[  self::source[../path/ramp/startarm/bearing]
+                        | self::destination[../path/ramp/endarm/bearing]
+                       ]
+                     /right_side   
+                          [not(labelPosition)]
+                    " 
+              mode="recursive_diagram_enrichment"
+              priority="44">
+   <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <labelPosition>
+         <xsl:variable name="defaultLabelPosition" as="xs:string" select="
+              let $bearing := if (..[self::source])
+                              then ../../path/ramp/startarm/bearing
+                              else ../../path/ramp/endarm/bearing
+              return if ($bearing &lt; (math:pi() div 2))
+                     then 'clockwise'
+                     else 'anti-clockwise'
+                              "/>
+        <xsl:element name="{$defaultLabelPosition}"/> 
       </labelPosition>
    </xsl:copy>
 </xsl:template>

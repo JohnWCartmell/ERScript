@@ -16,7 +16,7 @@
 
 
 <!-- ********************************************************** -->
-<!-- route/path/point[startpoint|endpoint]/label[primary]   +x  -->
+<!-- route/path/point[startpoint|endpoint]/label   +x  -->
 <!-- ********************************************************** -->
 
 <xsl:template match="route
@@ -26,6 +26,7 @@
 							           		[label_long_offset]
 							           		[label_lateral_offset]
 							           		[*/labelPosition]
+							           	  [*/secondaryLabelPosition] (: could be less specific :)
 				            ]
 				      | 
 				      .[endpoint]
@@ -33,11 +34,12 @@
 				            				[label_long_offset]
 				            				[label_lateral_offset]
 							            	[*/labelPosition]
+							           	  [*/secondaryLabelPosition] (: could be less specific :)
 				            ]
 				     ]
 				     [../*/startarm/bearing]
 				     [../*/endarm/bearing]
-				    /label[primary]
+				    /label
 				   [not(x)]
 				   " 
           mode="recursive_diagram_enrichment"
@@ -55,9 +57,15 @@
 		                      else ../../../destination/label_lateral_offset
 		              "/>
 		<xsl:variable name="orientation" as="element()"
-		              select="if (../startpoint) 
-		                      then ../../../source/*/labelPosition/*
-		                      else ../../../destination/*/labelPosition/*
+		              select="if (primary) 
+		                      then
+			                      if (../startpoint) 
+			                       then ../../../source/*/labelPosition/*
+			                       else ../../../destination/*/labelPosition/*	                      
+		                      else 
+			                       if (../startpoint) 
+			                       then ../../../source/*/secondaryLabelPosition/*
+			                       else ../../../destination/*/secondaryLabelPosition/*                  
 		              "/>
 		<xsl:variable name="endarmBearing" as="xs:double"
 		              select="if (../startpoint) 

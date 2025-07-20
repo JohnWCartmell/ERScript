@@ -46,17 +46,13 @@
 		</enclosure>
 		<route>
 			<source>
-					<right_side>
-						<deltay>0.5</deltay>
-						<annotate_low/>
-					</right_side>
+					<right_side/>
 					<id>A</id>
 					<annotation>link_to_b</annotation>
 			</source>
 			<destination>
 					<left_side>
 						<deltay>0.3</deltay>
-						<annotate_high/>
 					</left_side>
 					<id>B</id>
 					<annotation>back_to_a</annotation>

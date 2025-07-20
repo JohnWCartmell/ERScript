@@ -39,7 +39,8 @@
 					</at>
 				</xP>
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<!-- <label><secondary/></label> --> <!-- temp comment out-->
+				                          <!-- create stub here so width not calculated too early -->
+				<label><secondary/></label> <!-- create here but too many at the mo -->
 			</point>
 		</xsl:copy>
 	</xsl:template>
@@ -65,7 +66,8 @@
 					</at>
 				</xP>				
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<!-- <label><secondary/></label> --> <!-- temp comment out-->
+				                          <!-- create stub here so width not calculated too early -->
+				<label><secondary/></label> 
 			</point>
 		</xsl:copy>
 	</xsl:template>

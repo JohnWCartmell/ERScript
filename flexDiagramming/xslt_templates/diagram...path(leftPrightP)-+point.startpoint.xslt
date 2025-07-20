@@ -37,8 +37,8 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<!-- <label><secondary/></label> --> <!-- temp comment out-->
+				<!-- <label><primary/></label> --> <!-- change of 18 May 2025 -->
+				<label><secondary/></label> 
 			</point>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>
@@ -63,7 +63,7 @@
 					</at>
 				</xP>
 				<label><primary/></label> <!-- change of 18 May 2025 -->
-				<!-- <label><secondary/></label> --> <!-- temp comment out -->
+				<label><secondary/></label>
 			</point>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 		</xsl:copy>

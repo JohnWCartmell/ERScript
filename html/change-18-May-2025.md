@@ -11,7 +11,8 @@ Support a second label at each end of a route.
 and anticlockwise instead of left, right, high and low as at present. 
 4. Fix a feature/bug --- do not to create empty labels when no annotations are specified.
 (Currently get a warning messages when a route has no annotation on one end or another.)
-by creating labels conditionaly.
+by creating labels conditionally.
+5. Improve the positioning of endpoints for routes along the edges of enclosures.
 
 ### Language
 + routes are directional they lead from a source enclosure to a destination enclosure,
@@ -310,21 +311,48 @@ Completed [x].
 
 #### Rules for labelPosition
 Implement the following rules in file `diagram...route.specific_edge-+labelPosition.xslt`
-+ left side | top edge
++ top edge
 ``` 
-if slot no <= noofslots div 2 
-then labelPosition := anti-clockwise
-else labelPosition := clockwise
+if centre slot of an odd number 
+then clockwise               
+else if left half of top edge
+then anti-clockwise          
+else if right half of top edge
+then clockwise               
 ```
-+ right side | bottom edge
++ left side
 ``` 
-if slot no <= noofslots div 2 
-then labelPosition := clockwise
-else labelPosition := anti-clockwise
+if middle slot of an odd number 
+then anti-clockwise               
+else if top half of left edge
+then clockwise         
+else if bottom half of left edge
+then anti-clockwise 
+```
++ bottom edge
+``` 
+if centre slot of an odd number 
+then clockwise               
+else if left half of bottom edge
+then clockwise          
+else if right half of bottom edge
+then anti-clockwise 
+```
++ right side
+``` 
+if middle slot of an odd number 
+then anti-clockwise               
+else if top half of right side
+then anti-clockwise          
+else if top half of right side
+then clockwise 
 ```
 Completed [x]
 
 #### Rules for secondaryLabelPosition
+***LOGIC REGARDING OUTER IS FLAWED BECASE I WOULD WANT PRIMARY OUTER AND SECONDARY INNER***
+***UNLESS I USE rolename (say) as secondary and cardinality as primary which of course could do***
+
 Implement the following rules in file `diagram...route.specific_edge-+secondaryLabelPosition.xslt`
 + top edge
 ``` 
@@ -351,7 +379,7 @@ if slot no <= noofslots div 2
 then secondaryLabelPosition := anti-clockwise
 else secondaryLabelPosition := clockwise
 ```
-Completed [].
+Completed [].  ***NOT IMPLEMENTED***
 
 #### Rules for Creating labels
 1. Add two new functions to file diagram.functions.module.xslt.
@@ -391,23 +419,39 @@ from label_lateral_offset and label_long_offset,
 
 Similarly the rule for y will  call function `diagram:yOffsetFromBearingAndDistance`.
 
-Start by planting all clockwise labels and check this looks correct.
-Then plant all anti-clockwise and check this. 
+6. **As a tie-over until better scheme specified an implemented** Improve the distribution of endpoints of routes along edges of enclosures. By modifying the rule in files `diagram...route.specific_edge-+deltax`
+and `diagram...route.specific_edge-+deltay`. 
+If noOfSlots greater than two then reduce the distance between first and last slots and the corners. 
+Currently deltax is given be
+```
+w * (slotNo + 1) div (noOfSlots + 1)
+```
+where w is the width of (the edge of) the enclosure. This equals
+```
+(w div (noOfSlots+1)) + ((w*slotNo) div (NoOfSlots+1))
 
-> Blockquote
+```
+change this to be
+```
+((w div noOfSlots) div 2) + ((w*slotNo) div (NoOfSlots))
 
-#### Using these changes from ER2flex
-5. Modify er2flex ...  ??????????????????? NOT CHANGED AS AT 13 JULY 2025
+```
+This then will equally space the slots and have only a half space between corners first/last slot and respective corners.
+
+Change deltay calculation likewise.
+
 
 ### Testing
-1. Testing: flexDiagramming/examples/src_routes/topdown_routes.
+1. Test primary labels, default positioning on: flexDiagramming/examples/src_routes/topdown_routes.
 
 > Extend this example so that there is an instance of an enclosure with two incoming routes
 >  extend with enclosures H and I and two top down routes from H to I.
+[x]
+2. Test primary labels, default positioning on: flexDiagramming/examples/src_routes/ramps.[x] 
 
-> Bug 14 July 2025: top down route from C to D rendered as ramp not orthogonal. ***Go figure***
+4. Test primary labels on: flexDiagramming/examples/goodlandCarHire/goodlandVariantA. [x]
 
-2. Test on all selected examples.
+3. Test primary labels on: all selected examples. [x]
 
 
 

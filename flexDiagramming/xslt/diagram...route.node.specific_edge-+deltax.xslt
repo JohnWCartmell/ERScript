@@ -33,8 +33,14 @@
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <deltax>
-        <xsl:value-of select="(key('Enclosure',../id)/w)  *  (slotNo + 1) div (noOfSlots + 1)"/>
-      </deltax>
+        <!--Modified in change of 18th May 2025 -->
+        <xsl:value-of select="
+          let $w := key('Enclosure',../id)/w
+          return if (noOfSlots &gt; 2)
+                then (($w div noOfSlots) div 2) + (($w*slotNo) div (noOfSlots))
+                else $w  *  (slotNo + 1) div (noOfSlots + 1)
+                            "/>
+        </deltax>
    </xsl:copy>
 </xsl:template>
 

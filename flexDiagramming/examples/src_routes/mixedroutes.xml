@@ -6,7 +6,7 @@
 		<hmin>1.0</hmin>
 		<wmin>1.0</wmin>
 		<margin>0.2</margin>
-		<padding>0.15</padding>
+		<padding>0.5</padding>
 		<packing>horizontal</packing>
 		<text_style>normal</text_style>
 		<shape_style>outline</shape_style>
@@ -21,16 +21,14 @@
 		<debug-whitespace>false</debug-whitespace>
 		<margin>1.0</margin>
 		<label>
-			<text>Mixture of routes and uses of linestyle and endlinestyle.</text>
+			<text>Mixture of routes and uses of linestyle and endline markers.</text>
 		</label>
 		<label>
-			<text><![CDATA[
-		  yyy
-		]]></text>
+			<text>Includes use of secondary annotations.</text>
 		</label>
 		<enclosure>
 			<id>A</id>
-			<x><local>11</local></x>
+			<x><local>9</local></x>
 			<label/>
 			<enclosure>
 				<id>A1</id>
@@ -49,58 +47,45 @@
 			</enclosure>
 			<route>
 				<source>
-						<right_side>
-							<deltay>0.25</deltay>
-							<annotate_high/>
-						</right_side>
+						<right_side/>
 						<id>A1</id>
 						<annotation>link_to_a2</annotation>
 						<linestyle>solidline</linestyle>
-						<endline><style>crowsfoot</style></endline>
+						<endline><marker>hollowTriangle</marker></endline>
 				</source>
 				<destination>
-						<left_side>
-							<deltay>0.5</deltay>
-							<annotate_high/>
-						</left_side>
+						<left_side/>
 						<id>A2</id>
 						<annotation>a1</annotation>
-						<endline><style>crowsfoot</style></endline>
+						<secondaryAnnotation>(secondary)</secondaryAnnotation>
+						<endline><marker>hollowTriangle</marker></endline>
 				</destination>
 			</route>	
 			<route>
 				<source>
-						<right_side>
-							<deltay>0.75</deltay>
-							<annotate_low/>
-						</right_side>
+						<right_side/>
 						<id>A1</id>
 						<annotation>a3</annotation>
 				</source>
 				<destination>
-						<left_side>
-							<deltay>0.5</deltay>
-							<annotate_low/>
-						</left_side>
+						<left_side/>
 						<id>A3</id>
 						<annotation>a1</annotation>
-						<endlinestyle>crowsfoot</endlinestyle>
+						<endline><marker>hollowTriangle</marker></endline>
 				</destination>
 			</route>			   
 			<route>
 				<source>
 						<right_side>
 							<deltay>0.75</deltay>
-							<annotate_high/>
 						</right_side>
 						<id>A2</id>
 						<annotation>a3</annotation>
-						<endlinestyle>crowsfoot</endlinestyle>
+						<endline><marker>hollowTriangle</marker></endline>
 				</source>
 				<destination>
 						<right_side>
 							<deltay>0.25</deltay>
-							<annotate_low/>
 						</right_side>
 						<id>A3</id>
 						<annotation>a1</annotation>
@@ -116,57 +101,52 @@
 		<enclosure>
 			<id>C</id>
 			<label/>	
-			<x><at><centre/><of>A</of></at></x>
+			<x><at><centre/><of>A</of></at><delta>-1</delta></x>
 			<y><at><bottom/><of>A</of></at><delta>1.0</delta></y>		  
 		</enclosure>
 		<enclosure>
 			<id>D</id>
 			<label/>	
-			<y><at><predecessor/></at></y>		  
+			<y><at><predecessor/></at><delta>1.0</delta></y>		  
 		</enclosure>
 		<route>
 			<source>
-					<bottom_edge>
-						<!--<deltax>3.0</deltax>-->
-						<annotate_left/>
-					</bottom_edge>
+					<bottom_edge/>
 					<id>A</id>
 					<annotation>down_to_c</annotation>
 			</source>
 			<destination>
 					<top_edge>
 						<deltax>0.5</deltax>
-						<annotate_left/>
 					</top_edge>
 					<id>C</id>
 					<annotation>back_to_a</annotation>
+					<secondaryAnnotation>(secondary)</secondaryAnnotation>
+					<endline><marker>hollowTriangle</marker></endline>
+
 			</destination>
 		</route>	
 		<route>
 			<source>
-					<bottom_edge>
-						<!--<deltax>5.0</deltax>-->
-						<annotate_right/>
-					</bottom_edge>
+					<bottom_edge/>
 					<id>A</id>
 					<annotation>d</annotation>
+					<secondaryAnnotation>(secondary)</secondaryAnnotation>
 			</source>
 			<destination>
 					<top_edge>
 						<deltax>0.5</deltax>
-						<annotate_right/>
 					</top_edge>
 					<id>D</id>
 					<annotation>also_back_to_A</annotation>
-					<endlinestyle>crowsfoot</endlinestyle>
+					<endline><marker>hollowTriangle</marker></endline>
 					<linestyle>solidline</linestyle>
 			</destination>
 		</route>	  
 		<route>
 			<source>
 					<right_side>
-						<deltay>0.25</deltay>
-						<annotate_high/>
+						<deltay>1.0</deltay>
 					</right_side>
 					<id>A</id>
 					<annotation>b</annotation>
@@ -174,7 +154,6 @@
 			<destination>
 					<left_side>
 						<deltay>0.5</deltay>
-						<annotate_high/>
 					</left_side>
 					<id>B</id>
 					<annotation>a</annotation>
@@ -184,16 +163,14 @@
 			<source>
 					<right_side>
 						<deltay>0.75</deltay>
-						<annotate_low/>
 					</right_side>
 					<id>A3</id>
 					<annotation>b</annotation>
-					<endlinestyle>crowsfoot</endlinestyle>
+					<endline><marker>hollowTriangle</marker></endline>
 			</source>
 			<destination>
 					<left_side>
 						<deltay>0.75</deltay>
-						<annotate_low/>
 					</left_side>
 					<id>B</id>
 					<annotation>back_to_a</annotation>
