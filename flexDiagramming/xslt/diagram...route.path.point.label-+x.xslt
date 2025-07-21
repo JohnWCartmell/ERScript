@@ -40,38 +40,34 @@
 				     [../*/startarm/bearing]
 				     [../*/endarm/bearing]
 				    /label
+				    [h]
 				   [not(x)]
 				   " 
           mode="recursive_diagram_enrichment"
           priority="140">	 
 	<xsl:copy>
 		<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+		<xsl:variable name="terminalNode" as="element(*(:source|destination:))"
+		              select="if (../startpoint) 
+		                      then ../../../source
+		                      else ../../../destination"/>
+		                      <!-- why didn't I call the node(2) entity type 'terminalNode' ?-->
+
 		<xsl:variable name="label_long_offset" as="xs:double"
-		              select="if (../startpoint) 
-		                      then ../../../source/label_long_offset
-		                      else ../../../destination/label_long_offset
-		              "/>
+		              select="$terminalNode/label_long_offset"/>
 		<xsl:variable name="label_lateral_offset" as="xs:double"
-		              select="if (../startpoint) 
-		                      then ../../../source/label_lateral_offset
-		                      else ../../../destination/label_lateral_offset
-		              "/>
-		<xsl:variable name="orientation" as="element()"
+		              select="$terminalNode/label_lateral_offset"/>
+		<xsl:variable name="orientation" as="element(*)"
 		              select="if (primary) 
-		                      then
-			                      if (../startpoint) 
-			                       then ../../../source/*/labelPosition/*
-			                       else ../../../destination/*/labelPosition/*	                      
-		                      else 
-			                       if (../startpoint) 
-			                       then ../../../source/*/secondaryLabelPosition/*
-			                       else ../../../destination/*/secondaryLabelPosition/*                  
-		              "/>
+		                      then $terminalNode/*/labelPosition/*	                      
+		                      else $terminalNode/*/secondaryLabelPosition/*                  
+		                     "/>
+
 		<xsl:variable name="endarmBearing" as="xs:double"
-		              select="if (../startpoint) 
-		                      then ../../*/startarm/bearing
-		                      else ../../*/endarm/bearing
-		              "/>
+		                                   select="if (../startpoint) 
+		                                           then ../../*/startarm/bearing
+		                                           else ../../*/endarm/bearing
+		                                   "/>
     <xsl:variable name="directionSign" 
                   as="xs:integer"
                   select="if ($orientation/name()='clockwise')
@@ -88,6 +84,59 @@
                             math:atan($label_lateral_offset div $label_long_offset)
               "/>
 
+        <xsl:variable name="yAnchor" as="element()">
+		  	<xsl:choose>
+      		<xsl:when test="($endarmBearing &gt; (7 * math:pi() div 4 ))
+		                 or
+		                      ($endarmBearing &lt;= (math:pi() div 4 ) )">
+		  			<bottom/>   
+		  		</xsl:when>
+      		<xsl:when test="$endarmBearing &lt;= (3 * math:pi() div 4 )">
+      			<!--     and ($endarmBearing &gt; math:pi() div 4 ) --> 
+      			<xsl:choose>
+			  			<xsl:when test="$directionSign = number(1)"> <!-- clockwise -->
+							  	<top/>
+							</xsl:when>
+		          <xsl:otherwise> <!-- anti clockwise -->   
+		          	  <bottom/>
+		          </xsl:otherwise>
+		        </xsl:choose>
+		  		</xsl:when>
+      		<xsl:when test="($endarmBearing &lt;= (5 * math:pi() div 4 ))">
+      			<!--      and ($endarmBearing &gt; 3 * math:pi() div 4 ) --> 
+		  			<top/>   
+		  		</xsl:when>
+      		<xsl:when test="$endarmBearing &lt;= (7 * math:pi() div 4 )">
+      			<!--     and ($endarmBearing &gt; 5 * math:pi() div 4 ) --> 
+      			<xsl:choose>
+			  			<xsl:when test="$directionSign = number(1)"> <!-- clockwise -->
+							  	<bottom/>
+							</xsl:when>
+		          <xsl:otherwise> <!-- anti clockwise -->   
+		          	  <top/>
+		          </xsl:otherwise>
+		        </xsl:choose>
+		  		</xsl:when>
+		  	</xsl:choose>
+		</xsl:variable>
+
+    <xsl:variable name="y_increment_for_outer_label" as="xs:double"
+                  select="if (not($orientation/out))
+                          then 0
+                          else if ($yAnchor[self::bottom])
+                          then -h  (: assumption that primary and 
+                                       secondary label of the same height!:)
+                          else  h
+                         "/>
+
+    <xsl:variable name="x_increment_for_outer_label" as="xs:double"
+                  select="if ($terminalNode/*[self::top_edge|self::bottom_edge])
+                          then diagram:xOffsetFromBearingAndyOffset(
+                                          $endarmBearing,
+                                          $y_increment_for_outer_label       
+                                                               )
+                          else 0
+                         "/>
 		<x>
 		  <place>
 		  	<xsl:choose>
@@ -126,7 +175,8 @@
 		  		                         $alphaAdjustedBearing,
 		  		                         diagram:hypoteneuse($label_lateral_offset,
 		  		                                             $label_long_offset)
-		  		                                                 )"/>
+		  		                                                 )
+		  		             + $x_increment_for_outer_label "/>
 		  	</offset>
 			</at>
 		</x>

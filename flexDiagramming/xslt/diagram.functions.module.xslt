@@ -196,17 +196,25 @@
       <xsl:value-of select="math:sqrt( math:pow($x,2) + math:pow($y,2) )"/>
   </xsl:function>
 
-  <xsl:function name="diagram:xOffsetFromBearingAndDistance ">
+  <xsl:function name="diagram:xOffsetFromBearingAndDistance">
     <xsl:param name="bearing" as="xs:double"/>
     <xsl:param name="distance" as="xs:double"/>
     <xsl:value-of select="math:sin($bearing) * $distance"/>
   </xsl:function>
 
-  <xsl:function name="diagram:yOffsetFromBearingAndDistance ">
+  <xsl:function name="diagram:yOffsetFromBearingAndDistance">
     <xsl:param name="bearing" as="xs:double"/>
     <xsl:param name="distance" as="xs:double"/>
     <xsl:value-of select="- math:cos($bearing) * $distance"/>
       <!-- note the minus sign 
+          (because y increases as we travel south but bearing is compass bearing to due north) -->
+   </xsl:function>
+
+  <xsl:function name="diagram:xOffsetFromBearingAndyOffset">
+    <xsl:param name="bearing" as="xs:double"/>
+    <xsl:param name="yOffset" as="xs:double"/>
+    <xsl:value-of select="- math:tan($bearing) * $yOffset"/>
+    <!-- note the minus sign 
           (because y increases as we travel south but bearing is compass bearing to due north) -->
    </xsl:function>
 

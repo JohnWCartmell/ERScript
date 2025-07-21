@@ -233,6 +233,10 @@ where beta is the angle between the endarm and the vertical and is between -pi/2
 
 Call these positions the clockwiseOuter and anticlockwiseOuter positions.
 
+Use function `diagram:stringheight_from_text_style` for text height.
+Call new function `diagram:xOffsetFromBearingAndyOffset` in file
+`diagram.functions.module.xslt` to get x displacement.
+
 ### Implementation
 
 #### Changes to the flex diagram model

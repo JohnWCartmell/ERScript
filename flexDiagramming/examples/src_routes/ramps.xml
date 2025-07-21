@@ -56,11 +56,11 @@
 		    <shape_style>outer</shape_style>
 			<x><at><centre/></at></x>
 			<wFill/>
-			<h>4.0</h>
+			<h>6.0</h>
 			<enclosure>
 				<id>A2</id>
 				<label/>				
-				<y><local>1.9</local></y>
+				<y><local>2.9</local></y>
 			</enclosure>
 			<enclosure>
 				<id>B2</id>
@@ -68,13 +68,13 @@
 				<x><at><centre/></at></x>
 				<y><local>1.5</local></y>
 				<w>6</w>
-			    <h>2</h>
+			    <h>4</h>
 			</enclosure>
 			<enclosure>
 				<id>C2</id>
 				<label/>
 				<x><at><right/></at></x>
-				<y><local>1.9</local></y>
+				<y><local>2.9</local></y>
 			</enclosure>
 		</enclosure>
 		<enclosure>
@@ -104,17 +104,25 @@
 
 		<route>
 			<source>
-					<left_side/>
+					<left_side>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</left_side>
 					<id>B2</id>
 					<annotation>to_a1 bottom</annotation>
-					<secondaryAnnotation>*</secondaryAnnotation>
+					<secondaryAnnotation>to_a1 bottom</secondaryAnnotation>
 			</source>
 			<destination>
-					<bottom_edge/>
+					<bottom_edge>
+						<secondaryLabelPosition>
+							<clockwise><out/></clockwise>
+						</secondaryLabelPosition>
+					</bottom_edge>
 					<id>A1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>*</secondaryAnnotation>
+					<secondaryAnnotation>****</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -125,17 +133,21 @@
 		</route>
 		<route>
 			<source>
-					<top_edge/>
+					<top_edge>
+						<secondaryLabelPosition>
+							<clockwise><out/></clockwise>
+						</secondaryLabelPosition>
+					</top_edge>
 					<id>B2</id>
 					<annotation>to a1 right</annotation>
-					<secondaryAnnotation>++</secondaryAnnotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<right_side/>
 					<id>A1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>++</secondaryAnnotation>
+					<secondaryAnnotation>**</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -146,17 +158,25 @@
 		</route>
  		<route>
 			<source>
-					<top_edge/>
+					<top_edge>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</top_edge>
 					<id>B2</id>
 					<annotation>to b1</annotation>
-					<secondaryAnnotation>*</secondaryAnnotation>
+					<secondaryAnnotation>*2ndary*</secondaryAnnotation>
 			</source>
 			<destination>
-					<bottom_edge/>
+					<bottom_edge>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</bottom_edge>
 					<id>B1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>*</secondaryAnnotation>
+					<secondaryAnnotation>*2andary*</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -186,9 +206,14 @@
 		</route> 
 		<route>
 			<source>
-					<right_side/>
+					<right_side>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</right_side>
 					<id>B2</id>
 					<annotation>to c1 bottom</annotation>
+					<secondaryAnnotation>++</secondaryAnnotation>
 			</source>
 			<destination>
 					<bottom_edge/>
@@ -206,14 +231,24 @@
 
 		<route>
 			<source>
-					<left_side/>
+					<left_side>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</left_side>
 					<id>B2</id>
 					<annotation>to a2</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
-					<right_side/>
+					<right_side><!-- 
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition> -->
+					</right_side>
 					<id>A2</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
