@@ -26,7 +26,15 @@
 			<padding>0.5</padding>
 		</label>
 		<label>
-			<text>Note a scattering of secondary annotations * and ++ </text>
+			<text>Links and backlinks have primary annotations in defaults positions.</text>
+			<padding>0.5</padding>
+		</label>
+		<label>
+			<text>Backlinks have secondary annotations ### in default positions.</text>
+			<padding>0.5</padding>
+		</label>
+		<label>
+			<text>Forward links have secondary annotations *** oriented outward of primary annotations.</text>
 			<padding>0.5</padding>
 		</label>
 		<enclosure>
@@ -111,18 +119,14 @@
 					</left_side>
 					<id>B2</id>
 					<annotation>to_a1 bottom</annotation>
-					<secondaryAnnotation>to_a1 bottom</secondaryAnnotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
-					<bottom_edge>
-						<secondaryLabelPosition>
-							<clockwise><out/></clockwise>
-						</secondaryLabelPosition>
-					</bottom_edge>
+					<bottom_edge/>
 					<id>A1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>****</secondaryAnnotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -147,7 +151,7 @@
 					<id>A1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>**</secondaryAnnotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -165,18 +169,14 @@
 					</top_edge>
 					<id>B2</id>
 					<annotation>to b1</annotation>
-					<secondaryAnnotation>*2ndary*</secondaryAnnotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
-					<bottom_edge>
-						<secondaryLabelPosition>
-							<anti-clockwise><out/></anti-clockwise>
-						</secondaryLabelPosition>
-					</bottom_edge>
+					<bottom_edge/>
 					<id>B1</id>
 					<annotation>back_to_b2</annotation>
 					<endline><marker>hollowTriangle</marker></endline>
-					<secondaryAnnotation>*2andary*</secondaryAnnotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 			</destination>
 			<path>
 				<ramp>
@@ -187,14 +187,20 @@
 		</route>
 		<route>
 			<source>
-					<top_edge/>
+					<top_edge>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</top_edge>
 					<id>B2</id>
 					<annotation>to c1 left</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<left_side/>
 					<id>C1</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -208,17 +214,18 @@
 			<source>
 					<right_side>
 						<secondaryLabelPosition>
-							<anti-clockwise><out/></anti-clockwise>
+							<clockwise><out/></clockwise>
 						</secondaryLabelPosition>
 					</right_side>
 					<id>B2</id>
 					<annotation>to c1 bottom</annotation>
-					<secondaryAnnotation>++</secondaryAnnotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<bottom_edge/>
 					<id>C1</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -241,14 +248,10 @@
 					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
-					<right_side><!-- 
-						<secondaryLabelPosition>
-							<anti-clockwise><out/></anti-clockwise>
-						</secondaryLabelPosition> -->
-					</right_side>
+					<right_side/>
 					<id>A2</id>
 					<annotation>back_to_b2</annotation>
-					<secondaryAnnotation>***</secondaryAnnotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -261,14 +264,20 @@
 
 		<route>
 			<source>
-					<right_side/>
+					<right_side>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</right_side>
 					<id>B2</id>
 					<annotation>to c2</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<left_side/>
 					<id>C2</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -283,11 +292,13 @@
 					<left_side/>
 					<id>B2</id>
 					<annotation>to_a3 top</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<top_edge/>
 					<id>A3</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -299,14 +310,20 @@
 		</route>
 		<route>
 			<source>
-					<bottom_edge/>
+					<bottom_edge>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</bottom_edge>
 					<id>B2</id>
 					<annotation>to_a3 right</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<right_side/>
 					<id>A3</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -318,14 +335,20 @@
 		</route>
  		<route>
 			<source>
-					<bottom_edge/>
+					<bottom_edge>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</bottom_edge>
 					<id>B2</id>
 					<annotation>to b3</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<top_edge/>
 					<id>B3</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -337,14 +360,20 @@
 		</route>
 		<route>
 			<source>
-					<bottom_edge/>
+					<bottom_edge>
+						<secondaryLabelPosition>
+							<clockwise><out/></clockwise>
+						</secondaryLabelPosition>
+					</bottom_edge>
 					<id>B2</id>
 					<annotation>to c3 left</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<left_side/>
 					<id>C3</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>
@@ -356,14 +385,20 @@
 		</route> 
 		<route>
 			<source>
-					<right_side/>
+					<right_side>
+						<secondaryLabelPosition>
+							<anti-clockwise><out/></anti-clockwise>
+						</secondaryLabelPosition>
+					</right_side>
 					<id>B2</id>
 					<annotation>to c3 top</annotation>
+					<secondaryAnnotation>***</secondaryAnnotation>
 			</source>
 			<destination>
 					<top_edge/>
 					<id>C3</id>
 					<annotation>back_to_b2</annotation>
+					<secondaryAnnotation>###</secondaryAnnotation>
 					<endline><marker>hollowTriangle</marker></endline>
 			</destination>
 			<path>

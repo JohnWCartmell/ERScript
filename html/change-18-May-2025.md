@@ -9,10 +9,7 @@ Support a second label at each end of a route.
 2. Generalise label positioning so that works on sloping terminal arms as well as horizontal and vertical as at present. 
 3. Gravitate toward more general orientation directives -- focus on clockwise
 and anticlockwise instead of left, right, high and low as at present. 
-4. Fix a feature/bug --- do not to create empty labels when no annotations are specified.
-(Currently get a warning messages when a route has no annotation on one end or another.)
-by creating labels conditionally.
-5. Improve the positioning of endpoints for routes along the edges of enclosures.
+4. Improve the positioning of endpoints for routes along the edges of enclosures.
 
 ### Language
 + routes are directional they lead from a source enclosure to a destination enclosure,
@@ -305,7 +302,6 @@ select "if (../starty &lt; ../endy) then 0 else math:pi()"
 
 Completed [x].
 
-
 #### Name change
 Change the name of file  `diagram...route.node-+label_long_offset.xslt` to be 
 `diagram...route.node-+label_long_offset+label_lateral_offset.xslt`. 
@@ -354,36 +350,14 @@ then clockwise
 Completed [x]
 
 #### Rules for secondaryLabelPosition
-***LOGIC REGARDING OUTER IS FLAWED BECASE I WOULD WANT PRIMARY OUTER AND SECONDARY INNER***
-***UNLESS I USE rolename (say) as secondary and cardinality as primary which of course could do***
 
-Implement the following rules in file `diagram...route.specific_edge-+secondaryLabelPosition.xslt`
-+ top edge
-``` 
-if slot no <= noofslots div 2 
-then secondaryLabelPosition := anti-clockwise/outer
-else secondaryLabelPosition := clockwise/outer
-```
-+ bottom edge
-``` 
-if slot no <= noofslots div 2 
-then secondaryLabelPosition := clockwise/outer
-else secondaryLabelPosition := anti-clockwise/outer
-```
-+ left side 
-``` 
-if slot no <= noofslots div 2 
-then secondaryLabelPosition := clockwise
-else labelPosition := clockwise
-     secondaryLabelPosition := anti-clockwise
-```
-+ right side 
-``` 
-if slot no <= noofslots div 2 
-then secondaryLabelPosition := anti-clockwise
-else secondaryLabelPosition := clockwise
-```
-Completed [].  ***NOT IMPLEMENTED***
+
+Implement the following rules in file `diagram...route.specific_edge-+secondaryLabelPosition.xslt`.
+
+Make the default secondary label position the opposite side of the endarm to the 
+primary default position.  
+
+Completed [x]. 
 
 #### Rules for Creating labels
 1. Add two new functions to file diagram.functions.module.xslt.
@@ -396,6 +370,8 @@ The minus sign comes about because bearing is clockwise from north and our y axi
 
 2. Add a function hypoteneuse to file diagram.functions.module.xslt.
 
+Completed [x]
+
 3. No longer create a label as part of creating the endpoints in source 
 files `diagram...path-+point.endpoint+ewQ.xslt` and `diagram..path-+point.startpoint+ewQ.xslt`.
 
@@ -405,7 +381,7 @@ Completed [x].
 Flag each label as `<primary/>` or `<secondary/>`.
 
 Completed for primaries [x].
-Completed for secondaries [].
+Completed for secondaries [x].
 
 5. Remove file  `diagram...route.path.point.label-+xP`
 Replace by two files
@@ -422,6 +398,8 @@ from label_lateral_offset and label_long_offset,
 + alpha is `math:atan(label_lateral_offset/label_long_offset)`.
 
 Similarly the rule for y will  call function `diagram:yOffsetFromBearingAndDistance`.
+
+Completed [x].
 
 6. **As a tie-over until better scheme specified an implemented** Improve the distribution of endpoints of routes along edges of enclosures. By modifying the rule in files `diagram...route.specific_edge-+deltax`
 and `diagram...route.specific_edge-+deltay`. 
@@ -444,6 +422,7 @@ This then will equally space the slots and have only a half space between corner
 
 Change deltay calculation likewise.
 
+Completed [x].
 
 ### Testing
 1. Test primary labels, default positioning on: flexDiagramming/examples/src_routes/topdown_routes.
@@ -453,12 +432,22 @@ Change deltay calculation likewise.
 [x]
 2. Test primary labels, default positioning on: flexDiagramming/examples/src_routes/ramps.[x] 
 
-4. Test primary labels on: flexDiagramming/examples/goodlandCarHire/goodlandVariantA. [x]
+3. Test primary labels on: flexDiagramming/examples/goodlandCarHire/goodlandVariantA. [x]
 
-3. Test primary labels on: all selected examples. [x]
+4. Test primary labels on: all selected examples. [x]
 
-
+5. Test secondary labels, default positioning on: flexDiagramming/examples/src_routes/ramps.[x]
 
 ### Completion Date 
+Completed  22/07/2025.
 
+We still need fine tuning of secondary labels but that will need to be done when I have places I want to use them.
 
+Other side issues will need to be addressed separately:
+
++ calculation of label widths needs to be more accurate
++ need label_lateral_offset and label_long_offset to take account of presence or absence and extents
+of endline markers such as arrow heads or diamonds.
++ a feature/bug ---  empty labels are created when no annotations are specified.
+(Currently get a warning messages when a route has no annotation on one end or another.)
+Note that these are needed as flags. See comments in code where labels created.
