@@ -37,7 +37,7 @@
 						<of><xsl:value-of select="../source/id"/></of>
 					</at>
 				</xP>
-				<!-- <label><primary/></label> --> <!-- change of 18 May 2025 -->
+				<label><primary/></label> <!-- change of 18 May 2025 -->
 				<label><secondary/></label> 
 			</point>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
