@@ -45,7 +45,7 @@
       <text_style>normal</text_style>
 	  <debug-whitespace>true</debug-whitespace>
     </default>
-	<margin>0.3</margin>
+	
 
     <enclosure>
 	    <id>colheader</id>
@@ -120,8 +120,7 @@
           <text>abcdefghknopqrstuvxyz</text>
       </label>
     </enclosure>
-
-  </enclosure>
+  </enclosure> <!-- end of col1 -->
 
   <enclosure>
     <id>col_2</id>
