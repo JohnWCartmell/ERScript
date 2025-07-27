@@ -51,6 +51,13 @@
         <fill-opacity>0</fill-opacity> 
     </shape_style>
     <shape_style>
+        <id>group_outline_visible</id>
+        <stroke>red</stroke>
+        <fill-opacity>0</fill-opacity>  
+        <stroke-dasharray>2 2</stroke-dasharray>
+        <stroke-width>1</stroke-width>
+    </shape_style>
+    <shape_style>
         <id>group_outline:hover</id>
         <fill>lightgrey</fill>
         <stroke>black</stroke>
@@ -108,7 +115,6 @@
      <font-style><italic/></font-style>
      <font-family>"Times New Roman", Times, serif</font-family>
    </text_style>
-
 
    <text_style>
      <id>classname</id>

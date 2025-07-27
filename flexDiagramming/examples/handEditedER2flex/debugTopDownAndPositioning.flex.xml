@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram:diagram xmlns="http://www.entitymodelling.org/diagram"
+                 xmlns:diagram="http://www.entitymodelling.org/diagram"
+                 xmlns:era="http://www.entitymodelling.org/ERmodel"
+                 xmlns:file="http://expath.org/ns/file"
+                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                 xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+                 xmlns:svg="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/TR/xlink"
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <method>era</method>
+   <include>
+      <filename>file:///C:/Users/John/Documents/Cloudwork/BuildArea/ERScript/scripts/../flexDiagramming/methods/era/xml/eraFlexStyleDefinitions.xml</filename>
+   </include>
+   <default>
+      <hmin>0.5</hmin>
+      <wmin>0.05</wmin>
+      <margin>0.2</margin>
+      <padding>0.15</padding>
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>outline</shape_style>
+      <debug-whitespace>false</debug-whitespace>
+      <end_style>testline</end_style>
+   </default>
+
+   <enclosure> <!-- whole diagram -->
+   <shape_style>group_outline_visible</shape_style> 
+
+   <enclosure>
+      <id>match</id>
+      <compositionalDepth>1</compositionalDepth>
+      <shape_style>eteven</shape_style>
+      <framearc>0.2</framearc>
+      <label>
+         <text_style>etname</text_style>
+      </label>
+      <x><at><centre/></at></x>
+   </enclosure>
+
+      <enclosure>
+         <id>innings</id>
+         <x source="EREmodel.flex_pass_two_module.xslt" rule="Rule x6A">
+            <passfourAA/>
+            <place>
+               <centre/>
+            </place>
+            <at>
+               <centre/>
+            </at>
+         </x>
+         <y source="EREmodel.flex_pass_two_module.xslt" rule="Rule y1">
+            <passtwoA/>
+            <place>
+               <top/>
+            </place>
+            <at>
+               <bottom/>
+               <of>match</of>
+            </at>
+            <delta>1</delta>
+         </y>
+         <compositionalDepth>2</compositionalDepth>
+         <shape_style>eteven</shape_style>
+         <framearc>0.2</framearc>
+         <label>
+            <text_style>etname</text_style>
+         </label>
+      </enclosure>
+</enclosure> <!-- whole diagram ... shouldn't be needed but just checking -->
+
+
+    <route>
+      <text_style>relname</text_style>
+      <top_down/>
+      <source>
+         <id>match</id>
+         <annotation/>
+         <line_style>solidline</line_style>
+         <abstract>match</abstract>
+         <exitContainer>match</exitContainer>
+      </source>
+      <destination>
+         <id>innings</id>
+         <annotation>..</annotation>
+         <line_style>solidline</line_style>
+         <endline>
+            <marker>crowsfoot</marker>
+         </endline>
+         <endline>
+            <marker>identifying</marker>
+         </endline>
+         <abstract>innings</abstract>
+         <trace>
+            <id>innings</id>
+         </trace>
+         <entryContainer>innings</entryContainer>
+      </destination>
+   </route>
+
+</diagram:diagram>
