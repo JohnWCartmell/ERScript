@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+               xmlns:era="http://www.entitymodelling.org/ERmodel">
+               
+      <include_model filename="cricketMatch..logical.xml"/>
+      <include_model filename="cricketMatch..flex.presentation.xml"/>
+</entity_model>

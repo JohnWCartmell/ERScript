@@ -47,7 +47,7 @@ echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 }
 
 echo 'Cricket Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..flex.diagram.xml -animate -debugswitch
 
 popd 
 

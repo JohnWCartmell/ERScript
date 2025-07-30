@@ -40,7 +40,7 @@
    </entity_type>
    <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
       <label>
-         <text>Note: This example fails if "ap" is moved after "NP|AP" in the source file.</text>
+         <text>Note: This example fails if "ap" is moved after 'NP|AP' in the source file.</text>
          <x><at><right/><of>NP|AP|PP</of></at></x>
          <y><at><middle/><of>NP|AP|PP</of></at></y>
       </label>

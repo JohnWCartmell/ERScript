@@ -160,4 +160,13 @@
      <font-style><normal/></font-style>
      <font-family>"Times New Roman", Times, serif</font-family>
    </text_style>
+
+   <text_style>
+     <id>trace</id>
+     <fill>grey</fill>
+     <font-size>8px</font-size>
+     <font-weight><normal/></font-weight>
+     <font-style><italic/></font-style>
+     <font-family>"Times New Roman", Times, serif</font-family>
+   </text_style>
 </all>

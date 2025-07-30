@@ -62,11 +62,11 @@
 <xsl:variable name="charwidth_of_double_quote" as="map(xs:string, xs:decimal)"
               select='
                 map {
-                  """":3.5}
-                    ' />
+                  """": 3.5}
+                    ' />  
 <xsl:variable name="charwidths_in_pixels_of_11pt_font" as="map(xs:string, xs:decimal)"    
-              select="map:merge($charwidths_but_not_double_quote,
-                                $charwidth_of_double_quote)"/>
+              select="map:merge(($charwidths_but_not_double_quote,
+                                $charwidth_of_double_quote))"/>
 
 
 <xsl:function name="diagram:stringwidth_in_pixels_of_11pt_times_new_roman_font" as="xs:double">
@@ -83,13 +83,13 @@
   "/>
 
   <xsl:if test="exists($unmapped_chars)">
-  <xsl:message terminate="yes">
-    Error: unmapped characters: 
-    <xsl:value-of select="string-join($unmapped_chars, ', ')"/>
-  </xsl:message>
+    <xsl:message>Determining width of  '<xsl:value-of select="$text"/>'</xsl:message>
+    <xsl:message terminate="yes">
+      Error: unmapped characters: '<xsl:value-of select="string-join($unmapped_chars, ', ')"/>'
+    </xsl:message>
 </xsl:if>
 
-  <xsl:value-of select="
+  <xsl:sequence select="
     sum(
       for $ch in string-to-codepoints($text)
       return map:get($charwidths_in_pixels_of_11pt_font, codepoints-to-string($ch))
@@ -102,7 +102,7 @@
 
 <xsl:function name="diagram:stringwidth_in_cms_of_11pt_times_new_roman_font" as="xs:double">
   <xsl:param name="text" as="xs:string"/>
-  <xsl:value-of select="
+  <xsl:sequence select="
     diagram:stringwidth_in_pixels_of_11pt_times_new_roman_font($text) * 0.1325
   "/>
 </xsl:function>
@@ -137,7 +137,7 @@
                                       )  * 0.3 "/>  <!-- why do I need this 0.3? -->
 </xsl:function>
 
-
+<!-- OLD FUNCTIONS BEFORE REWORK OF  July 2025 -->
 <!--    <xsl:function name="diagram:stringwidth_from_text_style">
       <xsl:param name="given_string" as="xs:string"/>
       <xsl:param name="textstyle" as="element()"/>
@@ -159,7 +159,7 @@
 
 
 
-  <!--  <xsl:function name="diagram:stringwidth_from_font_size_in_pixels">
+   <xsl:function name="diagram:stringwidth_from_font_size_in_pixels">
       <xsl:param name="given_string" as="xs:string"/>
       <xsl:param name="font_size_in_pixels" as="xs:double"/>
       <xsl:param name="is_bold_text" as="xs:boolean"/>
@@ -179,9 +179,9 @@
                   "/> 
     <xsl:value-of select="$noOfCharsAdjusted * $sizefactorwrt11pixels * 0.1325"/>
   </xsl:function>
- -->
 
-  <!--  <xsl:function name="diagram:stringwidth_in_cm_using_11pt_font">
+
+   <xsl:function name="diagram:noOfCharactersAdjusted">
     <xsl:param name="given_string" as="xs:string"/>
     <xsl:variable name="given_but_wo_i" select="translate($given_string, 'i', '')"/>
     <xsl:variable name="no_of_i" select="string-length($given_string)- string-length($given_but_wo_i)"/> 
@@ -216,7 +216,7 @@
                           + ($no_of_space      * 0.575 )
                           + ($no_of_underscore * 1.1)"/> 
     <xsl:value-of select="$noOfCharsAdjusted"/>
-  </xsl:function> -->
+  </xsl:function>
 
    <xsl:function name="diagram:stringheight_from_text_style">
       <xsl:param name="given_string" as="xs:string"/>

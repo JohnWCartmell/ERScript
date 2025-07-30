@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="toBeIncluded..logical.xml"/>
+</entity_model>

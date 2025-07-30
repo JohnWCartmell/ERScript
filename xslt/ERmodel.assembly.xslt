@@ -11,7 +11,9 @@
 
    <xsl:template match="/">
       <xsl:message>ERmodel.assembly.xslt</xsl:message>
+      <xsl:copy>
          <xsl:apply-templates select="." mode="assembly"/>
+      </xsl:copy>
    </xsl:template>
 
 </xsl:transform>

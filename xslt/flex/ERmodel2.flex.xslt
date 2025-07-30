@@ -24,24 +24,26 @@ CHANGE HISTORY
 		>
 	<xsl:param name="ERHOME" as="xs:string" />
 	<xsl:param name="maxiter" />
-  <xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
+    <xsl:variable name="maxdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" />
 
-  <xsl:param name="debug" />
- <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
+    <xsl:param name="debug" />
+    <xsl:variable name="debugon" as="xs:boolean" select="$debug='y'" />
 
  <xsl:include href="../ERmodel.functions.module.xslt"/>
-
  <xsl:include href="../ERmodelv1.6.parser.module.xslt"/>
+ <xsl:include href="../ERmodel.assembly.module.xslt"/>
+ <xsl:include href="../ERmodel.consolidate.module.xslt"/>
 
  <xsl:include href="ERmodel.implementation_of_defaults_enrichment.module.xslt"/>
-
-	<xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
-
-	<xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
-
-	<xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
+ <xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
+ <xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
+ <xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
 
 	<xsl:output method="xml" indent="yes" />
+
+
+
+
 
 <!-- Structure of ERmodel2flex - seven passes in all.
 + parse__conditional - translates the surface model into an instance of the ERmodel metamodel
@@ -64,15 +66,11 @@ CHANGE HISTORY
 + passfour   - plants a further number of x value placement expression (not sure this needs to be a separate pass)
 -->
 
-<!-- ******************** -->
-<!-- ******************** -->
-<!--     <xsl:template match="@*|node()" mode="copyme">
-      <xsl:copy>
-         <xsl:apply-templates select="@*|node()" mode="copyme"/>
-      </xsl:copy>
-   </xsl:template> -->
-<!-- ******************** -->
-<!-- ******************** -->
+
+<!-- Keep a global reference to the document node so that can be used from assembly.module
+     for a base URI for access to included models by filename. See document() function. 
+-->
+<xsl:variable name="docnode" select="/"/>
 
 <xsl:template name="main" match="/">
 
@@ -99,8 +97,35 @@ CHANGE HISTORY
   </xsl:variable>
 
   <xsl:if test="true()">
-      <xsl:message>putting out ER model instance</xsl:message>
+      <xsl:message>putting out ER model instance (1)</xsl:message>
       <xsl:result-document href="ERmodel_instance_after_surface_parsed.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
+
+   <xsl:message> about to call assembly </xsl:message>
+   <xsl:variable name="state" as="document-node()">
+   	  <xsl:copy>
+          <xsl:apply-templates select="$state" mode="assembly"/>
+      </xsl:copy>
+   </xsl:variable>
+
+  <xsl:if test="true()">
+      <xsl:message>putting out ER model instance(2)</xsl:message>
+      <xsl:result-document href="ERmodel_instance_after_assembly.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
+
+    <xsl:variable name="state" as="document-node()">
+    	<xsl:copy>
+      		<xsl:apply-templates select="$state" mode="consolidate"/>
+  		</xsl:copy>
+   </xsl:variable>
+
+  <xsl:if test="true()">
+      <xsl:message>putting out ER model instance(3)</xsl:message>
+      <xsl:result-document href="ERmodel_instance_after_consolidation.xml" method="xml">
         <xsl:copy-of select="$state"/>
       </xsl:result-document>
     </xsl:if>
@@ -177,7 +202,11 @@ CHANGE HISTORY
 					<debug-whitespace>false</debug-whitespace>
 					<end_style>testline</end_style>
 				</default>
-				<xsl:apply-templates select="absolute|entity_type|group" mode="passzero"/>
+				<xsl:element name="enclosure">
+					<id>diagram</id>
+					<shape_style>group_outline_visible</shape_style>
+					<xsl:apply-templates select="absolute|entity_type|group" mode="passzero"/>
+				</xsl:element>
 				<xsl:copy-of select="diagram:enclosure/*"/>
 				<xsl:apply-templates select="//composition" mode="passzero"/>
 				<xsl:apply-templates select="//reference" mode="passzero"/>
@@ -195,6 +224,8 @@ CHANGE HISTORY
 			<w>3.0</w> <!-- hard coded instead -->
 			<framearc>0.2</framearc>
 			<label/>
+			<x><place><left/></place><at><left/></at></x>  <!-- added 28 July 2025 -->
+			<y><place><top/></place><at><top/></at></y>    <!-- likewise           -->
 		</xsl:element>
 	</xsl:template>
 

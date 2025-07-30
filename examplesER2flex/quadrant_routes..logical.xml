@@ -2,10 +2,11 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
               xmlns:diagram="http://www.entitymodelling.org/diagram"
  ERScriptVersion="1.6">
-   <absolute>
+   <absolute name="quadtest">
       <composition type="Q1*"/>
       <composition type="Q2*"/>
    </absolute>
+
    <entity_type name="Q1">
       <composition type="centre*"/>
       <composition type="centreleft*"/>
@@ -19,6 +20,7 @@
    <entity_type name="centreleft">
       <composition type="Q3*"/>
    </entity_type>
+
    <entity_type name="centre">
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
             <wl>2.0</wl>
@@ -29,6 +31,8 @@
       <composition type="Q4*"/>
       <composition type="Q44*"/>
    </entity_type>
+
+    <!-- would like to make this work with q3 at the top after absolute but then get lowly overlaying q3  -->
    <entity_type name="Q3">
       <composition type="centre*"/>
    </entity_type>

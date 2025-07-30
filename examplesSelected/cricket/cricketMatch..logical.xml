@@ -2,14 +2,18 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
               ERScriptVersion="1.6"
               metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
+
+
    <description>cricketMatch. See also inningsfsideovergplayerinContextUnconstrained, note though the scope constraints are different. 01/10/2024 Modify cardinalities of all compositions to be OneOrMore.
    </description>
+
    <absolute name="cricket">
       <attribute name="metaDataFilePathWrtThisInstanceDocument" type="string?">
          <xmlRepresentation><Attribute/></xmlRepresentation>
       </attribute> 
       <composition type="match*"/>
    </absolute>
+
    <entity_type name="match">
       <identifying>
          <attribute name="id" type="string"/>
@@ -27,7 +31,6 @@
       <reference name="battingSide" type="side" diagonal=".." riser=".."/>
       <reference name="fieldingSide" type="side" diagonal=".." riser=".."/>
    </entity_type>
-
    <entity_type name="side">
       <identifying>
          <context type="match"/>

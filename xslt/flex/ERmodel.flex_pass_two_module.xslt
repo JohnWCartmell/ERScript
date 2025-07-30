@@ -41,11 +41,12 @@
 	                     [preceding-sibling::enclosure]
 	                    " mode="passtwo">      
 		<xsl:copy>
+			<label><text>rule x1</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()"  mode="passtwo"/>
 			<x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule x1'"/>
-				<passtwoB/>
+         	<rule>x1</rule>
 				<at>
 					<left/>
 					<predecessor/>
@@ -64,11 +65,12 @@
 	                     [not(y)]" 
 						 mode="passtwo">
 		<xsl:copy>
+			<label><text>rule y1</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passtwo"/>
 			<y>
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule y1'"/>
-				<passtwoA/>
+				<rule>y1</rule>
 				<place>
 					<top/>
 				</place>
@@ -76,14 +78,22 @@
 					<bottom/>
 					<of>
 						<xsl:value-of select="key('ExitContainersOfEnteringTopdownRoutes',id)
-							                    (: try this   [compositionalDepth+1=current()/compositionalDepth] 
-							                    ???????????????????????????????????????????????????????? :)
-							                      [1]/id"/>
+							                    [compositionalDepth+1=current()/compositionalDepth] 
+							                    [1]/id"/>
 					   <!-- use compositionalDepth in this way to place beneath one of the enclosures with 
 					        the lowest compositional depth -->
 					        <!-- BUT HAD TO RE$MOVE DURING TESTING 10 May 2025 -->
 					        <!-- IN WHAT FORM TO REINSTATE???????????????????????????????????????????-->
 					        <!-- ???????????????????????????????????????????????????????????????????? -->
+					        <!-- Hmmm the reason this wouldn't work is that compositionalDepth is only defined for outermost enclosures. 
+					        ancestor-or-self::enclosure[1]/compositionalDepth???
+					        I wonder what would compositional depth of an inner enclosure correspond to?
+
+					        I have changed it 12.07 29/072025 but not at all sure this is right
+					        Might work for quadrant test because no nested types.
+
+					        Hmmm. Nothing has a compsotionl depth except the enclosing diagram level enclosure
+					        -->
 					</of>
 				</at>
 				<delta>1</delta>   <!-- make room for incoming top down route -->
@@ -103,7 +113,7 @@
 	<!-- next three templates - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure. --> 
 	              
 	<!--     ************ -->
-	<!--       Rule 3A    -->
+	<!--       Rule xy3A    -->
 	<!--     ************ -->
 	<xsl:template match="enclosure/enclosure
 						 [key('TerminatingNonLocalIncomingTopdownRoute',id)]
@@ -113,18 +123,20 @@
 	                    " mode="passthree"> 
 		<xsl:copy>
 			<xsl:attribute name="test" select="'3A'"/>
+			<label><text>rule xy3A</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule 3A'"/>
-         	<passthreeA/>
+         	<rule>xy3A</rule>
 		    	<at><left/><parent/></at>
-		 </x>
+		  </x>
          <y>
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule 3A'"/>
-         <passthreeA/>
-		    <place><top/><edge/></place>
+         
+         	<rule>xy3A</rule>
+		     <place><top/><edge/></place>
             <at>
                <bottom/>
                <predecessor/>
@@ -143,11 +155,12 @@
 						 [not(y)]		 
 	                    " mode="passthree"> 
 		<xsl:copy>
+			<label><text>rule y3B</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <y>
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule 3B'"/>
-         	<passthreeB/>
+         	<rule>y3B</rule>
 		    <place>
 			    <top/>
 				<edge/>
@@ -169,11 +182,12 @@
 						 [not(y)]
 	                    " mode="passthree">  
 		<xsl:copy>
+			<label><text>rule y3C</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <y>
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule 3C'"/>
-         	<passthreeC/>
+         	<rule>y3C</rule>
 		    <place>
 			    <top/>
 				<edge/>
@@ -198,11 +212,12 @@
 						 [not(y)]
 	                    " mode="passthree">  
 		<xsl:copy>
+			<label><text>rule x5</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule x5'"/>
-         	<passthreeD/>
+         	<rule>x5</rule>
 		    <at><left/><parent/></at>
 		 </x>
          <y>
@@ -240,11 +255,12 @@
 						   " 
 						 mode="passfour">
 		<xsl:copy>
+			<label><text>rule x6A</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passfour"/>
 			<x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule x6A'"/>
-				<passfourAA/>
+         	<rule>x6A</rule>
 				<place>
 					<left/>
 				</place>
@@ -274,6 +290,7 @@
 						   " 
 						 mode="passfour">
 		<xsl:copy>
+			<label><text>rule x6B</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passfour"/>
 			<x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
@@ -282,7 +299,7 @@
 				<place>
 					<left/>
 				</place>
-				<passfourB-7May25/>
+         	<rule>x6B</rule>
 				<at>
 					<right/>
 					<outer/>

@@ -47,15 +47,8 @@
                         "
                         use="destination/id"/>
 
-
-	<!-- enclosure => set of enclosure ... enclosures from which or from within which there is a route down to or into this outermost enclosure -->
-   <xsl:key name="OutermostEnclosuresFromWhichIncomingTopDownRoute"
-		      match="enclosure"
-		      use="key('OutgoingTopdownRoute',id)/destination/abstract"/> 
-    <!-- MOVE THE ABOVE TO recursive diagram enrichment where it is used /-->
-
-
-	<!-- 7th May 2025 -->	       
+	<!-- 7th May 2025 -->
+	<!-- enclosure => set of enclosure  .. where entering top down routes exit from  --> 	       
    <xsl:key name="ExitContainersOfEnteringTopdownRoutes"
             match="enclosure"
             use="key('ExitingTopdownRoute',id)/destination/entryContainer"/> 
@@ -69,22 +62,29 @@
 	<xsl:template match="source" mode="passone">
 		<xsl:copy>
 			<xsl:apply-templates mode="passone"/>
-			 <abstract>
-			   <xsl:value-of select="(key('Enclosure',id)/ancestor-or-self::enclosure)
-			                          [1]/id"/>
-			 </abstract>
              <!-- change of 7th May 2025 -->
-
+<!--              <trace>
+             	<xsl:copy-of select="
+             	let $source := //enclosure[id = current()/id],
+    					 $dest   := //enclosure[id = current()/../destination/id]
+    				    return $source/ancestor-or-self::enclosure
+          				[not(some $nestedEnclosure in descendant-or-self::enclosure 
+          				     satisfies $nestedEnclosure is $dest)
+          				]
+             	"
+             	/>
+             </trace> -->
              <xsl:variable name="exitContainer"
           	              as="element(enclosure)?"
           	              select="
              	    let $source := //enclosure[id = current()/id],
-    					$dest   := //enclosure[id = current()/../destination/id]
-    				return $source/ancestor-or-self::enclosure
-          				[not(./descendant::enclosure = $dest)
-          				  and 
-          				  not(./self::enclosure  = $dest)
-          				][1]
+    					     $dest   := //enclosure[id = current()/../destination/id]
+    				    return $source/ancestor-or-self::enclosure
+          				[not(some $nestedEnclosure 
+          				     in descendant-or-self::enclosure 
+          				     satisfies $nestedEnclosure is $dest)
+          				]
+          				[1]
           				"
           	              />
           	<xsl:choose>
@@ -103,26 +103,28 @@
 	<xsl:template match="destination" mode="passone">
 		<xsl:copy>
 			<xsl:apply-templates mode="passone"/>
-			 <abstract>
-			   <xsl:value-of select="(key('Enclosure',id)/ancestor-or-self::enclosure) 
-			                          [1]/id"/>
-			 </abstract>             
+
 			 <!-- change of 7th May 2025 -->
-			 <trace>
+<!-- 			 <trace>
 			 	<xsl:copy-of select="
              	    let $source := //enclosure[id = current()/../source/id],
-    					$dest   := //enclosure[id = current()/id]
-    				return $dest/ancestor-or-self::enclosure
-          				[not(./descendant-or-self::enclosure = $source)]/id"/>
-          	</trace>
+    					     $dest   := //enclosure[id = current()/id]
+    				        return $dest/ancestor-or-self::enclosure
+    				                         [not(some $nestedEnclosure in descendant-or-self::enclosure 
+          				                        satisfies $nestedEnclosure is $source)
+          				                   ]
+			 	"/>
+          	</trace> -->
           	<xsl:variable name="entryContainer"
           	              as="element(enclosure)?"
           	              select="
              	    let $source := //enclosure[id = current()/../source/id],
-    					$dest   := //enclosure[id = current()/id]
-    				return $dest/ancestor-or-self::enclosure
-          				[not(./descendant-or-self::enclosure = $source)]
-          				[last()]"
+    					     $dest   := //enclosure[id = current()/id]
+    				        return $dest/ancestor-or-self::enclosure
+    				                         [not(some $nestedEnclosure in descendant-or-self::enclosure 
+          				                        satisfies $nestedEnclosure is $source)
+          				                   ]
+          				                [last()]"
           	              />
           	<xsl:choose>
 	            <xsl:when test="$entryContainer">

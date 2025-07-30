@@ -24,6 +24,10 @@ attrib -R $TARGET\*.html
 copy-item $SOURCE\html\*.html -Destination $TARGETHTML
 attrib +R $TARGET\*.html
 
+attrib -R $TARGET\*.jpg
+copy-item $SOURCE\html\*.jpg -Destination $TARGETHTML
+attrib +R $TARGET\*.jpg
+
 
 # Build past years folders
 . 2023/build.ps1

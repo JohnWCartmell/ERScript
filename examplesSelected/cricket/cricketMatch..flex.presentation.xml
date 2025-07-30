@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram">
+
+
+
+   <entity_type>
+      <name>match</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <!-- <x><at><centre/></at></x> -->
+      </diagram:enclosure>
+   </entity_type>
+
+   <entity_type>
+      <name>inmatch</name>
+      <entity_type><name>innings</name></entity_type>
+      <entity_type><name>side</name></entity_type>
+   </entity_type>
+
+
+</entity_model>

@@ -81,6 +81,7 @@
         by ascending top down routes --> 
 
 <!-- a little tricky to decide on what the root is !! -->
+<!-- was prior to 29 July 2025
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
                         [not(compositionalDepth)]
@@ -90,6 +91,20 @@
                         " 
                    mode="recursive_structure_enrichment"
                    priority="100">
+
+-->
+<!--    <xsl:template match="enclosure
+                        [not(parent::enclosure)]
+                        [not(compositionalDepth)]
+                        [not(key('ExitContainersOfEnteringTopdownRoutes',id)
+                                         [not(id=current()/id)])
+                         (: i.e. there are no top down routes enter this enclosure except 
+                                those that also exit from it (i.e are recursive aka 'pigs ears')
+                         :)
+                        ]
+                        " 
+                   mode="recursive_structure_enrichment"
+                   priority="100"> -->
 <!-- there are standalone recursive systems of relationships such that the above test 
      fails to tag any enclosures as compositionaldepth zero enclosures 
        (though the [not(id=current()/id)] that you see above deals with the simplest
@@ -101,6 +116,17 @@
      is to exlicitly tag one or more of the problematic enclosures in the incoming
      source file as <compositionalDepth>0</compositionalDepth>.
 -->
+    <xsl:template match="enclosure
+                        [not(compositionalDepth)]
+                        [
+                           not(key('ExitContainersOfEnteringTopdownRoutes',id)
+                                         [not(id=current()/id)]
+                                         [.. is current()/..]
+                              )
+                        ]
+                        " 
+                   mode="recursive_structure_enrichment"
+                   priority="100">
       <xsl:param name="depth"/>  
       <xsl:copy>
          <xsl:message> In enclosure id '<xsl:value-of select="id"/>'</xsl:message>
@@ -115,13 +141,12 @@
    </xsl:template>
 
    <xsl:template match="enclosure
-                        [not(parent::enclosure)]
                         [not(compositionalDepth)]
                         " 
                    mode="recursive_structure_enrichment">
       <xsl:param name="depth"/>
       <xsl:copy> 
-         <xsl:if test="some $cparent in key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)
+         <xsl:if test="some $cparent in key('ExitContainersOfEnteringTopdownRoutes',id)
                         satisfies $cparent/compositionalDepth = ($depth - 1)">
             <compositionalDepth>
                <xsl:value-of select="$depth"/>
