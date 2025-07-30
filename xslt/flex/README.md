@@ -25,8 +25,7 @@ Structure of ERmodel2flex - multiple passes
 + recursive_structure_enrichment
     + in source file `ERmodel.flex_recursive_structure_enrichment.xslt` 
     + derives an attribute of enclosures called 'compositionalDepth'.
-+ passes one two and three are in source file `ERmodel.flex_pass_two.xslt`.
-+ passone derives information for route endpoints: 'abstrcat' and 'entryContainer' and 'exitContainer'
++ passes two, three and four are in source file `ERmodel.flex_pass_two.xslt`.
 + passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
 + passthree  - plants x and y values for enclosures not falling into pass two
 + passfour   - plants a further number of x value placement expression (not sure this needs to be a separate pass)
