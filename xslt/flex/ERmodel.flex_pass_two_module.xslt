@@ -78,15 +78,15 @@
 					<bottom/>
 					<of>
 						<xsl:value-of select="key('ExitContainersOfEnteringTopdownRoutes',id)
-							                    [compositionalDepth+1=current()/compositionalDepth] 
+							                    [yPositionalDepthShort+1=current()/yPositionalDepthShort] 
 							                    [1]/id"/>
-					   <!-- use compositionalDepth in this way to place beneath one of the enclosures with 
+					   <!-- use yPositionalDepthShort in this way to place beneath one of the enclosures with 
 					        the lowest compositional depth -->
 					        <!-- BUT HAD TO RE$MOVE DURING TESTING 10 May 2025 -->
 					        <!-- IN WHAT FORM TO REINSTATE???????????????????????????????????????????-->
 					        <!-- ???????????????????????????????????????????????????????????????????? -->
-					        <!-- Hmmm the reason this wouldn't work is that compositionalDepth is only defined for outermost enclosures. 
-					        ancestor-or-self::enclosure[1]/compositionalDepth???
+					        <!-- Hmmm the reason this wouldn't work is that yPositionalDepthShort is only defined for outermost enclosures. 
+					        ancestor-or-self::enclosure[1]/yPositionalDepthShort???
 					        I wonder what would compositional depth of an inner enclosure correspond to?
 
 					        I have changed it 12.07 29/072025 but not at all sure this is right

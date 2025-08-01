@@ -42,22 +42,26 @@ CHANGE HISTORY
 
 	<xsl:output method="xml" indent="yes" />
 
-
-
-
-
-<!-- Structure of ERmodel2flex - seven passes in all.
+<!-- ERmodel2flex - multiple  passes:
 + parse__conditional - translates the surface model into an instance of the ERmodel metamodel
++ assemble
++ consolidate
 + implementation_of_defaults_enrichment - fills in default values
-+ passzero -  in source file ERmodel2flex.xslt -
-           -  creates a flex diagram structure of enclosures, routes etc.
-+ passone  - in source file ERmodel.flex_pass_one_module.xslt
-           -         entryContainer: source -> enclosure
-        							exitContainer : destination -> enclosure
++ passzero     (source file ERmodel2flex.xslt)
+      -  creates a flex diagram structure of enclosures, routes etc.
 
-+ recursive_structure_enrichment
-            - in source file ERmodel.flex_recursive_structure_enrichment 
-            - derives an attribute of enclosures called 'compositionalDepth'.
++ recursive_diagram_prior_enrichment (source new.flex.recursive_enrichment.module.xslt)
+      - implementation of 
+                    yPositionalPriors : enclosure -> Set Of enclosure
+
++ passone     (source ERmodel.flex_pass_one_module.xslt)
+      - implementation of
+                    entryContainer: source -> enclosure
+        						exitContainer : destination -> enclosure
+
++ recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
+            - implements 'yPositionalDepthShort': enclosure -> non-negative number
+
 + passes one two and three are in source file ERmodel.flex_pass_two.xslt.
 + passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
 + passthree  - plants x and y values for enclosures not falling into pass two
@@ -149,7 +153,7 @@ CHANGE HISTORY
 	</xsl:variable>	
 
 
-	   <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
+	  <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
     <xsl:variable name="state" as="document-node()">
       <xsl:call-template name="recursive_diagram_prior_enrichment">
          <xsl:with-param name="interim" select="$state/*"/>  

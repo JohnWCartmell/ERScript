@@ -75,7 +75,7 @@
    </xsl:copy>
 </xsl:template>
 
-   <!-- compositionalDepth -->
+   <!-- yPositionalDepthShort -->
    <!-- Calculate a compositional depth attribute for all outermost enclosures -->
    <!-- From an outermost enclosure index all other outermost enclosures that can be reached 
         by ascending top down routes --> 
@@ -84,7 +84,7 @@
 <!-- was prior to 29 July 2025
    <xsl:template match="enclosure
                         [not(parent::enclosure)]
-                        [not(compositionalDepth)]
+                        [not(yPositionalDepthShort)]
                         [not(key('OutermostEnclosuresFromWhichIncomingTopDownRoute',id)
                                          [not(id=current()/id)])
                         ]
@@ -95,7 +95,7 @@
 -->
 <!--    <xsl:template match="enclosure
                         [not(parent::enclosure)]
-                        [not(compositionalDepth)]
+                        [not(yPositionalDepthShort)]
                         [not(key('ExitContainersOfEnteringTopdownRoutes',id)
                                          [not(id=current()/id)])
                          (: i.e. there are no top down routes enter this enclosure except 
@@ -114,10 +114,10 @@
      the current algorithm fall short of establishing compositional depth.
      One work around for the the gap that we currently leave open (rather than actually plugging it)
      is to exlicitly tag one or more of the problematic enclosures in the incoming
-     source file as <compositionalDepth>0</compositionalDepth>.
+     source file as <yPositionalDepthShort>0</yPositionalDepthShort>.
 -->
     <xsl:template match="enclosure
-                        [not(compositionalDepth)]
+                        [not(yPositionalDepthShort)]
                         [
                            not(key('ExitContainersOfEnteringTopdownRoutes',id)
                                          [not(id=current()/id)]
@@ -131,9 +131,9 @@
       <xsl:copy>
          <xsl:message> In enclosure id '<xsl:value-of select="id"/>'</xsl:message>
          <xsl:assert test="$depth=0">I expected to be here at depth zero</xsl:assert>
-         <compositionalDepth>
+         <yPositionalDepthShort>
             <xsl:value-of select="0"/>
-         </compositionalDepth>
+         </yPositionalDepthShort>
          <xsl:apply-templates mode="recursive_structure_enrichment">
             <xsl:with-param name="depth" select="$depth"/>
          </xsl:apply-templates>
@@ -141,16 +141,16 @@
    </xsl:template>
 
    <xsl:template match="enclosure
-                        [not(compositionalDepth)]
+                        [not(yPositionalDepthShort)]
                         " 
                    mode="recursive_structure_enrichment">
       <xsl:param name="depth"/>
       <xsl:copy> 
          <xsl:if test="some $cparent in key('ExitContainersOfEnteringTopdownRoutes',id)
-                        satisfies $cparent/compositionalDepth = ($depth - 1)">
-            <compositionalDepth>
+                        satisfies $cparent/yPositionalDepthShort = ($depth - 1)">
+            <yPositionalDepthShort>
                <xsl:value-of select="$depth"/>
-            </compositionalDepth>
+            </yPositionalDepthShort>
          </xsl:if>
          <xsl:apply-templates mode="recursive_structure_enrichment">
             <xsl:with-param name="depth" select="$depth"/>
@@ -158,5 +158,5 @@
       </xsl:copy>
    </xsl:template>
 
-   <!-- END OF compositionalDepth -->
+   <!-- END OF yPositionalDepthShort -->
 </xsl:transform>
