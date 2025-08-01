@@ -36,6 +36,7 @@ CHANGE HISTORY
 
  <xsl:include href="ERmodel.implementation_of_defaults_enrichment.module.xslt"/>
  <xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
+ <xsl:include href="new.flex.recursive_enrichment.module.xslt"/>
  <xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
  <xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
 
@@ -51,11 +52,8 @@ CHANGE HISTORY
 + passzero -  in source file ERmodel2flex.xslt -
            -  creates a flex diagram structure of enclosures, routes etc.
 + passone  - in source file ERmodel.flex_pass_one_module.xslt
-           - derives a derived relationship  abstract : node(2) -> enclosure' derived relationship.
-           A node in sense of node(2) ::= source | destination identifies one or other end of
-           a route. This identified end is an enclosure. This enclosure may be nested. The outermost
-           enclosure in which it is nested. This is what 'abstract' is defined to be.
-           Thus node(2) => abstract : enclosure.
+           -         entryContainer: source -> enclosure
+        							exitContainer : destination -> enclosure
 
 + recursive_structure_enrichment
             - in source file ERmodel.flex_recursive_structure_enrichment 
@@ -149,6 +147,15 @@ CHANGE HISTORY
 				<xsl:apply-templates select="$state" mode="passone"/>
 			</xsl:copy>
 	</xsl:variable>	
+
+
+	   <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
+    <xsl:variable name="state" as="document-node()">
+      <xsl:call-template name="recursive_diagram_prior_enrichment">
+         <xsl:with-param name="interim" select="$state/*"/>  
+         <xsl:with-param name="depth" select="0"/>  
+      </xsl:call-template>
+    </xsl:variable>
 
     <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
     <xsl:variable name="state" as="document-node()">

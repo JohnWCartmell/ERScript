@@ -84,7 +84,7 @@
           				     in descendant-or-self::enclosure 
           				     satisfies $nestedEnclosure is $dest)
           				]
-          				[1]
+          				[last()]
           				"
           	              />
           	<xsl:choose>

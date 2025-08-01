@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+    <absolute>
+      <name>a</name>
+      <composition type="xyzalphabeta*"/>
+      <composition type="t*"/>
+   </absolute> 
+   <entity_type  name="t">
+      <composition type="xyzalphabeta"/>
+      <composition type="psi"/>
+   </entity_type>
+   <entity_type name="xyzalphabeta">
+      <entity_type name="x">
+         <composition type="yz"/>
+         <composition type="alpha"/>
+      </entity_type>
+      <entity_type name="yz">
+         <entity_type name="y">
+            <composition type="alpha"/>
+         </entity_type>
+         <entity_type name="z">
+            <composition type="beta"/>
+         </entity_type>
+      </entity_type>
+      <entity_type name="alpha"/>
+      <entity_type name="beta"/>
+   </entity_type>
+   <entity_type name="psi"/>
+</entity_model>
+
+

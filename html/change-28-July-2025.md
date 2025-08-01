@@ -18,27 +18,45 @@ Get a circularity of route placement and enclosure width and a positioning. Can 
 2. Support modular approach allowing presentation in a different file to the logical model but supporting assemble and consolidate steps in er2flex.
 3. Modify er2flex to generate a  diagram level enclosures to include all other enclosures
 but which excludes routes. (This to enable use of centre directives whilst avoiding the route and centering circularity.) 
-4. Introduce a `<primary/>` into a topdown route. Primary topdown routes will constitute a hierarchy. 
-Some questions remain on exact definition. We could start with just outermost enclosures ... these are the enclosures which have compositionalDepth defined within "recursive_structure_enrichment".
+4. Improve the y positioning to minimise the number of topdown routes that are routed back up the diagram. 
+In the hand drawn example below,  the current rules for `y` value, position `C` below `A` as shown on the left whereas manually, in such a case, we would position  `C` below `B`, as shown on the right.
 
-### Analysis of rule y1
+![theLongAndTheShortOfIt](theLongAndTheShortOfIt.jpg)
+
+### Analysis of rule y1 in file `ERmodel.flex_pass_two_module.xslt`
  There is a piece of code in rule y1 in which  compositionalDepth is used but which has been
 commented out. The idea is good but need to make it work.
 The idea is that when using y1 to find an appropriate compositional parent --- should use one that is on the shortest route up compositions to the root of the document. 
 I can reveal the current weakness of not having this shortest-upward-path condition 
  by changing the order of the entity type definitions in the example `quadrant_routes...logical`. 
  By moving type Q3 to the top of the document 
-(after absolute) I get a long strung out chain of descending entity types because `Q3` is chosen as the primary compositional parent of `centre`. By fixing the code in rule y1 (using compsotionalDepth)  I should get a more compact (shallower) diagram. 
+(after absolute) I get a long strung out chain of descending entity types because `Q3` is chosen as the primary compositional parent of `centre`. By fixing the code in rule y1 (using compostionalDepth)  I should get a more compact (shallower) diagram. 
 
-### Modified requirment for compositionalDepth.
-1. Currently compositionalDepth is only defined for outermost enclosures. Need to define compositionalDepth for all enclosures. 
+### Modified requirement for compositionalDepth Renamed `yPositionalDepthShort`
+1. Currently compositionalDepth is only defined for outermost enclosures. Need to define compositionalDepth for all enclosures and to rename it to being `yPositionalDepthShort`
 + define two enclosures to be siblings if they are both outermost enclosures or else if they are both nested within the same parent enclosure.
-+ define an enclosure to be compositionalDepth 0 if it has no incoming topdown routes into it 
++ define an enclosure to be `yPositionalDepthShort` 0 if it has no incoming topdown routes into it 
 from a sibling enclosure. 
-+ otherwise define the compositionalDepth of an enclosure to be one greater than the minimum compositional depth of sibling enclosures from which there is an incoming top down route.
-as for example shown here: 
++ otherwise define the `yPositionalDepthShort` of an enclosure to be one greater than the minimum `yPositionalDepthShort` of sibling enclosures from which there is an incoming top down route. Examples are given below in the image on the left.
 
-![compositionalDepth](compositionalDepth.jpg),
+### Requirement for yPositionalDepthLong
+The choice of the short depth was made for convenience of the implementation. It means that the rule y1 positions an enclosure nearer the root of the diagram or the surrounding enclosure and this in turn maximises the number of top down routes that have to be routed back up the diagram. This is a design choice and it qouldn't be the way that I would proceed ususally. On the left below 
+
+
+
+
+### Example
+A single example with different choices of yPositionalParent.
+
+On the left, each enclosure is annotated with yPositionalDepthShort
+and the piping around routes or route sections indicates the yPositionalParent according to the current algorithm
+(but after compositionalDepth/yPositionalDepthShort is implemented on non-outermost enclosures).
+
+On the right, each enclosure is annotated with yPositionalDepthLong
+and the piping around routes or route sections indicates the yPositionalParent according to the modified algorithm
+proposed in this change.
+
+![yPositionalDepthShort](yPositionalDepthShort.jpg) ![yPositionalDepthLong](yPositionalDepthLong.jpg)
 
 
 ### Implementation

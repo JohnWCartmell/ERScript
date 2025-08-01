@@ -24,7 +24,8 @@ Structure of ERmodel2flex - multiple passes
 
 + recursive_structure_enrichment
     + in source file `ERmodel.flex_recursive_structure_enrichment.xslt` 
-    + derives an attribute of enclosures called 'compositionalDepth'.
+    + derives an attribute of enclosures called `compositionalDepth`
+    + implements a derived relationship `structuralParentEnclosure`
 + passes two, three and four are in source file `ERmodel.flex_pass_two.xslt`.
 + passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
 + passthree  - plants x and y values for enclosures not falling into pass two

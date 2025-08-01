@@ -3,6 +3,7 @@
               xmlns:diagram="http://www.entitymodelling.org/diagram"
  ERScriptVersion="1.6">
    <absolute>
+      <name>a</name>
       <composition type="x*"/>
    </absolute>  
    <entity_type name="x">
