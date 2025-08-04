@@ -38,6 +38,7 @@ CHANGE HISTORY
  <xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
  <xsl:include href="new.flex.recursive_enrichment.module.xslt"/>
  <xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
+ <xsl:include href="flex.second_recursive_enrichment.module.xslt"/>
  <xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
 
 	<xsl:output method="xml" indent="yes" />
@@ -47,9 +48,11 @@ CHANGE HISTORY
 + assemble
 + consolidate
 + implementation_of_defaults_enrichment - fills in default values
-+ passzero     (source file ERmodel2flex.xslt)
++ ERmodel2flex     (source file ERmodel2flex.xslt)
       -  creates a flex diagram structure of enclosures, routes etc.
 
+
+GROUP  "tactics_one_recursive" (source file tactics_one_recusive.xslt)
 + recursive_diagram_prior_enrichment (source new.flex.recursive_enrichment.module.xslt)
       - implementation of 
                     yPositionalPriors : enclosure -> Set Of enclosure
@@ -57,12 +60,24 @@ CHANGE HISTORY
 + passone     (source ERmodel.flex_pass_one_module.xslt)
       - implementation of
                     entryContainer: source -> enclosure
-        						exitContainer : destination -> enclosure
+        			exitContainer : destination -> enclosure
+END GROUP  
 
-+ recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
+"tactics_two_parameterised" (source file tactics_two_parameterised)
+   + recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
             - implements 'yPositionalDepthShort': enclosure -> non-negative number
+            THIS IS A DEPTH PARAMETERISED PASS
 
-+ passes one two and three are in source file ERmodel.flex_pass_two.xslt.
+"tactics_three_recursive" (source file tactics_one_recusive.xslt)
+   + second_recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
+            - implements 'yPositionalDepthLong': enclosure -> non-negative number
+                         'yPositionalReferencePoint' : enclosure -> enclosure
+                             COULD BE PARAMETERISED BT TACTIC Short or Long
+
+
+"tactics_four_positioning"
+	+ intrusion              COULD BE PARAMETERISED BY Intrude or not
++ passes two, three and fourare in source file ERmodel.flex_pass_two.xslt.
 + passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
 + passthree  - plants x and y values for enclosures not falling into pass two
 + passfour   - plants a further number of x value placement expression (not sure this needs to be a separate pass)
@@ -138,12 +153,14 @@ CHANGE HISTORY
 				<xsl:apply-templates select="$state" mode="implementation_of_defaults_enrichment"/>
 			</xsl:copy>
 	</xsl:variable>	
+
 	<xsl:variable name="state" as="document-node()">
-		<xsl:message>initiating passzero</xsl:message>
+		<xsl:message>initiating ERmodel2flex transform</xsl:message>
 			<xsl:copy>
-				<xsl:apply-templates select="$state" mode="passzero"/>
+				<xsl:apply-templates select="$state" mode="ERmodel2flex"/>
 			</xsl:copy>
 	</xsl:variable>	
+
 
 	<xsl:variable name="state" as="document-node()">
 			<xsl:message>initiating passone</xsl:message>
@@ -151,7 +168,6 @@ CHANGE HISTORY
 				<xsl:apply-templates select="$state" mode="passone"/>
 			</xsl:copy>
 	</xsl:variable>	
-
 
 	  <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
     <xsl:variable name="state" as="document-node()">
@@ -161,9 +177,18 @@ CHANGE HISTORY
       </xsl:call-template>
     </xsl:variable>
 
-    <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
+
     <xsl:variable name="state" as="document-node()">
+			<xsl:message>initiating recursive_structure_enrichment</xsl:message>
       <xsl:call-template name="recursive_structure_enrichment">
+         <xsl:with-param name="interim" select="$state/*"/>  
+         <xsl:with-param name="depth" select="0"/>  
+      </xsl:call-template>
+    </xsl:variable>
+
+    <xsl:variable name="state" as="document-node()">
+			<xsl:message>initiating second_recursive_structure_enrichment</xsl:message>
+      <xsl:call-template name="second_recursive_structure_enrichment">
          <xsl:with-param name="interim" select="$state/*"/>  
          <xsl:with-param name="depth" select="0"/>  
       </xsl:call-template>
@@ -189,7 +214,7 @@ CHANGE HISTORY
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="entity_model" mode="passzero">
+	<xsl:template match="entity_model" mode="ERmodel2flex">
 			<diagram:diagram>
 				<xsl:namespace name=""  select="'http://www.entitymodelling.org/diagram'"/>
 				<method>era</method>
@@ -216,17 +241,17 @@ CHANGE HISTORY
 				<xsl:element name="enclosure">
 					<id>diagram</id>
 					<shape_style>group_outline_visible</shape_style>
-					<xsl:apply-templates select="absolute|entity_type|group" mode="passzero"/>
+					<xsl:apply-templates select="absolute|entity_type|group" mode="ERmodel2flex"/>
 				</xsl:element>
 				<xsl:copy-of select="diagram:enclosure/*"/>
-				<xsl:apply-templates select="//composition" mode="passzero"/>
-				<xsl:apply-templates select="//reference" mode="passzero"/>
+				<xsl:apply-templates select="//composition" mode="ERmodel2flex"/>
+				<xsl:apply-templates select="//reference" mode="ERmodel2flex"/>
 			</diagram:diagram>
 	</xsl:template>
 
 
-	<xsl:template match="absolute" mode="passzero">
-		<xsl:message>passzero</xsl:message>
+	<xsl:template match="absolute" mode="ERmodel2flex">
+		<xsl:message>ERmodel2flex</xsl:message>
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
@@ -235,8 +260,6 @@ CHANGE HISTORY
 			<w>3.0</w> <!-- hard coded instead -->
 			<framearc>0.2</framearc>
 			<label/>
-			<x><place><left/></place><at><left/></at></x>  <!-- added 28 July 2025 -->
-			<y><place><top/></place><at><top/></at></y>    <!-- likewise           -->
 		</xsl:element>
 	</xsl:template>
 
@@ -247,7 +270,7 @@ xxxProbable wrongly! The idea must be that can put
 xxxenclosure information inside a logical model 
 xxxto copy through
 
- 	<xsl:template match="entity_type[diagram:enclosure]" mode="passzero">
+ 	<xsl:template match="entity_type[diagram:enclosure]" mode="ERmodel2flex">
 		<xsl:message terminate="yes"> entity type has diagram:enclosure eh?</xsl:message>
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
@@ -255,25 +278,25 @@ xxxto copy through
 			<rx>0.25</rx>  
 			<ry>0.25</ry>
 			<label/>
-			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template> -->
 <!-- 	was
-	<xsl:template match="entity_type[not(diagram:enclosure)]" mode="passzero">
+	<xsl:template match="entity_type[not(diagram:enclosure)]" mode="ERmodel2flex">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
 			<rx>0.25</rx>  
 			<ry>0.25</ry>
 			<label/>
-			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template> -->
 
 <!-- cleaned up and upgraded change 28-Oct-2024 -->  <!-- except see comment above -->
-	<xsl:template match="entity_type" mode="passzero">
+	<xsl:template match="entity_type" mode="ERmodel2flex">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<xsl:variable name="nestingDepth" as="xs:integer" select="count(ancestor-or-self::entity_type)-1"/>
@@ -285,22 +308,22 @@ xxxto copy through
 			<!-- new 4 May 2025 -->
 			<xsl:copy-of select="diagram:enclosure/*"/>
 			<!-- end new -->  
-			<xsl:apply-templates select="entity_type|group|attribute" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
 		</xsl:element>
 	</xsl:template>
 
 
 <!-- PROBABLY NOT REQUIRED -->
-		<xsl:template match="group[not(diagram:enclosure)]" mode="passzero">
+		<xsl:template match="group[not(diagram:enclosure)]" mode="ERmodel2flex">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>group_outline</shape_style>
-			<xsl:apply-templates select="entity_type|group" mode="passzero"/>
+			<xsl:apply-templates select="entity_type|group" mode="ERmodel2flex"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
 		</xsl:element>
 	</xsl:template>
 
-  <xsl:template match="attribute" mode="passzero">
+  <xsl:template match="attribute" mode="ERmodel2flex">
 			<label>
         	<text><xsl:text>-</xsl:text>
         	      <xsl:value-of select="name"/>
@@ -312,7 +335,7 @@ xxxto copy through
       </label>
   </xsl:template>
 	
-	<xsl:template match="composition" mode="passzero">
+	<xsl:template match="composition" mode="ERmodel2flex">
 		<xsl:variable name="type" select="era:typeFromExtendedType(type)"/>
 		<!--XXXX -->
 		<route>
@@ -387,7 +410,7 @@ xxxto copy through
 		</route>
 	</xsl:template>
 
-	<xsl:template match="reference" mode="passzero">
+	<xsl:template match="reference" mode="ERmodel2flex">
 		<!-- <xsl:variable name="type" select="era:typeFromExtendedType(type)"/> -->
 		<route>
 			<text_style>relname</text_style>

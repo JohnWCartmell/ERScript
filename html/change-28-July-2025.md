@@ -16,9 +16,11 @@ Get a circularity of route placement and enclosure width and a positioning. Can 
 ### Overview
 1. Improve the algorithm for calculating width of text strings.
 2. Support modular approach allowing presentation in a different file to the logical model but supporting assemble and consolidate steps in er2flex.
-3. Modify er2flex to generate a  diagram level enclosures to include all other enclosures
+3. Distinguish more clearly the boundary between ER model transformation to flex and passes that are applicable to any flex diagram.
++ rename `passzero` to be `ERmodel2flex`
+4. Modify er2flex to generate a  diagram level enclosures to include all other enclosures
 but which excludes routes. (This to enable use of centre directives whilst avoiding the route and centering circularity.) 
-4. Improve the y positioning to minimise the number of topdown routes that are routed back up the diagram. 
+5. Improve the y positioning to minimise the number of topdown routes that are routed back up the diagram. 
 In the hand drawn example below,  the current rules for `y` value, position `C` below `A` as shown on the left whereas manually, in such a case, we would position  `C` below `B`, as shown on the right.
 
 ![theLongAndTheShortOfIt](theLongAndTheShortOfIt.jpg)
@@ -117,13 +119,14 @@ yPositionalNonRecursiveOrDecrementingParentCandidates(givenEnclosure)
 
 2. Define the reference point 
 ```
-      yPositionChosenReferencePoint : enclosure -> Opt enclosure
+      yPositionalReferencePoint : enclosure -> Opt enclosure
 ```
 by
 ```
-   yPositionChosenReferencePoint := yPositionalNonRecursiveOrDecrementingParentCandidates[1]
+   yPositionalReferencePoint := yPositionalNonRecursiveOrDecrementingParentCandidates[1]
 
 ```
+
 
 ### Example
 A single example with different choices of yPositionalParent.
@@ -139,23 +142,25 @@ proposed in this change.
 ![yPositionalDepthShort](yPositionalDepthShort.jpg) ![yPositionalDepthLong](yPositionalDepthLong.jpg)
 
 
-
 ### Implementation
 1. New string width function in source file `diagram..functions.module.xslt`.
 + old functions kept for use from old ERmodel2.diagram code because there is a discrepancy which I haven't investigated.
 2. Add two additional passes into `er2flex.xslt` to "assemble" and "consolidate".
 3. Change `er2flex.xslt` to explicitly position absolute at the top of the diagram (currently relies on it being at the start of the file but it may not be after assemby and consolidation.)
-4. Tidy up code by removing use of `abstract` and replacing by use of `entryContainer` and `exitContainer` as introduced in the change of 7th May 2025. Reasoning. 'abstract' is only define 
-compositionalDepth for outermost enclosures and for these abstract is same as entryContainer or exitContainer. 
-5.  There is a piece of code in rule y1 in which  compositionalDepth is used but which has been
-commented out. The idea is good but need to make it work.
-The idea is that when using y1 to find an appropriate compositional parent --- should use one that is on the shortest route up compositions to the root of the document. 
-I can reveal the current weakness of not having this shortest-upward-path condition 
- by changing the order of the entity type definitions in the example `quadrant_routes...logical`. 
- By moving type Q3 to the top of the document 
-(after absolute) I get a long strung out chain of descending entity types because `Q3` is chosen as the primary compositional parent of `centre`. By fixing the code in rule y1 (using compsotionalDepth)  I should get a more compact (shallower) diagram. 
+4. Regarding compositionalDepth
+  + Rename it to be yPositionalDepthShort,
+  + Gneralise by use of `entryContainer` and `exitContainer` in place of `abstract`,
+  + tidy up code by removing use of `abstract` as no longer required.
+5. Reinstate and correct code in rule y1 using compositionalDepth and replace by use of `yPositionalDepthShort`.
+The idea is that when using y1 to find an appropriate compositional parent --- should use one that is on the shortest route up compositions to the root of the document. Subsequently this y1 rule will be modified further.
+6. Implement `yPositionalPriors` in new pass called `recursive_diagram_prior_enrichment`.
+7. In the preliminary phase of implementation in anew pass called 
 
-Need revised defintion of compositional depth.
+Define  `yPositionalDepthLong` and `yPositionalReferencePoint` called in a new pass called 
+`second_recursive_structure_enrichment` in file `flex.second_recursive_enrichment.module.xslt`.
+
+
+
 
 
 ### Testing

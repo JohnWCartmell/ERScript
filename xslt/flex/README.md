@@ -11,9 +11,10 @@ Structure of ERmodel2flex - multiple passes
 + implementation_of_defaults_enrichment
      + in file `ERmodel.implmentation_of_defaults_enrichment.module.xslt`
      +  this implements default values for attributes injective and surjjective
-+ passzero 
++ ERmodel2flex 
     +  in source file `ERmodel2flex.xslt` 
     + creates a flex diagram structure of enclosures, routes etc.
+
 + recursive_diagram_prior_enrichment  (source file `new.flex.recursive_enrichment.module.xslt`)
     + implementation of many valued relationship
     ```
@@ -27,10 +28,15 @@ Structure of ERmodel2flex - multiple passes
         entryContainer: source -> enclosure
         exitContainer : destination -> enclosure
 ```
+
+***Merge the above two passes into a single recursive pass. ????? ***
+
+
 + recursive_structure_enrichment
     + in source file `ERmodel.flex_recursive_structure_enrichment.xslt` 
     + derives an attribute of enclosures called `yPositionalDepthShort`
-    + implements a derived relationship `structuralParentEnclosure`
++ recursive_structure_enrichment_pass_two
+    + implements what ???
 + passes two, three and four are in source file `ERmodel.flex_pass_two.xslt`.
 + passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
 + passthree  - plants x and y values for enclosures not falling into pass two

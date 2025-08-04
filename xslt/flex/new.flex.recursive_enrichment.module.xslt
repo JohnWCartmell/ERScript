@@ -41,7 +41,7 @@
    <xsl:variable name="result">
       <xsl:choose>
          <!-- <xsl:when test="not(deep-equal($interim,$next)) and $depth!=$maximumdepth"> -->
-         <xsl:when test="not(deep-equal($interim,$next)) and $depth!=3">
+         <xsl:when test="not(deep-equal($interim,$next)) and $depth!=$maximumdepth">
             <xsl:call-template name="recursive_diagram_prior_enrichment">
                <xsl:with-param name="interim" select="$next"/>
                <xsl:with-param name="depth" select="$depth + 1"/>
@@ -91,14 +91,17 @@
 </xsl:template> 
 
 <xsl:template match="enclosure
+                     [key('ExitContainersOfEnteringTopdownRoutes',id)]
                      /yPositionalPriors
                      " 
                mode="recursive_diagram_prior_enrichment">
    <xsl:copy>
       <xsl:message> FIRING! at enclosure '<xsl:value-of select="../id"/>'</xsl:message>
       <xsl:apply-templates   mode="recursive_diagram_prior_enrichment"/>
-      <xsl:for-each 
-           select="key('ExitContainersOfEnteringTopdownRoutes',../id)
+      <xsl:variable name="toBeAdded"
+                    as="xs:string*"
+                    select="distinct-values(
+                    key('ExitContainersOfEnteringTopdownRoutes',../id)
                    /yPositionalPriors/enclosureId
                        [
                          not(
@@ -107,8 +110,12 @@
                               satisfies $id eq .
                             )  
                        ]
-                  ">
-         <xsl:copy-of select="."/>
+                                           )"/>
+
+      <xsl:for-each select="$toBeAdded">
+         <enclosureId>
+           <xsl:copy-of select="."/>
+         </enclosureId>
       </xsl:for-each>
    </xsl:copy>
 </xsl:template> 

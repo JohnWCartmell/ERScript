@@ -41,17 +41,22 @@
 	                     [preceding-sibling::enclosure]
 	                    " mode="passtwo">      
 		<xsl:copy>
-			<label><text>rule x1</text><text_style>trace</text_style></label>
+			<label><text>rule xy1</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()"  mode="passtwo"/>
 			<x> 
-				<xsl:attribute name="source" select="$sourcefileName"/>
-				<xsl:attribute name="rule" select="'Rule x1'"/>
-         	<rule>x1</rule>
+         	<rule>xy1</rule>
 				<at>
 					<left/>
 					<predecessor/>
 				</at>
 			</x>
+			<y>
+         	<rule>xy1</rule>
+         	<at>
+         		<bottom/>
+         		<predecessor/>
+         	</at>
+         </y>
 		</xsl:copy>
 	</xsl:template>
 	
@@ -61,7 +66,11 @@
 	<!--     *********** -->
    <!-- y position of an  enclosure which is the entryContainer 
         for a top down route -->
-	<xsl:template match="enclosure[key('EnteringTopdownRoute',id)]
+<!-- 	<xsl:template match="enclosure[key('EnteringTopdownRoute',id)]
+	                     [not(y)]" 
+						 mode="passtwo"> -->
+	<xsl:template match="enclosure
+	                     [yPositionalPointOfReference]
 	                     [not(y)]" 
 						 mode="passtwo">
 		<xsl:copy>
@@ -77,23 +86,7 @@
 				<at>
 					<bottom/>
 					<of>
-						<xsl:value-of select="key('ExitContainersOfEnteringTopdownRoutes',id)
-							                    [yPositionalDepthShort+1=current()/yPositionalDepthShort] 
-							                    [1]/id"/>
-					   <!-- use yPositionalDepthShort in this way to place beneath one of the enclosures with 
-					        the lowest compositional depth -->
-					        <!-- BUT HAD TO RE$MOVE DURING TESTING 10 May 2025 -->
-					        <!-- IN WHAT FORM TO REINSTATE???????????????????????????????????????????-->
-					        <!-- ???????????????????????????????????????????????????????????????????? -->
-					        <!-- Hmmm the reason this wouldn't work is that yPositionalDepthShort is only defined for outermost enclosures. 
-					        ancestor-or-self::enclosure[1]/yPositionalDepthShort???
-					        I wonder what would compositional depth of an inner enclosure correspond to?
-
-					        I have changed it 12.07 29/072025 but not at all sure this is right
-					        Might work for quadrant test because no nested types.
-
-					        Hmmm. Nothing has a compsotionl depth except the enclosing diagram level enclosure
-					        -->
+						 <xsl:value-of select="yPositionalPointOfReference"/>
 					</of>
 				</at>
 				<delta>1</delta>   <!-- make room for incoming top down route -->
@@ -200,7 +193,7 @@
 	</xsl:template>
 	
 	<!--     *********** -->
-	<!--       Rule x5   -->
+	<!--       Rule xy5   -->
 	<!--     *********** -->
 	<!-- nested enclosure with no incoming non local topdown route, first enclosure within a containing enclosure and preceded by a label -->
 	
@@ -211,17 +204,16 @@
 						 [not(y)]
 	                    " mode="passthree">  
 		<xsl:copy>
-			<label><text>rule x5</text><text_style>trace</text_style></label>
+			<label><text>rule xy5</text><text_style>trace</text_style></label>
 			<xsl:apply-templates select="@*|node()" mode="passthree"/>
          <x> 
 				<xsl:attribute name="source" select="$sourcefileName"/>
 				<xsl:attribute name="rule" select="'Rule x5'"/>
-         	<rule>x5</rule>
+         	<rule>xy5</rule>
 		    <at><left/><parent/></at>
-		 </x>
+		  </x>
          <y>
-         	
-         	<passthreeD/>
+          <rule>xy5</rule>
 		    <place><top/><edge/></place>
             <at>
                <bottom/>

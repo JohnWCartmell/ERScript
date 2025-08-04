@@ -6,18 +6,7 @@
       <name>abs</name>
       <composition type="NP|AP|PP*"/><!-- 
       <composition type="VP*"/> -->
-   </absolute> <!--  
-   <entity_type name="VP">
-      <entity_type name="cop">
-         <composition type="NP|AP|PP*"/>
-      </entity_type>
-      <entity_type name="trans">
-         <composition type="np*"/>
-      </entity_type>
-      <entity_type name="prep">
-         <composition type="pp*"/>
-      </entity_type>
-   </entity_type> -->
+   </absolute> 
   
    <entity_type name="NP|AP|PP">
       <entity_type name="ap">
@@ -28,6 +17,8 @@
          <composition type="NP|PP*"/>
       </entity_type>
       <entity_type name="NP|PP"> 
+         <composition type="z*"/>
+         <composition type="np"/>
          <entity_type name="np">
          </entity_type>
          <entity_type name="pp">
@@ -37,6 +28,7 @@
                </diagram:enclosure>
          </entity_type> 
       </entity_type>
+      <entity_type name="z"/>
    </entity_type>
    <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
       <label>

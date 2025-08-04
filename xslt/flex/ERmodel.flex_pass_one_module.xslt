@@ -62,18 +62,24 @@
 	<xsl:template match="source" mode="passone">
 		<xsl:copy>
 			<xsl:apply-templates mode="passone"/>
-             <!-- change of 7th May 2025 -->
-<!--              <trace>
-             	<xsl:copy-of select="
-             	let $source := //enclosure[id = current()/id],
-    					 $dest   := //enclosure[id = current()/../destination/id]
-    				    return $source/ancestor-or-self::enclosure
-          				[not(some $nestedEnclosure in descendant-or-self::enclosure 
+
+             <xsl:variable name="exitContainer"
+          	              as="element(enclosure)?"
+          	              select="
+             	    let $source := //enclosure[id = current()/id],
+    					     $dest   := //enclosure[id = current()/../destination/id]
+    				    return if (some $nestedEnclosure
+    				                      in $source/descendant-or-self::enclosure 
+    				                      satisfies $nestedEnclosure is $dest)
+    				            then $source
+    				            else $source/ancestor-or-self::enclosure
+          				[not(some $nestedEnclosure 
+          				     in descendant::enclosure 
           				     satisfies $nestedEnclosure is $dest)
           				]
-             	"
-             	/>
-             </trace> -->
+          				[last()]
+          				"
+          	              /><!-- 
              <xsl:variable name="exitContainer"
           	              as="element(enclosure)?"
           	              select="
@@ -86,7 +92,7 @@
           				]
           				[last()]
           				"
-          	              />
+          	              /> -->
           	<xsl:choose>
 	            <xsl:when test="$exitContainer">
 		             <exitContainer>
@@ -104,17 +110,23 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="passone"/>
 
-			 <!-- change of 7th May 2025 -->
-<!-- 			 <trace>
-			 	<xsl:copy-of select="
+          	<xsl:variable name="entryContainer"
+          	              as="element(enclosure)?"
+          	              select="
              	    let $source := //enclosure[id = current()/../source/id],
     					     $dest   := //enclosure[id = current()/id]
-    				        return $dest/ancestor-or-self::enclosure
-    				                         [not(some $nestedEnclosure in descendant-or-self::enclosure 
+    				        return  if (some $nestedEnclosure
+    				                      in $dest/descendant-or-self::enclosure 
+    				                      satisfies $nestedEnclosure is $source)
+    				                then $dest
+    				                else
+    				                 $dest/ancestor-or-self::enclosure
+    				                         [ 
+    				                         not(some $nestedEnclosure in descendant::enclosure 
           				                        satisfies $nestedEnclosure is $source)
           				                   ]
-			 	"/>
-          	</trace> -->
+          				                [last()]"
+          	              /><!-- 
           	<xsl:variable name="entryContainer"
           	              as="element(enclosure)?"
           	              select="
@@ -125,7 +137,7 @@
           				                        satisfies $nestedEnclosure is $source)
           				                   ]
           				                [last()]"
-          	              />
+          	              /> -->
           	<xsl:choose>
 	            <xsl:when test="$entryContainer">
 		             <entryContainer>
