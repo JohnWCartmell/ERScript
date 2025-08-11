@@ -44,7 +44,6 @@
                              priority="42.1P">
 
    <xsl:copy>
-      <xsl:message>  modifed wP rule firing '<xsl:value-of select="id"/>'</xsl:message>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
 	  <!--
 	      Note that xP/clocal + wP = -xP/clocal so both 3rd line and 4th term then match each other

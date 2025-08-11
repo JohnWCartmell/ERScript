@@ -33,13 +33,23 @@ CHANGE HISTORY
  <xsl:include href="../ERmodelv1.6.parser.module.xslt"/>
  <xsl:include href="../ERmodel.assembly.module.xslt"/>
  <xsl:include href="../ERmodel.consolidate.module.xslt"/>
-
  <xsl:include href="ERmodel.implementation_of_defaults_enrichment.module.xslt"/>
- <xsl:include href="ERmodel.flex_pass_one_module.xslt"/>
+
+<!--
  <xsl:include href="new.flex.recursive_enrichment.module.xslt"/>
  <xsl:include href="ERmodel.flex_recursive_structure_enrichment.xslt"/>
- <xsl:include href="flex.second_recursive_enrichment.module.xslt"/>
- <xsl:include href="ERmodel.flex_pass_two_module.xslt"/>
+ <xsl:include href="flex.second_recursive_enrichment.module.xslt"/> -->
+
+
+
+<xsl:include href="tactics_0_enrichment.module.xslt"/>
+<xsl:include href="tactics_1_recursive_enrichment.module.xslt"/>
+<xsl:include href="tactics_2_parameterised_enrichment.module.xslt"/>
+<xsl:include href="tactics_3_recursive_enrichment.module.xslt"/>
+<xsl:include href="tactics_4_enrichment.module.xslt"/>
+
+
+<!--  <xsl:include href="ERmodel.flex_pass_two_module.xslt"/> -->
 
 	<xsl:output method="xml" indent="yes" />
 
@@ -52,35 +62,26 @@ CHANGE HISTORY
       -  creates a flex diagram structure of enclosures, routes etc.
 
 
-GROUP  "tactics_one_recursive" (source file tactics_one_recusive.xslt)
-+ recursive_diagram_prior_enrichment (source new.flex.recursive_enrichment.module.xslt)
+ "tactics_one_recursive" (source file `tactics_one_recursive_enrichment.module.xslt`)
       - implementation of 
                     yPositionalPriors : enclosure -> Set Of enclosure
-
-+ passone     (source ERmodel.flex_pass_one_module.xslt)
-      - implementation of
                     entryContainer: source -> enclosure
-        			exitContainer : destination -> enclosure
-END GROUP  
+        			exitContainer : destination -> enclosure  
 
-"tactics_two_parameterised" (source file tactics_two_parameterised)
+"tactics_two_parameterised" (source file `tactics_two_parameterised_enrichment.module.xslt`)
    + recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
             - implements 'yPositionalDepthShort': enclosure -> non-negative number
             THIS IS A DEPTH PARAMETERISED PASS
 
-"tactics_three_recursive" (source file tactics_one_recusive.xslt)
+"tactics_three_recursive" (source file `tactics_three_recusive_enrichment.module.xslt.xslt`)
    + second_recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
             - implements 'yPositionalDepthLong': enclosure -> non-negative number
                          'yPositionalReferencePoint' : enclosure -> enclosure
                              COULD BE PARAMETERISED BT TACTIC Short or Long
 
 
-"tactics_four_positioning"
-	+ intrusion              COULD BE PARAMETERISED BY Intrude or not
-+ passes two, three and fourare in source file ERmodel.flex_pass_two.xslt.
-+ passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
-+ passthree  - plants x and y values for enclosures not falling into pass two
-+ passfour   - plants a further number of x value placement expression (not sure this needs to be a separate pass)
+"tactics_four_enrichment" (source file 'tactics_4_enrichment.module.xslt')
+	+ intrusion              COULD BE PARAMETERISED BY Intrude or not 
 -->
 
 
@@ -127,7 +128,7 @@ END GROUP
       </xsl:copy>
    </xsl:variable>
 
-  <xsl:if test="true()">
+   <xsl:if test="true()">
       <xsl:message>putting out ER model instance(2)</xsl:message>
       <xsl:result-document href="ERmodel_instance_after_assembly.xml" method="xml">
         <xsl:copy-of select="$state"/>
@@ -161,60 +162,44 @@ END GROUP
 			</xsl:copy>
 	</xsl:variable>	
 
-
 	<xsl:variable name="state" as="document-node()">
-			<xsl:message>initiating passone</xsl:message>
+			<xsl:message>initiating tactics zero enrichment </xsl:message>
 			<xsl:copy>
-				<xsl:apply-templates select="$state" mode="passone"/>
+				<xsl:apply-templates select="$state" mode="tactics_zero_enrichment"/>
 			</xsl:copy>
 	</xsl:variable>	
 
-	  <xsl:message>Max depth is <xsl:value-of select="$maxdepth"/> </xsl:message>
     <xsl:variable name="state" as="document-node()">
-      <xsl:call-template name="recursive_diagram_prior_enrichment">
-         <xsl:with-param name="interim" select="$state/*"/>  
-         <xsl:with-param name="depth" select="0"/>  
-      </xsl:call-template>
-    </xsl:variable>
-
-
-    <xsl:variable name="state" as="document-node()">
-			<xsl:message>initiating recursive_structure_enrichment</xsl:message>
-      <xsl:call-template name="recursive_structure_enrichment">
+	  <xsl:message>initiating tactics one recursive enrichment</xsl:message>
+      <xsl:call-template name="tactics_one_recursive">
          <xsl:with-param name="interim" select="$state/*"/>  
          <xsl:with-param name="depth" select="0"/>  
       </xsl:call-template>
     </xsl:variable>
 
     <xsl:variable name="state" as="document-node()">
-			<xsl:message>initiating second_recursive_structure_enrichment</xsl:message>
-      <xsl:call-template name="second_recursive_structure_enrichment">
+			<xsl:message>initiating tactics two parameterised enrichment</xsl:message>
+      <xsl:call-template name="tactics_two_parameterised">
          <xsl:with-param name="interim" select="$state/*"/>  
          <xsl:with-param name="depth" select="0"/>  
       </xsl:call-template>
     </xsl:variable>
 
-		<xsl:variable name="state" as="document-node()">
-				<xsl:message>initiating passtwo</xsl:message>
-				<xsl:copy>
-					<xsl:apply-templates select="$state" mode="passtwo"/>
-				</xsl:copy>
-		</xsl:variable>	
+    <xsl:variable name="state" as="document-node()">
+			<xsl:message>initiating tactics three recursive enrichment</xsl:message>
+      <xsl:call-template name="tactics_three_recursive">
+         <xsl:with-param name="interim" select="$state/*"/>  
+         <xsl:with-param name="depth" select="0"/>  
+      </xsl:call-template>
+    </xsl:variable>
 
- 		<xsl:variable name="state" as="document-node()"> 
-				<xsl:message>initiating passthree</xsl:message>
-				<xsl:copy>
-					<xsl:apply-templates select="$state" mode="passthree"/>
-				</xsl:copy>
-		</xsl:variable>	
+	<xsl:message>initiating tactics four enrichment</xsl:message>
+	<xsl:copy>
+		<xsl:apply-templates select="$state" mode="tactics_four_enrichment"/>
+	</xsl:copy>
+</xsl:template>
 
-		<xsl:copy>
-				<xsl:message>initiating passfour</xsl:message>
-				<xsl:apply-templates select="$state" mode="passfour"/>
-		</xsl:copy>
-	</xsl:template>
-
-	<xsl:template match="entity_model" mode="ERmodel2flex">
+<xsl:template match="entity_model" mode="ERmodel2flex">
 			<diagram:diagram>
 				<xsl:namespace name=""  select="'http://www.entitymodelling.org/diagram'"/>
 				<method>era</method>
@@ -238,11 +223,11 @@ END GROUP
 					<debug-whitespace>false</debug-whitespace>
 					<end_style>testline</end_style>
 				</default>
-				<xsl:element name="enclosure">
+<!-- 				<xsl:element name="enclosure">
 					<id>diagram</id>
-					<shape_style>group_outline_visible</shape_style>
+					<shape_style>group_outline_visible</shape_style> -->
 					<xsl:apply-templates select="absolute|entity_type|group" mode="ERmodel2flex"/>
-				</xsl:element>
+<!-- 				</xsl:element> -->
 				<xsl:copy-of select="diagram:enclosure/*"/>
 				<xsl:apply-templates select="//composition" mode="ERmodel2flex"/>
 				<xsl:apply-templates select="//reference" mode="ERmodel2flex"/>
@@ -256,44 +241,12 @@ END GROUP
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
 			<padding>0</padding>
-			<!-- <wFill/> --> <!-- REMOVED PENDING INVESTIGATION OF DEADLY EMBRACE -->
-			<w>3.0</w> <!-- hard coded instead -->
+			<wFill/> <!-- UNDER INVESTIGATION -->
+			<!-- <w>3.0</w> --> <!-- hard coded instead? -->
 			<framearc>0.2</framearc>
 			<label/>
 		</xsl:element>
 	</xsl:template>
-
-<!--
-Where the heck did this come from?
-xxxThis commented out Oct2024. B
-xxxProbable wrongly! The idea must be that can put
-xxxenclosure information inside a logical model 
-xxxto copy through
-
- 	<xsl:template match="entity_type[diagram:enclosure]" mode="ERmodel2flex">
-		<xsl:message terminate="yes"> entity type has diagram:enclosure eh?</xsl:message>
-		<xsl:element name="enclosure">
-			<id><xsl:value-of select="name"/></id>
-			<shape_style>eteven</shape_style>
-			<rx>0.25</rx>  
-			<ry>0.25</ry>
-			<label/>
-			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
-			<xsl:copy-of select="diagram:enclosure/*"/>
-		</xsl:element>
-	</xsl:template> -->
-<!-- 	was
-	<xsl:template match="entity_type[not(diagram:enclosure)]" mode="ERmodel2flex">
-		<xsl:element name="enclosure">
-			<id><xsl:value-of select="name"/></id>
-			<shape_style>eteven</shape_style>
-			<rx>0.25</rx>  
-			<ry>0.25</ry>
-			<label/>
-			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
-			<xsl:copy-of select="diagram:enclosure/*"/>
-		</xsl:element>
-	</xsl:template> -->
 
 <!-- cleaned up and upgraded change 28-Oct-2024 -->  <!-- except see comment above -->
 	<xsl:template match="entity_type" mode="ERmodel2flex">
@@ -304,7 +257,7 @@ xxxto copy through
 			<xsl:variable name="shapestyle" as="xs:string" select="if ($iseven) then 'eteven' else 'etodd'"/>
 			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
 			<framearc>0.2</framearc>
-			<label><text_style>etname</text_style></label>
+			<label><text_style>etname</text_style><id><xsl:value-of select="name"/>nameLabel</id></label>
 			<!-- new 4 May 2025 -->
 			<xsl:copy-of select="diagram:enclosure/*"/>
 			<!-- end new -->  

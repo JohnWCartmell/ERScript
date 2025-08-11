@@ -154,16 +154,21 @@ proposed in this change.
 5. Reinstate and correct code in rule y1 using compositionalDepth and replace by use of `yPositionalDepthShort`.
 The idea is that when using y1 to find an appropriate compositional parent --- should use one that is on the shortest route up compositions to the root of the document. Subsequently this y1 rule will be modified further.
 6. Implement `yPositionalPriors` in new pass called `recursive_diagram_prior_enrichment`.
-7. In the preliminary phase of implementation in anew pass called 
-
-Define  `yPositionalDepthLong` and `yPositionalReferencePoint` called in a new pass called 
-`second_recursive_structure_enrichment` in file `flex.second_recursive_enrichment.module.xslt`.
-
-
+7. In the preliminary phase of implementation in a new pass.
+Define  `yPositionalDepthLong` and `yPositionalPointOfReference` called in a new pass.
+8. Merge current passes two,three and four. Rationalise the names of rules. Modify rules so that each plants bot both x and y. 
+9. The passes that operate on flex diagrams after new pass added and existing ones rationalised are
+    + tactics_zero_enrichment
+    + tactics_one_recursive
+    + tactics_two_parameterised
+    + tactics_three_recursive
+    + tactics_four_enrichment
 
 
 
 ### Testing
+1. Create new er2flex tests.
+
 Try and produce useable diagrams for all selectedExamples.
 + cricket
 

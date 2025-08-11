@@ -44,10 +44,10 @@
             <entity_type name="RangeExpr"/>
             <entity_type name="StringConcat"/>
             <entity_type name="ComparisonExpr">
-               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--                <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                   <x><at><right/><of>Or</of></at><delta>1</delta></x>
                   <y><at><top/><of>Or</of></at></y>
-               </diagram:enclosure>
+               </diagram:enclosure> -->
                <entity_type name="ValueComp">
                   <entity_type name="Eq"/>
                   <entity_type name="Ne"/>
@@ -57,10 +57,10 @@
                   <entity_type name="Ge"/>
                </entity_type>
                <entity_type name="GeneralComp">
-                  <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+ <!--                 <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                      <x><at><right/><of>ValueComp</of></at><delta>1</delta></x>
                      <y><at><top/><of>ValueComp</of></at></y>
-                  </diagram:enclosure>
+                  </diagram:enclosure> -->
                   <entity_type name="somewhat_eq"/>
                   <entity_type name="Somewhat_ne"/>
                   <entity_type name="Somewhat_lt"/>
@@ -84,10 +84,10 @@
          </entity_type>
 
          <entity_type name="PathExpr">
-            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--             <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                   <x><at><right/><of>BinaryOperation</of></at><delta>1</delta></x>
                   <y><at><top/><of>BinaryOperation</of></at></y>
-            </diagram:enclosure>
+            </diagram:enclosure> -->
             <entity_type name="ContextualisedRelativePathExpr">
                <entity_type name="Root">
                     <composition  type="RelativePathExpr?"/>
@@ -136,31 +136,11 @@
                      
                   </entity_type>
                   <entity_type name="PrimaryExpr">
-                     <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--                      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                         <x><at><right/><of>DynamicFunctionCall</of></at></x>
                         <y><at><top/><of>DynamicFunctionCall</of></at></y>
-                     </diagram:enclosure>
-                     <entity_type name="Literal">
-                          <entity_type name="IntegerLiteral">
-                                 <attribute name="Digits" type="string"/>
-                           </entity_type>
-                          <entity_type name="DecimalLiteral">
-                                 <attribute name="DecimalDigits" type="string"/>
-                           </entity_type>
-                          <entity_type name="DoubleLiteral">
-                                 <attribute name="Mantissa" type="string"/>
-                                 <attribute name="ExponentSymbol" type="string"/>
-                                 <attribute name="Exponent" type="string"/>
-                           </entity_type>
-                           <entity_type name="StringLiteral">
-                              <entity_type name="DoubleQuotedString">
-                                 <attribute name="DoubleQuotedStringContent" type="string"/>
-                              </entity_type>
-                              <entity_type name="SingleQuotedString">
-                                 <attribute name="SingleQuotedStringContent" type="string"/>
-                              </entity_type>
-                           </entity_type>
-                     </entity_type>
+                     </diagram:enclosure> -->
+
                      <entity_type name="VarRef">
                         <composition type="EQName"/>
                      </entity_type>
@@ -185,6 +165,27 @@
                            </composition>
                         </entity_type>
                      </entity_type>
+                     <entity_type name="Literal">
+                          <entity_type name="IntegerLiteral">
+                                 <attribute name="Digits" type="string"/>
+                           </entity_type>
+                          <entity_type name="DecimalLiteral">
+                                 <attribute name="DecimalDigits" type="string"/>
+                           </entity_type>
+                          <entity_type name="DoubleLiteral">
+                                 <attribute name="Mantissa" type="string"/>
+                                 <attribute name="ExponentSymbol" type="string"/>
+                                 <attribute name="Exponent" type="string"/>
+                           </entity_type>
+                           <entity_type name="StringLiteral">
+                              <entity_type name="DoubleQuotedString">
+                                 <attribute name="DoubleQuotedStringContent" type="string"/>
+                              </entity_type>
+                              <entity_type name="SingleQuotedString">
+                                 <attribute name="SingleQuotedStringContent" type="string"/>
+                              </entity_type>
+                           </entity_type>
+                     </entity_type>
                      <entity_type name="MapConstructor">
                         <composition type="MapConstructorEntry+"/>
                      </entity_type>
@@ -194,13 +195,12 @@
                      <entity_type name="SquareArrayConstructor">
                         <composition type="ExprSingle*"/>
                      </entity_type>
-
                   </entity_type>
                   <entity_type name="AxisStep">  
-                        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--                         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                            <x><at><right/><of>PrimaryExpr</of></at></x>
                            <y><at><top/><of>PrimaryExpr</of></at></y>
-                        </diagram:enclosure>
+                        </diagram:enclosure> -->
                      <entity_type name="PredicatedStep">
                         <composition type="AxisStep"/>
                         <composition name="predicate" type="Expr"><xmlRepresentation><Anonymous/></xmlRepresentation></composition>
@@ -232,14 +232,14 @@
                         <composition  type="NodeTest"/>
                      </entity_type>
                   </entity_type>
-                  </entity_type>
+               </entity_type>
             </entity_type>
          </entity_type>
          <entity_type name="LetOrForOrQuantifiedExpr">
-            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--             <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                   <x><at><right/><of>PathExpr</of></at><delta>1</delta></x>
                   <y><at><top/><of>PathExpr</of></at></y>
-            </diagram:enclosure>
+            </diagram:enclosure> -->
             <entity_type name="LetExpr">
                <composition name="binding" type="SimpleLetBinding+"/>
             </entity_type>
@@ -256,11 +256,11 @@
             <!-- makes me think about tunnelling -->
          </entity_type>
          <entity_type name="IfExpr">
-            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+<!--             <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
                   <x><at><right/><of>LetOrForOrQuantifiedExpr</of></at><delta>1</delta></x>
                   <y><at><top/><of>LetOrForOrQuantifiedExpr</of></at></y>
                   <w>3.5</w>
-            </diagram:enclosure>
+            </diagram:enclosure> -->
             <composition name="condition" type="Expr"><xmlRepresentation><Anonymous/></xmlRepresentation></composition>
             <composition name="then" type="ExprSingle"><xmlRepresentation><Anonymous/></xmlRepresentation></composition>
             <composition name="else" type="ExprSingle"><xmlRepresentation><Anonymous/></xmlRepresentation></composition>

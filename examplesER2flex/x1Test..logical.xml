@@ -4,21 +4,42 @@
  ERScriptVersion="1.6">
    <absolute>
       <name>abs</name>
-      <composition type="xy_rule_3A*"/>
-      <composition type="rule_3B*"/>
-      <composition type="y_rule_3C_and_x_smarts_wrong_predecessor*"/>
+      <composition type="xy3A*"/>
+      <composition type="rule_xy3A*"/>
+      <composition type="xy3C*"/>
+      <composition type="xy3C_s*"/>
+      <composition type="xy6B_x*"/>
+      <composition type="xy6B_xx*"/>
+      <composition type="xy3A_xx*"/>
    </absolute>  
-   <entity_type name="rule_y1_and_x6A"> 
-         <entity_type name="xy_rule_3A">
+   <entity_type name="xy6A"> 
+         <entity_type name="xy3A">
          </entity_type>
-         <entity_type name="rule_x1_and_y_smarts">
+         <entity_type name="rule_xy1">
          </entity_type> 
-         <entity_type name="y_rule_3C_and_x_smarts_wrong_predecessor">
+         <entity_type name="xy3C">
+         </entity_type> 
+         <entity_type name="rule_xy1_s">
+         </entity_type> 
+         <entity_type name="xy3C_s">
          </entity_type> 
    </entity_type>
-   <entity_type>
-      <name>rule_y1</name>
-      <entity_type name="rule_3B">
+   <entity_type name="xy6B">
+      <entity_type name="rule_xy3A">
+      </entity_type>
+   </entity_type>
+   <entity_type name="xy6B_x"> 
+         <entity_type name="xy_5_x">
+         </entity_type>
+         <entity_type name="rule_xy1_xxx">
+         </entity_type> 
+         <entity_type name="xy3A_xx">
+         </entity_type> 
+   </entity_type>
+   <entity_type name="xy6B_xx">
+      <entity_type name="rule_xy0_3-">
+      </entity_type>
+      <entity_type name="rule_xy0_s">
       </entity_type>
    </entity_type>
 </entity_model>

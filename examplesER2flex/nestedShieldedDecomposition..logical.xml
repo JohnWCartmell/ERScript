@@ -17,7 +17,7 @@
       <entity_type name="YY">
       </entity_type>
       <entity_type name="Z">
-         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram"><w>1.3</w></diagram:enclosure>
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram"><w>2.0</w></diagram:enclosure>
       </entity_type>
    </entity_type>
 </entity_model>

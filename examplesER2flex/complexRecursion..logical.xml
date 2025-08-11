@@ -23,9 +23,6 @@
          </entity_type>
          <entity_type name="pp">
             <composition type="NP|PP*"/>
-               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                  <wl>2.0</wl>
-               </diagram:enclosure>
          </entity_type> 
       </entity_type>
       <entity_type name="z"/>

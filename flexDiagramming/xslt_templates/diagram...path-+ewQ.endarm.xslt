@@ -22,7 +22,6 @@
               mode="recursive_diagram_enrichment"
               priority="40.6P">		  
 		<xsl:copy>
-			<xsl:message>Adding endarm </xsl:message>
 			<xsl:apply-templates select="*[not(self::point[endpoint])]" 
 			                     mode="recursive_diagram_enrichment"/>
 			<ewQ><endarm/></ewQ>

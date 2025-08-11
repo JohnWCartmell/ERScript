@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+    <absolute>
+      <name>a</name>
+      <composition type="xyz*"/>
+      <composition type="y*"/>
+   </absolute> 
+   <entity_type name="xyz">
+      <entity_type name="x">
+         <composition type="y"/>
+      </entity_type>
+      <entity_type name="y"/>
+      <entity_type name="z"/>
+   </entity_type>
+</entity_model>
+
+

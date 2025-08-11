@@ -15,31 +15,23 @@ Structure of ERmodel2flex - multiple passes
     +  in source file `ERmodel2flex.xslt` 
     + creates a flex diagram structure of enclosures, routes etc.
 
-+ recursive_diagram_prior_enrichment  (source file `new.flex.recursive_enrichment.module.xslt`)
-    + implementation of many valued relationship
-    ```
-        yPositionalPriors : enclosure -> Set Of enclosure
-    ```
-+ passone
-    + in source file `ERmodel.flex_pass_one_module.xslt`
-   
-    + derives and stores two derived relationships:
-```
-        entryContainer: source -> enclosure
-        exitContainer : destination -> enclosure
-```
+ + tactics_one_recursive (source file `tactics_one_recursive_enrichment.module.xslt`)
+      - implementation of 
+                    yPositionalPriors : enclosure -> Set Of enclosure
+                    entryContainer: source -> enclosure
+                    exitContainer : destination -> enclosure  
 
-***Merge the above two passes into a single recursive pass. ????? ***
+ + tactics_two_parameterised (source file `tactics_two_parameterised_enrichment.module.xslt`)
+        + recursive_structure_enrichment (source ERmodel.flex_recursive_structure_enrichment.xslt) 
+            - implements 'yPositionalDepthShort': enclosure -> non-negative number
+            THIS IS A DEPTH PARAMETERISED PASS
 
-
-+ recursive_structure_enrichment
-    + in source file `ERmodel.flex_recursive_structure_enrichment.xslt` 
-    + derives an attribute of enclosures called `yPositionalDepthShort`
-+ recursive_structure_enrichment_pass_two
-    + implements what ???
-+ passes two, three and four are in source file `ERmodel.flex_pass_two.xslt`.
-+ passtwo    - plants x and y placement expressions for certain enclosures and just y values for some other enclosures
-+ passthree  - plants x and y values for enclosures not falling into pass two
-+ passfour   - plants a further number of x value placement expression (not sure this needs to be a separate pass)
++  tactics_three_recursive (source file `tactics_three_recusive_enrichment.module.xslt.xslt`) 
+            - implements 'yPositionalDepthLong': enclosure -> non-negative number
+                         'yPositionalReferencePoint' : enclosure -> enclosure
+                             COULD BE PARAMETERISED BT TACTIC Short or Long
++ tactics_four_enrichment (source file 'tactics_4_enrichment.module.xslt')
+             - plants x and y directives
+    + intrusion              COULD BE PARAMETERISED BY Intrude or not 
 
 

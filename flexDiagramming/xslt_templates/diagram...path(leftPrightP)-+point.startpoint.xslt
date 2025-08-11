@@ -7,12 +7,7 @@
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
-	<!--  Maintenance Box 
-
- -->
-
 	<xsl:output method="xml" indent="yes"/>
-
 
 	<!-- ******************************** -->
 	<!-- route/path    +point/startpoint  -->
@@ -25,9 +20,7 @@
 					   [not(point/startpoint)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40P">	
-
-			<xsl:message>Adding startpoint A</xsl:message>	  
+              priority="40P">		  
 		<xsl:copy>
 			<point>
 				<startpoint/>
@@ -51,8 +44,7 @@
 					   [not(point/startpoint)]
 					   " 
               mode="recursive_diagram_enrichment"
-              priority="40P">	
-              		<xsl:message>Adding startpoint B</xsl:message>		  
+              priority="40P">		  
 		<xsl:copy>
 			<point>
 				<startpoint/>

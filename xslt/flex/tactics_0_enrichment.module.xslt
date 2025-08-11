@@ -15,11 +15,7 @@
 	<xsl:output method="xml" indent="yes" />
     <xsl:key name="Enclosure" match="enclosure" use="id"/>
 
-   <!-- Major changes to this file ...change of 7th May 2025 -->
 
-	<!-- enclosure => set of route ... routes down to or into an entry enclosure -->
-	<!-- see change of 7th May2025 -->
-	<xsl:key name="EnteringTopdownRoute"  match="route[top_down]" use="destination/entryContainer"/>
 
 
 	<!-- enclosure => set of route ... routes down from or from within  an outermost enclosure -->
@@ -30,11 +26,6 @@
 	<!-- enclosure => set of route ... routes down from or from within  an entry enclosure -->
 	<xsl:key name="ExitingTopdownRoute" match="route[top_down]" use="source/exitContainer"/>
 	
-	<!-- enclosure => set of route  .. routes down to the enclosure --> 
-	<!-- See change of 7th 	May 2025 -->
-
-    <xsl:key name="ActualIncomingTopdownRoute" match="route[top_down]" use="destination/id"/>
-    
 		<!-- enclosure => set of route  .. routes down to the enclosure for which the source is external to the parent enclosure--> 
     <xsl:key name="TerminatingNonLocalIncomingTopdownRoute" 
              match="route[top_down]
@@ -53,15 +44,15 @@
             match="enclosure"
             use="key('ExitingTopdownRoute',id)/destination/entryContainer"/> 
 
-	<xsl:template match="*" mode="passone">
+	<xsl:template match="*" mode="tactics_zero_enrichment">
 		<xsl:copy>
-			<xsl:apply-templates mode="passone"/>
+			<xsl:apply-templates mode="tactics_zero_enrichment"/>
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="source" mode="passone">
+	<xsl:template match="source" mode="tactics_zero_enrichment">
 		<xsl:copy>
-			<xsl:apply-templates mode="passone"/>
+			<xsl:apply-templates mode="tactics_zero_enrichment"/>
 
              <xsl:variable name="exitContainer"
           	              as="element(enclosure)?"
@@ -79,20 +70,7 @@
           				]
           				[last()]
           				"
-          	              /><!-- 
-             <xsl:variable name="exitContainer"
-          	              as="element(enclosure)?"
-          	              select="
-             	    let $source := //enclosure[id = current()/id],
-    					     $dest   := //enclosure[id = current()/../destination/id]
-    				    return $source/ancestor-or-self::enclosure
-          				[not(some $nestedEnclosure 
-          				     in descendant-or-self::enclosure 
-          				     satisfies $nestedEnclosure is $dest)
-          				]
-          				[last()]
-          				"
-          	              /> -->
+          	              />
           	<xsl:choose>
 	            <xsl:when test="$exitContainer">
 		             <exitContainer>
@@ -106,9 +84,9 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<xsl:template match="destination" mode="passone">
+	<xsl:template match="destination" mode="tactics_zero_enrichment">
 		<xsl:copy>
-			<xsl:apply-templates mode="passone"/>
+			<xsl:apply-templates mode="tactics_zero_enrichment"/>
 
           	<xsl:variable name="entryContainer"
           	              as="element(enclosure)?"
@@ -126,18 +104,7 @@
           				                        satisfies $nestedEnclosure is $source)
           				                   ]
           				                [last()]"
-          	              /><!-- 
-          	<xsl:variable name="entryContainer"
-          	              as="element(enclosure)?"
-          	              select="
-             	    let $source := //enclosure[id = current()/../source/id],
-    					     $dest   := //enclosure[id = current()/id]
-    				        return $dest/ancestor-or-self::enclosure
-    				                         [not(some $nestedEnclosure in descendant-or-self::enclosure 
-          				                        satisfies $nestedEnclosure is $source)
-          				                   ]
-          				                [last()]"
-          	              /> -->
+          	              />
           	<xsl:choose>
 	            <xsl:when test="$entryContainer">
 		             <entryContainer>

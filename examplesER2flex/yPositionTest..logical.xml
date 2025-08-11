@@ -4,8 +4,8 @@
  ERScriptVersion="1.6">
     <absolute>
       <name>a</name>
-      <composition type="xyzalphabeta*"/>
       <composition type="t*"/>
+      <composition type="xyzalphabeta*"/>
    </absolute> 
    <entity_type  name="t">
       <composition type="xyzalphabeta"/>
@@ -13,8 +13,8 @@
    </entity_type>
    <entity_type name="xyzalphabeta">
       <entity_type name="x">
-         <composition type="yz"/>
          <composition type="alpha"/>
+         <composition type="yz"/>
       </entity_type>
       <entity_type name="yz">
          <entity_type name="y">

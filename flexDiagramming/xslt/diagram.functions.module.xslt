@@ -84,7 +84,7 @@
 
   <xsl:if test="exists($unmapped_chars)">
     <xsl:message>Determining width of  '<xsl:value-of select="$text"/>'</xsl:message>
-    <xsl:message terminate="yes">
+    <xsl:message>
       Error: unmapped characters: '<xsl:value-of select="string-join($unmapped_chars, ', ')"/>'
     </xsl:message>
 </xsl:if>

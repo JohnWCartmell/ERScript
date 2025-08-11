@@ -29,7 +29,6 @@
               priority="40.1P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<xsl:message>Adding endpoint A</xsl:message>
 			<point>
 				<endpoint/>
 				<xP>
@@ -55,8 +54,6 @@
               priority="40.1P">		  
 		<xsl:copy>
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-
-			<xsl:message>Adding endpoint B</xsl:message>
 			<point>
 				<endpoint/>
 				<xP>

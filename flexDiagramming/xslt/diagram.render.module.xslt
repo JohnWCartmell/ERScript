@@ -109,7 +109,7 @@ DESCRIPTION
 
 	<xsl:template name="check_enclosure" match="enclosure" mode="explicit">
  		<xsl:if test="not(x/abs)">
- 			<xsl:message>Enclosure `<xsl:value-of select="id"/>'  is missing an x/abs. It has x as follows
+ 			<xsl:message terminate="yes">Enclosure `<xsl:value-of select="id"/>'  is missing an x/abs. It has x as follows
  						<xsl:copy-of select="x"/>
  			</xsl:message>
  		</xsl:if>

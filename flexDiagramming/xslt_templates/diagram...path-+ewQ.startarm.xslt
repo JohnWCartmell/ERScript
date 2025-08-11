@@ -23,7 +23,6 @@
               mode="recursive_diagram_enrichment"
               priority="40.5P">		  
 		<xsl:copy>
-			<xsl:message>Adding startarm </xsl:message>
 			<xsl:apply-templates select="point[startpoint]" 
 			                     mode="recursive_diagram_enrichment"/>
 			<ewQ><startarm/></ewQ>

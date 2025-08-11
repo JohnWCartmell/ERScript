@@ -17,24 +17,24 @@
 <xsl:variable name="maximumdepth" as="xs:integer" select="if ($maxiter) then $maxiter else 100" /> 
 
 
-
-<xsl:template match="/" mode="recursive_diagram_prior_enrichment">
+<!-- should this be here? -->
+<xsl:template match="/" mode="tactics_one_recursive">
       <xsl:message>Max depth is <xsl:value-of select="$maximumdepth"/> </xsl:message>
-      <xsl:call-template name="recursive_diagram_prior_enrichment">
+      <xsl:call-template name="tactics_one_recursive">
          <xsl:with-param name="interim" select="."/>  
          <xsl:with-param name="depth" select="0"/>  
       </xsl:call-template>
 </xsl:template>
 
 
-<xsl:template name="recursive_diagram_prior_enrichment">
+<xsl:template name="tactics_one_recursive">
    <xsl:param name="interim"/>
    <xsl:param name="depth"/>
-   <xsl:message> in recursive diagram prior enrichment            - depth <xsl:value-of select="$depth"/> </xsl:message>
+   <xsl:message> in tactics one recursive    - depth <xsl:value-of select="$depth"/> </xsl:message>
    <xsl:variable name ="next">
       <xsl:for-each select="$interim">
          <xsl:copy>
-            <xsl:apply-templates mode="recursive_diagram_prior_enrichment"/>
+            <xsl:apply-templates mode="tactics_one_recursive"/>
          </xsl:copy>
       </xsl:for-each>
    </xsl:variable>
@@ -42,7 +42,7 @@
       <xsl:choose>
          <!-- <xsl:when test="not(deep-equal($interim,$next)) and $depth!=$maximumdepth"> -->
          <xsl:when test="not(deep-equal($interim,$next)) and $depth!=$maximumdepth">
-            <xsl:call-template name="recursive_diagram_prior_enrichment">
+            <xsl:call-template name="tactics_one_recursive">
                <xsl:with-param name="interim" select="$next"/>
                <xsl:with-param name="depth" select="$depth + 1"/>
             </xsl:call-template>
@@ -60,11 +60,13 @@
 </xsl:template>
 
 
-<xsl:template match="*" mode="recursive_diagram_prior_enrichment">
+<xsl:template match="*" mode="tactics_one_recursive">
    <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_prior_enrichment"/>
+      <xsl:apply-templates mode="tactics_one_recursive"/>
    </xsl:copy>
 </xsl:template>
+
+  
 
 <!-- want to build accumulate yPositionalPriors in every enclosre like this:
       <enclosure>
@@ -77,9 +79,10 @@
          ...
       </enclosure>
 -->
-<xsl:template match="enclosure[not(yPositionalPriors)]" mode="recursive_diagram_prior_enrichment">
+<xsl:template match="enclosure
+                    [not(yPositionalPriors)]" mode="tactics_one_recursive">
    <xsl:copy>
-      <xsl:apply-templates mode="recursive_diagram_prior_enrichment"/>
+      <xsl:apply-templates mode="tactics_one_recursive"/>
       <yPositionalPriors>
          <xsl:for-each select="key('ExitContainersOfEnteringTopdownRoutes',id)">
             <enclosureId>
@@ -94,10 +97,9 @@
                      [key('ExitContainersOfEnteringTopdownRoutes',id)]
                      /yPositionalPriors
                      " 
-               mode="recursive_diagram_prior_enrichment">
+               mode="tactics_one_recursive">
    <xsl:copy>
-      <xsl:message> FIRING! at enclosure '<xsl:value-of select="../id"/>'</xsl:message>
-      <xsl:apply-templates   mode="recursive_diagram_prior_enrichment"/>
+      <xsl:apply-templates   mode="tactics_one_recursive"/>
       <xsl:variable name="toBeAdded"
                     as="xs:string*"
                     select="distinct-values(
