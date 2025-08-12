@@ -18,7 +18,7 @@
 
 <!-- Definitions of
          yPositionalDepthLong      : enclosure -> nonNegativeNumber
-         yPositionalReferencePoint : enclosure -> enclosure
+         yPositionalPointOfReference : enclosure -> enclosure
 
 -->
 
@@ -97,6 +97,11 @@
                                                   eq current()/yPositionalDepthShort cast as xs:nonNegativeInteger
                                                 )
                                            ]  
+                                           [ 
+                                             not(some $containingEnclosure 
+                                                 in current()/ancestor::enclosure 
+                                                 satisfies $containingEnclosure is  .)
+                                           ]
                                            "/>
       <xsl:if test="every $appropriate in $appropriateParents satisfies $appropriate/yPositionalDepthLong">
          <xsl:variable name="maxParentPositionalDepthLong"

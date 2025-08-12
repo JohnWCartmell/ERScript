@@ -141,7 +141,7 @@ CHANGE HISTORY
   		</xsl:copy>
    </xsl:variable>
 
-  <xsl:if test="true()">
+   <xsl:if test="true()">
       <xsl:message>putting out ER model instance(3)</xsl:message>
       <xsl:result-document href="ERmodel_instance_after_consolidation.xml" method="xml">
         <xsl:copy-of select="$state"/>
@@ -161,6 +161,13 @@ CHANGE HISTORY
 				<xsl:apply-templates select="$state" mode="ERmodel2flex"/>
 			</xsl:copy>
 	</xsl:variable>	
+
+   <xsl:if test="true()">
+      <xsl:message>putting out ER model instance(4)</xsl:message>
+      <xsl:result-document href="ERmodel_instance_after_ERmodel2flex.xml" method="xml">
+        <xsl:copy-of select="$state"/>
+      </xsl:result-document>
+    </xsl:if>
 
 	<xsl:variable name="state" as="document-node()">
 			<xsl:message>initiating tactics zero enrichment </xsl:message>
@@ -199,7 +206,7 @@ CHANGE HISTORY
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="entity_model" mode="ERmodel2flex">
+	<xsl:template match="entity_model" mode="ERmodel2flex">
 			<diagram:diagram>
 				<xsl:namespace name=""  select="'http://www.entitymodelling.org/diagram'"/>
 				<method>era</method>
@@ -223,11 +230,14 @@ CHANGE HISTORY
 					<debug-whitespace>false</debug-whitespace>
 					<end_style>testline</end_style>
 				</default>
-<!-- 				<xsl:element name="enclosure">
+				<xsl:element name="enclosure">
 					<id>diagram</id>
-					<shape_style>group_outline_visible</shape_style> -->
+					<label><id>required</id><text>xxx</text></label>
+					<shape_style>group_outline_visible</shape_style>
+					<y><abs>0</abs></y>
+					<x><abs>0</abs></x>
 					<xsl:apply-templates select="absolute|entity_type|group" mode="ERmodel2flex"/>
-<!-- 				</xsl:element> -->
+				</xsl:element>
 				<xsl:copy-of select="diagram:enclosure/*"/>
 				<xsl:apply-templates select="//composition" mode="ERmodel2flex"/>
 				<xsl:apply-templates select="//reference" mode="ERmodel2flex"/>
@@ -266,8 +276,7 @@ CHANGE HISTORY
 	</xsl:template>
 
 
-<!-- PROBABLY NOT REQUIRED -->
-		<xsl:template match="group[not(diagram:enclosure)]" mode="ERmodel2flex">
+	<xsl:template match="group(:[not(diagram:enclosure)]:)" mode="ERmodel2flex">
 		<xsl:element name="enclosure">
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>group_outline</shape_style>

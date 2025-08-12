@@ -23,8 +23,8 @@
          <xsl:apply-templates select="@*|node()" mode="consolidate"/>
          <!-- should what follows be apply-templates ???-->
          <xsl:copy-of select="following::absolute
-                                        /*[not(self::name
-                                               | self::reference[some $localref in current()/reference
+                                        /*[not((: self::name dont need name for absolute id
+                                               | :) self::reference[some $localref in current()/reference
                                                                  satisfies $localref/name = name] 
                                                | self::composition[some $localcomp in current()/composition
                                                                  satisfies ($localcomp/name=name

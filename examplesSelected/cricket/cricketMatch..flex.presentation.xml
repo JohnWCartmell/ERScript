@@ -4,17 +4,112 @@
 
 
 
+   <absolute>  
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <wFill/>
+      </diagram:enclosure>
+   </absolute>
+
+<!--    <group>
+      <name>matchrooted</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <margin>0</margin>
+         <padding>0</padding>
+         <shape_style>group_outline_visible</shape_style>
+      </diagram:enclosure>
+      <entity_type><name>match</name></entity_type>
+      <group><name>inmatch</name></group>
+   </group>  -->
+
    <entity_type>
       <name>match</name>
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-         <!-- <x><at><centre/></at></x> -->
+         <!-- <wFill/> -->
+<!--       <x>
+      <place>
+         <centre/>
+      </place>
+      <at>
+         <centre/><parent/>
+      </at>
+   </x>
+   <y>
+      <place>
+         <top/>
+      </place>
+      <at>
+         <bottom/>
+         <of>cricket</of>
+      </at>
+      <delta>1</delta>
+   </y> -->
       </diagram:enclosure>
    </entity_type>
 
-   <entity_type>
+   <group>
       <name>inmatch</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <margin>0</margin>
+         <padding>0</padding>
+         <shape_style>group_outline_visible</shape_style>
+          <x>
+      <place>
+         <centre/>
+      </place>
+      <at>
+         <centre/>
+         <parent/>
+      </at>
+   </x>
+   <y>
+      <place>
+         <top/>
+      </place>
+      <at>
+         <bottom/>
+         <of>match</of>
+      </at>
+      <delta>1</delta>
+   </y>
+      </diagram:enclosure>
       <entity_type><name>innings</name></entity_type>
       <entity_type><name>side</name></entity_type>
+      <entity_type><name>over</name></entity_type>
+      <entity_type><name>delivery</name></entity_type>
+      <entity_type><name>player</name></entity_type>
+   </group> 
+
+     <entity_type>  <!-- routes seem dependent on order of types -->
+        <name>over</name>
+     </entity_type>
+
+     <entity_type>  <!-- routes seem dependent on order of types -->
+        <name>delivery</name>
+     </entity_type>
+
+     <entity_type>
+      <name>player</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <x>
+      <place>
+         <centre/>
+      </place>
+      <at>
+         <centre/>
+         <of>side</of>
+      </at>
+   </x>
+   <y>
+      <place>
+         <top/>
+      </place>
+      <at>
+         <bottom/>
+         <of>side</of>
+      </at>
+      <delta>1</delta>
+   </y>
+      </diagram:enclosure>
    </entity_type>
 
 
