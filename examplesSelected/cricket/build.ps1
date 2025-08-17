@@ -44,13 +44,13 @@ echo 'Run ER.instanceValidation.xslt on valid instance'
 
 echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 invalidCricketInstance.xml -outputFolder ..\docs
+
 }
-
 echo 'Cricket  Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..logical.xml -animate -debugswitch
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 cricketMatch..logical.xml -animate -debugswitch
 
-echo 'Cricket Adjusted Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 cricketMatch..flex.diagram.xml -animate -debugswitch
+echo 'Cricket Manually Adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 cricketMatch..diagram.xml -animate -debugswitch
 
 popd 
 

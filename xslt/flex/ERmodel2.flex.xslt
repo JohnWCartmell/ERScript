@@ -251,7 +251,7 @@ CHANGE HISTORY
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
 			<padding>0</padding>
-			<wFill/> <!-- UNDER INVESTIGATION -->
+			<wFill/> <!-- UNDER INVESTIGATION --> 
 			<!-- <w>3.0</w> --> <!-- hard coded instead? -->
 			<framearc>0.2</framearc>
 			<label/>

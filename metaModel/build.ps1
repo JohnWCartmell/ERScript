@@ -23,6 +23,8 @@ attrib -R $TARGETXML\*..physical.xml  #therse are generated therefore need be ov
 
 pushd $TARGETXML
 
+if ($false)
+{
 echo 'ERA.surface'
 . $TARGET\scripts\buildExampleSVG.ps1 ERA.surface -svgOutputFolder $TARGETSVGFOLDER  -animate -physicalType hs -longSeparator ... -shortSeparator .
 
@@ -69,12 +71,13 @@ echo 'run genSVG.ps1 reference_constraint.supported_relationship..primary_scope.
 
 echo 'ERA Diagrammed'
 . $TARGET\scripts\buildExampleSVG.ps1 ERAdiagrammed -svgOutputFolder $TARGETSVGFOLDER -animate -physicalType hs -longSeparator ... -shortSeparator .
-
-if ($false)
-{
-echo 'ERA Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate
 }
+
+#if ($false)
+#{
+echo 'ERA Flex version'
+. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 ERA..logical.xml -animate -debugSwitch
+#}
 popd 
 
 

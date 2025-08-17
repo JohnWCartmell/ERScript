@@ -25,10 +25,10 @@ if ($false)
 . $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate -physicalType hs
 }
 . $TARGET\scripts\buildExampleSVG.ps1 flexDiagram -animate
-if ($false)
-{
+#if ($false)
+#{
 #echo 'Flex version'
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 flexDiagram..logical.xml -animate
-}
+#}
 
 popd 

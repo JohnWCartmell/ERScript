@@ -703,20 +703,22 @@ CHANGE HISTORY
               >
     <xsl:variable name="subject" select="../.."/> <!-- subject that is being placed -->
     <xsl:variable name="delta_offset"
-                  select="if (../delta) then (- ../delta) else 0"/>                
+                  select="if (../delta) then ( - ../delta) else 0"/>  
+
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <offset trace="10">
-                  <xsl:variable name="effective_width"
-                                select = "$subject/wP 
-                                           + (if(outer) 
-                                              then $subject/((if (self::enclosure) then wrP else 0) + padding) 
-                                              else 0
-                                              )"/>
-                  <xsl:variable name="offset" as="xs:double"  select="number($delta_offset
-                               + (*/effective_ratio 
-                                 * $effective_width))"/>
-                  <xsl:value-of select="$offset"/>
+            <xsl:variable name="effective_width"
+                          select = "$subject/wP 
+                                     + (if(outer) 
+                                        then $subject/((if (self::enclosure) then wrP else 0) + padding) 
+                                        else 0
+                                        )"/>
+            <xsl:variable name="offset" as="xs:double"  
+                          select="number($delta_offset
+                                           + (*/effective_ratio * $effective_width)
+                                          )"/>
+            <xsl:value-of select="$offset"/>
       </offset>
      </xsl:copy>
   </xsl:template>
@@ -901,6 +903,32 @@ CHANGE HISTORY
                        [not(clocal)]
                        [at/centreP]
                        [at/parent]
+                       [place/offset] (: try this:)
+                       [../wP]
+                       "
+                mode="recursive_diagram_enrichment"
+                priority="173P">
+
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <clocal>
+          <xsl:value-of select="- place/offset"/>
+      </clocal>
+    </xsl:copy>
+  </xsl:template>
+
+<!-- new clocal rule 14 August 2025 -->
+<!-- tying to break some impasse in current rules (discovered when trying to improve er2flex) -->
+
+  <xsl:template match="xP
+                       [not(clocal)]
+                       [at(:[centreP]:)[of]]
+                       [at/offset]
+                       [place/offset]
+                       [some $e 
+                          in //enclosure[id =current()/at/of]
+                          satisfies $e/wP and $e/xP/clocal
+                       ]
                        [../wP]
                        "
                 mode="recursive_diagram_enrichment"
@@ -909,15 +937,18 @@ CHANGE HISTORY
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
   
-      <xsl:if test="place">
-	  <!--
-          <xsl:message>
-             Not yet implemented - support for place in this context - see file diagram.addressing.smarts.xslt
-          </xsl:message>
-	   -->
-      </xsl:if>
+      <xsl:variable name="pointOfReference"
+                    as="element(enclosure)"
+                    select="//enclosure[id=current()/at/of]"/>
+<!-- *****************************
+             DO I NEED ADD SOME delta OFFSET HERE ???-->
       <clocal>
-          <xsl:value-of select="-(../wP div 2)"/>  <!-- this the rightP hand end wrPt centreP of parent. -->
+<!--           <xsl:value-of select="$pointOfReference/(xP/clocal + (wP div 2))
+                                   - (../wP div 2)
+                                "/>  -->
+          <xsl:value-of select="$pointOfReference/xP/clocal
+                                                  + at/offset - place/offset
+                                "/>  
       </clocal>
     </xsl:copy>
   </xsl:template>

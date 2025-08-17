@@ -2,6 +2,6 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel">
                
+      <include_model filename="cricketMatch..flexTuning.xml"/>
       <include_model filename="cricketMatch..logical.xml"/>
-      <include_model filename="cricketMatch..presentation.xml"/>
 </entity_model>

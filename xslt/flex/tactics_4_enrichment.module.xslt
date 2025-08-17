@@ -390,6 +390,7 @@ return map{
                	<xsl:value-of select="$pointOfReference/id"/>
                </of>
             </at>
+            <delta>1</delta>
          </x>
          <y>
          	<rule>y-.T+s</rule>
@@ -415,10 +416,10 @@ return map{
 	<xsl:template match="enclosure
 	                     [not(x)]
 	                     [yPositionalPointOfReference]  
-						 [not(preceding::enclosure
-								 [yPositionalPointOfReference eq current()/yPositionalPointOfReference]
-							  )
-					      ]
+						      [not(preceding::enclosure
+								      [yPositionalPointOfReference eq current()/yPositionalPointOfReference]
+							       )
+					         ]
 						   " 
 						 mode="tactics_four_enrichment">
 		<xsl:variable name="yPositionalPointOfReference"
@@ -520,6 +521,7 @@ return map{
 								   [1]/id"/>
 					</of>
 				</at>
+				<delta>1</delta>
 			</x>
 			<y>
 				<rule>y+s</rule>
