@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <include_model filename="dramaticArts1..logical.xml"/>
-   <include_model filename="dramaticArts1..presentation.xml"/>
+   <include_model filename="dramaticArts1..legacyPresentation.xml"/>
    <presentation>
       <diagram>
          <relid_condition><All/></relid_condition>

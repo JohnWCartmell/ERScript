@@ -37,7 +37,7 @@ from a sibling enclosure.
 1. There are a numer of candidate enclosures below which a given enclosure can be sensibly positioned.
 Thus there is a derived relationship
 ```
-yPositionalParentCandidates : enclosure -> Set Of enclosure
+yPositionalPointOfReferenceCandidates : enclosure -> Set Of enclosure
 ```
 
 2. This derived relationship is evaluated within the context of a given enclosure as the following xpath expression
@@ -45,10 +45,10 @@ yPositionalParentCandidates : enclosure -> Set Of enclosure
           key('ExitContainersOfEnteringTopdownRoutes',id)
 ```
 
-3. In other words `yPositionalParentCandidates` and `ExitContainersOfEnteringTopdownRoutes` are synonyms.
+3. In other words `yPositionalPointOfReferenceCandidates` and `ExitContainersOfEnteringTopdownRoutes` are synonyms.
 The latter, btw, is described in the change of [7th May 2025](./change-07-May-2025.md).
 
-4. Rule `y1` selects an actual `yPositionalParent` by selecting the first (and therefore somewhat random) candidate
+4. Rule `y1` selects an actual `yPositionalPointOfReference` by selecting the first (and therefore somewhat random) candidate
 which has a `yPositionalPathShort` of one less than the given entity. In other words it choses
 one that is on the shortest path up the diagram to a posititonally parentless enclosure. The outcome is illustrated in the left half of the handwritten diagram above.  The rationale for this algorithm was to avoid problems with recursive relationships. 
 
@@ -63,7 +63,7 @@ I can reveal the current weakness of not having this shortest-upward-path condit
 1. The choice of the short depth was made for convenience of the implementation. It means that the rule y1 positions an enclosure nearer the root of the diagram or the surrounding enclosure and this in turn maximises the number of top down routes that have to be routed back up the diagram. This is a design choice and it qouldn't be the way that I would proceed usually.
 
 2. If it wasn't for recursion then the algorithm for `yPositionalDepthLong` is quite simple. For a given enclosure:
-+ yPositionalDepthLong is zero if the set  of yPositionalParentCandidates is zero.
++ yPositionalDepthLong is zero if the set  of yPositionalPointOfReferenceCandidates is zero.
 + otherwise, 
 ```
         yPositionalDepthLong ::= 1 + max(yPositionalDepthParentCandidates/yPositionalDepthLong)
@@ -89,7 +89,7 @@ yPositionalNonRecursiveParentCandidates : enclosure -> set of Enclosure
 by
 ```
 yPositionalNonRecursiveParentCandidates(givenEnclosure) 
-       ::= yPositionalParentCandidates[not givenEnclosure is in positionalPriors]
+       ::= yPositionalPointOfReferenceCandidates[not givenEnclosure is in positionalPriors]
 ```
 2. Then define
 ```
@@ -104,7 +104,7 @@ yPositionalNonRecursiveOrDecrementingParentCandidates : enclosure -> Set Of encl
 by
 ```
 yPositionalNonRecursiveOrDecrementingParentCandidates(givenEnclosure) 
-       ::= yPositionalParentCandidates
+       ::= yPositionalPointOfReferenceCandidates
                    [not (givenEnclosure is in positionalPriors)
                     or yPositionalDepthShort = givenEnclosure/yPositionalDepthShort + 1
                    ]
@@ -119,28 +119,70 @@ yPositionalNonRecursiveOrDecrementingParentCandidates(givenEnclosure)
 
 2. Define the reference point 
 ```
-      yPositionalReferencePoint : enclosure -> Opt enclosure
+      yPositionalPointOfReference : enclosure -> Opt enclosure
 ```
 by
 ```
-   yPositionalReferencePoint := yPositionalNonRecursiveOrDecrementingParentCandidates[1]
+   yPositionalPointOfReference := yPositionalNonRecursiveOrDecrementingParentCandidates[1]
 
 ```
 
 
 ### Example
-A single example with different choices of yPositionalParent.
+A single example with different choices of yPositionalPointOfReference.
 
 On the left, each enclosure is annotated with yPositionalDepthShort
-and the piping around routes or route sections indicates the yPositionalParent according to the current algorithm
+and the piping around routes or route sections indicates the yPositionalPointOfReference according to the current algorithm
 (but after compositionalDepth/yPositionalDepthShort is implemented on non-outermost enclosures).
 
 On the right, each enclosure is annotated with yPositionalDepthLong
-and the piping around routes or route sections indicates the yPositionalParent according to the modified algorithm
+and the piping around routes or route sections indicates the yPositionalPointOfReference according to the modified algorithm
 proposed in this change.
 
 ![yPositionalDepthShort](yPositionalDepthShort.jpg) ![yPositionalDepthLong](yPositionalDepthLong.jpg)
 
+
+### Rules as at 21 Aug 2025
+#### Rule d+y-0
+Applies to first top-level enclosure in the diagram  to not have a yPositionalPontOfReference.
+                *Rule: Position at top left of the diagram.*
+#### Rule y-.T-0.pT-  and Rule y-.T-0.pT+
+Within the context of a parent enclosure, these rules  apply to the first nested enclosure 
+which does not require access to the top of the parent.
+
+**Rule y-.T-0.pT-** In the absence of sibling enclosures which need access to the top.
+Use as a point of reference the previous-sibling label (error if there isn't one).
+                *Rule: Position to the left of the parent enclosure underneath the point of reference.*
+
+**Rule y-.T-0.pT+**  In the presence of sibling enclosures which need access to the top.
+Use the first sibling that needs access to the top as a point of reference.
+                *Rule Position to ther left of the parent enclosure underneath the point of reference.*
+#### Rule y-.T-s  
+Applies to  a nested  enclosure which does not require access to top of its parent enclosure
+and is not the first such enclosure.
+Use the closest (in document order) preceding-sibling enclosure which requires access to the top as a reference point.
+                *Rule: Position to the immediate right of the reference point.*
+
+
+
+The y-T+ rules - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure.
+
+|  Condition  | | Context  | ----|  xPosition         |  ----  |  yPosition        |
+|:------------|-|:---------|-|:-------------------|----|:------------------|
+|  y-.T+      | | 0.pL+    | |  right of preceding &nbsp;&nbsp;&nbsp;label |    | top of parent                     | 
+|             | | 0.pL-    | |  *smarts*                 |    | top of parent                     |
+|             | | s        | |  right of preceding y-.T+ |    | top edge of top of preceding y_T+ |
+
+
+
+### Grouping Attributes
+Modify ER2flex to generate an enclosure containing attribute labels and an enclosure containing the name label
+plus attribute labels. Generate ids for these enclosures from the ids of the parent entity types.
+
+I wonder to whether to specify this as `<schematicPosition>TL</schematicPosition>` and have some rules for such.?
+See day notes 13th May 2025 and 13 August 2025. Review the rules implemented so far.
+  + from day notes 13th May since schematic position is 2 * 2 * 2 * 2 should maybe have four booleans.
+  + alternatvely should maybe follow the features that I have +- of in the rule naming!! That sounds right if the rules are right. Ha Ha.
 
 ### Implementation
 1. New string width function in source file `diagram..functions.module.xslt`.

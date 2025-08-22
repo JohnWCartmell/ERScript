@@ -30,21 +30,28 @@ if ($false)
 {
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
-
+}
 echo 'build logical and physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 grids `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                              -animate -physicalType hs -shortSeparator _ -longSeparator _
-
+                              -animate -physicalType hs -shortSeparator _ -longSeparator _ -legacy
+if ($false)
+{
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..physical.xml -outputFolder ..\docs
 }
 
 #if ($false)
 #{
-echo 'grids Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 grids..logical.xml -animate
+echo 'grids Raw flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 grids..logical.xml -animate
+
+echo 'grids Adjusted flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 grids..diagram.xml -animate
+
+echo 'grids physical Adjusted flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 grids..physical..diagram.xml -animate
 #}
 
 popd 

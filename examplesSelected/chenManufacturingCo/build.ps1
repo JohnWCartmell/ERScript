@@ -29,13 +29,15 @@ echo 'chenManufacturingCo Example'
 . $TARGET\scripts\buildExampleSVG.ps1 chenManufacturingCo       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA
+                             -animate -shortSeparator NA -longSeparator NA -legacy
+echo 'chenManufacturingCo Raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 chenManufacturingCo..logical.xml -animate
 }
 
 #if ($false)
 #{
-echo 'chenManufacturingCo Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 chenManufacturingCo..logical.xml -animate
+echo 'chenManufacturingCo Adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 chenManufacturingCo..diagram.xml -animate
 #}
 
 popd 

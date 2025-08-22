@@ -2,16 +2,12 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
               ERScriptVersion="1.6"
               xmlns:diagram="http://www.entitymodelling.org/diagram">
-   <absolute>
+   <absolute name="airTravel">
       <composition type="airline*" id=""/>
       <composition type="airport*" id=""/>
       <composition type="passenger*" id=""/>
    </absolute>
    <entity_type name="airline">
-      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-         <w>4.0</w>
-         <wr>3.0</wr>
-      </diagram:enclosure>
       <identifying>
          <attribute name="code" type="string"/>
       </identifying>

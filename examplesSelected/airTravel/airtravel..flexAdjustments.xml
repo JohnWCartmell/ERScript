@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram">
+
+
+
+   <absolute>  
+   <!-- need this to keep absolute at beginning after consolidation -->
+   </absolute>
+      
+   <group>
+      <name>airlinerooted</name>
+      <entity_type><name>airline</name>
+             <!--  <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                  <wFill/>
+              </diagram:enclosure> -->
+      </entity_type>
+      <name>inairline</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <margin>0</margin>
+         <padding>0</padding>
+         <shape_style>group_outline_visible</shape_style>
+      </diagram:enclosure>
+       <group>
+         <name>inairline</name>
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <margin>0</margin>
+            <padding>0</padding>
+            <shape_style>group_outline_visible</shape_style>
+         </diagram:enclosure>
+         <entity_type><name>airline service</name></entity_type>
+         <entity_type><name>flight</name></entity_type>
+         <entity_type><name>boarding pass</name></entity_type>
+         <entity_type><name>aircraft</name></entity_type>
+         <entity_type><name>seat</name></entity_type>
+      </group>
+   </group>  
+
+</entity_model>

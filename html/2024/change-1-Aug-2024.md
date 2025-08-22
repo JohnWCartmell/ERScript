@@ -31,7 +31,8 @@ but when used in render_path it is used without the condition `[current()/../nam
 which apparently was previously there but removed 12/10/2023. 
 Why was this condition removed? 
 
-Maybe it should go in on the reference branch also.
+Maybe it should go in on the reference branch also. ***In fact it should*** Added to reference branch
+on 18 August 2025 to fix a failure to  build the airlineTravel example. I can't explain why this problem has just showed up. 
 
 ### Proposal
 Put the condition in on the dependency branch.

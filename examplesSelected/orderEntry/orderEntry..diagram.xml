@@ -2,6 +2,6 @@
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel"
                xmlns:era="http://www.entitymodelling.org/ERmodel">
                
+      <include_model filename="orderEntry..flexAdjustments.xml"/>
       <include_model filename="orderEntry..logical.xml"/>
-      <include_model filename="orderEntry..presentation.xml"/>
 </entity_model>

@@ -139,8 +139,8 @@ return map{
 	<!--     *************** -->
 	<!--       Rule d+y-0    -->
 	<!--     *************** -->
-	<!-- Applies to the first enclosure which does not require access to top of parent enclosure
-	      in the absense of sibling enclosures which need access to the top.
+	<!-- Applies to first top-level enclosures in the diagram  to not have a yPositionalPontOfReference.
+	     Position at top left of the diagram.
 	 -->
 
 <xsl:template match="diagram/enclosure 
@@ -151,7 +151,6 @@ return map{
 	                     ]
 	                    " mode="tactics_four_enrichment">      
 		<xsl:copy>
-			<!-- <label><text>rule d+y-0</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<x> 
          	<rule>rule d+y-0</rule>
@@ -167,6 +166,10 @@ return map{
          		<parent/>
          	</at>
          </y>
+			<label>
+				<text>rule d+y-0</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 
@@ -174,8 +177,11 @@ return map{
 	<!--     *************** -->
 	<!--       Rule y-.T-0.pT-   -->
 	<!--     *************** -->
-	<!-- Applies to the first enclosure which does not require access to top of parent enclosure
-	      in the absense of sibling enclosures which need access to the top.
+	<!-- Within the context of a parent enclosure applies to the first nested enclosure 
+	     which does not require access to the top of the parent.
+	     In the absence of sibling enclosures which do need access to the top.
+	     Use as a point of reference the previous-sibling label (error if there isn't one).
+	     Rule: Position to the left of the parent enclosure underneath the point of reference.
 	 -->
 
 <xsl:template match="enclosure/enclosure 
@@ -189,7 +195,6 @@ return map{
 	                     ]
 	                    " mode="tactics_four_enrichment">      
 		<xsl:copy>
-			<!-- <label><text>rule y-.T-0.pT-</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element(label)?"
 			              select="preceding-sibling::label[last()]"/>
@@ -219,19 +224,22 @@ return map{
          		</of>
          	</at>
          </y>
+			<label>
+				<text>rule y-.T-0.pT-</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 
 	<!--     *************** -->
 	<!--       Rule y-.T-0.pT+   -->
 	<!--     *************** -->
-	<!-- Applies to the first enclosure which does not require access to top of parent enclosure
+	<!-- Applies to the first nested enclosure which does not require access to top of parent enclosure
 	      in the presence of sibling enclosures which need access to the top.
 	 -->
 	<xsl:template match="enclosure/enclosure 
 	                     [not(x)]
-	                     [not(yPositionalPointOfReference)]  
-						      (: [not($flib?needsAccessToTop(.))]  :)
+	                     [not(yPositionalPointOfReference)] 
 	                     [$flib?isFirstNotToNeedAccessToTop(.)]     
 	                     [some $sibling 
 	                             in ../enclosure 
@@ -239,7 +247,6 @@ return map{
 	                     ]
 	                    " mode="tactics_four_enrichment">      
 		<xsl:copy>
-			<!-- <label><text>rule y-.T-0.pT+</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element(enclosure)"
 			              select="$flib?firstSiblingToNeedAccessToTop(.)"/>
@@ -259,6 +266,10 @@ return map{
          		</of>
          	</at>
          </y>
+			<label>
+				<text>rule y-.T-0.pT+</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 
@@ -275,7 +286,6 @@ return map{
 						 [not(y)]
 	                    " mode="tactics_four_enrichment">  
 		<xsl:copy>
-			<!-- <label><text>rule y-.T-s</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element(enclosure)"
 			              select="preceding-sibling::enclosure
@@ -296,6 +306,10 @@ return map{
                </of>
             </at>
          </y>
+			<label>
+				<text>rule y-.T-s</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 
@@ -316,7 +330,6 @@ return map{
 	                    "
 	              mode="tactics_four_enrichment"> 
 		<xsl:copy>
-			<!-- <label><text>rule y-.T+0.pL+</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element(label)"
 			              select="preceding-sibling::label[1]"/>
@@ -337,6 +350,10 @@ return map{
                <top/><parent/>
             </at>
          </y>
+			<label>
+			   <text>rule y-.T+0.pL+</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 	
@@ -351,7 +368,7 @@ return map{
 	                    " 
 	              mode="tactics_four_enrichment"> 
 		<xsl:copy>
-			<!-- <label><text>rule y-.T+0.pL-</text><text_style>trace</text_style></label> -->
+
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
          <y>
          	<rule>y-.T+0.pL-</rule>
@@ -364,6 +381,11 @@ return map{
                <parent/>
             </at>
          </y>
+         <label>
+         	<text>rule y-.T+0.pL-</text>
+				<text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 	
@@ -378,7 +400,6 @@ return map{
 	                    "
 	               mode="tactics_four_enrichment">  
 		<xsl:copy>
-			<!-- <label><text>rule y-.T+s</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element()"
 			              select="$flib?previousNotToNeedAccessToTop(.)"/>
@@ -405,6 +426,10 @@ return map{
                </of>
             </at>
          </y>
+			<label>
+				<text>rule y-.T+s</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 	
@@ -439,7 +464,6 @@ return map{
 			              select="not($yPositionalPointOfReference/wFill)"/>
 
 		<xsl:copy>
-			<!-- <label><text>rule y+0</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<x> 
             <xsl:if test="$variationA">
@@ -490,6 +514,10 @@ return map{
 				</at>
 				<delta>1</delta>   <!-- make room for incoming top down route --> 
 			</y>
+			<label>
+				<text>rule y+0</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 
@@ -505,7 +533,6 @@ return map{
 						   " 
 						 mode="tactics_four_enrichment">
 		<xsl:copy>
-			<!-- <label><text>rule y+s</text><text_style>trace</text_style></label> -->
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<x> 
 				<place>
@@ -536,6 +563,10 @@ return map{
 				</at>
 				<delta>1</delta>   <!-- make room for incoming top down route --> 
 			</y>
+			<label>
+				<text>rule y+s</text><text_style>trace</text_style>
+				<y><at><bottom/><outer/><parent/></at></y>
+			</label>
 		</xsl:copy>
 	</xsl:template>
 

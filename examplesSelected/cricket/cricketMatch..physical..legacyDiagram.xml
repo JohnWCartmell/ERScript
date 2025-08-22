@@ -3,5 +3,5 @@
                xmlns:era="http://www.entitymodelling.org/ERmodel">
                
       <include_model filename="cricketMatch..physical.xml"/>
-      <include_model filename="cricketMatch..presentation.xml"/>
+      <include_model filename="cricketMatch..legacyPresentation.xml"/>
 </entity_model>

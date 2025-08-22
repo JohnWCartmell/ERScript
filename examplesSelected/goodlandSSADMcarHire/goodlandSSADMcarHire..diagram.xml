@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
-   <include_model filename="goodlandSSADMcarHire..logical.xml"/>
-   <include_model filename="goodlandSSADMcarHire..presentation.xml"/>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+               xmlns:era="http://www.entitymodelling.org/ERmodel">
+               
+      <include_model filename="goodlandSSADMcarHire..flexAdjustments.xml"/>
+      <include_model filename="goodlandSSADMcarHire..logical.xml"/>
 </entity_model>

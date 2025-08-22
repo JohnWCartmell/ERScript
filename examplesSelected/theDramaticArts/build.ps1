@@ -20,8 +20,8 @@ $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
 #was here
 
-if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.diagram\.xml$')) {
-    throw "Error: Filename must end with '..diagram.xml'. Given: $filename"
+if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.legacyDiagram\.xml$')) {
+    throw "Error: Filename must end with '..legacyDiagram.xml'. Given: $filename"
 }
 
 
@@ -50,21 +50,21 @@ function Build-File {
     param (
         $FileName
     )
-    $diagramName = $Filename -replace '\.\.diagram\.xml$', ''
+    $diagramName = $Filename -replace '\.\.legacyDiagram\.xml$', ''
    Write-Output $prefix
     echo('Building ' +  $diagramName)
    . $TARGET\scripts\buildExampleSVG.ps1 $diagramName     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA
+                             -animate -shortSeparator NA -longSeparator NA -legacy
 }
 
 
 pushd $TARGETXML
 echo ('*********** location: ' + (Get-Location) )
 
-if ($false)   ## CONDITIONED OUT IN TESTING OF FLEX
-{
+#if ($false)   ## CONDITIONED OUT IN TESTING OF FLEX
+#{
 
 if ($PSBoundParameters.ContainsKey('filename')){
 
@@ -75,21 +75,24 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo ('need build from' + $filename)
     Build-File -FileName $filename
 }else{
-    echo 'building all ..diagram files'
-    get-ChildItem -Path *..diagram.xml  | Foreach-Object {
+    echo 'building all ..legacyDiagram files'
+    get-ChildItem -Path *..legacyDiagram.xml  | Foreach-Object {
       echo 'building ' + $_.Name
       Build-File -FileName $_.Name
     }
     echo 'done building all'
 }
 
-} #END OUT CONDITIONING
+#} #END OUT CONDITIONING
 
-#if ($false)
-#{
-echo 'theDramaticArts Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 dramaticArts1..logical.xml -animate  -debugSwitch
-#}
+if ($false)
+{
+echo 'theDramaticArts raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 dramaticArts1..logical.xml -animate  -debugSwitch
+
+echo 'theDramaticArts adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 dramaticArts1..diagram.xml -animate  -debugSwitch
+}
 
 popd 
 

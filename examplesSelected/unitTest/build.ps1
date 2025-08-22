@@ -29,17 +29,20 @@ if ($false)
 {
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 unitTest..logical.xml -outputFolder ..\docs
+}
 
 echo 'unitTest Example'
 . $TARGET\scripts\buildExampleSVG.ps1 unitTest       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -debugSwitch `
-                             -animate -shortSeparator NA -longSeparator NA
-}
+                             -animate -shortSeparator NA -longSeparator NA -legacy
 
-echo 'unitTest Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 unitTest..logical.xml -animate
+echo 'unitTest raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 unitTest..logical.xml -animate
+
+echo 'unitTest adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 unitTest..diagram.xml -animate
 
 popd 
 

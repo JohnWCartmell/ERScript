@@ -1,12 +1,12 @@
 # run this from the folder which has the src xml file
 #
-# er2flex2svg.ps1 <filebasename>.xml  
+# er2svg.ps1 <filebasename>.xml  
 #
 # produces an intermediate file  <filebasename>.flex.xml
 # a schema check file TBD
 # and an files
-#               ../docs/<flenamebase..flex.htnl
-#               ../docs/<flenamebase..flex.svg
+#               ../docs/<flenamebase..htnl
+#               ../docs/<flenamebase..svg
 
 Param(
    [Parameter(Position=0,Mandatory=$True)]
@@ -61,7 +61,7 @@ java -jar $SAXON_JAR -s:$tempFolder\$filenamebase.flex.xml `
                       -xsl:$ERHOME\flexDiagramming\xslt\diagram2.svg.xslt `
                        -warnings:silent `
                        -o:$outputFolder\$filenamebase.svg `
-                       filestem=$filenamebase.flex `
+                       filestem=$filenamebase `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `
                        animate=$(If ($animate){'y'}Else{'n'}) `
                        debug=$(If ($debugswitch){'y'}Else{'n'}) 

@@ -294,6 +294,7 @@ CHANGE HISTORY
         	      </xsl:if>
         	</text>
         	<text_style>attrname</text_style>
+        	<id><xsl:value-of select="../name || '__' || name"/></id> <!-- added 20 Aug 2025 for use by tactics four rules for positioning -->
       </label>
   </xsl:template>
 	

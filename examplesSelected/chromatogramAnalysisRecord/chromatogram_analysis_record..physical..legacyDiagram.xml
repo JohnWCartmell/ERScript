@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel">
+   <include_model filename="chromatogram_analysis_record..physical.xml"/>
+   <include_model filename="chromatogram_analysis_record..legacyPresentation.xml"/>
+</entity_model>
+
+

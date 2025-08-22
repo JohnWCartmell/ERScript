@@ -28,13 +28,15 @@ if ($false)
 echo 'goodlandSSADMcarHire Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 goodlandSSADMcarHire..logical.xml -outputFolder ..\docs
+} 
 
 echo 'goodland SSADM carHire'
 . $TARGET\scripts\buildExampleSVG.ps1 goodlandSSADMcarHire       `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -relids -shortSeparator NA -longSeparator NA 
-                             
+                             -animate -relids -shortSeparator NA -longSeparator NA -legacy
+#if ($false)
+#{                             
 echo 'goodland SSADM carHire annotated with rel ids'
 . $TARGET\scripts\buildExampleSVG.ps1 goodlandSSADMcarHire.annotate       `
                              -svgOutputFolder $TARGETSVGFOLDER `
@@ -80,9 +82,13 @@ echo 'goodland SSADM carHire Path2 Diagram'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -relids -shortSeparator NA -longSeparator NA
-}                           
-echo 'goodland SSADM carHire Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 goodlandSSADMcarHire..logical.xml -animate -debugSwitch
+
+echo 'goodland SSADM carHire Raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 goodlandSSADMcarHire..logical.xml -animate -debugSwitch                          
+
+echo 'goodland SSADM carHire Adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 goodlandSSADMcarHire..diagram.xml -animate -debugSwitch
+#}                           
 
 popd 
 

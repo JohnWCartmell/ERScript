@@ -33,7 +33,6 @@ if ($false)
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..logical.xml -outputFolder ..\docs
 
-
 ##################################################################################
 # NOTE that the physicalType is 'h' (I know this from looking at an old printout).
 ##################################################################################
@@ -42,7 +41,7 @@ echo 'build logical and physical model'
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -relids -scope                    `
-                              -animate -physicalType h -longSeparator _ -shortSeparator _ 
+                              -animate -physicalType h -longSeparator _ -shortSeparator _ -legacy
 
 echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\docs 
@@ -50,11 +49,18 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 echo 'Run ERModel.2ts.xslt'
 . $TARGET\scripts\ER2.ts.ps1 chromatogram_analysis_record..physical.xml -outputFolder ..\typescript -debugswitch
 }
-#if ($false)
-#{
-echo 'chromatogram_analysis_record Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 chromatogram_analysis_record..logical.xml -animate
-#}
+
+
+echo 'chromatogram_analysis_record Raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 chromatogram_analysis_record..logical.xml -animate
+
+echo 'chromatogram_analysis_record Adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 chromatogram_analysis_record..diagram.xml -animate
+
+
+echo 'chromatogram_analysis_record Adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 chromatogram_analysis_record..physical..diagram.xml -animate
+
 
 popd 
 

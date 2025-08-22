@@ -36,7 +36,9 @@ Param(
    [Parameter(Mandatory=$False)]
        [switch]$scopes,
    [Parameter(Mandatory=$False)]
-       [switch]$relids
+       [switch]$relids,
+   [Parameter(Mandatory=$False)]
+       [switch]$legacy
  )
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
@@ -57,11 +59,17 @@ echo ('buildExampleSVG.ps1: filenameOrFilenamePrefix is ' + $filenameOrFilenameP
 echo ('buildExampleSVG.ps1: filenamePrefix is ' + $filenamePrefix)
 echo ('buildExampleSVG.ps1: svgOutputFolder is' + $svgOutputFolder)
 
-$diagramSource=        $filenamePrefix + '..diagram.xml'
-# $reportOutputFilepath= '..\docs\' + $filenamePrefix + '..MYreport.html'
+
 $logicalSource=        $filenamePrefix + '..logical.xml'
 $physicalFilename=     $filenamePrefix + '..physical.xml'
-$physicalDiagramSource=        $filenamePrefix + '..physical..diagram.xml'
+
+if ($legacy) {
+    $diagramSource = $filenamePrefix + '..legacyDiagram.xml'
+    $physicalDiagramSource=        $filenamePrefix + '..physical..legacyDiagram.xml'
+} else {
+    $diagramSource = $filenamePrefix + '..diagram.xml'
+    $physicalDiagramSource=        $filenamePrefix + '..physical..diagram.xml'
+}
 
 echo ('buildExampleSVG.ps1: diagram source is' + $diagramSource)
 

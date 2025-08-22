@@ -286,6 +286,7 @@
                              then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
                                                 [current()/../name = type]
                              else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                                                [current()/../name = type]
                              )
                         else ()" />  <!-- explained change of 1-Aug-2024 -->
     <xsl:variable name="injective" as="xs:boolean"
@@ -307,6 +308,7 @@
    <xsl:copy>
        <xsl:apply-templates select="@*|node()" mode="documentation_enrichment_recursive"/>
 
+<xsl:message>is <xsl:value-of select="name() || ':named:' || name || 'invese:' || inverse" /></xsl:message>
   <xsl:variable name="inverse" 
                 as="element()?"
                 select="if (inverse) 
@@ -315,8 +317,9 @@
                              then key('DependencyBySrcTypeAndName',concat(type,':',inverse))
                                                 [current()/../name = type]
                              else key('RelationshipBySrcTypeAndName',concat(type,':',inverse)) 
+                                                [current()/../name = type]
                              )
-                        else ()" />  <!-- explained change of 1-Aug-2024 -->
+                        else ()" />  <!-- explained in note of change of 1-Aug-2024 -->
 
 
        <xsl:element name="surjective">

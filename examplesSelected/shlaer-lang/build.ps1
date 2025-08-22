@@ -18,7 +18,7 @@ $TARGETSVGFOLDER = $TARGETWWW + '\svg'
 $TARGETTEXFOLDER = $TARGET + '\docs\images'
 
 
-if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.diagram\.xml$')) {
+if ($PSBoundParameters.ContainsKey('filename') -and ($filename -notmatch '\.\.legacyDiagram\.xml$')) {
     throw "Error: Filename must end with '..diagram.xml'. Given: $filename"
 }
 
@@ -47,13 +47,13 @@ function Build-File {
     param (
         $FileName
     )
-    $diagramName = $Filename -replace '\.\.diagram\.xml$', ''
+    $diagramName = $Filename -replace '\.\.legacyDiagram\.xml$', ''
    Write-Output $prefix
     echo('Building ' +  $diagramName)
    . $TARGET\scripts\buildExampleSVG.ps1 $diagramName     `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
-                             -animate -shortSeparator NA -longSeparator NA
+                             -animate -shortSeparator NA -longSeparator NA -legacy
 }
 
 
@@ -71,8 +71,8 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo ('need build from' + $filename)
     Build-File -FileName $filename
 }else{
-    echo 'building all ..diagram files'
-    get-ChildItem -Path *..diagram.xml  | Foreach-Object {
+    echo 'building all ..legacyDiagram files'
+    get-ChildItem -Path *..legacyDiagram.xml  | Foreach-Object {
       echo 'building ' + $_.Name
       Build-File -FileName $_.Name
     }
@@ -83,11 +83,15 @@ if ($PSBoundParameters.ContainsKey('filename')){
 }  # END CONDITIONED OUT
 
 
-#if ($false)
-#{
-echo 'shlaer-lang Flex version'
-. $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 shlaerLang-DeptStudentProfessor..logical.xml -animate -debugSwitch
-#}
+if ($false)
+{
+echo 'shlaer-lang raw Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 shlaerLang-DeptStudentProfessor..logical.xml -animate -debugSwitch
+
+}
+
+echo 'shlaer-lang adjusted Flex version'
+. $TARGET\flexDiagramming\scripts\er2svg.ps1 shlaerLang-DeptStudentProfessor..relationships..diagram.xml -animate -debugSwitch
 
 popd 
 

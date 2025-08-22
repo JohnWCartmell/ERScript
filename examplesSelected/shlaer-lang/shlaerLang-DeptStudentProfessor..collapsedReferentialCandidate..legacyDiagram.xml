@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity_model xmlns="http://www.entitymodelling.org/ERmodel">
    <include_model filename="shlaerLang-DeptStudentProfessor..logical.xml"/>
-   <include_model filename="shlaerLang-DeptStudentProfessor..relationships..presentation.xml"/>
+   <include_model filename="shlaerLang-DeptStudentProfessor..relationships..legacyPresentation.xml"/>
    <presentation>
       <diagram>
          <attributes><IdentifyingOnly/></attributes>
