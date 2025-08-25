@@ -210,10 +210,11 @@ return map{
 			</xsl:if>
 			<x> 
          	<rule>rule y-.T-0.pT-</rule>
-				<at>
+<!-- 				<at>
 					<left/>
 					<parent/>
-				</at>
+				</at> -->
+				<dlocal>0</dlocal>
 			</x>
 			<y>
          	<rule>rule y-.T-0.pT-</rule>
@@ -252,10 +253,11 @@ return map{
 			              select="$flib?firstSiblingToNeedAccessToTop(.)"/>
 			<x> 
          	<rule>rule y-.T-0.pT+</rule>
-				<at>
+				<!-- <at>
 					<left/>
 					<parent/>
-				</at>
+				</at> -->
+				<dlocal>0</dlocal>
 			</x>
 			<y>
          	<rule>rule y-.T-0.pT+</rule>
@@ -313,7 +315,6 @@ return map{
 		</xsl:copy>
 	</xsl:template>
 
-	
 
 	<!-- next three templates - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure. --> 
 	              

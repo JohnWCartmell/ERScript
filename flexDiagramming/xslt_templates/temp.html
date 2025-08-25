@@ -1,0 +1,19 @@
+  <xsl:variable name="xPwPSmartLib" as="map(xs:string,function(*))">
+<xsl:sequence select="
+let 
+$pointOfReference
+:= function ($route as element(route)) as element(enclosure)
+{  
+  let $result := root($route)//enclosure[id eq $route/source/id]
+  return if (exists($result)) 
+         then $result
+         else fn:error(fn:QName('http://www.entitymodelling.org/SOURCE', 'er:sourcenotdefined'),'xxx')
+}
+return map{
+  'pointOfReference':$pointOfReference
+}"/>
+
+
+
+
+ or not($xPwPSmarpLib?pointOfReference($child)[xP/dlocal])

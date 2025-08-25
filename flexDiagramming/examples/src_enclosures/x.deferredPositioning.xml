@@ -1,0 +1,98 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include>
+    <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+  </include>
+     <default>
+      <hmin>0.4</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>  <!-- was 0.2 -->
+      <padding>0.1</padding> <!-- was 0.2-->
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>offwhite</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+<enclosure>
+  <id>OUTERMOST</id>
+  <label/>
+  <label><text>This test explores the positioning right and left of enclosures that are themselves at
+    the right, respectively left, of a parent enclosure.
+  </text>
+  </label>
+<enclosure>
+  <id>ZERO</id>
+  <x><at><centre/></at></x>
+  <label/>
+    <enclosure>   
+      <id>One(Deferred)</id>
+      <label/>
+      <x><dlocal>0</dlocal></x>
+      <w>4.5</w>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfOne</id>
+      <label/>
+      <x><place><right/></place><at><!-- <centre/> --><of>One(Deferred)</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfLeftOfOne</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>LeftOfOne</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfLeftOfOne</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>LeftOfOne</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfOne</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>One(Deferred)</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfRightOfOne</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>RightOfOne</of></at></x>
+    </enclosure>
+    <enclosure>   
+      <id>Two(Deferred)</id>
+      <label/>
+      <x><dlocal>0</dlocal></x>
+      <w>3.5</w>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfTwo</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>Two(Deferred)</of></at></x>
+    </enclosure> 
+    <enclosure>
+      <id>topleft</id>
+      <label/>
+      <x><at><left/><parent/></at></x>
+      <y><local>1</local></y>
+    </enclosure> 
+</enclosure>
+<enclosure>
+  <id>LEFT OF ZERO</id>
+  <label/>
+  <x><place><right/></place><at><left/><of>ZERO</of></at></x>
+</enclosure>
+<enclosure>
+  <id>RIGHT OF LEFT OF ZERO</id>
+  <label/>
+  <x><at><right/><of>LEFT OF ZERO</of></at></x>
+</enclosure>
+
+<enclosure>
+  <id>RIGHT OF ZERO</id>
+  <label/>
+  <x><at><right/><of>ZERO</of></at></x>
+</enclosure>
+
+</enclosure>
+</diagram>

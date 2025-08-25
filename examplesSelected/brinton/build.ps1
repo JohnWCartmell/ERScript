@@ -28,7 +28,6 @@ if ($false)
 echo 'Brinton Example'
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 brintonSimpleSentenceStructure..logical.xml -outputFolder ..\docs
-}
 
 echo 'Brinton Example'
 . $TARGET\scripts\buildExampleSVG.ps1 brintonSimpleSentenceStructure       `
@@ -36,11 +35,12 @@ echo 'Brinton Example'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA -legacy
-#if ($false)
-#{
+}
 echo 'Brinton Raw Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 brintonSimpleSentenceStructure..logical.xml -animate -debugSwitch
 
+#if ($false)
+#{
 echo 'Brinton Adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 brintonSimpleSentenceStructure..diagram.xml -animate -debugSwitch
 #}

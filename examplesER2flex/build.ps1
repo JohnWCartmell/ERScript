@@ -21,8 +21,8 @@ attrib +R $TARGETXML\*.xml
 pushd $TARGETXML
 
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 x1Test..logical.xml -animate -debugswitch
-if ($false) 
-{
+#if ($false) 
+#{
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 yPositionTest..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 complexRecursion..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 yPositionTestSimplified..logical.xml -animate -debugswitch
@@ -33,7 +33,7 @@ if ($false)
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 quadrant_routes..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 nestedShieldedDecomposition..logical.xml -animate -debugswitch
 . $TARGET\flexDiagramming\scripts\er2flex2svg.ps1 includeTest..logical.xml -animate -debugswitch
-}
+#}
 
 popd 
 

@@ -1,0 +1,97 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" 
+         xmlns:diagram="http://www.entitymodelling.org/diagram"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <include>
+    <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+  </include>
+     <default>
+      <hmin>0.4</hmin>
+      <wmin>2.0</wmin>
+      <margin>0.2</margin>  <!-- was 0.2 -->
+      <padding>0.1</padding> <!-- was 0.2-->
+      <packing>horizontal</packing>
+      <text_style>normal</text_style>
+      <shape_style>offwhite</shape_style>
+      <debug-whitespace>true</debug-whitespace>
+   </default>
+
+<enclosure>
+  <id>OUTERMOST</id>
+  <label/>
+  <label><text>This test explores the positioning right and left of enclosures that are themselves at
+    the right, respectively left, of a parent enclosure.
+  </text>
+  </label>
+<enclosure>
+  <id>ZERO</id>
+  <x><at><centre/></at></x>
+  <label/>
+    <enclosure>   
+      <id>Right(OfParent)</id>
+      <label/>
+      <x><at><right/></at></x>
+      <w>4.5</w>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfRight</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>Right(OfParent)</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfLeftOfRight</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>LeftOfRight</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfLeftOfRight</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>LeftOfRight</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfRight</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>Right(OfParent)</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>RightOfRightOfRight</id>
+      <label/>
+      <x><place><left/></place><at><right/><of>RightOfRight</of></at></x>
+    </enclosure>
+    <enclosure>   
+      <id>Left(OfParent)</id>
+      <label/>
+      <x><at><left/></at></x>
+      <w>3.5</w>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfLeft</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>Left(OfParent)</of></at></x>
+    </enclosure>
+    <enclosure>
+      <id>LeftOfLeftOfLeft</id>
+      <label/>
+      <x><place><right/></place><at><left/><of>LeftOfLeft</of></at></x>
+    </enclosure>
+</enclosure>
+<enclosure>
+  <id>LEFT OF ZERO</id>
+  <label/>
+  <x><place><right/></place><at><left/><of>ZERO</of></at></x>
+</enclosure>
+<enclosure>
+  <id>RIGHT OF LEFT OF ZERO</id>
+  <label/>
+  <x><at><right/><of>LEFT OF ZERO</of></at></x>
+</enclosure>
+
+<enclosure>
+  <id>RIGHT OF ZERO</id>
+  <label/>
+  <x><at><right/><of>ZERO</of></at></x>
+</enclosure>
+
+</enclosure>
+</diagram>

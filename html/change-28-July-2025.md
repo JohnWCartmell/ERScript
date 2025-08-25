@@ -146,32 +146,32 @@ proposed in this change.
 #### Rule d+y-0
 Applies to first top-level enclosure in the diagram  to not have a yPositionalPontOfReference.
                 *Rule: Position at top left of the diagram.*
-#### Rule y-.T-0.pT-  and Rule y-.T-0.pT+
-Within the context of a parent enclosure, these rules  apply to the first nested enclosure 
-which does not require access to the top of the parent.
-
-**Rule y-.T-0.pT-** In the absence of sibling enclosures which need access to the top.
-Use as a point of reference the previous-sibling label (error if there isn't one).
-                *Rule: Position to the left of the parent enclosure underneath the point of reference.*
-
-**Rule y-.T-0.pT+**  In the presence of sibling enclosures which need access to the top.
-Use the first sibling that needs access to the top as a point of reference.
-                *Rule Position to ther left of the parent enclosure underneath the point of reference.*
-#### Rule y-.T-s  
-Applies to  a nested  enclosure which does not require access to top of its parent enclosure
-and is not the first such enclosure.
-Use the closest (in document order) preceding-sibling enclosure which requires access to the top as a reference point.
-                *Rule: Position to the immediate right of the reference point.*
 
 
+#### Nested enclosures
+Following rules are for enclosures nested within other (parent) encloures:
 
-The y-T+ rules - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure.
-
-|  Condition  | | Context  | ----|  xPosition         |  ----  |  yPosition        |
-|:------------|-|:---------|-|:-------------------|----|:------------------|
-|  y-.T+      | | 0.pL+    | |  right of preceding &nbsp;&nbsp;&nbsp;label |    | top of parent                     | 
-|             | | 0.pL-    | |  *smarts*                 |    | top of parent                     |
-|             | | s        | |  right of preceding y-.T+ |    | top edge of top of preceding y_T+ |
+**Condition**
+|      (1)    |(2) |(3) |(4) | Meaning  |&nbsp;&nbsp;&nbsp;&nbsp; |  x position   |&nbsp;&nbsp;&nbsp;&nbsp; | y position|
+|:-----------:|:--:|:---:|:---|:------------------|-|:-------------------------|-|:----|
+|  y-         | |    |    | no yPosPoR             ||                           ||                         |
+|             |.T-|  |    | no need for access to top ||                        ||                         |
+|             | |0   |    | first y-.T-            || deferred (see 22 Aug 2025)||                         |
+|             | |    |pT- | sibling y-.T+ absent   ||                           || beneath preceding label |
+|             | |    |pT+ | sibling y-.T+ present  ||                           || beneath first y-T+      |
+|             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  || top of preceeding y-.T+ |
+|             |.T+|  |    | needs access to top    ||                           ||                         |
+|             | |0   |    | first y-.T+            ||                           || top of parent           |
+|             | |    |.pL+| exists preceding label || right of preceding label  ||                         |
+|             | |    |.PL-| no preceding label     || *smarts*                  ||                         |
+|             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  || top of preceding y-T+   |
+|  y+         | |    |    | has yPosPoR (y+)       ||                           || bottom of y+            |
+|             |0|    |    |first with this y+      ||                           ||                         |
+|             | |.wF+|    | y+/wFill               ||                           ||                         |
+|             | |    |.1+ | only one this y+       || center of parent          ||                         |
+|             | |    |.1- | more than one          || center of y+              ||                         |
+|             | |.wF-|    | not y+/wFill           || left of y+                ||                         |
+|             |s|    |    | not first with this y+ || right of previous this y+ ||                         |
 
 
 

@@ -63,8 +63,8 @@ function Build-File {
 pushd $TARGETXML
 echo ('*********** location: ' + (Get-Location) )
 
-#if ($false)   ## CONDITIONED OUT IN TESTING OF FLEX
-#{
+if ($false)   ## CONDITIONED OUT IN TESTING OF FLEX
+{
 
 if ($PSBoundParameters.ContainsKey('filename')){
 
@@ -83,16 +83,16 @@ if ($PSBoundParameters.ContainsKey('filename')){
     echo 'done building all'
 }
 
-#} #END OUT CONDITIONING
+} #END OUT CONDITIONING
 
-if ($false)
-{
+#if ($false)
+#{
 echo 'theDramaticArts raw Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 dramaticArts1..logical.xml -animate  -debugSwitch
 
 echo 'theDramaticArts adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 dramaticArts1..diagram.xml -animate  -debugSwitch
-}
+#}
 
 popd 
 

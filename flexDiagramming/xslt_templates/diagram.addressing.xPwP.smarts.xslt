@@ -17,15 +17,25 @@ DESCRIPTION
   xP and wP structure from higher level directives
   to position enclosures wrPt other enclosures
   It is a template with vbls xP, wP etc so that by substitution, See readme.
-
-
-CHANGE HISTORY
-        JC  26-May-2017 Created. 
-		JC  24-Jul-2019 Modified to template.
-
- -->
+-->
 
   <xsl:output method="xml" indent="yes"/>
+
+
+
+<xsl:variable name="xPwPSmartLib" as="map(xs:string,function(*))">
+<xsl:sequence select="
+let 
+$pointOfReference
+:= function ($subject as element(enclosure)) as element(enclosure)?
+{  
+  root($subject)//enclosure[id eq $subject/xP/at/of]
+}
+return map{
+  'pointOfReference':$pointOfReference
+}"/>
+</xsl:variable>
+
 
   <!-- ********************************** -->
   <!-- xP/at/src_rise -->
@@ -922,14 +932,13 @@ CHANGE HISTORY
 
   <xsl:template match="xP
                        [not(clocal)]
-                       [at(:[centreP]:)[of]]
+                       [at[of]]
                        [at/offset]
                        [place/offset]
                        [some $e 
                           in //enclosure[id =current()/at/of]
-                          satisfies $e/wP and $e/xP/clocal
+                          satisfies $e/xP/clocal
                        ]
-                       [../wP]
                        "
                 mode="recursive_diagram_enrichment"
                 priority="173P">
@@ -940,16 +949,95 @@ CHANGE HISTORY
       <xsl:variable name="pointOfReference"
                     as="element(enclosure)"
                     select="//enclosure[id=current()/at/of]"/>
-<!-- *****************************
-             DO I NEED ADD SOME delta OFFSET HERE ???-->
+
       <clocal>
-<!--           <xsl:value-of select="$pointOfReference/(xP/clocal + (wP div 2))
-                                   - (../wP div 2)
-                                "/>  -->
           <xsl:value-of select="$pointOfReference/xP/clocal
                                                   + at/offset - place/offset
                                 "/>  
       </clocal>
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- dlocal Change of 22 Aug 2025 -->
+  <xsl:template match="xP
+                       [not(dlocal)]
+                       [at[of]]
+                       [at/offset]
+                       [place/offset]
+                       [some $e 
+                          in //enclosure[id =current()/at/of]
+                          satisfies $e/xP/dlocal
+                       ]
+                       "
+                mode="recursive_diagram_enrichment"
+                priority="173P">
+
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+  
+      <xsl:variable name="pointOfReference"
+                    as="element(enclosure)"
+                    select="//enclosure[id=current()/at/of]"/>
+
+      <dlocal>
+          <xsl:value-of select="$pointOfReference/xP/dlocal
+                                                  + at/offset - place/offset
+                                "/>  
+      </dlocal>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="enclosure
+                       [not(dlocalLowerBound)]
+                       [some $child 
+                        in child::enclosure
+                        satisfies $child/xP/dlocal
+                       ]
+                       [every $child 
+                        in child::enclosure
+                        satisfies (
+                          ($child/xP/dlocal)
+                          or 
+                          not($xPwPSmartLib?pointOfReference($child)[xP/dlocal])
+                                  )
+                       ]
+                      [every $child 
+                        in child::enclosure[xP/dlocal]
+                        satisfies ($child/wlP)
+                       ]"
+                  mode="recursive_diagram_enrichment"
+                  priority="173P">
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+<!--       <xsl:message> Enclosure id <xsl:value-of select="id"/></xsl:message>
+      <xsl:message> Childs having dlocal <xsl:value-of select="child::enclosure[xP/dlocal]/id"/></xsl:message>
+      <xsl:message>  dlocal <xsl:value-of select="child::enclosure[xP/dlocal]/xP/dlocal"/></xsl:message>
+      <xsl:message>  wlP <xsl:copy-of select="child::enclosure[xP/dlocal]/wlP"/></xsl:message> -->
+      <xsl:variable name="lowerBound" as="xs:double" 
+                        select="min((child::enclosure[xP/dlocal]/(xP/dlocal - wlP) ))"/>
+      <dlocalLowerBound>
+          <xsl:value-of select="$lowerBound"/>  
+      </dlocalLowerBound>
+    </xsl:copy>
+  </xsl:template>
+
+  <!--**********-->
+  <!-- xP/local -->
+  <!--**********-->
+    <xsl:template match="*[dlocalLowerBound][margin]
+                         /enclosure[wlP][padding]
+                         /xP[dlocal]
+                         [not(local)]
+                       "
+                  mode="recursive_diagram_enrichment"
+                  priority="173P">
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+<!--       <xsl:message>dlocalLowerBound is <xsl:value-of select="../../dlocalLowerBound"/></xsl:message>
+      <xsl:message><xsl:value-of select="'dl' || dlocal || 'lb' || ../../dlocalLowerBound || 'wl' || ../wlP || 'm' || ../../margin || 'p' || ../padding"/></xsl:message> -->
+      <local>
+          <xsl:value-of select="dlocal - ../../dlocalLowerBound + ../wlP + ../../margin + ../padding"/>  
+      </local>
     </xsl:copy>
   </xsl:template>
 
@@ -990,6 +1078,37 @@ CHANGE HISTORY
                       else if (at/margin) then (- ../ancestor::enclosure[1]/margin)
                       else 0
                      )"/>  
+      </rlocal>
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- new rlocal rule 23 August 2025 -->
+<!-- tying to break some impasse in current rules -->
+
+  <xsl:template match="xP
+                       [not(rlocal)]
+                       [at[of]]
+                       [at/offset]
+                       [place/offset]
+                       [some $e 
+                          in //enclosure[id =current()/at/of]
+                          satisfies $e/xP/rlocal
+                       ]
+                       "
+                mode="recursive_diagram_enrichment"
+                priority="173P">
+
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+  
+      <xsl:variable name="pointOfReference"
+                    as="element(enclosure)"
+                    select="//enclosure[id=current()/at/of]"/>
+
+      <rlocal>
+          <xsl:value-of select="$pointOfReference/xP/rlocal
+                                                  + at/offset - place/offset
+                                "/>  
       </rlocal>
     </xsl:copy>
   </xsl:template>
