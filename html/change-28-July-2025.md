@@ -169,8 +169,8 @@ Following rules are for enclosures nested within other (parent) encloures:
 |             |0|    |    |first with this y+      ||                           ||                         |
 |             | |.wF+|    | y+/wFill               ||                           ||                         |
 |             | |    |.1+ | only one this y+       || center of parent          ||                         |
-|             | |    |.1- | more than one          || center of y+              ||                         |
-|             | |.wF-|    | not y+/wFill           || left of y+                ||                         |
+|             | |    |.1- | more than one          || left of left y+           ||                         |
+|             | |.wF-|    | not y+/wFill           || center of y+              ||                         |
 |             |s|    |    | not first with this y+ || right of previous this y+ ||                         |
 
 
