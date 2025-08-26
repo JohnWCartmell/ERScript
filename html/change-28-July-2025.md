@@ -163,7 +163,7 @@ Following rules are for enclosures nested within other (parent) encloures:
 |             |.T+|  |    | needs access to top    ||                           ||                         |
 |             | |0   |    | first y-.T+            ||                           || top of parent           |
 |             | |    |.pL+| exists preceding label || right of preceding label  ||                         |
-|             | |    |.PL-| no preceding label     || *smarts*                  ||                         |
+|             | |    |.PL-| no preceding label     || *DEFER* 26th August                  ||                         |
 |             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  || top of preceding y-T+   |
 |  y+         | |    |    | has yPosPoR (y+)       ||                           || bottom of y+            |
 |             |0|    |    |first with this y+      ||                           ||                         |
@@ -172,7 +172,6 @@ Following rules are for enclosures nested within other (parent) encloures:
 |             | |    |.1- | more than one          || left of left y+           ||                         |
 |             | |.wF-|    | not y+/wFill           || center of y+              ||                         |
 |             |s|    |    | not first with this y+ || right of previous this y+ ||                         |
-
 
 
 ### Grouping Attributes

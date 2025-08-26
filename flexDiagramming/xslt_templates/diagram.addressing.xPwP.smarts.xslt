@@ -1036,7 +1036,7 @@ return map{
 <!--       <xsl:message>dlocalLowerBound is <xsl:value-of select="../../dlocalLowerBound"/></xsl:message>
       <xsl:message><xsl:value-of select="'dl' || dlocal || 'lb' || ../../dlocalLowerBound || 'wl' || ../wlP || 'm' || ../../margin || 'p' || ../padding"/></xsl:message> -->
       <local>
-          <xsl:value-of select="dlocal - ../../dlocalLowerBound + ../wlP + ../../margin + ../padding"/>  
+          <xsl:value-of select="dlocal - ../../dlocalLowerBound  + ../../margin + ../padding"/>  
       </local>
     </xsl:copy>
   </xsl:template>
