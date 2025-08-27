@@ -959,6 +959,21 @@ return map{
   </xsl:template>
 
   <!-- dlocal Change of 22 Aug 2025 -->
+
+
+  <xsl:template match="xP
+                       [deferred]
+                       [not(dlocal)]
+                       "
+                mode="recursive_diagram_enrichment"
+                priority="173P">
+
+    <xsl:copy>
+      <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <dlocal>0</dlocal>
+    </xsl:copy>
+  </xsl:template>
+
   <xsl:template match="xP
                        [not(dlocal)]
                        [at[of]]

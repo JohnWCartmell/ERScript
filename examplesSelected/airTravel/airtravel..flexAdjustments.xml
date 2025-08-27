@@ -28,11 +28,12 @@
             <padding>0</padding>
             <shape_style>group_outline_visible</shape_style>
          </diagram:enclosure>
+         <!-- change of order of subtypes is significant -->
+         <entity_type><name>aircraft</name></entity_type>
+         <entity_type><name>seat</name></entity_type>
          <entity_type><name>airline service</name></entity_type>
          <entity_type><name>flight</name></entity_type>
          <entity_type><name>boarding pass</name></entity_type>
-         <entity_type><name>aircraft</name></entity_type>
-         <entity_type><name>seat</name></entity_type>
       </group>
    </group>  
 

@@ -54,7 +54,9 @@
          <context name="on" type="aircraft"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <reference name="potentially_used via" type="boarding pass*" inverse="issued for"/>
+      <!-- <reference name="potentially_used via" type="boarding pass*" inverse="issued for"/>
+       remove 27 Aug 2025: 
+                        unnecessary in legacy and incorrect (causes duplication) in er2flex-->
    </entity_type>
 
    <entity_type name="airport">
@@ -81,7 +83,9 @@
          <context name="within" type="terminal"/>
          <attribute name="number" type="string"/>
       </identifying>
-      <reference name="used by" type="flight*" inverse="leaving_from"/>
+      <!-- <reference name="used by" type="flight*" inverse="leaving_from"/> 
+                        remove 27 Aug 2025: 
+                        unnecessary in legacy and incorrect (causes duplication) in er2flex-->
    </entity_type>
    <entity_type name="passenger">
       <identifying>

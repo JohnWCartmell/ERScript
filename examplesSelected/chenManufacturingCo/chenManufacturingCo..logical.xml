@@ -21,7 +21,9 @@
       <entity_type name="project">
          <composition  name="resourced_by" type="project_worker_assignment*" inverse="assignment_to"/>
          <composition name="requires" type="part used_on project*" inverse="use by"/>
-         <reference name="managed by" type="employee" inverse="managing"/>
+         <!--<reference name="managed by" type="employee" inverse="managing"/>
+                                 remove 27 Aug 2025: 
+                        unnecessary in legacy and incorrect (causes duplication) in er2flex-->
       </entity_type>
       <entity_type name="project_worker_assignment">
          <identifying>

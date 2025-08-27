@@ -47,6 +47,8 @@ CHANGE HISTORY
 <xsl:include href="tactics_2_parameterised_enrichment.module.xslt"/>
 <xsl:include href="tactics_3_recursive_enrichment.module.xslt"/>
 <xsl:include href="tactics_4_enrichment.module.xslt"/>
+<xsl:include href="tactics_4_x_rules.module.xslt"/>
+<xsl:include href="tactics_4_y_rules.module.xslt"/>
 
 
 <!--  <xsl:include href="ERmodel.flex_pass_two_module.xslt"/> -->
@@ -255,6 +257,8 @@ CHANGE HISTORY
 			<!-- <w>3.0</w> --> <!-- hard coded instead? -->
 			<framearc>0.2</framearc>
 			<label/>
+			<x/>
+			<y/>
 		</xsl:element>
 	</xsl:template>
 
@@ -268,9 +272,18 @@ CHANGE HISTORY
 			<shape_style><xsl:value-of select="$shapestyle"/></shape_style>
 			<framearc>0.2</framearc>
 			<label><text_style>etname</text_style><id><xsl:value-of select="name"/>nameLabel</id></label>
-			<!-- new 4 May 2025 -->
+            <!-- the following ensures that diagram information can be embedded in  the 
+                 entity type and copies forward into the flex diagram -->
 			<xsl:copy-of select="diagram:enclosure/*"/>
-			<!-- end new -->  
+            <!-- if not embedded the x and y stubs created wehich will
+                  subsequently be populated in tactics four
+            -->
+            <xsl:if test="not(diagram:enclosure/diagram:x)">
+            	<x/>
+            </xsl:if>
+            <xsl:if test="not(diagram:enclosure/diagram:y)">
+            	<y/>
+            </xsl:if>
 			<xsl:apply-templates select="entity_type|group|attribute" mode="ERmodel2flex"/>
 		</xsl:element>
 	</xsl:template>
@@ -282,6 +295,12 @@ CHANGE HISTORY
 			<shape_style>group_outline</shape_style>
 			<xsl:apply-templates select="entity_type|group" mode="ERmodel2flex"/>
 			<xsl:copy-of select="diagram:enclosure/*"/>
+			<xsl:if test="not(diagram:enclosure/diagram:x)">
+            	<x/>
+            </xsl:if>
+            <xsl:if test="not(diagram:enclosure/diagram:y)">
+            	<y/>
+            </xsl:if>
 		</xsl:element>
 	</xsl:template>
 

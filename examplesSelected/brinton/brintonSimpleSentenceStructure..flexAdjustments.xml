@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram">
+
+
+   <!-- need this to keep so that absolute at beginning after consolidation -->
+ <!--   <absolute/>   -->
+
+   <entity_type>
+         <name>adjectival phrase</name>
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <x><dlocal>0</dlocal></x>
+            <y><at><top/><parent/></at></y>
+         </diagram:enclosure>
+   </entity_type>
+
+</entity_model>

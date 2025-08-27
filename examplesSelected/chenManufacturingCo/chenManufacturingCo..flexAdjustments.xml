@@ -7,16 +7,19 @@
    <!-- need this to keep so that absolute at beginning after consolidation -->
    </absolute>
     
-
     <group>
-        <name>employeerooted</name>
-        <entity_type><name>employee</name>
-<!--               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                  <wFill/>
-              </diagram:enclosure> -->
-        </entity_type>
-        <entity_type><name>dependent</name></entity_type>
-        <entity_type><name>project_worker_assignment</name></entity_type>
+        <name>departmentrooted</name>
+        <entity_type><name>department</name></entity_type>
+        <group>
+            <name>employeerooted</name>
+            <entity_type><name>employee</name>
+    <!--               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                      <wFill/>
+                  </diagram:enclosure> -->
+            </entity_type>
+            <entity_type><name>dependent</name></entity_type>
+            <entity_type><name>project_worker_assignment</name></entity_type>
+        </group>
     </group>
 
 </entity_model>
