@@ -88,6 +88,7 @@
    <xsl:copy>
       <xsl:variable name="appropriateParents" as="element()*"
                     select="key('ExitContainersOfEnteringTopdownRoutes',id)
+                    [. &lt;&lt; current()]   (: to give some control only take use docvument order as well :) 
                                            [not(some $prior
                                                   in yPositionalPriors/enclosureId
                                                 satisfies ($prior eq current()/id)

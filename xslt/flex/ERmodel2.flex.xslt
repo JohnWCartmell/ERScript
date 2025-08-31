@@ -234,7 +234,11 @@ CHANGE HISTORY
 				</default>
 				<xsl:element name="enclosure">
 					<id>diagram</id>
-					<label><id>required</id><text>xxx</text></label>
+					<label>
+						<id>required</id>
+						<text><xsl:value-of select="format-dateTime(current-dateTime(), '[Y0001]-[M01]-[D01] [H01]:[m01]')"/></text>
+						<text_style>trace</text_style>
+					</label>
 					<shape_style>group_outline_visible</shape_style>
 					<y><abs>0</abs></y>
 					<x><abs>0</abs></x>
@@ -253,12 +257,19 @@ CHANGE HISTORY
 			<id><xsl:value-of select="name"/></id>
 			<shape_style>eteven</shape_style>
 			<padding>0</padding>
-			<wFill/> <!-- UNDER INVESTIGATION --> 
-			<!-- <w>3.0</w> --> <!-- hard coded instead? -->
+			<wFill/> 
 			<framearc>0.2</framearc>
 			<label/>
-			<x/>
-			<y/>
+			<xsl:copy-of select="diagram:enclosure/*"/>
+            <!-- if not embedded the x and y stubs created wehich will
+                  subsequently be populated in tactics four
+            -->
+            <xsl:if test="not(diagram:enclosure/diagram:x)">
+            	<x/>
+            </xsl:if>
+            <xsl:if test="not(diagram:enclosure/diagram:y)">
+            	<y/>
+            </xsl:if>
 		</xsl:element>
 	</xsl:template>
 

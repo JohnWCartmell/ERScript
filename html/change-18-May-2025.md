@@ -377,13 +377,22 @@ files `diagram...path-+point.endpoint+ewQ.xslt` and `diagram..path-+point.startp
 
 Completed [x].
 
-4. Introduce a new source file  `diagram..route.path.point-+label.xslt` to create labels on startpoint and endpoint one for each annotation present. 
+4. In source files  `diagram...path(leftPrightP)-.point.endpoint.xslt` 
+and `diagram...path(leftPrightP)-.point.startpoint.xslt`
+create labels on startpoint and endpoint one for each annotation whether or not present. 
 Flag each label as `<primary/>` or `<secondary/>`.
 
 Completed for primaries [x].
 Completed for secondaries [x].
 
-5. Remove file  `diagram...route.path.point.label-+xP`
+5. In source file `diagram...route.path.point.label-+text` assign text to primary and seconday labels
+and remove the labels if there is no annotation. Note that the empty labels were created so that height and width of route
+endpoints would not be calculated too early
+(see  `diagram..node-+x_lower_boundP`, `diagram..node-+x_upper_boundP` ).
+The removal of unrequired labels programmed 25 August 2025.
+
+
+6. Remove file  `diagram...route.path.point.label-+xP`
 Replace by two files
  + `diagram...route.path.point.label-+x`
  + `diagram...route.path.point.label-+y`
@@ -401,7 +410,7 @@ Similarly the rule for y will  call function `diagram:yOffsetFromBearingAndDista
 
 Completed [x].
 
-6. **As a tie-over until better scheme specified an implemented** Improve the distribution of endpoints of routes along edges of enclosures. By modifying the rule in files `diagram...route.specific_edge-+deltax`
+7. **As a tie-over until better scheme specified an implemented** Improve the distribution of endpoints of routes along edges of enclosures. By modifying the rule in files `diagram...route.specific_edge-+deltax`
 and `diagram...route.specific_edge-+deltay`. 
 If noOfSlots greater than two then reduce the distance between first and last slots and the corners. 
 Currently deltax is given be
@@ -440,6 +449,7 @@ Completed [x].
 
 ### Completion Date 
 Completed  22/07/2025.
+Cleaned up by deletion of unwanted labels on 31 August 205.
 
 We still need fine tuning of secondary labels but that will need to be done when I have places I want to use them.
 
@@ -448,6 +458,5 @@ Other side issues will need to be addressed separately:
 + calculation of label widths needs to be more accurate
 + need label_lateral_offset and label_long_offset to take account of presence or absence and extents
 of endline markers such as arrow heads or diamonds.
-+ a feature/bug ---  empty labels are created when no annotations are specified.
 (Currently get a warning messages when a route has no annotation on one end or another.)
 Note that these are needed as flags. See comments in code where labels created.

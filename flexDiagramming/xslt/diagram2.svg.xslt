@@ -16,6 +16,7 @@ CHANGE HISTORY
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"       
         xmlns:xlink="http://www.w3.org/TR/xlink" 
         xmlns:svg="http://www.w3.org/2000/svg" 
+        xmlns:diagram="http://www.entitymodelling.org/diagram"
         xpath-default-namespace="http://www.entitymodelling.org/diagram">
 
 
@@ -220,7 +221,7 @@ CHANGE HISTORY
            <xsl:value-of select="x/abs"/>
     </xsl:variable>
       <xsl:variable name="text_div_id" as="xs:string?">
-        <xsl:value-of select="concat(replace(id,' ','__'),'_text')"/>
+        <xsl:value-of select="concat(id,'_text')"/>
       </xsl:variable>
       <div>
         <xsl:attribute name="id" select="$text_div_id"/>
@@ -310,10 +311,12 @@ CHANGE HISTORY
 </xsl:template>
 
 
+
+
 <xsl:template name="renderenclosure" match="enclosure">
     <svg:rect>
       <xsl:attribute name="class"><xsl:value-of select="shape_style"/></xsl:attribute>
-      <xsl:attribute name="data-infoBoxId"><xsl:value-of select="replace(id,' ','__')"/></xsl:attribute>
+      <xsl:attribute name="data-infoBoxId"><xsl:value-of select="diagram:escape-for-selector(id)"/></xsl:attribute>
       <xsl:attribute name="x"><xsl:value-of select="x/abs"/>cm</xsl:attribute>
       <xsl:attribute name="y"><xsl:value-of select="y/abs"/>cm</xsl:attribute>
       <xsl:if test="rx">
@@ -394,7 +397,7 @@ CHANGE HISTORY
   -->
     <svg:path>
        <xsl:attribute name="class" select="'margin'"/>
-       <xsl:attribute name="data-infoBoxId" select="replace(id,' ','__')"/>
+       <xsl:attribute name="data-infoBoxId" select="diagram:escape-for-selector(id)"/>
        <xsl:attribute name="d">
            <xsl:value-of select="concat('M',x/abs,    ',',y/abs    )"/>
            <xsl:value-of select="concat(' L',x/abs + w,',',y/abs    )"/>
@@ -421,7 +424,12 @@ CHANGE HISTORY
         </xsl:if>
         <svg:path>
          <xsl:attribute name="class" select="'padding'"/>
-         <xsl:attribute name="data-infoBoxId" select="replace(id,' ','__')"/>
+         <xsl:if test="id">
+          <xsl:attribute name="data-infoBoxId" select="diagram:escape-for-selector(id)"/>
+        </xsl:if>
+        <xsl:if test="not(id)">
+          <xsl:attribute name="data-infoBoxId" select="name() || 'padding'"/>
+        </xsl:if>
          <xsl:attribute name="d">
              <xsl:value-of select="concat(' M',x/abs - wl,      ',',y/abs - ht)"/>  
              <xsl:value-of select="concat(' L',x/abs + w + wr, ',',y/abs - ht)"/>
@@ -473,7 +481,7 @@ CHANGE HISTORY
   <svg:path>
     <xsl:if test="parent::route">
       <!-- <xsl:attribute name="id"><xsl:value-of select="parent::route/id"/></xsl:attribute> -->
-      <xsl:attribute name="data-infoBoxId"><xsl:value-of select="parent::route/replace(id,' ','__')"/></xsl:attribute>
+      <xsl:attribute name="data-infoBoxId"><xsl:value-of select="parent::route/diagram:escape-for-selector(id)"/></xsl:attribute>
                                                    <!-- change of 25-Oct-2024 -->
     </xsl:if>
     <xsl:attribute name="class"><xsl:value-of select="$classname"/></xsl:attribute>

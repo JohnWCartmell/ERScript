@@ -239,7 +239,9 @@
                	<xsl:value-of select="$pointOfReference/id"/>
                </of>
             </at>
-            <delta>1</delta>
+            <xsl:if test="not(delta)">
+            	<delta>1</delta>
+         	</xsl:if>
          <!-- </x> -->
 		</xsl:copy>
 	</xsl:template>
@@ -392,7 +394,9 @@
 								   [1]/id"/>
 					</of>
 				</at>
-				<delta>1</delta>
+				<xsl:if test="not(delta)">
+            	<delta>1</delta>
+         	</xsl:if>
 			<!-- </x> -->
 		</xsl:copy>
 	</xsl:template>

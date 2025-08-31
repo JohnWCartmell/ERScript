@@ -137,7 +137,7 @@ function getInfoboxElementFromGivenSvgElement(svgElmnt)
    const greatgrandParentHTMLelement = parentHTMLelement.parentNode.parentNode ;
    /*console.log("greatgrandParentElement", greatgrandParentHTMLelement, "class", greatgrandParentHTMLelement.class) ;*/
    const selector = '#' + id + '_text' ;
-   /*console.log("selector", selector);*/
+   console.log("selector", selector);
    const infoboxDivElement = greatgrandParentHTMLelement.querySelector(selector);
    return infoboxDivElement;
 }

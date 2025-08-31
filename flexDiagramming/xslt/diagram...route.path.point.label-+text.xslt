@@ -11,6 +11,15 @@
 	See change of 18 May 2025.
  -->
 
+
+				<!-- empty labels are as a flag because  
+				     need to know for evaluation of dimensions in
+				     	diagram..node-+x_lower_boundP
+				     	diagram..node-+x_upper_boundP
+				     that all required labels have been created.
+				     Here we can delete (not copy forward() labels that are not required.
+				-->
+
 	<xsl:output method="xml" indent="yes"/>
 
 	<!-- ******************************** -->
@@ -25,17 +34,13 @@
 		" 
 			mode="recursive_diagram_enrichment"
 			priority="40.1">  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<text><xsl:value-of select="../../..[self::route]/source/annotation"/></text>
-			<!-- this text may be empty if source doesn't have an annotation -->
-			<!-- need this empty label as a flag because  
-			     need to know for evaluation of dimensions in
-			     	diagram..node-+x_lower_boundP
-			     	diagram..node-+x_upper_boundP
-			     that all required labels have been created 
-			-->
-		</xsl:copy>
+		<xsl:if test="../../..[self::route]/source/annotation">
+			<xsl:copy>
+				<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+				<text><xsl:value-of select="../../..[self::route]/source/annotation"/></text>
+
+			</xsl:copy>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="route
@@ -46,11 +51,12 @@
 		" 
 			mode="recursive_diagram_enrichment"
 			priority="40.1">  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<text><xsl:value-of select="../../..[self::route]/source/secondaryAnnotation"/></text>
-			<!-- see comment regarding empty text above -->
-		</xsl:copy>
+		<xsl:if test="../../..[self::route]/source/secondaryAnnotation">
+			<xsl:copy>
+				<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+				<text><xsl:value-of select="../../..[self::route]/source/secondaryAnnotation"/></text>
+			</xsl:copy>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- ******************************** -->
@@ -64,12 +70,13 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40.1">	  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<text><xsl:value-of select="../../..[self::route]/destination/annotation"/></text>
-			<!-- see comment regarding empty text above -->
-		</xsl:copy>
+			priority="40.1">
+		<xsl:if test="../../..[self::route]/destination/annotation">	  
+			<xsl:copy>
+				<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+				<text><xsl:value-of select="../../..[self::route]/destination/annotation"/></text>
+			</xsl:copy>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="route
@@ -79,12 +86,13 @@
 		[not(text)]
 		" 
 			mode="recursive_diagram_enrichment"
-			priority="40.1">	  
-		<xsl:copy>
-			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
-			<text><xsl:value-of select="../../..[self::route]/destination/secondaryAnnotation"/></text>
-			<!-- see comment regarding empty text above -->
-		</xsl:copy>
+			priority="40.1">
+		<xsl:if test="../../..[self::route]/destination/secondaryAnnotation">	  
+			<xsl:copy>
+				<xsl:apply-templates mode="recursive_diagram_enrichment"/>
+				<text><xsl:value-of select="../../..[self::route]/destination/secondaryAnnotation"/></text>
+			</xsl:copy>
+		</xsl:if>
 	</xsl:template>
 	
 </xsl:transform>

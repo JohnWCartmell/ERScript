@@ -127,6 +127,10 @@ by
 
 ```
 
+3. NOT actually written in the code like the above. In addition in attempt to grasp a little control
+programmed to only look for parents appearing earlier in the document.
+***Need consider this an experimental change*** 30 August 2025
+
 
 ### Example
 A single example with different choices of yPositionalPointOfReference.
@@ -160,11 +164,11 @@ Following rules are for enclosures nested within other (parent) encloures:
 |             | |    |pT- | sibling y-.T+ absent   ||                           || beneath preceding label |
 |             | |    |pT+ | sibling y-.T+ present  ||                           || beneath first y-T+      |
 |             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  || top of preceeding y-.T+ |
-|             |.T+|  |    | needs access to top    ||                           ||                         |
-|             | |0   |    | first y-.T+            ||                           || top of parent           |
+|             |.T+|  |    | needs access to top    ||                           || top of parent           |
+|             | |0   |    | first y-.T+            ||                           ||                         |
 |             | |    |.pL+| exists preceding label || right of preceding label  ||                         |
-|             | |    |.PL-| no preceding label     || *DEFER* 26th August                  ||                         |
-|             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  || top of preceding y-T+   |
+|             | |    |.PL-| no preceding label     || deferred                  ||                         |
+|             | |s   |    | subsequent y-.T+       || right of preceding y-.T+  ||                         |
 |  y+         | |    |    | has yPosPoR (y+)       ||                           || bottom of y+            |
 |             |0|    |    |first with this y+      ||                           ||                         |
 |             | |.wF+|    | y+/wFill               ||                           ||                         |
@@ -173,6 +177,11 @@ Following rules are for enclosures nested within other (parent) encloures:
 |             | |.wF-|    | not y+/wFill           || center of y+              ||                         |
 |             |s|    |    | not first with this y+ || right of previous this y+ ||                         |
 
+
+***In above merge XXX lines and merge in software likewise.***
+**Second of above lines still needs to be changed in software (from left of sibling) TEST on airline adjustment.**
+**also merge y+ bottom of y+ **
+**reprogram rto diagram:adjustment**
 
 ### Grouping Attributes
 Modify ER2flex to generate an enclosure containing attribute labels and an enclosure containing the name label

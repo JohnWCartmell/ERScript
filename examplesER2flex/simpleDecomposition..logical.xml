@@ -12,10 +12,10 @@
    </entity_type>
    <entity_type name="rule y1 and x6A">
    </entity_type>
-   <entity_type name="also rule y1 and x6A">
-   </entity_type>
    <entity_type name="rule y1 and x6B">
       <composition type="also rule y1 and x6A*"/>
+   </entity_type>
+   <entity_type name="also rule y1 and x6A">
    </entity_type>
    <entity_type name="also rule y1 and x6B">
    </entity_type>

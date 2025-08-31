@@ -40,10 +40,10 @@ echo 'airTravel Barker Figure 3-18 '
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                              -animate -shortSeparator NA -longSeparator NA
-}
 
 echo 'airTravel Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 airTravel..logical.xml -animate -debugSwitch
+}
 
 echo 'airTravel Adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 airTravel..diagram.xml -animate -debugSwitch

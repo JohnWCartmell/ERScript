@@ -5,21 +5,53 @@
 
    <absolute>  
    <!-- need this to keep so that absolute at beginning after consolidation -->
+<!--    <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+        <x><abs>0</abs></x>
+    </diagram:enclosure> -->
    </absolute>
     
+
     <group>
         <name>departmentrooted</name>
+          <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+             <margin>0</margin>
+             <padding>0</padding>
+             <shape_style>group_outline_visible</shape_style>
+          </diagram:enclosure>
         <entity_type><name>department</name></entity_type>
         <group>
             <name>employeerooted</name>
+            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                 <margin>0</margin>
+                 <padding>0</padding>
+                 <shape_style>group_outline_visible</shape_style>
+              </diagram:enclosure>
             <entity_type><name>employee</name>
-    <!--               <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
-                      <wFill/>
-                  </diagram:enclosure> -->
             </entity_type>
-            <entity_type><name>dependent</name></entity_type>
-            <entity_type><name>project_worker_assignment</name></entity_type>
+            <group>
+                <name>employeecontent</name>
+                <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                     <margin>0</margin>
+                     <padding>0</padding>
+                     <shape_style>group_outline_visible</shape_style>
+                </diagram:enclosure>
+                <entity_type><name>dependent</name></entity_type>
+                <entity_type><name>project_worker_assignment</name></entity_type>
+            </group>
         </group>
     </group>
+    <entity_type>
+        <name>project</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <x><delta>-1</delta></x>
+            <w>2</w>
+        </diagram:enclosure>
+    </entity_type>
+    <entity_type>
+        <name>part used_on project</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <x><delta>1</delta></x>
+        </diagram:enclosure>
+    </entity_type>
 
 </entity_model>

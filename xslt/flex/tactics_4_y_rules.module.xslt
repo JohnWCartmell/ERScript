@@ -179,29 +179,27 @@
 	</xsl:template>
 
 
-	<!-- next three templates - a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure. --> 
+	<!-- a non-outermost enclosure with a non local top down route to it is placed at the top of its parent enclosure. --> 
 	              
-	<!--     ************ -->
-	<!--       Rule y-.T+0.pL+    -->
-	<!--     ************ -->
+	<!--     ************* -->
+	<!--       Rule y-.T+  -->
+	<!--     ************* -->
 
 	<xsl:template match="enclosure
 	                    /enclosure
 			                [not(yPositionalPointOfReference)]  
 								 [$flib?needsAccessToTop(.)]  
-								 [$flib?isFirstToNeedAccessToTop(.)]  
-								 [preceding-sibling::label]
 	                  /y
 		                   [not(at)]
 		                   [not(deferred)]
 	                    "
 	              mode="tactics_four_enrichment"> 
-	   <xsl:variable name="rulename" as="xs:string" select="'y-.T+0.pL+'"/>  
+	   <xsl:variable name="rulename" as="xs:string" select="'y-.T+'"/>  
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
          <!-- <y> -->
-           <rule>y-.T+0.pL+</rule>
-		     <place><top/></place>
+           <rule>y-.T+</rule>
+		     <place><top/><outer/></place>
             <at>
                <top/><parent/>
             </at>
@@ -212,7 +210,7 @@
 	<!--     *********** -->
 	<!--       Rule y-.T+0.pL-   -->
 	<!--     *********** -->
-	<xsl:template match="enclosure
+<!-- 	<xsl:template match="enclosure
 	                    /enclosure
 			                [not(yPositionalPointOfReference)]   
 								 [$flib?isFirstToNeedAccessToTop(.)]  
@@ -225,7 +223,6 @@
 	   <xsl:variable name="rulename" as="xs:string" select="'y-.T+0.pL-'"/> 
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
-         <!-- <y> -->
          	<rule><xsl:value-of select="$rulename"/></rule>
 			   <place>
 				   <top/>
@@ -235,14 +232,13 @@
                <top/>
                <parent/>
             </at>
-         <!-- </y> -->
 		</xsl:copy>
-	</xsl:template>
+	</xsl:template> -->
 	
 	<!--     *********** -->
 	<!--       Rule y-.T+s   -->
 	<!--     *********** -->              
-	<xsl:template match="enclosure
+<!-- 	<xsl:template match="enclosure
 	                    /enclosure
 			                [not(yPositionalPointOfReference)]   
 								 [$flib?needsAccessToTop(.)]  
@@ -257,8 +253,6 @@
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<xsl:variable name="pointOfReference" as="element()"
 			              select="$flib?previousNotToNeedAccessToTop(..)"/>
-
-         <!-- <y> -->
          	<rule>y-.T+s</rule>
 		      <place>
 			     <top/>
@@ -270,9 +264,8 @@
                	<xsl:value-of select="$pointOfReference/id"/>
                </of>
             </at>
-         <!-- </y> -->
 		</xsl:copy>
-	</xsl:template>
+	</xsl:template> -->
 	
 
 	

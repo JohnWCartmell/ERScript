@@ -369,5 +369,12 @@
       <xsl:value-of select="1 div math:tan($degrees div 180 * math:pi())"/>
   </xsl:function>
 
+  <xsl:function name="diagram:escape-for-selector" as="xs:string">
+  <xsl:param name="raw" as="xs:string"/>
+
+  <!-- Replace any character that is not [a-zA-Z0-9_-] with a backslash escape -->
+  <xsl:sequence select="replace($raw, '([^A-Za-z0-9_-])', '\\$1')"/>
+</xsl:function>
+
 </xsl:transform>
 
