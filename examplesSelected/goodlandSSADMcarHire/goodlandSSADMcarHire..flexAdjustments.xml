@@ -9,16 +9,42 @@
             <!-- <x><abs>0</abs></x> -->
         </diagram:enclosure>
    </absolute>
-   <entity_type><name>customer</name></entity_type>
-    <group>
-        <name>paymentrooted</name>
-        <entity_type><name>payment</name></entity_type>
+   <group>
+       <name>customerrooted</name>
         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
              <margin>0</margin>
              <padding>0</padding>
              <shape_style>group_outline_visible</shape_style>
-          </diagram:enclosure>
-          <entity_type><name>allocated_payment</name></entity_type>
-          <entity_type><name>booking_/invoice</name></entity_type>
+        </diagram:enclosure>
+       <entity_type><name>customer</name></entity_type>
+        <group>
+            <name>paymentrooted</name>
+            <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                 <margin>0</margin>
+                 <padding>0</padding>
+                 <shape_style>group_outline_visible</shape_style>
+            </diagram:enclosure>
+            <entity_type><name>payment</name></entity_type>
+            <entity_type><name>allocated_payment</name></entity_type>
+            <entity_type><name>booking_/invoice</name></entity_type>
+        </group>
     </group>
+    <entity_type><name>local_office</name></entity_type>
+    <group>
+       <name>local_officerooted</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+             <margin>0</margin>
+             <padding>0</padding>
+             <shape_style>group_outline_visible</shape_style>
+        </diagram:enclosure>
+        <entity_type><name>driver</name></entity_type>
+        <entity_type><name>vehicle</name></entity_type>
+    </group>
+
+    <entity_type>
+        <name>vehicle_category</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+             <y><place><bottom/><edge/></place><at><bottom/><edge/><of>booking_/invoice</of></at></y>
+        </diagram:enclosure>
+    </entity_type>
 </entity_model>

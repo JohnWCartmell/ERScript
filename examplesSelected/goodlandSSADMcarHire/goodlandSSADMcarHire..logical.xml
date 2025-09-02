@@ -31,7 +31,6 @@
                   inverse="to and from"/> -->
    </entity_type>
    <entity_type name="driver">
-      <reference name="driver_for" type="booking_/invoice*" inverse="driven by"/>
    </entity_type>
    <entity_type name="vehicle">
       <reference name="classified by"

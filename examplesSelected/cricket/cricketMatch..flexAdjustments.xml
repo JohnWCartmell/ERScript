@@ -7,7 +7,7 @@
    <absolute>  
 <!-- NEED THIS HERE FOR SOME REASON  ... AS AT 15 Aug 2025-->
    </absolute>
-
+   <entity_type><name>match</name></entity_type>
    <group>
       <name>inmatch</name>
       <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">

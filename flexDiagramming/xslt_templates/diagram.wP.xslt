@@ -39,6 +39,12 @@
                                            | $point/xP/clocal | $point/xP/rlocal) 
 								     and ($point/padding)
                               ]
+                              [ every $label in $flexLib?routeEndpointsOnTopEdgeP(.)/label 
+                                satisfies $label/wP
+                              ]
+                              [ every $label in $flexLib?routeEndpointsOnBottomEdgeP(.)/label 
+                                satisfies $label/wP
+                              ]
                     "
                mode="recursive_diagram_enrichment"
                              priority="42.1P">
@@ -49,7 +55,21 @@
 	      Note that xP/clocal + wP = -xP/clocal so both 3rd line and 4th term then match each other
 	   -->
       <xsl:variable name="wP" as="xs:double"
-            select="max((
+            select="let $widthForLabelsOneSide :=
+                             sum((
+                                  $flexLib?routeEndpointsOnTopEdgeP(.)/label/(wP+3*padding)
+                                 )),
+                        $widthForLabelsOtherSide :=
+                             sum(($flexLib?routeEndpointsOnBottomEdgeP(.)/label/(wP+3*padding)))
+                 (: *** widths of labels taken into account change of 1 Sept 2025     *** :)
+                 (: *** 3*padding because each side of label plus the padding for     *** :)
+                 (: *** the line itself                                               *** :)
+                 (: *** I cannot know the positions of endpoints at this time         *** :)
+                 (: *** reason: because the relative positions of endpoints is        *** :)
+                 (: *** calculated from slot numbers and thereby angles and thereby   *** :)
+                 (: *** positions of enclosures and thereby widths of enclosures      *** :)
+                    return 
+                    max((
                          (ancestor-or-self::*/default/wminP)[last()],
                          enclosure[not(wPFill)]/((xP/relative/*[position()=1][self::offset])+ wP +  wrP  + padding),
                            enclosure[not(wPFill)]/(2 * (xP/clocal + wP  +  wrP  + padding) + ../margin),
@@ -58,7 +78,9 @@
                            *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
                            *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
                            *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
-                           route/path/point/(xP/relative/*[position()=1][self::offset] + padding)
+                           route/path/point/(xP/relative/*[position()=1][self::offset] + padding),
+                           $widthForLabelsOneSide,
+                           $widthForLabelsOtherSide
                          )) + margin
                      "/> 
 

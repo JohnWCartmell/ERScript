@@ -23,7 +23,6 @@
       <reference name="noOfRows" type="cardinal" surjective="false" />
       <reference name="noOfCols" type="cardinal" surjective="false" />
    </entity_type>
-   <!-- <group name="row and column"> -->
       <entity_type name="row">
          <identifying>
             <context type="grid"/>
@@ -33,6 +32,12 @@
             <pullback along=".." type="column" projection_rel="col"/>
          </composition>
       </entity_type>
+   <entity_type name="cell">
+      <identifying>
+         <context type="row"/>
+         <reference name="col" type="column" surjective="false" inverse="cells" diagonal="../.." riser=".."/>
+      </identifying>
+   </entity_type>
       <entity_type name="column">
          <identifying>
             <context type="grid"/>
@@ -41,14 +46,6 @@
          <!-- <reference name="cells" type="cell*" inverse="col"/>  
                            simplified by adding surjective='false' 20-Jan-2025-->
       </entity_type>
-   <!-- </group> -->
-   <entity_type name="cell">
-      <identifying>
-         <context type="row"/>
-         <reference name="col" type="column" surjective="false" inverse="cells" diagonal="../.." riser=".."/>
-      </identifying>
-   </entity_type>
-   <!-- <group name="reuseable"> -->
       <entity_type name="cardinal">
          <identifying>
             <attribute name="zno" type="nonNegativeInteger"/>
@@ -61,5 +58,4 @@
             <attribute name="zno" type="nonNegativeInteger"/>
          </identifying>
       </entity_type>
-   <!-- </group> -->
 </entity_model>

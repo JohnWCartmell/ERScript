@@ -32,15 +32,10 @@
    </entity_type>
    <entity_type name="verb_group"/>
    <entity_type name="NP|AP|PP">
-         <!-- Note that for ER2flex to work
-         I had to move the "adjectival phrase" entity type
-         here, before "NP|AP" in the source file.
-         13 May 2025  
-         -->
       <entity_type name="adjectival phrase">
          <composition type="Advpbar?"/>
          <composition type="adjective"/>
-         <composition type="prepositional phrase?"/>
+         <!-- <composition type="prepositional phrase?"/> -->  <!-- see what removing this does ?-->
       </entity_type>
       <entity_type name="NP|PP">
          <entity_type name="noun phrase">
@@ -59,28 +54,7 @@
          </entity_type>
       </entity_type>
    </entity_type>
-   <entity_type name="yyy">
-      <description/>
-      <entity_type name="N-bar">
-         <composition type="adjectival phrase?"/>
-         <composition type="yyy"/>
-         <composition type="prepositional phrase?"/>
-      </entity_type>
-      <entity_type name="noun">
-      </entity_type>
-   </entity_type>
-   <entity_type name="prepositional_specifier"/>
-   <entity_type name="preposition">
-      <description/>
-   </entity_type>
-   <entity_type name="determiner"/>
    <entity_type name="Advpbar">
-      <description/>
-         <!-- Note that for ER2flex to work
-         I had to change the order of subtypes  "adverbal phrase"
-         and "degree" in the source file.
-         13 May 2025  
-         -->
       <entity_type name="adverbial_phrase">
          <description/>
          <composition type="degree?"/>
@@ -90,4 +64,16 @@
    </entity_type>
    <entity_type name="adverb"/>
    <entity_type name="adjective"/>
+   <entity_type name="determiner"/>
+   <entity_type name="yyy">
+      <entity_type name="N-bar">
+         <composition type="adjectival phrase?"/>
+         <composition type="yyy"/>
+         <composition type="prepositional phrase?"/>
+      </entity_type>
+      <entity_type name="noun"/>
+   </entity_type>
+   <entity_type name="prepositional_specifier"/>
+   <entity_type name="preposition"/>
+
 </entity_model>

@@ -5,13 +5,25 @@
 
    <!-- need this to keep so that absolute at beginning after consolidation -->
  <!--   <absolute/>   -->
+   <entity_type><name>sentence</name></entity_type>
+   <group>
+       <name>verbphrasegrouping</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+             <margin>0</margin>
+             <padding>0</padding>
+             <shape_style>group_outline_visible</shape_style>
+        </diagram:enclosure>
+        <entity_type><name>verb phrase</name></entity_type>
+        <entity_type><name>verb_group</name></entity_type>
+   </group>
 
-   <entity_type>
+
+<!--    <entity_type>
          <name>adjectival phrase</name>
          <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
             <x><dlocal>0</dlocal></x>
             <y><at><top/><parent/></at></y>
          </diagram:enclosure>
-   </entity_type>
+   </entity_type> -->
 
 </entity_model>

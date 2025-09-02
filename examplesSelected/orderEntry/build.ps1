@@ -42,13 +42,14 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 
 echo 'Run ER.instanceValidation.xslt on valid instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 validorderEntryInstance.xml -outputFolder ..\docs -debugSwitch
+}
+
 echo 'orderEntry raw flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 orderEntry..logical.xml -animate 
 
 echo 'orderEntry adjusted flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 orderEntry..diagram.xml -animate 
 
-}
 
 echo 'orderEntry physical adjusted flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 orderEntry..physical..diagram.xml -animate 

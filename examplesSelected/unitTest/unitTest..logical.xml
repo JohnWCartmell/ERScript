@@ -3,7 +3,6 @@
               ERScriptVersion="1.6"
               metaDataFilePathWrtERHome="MetaModel/xml/ERA.surface..physical.xml">
    <entity_type name="source"/>
-   <entity_type name="sink"/>
    <entity_type name="injective">
       <entity_type name="injective_into">
          <context type="source" injective="true"/>   <!-- test context default is surjective="false" -->
@@ -24,4 +23,5 @@
          <reference name="onto" type="sink" injective="false" surjective="true"/>
       </entity_type>
    </entity_type>
+   <entity_type name="sink"/>
 </entity_model>

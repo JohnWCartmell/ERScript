@@ -7,5 +7,26 @@
    <!-- need this to keep so that absolute at beginning after consolidation -->
    </absolute>
        
+<group>
+       <name>tablerooted</name>
+        <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+             <margin>0</margin>
+             <padding>0</padding>
+             <shape_style>group_outline_visible</shape_style>
+        </diagram:enclosure>
+        <entity_type><name>table</name></entity_type>
+        <group>
+               <name>tablecontent</name>
+                <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+                     <margin>0</margin>
+                     <padding>0</padding>
+                     <shape_style>group_outline_visible</shape_style>
+                </diagram:enclosure>
+                <entity_type><name>primary key entry</name></entity_type>
+                <entity_type><name>column</name></entity_type>
+                <entity_type><name>foreign key</name></entity_type>
+                <entity_type><name>foreign key entry</name></entity_type>
+        </group>
+</group>
 
 </entity_model>

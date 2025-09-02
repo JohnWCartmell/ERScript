@@ -15,19 +15,6 @@
 	<xsl:output method="xml" indent="yes" />
 
 
-   <xsl:template name="plant_x_label" match="enclosure"  mode="explicit">
-   	<xsl:param name="rulename" as="xs:string"/>
-		<label>
-         <padding>0.1</padding>
-			<text><xsl:value-of select="'rule ' || $rulename"/></text><text_style>trace</text_style>
-			<!-- <x> --><place><right/><edge/></place><at><right/><edge/><parent/></at><!-- </x> -->
-			<y><place><outer/><top/></place><at><bottom/><edge/><parent/></at></y>
-		</label>
-	</xsl:template>
-
-
-
-
 	<!--     *************** -->
 	<!--       Rule d+y-0    -->
 	<!--     *************** -->
@@ -49,7 +36,7 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<!-- <x> --> 
-         	<rule>rule d+y-0</rule>
+         	<rule>d+y-0</rule>
 				<at>
 					<left/>
 					<parent/>
@@ -85,7 +72,7 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<!-- <x> --> 
-         	<rule>rule y-.T-0.pT-</rule>
+         	<rule>y-.T-0.pT-</rule>
 				<deferred/>
 			<!-- </x> -->
 		</xsl:copy>
@@ -112,7 +99,7 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 			<!-- <x> --> 
-         	<rule>rule y-.T-0.pT+</rule>
+         	<rule>y-.T-0.pT+</rule>
 				<!-- <at>
 					<left/>
 					<parent/>
@@ -343,7 +330,7 @@
 
 						   " 
 						 mode="tactics_four_enrichment">
-      <xsl:variable name="rulename" as="xs:string" select="'XXX y+0.wF-'"/>
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-'"/>
 
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>

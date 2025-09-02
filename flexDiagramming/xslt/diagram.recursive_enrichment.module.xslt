@@ -20,6 +20,8 @@
 
 <xsl:include href="ERmodel.functions.module.xslt"/>
 <xsl:include href="diagram.functions.module.xslt"/>
+<xsl:include href="diagram.derived.relationships.module.xslt"/>
+
 <xsl:include href="diagram.+sourcecode+id.xslt"/>            <!-- priority  999999 --> <!-- HIGHEST PRIORITY -->
 
 <xsl:include href="diagram...x-+place.xslt"/>            <!-- priority  199 -->

@@ -4,6 +4,7 @@
                xmlns="http://www.entitymodelling.org/diagram"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:fn="http://www.w3.org/2005/xpath-functions"
                xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                xmlns:diagram="http://www.entitymodelling.org/diagram" 
                xpath-default-namespace="http://www.entitymodelling.org/diagram">
@@ -20,7 +21,7 @@ $source
    let $result := root($route)//enclosure[id eq $route/source/id]
    return if (exists($result)) 
           then $result
-          else fn:error(f*n:QName('http://www.entitymodelling.org/SOURCE', 'er:sourcenotdefined'),'xxx')
+          else fn:error(fn:QName('http://www.entitymodelling.org/SOURCE', 'er:sourcenotdefined'),'xxx')
 },
 $destination
 := function ($route as element(route)) as element(enclosure)
@@ -37,66 +38,65 @@ $containsOrEqual
              $otherEnclosure  as element(enclosure)) as xs:boolean
 {
    some $member in $container/descendant-or-self::enclosure satisfies $member is  $otherEnclosure
-}
+},
 $routeNodesEndingOnLeftSideOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+:= function ($enclosure as element(enclosure)) as element(*(:source|destination:))*
 {  
  root($enclosure)//route/*[self::source|self::destination][left_side][id eq $enclosure/id]
 },
 $routeNodesEndingOnRightSideOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+:= function ($enclosure as element(enclosure)) as element(*(:source|destination:))*
 {  
  root($enclosure)//route/*[self::source|self::destination][right_side][id eq $enclosure/id]
 },
 $routeNodesEndingOnTopEdgeOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+:= function ($enclosure as element(enclosure)) as element(*(:source|destination:))*
 {  
  root($enclosure)//route/*[self::source|self::destination][top_edge][id eq $enclosure/id]
 },
 $routeNodesEndingOnBottomEdgeOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+:= function ($enclosure as element(enclosure)) as element(*(:source|destination:))*
 {  
  root($enclosure)//route/*[self::source|self::destination][bottom_edge][id eq $enclosure/id]
 },
 $endpointForSpecificRouteNode
-:= function ($node as element(*(:source|destination:))) as element(point))
+:= function ($node as element(*(:source|destination:))) as element(point)
 {  
 if ($node[self::source]) 
-then ../path/point[startpoint]
+then $node/../path/point[startpoint]
 else if ($node[self::destination])
-then ../path/point[endpoint]
+then $node/../path/point[endpoint]
 else fn:error(fn:QName('http://www.entitymodelling.org/endpointForSpecificEdge', 
-                        'er:wrong type for parameter'),'type:'|| $edge/name())
+                        'er:wrong type for parameter'),'type:'|| $node/name())
 },
-$routeEndpointsOnLeftSideOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+$routeEndpointsOnLeftSide
+:= function ($enclosure as element(enclosure)) as element(point)*
 {  
 (: use ! operator map a function through the sequence of results of a function call :)
-$routeNodesEndingOnLeftSideOf($enclosure) ! $endpointForSpecificRouteNode
+   $routeNodesEndingOnLeftSideOf($enclosure) ! $endpointForSpecificRouteNode(.)
 },
-$routeEndpointsOnRightSideOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+$routeEndpointsOnRightSide
+:= function ($enclosure as element(enclosure)) as element(point)*
 {  
-$routeNodesEndingOnRightSideOf($enclosure) ! $endpointForSpecificRouteNode
+   $routeNodesEndingOnRightSideOf($enclosure) ! $endpointForSpecificRouteNode(.)
 },
-$routeEndpointsOnTopEdgeOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+$routeEndpointsOnTopEdge
+:= function ($enclosure as element(enclosure)) as element(point)*
 {  
-$routeNodesEndingOnTopEdgeOf($enclosure) ! $endpointForSpecificRouteNode
+   $routeNodesEndingOnTopEdgeOf($enclosure) ! $endpointForSpecificRouteNode(.)
 },
-$routeEndpointsOnBottomEdgeOf
-:= function ($enclosure as element(enclosure)) as element(route)*)
+$routeEndpointsOnBottomEdge
+:= function ($enclosure as element(enclosure)) as element(point)*
 {  
-$routeNodesEndingOnBottomEdgeOf($enclosure) ! $endpointForSpecificRouteNode
+   $routeNodesEndingOnBottomEdgeOf($enclosure) ! $endpointForSpecificRouteNode(.)
 }
-
 return map{
    'source':$source,
    'destination':$destination,
-   'routeEndpointsOnLeftSideOf':$routeEndpointsOnLeftSideOf,
-   'routeEndpointsOnRightSideOf':$routeEndpointsOnRightSideOf,
-   'routeEndpointsOnTopEdgeOf':$routeEndpointsOnTopEdgeOf,
-   'routeEndpointsOnBottomEdgeOf':$routeEndpointsOnBottomEdgeOf,
+   'routeEndpointsOnLeftSide':$routeEndpointsOnLeftSide,
+   'routeEndpointsOnRightSide':$routeEndpointsOnRightSide,
+   'routeEndpointsOnTopEdge':$routeEndpointsOnTopEdge,
+   'routeEndpointsOnBottomEdge':$routeEndpointsOnBottomEdge,
    'containsOrEqual': $containsOrEqual
 }"/>
 </xsl:variable>

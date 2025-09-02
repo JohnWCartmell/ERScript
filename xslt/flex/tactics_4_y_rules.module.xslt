@@ -15,18 +15,6 @@
 	<xsl:output method="xml" indent="yes" />
 	
 
-
-   <xsl:template name="plant_y_label" match="enclosure"  mode="explicit">
-   	<xsl:param name="rulename" as="xs:string"/>
-		<label>
-         <padding>0.1</padding>
-			<text><xsl:value-of select="'rule ' || $rulename"/></text><text_style>trace</text_style>
-			<x><place><right/><edge/></place><at><right/><edge/><parent/></at></x>
-			<y><place><outer/><top/></place><at><bottom/><edge/><parent/></at></y>
-		</label>
-	</xsl:template>
-
-
 	<!--     *************** -->
 	<!--       Rule d+y-0    -->
 	<!--     *************** -->
@@ -47,7 +35,7 @@
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"  mode="tactics_four_enrichment"/>
 		<!-- <y> -->
-	   	<rule>rule d+y-0</rule>
+	   	<rule>d+y-0</rule>
 	   	<at>
 	   		<top/>
 	   		<parent/>
@@ -95,7 +83,7 @@
 				<xsl:message terminate="yes">In rule y-.T-0.pT-, the point of reference label does not have an id. Label text is '<xsl:value-of select="$pointOfReference/text"/>' </xsl:message>
 			</xsl:if>
 			<!-- <y> -->
-         	<rule>rule y-.T-0.pT-</rule>
+         	<rule>y-.T-0.pT-</rule>
          	<at>
          		<bottom/>
          		<of>
@@ -130,7 +118,7 @@
 			<xsl:variable name="pointOfReference" as="element(enclosure)"
 			              select="$flib?firstSiblingToNeedAccessToTop(..)"/>
 			<!-- <y> -->
-         	<rule>rule y-.T-0.pT+</rule>
+         	<rule>y-.T-0.pT+</rule>
          	<at>
          		<bottom/>
          		<of>
@@ -206,66 +194,6 @@
          <!-- </y> -->
 		</xsl:copy>
 	</xsl:template>
-	
-	<!--     *********** -->
-	<!--       Rule y-.T+0.pL-   -->
-	<!--     *********** -->
-<!-- 	<xsl:template match="enclosure
-	                    /enclosure
-			                [not(yPositionalPointOfReference)]   
-								 [$flib?isFirstToNeedAccessToTop(.)]  
-								 [not(preceding-sibling::label)]
-	                    /y
-	                      [not(at)]
-	                      [not(deferred)]		 
-	                    " 
-	              mode="tactics_four_enrichment"> 
-	   <xsl:variable name="rulename" as="xs:string" select="'y-.T+0.pL-'"/> 
-		<xsl:copy>
-			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
-         	<rule><xsl:value-of select="$rulename"/></rule>
-			   <place>
-				   <top/>
-					<edge/>
-			   </place>
-            <at>
-               <top/>
-               <parent/>
-            </at>
-		</xsl:copy>
-	</xsl:template> -->
-	
-	<!--     *********** -->
-	<!--       Rule y-.T+s   -->
-	<!--     *********** -->              
-<!-- 	<xsl:template match="enclosure
-	                    /enclosure
-			                [not(yPositionalPointOfReference)]   
-								 [$flib?needsAccessToTop(.)]  
-								 [not($flib?isFirstToNeedAccessToTop(.))]
-	                    /y
-	                      [not(at)]
-	                      [not(deferred)]
-	                    "
-	               mode="tactics_four_enrichment">  
-	   <xsl:variable name="rulename" as="xs:string" select="'y-.T+s'"/> 
-		<xsl:copy>
-			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
-			<xsl:variable name="pointOfReference" as="element()"
-			              select="$flib?previousNotToNeedAccessToTop(..)"/>
-         	<rule>y-.T+s</rule>
-		      <place>
-			     <top/>
-				 <edge/>
-		      </place>
-            <at>
-               <top/>
-               <of>
-               	<xsl:value-of select="$pointOfReference/id"/>
-               </of>
-            </at>
-		</xsl:copy>
-	</xsl:template> -->
 	
 
 	
@@ -412,7 +340,9 @@
 						 <xsl:value-of select="../yPositionalPointOfReference"/>
 					</of>
 				</at>
-				<delta>1</delta>   <!-- make room for incoming top down route --> 
+				<xsl:if test="not(delta)">
+					<delta>1</delta>   <!-- make room for incoming top down route -->
+				</xsl:if> 
 			<!-- </y> -->
 		</xsl:copy>
 	</xsl:template>

@@ -129,12 +129,24 @@ return map{
 }"/>
 </xsl:variable>
 
-   <xsl:template name="plant_label" match="enclosure"  mode="explicit">
+
+
+	<xsl:template name="plant_x_label" match="enclosure"  mode="explicit">
    	<xsl:param name="rulename" as="xs:string"/>
 		<label>
          <padding>0.1</padding>
-			<text><xsl:value-of select="'rule ' || $rulename"/></text><text_style>trace</text_style>
-			<x><place><right/><edge/></place><at><right/><edge/><parent/></at></x>
+			<text><xsl:value-of select="$rulename"/></text><text_style>trace</text_style>
+			<x><place><right/><outer/></place><at><centre/><edge/><parent/></at></x>
+			<y><place><outer/><top/></place><at><bottom/><edge/><parent/></at></y>
+		</label>
+	</xsl:template>
+
+	<xsl:template name="plant_y_label" match="enclosure"  mode="explicit">
+   	<xsl:param name="rulename" as="xs:string"/>
+		<label>
+         <padding>0.1</padding>
+			<text><xsl:value-of select="$rulename"/></text><text_style>trace</text_style>
+			<x><place><left/><outer/></place><at><centre/><edge/><parent/></at></x>
 			<y><place><outer/><top/></place><at><bottom/><edge/><parent/></at></y>
 		</label>
 	</xsl:template>
@@ -147,7 +159,26 @@ return map{
 		</xsl:copy>
 	</xsl:template>
 
+	<xsl:template match="@*|node()" mode="tactics_four_enrichment_plant_rule_labels">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment_plant_rule_labels"/>
+		</xsl:copy>
+	</xsl:template>
 
-
+	<xsl:template match="enclosure" mode="tactics_four_enrichment_plant_rule_labels">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment_plant_rule_labels"/>
+			<xsl:if test="x/rule">
+				<xsl:call-template name="plant_x_label">
+					<xsl:with-param name="rulename" select="x/rule"/>
+				</xsl:call-template>
+			</xsl:if>
+			<xsl:if test="y/rule">
+				<xsl:call-template name="plant_y_label">
+					<xsl:with-param name="rulename" select="y/rule"/>
+				</xsl:call-template>
+			</xsl:if>
+		</xsl:copy>
+	</xsl:template>
 
 </xsl:transform>

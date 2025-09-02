@@ -202,10 +202,18 @@ CHANGE HISTORY
       </xsl:call-template>
     </xsl:variable>
 
-	<xsl:message>initiating tactics four enrichment</xsl:message>
+    <xsl:variable name="state" as="document-node()">
+		<xsl:message>initiating tactics four enrichment</xsl:message>
+		<xsl:copy>
+			<xsl:apply-templates select="$state" mode="tactics_four_enrichment"/>
+		</xsl:copy>
+	</xsl:variable>
+
+	<xsl:message>labeling for trace after tactics four enrichment</xsl:message>
 	<xsl:copy>
-		<xsl:apply-templates select="$state" mode="tactics_four_enrichment"/>
+		<xsl:apply-templates select="$state" mode="tactics_four_enrichment_plant_rule_labels"/>
 	</xsl:copy>
+
 </xsl:template>
 
 	<xsl:template match="entity_model" mode="ERmodel2flex">
@@ -336,7 +344,9 @@ CHANGE HISTORY
 			<top_down/>
 			<source>
 				<id><xsl:value-of select="../name"/></id>
-				<annotation><xsl:value-of select="name"/></annotation>
+				<xsl:if test="name">
+					<annotation><xsl:value-of select="name"/></annotation>
+				</xsl:if>
 				<line_style>
 					 <xsl:choose>
 					 	<xsl:when test="cardinality/(ZeroOrOne|ZeroOneOrMore)">
@@ -362,7 +372,9 @@ CHANGE HISTORY
 			</source>
 			<destination>
 				<id><xsl:value-of select="$type"/></id>
-				<annotation><xsl:value-of select="inverse"/></annotation>
+				<xsl:if test="inverse">
+					<annotation><xsl:value-of select="inverse"/></annotation>
+				</xsl:if>
 				<line_style>
 					 <xsl:value-of select="if (surjective='true')
 					                       then 'solidline' 
@@ -417,7 +429,9 @@ CHANGE HISTORY
       </right_side> -->
 
 				<id><xsl:value-of select="../(if (self::identifying) then ../name else name)"/></id>
-				<annotation><xsl:value-of select="name"/></annotation>
+				<xsl:if test="name">
+					<annotation><xsl:value-of select="name"/></annotation>
+				</xsl:if>
 				<line_style>
 					 <xsl:choose>
 					 	<xsl:when test="cardinality/(ZeroOrOne|ZeroOneOrMore)">
@@ -463,7 +477,9 @@ CHANGE HISTORY
 					                       "/>
 				</line_style> 
 				<id><xsl:value-of select="type"/></id>
-				<annotation><xsl:value-of select="inverse"/></annotation>
+				<xsl:if test="inverse">
+					<annotation><xsl:value-of select="inverse"/></annotation>
+				</xsl:if>
 			</destination>			
 		</route>
 	</xsl:template>

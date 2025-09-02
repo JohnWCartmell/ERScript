@@ -30,13 +30,13 @@ if ($false)
 {
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 cricketMatch..logical.xml -outputFolder ..\docs
-}
 
 echo 'Cricket Example'
 . $TARGET\scripts\buildExampleSVG.ps1 cricketMatch   `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
  -animate  -bundle -physicalType hs -shortSeparator NA -longSeparator NA -legacy
+}
 
 if ($false)
 {
@@ -49,16 +49,19 @@ echo 'Run ER.instanceValidation.xslt on valid instance'
 echo 'Run ER.instanceValidation.xslt on *invalid* instance'
 . $TARGET\scripts\ER.instanceValidation.ps1 invalidCricketInstance.xml -outputFolder ..\docs
 
+
 echo 'Cricket  Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 cricketMatch..logical.xml -animate -debugswitch
+}
 
 echo 'Cricket Manually Adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 cricketMatch..diagram.xml -animate -debugswitch
-}
 
-
+if ($false)
+{
 echo 'Cricket Hierarchical Manually Adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 cricketMatch..physical..diagram.xml -animate -debugswitch
+}
 
 popd 
 

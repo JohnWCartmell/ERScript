@@ -19,6 +19,8 @@ function ReplacexPwithxetc
                 -creplace 'rightP', 'right' `
                 -creplace 'centreP', 'centre' `
                 -creplace 'leftP', 'left' `
+                -creplace 'TopEdgeP', 'TopEdge' `
+                -creplace 'BottomEdgeP', 'BottomEdge' `
                 -creplace 'stringwidth_from_text_styleP', 'stringwidth_from_text_style' `
                 -creplace 'x_lower_boundP', 'x_lower_bound' `
                 -creplace 'x_upper_boundP', 'x_upper_bound' `
@@ -77,6 +79,8 @@ function ReplacexPwithyetc
                     -creplace 'leftP', 'top' `
                     -creplace 'centreP', 'middle' `
                     -creplace 'rightP', 'bottom' `
+                    -creplace 'TopEdgeP', 'LeftSide' `
+                    -creplace 'BottomEdgeP', 'RightSide' `
                     -creplace 'stringwidth_from_text_styleP', 'stringheight_from_text_style' `
                     -creplace 'x_lower_boundP', 'y_lower_bound' `
                     -creplace 'x_upper_boundP', 'y_upper_bound' `

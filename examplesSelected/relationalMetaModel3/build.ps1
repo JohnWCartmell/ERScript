@@ -43,17 +43,17 @@ echo 'Run ER.instanceValidation.xslt on physical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 relationalMetaModel3..physical.xml -outputFolder ..\docs -debugSwitch
 }
 
-#if ($false)
-#{
+if ($false)
+{
 echo 'Relational Meta Model raw Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 relationalMetaModel3..logical.xml -animate -debugswitch
+}
 
 echo 'Relational Meta Model adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 relationalMetaModel3..diagram.xml -animate -debugswitch
 
 echo 'Relational Meta Model physical Adjusted Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 relationalMetaModel3..physical..diagram.xml -animate -debugswitch
-#}
 
 popd 
 

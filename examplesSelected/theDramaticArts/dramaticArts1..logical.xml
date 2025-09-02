@@ -57,6 +57,5 @@
       <identifying>
          <attribute name="name" type="string"/>
       </identifying>
-      <reference name="the_player_of" type="dramatic_role*" inverse="played_by"/>
    </entity_type>
 </entity_model>
