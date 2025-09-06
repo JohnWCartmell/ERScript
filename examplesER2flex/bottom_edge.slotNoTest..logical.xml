@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+   <absolute>
+      <name>abs</name>
+      <composition type="nw*"/>
+      <composition type="nnw*"/>
+      <composition type="nne*"/>
+      <composition type="N*"/>
+      <composition type="ne*"/>
+   </absolute> 
+   <entity_type name="nw"><composition type="mw"/></entity_type>
+   <entity_type name="mw"><composition type="sw"/></entity_type>
+   <entity_type name="sw"/>
+   <entity_type name="N">
+      <entity_type name="nnw"><composition type="nsw"/></entity_type>
+      <entity_type name="nsw"/>
+      <entity_type name="nne"><composition type="nse"/></entity_type>
+      <entity_type name="nse"/>
+      <composition type="S"/>
+   </entity_type>   
+
+   <entity_type name="ne"><composition type="me"/></entity_type>
+   <entity_type name="me"><composition type="se"/></entity_type>
+   <entity_type name="se"/>
+
+   <entity_type name="S">
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+          <w>3.0</w>
+      </diagram:enclosure> 
+      <composition type="nnw"/>
+      <composition type="nsw"/>
+      <composition type="nw"/>
+      <composition type="mw"/>
+      <composition type="sw"/>
+
+      <composition type="ssw"/>
+      <composition type="ssc"/>
+      <composition type="sse"/>
+
+      <composition type="nne"/>
+      <composition type="nse"/>
+      <composition type="ne"/>
+      <composition type="me"/>
+      <composition type="se"/>
+
+   </entity_type>
+
+   <group name="ss">
+      <entity_type name="ssw"/>
+      <entity_type name="ssc"/>
+      <entity_type name="sse"/>
+   </group>
+
+</entity_model>
+
+

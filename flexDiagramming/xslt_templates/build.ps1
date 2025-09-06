@@ -8,6 +8,7 @@ function ReplacexPwithxetc
                 -creplace 'wlP',   'wl'  `
                 -creplace 'wrP',   'wr' `
                 -creplace 'wminP', 'wmin' `
+                -creplace 'hP',     'h' `
                 -creplace 'ewQ',   'ew' `
                 -creplace 'nsP',   'ns' `
                 -creplace 'startxP', 'startx' `
@@ -56,6 +57,7 @@ function ReplacexPwithxetc
                       -creplace '260P', '260' `
                       -creplace '262P', '262' `
                       -creplace '340P', '340' `
+                      -creplace '342P', '342' `
                       -creplace '350P', '350' 
 }
 
@@ -68,6 +70,7 @@ function ReplacexPwithyetc
                     -creplace 'wlP',   'ht'  `
                     -creplace 'wrP',   'hb' `
                     -creplace 'wminP', 'hmin' `
+                    -creplace 'hP',     'w' `
                     -creplace 'ewQ',   'ns' `
                     -creplace 'nsP',   'ew' `
                     -creplace 'startxP', 'starty' `
@@ -116,6 +119,7 @@ function ReplacexPwithyetc
                       -creplace '260P', '261' `
                       -creplace '262P', '262' `
                       -creplace '340P', '341' `
+                      -creplace '342P', '343' `
                       -creplace '350P', '351' 
 }
 

@@ -71,7 +71,9 @@
                                     enclosure/(2 * (x/clocal + w  +  wr  + padding))  + margin,
                                     enclosure/(2 * (-x/clocal  +  wl  + padding)) + margin,
                                     enclosure/(-x/rlocal +  wl  + padding),
-                                    *[not(self::enclosure|self::path)]/((x/relative/*[position()=1][self::offset])+ w + padding),
+                                    *[not(self::enclosure|self::path)
+                                        and not(text_style='trace')
+                                    ]/((x/relative/*[position()=1][self::offset])+ w + padding),
                                     *[not(self::enclosure|self::path)]/(2 * (x/clocal + w  + padding)),
                                     *[not(self::enclosure|self::path)]/((x/rlocal) + w + padding),
                                     route/path/point/(x/relative/*[position()=1][self::offset] + padding)

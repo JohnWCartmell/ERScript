@@ -28,6 +28,7 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
               priority="200">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+            <rule>xP3</rule>
       <relative>
          <offset trace="xP3">
            <xsl:value-of select="local"/>
@@ -164,6 +165,7 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
               priority="51P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+          <rule>xp6</rule>
       <relative>
           <offset trace="xP6"><xsl:value-of select="abs"/></offset>
       </relative>
@@ -180,6 +182,7 @@ Contains xP, leftP and rightP. See readme for how these are substituted.
               priority="51P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+          <rule>xP1</rule>
       <relative>
           <offset trace="xP1"><xsl:value-of select="abs - ../ancestor::enclosure[1]/xP/abs"/></offset>
       </relative>

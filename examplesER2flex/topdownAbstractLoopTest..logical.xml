@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+   <absolute>
+      <name>TopdownAbstractLoopTest</name>
+      <composition type="North*"/>
+   </absolute>
+<!--    <group>
+      <name>scope for defaults</name>
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <default>
+            <margin>0.4</margin>
+         </default>
+      </diagram:enclosure> -->
+      <entity_type name="OuterNorth">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+               <margin>0.6</margin>
+               <padding>0.4</padding>
+         </diagram:enclosure>
+         <composition type="South"/>
+         <entity_type name="North"/>
+      </entity_type>
+      <entity_type name="OuterSouth">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+               <margin>0.6</margin>
+         </diagram:enclosure>
+
+         <entity_type name="South">
+            <composition type="North"/>
+         </entity_type>
+      </entity_type>
+<!--    </group> -->
+</entity_model>
+
+

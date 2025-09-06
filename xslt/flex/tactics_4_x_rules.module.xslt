@@ -308,11 +308,17 @@
 	</xsl:template>
 	
 	<!--     ****************** -->
-	<!--       Rule y+0.wF-     -->
+	<!--       Rule y+0.wF-.1+     -->
 	<!--     ****************** -->
 	<xsl:template match="enclosure
 	                     [yPositionalPointOfReference]  
-						      [not($flib?yPositionalPointOfReference(.)/wFill)]
+						      [let $yplus := $flib?yPositionalPointOfReference(.)
+	                        return (not($yplus/wFill) 
+	                                  and (count($flib?yPositionalChildren($yplus))
+			                                  eq 1
+			                                )
+			                          )
+	                     ]
 						      [not(some $sibling 
 						           in preceding-sibling::enclosure
 								     satisfies ($sibling/yPositionalPointOfReference eq yPositionalPointOfReference)
@@ -330,7 +336,7 @@
 
 						   " 
 						 mode="tactics_four_enrichment">
-      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-'"/>
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.1+'"/>
 
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
@@ -341,6 +347,54 @@
 					</place>
 					<at>
 						<centre/>
+						<of>
+							<xsl:value-of select="../yPositionalPointOfReference"/>
+						</of>
+					</at>
+			<!-- </x> -->
+		</xsl:copy>
+	</xsl:template>
+
+		<!--     ****************** -->
+	<!--       Rule y+0.wF-.1-     -->
+	<!--     ****************** -->
+	<xsl:template match="enclosure
+	                     [yPositionalPointOfReference]  
+						      [let $yplus := $flib?yPositionalPointOfReference(.)
+	                        return (not($yplus/wFill) 
+	                                  and (count($flib?yPositionalChildren($yplus))
+			                                  gt 1
+			                                )
+			                          )
+	                     ]
+						      [not(some $sibling 
+						           in preceding-sibling::enclosure
+								     satisfies ($sibling/yPositionalPointOfReference eq yPositionalPointOfReference)
+								    )
+					      	]
+	                  /x 
+	                     [not(at)]
+	                     [not(deferred)]
+	                     [not(some $sibling 
+						           in ../preceding-sibling::enclosure
+								     satisfies ($sibling/yPositionalPointOfReference eq ../yPositionalPointOfReference)
+								    )
+					      	]
+
+
+						   " 
+						 mode="tactics_four_enrichment">
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.1-'"/>
+
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
+			<!-- <x> --> 
+	         	<rule><xsl:value-of select="$rulename"/></rule>
+					<place>
+						<left/> 
+					</place>
+					<at>
+						<left/>
 						<of>
 							<xsl:value-of select="../yPositionalPointOfReference"/>
 						</of>

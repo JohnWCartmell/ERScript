@@ -751,6 +751,7 @@ return map{
               priority="173P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <rule>SMART placement main rule addressinmg smarts trace 1</rule>
       <relative>  <!--below modifed from child in descendant::enclosure to descendant::* -->
         <xsl:for-each 
                 select="../ancestor::enclosure
@@ -782,6 +783,7 @@ return map{
               priority="173P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <rule>smart rules for a point addessing smarts trace 2</rule>
       <relative>
         <xsl:for-each 
                 select="../ancestor::enclosure
@@ -790,10 +792,12 @@ return map{
                          ]">
           <tbd/>
         </xsl:for-each>
+        <xsl:variable name="delta_offset"
+                  select="if (delta) then (delta) else 0"/> 
         <offset trace="2">
           <xsl:variable name="offset" as="xs:double"  select="key('box',at/of)/xP/relative
                                             /*[position()=current()/at/dest_rise][self::offset]
-                                + at/offset"/>
+                                + at/offset + $delta_offset"/>
           <xsl:value-of select="$offset"/>
         </offset>
       </relative> 
@@ -814,6 +818,8 @@ return map{
               priority="173P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+
+      <rule>smart rules for a point addessing smarts trace 3</rule>
       <relative>
         <offset trace="3">
           <xsl:variable name="offset" as="xs:double"  select="../preceding-sibling::*[self::enclosure|self::label|self::point][1]/xP/relative
@@ -861,6 +867,7 @@ return map{
               priority="173P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+      <rule>smart rules for a point addessing smarts trace 5</rule>
       <relative>
         <offset trace="5">
           <!-- CHANGE WEDNESDAY FOR NESTED BOXES
@@ -885,6 +892,8 @@ return map{
               priority="173P">
     <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
+
+      <rule>smart rules for a point addessing smarts trace 6</rule>
       <relative>
         <offset trace="6">
           <!-- CHANGE WEDNESDAY FOR NESTED BOXES

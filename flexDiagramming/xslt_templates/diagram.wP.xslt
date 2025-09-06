@@ -76,7 +76,8 @@
                            enclosure[not(wPFill)]/(2 * (-xP/clocal  +  wlP  + padding) + ../margin ),
                            enclosure[not(wPFill)]/(-xP/rlocal +  wlP  + padding),
                            *[not(self::enclosure|self::path)]/((xP/relative/*[position()=1][self::offset])+ wP + padding),
-                           *[not(self::enclosure|self::path)]/(2 * (xP/clocal + wP  + padding)),
+                           *[not(self::enclosure|self::path)
+                           and not(text_style='trace')]/(2 * (xP/clocal + wP  + padding)),
                            *[not(self::enclosure|self::path)]/((xP/rlocal) + wP + padding),
                            route/path/point/(xP/relative/*[position()=1][self::offset] + padding),
                            $widthForLabelsOneSide,

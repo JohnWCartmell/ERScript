@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_model xmlns="http://www.entitymodelling.org/ERmodel"
+              xmlns:diagram="http://www.entitymodelling.org/diagram"
+ ERScriptVersion="1.6">
+   <absolute>
+      <name>abs</name>
+      <composition type="North*"/>
+   </absolute> 
+   <entity_type name="North">
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <default>
+            <wmin>2.5</wmin>
+         </default>
+      </diagram:enclosure>
+      <entity_type name="wnw"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="nw"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="n"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="ne"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="ene"><composition type="Centre*" inverse=""/></entity_type>
+      <composition type="norwest*"/>
+      <composition type="noreast*"/>
+   </entity_type>   
+   <group>
+      <name>middle</name>
+      <entity_type name="norwest">
+         <composition type="Centre"/>
+         <composition type="souwest*"/>
+      </entity_type>
+      <entity_type name="Centre">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <x><at><right/><of>norwest</of></at><delta>2</delta></x>
+            <y><at><middle/><of>norwest</of></at><delta>0.5</delta></y>
+         </diagram:enclosure>
+         <composition type="South"/>
+      </entity_type>
+      <entity_type name="noreast">
+         <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+            <x><at><right/><of>Centre</of></at><delta>2</delta></x>
+           <!--  <y><at><top/><of>norwest</of></at></y> -->
+         </diagram:enclosure>
+         <composition type="Centre*"/>
+         <composition type="soueast*"/>
+      </entity_type>
+      <entity_type name="souwest"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="soueast"><composition type="Centre*" inverse=""/></entity_type>
+   </group>
+   <entity_type name="South">
+      <diagram:enclosure xmlns="http://www.entitymodelling.org/diagram">
+         <default>
+            <wmin>2.5</wmin>
+         </default>
+      </diagram:enclosure>
+      <entity_type name="wsw"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="sw"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="s"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="se"><composition type="Centre*" inverse=""/></entity_type>
+      <entity_type name="ese"><composition type="Centre*" inverse=""/></entity_type>
+   </entity_type>   
+
+</entity_model>
+
+

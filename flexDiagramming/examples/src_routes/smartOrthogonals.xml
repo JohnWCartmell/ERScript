@@ -1,0 +1,82 @@
+<diagram xmlns="http://www.entitymodelling.org/diagram" xmlns:diagram="http://www.entitymodelling.org/diagram" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <include>
+        <filename>../../methods/test/xml/testFlexStyleDefinitions.xml</filename>
+    </include>
+	<default>
+		<hmin>1.0</hmin>
+		<wmin>1.0</wmin>
+		<margin>0.2</margin>
+		<padding>0.15</padding>
+		<packing>horizontal</packing>
+		<text_style>normal</text_style>
+		<shape_style>outline</shape_style>
+		<debug-whitespace>true</debug-whitespace>
+		<line_style>testline</line_style>
+	</default>
+	<enclosure>
+		<y><abs>0.1</abs></y>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>0.5</margin>
+		<label>
+			<text>Smart Orthogonal Routes Test</text>
+		</label>
+	</enclosure>
+
+	<enclosure>
+		<x><at><predecessor/></at></x>
+		<shape_style>gradient</shape_style>
+		<debug-whitespace>false</debug-whitespace>
+		<margin>1.0</margin>
+		<label>
+			<text>A sideway orthogonal route.</text>
+		</label>
+		<label>
+			<text>Shaped by</text>
+		</label>
+		<label><text><![CDATA[<route>]]></text></label>
+	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
+	    <label><text><![CDATA[<path><ns><delta>2.5</delta></x></path>]]></text></label>
+		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
+		<enclosure>
+			<id>A</id>
+			<x><local>8</local></x>
+			<y><local>0.5</local></y>
+			<label/>
+		</enclosure>
+		<enclosure>
+			<id>B</id>
+			<label/>	
+			<x><at><right/><predecessor/></at><delta>1.0</delta></x>
+			<y><at><predecessor/></at><delta>1.0</delta></y>		  
+		</enclosure>
+		<route>
+			<source>
+					<right_side>
+						<deltay>0.5</deltay>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
+					</right_side>
+					<id>A</id>
+					<annotation>link_to_b</annotation>
+			</source>
+			<destination>
+					<left_side>
+						<deltay>0.3</deltay>
+						<!-- <labelPosition><clockwise/></labelPosition> -->
+					</left_side>
+					<id>B</id>
+					<annotation>back_to_a</annotation>
+			</destination>
+			<path><ns>
+				    <point><x>
+				    	      <at><right/><edge/><of>A</of></at>
+				    	      <delta>2.5</delta>
+				    	  </x>
+				    </point>
+				  </ns>
+			</path>
+		</route>	
+	</enclosure>
+
+	
+</diagram>

@@ -109,11 +109,14 @@
 <xsl:include href="diagram...path.cardinal-+endy.xslt"/>      <!-- priority  40  -->
 <xsl:include href="diagram...path.cardinal.terminatingArm-+bearing.xslt"/> 
                                                                <!-- priority  40.3  -->
+
 <xsl:include href="diagram...node-+x_lower_bound.xslt"/>       <!-- priority 340 -->
 <xsl:include href="diagram...node-+y_lower_bound.xslt"/>       <!-- priority 341 -->
 <xsl:include href="diagram...node-+x_upper_bound.xslt"/>       <!-- priority 350 -->
 <xsl:include href="diagram...node-+y_upper_bound.xslt"/>       <!-- priority 351 -->        
-<xsl:include href="diagram...route.node-+line_style.xslt"/>    <!-- priority  38  -->
+<xsl:include href="diagram...route.node-+line_style.xslt"/>    <!-- priority  38  -->      
+<xsl:include href="diagram...route(leftright).node-+sweep_length.xslt"/>    <!-- priority  342  -->     
+<xsl:include href="diagram...route(topbottom).node-+sweep_length.xslt"/>    <!-- priority  343  -->
 
 <xsl:key name="Enclosure" match="enclosure" use="id"/>
 <xsl:key name="box" match="path|label|point|ns|ew|ramp|enclosure" use="id"/>

@@ -16,6 +16,8 @@ Created 16 Jan 2022
 
 
    <xsl:template match="route[top_down]
+                        [source/exitContainer]
+                        [destination/entryContainer]
                    [not(path)]
                   " 
          mode="recursive_diagram_enrichment"
@@ -23,9 +25,9 @@ Created 16 Jan 2022
       <xsl:copy>
          <xsl:apply-templates mode="recursive_diagram_enrichment"/>
          <path>
-            <ew><source_sweep/></ew>
+            <ew><source_sweep/></ew>      <!-- will be deleted later if not required -->
             <ramp/>
-            <ew><destination_sweep/></ew>
+            <ew><destination_sweep/></ew> <!-- will be deleted later if not required -->
          </path>
       </xsl:copy>
    </xsl:template>

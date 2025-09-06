@@ -114,7 +114,7 @@
 			<xsl:apply-templates mode="recursive_diagram_enrichment"/>
 			<deltax>
 				<xsl:value-of select="- max((
-					key('line_style',../destination/line_style)/minarmlen ,
+					key('line_style',../../destination/line_style)/minarmlen ,
 					key('box',../../destination/id)/wr
 					))"/>
 			</deltax>

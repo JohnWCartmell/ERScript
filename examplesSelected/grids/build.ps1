@@ -30,12 +30,12 @@ if ($false)
 {
 echo 'Run surface ER.instanceValidation.xslt on logical model'
 . $TARGET\scripts\ER.instanceValidation.ps1 grids..logical.xml -outputFolder ..\docs
-}
 echo 'build logical and physical model'
 . $TARGET\scripts\buildExampleSVG.ps1 grids `
                              -svgOutputFolder $TARGETSVGFOLDER `
                              -texOutputFolder $TARGETTEXFOLDER `
                               -animate -physicalType hs -shortSeparator _ -longSeparator _ -legacy
+}
 if ($false)
 {
 echo 'Run ER.instanceValidation.xslt on physical model'

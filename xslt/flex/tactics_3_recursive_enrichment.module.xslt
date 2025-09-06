@@ -73,6 +73,7 @@
 
 <xsl:template match="enclosure
                      [not(yPositionalDepthLong)]
+                     [not(y/at)]   (:because y/at could be already provided in the source as an adjustment :)
                      [every $candidate
                             in key('ExitContainersOfEnteringTopdownRoutes',id)
                             satisfies ($candidate/yPositionalDepthLong

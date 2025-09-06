@@ -35,9 +35,9 @@ echo 'Brinton Example'
                              -texOutputFolder $TARGETTEXFOLDER `
                              -debugSwitch `
                              -animate -shortSeparator NA -longSeparator NA -legacy
+}
 echo 'Brinton Raw Flex version'
 . $TARGET\flexDiagramming\scripts\er2svg.ps1 brintonSimpleSentenceStructure..logical.xml -animate -debugSwitch
-}
 
 #if ($false)
 #{

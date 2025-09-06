@@ -57,24 +57,38 @@
  <!-- ************************* -->
 <!--ewP[source_sweep] + deltax  -->               <!-- NEED TP FULLY PARAMETERISE FOR NS CARDINAL -->
 <!-- ************************** -->
-
-<xsl:template match="route[top_down]/path/ewP[source_sweep]
-                      [not(deltax)]
-                      [../../source/thisEndy]
-                      [../../source/otherEndy]
-                      [../../source/thisEndx]
-                      [../../source/otherEndx]
+<!-- logic moved into diagram...route.node-+sweep_length.xslt -->
+<!--******************************************************** -->
+<!-- START FOR DELETION -->
+<xsl:template match="route  (:[top_down]:)
+                          [source[thisEndx][thisEndy][otherEndx][otherEndy]
+                            /bottom_edge/deltax
+                          ]
+                      /path/ewP
+                        [source_sweep]
+                        [not(deltax)]
                     " 
                   mode="recursive_diagram_enrichment"
                   priority="56P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <deltax><xsl:value-of select=
-               "if (../../source/(number(otherEndy) &gt; number(thisEndy)) )
-               then 0
-               else if (../../source/(number(otherEndx) &lt; number(thisEndx)) )
-               then - 1
-               else 1 "/>
+               "let $node  := ../../source treat as element(source),
+                    $edge  := $node/bottom_edge,
+                    $enclosureWidth  := key('Enclosure',$node/id)/w cast as xs:double
+               return 
+                   if ($node/(number(otherEndy) &gt; number(thisEndy)) )
+                   then 0
+                   else if ($node/(number(otherEndx) &lt; number(thisEndx)) )
+                   then (:sweep left :)
+                        let $numberToSweepAround := $edge/slotNo
+                        return
+                        -0.3 - $edge/deltax - 0.15 * $numberToSweepAround
+                   else (:sweep right :)
+                        let $numberToSweepAround := $edge/(noOfSlots - slotNo - 1),
+                            $distanceToCorner := $enclosureWidth - $edge/deltax
+                        return
+                        0.3 +  $distanceToCorner + 0.15 * $numberToSweepAround "/>
       </deltax>
    </xsl:copy>
 </xsl:template> 
@@ -84,27 +98,51 @@
 <!--ewP[destination_sweep] + deltax   -->               <!-- NEED TO FULLY PARAMETERISE FOR NS CARDINAL -->
 <!-- ******************************** -->
 
-<xsl:template match="route[top_down]/path/ewP[destination_sweep]
-                      [not(deltax)]
-                      [../../destination/thisEndy]
-                      [../../destination/otherEndy]
-                      [../../destination/thisEndx]
-                      [../../destination/otherEndx]
+<xsl:template match="route  (:[top_down]:)
+                          [destination[thisEndx][thisEndy][otherEndx][otherEndy]
+                            /top_edge/deltax
+                          ]
+                      /path/ewP
+                        [destination_sweep]
+                        [not(deltax)]
                     " 
                   mode="recursive_diagram_enrichment"
                   priority="56P">
    <xsl:copy>
       <xsl:apply-templates mode="recursive_diagram_enrichment"/>
       <deltax><xsl:value-of select=
-               "if (../../destination/(number(otherEndy) &lt; number(thisEndy)) )
-               then 0
-               else if (../../destination/(number(otherEndx) &lt; number(thisEndx)) )
-               then 1
-               else - 1 "/>
+                 "let $node  := ../../destination treat as element(destination),
+                      $edge  := $node/top_edge,
+                      $enclosureWidth  := key('Enclosure',$node/id)/w cast as xs:double
+                  return if ($node/(number(otherEndy) &lt; number(thisEndy)) )
+                          then 0
+                          else if ($node/(number(otherEndx) &lt; number(thisEndx)) )
+                          then (:sweep left :)
+                                let $numberToSweepAround := $edge/slotNo
+                                return 
+                                    0.3 + $edge/deltax + 0.15 * $numberToSweepAround
+                          else (:sweep right :)
+                                let $numberToSweepAround := $edge/(noOfSlots - slotNo - 1),
+                                    $distanceToCorner := $enclosureWidth - $edge/deltax
+                                return
+                                -0.3 -  $distanceToCorner - 0.15 * $numberToSweepAround 
+                  "/>
       </deltax>
    </xsl:copy>
 </xsl:template>
+<!-- Final rule Delete source_sweep or destination_sweep which has length zero -->
+<xsl:template match="route/path
+                       [ewP[deltaxP = 0]]
+                    " 
+                  mode="recursive_diagram_enrichment"
+                  priority="56P">
+   <xsl:copy>
+      <xsl:apply-templates select="*[not(self::ewP[deltaxP=0])]" mode="recursive_diagram_enrichment"/>
+      <!-- <xsl:message>Deleted <xsl:copy-of select="*[self::ewP[deltaxP=0]]"/></xsl:message> -->
+   </xsl:copy>
+</xsl:template>
 
+<!-- END FOR DELETION !!!!!!!!!!!!!!!!!!--> 
 
 </xsl:transform>
 
