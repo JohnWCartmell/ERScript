@@ -32,11 +32,16 @@
 			<text>A sideway orthogonal route.</text>
 		</label>
 		<label>
+			<text>Not working because of priority order or rules 7 sept 2025</text>
+		</label>
+		<label>
 			<text>Shaped by</text>
 		</label>
 		<label><text><![CDATA[<route>]]></text></label>
 	    <label><x><delta>0.5</delta><at><predecessor/></at></x><text><![CDATA[...]]></text></label>
-	    <label><text><![CDATA[<path><ns><delta>2.5</delta></x></path>]]></text></label>
+	    <label><text><![CDATA[<path><ns><point>]]></text></label>
+	    <label><text><![CDATA[<x><at><right/><edge><of>A</of></at><delta>2.5</delta></x>]]></text></label>
+	    <label><text><![CDATA[</point></ns></path>]]></text></label>
 		<label><x><delta>-0.5</delta><at><predecessor/></at></x><text><![CDATA[</route>]]></text></label>
 		<enclosure>
 			<id>A</id>
@@ -72,6 +77,7 @@
 				    	      <at><right/><edge/><of>A</of></at>
 				    	      <delta>2.5</delta>
 				    	  </x>
+				    	  <!-- <label><text>this wont work, will it?</text></label> -->
 				    </point>
 				  </ns>
 			</path>
