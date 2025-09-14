@@ -236,7 +236,7 @@
 
 	
 	<!--     ************************ -->
-	<!--       Rule y+0 A y+0.wF+.1+  -->
+	<!--       Rule  y+0.wF+.!+  -->
 	<!--     ************************ -->
 	<xsl:template match="enclosure
 	                     [yPositionalPointOfReference]
@@ -252,7 +252,7 @@
 	                     [not(deferred)]  
 						   " 
 						 mode="tactics_four_enrichment">
-		<xsl:variable name="rulename" as="xs:string" select="'y+0.wF+.1+'"/>
+		<xsl:variable name="rulename" as="xs:string" select="'y+0.wF+.!+'"/>
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
 			<!-- <x> --> 
@@ -269,7 +269,7 @@
 	</xsl:template>
 	
 	<!--     ******************** -->
-	<!--       Rule y+0.wF+.1-    -->
+	<!--       Rule y+0.wF+.!-    -->
 	<!--     ******************** -->
 	<xsl:template match="enclosure
 	                     [yPositionalPointOfReference]  
@@ -286,7 +286,7 @@
 						   " 
 						 mode="tactics_four_enrichment">
 
-      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF+.1-'"/>
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF+.!-'"/>
 		<xsl:variable name="yPositionalPointOfReference"
 		                as="element()"
 						select="$flib?yPositionalPointOfReference(..)"/>
@@ -308,7 +308,7 @@
 	</xsl:template>
 	
 	<!--     ****************** -->
-	<!--       Rule y+0.wF-.1+     -->
+	<!--       Rule y+0.wF-.!+     -->
 	<!--     ****************** -->
 	<xsl:template match="enclosure
 	                     [yPositionalPointOfReference]  
@@ -336,7 +336,7 @@
 
 						   " 
 						 mode="tactics_four_enrichment">
-      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.1+'"/>
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.!+'"/>
 
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>
@@ -356,7 +356,7 @@
 	</xsl:template>
 
 		<!--     ****************** -->
-	<!--       Rule y+0.wF-.1-     -->
+	<!--       Rule y+0.wF-.!-     -->
 	<!--     ****************** -->
 	<xsl:template match="enclosure
 	                     [yPositionalPointOfReference]  
@@ -384,7 +384,7 @@
 
 						   " 
 						 mode="tactics_four_enrichment">
-      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.1-'"/>
+      <xsl:variable name="rulename" as="xs:string" select="'y+0.wF-.!-'"/>
 
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tactics_four_enrichment"/>

@@ -172,18 +172,18 @@ Following rules are for enclosures nested within other (parent) encloures:
 |  y+         | |    |    | has yPosPoR (y+)       ||                           || bottom of y+            |
 |             |0|    |    |first with this y+      ||                           ||                         |
 |             | |.wF+|    | y+/wFill               ||                           ||                         |
-|             | |    |.1+ | only one this y+       || center of parent          ||                         |
-|             | |    |.1- | more than one          || left of left y+           ||                         |
+|             | |    |.!+ | only one this y+       || center of parent          ||                         |
+|             | |    |.!- | more than one          || left of left y+           ||                         |
 |             | |.wF-|    | not y+/wFill           ||                           ||                         |
-|             | |    |.1+ | only one this y+       || center of y+              ||                         |
-|             | |    |.1- | more than one          || left of left y+           ||                         |
+|             | |    |.!+ | only one this y+       || center of y+              ||                         |
+|             | |    |.!- | more than one          || left of left y+           ||                         |
 |             |s|    |    | not first with this y+ || right of previous this y+ ||                         |
 
 
-***In above merge XXX lines and merge in software likewise.***
-**Second of above lines still needs to be changed in software (from left of sibling) TEST on airline adjustment.**
-**also merge y+ bottom of y+ **
-**reprogram rto diagram:adjustment**
+***Extend these rules to take account of routes requiring access to bottom (B+)***
+***Ideally take account of requiring right (R+) and left (L+) also***
+
+
 
 ### Grouping Attributes
 Modify ER2flex to generate an enclosure containing attribute labels and an enclosure containing the name label
@@ -216,13 +216,32 @@ Define  `yPositionalDepthLong` and `yPositionalPointOfReference` called in a new
     + tactics_three_recursive
     + tactics_four_enrichment
 
+10. Modify each selected example to have manual adjustments file. Build the unadjusted diagrams and the adjusted diagram. Make links to both on the html/index page. Move the old diagram to a legacy link. See change of 16 Aug
 
+11. Document some required changes in other change notes:
+    + <a href="change-16-Aug-2025.md"> 16 Aug 2025 restructure all selected examples</a>
+    + <a href="change-22-Aug-2025.md">22 Aug 2025  improve central and right positioning, introduce deferred positioning</a>
+    + <a href="change-01-Sep-2025.md">1 Sep 2025 heuristic for widths and heights of route endpoints</a>
+    + enable enclosure positioning to be adjusted --- programmed but undocumented
+    + enable route positioning to be adjusted --- not programmed possibly subtle
+    + support for labels on midpoints of routes --- need a design
+    + more control over path positioning including minimum lengths and flexible endpoints
+    + support relative positions using 'x/at' and 'y/at' for sections of a path
+    +  calculating startarm and endarm lengths -- programmed but more to do
+    + TBD improving the allocation of slotNo  -- programmed
+    + TBD further improving the calculation of startarm and endarm length to take account not just siblings leaving same enclosure all arms leaving the exit container. 
+    + TBD improve direction of source_sweep and destination_sweep
+    (see inconsistency in BRinton entity type yyy )
+    + extend the rules in table above for positioning nested anclosures
+        + take account of enclosures having routes requiring access to bottom (B+).
+          These would benefit Brinton example.
+        + Ideally take account of requiring right (R+) and left (L+).
 
 ### Testing
 1. Create new er2flex tests.
 
-Try and produce useable diagrams for all selectedExamples.
-+ cricket
+2. Try and produce useable diagrams for all selectedExamples. 
+
 
 ### Completion Date 
 
