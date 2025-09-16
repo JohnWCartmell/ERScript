@@ -9,7 +9,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$filenameOrFilenamePrefix,
    [Parameter(Mandatory=$False)]
-       [System.String]$svgOutputFolder = '..\docs',
+       [System.String]$svgOutputFolder = '../docs',
    [Parameter(Mandatory=$False)]
        [string]$texOutputFolder = '',
    [Parameter(Mandatory=$False)] 
@@ -84,7 +84,7 @@ $traceOption = if($trace){' -trace '}{''}
 $scopesOption = if($scopes){' -scope '}{''}
 $relidsOption = if($relids){' -relids '}{''}
 
-powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" `
+powershell -Command ("$ERHOME/scripts/genSVG.ps1  $diagramSource" `
                + ' -outputFolder ' + $svgOutputFolder `
                + "$texOutputFolderOption" + $texOutputFolder `
                + $xpathOption                         `
@@ -95,34 +95,34 @@ powershell -Command ("$ERHOME\scripts\genSVG.ps1  $diagramSource" `
                + $scopesOption                        `
                + $relidsOption)                         
 
-java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..report.html
+java -jar $SAXON_JAR -s:$diagramSource -xsl:$ERHOME/xslt/ERmodel2.html.xslt -o:../docs/$filenamePrefix..report.html
 
 if ($physicalType -ne '')
 {
     #  LOGICAL 2 PHYSICAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME\xslt\ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator xpath=$(If ($xpath){'y'}Else{'n'}) debug=$(If ($debugswitch){'y'}Else{'n'})
+    java -jar $SAXON_JAR -s:$logicalSource -xsl:$ERHOME/xslt/ERmodel2.physical.xslt -o:$physicalFilename style=$physicalType longSeparator=$longSeparator shortSeparator=$shortSeparator xpath=$(If ($xpath){'y'}Else{'n'}) debug=$(If ($debugswitch){'y'}Else{'n'})
 
     #  PHYSICAL DIAGRAMS AND REPORTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    powershell -Command ("$ERHOME\scripts\genSVG.ps1  $physicalDiagramSource" `
+    powershell -Command ("$ERHOME/scripts/genSVG.ps1  $physicalDiagramSource" `
                + ' -outputFolder ' + $svgOutputFolder   `
                + "$texOutputFolderOption" + $texOutputFolder `
                + "$animateOption"                     `
                + $debugswitchOption)
 
 
-    java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME\xslt\ERmodel2.html.xslt -o:..\docs\$filenamePrefix..physical.report.html
+    java -jar $SAXON_JAR -s:$physicalDiagramSource -xsl:$ERHOME/xslt/ERmodel2.html.xslt -o:../docs/$filenamePrefix..physical.report.html
 
     #  generation of xml schema
     echo 'buildExampleSVG.ps1: generate .rng' 
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME\schemas\$filenamePrefix.rng
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.rng.xslt -o:$ERHOME/schemas/$filenamePrefix.rng
 
     if ($elaboration_xslt_folder_path -ne "")
     {
     echo 'buildExampleSVG.ps1: generate elaboration xslt' 
     #  generate xslt
-    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME\xslt\ERmodel2.elaboration_xslt.xslt -o:$elaboration_xslt_folder_path\$filenamePrefix.elaboration.xslt
+    java -jar $SAXON_JAR -s:$physicalFilename -xsl:$ERHOME/xslt/ERmodel2.elaboration_xslt.xslt -o:$elaboration_xslt_folder_path/$filenamePrefix.elaboration.xslt
     }
 
 }

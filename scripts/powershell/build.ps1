@@ -1,11 +1,11 @@
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder + '/../../buildscripts\setBuildtimePathVariables.ps1')
 
 echo ("*** building from   $SOURCE scripts powershell folder")
 
-$SOURCEPOWERSHELLSCRIPTS = $SOURCE + '\scripts\powershell'
-$TARGETSCRIPTS = $TARGET + '\scripts'
+$SOURCEPOWERSHELLSCRIPTS = $SOURCE + '/scripts/powershell'
+$TARGETSCRIPTS = $TARGET + '/scripts'
 
 # CREATE target scripts folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETSCRIPTS))
@@ -15,6 +15,6 @@ If(!(test-path -PathType container $TARGETSCRIPTS))
 }
 
 # COPY powershell scripts 
-attrib -R $TARGETSCRIPTS\*.ps1
+#####          attrib -R $TARGETSCRIPTS\*.ps1
 copy-item -Path $SOURCEPOWERSHELLSCRIPTS\*.ps1 -Destination $TARGETSCRIPTS
-attrib +R $TARGETSCRIPTS\*.ps1
+#####          attrib +R $TARGETSCRIPTS\*.ps1

@@ -9,7 +9,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\css')
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '/../css')
 )
 
 
@@ -31,11 +31,11 @@ If(!(test-path -PathType container $outputFolder))
 }
 
 
-. ($commandFolder +'\..\..\scripts\set_path_variables.ps1')
+. ($commandFolder +'/../../scripts/set_path_variables.ps1')
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
-                      -xsl:$ERHOME\flexDiagramming\xslt\styles2.css.xslt `
-                       -o:$outputFolder\$filenamebase.css  
+                      -xsl:$ERHOME/flexDiagramming/xslt/styles2.css.xslt `
+                       -o:$outputFolder/$filenamebase.css  
 
 
 

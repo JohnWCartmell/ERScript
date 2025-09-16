@@ -18,7 +18,7 @@
 
 
 
-<xsl:include href="ERmodel.functions.module.xslt"/>
+<xsl:include href="../../xslt/ERmodel.functions.module.xslt"/>
 <xsl:include href="diagram.functions.module.xslt"/>
 <xsl:include href="diagram.derived.relationships.module.xslt"/>
 

@@ -12,7 +12,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\..\docs'),
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '/../docs'),
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -34,7 +34,7 @@ $filenameExtension=(Get-Item $pathToSourceXMLfile).Extension
 $filename=(Get-Item $pathToSourceXMLfile).Name
 $srcDirectoryName = (Get-Item $pathToSourceXMLfile).DirectoryName
 
-$tempFolder = ($srcDirectoryName + '\..\temp')
+$tempFolder = ($srcDirectoryName + '/../temp')
 
 echo ('tempFolder: ' + $tempFolder) 
 echo ('outputFolder: ' + $outputFolder)

@@ -16,7 +16,7 @@ If(!(test-path -PathType container $TARGETSCRIPTS))
 }
 
 # COPY xslt scripts 
-attrib -R $TARGETSCRIPTS\*.css
+######                attrib -R $TARGETSCRIPTS\*.css
 copy-item -Path $SOURCESCRIPTS\*.css -Destination $TARGETSCRIPTS
-attrib +R $TARGETSCRIPTS\*.css
+######                attrib +R $TARGETSCRIPTS\*.css
 

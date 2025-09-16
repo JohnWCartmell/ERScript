@@ -15,6 +15,6 @@ If(!(test-path -PathType container $TARGETCSS))
 }
 
 # COPY css file
-attrib -R $TARGETCSS\*.css
+####   attrib -R $TARGETCSS\*.css
 copy-item -Path $SOURCECSS\*.css -Destination $TARGETCSS
-attrib +R $TARGETCSS\*.css
+####   attrib +R $TARGETCSS\*.css

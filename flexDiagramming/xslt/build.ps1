@@ -17,6 +17,6 @@ If(!(test-path -PathType container $TARGETXSLT))
 }
 
 # COPY xslt files
-attrib -R $TARGETXSLT\*.xslt
+#####     attrib -R $TARGETXSLT\*.xslt
 copy-item -Path $SOURCEXSLT\*.xslt -Destination $TARGETXSLT
-attrib +R $TARGETXSLT\*.xslt
+#####     attrib +R $TARGETXSLT\*.xslt

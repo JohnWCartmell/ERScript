@@ -10,7 +10,7 @@ Param(
    [Parameter(Position=0,Mandatory=$True)]
        [string]$pathToSourceXMLfile,
    [Parameter(Mandatory=$False)]
-       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '\docs'),
+       [string]$outputFolder=$((Get-Item $pathToSourceXMLfile).DirectoryName + '/docs'),
    [Parameter(Mandatory=$False)]
        [switch]$bundle,
    [Parameter(Mandatory=$False)]
@@ -36,19 +36,15 @@ If(!(test-path -PathType container $outputFolder))
 }
 
 
-. ($commandFolder +'\..\..\scripts\set_path_variables.ps1')
+. ($commandFolder +'/../../scripts/set_path_variables.ps1')
 
 
 java -jar $SAXON_JAR -s:$pathToSourceXMLfile `
-                      -xsl:$ERHOME\flexDiagramming\xslt\diagram2.svg.xslt `
-                       -o:$outputFolder\$filenamebase.svg `
+                      -xsl:$ERHOME/flexDiagramming/xslt/diagram2.svg.xslt `
+                       -o:$outputFolder/$filenamebase.svg `
                        -warnings:fatal `
                        filestem=$filenamebase `
                        bundle=$(If ($bundle){'y'}Else{'n'}) `
                        animate=$(If ($animate){'y'}Else{'n'}) `
                        debug=$(If ($debugswitch){'y'}Else{'n'}) 
 
-
-
-
- 

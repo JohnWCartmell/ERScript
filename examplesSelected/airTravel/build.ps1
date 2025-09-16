@@ -1,13 +1,13 @@
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder + '\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder + '/../../buildscripts/setBuildtimePathVariables.ps1')
 
 echo ("*** building from  $SOURCE airTravel folder")
 
-$SOURCEXML = $SOURCE + '\examplesSelected\airTravel'
-$TARGETXML = $TARGET + '\examplesSelected\airTravel\xml'
-$TARGETSVGFOLDER = $TARGET + '\www.entitymodelling.org\svg'
-$TARGETTEXFOLDER = $TARGET + '\docs\images'
+$SOURCEXML = $SOURCE + '/examplesSelected/airTravel'
+$TARGETXML = $TARGET + '/examplesSelected/airTravel/xml'
+$TARGETSVGFOLDER = $TARGET + '/www.entitymodelling.org/svg'
+$TARGETTEXFOLDER = $TARGET + '/docs/images'
 
 # CREATE target folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXML))
@@ -17,12 +17,15 @@ If(!(test-path -PathType container $TARGETXML))
 }
 
 # COPY xml files
-attrib -R $TARGETXML\*.xml
-copy-item -Path $SOURCEXML\*.xml -Destination $TARGETXML
-attrib +R $TARGETXML\*.xml
-attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
+#####           attrib -R $TARGETXML\*.xml
+copy-item -Path $SOURCEXML/*.xml -Destination $TARGETXML
+#####           attrib +R $TARGETXML\*.xml
+#####           attrib -R $TARGETXML\*..physical.xml    #these are generated and therefore need to be overwriteable
 
 pushd $TARGETXML
+
+echo "PWD $PWD"
+
 if ($false)
 {
 echo 'airTravel Example'
@@ -46,7 +49,7 @@ echo 'airTravel Flex version'
 }
 
 echo 'airTravel Adjusted Flex version'
-. $TARGET\flexDiagramming\scripts\er2svg.ps1 airTravel..diagram.xml -animate -debugSwitch
+. $TARGET/flexDiagramming/scripts/er2svg.ps1 airTravel..diagram.xml -animate -debugSwitch
 
 popd 
 

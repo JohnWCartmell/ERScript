@@ -120,18 +120,18 @@ function ReplacexPwithyetc
                       -creplace '262P', '262' `
                       -creplace '340P', '341' `
                       -creplace '342P', '343' `
-                      -creplace '350P', '351' 
+                      -creplace '350P', '351'
 }
 
 $commandFolder=Split-Path $MyInvocation.MyCommand.Path
 
-. ($commandFolder +'\..\..\buildscripts\setBuildtimePathVariables.ps1')
+. ($commandFolder +'/../../buildscripts/setBuildtimePathVariables.ps1')
 
 
 echo ("*** building from  $SOURCE flexDiagramming xslt folder")
 
-$SOURCEXSLT = $SOURCE + '\flexDiagramming\xslt_templates'
-$TARGETXSLT = $TARGET + '\flexDiagramming\xslt'
+$SOURCEXSLT = $SOURCE + '/flexDiagramming/xslt_templates'
+$TARGETXSLT = $TARGET + '/flexDiagramming/xslt'
 
 # CREATE target xslt folder if it doesn't already exist
 If(!(test-path -PathType container $TARGETXSLT))
@@ -141,7 +141,7 @@ If(!(test-path -PathType container $TARGETXSLT))
 }
 
 # COPY xslt files
-attrib -R $TARGETXSLT\*.xslt
+#####     attrib -R $TARGETXSLT\*.xslt
 Get-ChildItem "$SOURCEXSLT" -Filter *.xslt | 
 Foreach-Object {
     $filename = $_.Name 
@@ -158,4 +158,4 @@ Foreach-Object {
     $OUTPUTyDim = ReplacexPwithyetc($INPUT)
     Set-Content -Path ($TARGETXSLT + '\' + $nameOfFileTransformedyDim) -Value $OUTPUTyDim
 }
-attrib +R $TARGETXSLT\*.xslt
+#####     attrib +R $TARGETXSLT\*.xslt
